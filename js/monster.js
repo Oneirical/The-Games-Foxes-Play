@@ -284,7 +284,6 @@ class Monster{
                         if (newTile.monster.deathdelay == 0) newTile.monster.falsehp = newTile.monster.hp;
                         newTile.monster.deathdelay = 2;
                         
-                        playSound("deathdelay");
                     }
                     this.bonusAttack = 0;
 
@@ -394,6 +393,8 @@ class Player extends Monster{
             if (this.deathdelay == 0){
                 this.hp = this.falsehp;
                 if (this.hp <= 0) this.die();
+                removeItemOnce(monsters,this);
+                if (!this.noloot) player.addSpell(this.loot);
             }
         }                                                 
     }
@@ -682,11 +683,12 @@ class Player extends Monster{
         let spellName = this.inhand[index];
         if(spellName && !soulabi[spellName].includes("Cannot be activated")){
             this.saved.push(spellName);
-            spells[spellName](this);
-            this.inhand.splice(index, 1); //
-            if (!fail) playSound("spell");
             message = spellName;
-            tick();
+            spells[spellName](this);
+            if (!fail) this.inhand.splice(index, 1); //
+            if (!fail) playSound("spell");
+            if (!fail) tick();
+            fail = false;
         }
     }
     

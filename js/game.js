@@ -73,6 +73,12 @@ function draw(){
         if (gameState == "dead"){
             drawText("SOUL SHATTERED", 20, false, 100, "red");
         }
+        let basicc = player.inventory.filter(soul => basic.includes(soul)).length + player.inhand.filter(soul => basic.includes(soul)).length + player.discard.filter(soul => basic.includes(soul)).length + player.saved.filter(soul => basic.includes(soul)).length;
+        let serc = player.inventory.filter(soul => soul == "SERENE").length + player.inhand.filter(soul => soul == "SERENE").length + player.discard.filter(soul => soul == "SERENE").length + player.saved.filter(soul => soul == "SERENE").length;
+        let advc = player.inventory.length + player.inhand.length + player.discard.length + player.saved.length - basicc -serc;
+        printAtSidebar("Common Souls: "+basicc, 18, 590, 500, "white", 20, 350);
+        printAtSidebar("Legendary Souls: "+advc, 18, 590, 525, "yellow", 20, 350);
+        printAtSidebar("Serene Souls: "+serc, 18, 590, 550, "cyan", 20, 350);
         if ((gameState == "vision" && discarded > 0) || (gameState == "discard" && !naiamode)) drawText("Which soul to discard?", 20, false, 100, "deepskyblue");
         if (gameState == "discard" && naiamode) drawText("Which soul to cast?", 20, false, 100, "fuchsia");
         if (gameState == "vision" && discarded == 0) drawText("Which soul to stack?", 20, false, 100, "deepskyblue");
@@ -94,14 +100,14 @@ function draw(){
         //if (sacrifice < 6 && gameState == "fluffy" && !cursormode) printAtWordWrap("Use Soul View mode (\"c\", then \"i\") if you forgot the value of a certain soul.", 18, 590, 490, "cyan", 20, 350);
         if (sacrifice == 6 && !cursormode) printAtSidebar("Press \"f\" to reroll unclaimed caged souls. Warning: The Harmony will sow a seed within your psyche should you take this action!", 18, 590, 200, "cyan", 20, 350);
         if (level == 0 && !cursormode) printAtSidebar("Use WASD to move around, interact, and attack.", 18, 590, 130, "lime", 20, 350);
-        if (level == 2 && !cursormode&& gameState == "running") printAtSidebar("Press \"q\" in combat to summon Souls. Summoning costs Resolve, or Ipseity if you have no more Resolve.", 18, 590, 400, "lime", 20, 350);
-        if (level == 2 && !cursormode&& gameState == "running") printAtSidebar("Press the number keys 1-9 to unleash Souls.", 18, 590, 500, "lime", 20, 350);
+        //if (level == 2 && !cursormode&& gameState == "running") printAtSidebar("Press \"q\" in combat to summon Souls. Summoning costs Resolve, or Ipseity if you have no more Resolve.", 18, 590, 400, "lime", 20, 350);
+        //if (level == 2 && !cursormode&& gameState == "running") printAtSidebar("Press the number keys 1-9 to unleash Souls.", 18, 590, 500, "lime", 20, 350);
         if (!cursormode && gameState == "contemplation" && !contemhint){
             printAtSidebar("Death in this world is only the beginning of another cycle. Press the number keys 1-9 to permanently forget Souls you do not wish to keep. You can only forget the Souls you summoned in this room.", 18, 590, 350, "lime", 20, 350);
             printAtSidebar("Dying costs Ipseity. If your Ipseity reaches zero, you die a true death.", 18, 590, 500, "lime", 20, 350);
             contemhint = false;
         }
-        if (level == 1 && !cursormode&& gameState == "running") printAtSidebar("Slay enemies to collect their Soul.", 18, 590, 500, "lime", 20, 350);
+        //if (level == 1 && !cursormode&& gameState == "running") printAtSidebar("Slay enemies to collect their Soul.", 18, 590, 500, "lime", 20, 350);
         if (level == 0 && !cursormode) printAtSidebar("Press \"c\" to toggle Examine mode.", 18, 590, 210, "lime", 20, 350);
         if (cursormode && !invmode) printAtSidebar("Press \"i\" while in Examine mode to toggle Soul View mode.", 18, 590, 500, "lime", 20, 350);
         
@@ -196,6 +202,7 @@ function tick(){
         else{
             gameState = "contemplation";
             player.inhand.push(...player.saved);
+            player.saved.length = 0;
             truehp -= monsters.length;
             agony = monsters.length;
             message = "Agony";
@@ -254,7 +261,7 @@ function startGame(){
     score = 0;
     numSpells = 0;
     aubecounter = 0;
-    invsave = [];//[, ] //];
+    invsave = ["SERENE"];//[, ] //];
     shuffle(invsave);
     dissave = [];
     startLevel(startingHp);

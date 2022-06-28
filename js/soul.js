@@ -164,18 +164,27 @@ spells = {
     },
 
     SERENE: function(){
-        if (player.inventory.length <= 0){
-            player.discard.push("TAINTED") //remplacer avec curse, dash est un placeholder
+        if (player.inventory.length == 0){
+            //player.discard.push("TAINTED") //remplacer avec curse, dash est un placeholder
             shuffle(player.discard)
             for(let i=0;i<player.discard.length;i++){
                 player.inventory.push(player.discard[i]);
             }
             player.discard = [];
         }
-        let indexx = randomRange(0,player.inventory.length-1);
-        player.inventory.splice(indexx, 1);
-        player.inventory.splice(indexx, 0, "SERENE");
-        player.specialAttack = "Harmony";
+        let serscan = player.inventory.filter(soul => soul != "SERENE").length;
+        if (serscan == 0){
+            message = "FluffyNoConvertTaunt";
+            removeItemOnce(player.saved,"SERENE");
+            fail = true;
+        }
+        else{
+            let indexx = randomRange(0,player.inventory.length-1);
+            player.inventory.splice(indexx, 1);
+            player.inventory.splice(indexx, 0, "SERENE");
+            player.specialAttack = "Harmony";
+            fail = false;
+        }
     },
     JOLTZAZON: function(){
         monsters.forEach(function(entity){
