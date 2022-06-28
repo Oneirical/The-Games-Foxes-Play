@@ -61,6 +61,7 @@ function draw(){
         if (level == 0) drawText("World Seed", 30, false, 40, "violet");
         else if (level % 5 == 1 && level > 5) drawText("Test of Unity", 30, false, 40, "violet");
         else if (area == "Spire") drawText("Serene Spire: floor "+level, 30, false, 40, "violet");
+        else if (area == "Stadium") drawText("Roseic Stadium", 30, false, 40, "violet");
         else drawText("Faith's End: level "+level, 30, false, 40, "violet");
         drawText("Ipseity: "+truehp, 30, false, 70, "cyan");
         if (gameState == "running"){
@@ -171,7 +172,7 @@ function tick(){
             
         }
     }
-    if (deadcheck == 0 && level != 0&& area != "Spire"){
+    if (deadcheck == 0 && level != 0&& area != "Spire"&&area!="Stadium"){
         //gener8 sortie si every1 est ded
         if (exitspawn == 0 && level % 5 != 0){
             tiles[Math.floor((numTiles-1)/2)][numTiles-1] = new Exit(Math.floor((numTiles-1)/2),numTiles-1);
@@ -268,13 +269,21 @@ function startLevel(playerHp){
         tileSize = (numtest/numTiles)*64;
         if (numtest != numTiles) setupCanvas();
     }
-    else if (level == 1){
+    else if (level == 9){
         area = "Spire";
         let numtest = numTiles;
         numTiles = 9;
         if (numtest != numTiles) setupCanvas();
     }
+    else if (level == 2){
+        area = "Stadium";
+        let numtest = numTiles;
+        numTiles = 18;
+        tileSize = (numtest/numTiles)*64;
+        if (numtest != numTiles) setupCanvas();
+    }
     else{
+        area = "Faith";
         let numtest = numTiles;
         numTiles = 9;
         if (numtest != numTiles) setupCanvas();
@@ -293,12 +302,17 @@ function startLevel(playerHp){
     else if (area == "Spire"){
         generateSpire();
         generateMonsters();
+    }
+    else if (area == "Stadium"){
+        
+        generateStadium();
+        //generateMonsters();
     } 
     if (level != 0 && area != "Spire") tile = getTile(Math.floor((numTiles-1)/2), 1);
     else if (area == "Spire") tile = spirespawner;
     else tile = getTile(Math.floor((numTiles-1)/2),Math.floor((numTiles-1)/2));
     player = new Player(tile);
-    player.tile.replace(Ladder);
+    if (area == "Spire") player.tile.replace(Ladder);
     player.discard = dissave;
     player.inventory = invsave;
     player.teleportCounter = 0;

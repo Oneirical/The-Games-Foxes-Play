@@ -173,6 +173,15 @@ class Ladder extends Floor{
     };
 }
 
+class Goop extends Floor{
+    constructor(x,y){
+        super(x, y, 60, true);
+        this.lore = description["Floor"]; //todo
+        this.name = "Eroded Floortiles";
+        this.sprite = 60;
+    };
+}
+
 
 class Wall extends Tile{
     constructor(x, y){
@@ -191,6 +200,19 @@ class AbazonWall extends Tile{
         this.lore = description["Abazon"];
         this.name = "Terracotta Sentry";
         this.eat = false;
+    };
+
+    stepOn(monster){
+    }
+}
+
+class RoseWall extends Wall{
+    constructor(x,y){
+        super(x, y, 55, false);
+        this.lore = description["Roseic"];
+        this.name = "Roseic Blowglass";
+        this.eat = false;
+        this.sprite = 55;
     };
 
     stepOn(monster){

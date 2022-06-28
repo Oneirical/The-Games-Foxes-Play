@@ -125,12 +125,43 @@ function generateSpire(){
     return passableTiles;
 }
 
+function generateStadium(){
+    let vault = {
+        0: [RoseWall,RoseWall,RoseWall,RoseWall,RoseWall,RoseWall,RoseWall,RoseWall,Floor,Floor,RoseWall,RoseWall,RoseWall,RoseWall,RoseWall,RoseWall,RoseWall,RoseWall],
+        1: [RoseWall,Floor,Floor,Floor,Floor,Floor,RoseWall , Floor,Floor,Floor,Floor, RoseWall, Floor,Floor,Floor,Floor,Floor, RoseWall],
+        2: [RoseWall,Floor,RoseWall,RoseWall,RoseWall,RoseWall,RoseWall,RoseWall,RoseWall,RoseWall,RoseWall,RoseWall,RoseWall,RoseWall,RoseWall,RoseWall,Floor,RoseWall],
+        3: [RoseWall,Floor,RoseWall,Goop,Goop,Goop,Goop,Goop,Goop,Goop,Goop,Goop,Goop,Goop,Goop,RoseWall,Floor,RoseWall,],
+        4: [RoseWall,Floor,RoseWall,Goop,Goop,Goop,Goop,Goop,Floor,Floor,Goop,Goop,Goop,Goop,Goop,RoseWall,Floor,RoseWall,],
+        5: [RoseWall,Floor,RoseWall,Goop,Goop,Floor,Floor,Goop,Floor,Floor,Goop,Floor,Floor,Goop,Goop,RoseWall,Floor,RoseWall,],
+        6: [RoseWall,Floor,RoseWall,Goop,Goop,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Goop,Goop,RoseWall,Floor,RoseWall,],
+        7: [RoseWall,Floor,RoseWall,Goop,Goop,Goop,Floor,Floor,Floor,Floor,Floor,Floor,Goop,Goop,Goop,RoseWall,Floor,RoseWall,],
+        8: [Floor,Floor,RoseWall,Goop,Floor,Floor,Floor,Floor,Goop,Goop,Floor,Floor,Floor,Floor,Goop,RoseWall,Floor,Floor,],
+        9: [Floor,Floor,RoseWall,Goop,Floor,Floor,Floor,Floor,Goop,Goop,Floor,Floor,Floor,Floor,Goop,RoseWall,Floor,Floor,],
+        10: [RoseWall,Floor,RoseWall,Goop,Goop,Goop,Floor,Floor,Floor,Floor,Floor,Floor,Goop,Goop,Goop,RoseWall,Floor,RoseWall,],
+        11: [RoseWall,Floor,RoseWall,Goop,Goop,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Goop,Goop,RoseWall,Floor,RoseWall,],
+        12: [RoseWall,Floor,RoseWall,Goop,Goop,Floor,Floor,Goop,Floor,Floor,Goop,Floor,Floor,Goop,Goop,RoseWall,Floor,RoseWall,],
+        13: [RoseWall,Floor,RoseWall,Goop,Goop,Goop,Goop,Goop,Floor,Floor,Goop,Goop,Goop,Goop,Goop,RoseWall,Floor,RoseWall,],
+        14: [RoseWall,Floor,RoseWall,Goop,Goop,Goop,Goop,Goop,Goop,Goop,Goop,Goop,Goop,Goop,Goop,RoseWall,Floor,RoseWall,],
+        15: [RoseWall,Floor,RoseWall,RoseWall,RoseWall,RoseWall,RoseWall,Goop,Goop,Goop,Goop,RoseWall,RoseWall,RoseWall,RoseWall,RoseWall,Floor,RoseWall],
+        16: [RoseWall,Floor,Floor,Floor,Floor,Floor,RoseWall , Goop,Goop,Goop,Goop, RoseWall, Floor,Floor,Floor,Floor,Floor, RoseWall],
+        17: [RoseWall,RoseWall,RoseWall,RoseWall,RoseWall,RoseWall,RoseWall,RoseWall,RoseWall,RoseWall,RoseWall,RoseWall,RoseWall,RoseWall,RoseWall,RoseWall,RoseWall,RoseWall]
+    }
+    tiles = [];
+    for(let i=0;i<numTiles;i++){
+        tiles[i] = [];
+        for(let j=0;j<numTiles;j++){
+            let tile = vault[j][i];
+            tiles[i][j] = new tile(i,j);
+        }
+    }
+}
+
 function inBounds(x,y){
     if(x == (Math.floor((numTiles-1)/2)) && (y == (numTiles-1)||y==0)){
         return true
     }
     else{
-    if (area != "Spire") return x>0 && y>0 && x<numTiles-1 && y<numTiles-1
+    if (area != "Spire" && area != "Stadium") return x>0 && y>0 && x<numTiles-1 && y<numTiles-1
     else return x>-1 && y>-1 && x<numTiles && y<numTiles
     }
 }
@@ -178,7 +209,7 @@ function generateMonsters(){
     monsters = [];
     let numMonsters;
     if (level < 6 && area != "Spire") numMonsters = level+1;
-    else if (area = "Spire") numMonsters = 0;
+    else if (area == "Spire") numMonsters = 0;
     else if (level > 6) numMonsters = level;
     else if (level % 5 == 1 && level > 5) numMonsters = 1;
     for(let i=0;i<numMonsters;i++){
@@ -187,7 +218,7 @@ function generateMonsters(){
 }
 
 function spawnMonster(){
-    if (area = "Spire"){
+    if (area == "Spire"){
         let monsterType = shuffle([HostileFluffy])[0]; //
         let monster = new monsterType(randomPassableTile());
         monsters.push(monster);
