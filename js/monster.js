@@ -53,8 +53,10 @@ class Cursor{
             }
         }
         else{
-            printAtWordWrap(this.tile.lore, 18, 10, 600, "lightgray", 20, 950);
-            printAtSidebar(this.tile.name, 18, 590, 130, "lightgray", 20, 350);
+            let colour = "lightgray";
+            if (this.tile.sprite == 61 || this.tile.sprite == 62) colour = "white";
+            printAtWordWrap(this.tile.lore, 18, 10, 600, colour, 20, 950);
+            printAtSidebar(this.tile.name, 18, 590, 130, colour, 20, 350);
         }
         
 
@@ -961,6 +963,8 @@ class Player extends Monster{
         gameState = "running";
         playSound("newLevel");
         level++;
+        let areas = ["Faith","Stadium","Spire"]; // add Edge when it's not bugged
+        area = areas[randomRange(0,2)]
         for(let i=0;i<this.inhand.length;i++){
             this.discard.push(this.inhand[i]);
         }
@@ -969,7 +973,7 @@ class Player extends Monster{
         }
         invsave = this.inventory;
         dissave = this.discard;
-        if (level % 5 == 1 && level > 5){
+        if (level % 5 == 1 && level > 5 && area == "Faith"){
             gameState = "fluffy";
             message = "FluffyWelcome";
             dialoguecount = 0;

@@ -173,13 +173,40 @@ class Ladder extends Floor{
     };
 }
 
-class Goop extends Floor{
+class Goop extends Tile{
     constructor(x,y){
         super(x, y, 60, true);
-        this.lore = description["Floor"]; //todo
-        this.name = "Eroded Floortiles";
+        this.lore = description["Glamour"]; //todo
+        this.name = "Glamorous Toxin";
         this.sprite = 60;
     };
+    stepOn(monster){
+        if((!monster.isPlayer&&!monster.charmed)&& this.trap){  
+            spells["ARTTRIGGER"](monster.tile);
+            playSound("treasure");            
+            this.trap = false;
+        }
+        if (monster.isPlayer && this.cuff){
+            player.para = 1;
+            playSound("fail");
+            this.cuff = false;
+        }
+        if ((monster.isPlayer||monster.charmed) && this.eviltrap){
+            playSound("fail");
+            spells["ARTTRIGGER"](monster.tile);
+            this.eviltrap = false;
+        }
+        if ((monster.isPlayer) && this.pin){
+            playSound("fail");
+            for (let x of monsters){
+                if (x instanceof Weaver){
+                    x.enraged = true;
+                    x.isPassive = false;
+                }
+            }
+            this.pin = false;
+        }
+    }
 }
 
 
@@ -359,5 +386,59 @@ class BetAltar extends Tile{
         this.value = "";
     }
     stepOn(monster){
+    }
+}
+
+class RoseThrone extends Wall{
+    constructor(x, y){
+        super(x, y, 61, false);
+        this.lore = description["Rose"];
+        this.name = "Rose, Last of the Saints";
+        this.sprite = 61;
+    }
+}
+
+class RoseServant extends Wall{
+    constructor(x, y){
+        super(x, y, 62, false);
+        this.lore = description["RoseS"];
+        this.name = "Tangled Servitor";
+        this.sprite = 62;
+    }
+}
+
+class RoseSpawner extends Tile{
+    constructor(x, y){
+        super(x, y, 63, true);
+        this.lore = description["RoseSpawn"];
+        this.name = "Aleatory Teleconstructor";
+        this.sprite = 63;
+    }
+    stepOn(monster){
+        if((!monster.isPlayer&&!monster.charmed)&& this.trap){  
+            spells["ARTTRIGGER"](monster.tile);
+            playSound("treasure");            
+            this.trap = false;
+        }
+        if (monster.isPlayer && this.cuff){
+            player.para = 1;
+            playSound("fail");
+            this.cuff = false;
+        }
+        if ((monster.isPlayer||monster.charmed) && this.eviltrap){
+            playSound("fail");
+            spells["ARTTRIGGER"](monster.tile);
+            this.eviltrap = false;
+        }
+        if ((monster.isPlayer) && this.pin){
+            playSound("fail");
+            for (let x of monsters){
+                if (x instanceof Weaver){
+                    x.enraged = true;
+                    x.isPassive = false;
+                }
+            }
+            this.pin = false;
+        }
     }
 }

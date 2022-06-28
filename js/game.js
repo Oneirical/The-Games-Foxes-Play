@@ -249,7 +249,7 @@ function showTitle(){
 function startGame(){
     pauseSound("title");            
     playSound("cage");                            
-    level = 1;
+    level = 0;
     truehp = 8;
     score = 0;
     numSpells = 0;
@@ -262,28 +262,24 @@ function startGame(){
 }
 
 function startLevel(playerHp){
-    if (level == 17) {
-        area = "Edge";
+    if (area == "Edge") {
         let numtest = numTiles;
         numTiles = 18;
         tileSize = (numtest/numTiles)*64;
         if (numtest != numTiles) setupCanvas();
     }
-    else if (level == 9){
-        area = "Spire";
+    else if (area == "Spire"){
         let numtest = numTiles;
         numTiles = 9;
         if (numtest != numTiles) setupCanvas();
     }
-    else if (level == 2){
-        area = "Stadium";
+    else if (area == "Stadium"){
         let numtest = numTiles;
         numTiles = 18;
         tileSize = (numtest/numTiles)*64;
         if (numtest != numTiles) setupCanvas();
     }
-    else{
-        area = "Faith";
+    else if (area == "Faith"){
         let numtest = numTiles;
         numTiles = 9;
         if (numtest != numTiles) setupCanvas();
@@ -308,8 +304,9 @@ function startLevel(playerHp){
         generateStadium();
         //generateMonsters();
     } 
-    if (level != 0 && area != "Spire") tile = getTile(Math.floor((numTiles-1)/2), 1);
+    if (level != 0 && area == "Faith") tile = getTile(Math.floor((numTiles-1)/2), 1);
     else if (area == "Spire") tile = spirespawner;
+    else if (area == "Stadium") tile = getTile(5,5);
     else tile = getTile(Math.floor((numTiles-1)/2),Math.floor((numTiles-1)/2));
     player = new Player(tile);
     if (area == "Spire") player.tile.replace(Ladder);

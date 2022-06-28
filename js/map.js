@@ -128,22 +128,22 @@ function generateSpire(){
 function generateStadium(){
     let vault = {
         0: [RoseWall,RoseWall,RoseWall,RoseWall,RoseWall,RoseWall,RoseWall,RoseWall,Floor,Floor,RoseWall,RoseWall,RoseWall,RoseWall,RoseWall,RoseWall,RoseWall,RoseWall],
-        1: [RoseWall,Floor,Floor,Floor,Floor,Floor,RoseWall , Floor,Floor,Floor,Floor, RoseWall, Floor,Floor,Floor,Floor,Floor, RoseWall],
-        2: [RoseWall,Floor,RoseWall,RoseWall,RoseWall,RoseWall,RoseWall,RoseWall,RoseWall,RoseWall,RoseWall,RoseWall,RoseWall,RoseWall,RoseWall,RoseWall,Floor,RoseWall],
+        1: [RoseWall,Floor,RoseServant,Floor,RoseServant,Floor,RoseWall , Floor,RoseThrone,RoseServant,Floor, RoseWall, Floor,RoseServant,Floor,RoseServant,Floor, RoseWall],
+        2: [RoseWall,RoseServant,RoseWall,RoseWall,RoseWall,RoseWall,RoseWall,RoseWall,RoseWall,RoseWall,RoseWall,RoseWall,RoseWall,RoseWall,RoseWall,RoseWall,RoseServant,RoseWall],
         3: [RoseWall,Floor,RoseWall,Goop,Goop,Goop,Goop,Goop,Goop,Goop,Goop,Goop,Goop,Goop,Goop,RoseWall,Floor,RoseWall,],
-        4: [RoseWall,Floor,RoseWall,Goop,Goop,Goop,Goop,Goop,Floor,Floor,Goop,Goop,Goop,Goop,Goop,RoseWall,Floor,RoseWall,],
+        4: [RoseWall,RoseServant,RoseWall,Goop,Goop,Goop,Goop,Goop,Floor,Floor,Goop,Goop,Goop,Goop,Goop,RoseWall,RoseServant,RoseWall,],
         5: [RoseWall,Floor,RoseWall,Goop,Goop,Floor,Floor,Goop,Floor,Floor,Goop,Floor,Floor,Goop,Goop,RoseWall,Floor,RoseWall,],
-        6: [RoseWall,Floor,RoseWall,Goop,Goop,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Goop,Goop,RoseWall,Floor,RoseWall,],
+        6: [RoseWall,RoseServant,RoseWall,Goop,Goop,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Goop,Goop,RoseWall,RoseServant,RoseWall,],
         7: [RoseWall,Floor,RoseWall,Goop,Goop,Goop,Floor,Floor,Floor,Floor,Floor,Floor,Goop,Goop,Goop,RoseWall,Floor,RoseWall,],
-        8: [Floor,Floor,RoseWall,Goop,Floor,Floor,Floor,Floor,Goop,Goop,Floor,Floor,Floor,Floor,Goop,RoseWall,Floor,Floor,],
-        9: [Floor,Floor,RoseWall,Goop,Floor,Floor,Floor,Floor,Goop,Goop,Floor,Floor,Floor,Floor,Goop,RoseWall,Floor,Floor,],
+        8: [Floor,Floor,RoseWall,Goop,Floor,Floor,Floor,Floor,RoseSpawner,RoseSpawner,Floor,Floor,Floor,Floor,Goop,RoseWall,Floor,Floor,],
+        9: [Floor,Floor,RoseWall,Goop,Floor,Floor,Floor,Floor,RoseSpawner,RoseSpawner,Floor,Floor,Floor,Floor,Goop,RoseWall,Floor,Floor,],
         10: [RoseWall,Floor,RoseWall,Goop,Goop,Goop,Floor,Floor,Floor,Floor,Floor,Floor,Goop,Goop,Goop,RoseWall,Floor,RoseWall,],
-        11: [RoseWall,Floor,RoseWall,Goop,Goop,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Goop,Goop,RoseWall,Floor,RoseWall,],
+        11: [RoseWall,RoseServant,RoseWall,Goop,Goop,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Goop,Goop,RoseWall,RoseServant,RoseWall,],
         12: [RoseWall,Floor,RoseWall,Goop,Goop,Floor,Floor,Goop,Floor,Floor,Goop,Floor,Floor,Goop,Goop,RoseWall,Floor,RoseWall,],
-        13: [RoseWall,Floor,RoseWall,Goop,Goop,Goop,Goop,Goop,Floor,Floor,Goop,Goop,Goop,Goop,Goop,RoseWall,Floor,RoseWall,],
+        13: [RoseWall,RoseServant,RoseWall,Goop,Goop,Goop,Goop,Goop,Floor,Floor,Goop,Goop,Goop,Goop,Goop,RoseWall,RoseServant,RoseWall,],
         14: [RoseWall,Floor,RoseWall,Goop,Goop,Goop,Goop,Goop,Goop,Goop,Goop,Goop,Goop,Goop,Goop,RoseWall,Floor,RoseWall,],
-        15: [RoseWall,Floor,RoseWall,RoseWall,RoseWall,RoseWall,RoseWall,Goop,Goop,Goop,Goop,RoseWall,RoseWall,RoseWall,RoseWall,RoseWall,Floor,RoseWall],
-        16: [RoseWall,Floor,Floor,Floor,Floor,Floor,RoseWall , Goop,Goop,Goop,Goop, RoseWall, Floor,Floor,Floor,Floor,Floor, RoseWall],
+        15: [RoseWall,RoseServant,RoseWall,RoseWall,RoseWall,RoseWall,RoseWall,Goop,Goop,Goop,Goop,RoseWall,RoseWall,RoseWall,RoseWall,RoseWall,RoseServant,RoseWall],
+        16: [RoseWall,Floor,RoseServant,Floor,RoseServant,Floor,RoseWall , Goop,Goop,Goop,Goop, RoseWall, Floor,RoseServant,Floor,RoseServant,Floor, RoseWall],
         17: [RoseWall,RoseWall,RoseWall,RoseWall,RoseWall,RoseWall,RoseWall,RoseWall,RoseWall,RoseWall,RoseWall,RoseWall,RoseWall,RoseWall,RoseWall,RoseWall,RoseWall,RoseWall]
     }
     tiles = [];
