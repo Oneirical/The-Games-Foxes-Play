@@ -40,7 +40,12 @@ class Cursor{
     }
     info(){
         if (this.tile.monster){
-            if (this.tile.monster.teleportCounter > 0){
+            if (rosetoxin > 0){
+                printAtWordWrap(description["Rose"], 18, 10, 600, "pink", 20, 940);
+                printAtSidebar("Rose Rose Rose", 18, 590, 170, "pink", 20, 350);
+                printAtSidebar("Rose", 18, 590, 130, "pink", 20, 350);
+            }
+            else if (this.tile.monster.teleportCounter > 0){
                 printAtWordWrap(description["Warp"], 18, 10, 600, "white", 20, 940);
                 printAtSidebar("The details of this soul are not clear to you yet.", 18, 590, 170, "white", 20, 350);
                 printAtSidebar("Warp-wisp", 18, 590, 130, "white", 20, 350);
@@ -67,6 +72,7 @@ class Monster{
     constructor(tile, sprite, hp, loot, lore){
         this.move(tile);
         this.sprite = sprite;
+        this.spritesave = sprite;
         this.hp = hp;
         this.dmg = 1;
         this.loot = loot;
@@ -371,7 +377,7 @@ class Player extends Monster{
         this.isPlayer = true;
         this.teleportCounter = 0;
         this.inventory = [];
-        this.inhand = [];
+        this.inhand = ["ROSE"];
         this.discard = [];
         this.saved = [];
         this.name = "Terminal, the Reality Anchor";
@@ -384,10 +390,29 @@ class Player extends Monster{
         this.betted = false;
         this.para = 0;
         this.fall = 0;
+        this.rosetox = 0;
     }
 
     update(){          
         this.shield--;
+        if (this.rosetox > 0){
+            this.rosetox--;
+            if (this.rosetox > 3){
+                for (let x of monsters){
+                    x.sprite = 61;
+                    rosetoxin = 1;
+                }
+                if (this.rosetox > 4){
+                    rosetoxin = 2;
+                }
+            }
+            else if (this.rosetox <= 0){
+                for (let x of monsters){
+                    x.sprite = x.spritesave;
+                    rosetoxin = 0;
+                }
+            }
+        } 
         if (this.deathdelay > 0){
             this.deathdelay--;
             if (this.deathdelay == 0){
@@ -942,19 +967,35 @@ class Player extends Monster{
     loreSpell(index){
         let spellName = this.inhand[index];
         if(spellName){
-            printAtWordWrap(souldesc[spellName], 18, 10, 600, colours[spellName], 20, 940);
-            printAtWordWrap(soulabi[spellName], 18, 10, 600+(Math.ceil(souldesc[spellName].length/100)*25), "white", 20, 940);
-            printAtSidebar(soulval[spellName], 18, 590, 195, "cyan", 20, 350);
-            printAtSidebar(soulname[spellName], 18, 590, 130, colours[spellName], 20, 350);
+            if (rosetoxin > 1){
+                printAtWordWrap(souldesc["ROSE"], 18, 10, 600, "pink", 20, 940);
+                printAtWordWrap(soulabi["ROSE"], 18, 10, 725, "pink", 20, 940);
+                printAtSidebar(soulval["ROSE"], 18, 590, 195, "cyan", 20, 350);
+                printAtSidebar(soulname["ROSE"], 18, 590, 130, "pink", 20, 350);
+            }
+            else{
+                printAtWordWrap(souldesc[spellName], 18, 10, 600, colours[spellName], 20, 940);
+                printAtWordWrap(soulabi[spellName], 18, 10, 600+(Math.ceil(souldesc[spellName].length/100)*25), "white", 20, 940);
+                printAtSidebar(soulval[spellName], 18, 590, 195, "cyan", 20, 350);
+                printAtSidebar(soulname[spellName], 18, 590, 130, colours[spellName], 20, 350);
+            }
         }
     }
 
     loreSpellMonster(spellName){
         if(spellName && spellName != "NOTHING"){
-            printAtWordWrap(souldesc[spellName], 18, 10, 600, colours[spellName], 20, 940);
-            printAtWordWrap(soulabi[spellName], 18, 10, 630+((souldesc[spellName].length/100)*25), "white", 20, 940);
-            printAtSidebar(soulval[spellName], 18, 590, 195, "cyan", 20, 350);
-            printAtSidebar(soulname[spellName], 18, 590, 130, colours[spellName], 20, 350);
+            if (rosetoxin > 0){
+                printAtWordWrap(souldesc["ROSE"], 18, 10, 600, "pink", 20, 940);
+                printAtWordWrap(soulabi["ROSE"], 18, 10, 725, "pink", 20, 940);
+                printAtSidebar(soulval["ROSE"], 18, 590, 195, "cyan", 20, 350);
+                printAtSidebar(soulname["ROSE"], 18, 590, 130, "pink", 20, 350);
+            }
+            else{
+                printAtWordWrap(souldesc[spellName], 18, 10, 600, colours[spellName], 20, 940);
+                printAtWordWrap(soulabi[spellName], 18, 10, 630+((souldesc[spellName].length/100)*25), "white", 20, 940);
+                printAtSidebar(soulval[spellName], 18, 590, 195, "cyan", 20, 350);
+                printAtSidebar(soulname[spellName], 18, 590, 130, colours[spellName], 20, 350);
+            }
         }
         else{
             message = "InvPrompt";
@@ -965,7 +1006,7 @@ class Player extends Monster{
         gameState = "running";
         playSound("newLevel");
         level++;
-        let areas = ["Faith","Stadium","Spire"]; // add Edge when it's not bugged
+        let areas = ["Faith","Stadium","Spire"]; // add Edge when it's not bugged "Spire"
         area = areas[randomRange(0,2)]
         for(let i=0;i<this.inhand.length;i++){
             this.discard.push(this.inhand[i]);

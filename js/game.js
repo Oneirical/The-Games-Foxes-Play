@@ -29,12 +29,26 @@ function drawSprite(sprite, x, y){
     //}
 }
 
+function drawFilter(){
+    ctx.drawImage(
+        rosefilter,
+        0,
+        0,
+        960,
+        768,
+        0,
+        0,
+        960,
+        768
+    );
+}
+
 function draw(){
     if(gameState == "running" || gameState == "dead" || gameState == "contemplation" || gameState == "fluffy" || gameState == "vision" || gameState == "discard"){  
         ctx.clearRect(0,0,canvas.width,canvas.height);
 
         screenshake();
-
+        
         let posgenx = 0;
         let posgeny = 0;
         let maxx = numTiles;
@@ -76,9 +90,10 @@ function draw(){
         let basicc = player.inventory.filter(soul => basic.includes(soul)).length + player.inhand.filter(soul => basic.includes(soul)).length + player.discard.filter(soul => basic.includes(soul)).length + player.saved.filter(soul => basic.includes(soul)).length;
         let serc = player.inventory.filter(soul => soul == "SERENE").length + player.inhand.filter(soul => soul == "SERENE").length + player.discard.filter(soul => soul == "SERENE").length + player.saved.filter(soul => soul == "SERENE").length;
         let advc = player.inventory.length + player.inhand.length + player.discard.length + player.saved.length - basicc -serc;
-        printAtSidebar("Common Souls: "+basicc, 18, 590, 500, "white", 20, 350);
-        printAtSidebar("Legendary Souls: "+advc, 18, 590, 525, "yellow", 20, 350);
-        printAtSidebar("Serene Souls: "+serc, 18, 590, 550, "cyan", 20, 350);
+        printAtSidebar("Common Souls: "+basicc, 18, 590, 475, "white", 20, 350);
+        printAtSidebar("Legendary Souls: "+advc, 18, 590, 500, "yellow", 20, 350);
+        printAtSidebar("Serene Souls: "+serc, 18, 590, 525, "cyan", 20, 350);
+        printAtSidebar("Harmonic Modulator: Mind-Alacrity-Enhancing Fluffifier", 18, 590, 550, "cyan", 20, 350);
         if ((gameState == "vision" && discarded > 0) || (gameState == "discard" && !naiamode)) drawText("Which soul to discard?", 20, false, 100, "deepskyblue");
         if (gameState == "discard" && naiamode) drawText("Which soul to cast?", 20, false, 100, "fuchsia");
         if (gameState == "vision" && discarded == 0) drawText("Which soul to stack?", 20, false, 100, "deepskyblue");
@@ -109,7 +124,7 @@ function draw(){
         }
         //if (level == 1 && !cursormode&& gameState == "running") printAtSidebar("Slay enemies to collect their Soul.", 18, 590, 500, "lime", 20, 350);
         if (level == 0 && !cursormode) printAtSidebar("Press \"c\" to toggle Examine mode.", 18, 590, 210, "lime", 20, 350);
-        if (cursormode && !invmode) printAtSidebar("Press \"i\" while in Examine mode to toggle Soul View mode.", 18, 590, 500, "lime", 20, 350);
+        if (cursormode && !invmode) printAtSidebar("Press \"i\" while in Examine mode to toggle Soul View mode.", 18, 590, 425, "lime", 20, 350);
         
         if (cursormode == true && invmode == false){
             cursor.draw();
@@ -133,7 +148,8 @@ function draw(){
             }
             if (currentspelldesc == "nan" && gameState != "vision"){
                 for(let i=0; i<player.inhand.length; i++){
-                    let spellText = (i+1) + ") " + (player.inhand[i] || "");                        
+                    let spellText = (i+1) + ") " + (player.inhand[i] || "");
+                    if (rosetoxin > 1) spellText = (i+1) + ") " + ("ROSE" || "");              
                     drawText(spellText, 20, false, 130+i*20, "aqua");
                 }
                 if (gameState == "discard" && !naiamode) message = "Discard";
@@ -149,6 +165,13 @@ function draw(){
             let coloring = colours[message];
             if (message.includes("Fluffy")) coloring = "cyan";
             if ((!cursormode && !invmode) || (cursormode && invmode)) printAtWordWrap(messages[message], 18, 10, 600, coloring, 20, 940);
+            if (rosetoxin > 1){
+                ctx.globalAlpha = 0.5;
+                drawFilter();
+            }
+            else{
+                ctx.globalAlpha = 1;
+            }
         } 
         
     }
@@ -309,7 +332,10 @@ function startLevel(playerHp){
     else if (area == "Stadium"){
         
         generateStadium();
-        //generateMonsters();
+        let montest = new Tinker(getTile(9,9));
+        let montest2 = new Apiarist(getTile(9,10));
+        monsters.push(montest);
+        monsters.push(montest2);
     } 
     if (level != 0 && area == "Faith") tile = getTile(Math.floor((numTiles-1)/2), 1);
     else if (area == "Spire") tile = spirespawner;
