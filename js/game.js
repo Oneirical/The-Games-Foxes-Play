@@ -173,7 +173,6 @@ function draw(){
                 ctx.globalAlpha = 1;
             }
         } 
-        
     }
 }
 function manageExit(){
@@ -278,7 +277,7 @@ function showBoss(){
     let bossname = ["ROSE","EPSILON","RONIN","FLUFFY"];
     let bosstitle = ["-Last of the Saints-","-Supreme Ordered Admiral-","-the Unfaltering Wheel-","-Grand Harmonic Maestra-"];
     let bosscolour = ["pink","red","purple","cyan"];
-    let currentboss = 3;
+    let currentboss = 1;
     let scale = [0,-100,-50,-75];
     ctx.fillStyle = 'rgba(0,0,0,.75)';
     ctx.fillRect(canvas.width/2-200+scale[currentboss],canvas.height/2 - 120,canvas.width/4+160, canvas.height/5);
