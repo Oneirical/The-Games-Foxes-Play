@@ -125,7 +125,7 @@ function generateSpire(){
     return passableTiles;
 }
 
-function generateStadium(){
+function generateCircus(){
     let vault = {
         0: [RoseWall,RoseWall,RoseWall,RoseWall,RoseWall,RoseWall,RoseWall,RoseWall,Floor,Floor,RoseWall,RoseWall,RoseWall,RoseWall,RoseWall,RoseWall,RoseWall,RoseWall],
         1: [RoseWall,Floor,RoseServant,Floor,RoseServant,Floor,RoseWall , Floor,RoseThrone,RoseServant,Floor, RoseWall, Floor,RoseServant,Floor,RoseServant,Floor, RoseWall],
@@ -161,7 +161,7 @@ function inBounds(x,y){
         return true
     }
     else{
-    if (area != "Spire" && area != "Stadium") return x>0 && y>0 && x<numTiles-1 && y<numTiles-1
+    if (area != "Spire" && area != "Circus") return x>0 && y>0 && x<numTiles-1 && y<numTiles-1
     else return x>-1 && y>-1 && x<numTiles && y<numTiles
     }
 }

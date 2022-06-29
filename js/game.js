@@ -75,7 +75,7 @@ function draw(){
         if (level == 0) drawText("World Seed", 30, false, 40, "violet");
         else if (level % 5 == 1 && level > 5) drawText("Test of Unity", 30, false, 40, "violet");
         else if (area == "Spire") drawText("Serene Spire: floor "+level, 30, false, 40, "violet");
-        else if (area == "Stadium") drawText("Roseic Stadium", 30, false, 40, "violet");
+        else if (area == "Circus") drawText("Roseic Circus", 30, false, 40, "violet");
         else drawText("Faith's End: level "+level, 30, false, 40, "violet");
         drawText("Ipseity: "+truehp, 30, false, 70, "cyan");
         if (gameState == "running"){
@@ -201,7 +201,7 @@ function tick(){
             
         }
     }
-    if (deadcheck == 0 && level != 0&& area != "Spire"&&area!="Stadium"){
+    if (deadcheck == 0 && level != 0&& area != "Spire"&&area!="Circus"){
         //gener8 sortie si every1 est ded
         if (exitspawn == 0 && level % 5 != 0){
             tiles[Math.floor((numTiles-1)/2)][numTiles-1] = new Exit(Math.floor((numTiles-1)/2),numTiles-1);
@@ -303,7 +303,7 @@ function startLevel(playerHp){
         numTiles = 9;
         if (numtest != numTiles) setupCanvas();
     }
-    else if (area == "Stadium"){
+    else if (area == "Circus"){
         let numtest = numTiles;
         numTiles = 18;
         tileSize = (numtest/numTiles)*64;
@@ -329,9 +329,9 @@ function startLevel(playerHp){
         generateSpire();
         generateMonsters();
     }
-    else if (area == "Stadium"){
+    else if (area == "Circus"){
         
-        generateStadium();
+        generateCircus();
         let montest = new Tinker(getTile(9,9));
         let montest2 = new Apiarist(getTile(9,10));
         monsters.push(montest);
@@ -339,7 +339,7 @@ function startLevel(playerHp){
     } 
     if (level != 0 && area == "Faith") tile = getTile(Math.floor((numTiles-1)/2), 1);
     else if (area == "Spire") tile = spirespawner;
-    else if (area == "Stadium") tile = getTile(5,5);
+    else if (area == "Circus") tile = getTile(5,5);
     else tile = getTile(Math.floor((numTiles-1)/2),Math.floor((numTiles-1)/2));
     player = new Player(tile);
     if (area == "Spire") player.tile.replace(Ladder);

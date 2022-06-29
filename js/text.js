@@ -253,7 +253,7 @@ description = {
     "Roseic" : "A monolithic mass of pink glass, its monotony broken by a complex maze-like pattern spreading within. Its alluring colours and patterns invite you to find an exit to this impossible, titanic puzzle - an offer to be denied, should you wish to remain alive.",
     "Rose" : "As Last to Rule the Old World, Rose represents the apex of the slow descent into leisure and egoism that struck the Saints' Dynasty. Under his iconic marching band uniform, the gears and cogs of his many mechanical augmentations whirr in eerie unison.",
     "RoseS" : "A once proud individual, whose willpower and strength of character have long been drained away by the pink twine constricting their body. From the edge of your sight, you swear you occasionally spot Rose himself taking the place of one of his servants, smiling mischievously at your surprise.",
-    "RoseSpawn" : "A teletransporter, randomly hauling Rose's most loyal subjects into the stadium. The lottery fliers claimed they'd be granted a chance at ascension into the Next World, as long as they swore to extend the Roseic dominion into the realities beyond.",
+    "RoseSpawn" : "A teletransporter, randomly hauling Rose's most loyal subjects into his circus. The lottery fliers claimed they'd be granted a chance at ascension into the Next World, as long as they swore to extend the Roseic dominion into the realities beyond.",
 }
 
 monabi = {

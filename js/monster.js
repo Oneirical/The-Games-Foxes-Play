@@ -1006,7 +1006,7 @@ class Player extends Monster{
         gameState = "running";
         playSound("newLevel");
         level++;
-        let areas = ["Faith","Stadium","Spire"]; // add Edge when it's not bugged "Spire"
+        let areas = ["Faith","Circus","Spire"]; // add Edge when it's not bugged "Spire"
         area = areas[randomRange(0,2)]
         for(let i=0;i<this.inhand.length;i++){
             this.discard.push(this.inhand[i]);
