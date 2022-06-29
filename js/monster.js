@@ -408,8 +408,8 @@ class Player extends Monster{
             if (this.rosetox > 3){
                 for (let x of monsters){
                     x.sprite = 61;
-                    rosetoxin = 1;
                 }
+                rosetoxin = 1;
                 if (this.rosetox > 4){
                     rosetoxin = 2;
                 }
@@ -417,8 +417,8 @@ class Player extends Monster{
             else if (this.rosetox <= 0){
                 for (let x of monsters){
                     x.sprite = x.spritesave;
-                    rosetoxin = 0;
                 }
+                rosetoxin = 0;
             }
         } 
         if (this.deathdelay > 0){

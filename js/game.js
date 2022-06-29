@@ -190,6 +190,9 @@ function manageExit(){
 }
 
 function tick(){
+    player.update();
+    console.log(player.rosetox);
+    console.log(rosetoxin);
     deadcheck = 0;
     for(let k=monsters.length-1;k>=0;k--){
         if(!monsters[k].dead){
@@ -211,8 +214,6 @@ function tick(){
             manageExit();
         }
     }
-
-    player.update();
 
     if(player.dead){
         playSound("death");
