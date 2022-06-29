@@ -93,7 +93,7 @@ function draw(){
         printAtSidebar("Common Souls: "+basicc, 18, 590, 475, "white", 20, 350);
         printAtSidebar("Legendary Souls: "+advc, 18, 590, 500, "yellow", 20, 350);
         printAtSidebar("Serene Souls: "+serc, 18, 590, 525, "cyan", 20, 350);
-        printAtSidebar("Harmonic Modulator: Mind-Alacrity-Enhancing Fluffifier", 18, 590, 550, "cyan", 20, 350);
+        printAtSidebar("Harmonic Modulator: "+modulename[player.activemodule], 18, 590, 550, "cyan", 20, 350);
         if ((gameState == "vision" && discarded > 0) || (gameState == "discard" && !naiamode)) drawText("Which soul to discard?", 20, false, 100, "deepskyblue");
         if (gameState == "discard" && naiamode) drawText("Which soul to cast?", 20, false, 100, "fuchsia");
         if (gameState == "vision" && discarded == 0) drawText("Which soul to stack?", 20, false, 100, "deepskyblue");
@@ -293,7 +293,8 @@ function startGame(){
     score = 0;
     numSpells = 0;
     aubecounter = 0;
-    invsave = [];//[, ] //];
+    invsave = ["SERENE"];//[, ] //];
+    modules = ["NONE","Alacrity"];
     shuffle(invsave);
     dissave = [];
     startLevel(startingHp);

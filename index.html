@@ -134,6 +134,7 @@
             if(e.key=="v" && cursormode && invmode && cursor.tile.monster.teleportCounter <= 0) currentspelldesc = cursor.tile.monster.loot;
             if(e.key>=1 && e.key<=9 && !cursormode && gameState == "fluffy" && sacrifice < 6 && player.betted) player.sacrificeSpell(e.key-1);
             if(e.key=="f" && gameState == "fluffy" && !cursormode && sacrifice == 6) player.fluffyReroll();
+            if(e.key=="f" && gameState == "running") player.cycleModules();
             if(e.key=="p") alert(message);
             
         }else if(gameState == "contemplation"){

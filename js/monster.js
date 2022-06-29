@@ -381,7 +381,8 @@ class Player extends Monster{
         this.discard = [];
         this.saved = [];
         this.name = "Terminal, the Reality Anchor";
-        this.soul = "Does not have a soul of its own -- is merely the combination of its many passengers."
+        this.soul = "Does not have a soul of its own -- is merely the combination of its many passengers.";
+        this.activemodule = "NONE";
         this.specialAttack = "";
         this.vision = [];
         this.ability = "";
@@ -391,6 +392,13 @@ class Player extends Monster{
         this.para = 0;
         this.fall = 0;
         this.rosetox = 0;
+    }
+
+    cycleModules(){
+        let modid = modules.indexOf(this.activemodule);
+        if (modid == modules.length-1) modid = 0;
+        else modid++;
+        this.activemodule = modules[modid];
     }
 
     update(){          
@@ -440,6 +448,68 @@ class Player extends Monster{
         }
     }
 
+    consumeCommon(num){
+        while (num > 0){
+            let indexx;
+            if (this.inventory.length >= 0 && this.inventory.some(r=> basic.includes(r))){
+                while (true){
+                    indexx = randomRange(0,this.inventory.length-1);
+                    if (basic.includes(this.inventory[indexx])){
+                        this.inventory.splice(indexx, 1);
+                        num--;
+                        break;
+                    }
+                }
+            }
+            else if (this.discard.length >= 0 && this.discard.some(r=> basic.includes(r))){
+                while (true){
+                    indexx = randomRange(0,this.discard.length-1);
+                    if (basic.includes(this.discard[indexx])){
+                        this.discard.splice(indexx, 1);
+                        num--;
+                        break;
+                    }
+                }
+            }
+            else{
+                return false;
+            }
+        }
+        return true;
+    }
+
+    harmonizeAny(num){
+        while (num > 0){
+            let indexx;
+            if (this.inventory.length >= 0 && this.inventory.some(r=> r!= "SERENE")){
+                while (true){
+                    indexx = randomRange(0,this.inventory.length-1);
+                    if (this.inventory[indexx] != "SERENE"){
+                        this.inventory.splice(indexx, 1);
+                        this.inventory.splice(indexx, 0, "SERENE");
+                        num--;
+                        break;
+                    }
+                }
+            }
+            else if (this.discard.length >= 0 && this.discard.some(r=> r!= "SERENE")){
+                while (true){
+                    indexx = randomRange(0,this.discard.length-1);
+                    if (this.discard[indexx] != "SERENE"){
+                        this.discard.splice(indexx, 1);
+                        this.discard.splice(indexx, 0, "SERENE");
+                        num--;
+                        break;
+                    }
+                }
+            }
+            else{
+                return false;
+            }
+        }
+        return true;
+    }
+
     addSpell(skey){                                                       
         this.discard.push(skey); //changer à discard later
         if (doublecounter!=0) this.inhand.push(skey);
@@ -484,7 +554,12 @@ class Player extends Monster{
                     message = "DrawDeath";
                 }
             }
-            tick();
+            if (this.activemodule != "Alacrity") tick();
+            else if (!this.consumeCommon(1)){
+                message = "FluffyInsufficientPower";
+                tick();
+                this.activemodule = "NONE";
+            } 
         }
     }
 

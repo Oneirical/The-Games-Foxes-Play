@@ -172,16 +172,12 @@ spells = {
             }
             player.discard = [];
         }
-        let serscan = player.inventory.filter(soul => soul != "SERENE").length;
-        if (serscan == 0){
+        if (!player.harmonizeAny(1)){
             message = "FluffyNoConvertTaunt";
             removeItemOnce(player.saved,"SERENE");
             fail = true;
         }
         else{
-            let indexx = randomRange(0,player.inventory.length-1);
-            player.inventory.splice(indexx, 1);
-            player.inventory.splice(indexx, 0, "SERENE");
             player.specialAttack = "Harmony";
             fail = false;
         }

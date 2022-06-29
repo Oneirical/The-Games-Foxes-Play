@@ -5,6 +5,7 @@ artistic = ["PURPIZUG","AUBE","BORERORA", "GYVJI"];
 ordered = ["ASPHA","ABAZON","NAIA"];
 saintly = ["ROSE","ZAINT","ASTER"];
 basic = ["TAINTED","VILE","FERAL","UNHINGED","ARTISTIC","ORDERED","SAINTLY"];
+modulators = ["Alacrity","Selective","Thrusters","Hover","Focus"];
 
 //Monsters
 // Monk
@@ -99,7 +100,9 @@ messages = {
     "Saint9" : "\"And it is with this hope that these lunatics will tear you apart.\"",
     "SaintRepeat" : "\"This automated message will repeat until nobody is left to hear it.\"",
 
+    // Harmonic Modulators
 
+    "FluffyInsufficientPower" : "\"Guest user no longer possesses required funds to maintain this Harmonic Modulator online. Shutting down.\"",
 
     // Souls dialogue
     "SOULLESS" : "\"Hi, this is Terminal. Yes, yourself. You bugged the game and managed to cast yourself. I guess the world explodes and you win now.\"",
@@ -400,6 +403,15 @@ soulname = {
     "ASTER" : "Aster, the Dissonant Crusader",
     "GYVJI" : "Gyvji, Soul-Severer",
     "KASHIA" : "Kashia, Patient Zero of the Rend-Plague",
+}
+
+modulename = {
+    "Alacrity" : "Mind-Alacrity-Enhancing Fluffifier",
+    "Selective" : "Selective Harmonization Algorithm",
+    "Thrusters" : "Hyper-Kinetic Collectivist Thrusters",
+    "Hover" : "Fluffian Paw-Locked Hover-Field",
+    "Focus" : "Serenity Focus Delta-Multiplier",
+    "NONE" : "NONE",
 }
 //UNUSED
     //"Saintly" : "A Saintly soul eyes your new recruits, its gaze shimmering in disgust. \"More violent thugs to infest my living quarters? I demand some privacy, now!\" You isolate it in a little box, which soon ",
