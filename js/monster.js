@@ -377,7 +377,7 @@ class Player extends Monster{
         this.isPlayer = true;
         this.teleportCounter = 0;
         this.inventory = [];
-        this.inhand = ["ROSE"];
+        this.inhand = [];
         this.discard = [];
         this.saved = [];
         this.name = "Terminal, the Reality Anchor";

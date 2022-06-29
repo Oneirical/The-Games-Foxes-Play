@@ -266,14 +266,24 @@ function showTitle(){
     gameState = "title";
     playSound("title"); 
     message = "Empty";
-    //sacritotal = "nan";
-    //sacrifice = 0;
-    //rolled = 0;
     drawText("THE GAMES", 40, true, canvas.height/2 - 110, "cyan");
     drawText("FOXES PLAY", 70, true, canvas.height/2 - 50, "cyan");
     drawText("by Oneirical", 30, true, canvas.height/2 - 20, "white");
     drawText("with music by Zennith", 30, true, canvas.height/2 + 10, "white");
-    
+}
+
+function showBoss(){                                          
+    pauseAllMusic();
+    message = "Empty";
+    let bossname = ["ROSE","EPSILON","RONIN","FLUFFY"];
+    let bosstitle = ["-Last of the Saints-","-Supreme Ordered Admiral-","-the Unfaltering Wheel-","-Grand Harmonic Maestra-"];
+    let bosscolour = ["pink","red","purple","cyan"];
+    let currentboss = 3;
+    let scale = [0,-100,-50,-75];
+    ctx.fillStyle = 'rgba(0,0,0,.75)';
+    ctx.fillRect(canvas.width/2-200+scale[currentboss],canvas.height/2 - 120,canvas.width/4+160, canvas.height/5);
+    drawText(bossname[currentboss], 70, true, canvas.height/2 - 50, bosscolour[currentboss]);
+    drawText(bosstitle[currentboss], 40, true, canvas.height/2, "white");
 }
 
 function startGame(){
@@ -284,7 +294,7 @@ function startGame(){
     score = 0;
     numSpells = 0;
     aubecounter = 0;
-    invsave = ["SERENE"];//[, ] //];
+    invsave = [];//[, ] //];
     shuffle(invsave);
     dissave = [];
     startLevel(startingHp);
