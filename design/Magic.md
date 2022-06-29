@@ -12,7 +12,7 @@ Terminal, however, possesses the uncanny ability to store the souls of the forme
 
 In the game, the total number of Souls you own is displayed in the lower right corner, divided in Common, Legendary and Serene tiers. Slaying enemies will award Common souls, completing specific challenges in certain special rooms will grant Legendary souls, and Serene souls are obtained by gambling a little bit too audaciously with the Serene Collective.
 
-As long as you have Souls in storage, you can press "q" to build a line-up of identities you may temporarily assume. You can only equip a maximum of 9 souls at a time, but your storage can have an infinite number.
+As long as you have Souls in storage, you can press "q" to build a line-up of identities you may temporarily assume. You can only equip a maximum of 9 souls at a time in your hotbar, but your storage can have an infinite number. Using "q" will cost 1 Resolve per draw - Resolve is regenerated after each room clear. If you have no more Resolve, you can still draw Souls, but that will cost 1 Ipseity per draw instead.
 
 Pressing the number keys 1-9 will invoke that specific Soul, and execute a special effect alongside it, depending on the soul type that was used. That soul is then placed in a "discard" pile, where it will cycle back eventually for usage.
 
