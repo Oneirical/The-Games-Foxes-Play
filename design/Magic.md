@@ -18,4 +18,4 @@ Pressing the number keys 1-9 will invoke that specific Soul, and execute a speci
 
 To check what a specific Soul does, press "c", then "i", then the number corresponding to the one you wish to inspect.
 
-If a particular Soul is bloating your inventory and drowning out access to more desirable spells, it can be removed through sacrifice at a Relay, the using a special "Forget" power from another soul, tossing them into the void after your character dies, or using them to power a Harmonic Modulator.
+If a particular Soul is bloating your inventory and drowning out access to more desirable spells, it can be removed through sacrificing them at a Relay, using a special "Forget" power from another soul, tossing them into the void after your character dies, or using them to power a Harmonic Modulator.
