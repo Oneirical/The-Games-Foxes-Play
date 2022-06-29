@@ -1223,6 +1223,14 @@ class BattleFluffy extends Monster{
         this.noloot = true;
         this.permacharm = true;
     }
+    doStuff(){
+        this.attackedThisTurn = false;
+        super.doStuff();
+
+        if(!this.attackedThisTurn && player.activemodule == "Alacrity"){
+            super.doStuff();
+        }
+    }
 }
 
 class HostileFluffy extends Monster{
