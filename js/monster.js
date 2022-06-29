@@ -119,6 +119,8 @@ class Monster{
                 if (this.hp <= 0){
                     this.die();
                     removeItemOnce(monsters,this);
+                    if (!this.noloot) player.addSpell(this.loot);
+                    this.noloot = true;
                 } 
             }
         }
@@ -428,6 +430,7 @@ class Player extends Monster{
                 if (this.hp <= 0) this.die();
                 removeItemOnce(monsters,this);
                 if (!this.noloot) player.addSpell(this.loot);
+                this.noloot = true;
             }
         }                                                 
     }
