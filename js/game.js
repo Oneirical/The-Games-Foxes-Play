@@ -191,8 +191,6 @@ function manageExit(){
 
 function tick(){
     player.update();
-    console.log(player.rosetox);
-    console.log(rosetoxin);
     deadcheck = 0;
     for(let k=monsters.length-1;k>=0;k--){
         if(!monsters[k].dead){
@@ -398,7 +396,6 @@ function drawMessage(text, size, textX, textY, color){
 
 function printAtWordWrap(text, size, x, y, color, lineHeight, fitWidth)
 {
-    //console.log(canvas.height);
     let jy = y - (768-3*64+25)
     let sy = (jy + (canvas.height-uiHeight*64+25));
     fitWidth = fitWidth || 0;

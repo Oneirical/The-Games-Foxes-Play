@@ -437,7 +437,6 @@ class Player extends Monster{
             tick();
         }
         if (area == "Spire" && !(this.tile.getNeighbor(0,1) instanceof Platform || this.tile.getNeighbor(0,1) instanceof Ladder)){
-            console.log(this.tile.getNeighbor(0,1))
             this.fall++;
         }
         if (this.para > 0){
@@ -517,8 +516,6 @@ class Player extends Monster{
     }
 
     drawSpell(){
-        
-        console.log(this.inventory);
         if (this.discard.length <= 0 && this.inventory.length <= 0){
             message = "NoSouls";
         }
