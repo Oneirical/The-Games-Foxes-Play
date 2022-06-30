@@ -222,7 +222,7 @@ class Monster{
                 this.getDisplayY()
             )
         }
-        if (this.shield > 0){
+        if ((this.shield > 1 && this.isPlayer)||(this.shield > 0 && !this.isPlayer)){
             drawSprite(
                 48,
                 this.getDisplayX(),
@@ -744,7 +744,7 @@ class Player extends Monster{
         let simplicity = this.inventory.filter(soul => basic.includes(soul));
         let simplicit = this.discard.filter(soul => basic.includes(soul));
         let totallength = simplicit.length + simplicity.length;
-        if (totallength < (6-sacrifice)){
+        if (totallength <= (6-sacrifice)){
             //this.discard.push("TAINTED") //remplacer avec curse, dash est un placeholder
             shuffle(this.discard)
             for(let i=0;i<this.discard.length;i++){
