@@ -93,7 +93,7 @@ function draw(){
         printAtSidebar("Common Souls: "+basicc, 18, 590, 475, "white", 20, 350);
         printAtSidebar("Legendary Souls: "+advc, 18, 590, 500, "yellow", 20, 350);
         printAtSidebar("Serene Souls: "+serc, 18, 590, 525, "cyan", 20, 350);
-        printAtSidebar("Harmonic Modulator: "+modulename[player.activemodule], 18, 590, 550, "cyan", 20, 350);
+        printAtSidebar("f) Harmonic Modulator: "+modulename[player.activemodule], 18, 590, 550, "cyan", 20, 350);
         if ((gameState == "vision" && discarded > 0) || (gameState == "discard" && !naiamode)) drawText("Which soul to discard?", 20, false, 100, "deepskyblue");
         if (gameState == "discard" && naiamode) drawText("Which soul to cast?", 20, false, 100, "fuchsia");
         if (gameState == "vision" && discarded == 0) drawText("Which soul to stack?", 20, false, 100, "deepskyblue");
@@ -150,7 +150,7 @@ function draw(){
                 for(let i=0; i<player.inhand.length; i++){
                     let spellText = (i+1) + ") " + (player.inhand[i] || "");
                     if (rosetoxin > 1) spellText = (i+1) + ") " + ("ROSE" || "");              
-                    drawText(spellText, 20, false, 130+i*20, "aqua");
+                    drawText(spellText, 20, false, 130+i*20, "lightskyblue");
                 }
                 if (gameState == "discard" && !naiamode) message = "Discard";
                 else if (gameState == "discard" && naiamode) message = "NaiaTime";
@@ -158,7 +158,7 @@ function draw(){
             else if (gameState == "vision"){
                 for(let i=0; i<player.vision.length; i++){
                     let spellText = (i+1) + ") " + (player.vision[i] || "");                        
-                    drawText(spellText, 20, false, 130+i*20, "aqua");
+                    drawText(spellText, 20, false, 130+i*20, "lightskyblue");
                 }
                 message = "Shiza";
             }
@@ -292,8 +292,8 @@ function startGame(){
     score = 0;
     numSpells = 0;
     aubecounter = 0;
-    invsave = ["SERENE"];//[, ] //];
-    modules = ["NONE","Alacrity"];
+    invsave = ["SERENE","GYVJI"];//[, ] //];
+    modules = ["NONE","Alacrity","Selective"];
     shuffle(invsave);
     dissave = [];
     startLevel(startingHp);
@@ -553,7 +553,9 @@ function initSounds(){
         seal: new Audio('sounds/SealTest.m4a'),
         quarry: new Audio('sounds/Quarry.wav'),
         explosion: new Audio('sounds/explosion.wav'),
-        deathdelay: new Audio('sounds/deathdelay.wav')
+        deathdelay: new Audio('sounds/deathdelay.wav'),
+        on: new Audio('sounds/moduleon.wav'),
+        off: new Audio('sounds/moduleoff.wav')
     };
 }
 

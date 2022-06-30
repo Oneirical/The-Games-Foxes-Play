@@ -327,8 +327,8 @@ class Monster{
         if (this.deathdelay > 0) this.falsehp -= damage;
         else if (this.deathdelay == 0) this.hp -= damage;
         if(this.hp <= 0){
+            if (!this.noloot && !this.dead) player.addSpell(this.loot);
             this.die();
-            if (!this.noloot) player.addSpell(this.loot);
         }
 
         if(this.isPlayer){                                                     
@@ -401,6 +401,14 @@ class Player extends Monster{
         if (modid == modules.length-1) modid = 0;
         else modid++;
         this.activemodule = modules[modid];
+        if (this.activemodule == "NONE"){
+            message = "FluffyModuleFarewell";
+            playSound("off");
+        }
+        else{
+            message = "FluffyModuleOnline";
+            playSound("on");
+        }
     }
 
     update(){          
@@ -450,14 +458,16 @@ class Player extends Monster{
         }
     }
 
-    consumeCommon(num){
+    consumeCommon(num, harmonize){
         while (num > 0){
             let indexx;
             if (this.inventory.length >= 0 && this.inventory.some(r=> basic.includes(r))){
                 while (true){
                     indexx = randomRange(0,this.inventory.length-1);
                     if (basic.includes(this.inventory[indexx])){
+                        dontremove.push(this.inventory[indexx]);
                         this.inventory.splice(indexx, 1);
+                        if (harmonize) this.inventory.splice(indexx, 0, "SERENE");
                         num--;
                         break;
                     }
@@ -467,7 +477,9 @@ class Player extends Monster{
                 while (true){
                     indexx = randomRange(0,this.discard.length-1);
                     if (basic.includes(this.discard[indexx])){
+                        dontremove.push(this.discard[indexx]);
                         this.discard.splice(indexx, 1);
+                        if (harmonize) this.discard.splice(indexx, 0, "SERENE");
                         num--;
                         break;
                     }
@@ -555,8 +567,9 @@ class Player extends Monster{
                 }
             }
             if (this.activemodule != "Alacrity") tick();
-            else if (!this.consumeCommon(1)){
+            else if (!this.consumeCommon(1,false)){
                 message = "FluffyInsufficientPower";
+                playSound("off");
                 tick();
                 this.activemodule = "NONE";
             } 

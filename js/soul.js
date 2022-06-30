@@ -172,15 +172,51 @@ spells = {
             }
             player.discard = [];
         }
-        if (!player.harmonizeAny(1)){
-            message = "FluffyNoConvertTaunt";
-            removeItemOnce(player.saved,"SERENE");
-            fail = true;
+        if (player.activemodule != "Selective"){
+            if (!player.harmonizeAny(1)){
+                message = "FluffyNoConvertTaunt";
+                removeItemOnce(player.saved,"SERENE");
+                fail = true;
+            }
+            else{
+                player.specialAttack = "Harmony";
+                fail = false;
+            }
         }
         else{
-            player.specialAttack = "Harmony";
-            fail = false;
+            console.log("start");
+            if (player.consumeCommon(1,false)){ // pay the price
+                if (!player.consumeCommon(1,true)){
+                    console.log("not enough after paid");
+                    player.discard.push(dontremove[0]);
+                    message = "FluffyNoConvertTaunt";
+                    removeItemOnce(player.saved,"SERENE");
+                    fail = true;
+                }
+                else{
+                    console.log("proc");
+                    player.specialAttack = "Harmony";
+                    fail = false;
+                }
+            }
+            else{
+                message = "FluffyInsufficientPower";
+                playSound("off");
+                player.activemodule = "NONE";
+                if (!player.harmonizeAny(1)){
+                    console.log("literaly nont");
+                    message = "FluffyNoConvertTaunt";
+                    removeItemOnce(player.saved,"SERENE");
+                    fail = true;
+                }
+                else{
+                    console.log("guess ok");
+                    player.specialAttack = "Harmony";
+                    fail = false;
+                }
+            }
         }
+
     },
     JOLTZAZON: function(){
         monsters.forEach(function(entity){

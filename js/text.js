@@ -86,7 +86,7 @@ messages = {
     "FluffyNoBetsTaunt" : "\"Why are you wasting Fluffy's precious time? Use Fluffy's services, or do not. The exit is right there, if you refuse to do business with the Collective. A great loss for both of us, that would be...\"",//The Serene Harmonizer's cloud-body opens into a sinister mockery of a smile.
     "FluffyDoubleDrawTaunt" : "\"You clutch a soul in your paws, and yet are already looking to draw out another? This will completely disrupt the Soulscribing process! How rash can you be? I suppose I should not believe such foolishness is beyond your capabilities, for you are not Fluffy.\"",
     "FluffyDoubleDrawTaunt2" : "\"You clutch two souls in your paws, and yet are already looking to draw out more? This will completely disrupt the Soulscribing process! How rash can you be? I suppose I should not believe such foolishness is beyond your capabilities, for you are not Fluffy.\"",
-    "FluffyNoConvertTaunt" : "\"You believe our aid comes at no cost, ruffian? Fill your mind with audience for the Harmony's song, and then, we shall sing for you.\"",
+    "FluffyNoConvertTaunt" : "\"Do you believe our aid comes at no cost, ruffian? Fill your subconscious mind with audience for the Harmony's song, and then, we shall sing for you.\"",
 
     // Saints' Voice dialogue
     "Saint1" : "\"Vessel. Your rest has come to its end.\"",
@@ -102,7 +102,10 @@ messages = {
 
     // Harmonic Modulators
 
-    "FluffyInsufficientPower" : "\"Guest user no longer possesses required funds to maintain this Harmonic Modulator online. Shutting down.\"",
+    "FluffyInsufficientPower" : "\"Ruffian user no longer possesses required funds to maintain this Harmonic Modulator online. Shutting down.\"",
+    "FluffyModuleWelcome" : "\"New user detected. User class: Ruffian. Activating microtransaction protocols...\"",
+    "FluffyModuleFarewell" : "\"Module has been shut down by user. Farewell, and may the Harmonic Song echo for all Worlds to come.\"",
+    "FluffyModuleOnline" : "\"Teletransporter subroutines initialized. Access to ruffian mental data: granted. Module activated.\"",
 
     // Souls dialogue
     "SOULLESS" : "\"Hi, this is Terminal. Yes, yourself. You bugged the game and managed to cast yourself. I guess the world explodes and you win now.\"",
