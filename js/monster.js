@@ -96,6 +96,7 @@ class Monster{
         this.discard = [];
         this.falsehp = 0;
         this.deathdelay = 0;
+        this.shield = 0;
     }
 
     heal(damage){
@@ -1095,7 +1096,7 @@ class Player extends Monster{
         playSound("newLevel");
         level++;
         let areas = ["Faith","Circus","Spire"]; // add Edge when it's not bugged "Spire"
-        area = areas[randomRange(0,2)]
+        area = areas[randomRange(0,0)]
         for(let i=0;i<this.inhand.length;i++){
             this.discard.push(this.inhand[i]);
         }

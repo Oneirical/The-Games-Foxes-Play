@@ -292,7 +292,7 @@ function startGame(){
     score = 0;
     numSpells = 0;
     aubecounter = 0;
-    invsave = ["SERENE","GYVJI"];//[, ] //];
+    invsave = [];//[, ] //];
     modules = ["NONE","Alacrity","Selective"];
     shuffle(invsave);
     dissave = [];

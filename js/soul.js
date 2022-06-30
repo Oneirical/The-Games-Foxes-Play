@@ -101,11 +101,14 @@ spells = {
         }
     },
     ORDERED: function(caster){
-        caster.shield = 2;
         if (caster.isPlayer){
+            caster.shield = 3;
             for(let i=0;i<monsters.length;i++){
                 monsters[i].stunned = true;
             }
+        }
+        else{
+            caster.shield = 2;
         }
     },
     STRAIGHTLASER: function(caster){
@@ -184,17 +187,14 @@ spells = {
             }
         }
         else{
-            console.log("start");
             if (player.consumeCommon(1,false)){ // pay the price
                 if (!player.consumeCommon(1,true)){
-                    console.log("not enough after paid");
                     player.discard.push(dontremove[0]);
                     message = "FluffyNoConvertTaunt";
                     removeItemOnce(player.saved,"SERENE");
                     fail = true;
                 }
                 else{
-                    console.log("proc");
                     player.specialAttack = "Harmony";
                     fail = false;
                 }
@@ -204,13 +204,11 @@ spells = {
                 playSound("off");
                 player.activemodule = "NONE";
                 if (!player.harmonizeAny(1)){
-                    console.log("literaly nont");
                     message = "FluffyNoConvertTaunt";
                     removeItemOnce(player.saved,"SERENE");
                     fail = true;
                 }
                 else{
-                    console.log("guess ok");
                     player.specialAttack = "Harmony";
                     fail = false;
                 }
