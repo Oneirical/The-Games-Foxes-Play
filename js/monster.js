@@ -811,7 +811,7 @@ class Player extends Monster{
         if (removeName){
             if (agony > 0){
                 if (removeName == "SERENE" && agony < 3){
-                    message = "SereneNoRemoveTaunt";
+                    message = "FluffyNoRemoveTaunt";
                 }
                 else{
                     if (removeName == "SERENE") agony -= 3;
