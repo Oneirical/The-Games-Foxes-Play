@@ -123,6 +123,7 @@
             if(e.key=="d"&&cursormode) cursor.tryMove(1, 0);
             if(e.key>=1 && e.key<=9 && !cursormode && gameState == "running" && player.para == 0) player.castSpell(e.key-1);
             if(e.key>=1 && e.key<=9 && cursormode && invmode) currentspelldesc = e.key-1;
+            if(e.key=="f" && cursormode && invmode) currentspelldesc = player.activemodule;
             if(e.key=="q" && gameState != "fluffy"&& !cursormode && level != 0 && player.para == 0) player.drawSpell();
             if(e.key=="q" && gameState == "fluffy" && rolled == 0 && !cursormode && !player.betted) player.evalSpell();
             else if(e.key=="q" && gameState == "fluffy" && rolled != 0 && !cursormode && !player.betted && message != "FluffyNotEnoughSoulsTaunt") message = "FluffyDoubleDrawTaunt";
@@ -136,7 +137,7 @@
             if(e.key=="v" && cursormode && invmode && cursor.tile.monster.teleportCounter <= 0) currentspelldesc = cursor.tile.monster.loot;
             if(e.key>=1 && e.key<=9 && !cursormode && gameState == "fluffy" && sacrifice < 6 && player.betted) player.sacrificeSpell(e.key-1);
             if(e.key=="f" && gameState == "fluffy" && !cursormode && sacrifice == 6) player.fluffyReroll();
-            if(e.key=="f" && gameState == "running") player.cycleModules();
+            if(e.key=="f" && gameState == "running" && modules.length > 1 && !cursormode) player.cycleModules();
             if(e.key=="p") alert(message);
             
         }else if(gameState == "contemplation"){

@@ -245,7 +245,9 @@ function spawnMonster(){
 }
 
 function spawnCages(loot, tile){
-    let cage = new Cage(tile, loot);
+    let cage;
+    if (modulatorssave.includes(loot)) cage = new Modulorb(tile, loot);
+    else cage = new Cage(tile, loot);
     if (cage.loot == "SERENE") cage.lore = description["FluffyCage"];
     monsters.push(cage);
 }

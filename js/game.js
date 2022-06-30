@@ -286,7 +286,7 @@ function showBoss(){
 
 function startGame(){
     pauseSound("title");            
-    playSound("cage");                            
+    playSound("cage");                         
     level = 0;
     truehp = 8;
     score = 0;
@@ -294,6 +294,7 @@ function startGame(){
     aubecounter = 0;
     invsave = [];//[, ] //];
     modules = ["NONE","Alacrity","Selective"];
+    modulators = modulatorssave;
     shuffle(invsave);
     dissave = [];
     startLevel(startingHp);

@@ -6,6 +6,7 @@ ordered = ["ASPHA","ABAZON","NAIA"];
 saintly = ["ROSE","ZAINT","ASTER"];
 basic = ["TAINTED","VILE","FERAL","UNHINGED","ARTISTIC","ORDERED","SAINTLY"];
 modulators = ["Alacrity","Selective","Thrusters","Hover","Focus"];
+modulatorssave = ["Alacrity","Selective","Thrusters","Hover","Focus"];
 
 //Monsters
 // Monk
@@ -212,6 +213,13 @@ colours = {
     "UNHINGEDF" : "yellow",
     "FERALF" : "yellowgreen",
     "VILEF" : "plum",
+
+    "Alacrity" : "cyan",
+    "Selective" : "cyan",
+    "Thrusters" : "cyan",
+    "Hover" : "cyan",
+    "Focus" : "cyan",
+    "NONE" : "cyan",
 }
 
 description = {
@@ -237,7 +245,7 @@ description = {
     "Felidol" : "Grinning eternally at some cosmic joke only they seem to understand, these feline statues once served as protectors of merchants and slavers. Deprived of purpose, they filled the rivers with coins, and marched on these golden bridges to usurp the Reality Anchor, dreaming of a Next World ordered in masters and servants.",
     "Weaver" : "One of the many monastic artisans, who enchanted the city streets with their simple songs as their long tongues spun brute materials into beautiful crafts. This one seems to have remained oblivious to the Old World's collapse, endlessly repeating the same three notes while it folds pages from old books into elegant pinwheels. Its trance prevents it from feeling pain -- until you dare damage one of its precious creations, that is.",
     "Rendfly" : "Once the Rend-Plague outbreak has spread to the headlines of every holoscreen, the population began to exterminate en masse these pesky little insects. Of the millions that caused the epidemic, only a few dozens remain, but the Old World's end has not tempered their terrifying mind-altering bite one bit.",
-    "ModuleOrb" : "Within this pure crystal sphere swirls a billowy, white gas, in which swarm fragments of the Collective's technological prowess. A single breath suffices to grant some ability normally reserved for Harmonic kin, though your mind may not remain fully your own following installation of this strange cybernetic.",
+    "ModuleOrb" : "A machine holding a pure crystal sphere, within which swirls a billowy, white gas. Across its surface glisten a thousand cyan lights, hinting at the glory of the Collective's technological prowess. A single breath suffices to grant some ability normally reserved for Harmonic kin, though your mind may not remain fully your own following installation of this strange cybernetic.",
     // Tiles
     "Floor" : "A long time ago, legions of monks carved holy symbols on each floortile of the palaces, so they may be worthy of being treaded by the Saints' steps. Decades of dust has undone the tireless work of these artists.",
     "Seal" : "The Saints feared Terminal would try to escape before the end times. They locked down their royal chambers, trading convenience for the peace of mind that their ticket to immortality would not run away in the middle of the night.",
@@ -310,6 +318,14 @@ souldesc = {
     "ASTER" : "Saint Rose's exiled son, ostracized due to his pupils of ill-matched colours. After trawling through the shady districts of the Metropolis, the disgraced noble finally found his new purpose: an enforcer of diversity, a comforter of the different, and a warrior battling in the name of Dissonance. Why would the Harmony authorize such a dangerous soul?",
     "GYVJI" : "All contenders of the Saints' Arena feared Gyvji's mythical tail slap, supposedly so strong it could knock your soul out of your body and into the crowd, leaving the body untouched. Thankfully, it wasn't long until reality caught up, causing the victim's flesh to charge into the hopefully empty seats of the stadium, where it would be rejoined with its distraught spirit.",
     "KASHIA" : "The first day of her infection, many wondered why Kashia waited five seconds to respond after being asked the most basic questions. After being brought for inspection to a dream-healer, her family gasped in horror at the apparent lack of a soul within her body. Their throats breathed sighs of relief when a little ghostly Kashia arrived five seconds later to mesh with the lizard's flesh, seemingly forever cursed to remain an after-image.",
+
+    //modulators
+    "Alacrity" : "it does a funny thing with your head", //TODO
+    "Selective" : "it makes it so bad thing become good thing", //TODO
+    "Thrusters" : "",
+    "Hover" : "",
+    "Focus" : "",
+    "NONE" : "",
 }  
 
 soulabi = {
@@ -342,6 +358,14 @@ soulabi = {
     "ASTER" : "CACOPHONIC RAGE - When activated, forget all Serene souls in your paw, and strike all enemies for 0 damage. +1 bonus damage for each enemy of the same type in the room as the one hit. One additional secret effect...", // to add the secret effect
     "GYVJI" : "DIAMOND STRIKE - When activated, punch the adjacent enemy in the direction of your last move. The target flies until it meets a wall or another enemy, at which point it causes a 1-range blast that destroys walls and inflicts 3 damage. The target must fly at least 1 tile for the blast to take effect.",
     "KASHIA" : "REALITY DELAY - When activated, freeze your current HP, preventing all changes. 5 turns later, apply all damage and healing that occurred during the delay period. Applied healing is doubled.",
+
+    //modulators
+    "Alacrity" : "Drawing souls with \"q\" requires zero turns. Serene Peacekeepers gain Haste.",
+    "Selective" : "Using Serene Souls will never harmonize a Legendary Soul.",
+    "Thrusters" : "",
+    "Hover" : "",
+    "Focus" : "",
+    "NONE" : "",
     
 }
 
@@ -375,6 +399,14 @@ soulval = {
     "ASTER" : "Worth 6 points in a Harmonic Relay",
     "GYVJI" : "Worth 4 points in a Harmonic Relay",
     "KASHIA" : "Worth 3 points in a Harmonic Relay",
+
+    //modulators
+    "Alacrity" : "Consumes 1 Common Soul per soul draw.",
+    "Selective" : "Consumes 1 Common Soul per use of a Serene Soul.",
+    "Thrusters" : "",
+    "Hover" : "",
+    "Focus" : "",
+    "NONE" : "",
 }
 
 soulname = {
@@ -407,6 +439,14 @@ soulname = {
     "ASTER" : "Aster, the Dissonant Crusader",
     "GYVJI" : "Gyvji, Soul-Severer",
     "KASHIA" : "Kashia, Patient Zero of the Rend-Plague",
+
+    //modulators
+    "Alacrity" : "Mind-Alacrity-Enhancing Fluffifier",
+    "Selective" : "Selective Harmonization Algorithm",
+    "Thrusters" : "Hyper-Kinetic Collectivist Thrusters",
+    "Hover" : "Fluffian Paw-Locked Hover-Field",
+    "Focus" : "Serenity Focus Delta-Multiplier",
+    "NONE" : "NONE",
 }
 
 modulename = {

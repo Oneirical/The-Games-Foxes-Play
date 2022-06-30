@@ -525,10 +525,12 @@ class Player extends Monster{
         return true;
     }
 
-    addSpell(skey){                                                       
-        this.discard.push(skey); //changer à discard later
-        if (doublecounter!=0) this.inhand.push(skey);
-        
+    addSpell(skey){
+        if (modulatorssave.includes(skey)) modules.push(skey);
+        else{
+            this.discard.push(skey);
+            if (doublecounter!=0) this.inhand.push(skey);
+        }                                              
     }
 
     drawSpell(){
@@ -962,7 +964,7 @@ class Player extends Monster{
         else if (quality == 0){
             message = "FluffyExalted";
             fluffchance = 0;
-            let bonusartifact = true;
+            bonusartifact = true;
         }
         else{
             message = "FluffyCheat";
@@ -978,6 +980,12 @@ class Player extends Monster{
                 if (!rerolled) spawnCages(lootdrop[i],bets[i]);
                 else return lootdrop;
             }
+        }
+        if (bonusartifact){
+            let moddrop = modulators[randomRange(0,modules.length-1)];
+            removeItemOnce(modules,modulators);
+            spawnCages(moddrop,getTile(4,5));
+            console.log(moddrop);
         }
         
         
@@ -1489,5 +1497,16 @@ class Rendfly extends Monster{
                 this.abitimer = 0;
             }
         }
+    }
+}
+
+class Modulorb extends Monster{
+    constructor(tile, contents){
+        super(tile, 64, 1, contents, description["ModuleOrb"]);
+        this.soul = "Contains the "+modulename[contents];
+        this.name = "Modulator Orbkeeper";
+        this.teleportCounter = 0;
+        this.paralyzed = true;
+        this.ability = "";
     }
 }
