@@ -128,7 +128,7 @@ function generateSpire(){
 function generateCircus(){
     let vault = {
         0: [RoseWall,RoseWall,RoseWall,RoseWall,RoseWall,RoseWall,RoseWall,RoseWall,Floor,Floor,RoseWall,RoseWall,RoseWall,RoseWall,RoseWall,RoseWall,RoseWall,RoseWall],
-        1: [RoseWall,Floor,RoseServant,Floor,RoseServant,Floor,RoseWall , Floor,RoseThrone,RoseServant,Floor, RoseWall, Floor,RoseServant,Floor,RoseServant,Floor, RoseWall],
+        1: [RoseWall,Floor,RoseServant,Floor,RoseServant,Floor,RoseWall , Floor,RoseThrone,SereneThrone,Floor, RoseWall, Floor,RoseServant,Floor,RoseServant,Floor, RoseWall],
         2: [RoseWall,RoseServant,RoseWall,RoseWall,RoseWall,RoseWall,RoseWall,RoseWall,RoseWall,RoseWall,RoseWall,RoseWall,RoseWall,RoseWall,RoseWall,RoseWall,RoseServant,RoseWall],
         3: [RoseWall,Floor,RoseWall,Goop,Goop,Goop,Goop,Goop,Goop,Goop,Goop,Goop,Goop,Goop,Goop,RoseWall,Floor,RoseWall,],
         4: [RoseWall,RoseServant,RoseWall,Goop,Goop,Goop,Goop,Goop,Floor,Floor,Goop,Goop,Goop,Goop,Goop,RoseWall,RoseServant,RoseWall,],

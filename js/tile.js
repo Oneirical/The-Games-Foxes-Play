@@ -401,6 +401,15 @@ class RoseThrone extends Wall{
     }
 }
 
+class SereneThrone extends Wall{
+    constructor(x, y){
+        super(x, y, 26, false);
+        this.lore = description["Harmonizer"];
+        this.name = "Serene Harmonizer";
+        this.sprite = 26;
+    }
+}
+
 class RoseServant extends Wall{
     constructor(x, y){
         super(x, y, 62, false);

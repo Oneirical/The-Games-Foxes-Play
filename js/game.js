@@ -118,8 +118,8 @@ function draw(){
         //if (level == 2 && !cursormode&& gameState == "running") printAtSidebar("Press \"q\" in combat to summon Souls. Summoning costs Resolve, or Ipseity if you have no more Resolve.", 18, 590, 400, "lime", 20, 350);
         //if (level == 2 && !cursormode&& gameState == "running") printAtSidebar("Press the number keys 1-9 to unleash Souls.", 18, 590, 500, "lime", 20, 350);
         if (!cursormode && gameState == "contemplation" && !contemhint){
-            printAtSidebar("Death in this world is only the beginning of another cycle. Press the number keys 1-9 to permanently forget Souls you do not wish to keep. You can only forget the Souls you summoned in this room.", 18, 590, 350, "lime", 20, 350);
-            printAtSidebar("Dying costs Ipseity. If your Ipseity reaches zero, you die a true death.", 18, 590, 500, "lime", 20, 350);
+            //printAtSidebar("Death in this world is only the beginning of another cycle. Press the number keys 1-9 to permanently forget Souls you do not wish to keep. You can only forget the Souls you summoned in this room.", 18, 590, 350, "lime", 20, 350);
+            //printAtSidebar("Dying costs Ipseity. If your Ipseity reaches zero, you die a true death.", 18, 590, 500, "lime", 20, 350);
             contemhint = false;
         }
         //if (level == 1 && !cursormode&& gameState == "running") printAtSidebar("Slay enemies to collect their Soul.", 18, 590, 500, "lime", 20, 350);
@@ -164,6 +164,7 @@ function draw(){
             }
             let coloring = colours[message];
             if (message.includes("Fluffy")) coloring = "cyan";
+            else if (message.includes("Rose")) coloring = "lavenderblush";
             if ((!cursormode && !invmode) || (cursormode && invmode)) printAtWordWrap(messages[message], 18, 10, 600, coloring, 20, 940);
             if (rosetoxin > 1){
                 ctx.globalAlpha = 0.5;
@@ -556,14 +557,15 @@ function initSounds(){
         explosion: new Audio('sounds/explosion.wav'),
         deathdelay: new Audio('sounds/deathdelay.wav'),
         on: new Audio('sounds/moduleon.wav'),
-        off: new Audio('sounds/moduleoff.wav')
+        off: new Audio('sounds/moduleoff.wav'),
+        roseic: new Audio('sounds/A_Roseic_Problem.mp3')
     };
 }
 
 function playSound(soundName){                       
     sounds[soundName].currentTime = 0;  
     sounds[soundName].play();
-    let loops = ["cage","max","title","harmony2","harmony4","harmony6","falsity","seal","quarry"];
+    let loops = ["cage","max","roseic","title","harmony2","harmony4","harmony6","falsity","seal","quarry"];
     if (loops.includes(soundName)) sounds[soundName].loop = true; 
 }
 function pauseSound(soundName){  
@@ -572,7 +574,7 @@ function pauseSound(soundName){
 }
 
 function pauseAllMusic(){
-    let loops = ["cage","max","title","harmony2","harmony4","harmony6","falsity","seal","quarry"];
+    let loops = ["cage","roseic","max","title","harmony2","harmony4","harmony6","falsity","seal","quarry"];
     loops.forEach(function(sound){
         pauseSound(sound);
     });
@@ -582,6 +584,11 @@ function playMusic(){
     if (level % 5 == 1 && level > 5){
         pauseAllMusic();
         playSound("harmony2");
+    }
+    else if (area == "Circus"){
+        pauseAllMusic();
+        playSound("roseic");
+        message = "RoseWelcome";
     }
     else if (level == 0){
         pauseAllMusic();

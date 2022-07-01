@@ -101,6 +101,10 @@ messages = {
     "Saint9" : "\"And it is with this hope that these lunatics will tear you apart.\"",
     "SaintRepeat" : "\"This automated message will repeat until nobody is left to hear it.\"",
 
+    // Rose, Last of the Saints
+
+    "RoseWelcome" : "\"Well well, look who the cat dragged in~\"",
+
     // Harmonic Modulators
 
     "FluffyInsufficientPower" : "\"Ruffian user no longer possesses required funds to maintain this Harmonic Modulator online. Shutting down.\"",
