@@ -1,7 +1,7 @@
 //ils ne sont pas tous utilisés, donc retravailler ceux qui utilisent les vieux trésors
 spells = {
-    WOOP: function(){
-        player.move(randomPassableTile());
+    WOOP: function(caster){
+        caster.move(randomPassableTile());
     },
     QUAKE: function(){                  
         for(let i=0; i<numTiles; i++){

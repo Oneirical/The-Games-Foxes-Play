@@ -1510,3 +1510,23 @@ class Modulorb extends Monster{
         this.ability = "";
     }
 }
+
+class Third extends Monster{
+    constructor(tile){
+        super(tile, 65, 1, "VILE", description["Third"]);
+        this.soul = "Animated by a Vile (1) soul.";
+        this.name = "Third Emblem of Sin";
+        this.ability = monabi["Third"];
+        this.abitimer = 0;
+    }
+    doStuff(){
+        this.abitimer++;
+        if (this.abitimer == 12){
+            this.abitimer = 0;
+            spells["WOOP"](this);
+        }
+        else{
+            super.doStuff();
+        }
+    }
+}

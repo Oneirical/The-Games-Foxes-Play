@@ -343,8 +343,8 @@ function startLevel(playerHp){
     else if (area == "Circus"){
         
         generateCircus();
-        let montest = new Tinker(getTile(9,9));
-        let montest2 = new Apiarist(getTile(9,10));
+        let montest = new Third(getTile(9,9));
+        let montest2 = new Third(getTile(9,10));
         monsters.push(montest);
         monsters.push(montest2);
     } 
