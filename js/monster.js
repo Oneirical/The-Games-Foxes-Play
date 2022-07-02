@@ -395,6 +395,7 @@ class Player extends Monster{
         this.para = 0;
         this.fall = 0;
         this.rosetox = 0;
+        this.fov = 0;
     }
 
     cycleModules(){
@@ -1103,8 +1104,8 @@ class Player extends Monster{
         gameState = "running";
         playSound("newLevel");
         level++;
-        let areas = ["Faith","Circus","Spire"]; // add Edge when it's not bugged "Spire"
-        area = areas[randomRange(0,1)]
+        let areas = ["Faith","Circus","Spire","Edge"]; // add Edge when it's not bugged "Spire"
+        area = areas[randomRange(0,2)]
         for(let i=0;i<this.inhand.length;i++){
             this.discard.push(this.inhand[i]);
         }
@@ -1524,6 +1525,7 @@ class Third extends Monster{
         if (this.abitimer == 12){
             this.abitimer = 0;
             spells["WOOP"](this);
+            player.fov = 2;
         }
         else{
             super.doStuff();

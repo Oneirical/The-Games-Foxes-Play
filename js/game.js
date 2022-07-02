@@ -53,11 +53,11 @@ function draw(){
         let posgeny = 0;
         let maxx = numTiles;
         let maxy = numTiles;
-        if (area == "Edge"){
-            posgenx = player.tile.x-4;
-            posgeny = player.tile.y-4;
-            maxx = Math.min(player.tile.x+4,numTiles);
-            maxy = Math.min(player.tile.y+4,numTiles);
+        if (player.fov > 0){
+            posgenx = player.tile.x-player.fov;
+            posgeny = player.tile.y-player.fov;
+            maxx = Math.min(player.tile.x+player.fov+1,numTiles);
+            maxy = Math.min(player.tile.y+player.fov+1,numTiles);
         }
         let viewedTiles = [];
 
