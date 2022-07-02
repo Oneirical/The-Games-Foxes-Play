@@ -251,6 +251,7 @@ description = {
     "Rendfly" : "Once the Rend-Plague outbreak has spread to the headlines of every holoscreen, the population began to exterminate en masse these pesky little insects. Of the millions that caused the epidemic, only a few dozens remain, but the Old World's end has not tempered their terrifying mind-altering bite one bit.",
     "ModuleOrb" : "A machine holding a pure crystal sphere, within which swirls a billowy, white gas. Across its surface glisten a thousand cyan lights, hinting at the glory of the Collective's technological prowess. A single breath suffices to grant some ability normally reserved for Harmonic kin, though your mind may not remain fully your own following installation of this strange cybernetic.",
     "Third" : "A soft plushie resembling a black arachnid, its eight grey eyes emblazoned with the cursed seal of Affection. Whenever its owner reached adulthood, the child's parents would rip it in half, as a lesson on the ephemerality of all relationships. This specimen has never seen use, and prowls the darkness, looking for a friend to bond with.",
+    "Ashsoul" : "In his quest to erase the sin of Affection once and for all, Habor the Fourteenth Saint nominated citizens who would undergo a terrible spiritual ritual. When the monks were done signing, those now remembered as the Ashsoul screamed and screamed again, pushing away all who'd approach them, seeing every single creature as twisted, charred monsters of nightmare.",
     // Tiles
     "Floor" : "A long time ago, legions of monks carved holy symbols on each floortile of the palaces, so they may be worthy of being treaded by the Saints' steps. Decades of dust has undone the tireless work of these artists.",
     "Seal" : "The Saints feared Terminal would try to escape before the end times. They locked down their royal chambers, trading convenience for the peace of mind that their ticket to immortality would not run away in the middle of the night.",
@@ -291,7 +292,8 @@ monabi = {
     "Felidol" : "GRASP OF JADE - When slain, leaves behind a Soul Siphon. If an enemy is slain on top of the Siphon, you do not gain its soul, and the Felidol is reanimated bearing the absorbed soul. Other Felidols are immune.",
     "Weaver" : "PAPER-THIN PATIENCE - Moves randomly, does not attack, and leaves Pinwheels on the floor. Stepping on a Pinwheel will enrage the Weaver, giving it double speed and a devastating knockback attack (this attack cannot be used if you are standing against a wall!).",
     "Rendfly" : "PAIN-HACK INJECTION - Cannot attack. Double speed. Occasionally blinks around the room. Bites enemies, inducing a short-duration Damage Delay effect.",
-    "Third" : "WANDERFRIEND - Every 12 turns, teleports randomly."
+    "Third" : "WANDERFRIEND - Teleports randomly every 12 turns.",
+    "Ashsoul" : "HORRORBLAZE - Teleports randomly every 12 turns. Can occasionally use a powerful knockback punch.",
 }
 
 souldesc = {

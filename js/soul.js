@@ -409,6 +409,26 @@ spells = {
             shakeAmount = 35;
         }
     },
+    GYVJINODMG: function(caster){
+        let newTile = caster.tile;
+        newTile = newTile.getNeighbor(caster.lastMove[0],caster.lastMove[1]);
+        let testTile = newTile;
+        let target = testTile.monster;
+        while(target != null){
+            testTile = newTile.getNeighbor(caster.lastMove[0],caster.lastMove[1]);
+            if(testTile.passable && !testTile.monster){
+                if (target.isPlayer) newTile.setEffect(target.sprite,30);
+                newTile = testTile;
+            }else{
+                break;
+            }
+        }
+        if(target != null && target.tile != newTile && target.isPlayer){
+            target.move(newTile);
+            playSound("explosion");
+            shakeAmount = 35;
+        }
+    },
     KASHIA: function(caster){
         if (caster.falsehp == 0) caster.falsehp = caster.hp;
         caster.deathdelay = 7;

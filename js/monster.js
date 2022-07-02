@@ -1105,7 +1105,7 @@ class Player extends Monster{
         playSound("newLevel");
         level++;
         let areas = ["Faith","Circus","Spire","Edge"]; // add Edge when it's not bugged "Spire"
-        area = areas[randomRange(0,2)]
+        area = areas[randomRange(1,1)]
         for(let i=0;i<this.inhand.length;i++){
             this.discard.push(this.inhand[i]);
         }
@@ -1514,7 +1514,7 @@ class Modulorb extends Monster{
 
 class Third extends Monster{
     constructor(tile){
-        super(tile, 65, 1, "VILE", description["Third"]);
+        super(tile, 65, 2, "VILE", description["Third"]);
         this.soul = "Animated by a Vile (1) soul.";
         this.name = "Third Emblem of Sin";
         this.ability = monabi["Third"];
@@ -1525,7 +1525,29 @@ class Third extends Monster{
         if (this.abitimer == 12){
             this.abitimer = 0;
             spells["WOOP"](this);
-            player.fov = 2;
+        }
+        else{
+            super.doStuff();
+        }
+    }
+}
+
+class Ashsoul extends Monster{
+    constructor(tile){
+        super(tile, 66, 1, "UNHINGED", description["Ashsoul"]);
+        this.soul = "Animated by an Unhiged (3) soul.";
+        this.name = "Ashsoul Screecher";
+        this.ability = monabi["Ashsoul"];
+        this.abitimer = 0;
+    }
+    doStuff(){
+        this.abitimer++;
+        if (this.abitimer == 12){
+            this.abitimer = 0;
+            spells["WOOP"](this);
+        }
+        else if (this.abitimer % 3 == 1){
+            spells["GYVJINODMG"](this);
         }
         else{
             super.doStuff();

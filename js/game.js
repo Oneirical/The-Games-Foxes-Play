@@ -344,7 +344,7 @@ function startLevel(playerHp){
         
         generateCircus();
         let montest = new Third(getTile(9,9));
-        let montest2 = new Third(getTile(9,10));
+        let montest2 = new Ashsoul(getTile(9,10));
         monsters.push(montest);
         monsters.push(montest2);
     } 
@@ -353,6 +353,7 @@ function startLevel(playerHp){
     else if (area == "Circus") tile = getTile(5,5);
     else tile = getTile(Math.floor((numTiles-1)/2),Math.floor((numTiles-1)/2));
     player = new Player(tile);
+    if (area == "Circus") player.fov = 2; //temp remove
     if (area == "Spire") player.tile.replace(Ladder);
     player.discard = dissave;
     player.inventory = invsave;
