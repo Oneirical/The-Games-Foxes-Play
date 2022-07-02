@@ -196,7 +196,7 @@ function tick(){
     for(let k=monsters.length-1;k>=0;k--){
         if(!monsters[k].dead){
             monsters[k].update();
-            if (!monsters[k].permacharm) deadcheck++
+            if (!monsters[k].permacharm || monsters[k].name.includes("Vermin")) deadcheck++
         }else{
             monsters.splice(k,1);
             
