@@ -1267,7 +1267,7 @@ class BattleFluffy extends Monster{
         if(!this.attackedThisTurn && player.activemodule == "Alacrity"){
             super.doStuff();
         }
-        else if (!this.attackedThisTurn && player.activemodule == "Focus" && this.specialAttack != "Harmony"){
+        else if (!this.attackedThisTurn && player.activemodule == "Selective" && this.specialAttack != "Harmony"){
             if (player.consumeCommon(3,false)){
                 this.specialAttack = "Harmony";
             }

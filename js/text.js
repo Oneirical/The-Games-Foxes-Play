@@ -330,11 +330,11 @@ souldesc = {
     "KASHIA" : "The first day of her infection, many wondered why Kashia waited five seconds to respond after being asked the most basic questions. After being brought for inspection to a dream-healer, her family gasped in horror at the apparent lack of a soul within her body. Their throats breathed sighs of relief when a little ghostly Kashia arrived five seconds later to mesh with the lizard's flesh, seemingly forever cursed to remain an after-image.",
 
     //modulators
-    "Alacrity" : "it does a funny thing with your head", //TODO
-    "Selective" : "it makes it so bad thing become good thing", //TODO
-    "Thrusters" : "",
-    "Hover" : "",
-    "Focus" : "yea really need to do these",
+    "Alacrity" : "A Collectivist's mind isn't located in any centralized brain - their intelligence is rather the sum of billions of tiny atmospheric depressurizations between their body and the outside air. In a vaccuum, a Harmony member would be instantly reduced to a puff of thoughtless gas. This cybernetic allows some degree of connection between your own mushy brain and the outside environment, hastening your wit.", //TODO
+    "Selective" : "To a soul unprotected by its own unique flesh container, the Harmonic song is a tidal wave of cyan paint, erasing all colour and enforcing an irresistible Sameness. The Harmonic song is, thankfully, very recognizable. While it cannot be silenced, it can certainly be redirected towards a weaker recipient. Serene souls will not appreciate this forceful containment, and will seek out additional targets to enthrall... perhaps to your advantage.", //TODO
+    "Thrusters" : "A more whimsical piece of technology produced by the Collective, mostly used for grandiose dances at the summit of their impossibly tall Spire. Manipulating air as if it were dough, this modulator repeatedly forms vaccuums right in front of the cybernetic, pushing a localized atmospheric bubble forward, and the user with it. The Collective assumes no liability for broken bones or brain damage following the use of this device.",
+    "Hover" : "All Collectivists come natively with this module installed, letting them entrance ruffians with their smooth, elegant motions. As if this cybernetic were an insignia of nobility, air recedes from each gesture you intentionally perform, and constantly pushes you ever-so-slightly towards the Spire's summit. That means, generally upwards.",
+    "Focus" : "A Soul is a fickle thing, slipping away like quicksilver the moment doubt traverses one's mind. On the other hand, a Collectivist's Serene soul is extremely hard to push out, for they are forever radiating the most immutable confidence, and the unquestionable belief that they are, and have always been Fluffy. A simple change of name is all it takes to apply that unbreakable conviction to the most mundane souls.",
     "NONE" : "",
 }  
 
@@ -412,10 +412,10 @@ soulval = {
 
     //modulators
     "Alacrity" : "Consumes 1 Common Soul per soul draw.",
-    "Selective" : "Consumes 1 Common Soul per use of a Serene Soul.",
+    "Selective" : "Consumes 1 Common Soul per use of a Serene Soul. Consumes 3 Common Souls per Harmony-branded attack.",
     "Thrusters" : "",
     "Hover" : "",
-    "Focus" : "Consumes 3 Common Souls per soul cast. Consumes 3 Common Souls per Harmony-branded attack.",
+    "Focus" : "Consumes 3 Common Souls per soul cast. ",
     "NONE" : "",
 }
 
