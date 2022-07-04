@@ -109,6 +109,8 @@
                 if (tile.y > 8){
                     player.hit(99);
                     fallen = true;
+                    message = "Fallen";
+                    player.fall = 0;
                 }
                 else player.move(tile);
                 if (e.key == "a" && !fallen){
