@@ -396,7 +396,6 @@ class Player extends Monster{
         this.fall = 0;
         this.rosetox = 0;
         this.fov = 0;
-        this.spawn = false;
     }
 
     cycleModules(){
@@ -448,8 +447,15 @@ class Player extends Monster{
 
     tryMove(dx, dy){
         if(super.tryMove(dx,dy)){
+            if (this.activemodule == "Thrusters"){
+                if (this.consumeCommon(1,false))spells["FERALNODMG"](this,dx,dy);
+                else{
+                    message = "FluffyInsufficientPower";
+                    this.activemodule = "NONE";
+                    playSound("off");
+                }
+            }
             tick();
-            this.spawn = true;
         }
         if (area == "Spire" && !(this.tile.getNeighbor(0,1) instanceof Platform || this.tile.getNeighbor(0,1) instanceof Ladder || this.tile instanceof Ladder)){
             this.fall++;
@@ -1279,8 +1285,14 @@ class BattleFluffy extends Monster{
                 player.activemodule = "NONE";
                 playSound("off");
             }
-            
-
+        }
+        else if (!this.attackedThisTurn && player.activemodule == "Thrusters"){
+            if (player.consumeCommon(1,false)) spells["FERAL"](this);
+            else{
+                message = "FluffyInsufficientPower";
+                player.activemodule = "NONE";
+                playSound("off");
+            }
         }
     }
 }

@@ -65,6 +65,20 @@ spells = {
             });
         }
     },
+    FERALNODMG: function(caster, x, y){
+        let newTile = caster.tile;
+        while(true){
+            let testTile = newTile.getNeighbor(x,y);
+            if(testTile.passable && !testTile.monster){
+                newTile = testTile;
+            }else{
+                break;
+            }
+        }
+        if(caster.tile != newTile){
+            caster.move(newTile);
+        }
+    },
     DIG: function(){
         for(let i=1;i<numTiles-1;i++){
             for(let j=1;j<numTiles-1;j++){

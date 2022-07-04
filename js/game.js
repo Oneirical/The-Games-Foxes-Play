@@ -299,7 +299,7 @@ function startGame(){
     numSpells = 0;
     aubecounter = 0;
     invsave = ["SERENE","SAINTLY","SAINTLY","SAINTLY","SAINTLY","SAINTLY","SAINTLY","SAINTLY","SAINTLY","SAINTLY","SAINTLY","SAINTLY","SAINTLY","SAINTLY","SAINTLY",];//[, ] //];
-    modules = ["NONE"];
+    modules = ["NONE","Thrusters"];
     modulators = ["Alacrity","Selective","Thrusters","Hover","Focus"];
     shuffle(invsave);
     dissave = [];

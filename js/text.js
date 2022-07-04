@@ -373,10 +373,10 @@ soulabi = {
 
     //modulators
     "Alacrity" : "Drawing souls with \"q\" requires zero turns. Serene Peacekeepers gain Haste.",
-    "Selective" : "Using Serene Souls will never harmonize a Legendary Soul.",
-    "Thrusters" : "",
+    "Selective" : "Using Serene Souls will never harmonize a Legendary Soul.  Serene Peacekeepers gain Harmony-branded attacks.",
+    "Thrusters" : "Every step you take becomes a dash (that deals zero damage). Serene Peacekeepers perform damaging dashes.",
     "Hover" : "",
-    "Focus" : "Casting Souls does not return them to the discard pile. Serene Peacekeepers gain Harmony-branded attacks.",
+    "Focus" : "Casting Souls does not return them to the discard pile.",
     "NONE" : "",
     
 }
@@ -415,9 +415,9 @@ soulval = {
     //modulators
     "Alacrity" : "Consumes 1 Common Soul per soul draw.",
     "Selective" : "Consumes 1 Common Soul per use of a Serene Soul. Consumes 3 Common Souls per Harmony-branded attack.",
-    "Thrusters" : "",
+    "Thrusters" : "Consumes 1 Common Soul per dash. Consumes 1 Common soul per Serene dash.",
     "Hover" : "",
-    "Focus" : "Consumes 3 Common Souls per soul cast. ",
+    "Focus" : "Consumes 3 Common Souls per soul cast.",
     "NONE" : "",
 }
 
