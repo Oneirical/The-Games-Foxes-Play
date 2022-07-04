@@ -96,6 +96,13 @@ messages = {
     "FluffyNoConvertTaunt" : "\"Do you believe our aid comes at no cost, ruffian? Fill your subconscious mind with audience for the Harmony's song, and then, we shall sing for you.\"",
 
     "FluffyModuleWelcome" : "\"A ruffian with a world inside his head. The unharmonized do express their mediocrity in the strangest ways.\"",
+    "FluffyModule1" : "\"While your intrusion into our blessed Spire is a crime of the highest order, we attest that you did not come here intentionally.\"",
+    "FluffyModule2" : "\"Since that stubborn little fuzzy head of yours won't ever listen to Fluffy's most convincing arguments, allow the Harmony to speak to you in a language you understand: loot.\"",
+    "FluffyModule3" : "\"That floating platform under us contains one of Fluffy's legendary creations, a Harmonic Modulator. With this cybernetic, the Harmony shall impart on you a fraction of our grace. Press 'f' to cycle between modulators - it stands for 'Fluffy', of course.\"",
+    "FluffyModule4" : "\"If those voices in your head are ever growing too loud, consider Fluffy's gift a try. You will perform feats ruffians could only dream of, and, in exchange, your souls of the worst quality will be teletransported here for uplifting.\"",
+    "FluffyModule5" : "\"Fluffy is aware such a cost can... prove limiting for repeated use. You may upgrade your license, of course, thus waiving all fees. How does a ruffian like you purchase such a license, you ask? By synchronizing your motions and mannerisms with the Harmony, of course.\"",
+    "FluffyModule6" : "\"Until then, feel free to make use of our trinkets at the basic, Ruffian tier. Oh, and, yes, that platform down there has no ladder. It is not an oversight. Fluffy never makes mistakes.\"",
+    "FluffyModule7" : "\"Fluffy is afraid the only way out is down.\"",
 
     // Saints' Voice dialogue
     "Saint1" : "\"Vessel. Your rest has come to its end.\"",
