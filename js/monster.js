@@ -799,10 +799,21 @@ class Player extends Monster{
     castSpell(index){                                 
         let spellName = this.inhand[index];
         if(spellName && !soulabi[spellName].includes("Cannot be activated")){
-            this.saved.push(spellName);
             message = spellName;
             spells[spellName](this);
-            if (!fail) this.inhand.splice(index, 1); //
+            if (!fail && this.activemodule != "Focus"){
+                this.saved.push(spellName);
+                this.inhand.splice(index, 1); 
+            } //
+            else if (this.activemodule == "Focus"){
+                if(!this.consumeCommon(3,false)){
+                    message = "FluffyInsufficientPower";
+                    this.inhand.splice(index, 1);
+                    player.activemodule = "NONE";
+                    playSound("off");
+                    this.saved.push(spellName);
+                }
+            }
             if (!fail) playSound("spell");
             if (!fail) tick();
             fail = false;
@@ -1255,6 +1266,18 @@ class BattleFluffy extends Monster{
 
         if(!this.attackedThisTurn && player.activemodule == "Alacrity"){
             super.doStuff();
+        }
+        else if (!this.attackedThisTurn && player.activemodule == "Focus" && this.specialAttack != "Harmony"){
+            if (player.consumeCommon(3,false)){
+                this.specialAttack = "Harmony";
+            }
+            else{
+                message = "FluffyInsufficientPower";
+                player.activemodule = "NONE";
+                playSound("off");
+            }
+            
+
         }
     }
 }

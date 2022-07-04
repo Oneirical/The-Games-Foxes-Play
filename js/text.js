@@ -89,6 +89,8 @@ messages = {
     "FluffyDoubleDrawTaunt2" : "\"You clutch two souls in your paws, and yet are already looking to draw out more? This will completely disrupt the Soulscribing process! How rash can you be? I suppose I should not believe such foolishness is beyond your capabilities, for you are not Fluffy.\"",
     "FluffyNoConvertTaunt" : "\"Do you believe our aid comes at no cost, ruffian? Fill your subconscious mind with audience for the Harmony's song, and then, we shall sing for you.\"",
 
+    "FluffyModuleWelcome" : "\"A ruffian with a world inside his head. The unharmonized do express their mediocrity in the strangest ways.\"",
+
     // Saints' Voice dialogue
     "Saint1" : "\"Vessel. Your rest has come to its end.\"",
     "Saint2" : "\"The cycle nears its end, and the Old World is crumbling once more, soon to be replaced by the Next World.\"",
@@ -332,7 +334,7 @@ souldesc = {
     "Selective" : "it makes it so bad thing become good thing", //TODO
     "Thrusters" : "",
     "Hover" : "",
-    "Focus" : "",
+    "Focus" : "yea really need to do these",
     "NONE" : "",
 }  
 
@@ -372,7 +374,7 @@ soulabi = {
     "Selective" : "Using Serene Souls will never harmonize a Legendary Soul.",
     "Thrusters" : "",
     "Hover" : "",
-    "Focus" : "",
+    "Focus" : "Casting Souls does not return them to the discard pile. Serene Peacekeepers gain Harmony-branded attacks.",
     "NONE" : "",
     
 }
@@ -413,7 +415,7 @@ soulval = {
     "Selective" : "Consumes 1 Common Soul per use of a Serene Soul.",
     "Thrusters" : "",
     "Hover" : "",
-    "Focus" : "",
+    "Focus" : "Consumes 3 Common Souls per soul cast. Consumes 3 Common Souls per Harmony-branded attack.",
     "NONE" : "",
 }
 
