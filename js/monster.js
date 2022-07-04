@@ -527,7 +527,7 @@ class Player extends Monster{
     }
 
     addSpell(skey){
-        if (modulatorssave.includes(skey)) modules.push(skey);
+        if (smod.includes(skey)) modules.push(skey);
         else{
             this.discard.push(skey);
             if (doublecounter!=0) this.inhand.push(skey);
@@ -994,10 +994,9 @@ class Player extends Monster{
             }
         }
         if (bonusartifact){
-            let moddrop = modulators[randomRange(0,modules.length-1)];
-            removeItemOnce(modules,modulators);
+            let moddrop = modulators[randomRange(0,modulators.length-1)];
+            removeItemOnce(modulators,moddrop);
             spawnCages(moddrop,getTile(4,5));
-            console.log(moddrop);
         }
         
         
@@ -1116,7 +1115,7 @@ class Player extends Monster{
         playSound("newLevel");
         level++;
         let areas = ["Faith","Circus","Spire","Edge"]; // add Edge when it's not bugged "Spire"
-        area = areas[randomRange(1,1)]
+        area = areas[randomRange(2,2)]
         for(let i=0;i<this.inhand.length;i++){
             this.discard.push(this.inhand[i]);
         }

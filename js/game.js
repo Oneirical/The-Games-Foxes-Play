@@ -73,7 +73,8 @@ function draw(){
         }
         
         if (level == 0) drawText("World Seed", 30, false, 40, "violet");
-        else if (level % 5 == 1 && level > 5) drawText("Test of Unity", 30, false, 40, "violet");
+        else if (level % 5 == 1 && level > 5 && area == "Faith") drawText("Test of Unity", 30, false, 40, "violet");
+        else if (level % 5 == 1 && level > 5 && area == "Spire") drawText("Fluffian Workshop", 30, false, 40, "violet");
         else if (area == "Spire") drawText("Serene Spire: floor "+level, 30, false, 40, "violet");
         else if (area == "Circus") drawText("Roseic Circus", 30, false, 40, "violet");
         else drawText("Faith's End: level "+level, 30, false, 40, "violet");
@@ -98,16 +99,16 @@ function draw(){
         if (gameState == "discard" && naiamode) drawText("Which soul to cast?", 20, false, 100, "fuchsia");
         if (gameState == "vision" && discarded == 0) drawText("Which soul to stack?", 20, false, 100, "deepskyblue");
         player.draw();
-        if (level % 5 == 1 && level > 5) drawChar(tiles[2][3].value, 30, 151, 235, "cyan");
-        if (level % 5 == 1 && level > 5) drawChar(tiles[4][2].value, 30, 280, 171, "cyan");
-        if (level % 5 == 1 && level > 5) drawChar(tiles[6][3].value, 30, 408, 235, "cyan");
-        if (level % 5 == 1 && level > 5) drawChar(tiles[2][5].value, 30, 151, 363, "red");
-        if (level % 5 == 1 && level > 5) drawChar(tiles[4][6].value, 30, 280, 427, "red");
-        if (level % 5 == 1 && level > 5) drawChar(tiles[6][5].value, 30, 408, 363, "red");
-        if (level % 5 == 1 && level > 5 && !player.betted) drawChar(tiles[5][5].value, 30, 343, 363, "yellow");
-        if (level % 5 == 1 && level > 5 && !player.betted) drawChar(tiles[3][5].value, 30, 215, 363, "yellow");
-        if (level % 5 == 1 && level > 5 && !player.betted) drawChar(tiles[3][3].value, 30, 215, 235, "yellow");
-        if (level % 5 == 1 && level > 5 && !player.betted) drawChar(tiles[5][3].value, 30, 343, 235, "yellow");
+        if (level % 5 == 1 && level > 5 && area == "Faith") drawChar(tiles[2][3].value, 30, 151, 235, "cyan");
+        if (level % 5 == 1 && level > 5 && area == "Faith") drawChar(tiles[4][2].value, 30, 280, 171, "cyan");
+        if (level % 5 == 1 && level > 5 && area == "Faith") drawChar(tiles[6][3].value, 30, 408, 235, "cyan");
+        if (level % 5 == 1 && level > 5 && area == "Faith") drawChar(tiles[2][5].value, 30, 151, 363, "red");
+        if (level % 5 == 1 && level > 5 && area == "Faith") drawChar(tiles[4][6].value, 30, 280, 427, "red");
+        if (level % 5 == 1 && level > 5 && area == "Faith") drawChar(tiles[6][5].value, 30, 408, 363, "red");
+        if (level % 5 == 1 && level > 5 && !player.betted && area == "Faith") drawChar(tiles[5][5].value, 30, 343, 363, "yellow");
+        if (level % 5 == 1 && level > 5 && !player.betted && area == "Faith") drawChar(tiles[3][5].value, 30, 215, 363, "yellow");
+        if (level % 5 == 1 && level > 5 && !player.betted && area == "Faith") drawChar(tiles[3][3].value, 30, 215, 235, "yellow");
+        if (level % 5 == 1 && level > 5 && !player.betted && area == "Faith") drawChar(tiles[5][3].value, 30, 343, 235, "yellow");
         if (sacrifice == 6 && !cursormode) printAtSidebar("Your Fluffian Arithmetic Elegance Score is "+sacritotal+".", 18, 590, 130, "cyan", 20, 350);
         //if (sacrifice < 6 && gameState == "fluffy" && !cursormode) printAtWordWrap("Press the corresponding number while standing on a Relay to sacrifice a soul.", 18, 590, 320, "cyan", 20, 350);
         //if (sacrifice < 6 && gameState == "fluffy" && !cursormode) printAtWordWrap("Press \"q\" to bring forth souls to sacrifice.", 18, 590, 250, "cyan", 20, 350);
@@ -294,8 +295,8 @@ function startGame(){
     numSpells = 0;
     aubecounter = 0;
     invsave = ["SERENE","SAINTLY","SAINTLY","SAINTLY","SAINTLY","SAINTLY","SAINTLY","SAINTLY","SAINTLY","SAINTLY","SAINTLY","SAINTLY","SAINTLY","SAINTLY","SAINTLY",];//[, ] //];
-    modules = ["NONE","Alacrity","Selective","Focus"];
-    modulators = modulatorssave;
+    modules = ["NONE"];
+    modulators = ["Alacrity","Selective","Thrusters","Hover","Focus"];
     shuffle(invsave);
     dissave = [];
     startLevel(startingHp);
@@ -337,8 +338,14 @@ function startLevel(playerHp){
         //generateMonsters();
     }
     else if (area == "Spire"){
-        generateSpire();
-        generateMonsters();
+        if (level % 5 == 1 && level > 5){
+            generateModule();
+            generateMonsters();
+        }
+        else{
+            generateSpire();
+            generateMonsters();
+        }
     }
     else if (area == "Circus"){
         
@@ -349,12 +356,13 @@ function startLevel(playerHp){
         monsters.push(montest2);
     } 
     if (level != 0 && area == "Faith") tile = getTile(Math.floor((numTiles-1)/2), 1);
+    else if (area == "Spire" && level % 5 == 1 && level > 5) tile = getTile(1,8)
     else if (area == "Spire") tile = spirespawner;
-    else if (area == "Circus") tile = getTile(5,5);
+    else if (area == "Circus") tile = getTile(1,8);
     else tile = getTile(Math.floor((numTiles-1)/2),Math.floor((numTiles-1)/2));
     player = new Player(tile);
     if (area == "Circus") player.fov = 2; //temp remove
-    if (area == "Spire") player.tile.replace(Ladder);
+    if (area == "Spire" && !(level % 5 == 1 && level > 5)) player.tile.replace(Ladder);
     player.discard = dissave;
     player.inventory = invsave;
     player.teleportCounter = 0;

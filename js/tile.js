@@ -352,8 +352,8 @@ class Booster extends Exit{
         this.sprite = 59;
     }
     stepOn(monster){
-        message = "Empty";
         super.stepOn(monster);
+        message = "Empty";
     }
 }
 

@@ -125,6 +125,28 @@ function generateSpire(){
     return passableTiles;
 }
 
+function generateModule(){
+    let vault = {
+        0: [Booster, Floor, Floor,Floor,Floor,Floor,Floor,Floor,Floor],
+        1: [Platform,Platform,Platform,Platform,Floor,Floor,Floor,Floor, Floor],
+        2: [Floor, Floor, Ladder, Floor, Floor, Floor, Platform, Platform, Platform],
+        3: [Floor, Floor, Ladder, Floor,Floor,Floor,Ladder,Floor,Floor],
+        4: [Floor,Floor,Ladder,Floor,Platform,Platform,Platform,Platform,Platform],
+        5: [Floor,Floor,Ladder,Floor,Floor,Floor,Floor,Floor,Floor],
+        6: [Floor,Floor,Ladder,Floor,Floor,Floor,Floor,Floor,Floor],
+        7: [Platform,Platform,Platform,Floor,Floor,Platform,Platform,Platform,Floor],
+        8: [Floor,Ladder,Floor,Floor,Floor,Floor,Floor,Floor,Floor],
+    }
+    tiles = [];
+    for(let i=0;i<numTiles;i++){
+        tiles[i] = [];
+        for(let j=0;j<numTiles;j++){
+            let tile = vault[j][i];
+            tiles[i][j] = new tile(i,j);
+        }
+    }
+}
+
 function generateCircus(){
     let vault = {
         0: [RoseWall,RoseWall,RoseWall,RoseWall,RoseWall,RoseWall,RoseWall,RoseWall,AbazonWall,AbazonWall,RoseWall,RoseWall,RoseWall,RoseWall,RoseWall,RoseWall,RoseWall,RoseWall],
@@ -215,6 +237,14 @@ function generateMonsters(){
     for(let i=0;i<numMonsters;i++){
         spawnMonster();
     }
+    if (area == "Spire" && level % 5 == 1 && level > 5){
+        let wtfisthisbug = randomRange(0,modulators.length-1);
+        let moddrop = modulators[wtfisthisbug];
+        modulators.splice(wtfisthisbug, 1)
+        spawnCages(moddrop, getTile(6,6));
+        let monster = new Harmonizer(getTile(7,1));
+        monsters.push(monster);
+    }
 }
 
 function spawnMonster(){
@@ -246,7 +276,7 @@ function spawnMonster(){
 
 function spawnCages(loot, tile){
     let cage;
-    if (modulatorssave.includes(loot)) cage = new Modulorb(tile, loot);
+    if (smod.includes(loot)) cage = new Modulorb(tile, loot);
     else cage = new Cage(tile, loot);
     if (cage.loot == "SERENE") cage.lore = description["FluffyCage"];
     monsters.push(cage);

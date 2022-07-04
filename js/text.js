@@ -5,8 +5,8 @@ artistic = ["PURPIZUG","AUBE","BORERORA", "GYVJI"];
 ordered = ["ASPHA","ABAZON","NAIA"];
 saintly = ["ROSE","ZAINT","ASTER"];
 basic = ["TAINTED","VILE","FERAL","UNHINGED","ARTISTIC","ORDERED","SAINTLY"];
+smod = ["Alacrity","Selective","Thrusters","Hover","Focus"];
 modulators = ["Alacrity","Selective","Thrusters","Hover","Focus"];
-modulatorssave = ["Alacrity","Selective","Thrusters","Hover","Focus"];
 
 //Monsters
 // Monk
