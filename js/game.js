@@ -330,7 +330,7 @@ function startLevel(playerHp){
     spawnCounter = spawnRate;  
     exitspawn = 0;
     resolve = 3+ 2*Math.floor(level/6);
-    if (level % 5 != 1 || level == 1) message = "Empty";
+    if (level % 5 != 1 || level == 1 || area == "Spire") message = "Empty";
     playMusic();
     if (area == "Faith") generateLevel();
     else if (area == "Edge"){

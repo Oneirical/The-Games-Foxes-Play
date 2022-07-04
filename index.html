@@ -112,7 +112,10 @@
                 else if (e.key == "d"){
                     player.tryMove(1, 0);
                 }
-                if(player.tile.getNeighbor(0,1) instanceof Platform || player.tile.getNeighbor(0,1) instanceof Ladder) {
+                if (player.tile.y > 8){
+                    player.hit(99);
+                }
+                if(player.tile.getNeighbor(0,1) instanceof Platform || player.tile.getNeighbor(0,1) instanceof Ladder || player.tile.getNeighbor(0,1) instanceof Booster) {
                     message = "Empty";
                     player.fall = 0;
                 }

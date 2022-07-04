@@ -118,7 +118,7 @@ class Monster{
             if (this.deathdelay == 0){
                 this.hp = this.falsehp;
                 if (this.hp <= 0){
-                    this.die();
+                    this.hit(99);
                     removeItemOnce(monsters,this);
                     if (!this.noloot) player.addSpell(this.loot);
                     this.noloot = true;
@@ -437,7 +437,7 @@ class Player extends Monster{
             this.deathdelay--;
             if (this.deathdelay == 0){
                 this.hp = this.falsehp;
-                if (this.hp <= 0) this.die();
+                if (this.hp <= 0) this.hit(99);
                 removeItemOnce(monsters,this);
                 if (!this.noloot) player.addSpell(this.loot);
                 this.noloot = true;
@@ -455,7 +455,7 @@ class Player extends Monster{
         if (this.para > 0){
             message = "Paralyzed";
         }
-        if (this.fall > 0){
+        if (this.fall > 0 && !(this.tile instanceof Ladder)){
             message = "Falling";
         }
     }
@@ -1529,8 +1529,11 @@ class Modulorb extends Monster{
         this.soul = "Contains the "+modulename[contents];
         this.name = "Modulator Orbkeeper";
         this.teleportCounter = 0;
-        this.paralyzed = true;
         this.ability = "";
+    }
+    update(){
+        this.stunned = true;
+        super.update();
     }
 }
 
