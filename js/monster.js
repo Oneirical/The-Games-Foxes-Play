@@ -459,8 +459,6 @@ class Player extends Monster{
         }
         if (this.fall > 0 && !this.dead){ //wtf why is it fluffexit and not ladder? whatever works I guess
             if (this.tile.name != "Harmonic Seal") message = "Falling";
-            console.log("aa")
-            console.log(this.tile.name);
         }
         if (message == "Falling" && this.fall == 0) message = "Empty";
     }
