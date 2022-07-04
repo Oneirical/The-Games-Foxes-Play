@@ -80,7 +80,8 @@ function draw(){
         else drawText("Faith's End: level "+level, 30, false, 40, "violet");
         drawText("Ipseity: "+truehp, 30, false, 70, "cyan");
         if (gameState == "running"){
-            drawText("Resolve: "+resolve, 30, false, 100, "orange");
+            if (area != "Circus") drawText("Resolve: "+resolve, 30, false, 100, "orange");
+            else drawText("Glamour: "+player.rosetox+"/10", 30, false, 100, "lightpink");
         }
         if (gameState == "contemplation"){
             drawText("Agony: "+agony, 30, false, 100, "red");
@@ -165,7 +166,7 @@ function draw(){
             }
             let coloring = colours[message];
             if (message.includes("Fluffy")) coloring = "cyan";
-            else if (message.includes("Rose")) coloring = "lavenderblush";
+            else if (message.includes("Rose")) coloring = "lightpink";
             if ((!cursormode && !invmode) || (cursormode && invmode)) printAtWordWrap(messages[message], 18, 10, 600, coloring, 20, 940);
             if (rosetoxin > 1){
                 ctx.globalAlpha = 0.5;
@@ -232,6 +233,9 @@ function tick(){
             else if (area == "Serene"){
                 message = "Fallen";
                 fallen = false;
+            }
+            else if (player.rosetox > 9){
+                message = "Rosified";
             }
             for(let k=monsters.length-1;k>=0;k--){
                 monsters.splice(k,1);
@@ -361,7 +365,7 @@ function startLevel(playerHp){
     if (level != 0 && area == "Faith") tile = getTile(Math.floor((numTiles-1)/2), 1);
     else if (area == "Spire" && level % 5 == 1 && level > 5) tile = getTile(1,8)
     else if (area == "Spire") tile = spirespawner;
-    else if (area == "Circus") tile = getTile(1,8);
+    else if (area == "Circus") tile = getTile(8,8);
     else tile = getTile(Math.floor((numTiles-1)/2),Math.floor((numTiles-1)/2));
     if (area == "Spire" && !(level % 5 == 1 && level > 5)) tile.replace(Ladder);
     player = new Player(tile);

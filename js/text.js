@@ -27,19 +27,24 @@ messages = {
     // Various out-of-character messages
     "Empty" : "",
     "AgonyWarning" : "You do not have enough Agony to forget this soul!",
-    "Agony" : "You lie motionless for hours on the cold floor, until a void bubble finally begins approaching your location. You are granted the opportunity to abandon souls to the cataclysm. Press \"r\" to reincarnate once you have made your choices.",
     "Shiza" : "Select one soul to discard, then two to stack on top of your deck. The last selected card goes on top of the deck.",
     "InvPrompt": "Press the key corresponding to the soul in your paw you wish to inspect, or press \"v\" on top of a creature to view the details of their soul. Press \"c\" at any time to exit.",
-    "RoomDeath" : "After their fangs were done toying with your flesh, they had taken away much more than sinew and bone. Your soul turned Feral, and the last lights of duty and purpose were soon snuffed out like a candle flame, leaving nothing but a ravenous husk.",
-    "DrawDeath" : "You broke your limits for the last time, and, in doing so, broke yourself as well. What should have been the denizens of the Next World now seep through your closed eyes, while your soul turns Feral and assumes the command of your exhausted body. Your journey has come to its end.",
     "Discard" : "Press the numbers corresponding to the souls you wish to discard. Press \"r\" when finished.",
     "NaiaTime" : "The realms of thoughts and actions synchronize into one, turning your every wish into reality. Cast as many souls as you wish. Once finished, press \"r\" to exit this trance.",
     "NoSouls" : "Your mind is devoid of souls, except for your own. Slay enemies to harvest souls!",
     "Paralyzed" : "You are paralyzed! Try to move around to shrug off the paralysis.",
     "Falling" : "You are falling! Try to move around to gain back your footing.",
     "Oversoul" : "Your psyche is trembling with the echo of a thousand chatters! Unleash some souls before drawing more.",
-    "Fallen" : "The Harmony's song meshes with the howling wind in your ears as you plummet to the Spire's base, unceremoniously snapping your every bone while two nearby Harmonizers release a short \"Hmph!\" of contempt. You are granted the opportunity to abandon souls to the Harmony. Press \"r\" to reincarnate once you have made your choices.",
     
+    
+    // Death messages
+    "Fallen" : "The Harmony's song meshes with the howling wind in your ears as you plummet to the Spire's base, unceremoniously snapping your every bone while two nearby Harmonizers release a short \"Hmph!\" of contempt. You are granted the opportunity to abandon souls to the Harmony. Press \"r\" to reincarnate once you have made your choices.",
+    "Agony" : "You lie motionless for hours on the cold floor, until a void bubble finally begins approaching your location. You are granted the opportunity to abandon souls to the cataclysm. Press \"r\" to reincarnate once you have made your choices.",
+    "Rosified" : "The Circus's enthralling floral perfume overwhelms your nostrils, stunning you on the spot. In your glamorous trance, you see your paws crowned by perfectly manucured pink claws, and stare, grinning in false pride, while the world slowly dims around you. You are granted the opportunity to abandon souls to the Circus. Press \"r\" to reincarnate once you have made your choices.",
+    
+    // True death messages
+    "RoomDeath" : "After their fangs were done toying with your flesh, they had taken away much more than sinew and bone. Your soul turned Feral, and the last lights of duty and purpose were soon snuffed out like a candle flame, leaving nothing but a ravenous husk. Your journey has come to its end.",
+    "DrawDeath" : "You broke your limits for the last time, and, in doing so, broke yourself as well. What should have been the denizens of the Next World now seep through your closed eyes, while your soul turns Feral and assumes the command of your exhausted body. Your journey has come to its end.",
     
     // Serene Harmonizer dialogue
     "FluffyFloorTaunt" : "\"Some call Fluffy heartless -- and yet here you are, attempting to let a proud soul collect muck on the grime-tainted floor. If you won't have the tact to use Fluffy's services properly, at least have the decency to leave and never return in Fluffy's presence.\"",
@@ -168,6 +173,7 @@ colours = {
     "Paralyzed" : "orange",
     "Falling" : "white",
     "Fallen" : "white",
+    "Rosified" : "lightpink",
     
     "Discard" : "deepskyblue",
     "Shiza" : "deepskyblue",
@@ -195,7 +201,7 @@ colours = {
     "SERENE" : "cyan",
     "JOLTZAZON" : "yellow",
     "PURPIZUG" : "orange",
-    "ROSE" : "lavenderblush",
+    "ROSE" : "lightpink",
     "ZENESTE" : "mediumorchid",
     "KILAMI" : "lightgoldenrodyellow",
     "AUBE" : "darkseagreen",
