@@ -455,7 +455,7 @@ class Player extends Monster{
         if (this.para > 0){
             message = "Paralyzed";
         }
-        if (this.fall > 0 && !(this.tile instanceof Ladder)){
+        if (this.fall > 0 && this.hp > 0){
             message = "Falling";
         }
     }

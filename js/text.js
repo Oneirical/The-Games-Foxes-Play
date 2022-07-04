@@ -38,6 +38,7 @@ messages = {
     "Paralyzed" : "You are paralyzed! Try to move around to shrug off the paralysis.",
     "Falling" : "You are falling! Try to move around to gain back your footing.",
     "Oversoul" : "Your psyche is trembling with the echo of a thousand chatters! Unleash some souls before drawing more.",
+    "Fallen" : "The Harmony's song meshes with the howling wind in your ears, as you plummet to the Spire's base, unceremoniously snapping your every bone while two nearby Harmonizers unleash a short \"Hmph!\" of contempt. You are granted the opportunity to abandon souls to the Harmony. Press \"r\" to reincarnate once you have made your choices.",
     
     
     // Serene Harmonizer dialogue
@@ -166,6 +167,7 @@ colours = {
     "Oversoul" : "yellow",
     "Paralyzed" : "orange",
     "Falling" : "white",
+    "Fallen" : "white",
     
     "Discard" : "deepskyblue",
     "Shiza" : "deepskyblue",

@@ -203,13 +203,13 @@ function tick(){
             
         }
     }
-    if (deadcheck == 0 && level != 0&& area != "Spire"&&area!="Circus"){
+    if (deadcheck == 0 && level != 0&& area == "Faith"){
         //gener8 sortie si every1 est ded
         if (exitspawn == 0 && level % 5 != 0){
             tiles[Math.floor((numTiles-1)/2)][numTiles-1] = new Exit(Math.floor((numTiles-1)/2),numTiles-1);
             manageExit();
         }
-        else if (exitspawn == 0 && level % 5 == 0 && area != "Spire"){
+        else if (exitspawn == 0 && level % 5 == 0){
             tiles[Math.floor((numTiles-1)/2)][numTiles-1] = new FluffExit(Math.floor((numTiles-1)/2),numTiles-1);
             manageExit();
         }
@@ -228,7 +228,11 @@ function tick(){
             player.saved.length = 0;
             truehp -= monsters.length;
             agony = monsters.length;
-            message = "Agony";
+            if (area == "Faith") message = "Agony";
+            else if (area == "Serene"){
+                message = "Fallen";
+                fallen = false;
+            }
             for(let k=monsters.length-1;k>=0;k--){
                 monsters.splice(k,1);
             }
@@ -241,10 +245,10 @@ function tick(){
         }
         
         //gener8 exit if u r ded
-        if (level % 5 != 0){
+        if (level % 5 != 0 && area == "Faith"){
             tiles[Math.floor((numTiles-1)/2)][numTiles-1] = new Exit(Math.floor((numTiles-1)/2),numTiles-1)
         }
-        else{
+        else if (area == "Faith"){
             tiles[Math.floor((numTiles-1)/2)][numTiles-1] = new FluffExit(Math.floor((numTiles-1)/2),numTiles-1)
         }
         

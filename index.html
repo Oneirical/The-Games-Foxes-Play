@@ -51,6 +51,7 @@
     doublecounter = 0;
     dialoguecount = 0;
     fail = false;
+    fallen = false;
 
     shakeAmount = 0;       
     shakeX = 0;                 
@@ -105,11 +106,15 @@
             else if((e.key=="w"||e.key=="s"||e.key=="a"||e.key=="d") && player.fall != 0) {
                 tick();
                 let tile = getTile(player.tile.x,player.tile.y+1);
-                player.move(tile);
-                if (e.key == "a"){
+                if (tile.y > 8){
+                    player.hit(99);
+                    fallen = true;
+                }
+                else player.move(tile);
+                if (e.key == "a" && !fallen){
                     player.tryMove(-1, 0);
                 }
-                else if (e.key == "d"){
+                else if (e.key == "d" && !fallen){
                     player.tryMove(1, 0);
                 }
                 if (player.tile.y > 8){
