@@ -217,7 +217,8 @@ function tick(){
     }
 
     if(player.dead){
-        playSound("death");
+        if (player.rosetox < 9) playSound("death");
+        else playSound("toxicdeath");
         if(truehp < 1){
             gameState = "dead";
             pauseAllMusic();
@@ -576,7 +577,8 @@ function initSounds(){
         on: new Audio('sounds/moduleon.wav'),
         off: new Audio('sounds/moduleoff.wav'),
         roseic: new Audio('sounds/A_Roseic_Problem.mp3'),
-        toxic: new Audio('sounds/ROSEROSEROSEROSE.wav')
+        toxic: new Audio('sounds/ROSEROSEROSEROSE.wav'),
+        toxicdeath : new Audio('sounds/toxicdeath.wav')
     };
 }
 
