@@ -352,6 +352,7 @@ class Booster extends Exit{
         this.sprite = 59;
     }
     stepOn(monster){
+        areachange = false;
         super.stepOn(monster);
         message = "Empty";
     }

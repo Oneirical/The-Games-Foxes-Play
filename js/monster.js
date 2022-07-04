@@ -1136,6 +1136,7 @@ class Player extends Monster{
             //fluffydialogue = ["FluffyHmm","FluffyExplain1", "FluffyExplain2", "FluffyExplain3","FluffyExplain4","FluffyExplain5","FluffyExplain6","FluffyExplain7","FluffyExplain8","FluffyExplain9", "Empty"];
         }
         this.hp = 0;
+        areachange = true;
         startLevel(Math.min(maxHp, player.hp+6));
         contemhint = true;
     }

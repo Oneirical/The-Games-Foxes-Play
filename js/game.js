@@ -603,6 +603,10 @@ function playMusic(){
         playSound("roseic");
         message = "RoseWelcome";
     }
+    else if (area == "Spire" && areachange){
+        pauseAllMusic();
+        playSound("harmony4");
+    }
     else if (level == 0){
         pauseAllMusic();
         playSound("cage");
