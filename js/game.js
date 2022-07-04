@@ -575,14 +575,15 @@ function initSounds(){
         deathdelay: new Audio('sounds/deathdelay.wav'),
         on: new Audio('sounds/moduleon.wav'),
         off: new Audio('sounds/moduleoff.wav'),
-        roseic: new Audio('sounds/A_Roseic_Problem.mp3')
+        roseic: new Audio('sounds/A_Roseic_Problem.mp3'),
+        toxic: new Audio('sounds/ROSEROSEROSEROSE.wav')
     };
 }
 
 function playSound(soundName){                       
     sounds[soundName].currentTime = 0;  
     sounds[soundName].play();
-    let loops = ["cage","max","roseic","title","harmony2","harmony4","harmony6","falsity","seal","quarry"];
+    let loops = ["cage","max","roseic","title","harmony2","harmony4","harmony6","falsity","seal","quarry","toxic"];
     if (loops.includes(soundName)) sounds[soundName].loop = true; 
 }
 function pauseSound(soundName){  
@@ -591,7 +592,7 @@ function pauseSound(soundName){
 }
 
 function pauseAllMusic(){
-    let loops = ["cage","roseic","max","title","harmony2","harmony4","harmony6","falsity","seal","quarry"];
+    let loops = ["cage","roseic","max","title","harmony2","harmony4","harmony6","falsity","seal","quarry","toxic"];
     loops.forEach(function(sound){
         pauseSound(sound);
     });

@@ -416,6 +416,9 @@ class Player extends Monster{
     update(){          
         this.shield--;
         if (this.rosetox > 0){
+            sounds["roseic"].volume = 1-(0.1*this.rosetox);
+            if (sounds["toxic"].currentTime == 0) playSound("toxic");
+            sounds["toxic"].volume = 0.1 * this.rosetox;
             this.rosetox--;
             if (this.rosetox > 3){
                 for (let x of monsters){
@@ -431,6 +434,8 @@ class Player extends Monster{
                 }
             }
             else if (this.rosetox <= 0){
+                pauseSound("toxic");
+                sounds["roseic"].volume = 1;
                 for (let x of monsters){
                     x.sprite = x.spritesave;
                 }
