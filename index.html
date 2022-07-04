@@ -123,8 +123,8 @@
                     player.hit(99);
                 }
                 if(player.tile.getNeighbor(0,1) instanceof Platform || player.tile.getNeighbor(0,1) instanceof Ladder || player.tile.getNeighbor(0,1) instanceof Booster) {
-                    message = "Empty";
                     player.fall = 0;
+                    message = "Empty";
                 }
             }
             if(e.key=="w"&&cursormode) cursor.tryMove(0, -1);

@@ -396,6 +396,7 @@ class Player extends Monster{
         this.fall = 0;
         this.rosetox = 0;
         this.fov = 0;
+        this.spawn = false;
     }
 
     cycleModules(){
@@ -448,16 +449,20 @@ class Player extends Monster{
     tryMove(dx, dy){
         if(super.tryMove(dx,dy)){
             tick();
+            this.spawn = true;
         }
-        if (area == "Spire" && !(this.tile.getNeighbor(0,1) instanceof Platform || this.tile.getNeighbor(0,1) instanceof Ladder)){
+        if (area == "Spire" && !(this.tile.getNeighbor(0,1) instanceof Platform || this.tile.getNeighbor(0,1) instanceof Ladder || this.tile instanceof Ladder)){
             this.fall++;
         }
         if (this.para > 0){
             message = "Paralyzed";
         }
-        if (this.fall > 0 && !this.dead){
-            message = "Falling";
+        if (this.fall > 0 && !this.dead){ //wtf why is it fluffexit and not ladder? whatever works I guess
+            if (this.tile.name != "Harmonic Seal") message = "Falling";
+            console.log("aa")
+            console.log(this.tile.name);
         }
+        if (message == "Falling" && this.fall == 0) message = "Empty";
     }
 
     consumeCommon(num, harmonize){

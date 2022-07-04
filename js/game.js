@@ -334,7 +334,6 @@ function startLevel(playerHp){
     spawnCounter = spawnRate;  
     exitspawn = 0;
     resolve = 3+ 2*Math.floor(level/6);
-    if (level % 5 != 1 || level == 1 || area == "Spire") message = "Empty";
     playMusic();
     if (area == "Faith") generateLevel();
     else if (area == "Edge"){
@@ -364,9 +363,9 @@ function startLevel(playerHp){
     else if (area == "Spire") tile = spirespawner;
     else if (area == "Circus") tile = getTile(1,8);
     else tile = getTile(Math.floor((numTiles-1)/2),Math.floor((numTiles-1)/2));
+    if (area == "Spire" && !(level % 5 == 1 && level > 5)) tile.replace(Ladder);
     player = new Player(tile);
     if (area == "Circus") player.fov = 2; //temp remove
-    if (area == "Spire" && !(level % 5 == 1 && level > 5)) player.tile.replace(Ladder);
     player.discard = dissave;
     player.inventory = invsave;
     player.teleportCounter = 0;
@@ -375,6 +374,7 @@ function startLevel(playerHp){
     sacritotal = "nan";
     sacrifice = 0;
     rolled = 0;
+    if (level % 5 != 1 || level == 1 || area == "Spire") message = "Empty";
 }
 
 function drawText(text, size, centered, textY, color){
