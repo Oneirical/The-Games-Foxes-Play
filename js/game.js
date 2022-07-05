@@ -610,7 +610,7 @@ function playMusic(){
     else if (area == "Circus"){
         pauseAllMusic();
         playSound("roseic");
-        message = "RoseWelcome";
+        message = "RoseWelcome1";
     }
     else if (area == "Spire" && areachange){
         pauseAllMusic();
