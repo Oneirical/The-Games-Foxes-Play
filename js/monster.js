@@ -1133,7 +1133,7 @@ class Player extends Monster{
         playSound("newLevel");
         level++;
         let areas = ["Faith","Circus","Spire","Edge"]; // add Edge when it's not bugged "Spire"
-        area = areas[randomRange(1,1)]
+        area = areas[randomRange(2,2)]
         for(let i=0;i<this.inhand.length;i++){
             this.discard.push(this.inhand[i]);
         }
@@ -1142,11 +1142,16 @@ class Player extends Monster{
         }
         invsave = this.inventory;
         dissave = this.discard;
-        if (level % 5 == 1 && level > 5 && area == "Faith"){
-            gameState = "fluffy";
-            message = "FluffyWelcome";
-            dialoguecount = 0;
-            //fluffydialogue = ["FluffyHmm","FluffyExplain1", "FluffyExplain2", "FluffyExplain3","FluffyExplain4","FluffyExplain5","FluffyExplain6","FluffyExplain7","FluffyExplain8","FluffyExplain9", "Empty"];
+        if (level % 5 == 1 && level > 5){
+            if (area == "Faith"){
+                gameState = "fluffy";
+                message = "FluffyWelcome";
+                dialoguecount = 0;
+            }
+            else if (area == "Spire"){
+                message = "FluffyWorkshop";
+                dialoguecount = 0;
+            }
         }
         this.hp = 0;
         areachange = true;
@@ -1247,9 +1252,17 @@ class Harmonizer extends Monster{
         this.isGuide = true;
         this.ability = "";
         this.paralyzed = true;
-        this.dialogue = ["FluffyHmm","FluffyExplain1", "FluffyExplain2", "FluffyExplain3","FluffyExplain4","FluffyExplain5","Empty","FluffyRepeat"];
-        this.diamax = 7;
-        this.diareset = 3;
+        if (area == "Faith"){
+            this.dialogue = ["FluffyHmm","FluffyExplain1", "FluffyExplain2", "FluffyExplain3","FluffyExplain4","FluffyExplain5","Empty","FluffyRepeat"];
+            this.diamax = 7;
+            this.diareset = 3;
+        }
+        else if (area == "Spire"){
+            this.dialogue = ["FluffyModule1","FluffyModule2","FluffyModule3","FluffyModule4","FluffyModule5","FluffyModule6","FluffyModule7","Empty","FluffyModuleRepeat"];
+            this.diamax = 8;
+            this.diareset = 3;
+        }
+
         this.noloot = true;
     }
     

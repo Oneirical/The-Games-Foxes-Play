@@ -354,7 +354,7 @@ class Booster extends Exit{
     stepOn(monster){
         areachange = false;
         super.stepOn(monster);
-        message = "Empty";
+        if (level % 5 == 1 && level > 5) message= "FluffyWorkshop";
     }
 }
 

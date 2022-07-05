@@ -349,6 +349,8 @@ function startLevel(playerHp){
         if (level % 5 == 1 && level > 5){
             generateModule();
             generateMonsters();
+            message = "FluffyWorkshop";
+            dialoguecount = 0;
         }
         else{
             generateSpire();
