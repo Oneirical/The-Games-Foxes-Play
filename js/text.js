@@ -119,7 +119,12 @@ messages = {
 
     // Rose, Last of the Saints
 
-    "RoseWelcome" : "\"Well well, look who the cat dragged in~\"",
+    "RoseWelcome1" : "\"A pleasure to meet you in person, dear Terminal. I would tell you to take a seat, but it seems I forgot to provide you one. You may have to build one yourself out of the corpses that will soon litter this Circus.\"",
+    "RoseWelcome2" : "\"I'm sure your time is as valuable as mine, so I won't bother mincing words. I'm happy enough to negotiate - I'll grant you all the comfort you deserve, and can say the same for those Souls chattering about in that mind of yours.\"",
+    "RoseWelcome3" : "\"But the completion of your pilgrimage is not on the table. The Next World will be harmonized. I offered your creator increasingly generous compromises - ten, five, a single Serene soul to slot inside your skull. No, no and no. By walking away with nothing in my paws, it may seem like I have failed to uphold my end of my contract with Fluffy.\"",
+    "RoseWelcome4" : "\"Instead, I, Rose, Last of the Saints, will walk away with everything, as I ever do.\"",
+    "RoseWelcome5" : "\"You will watch the end of the world here, with me, as my loyal subordinate, while the Collective thrives in the Next World.\"",
+    "RoseBattle" : "\"This is not up for negociation.\"",
 
     // Harmonic Modulators
 
