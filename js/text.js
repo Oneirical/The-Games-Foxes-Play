@@ -128,7 +128,7 @@ messages = {
 
     // Epsilon, Supreme Ordered General
 
-    "EpsilonWelcome1" : "\"Orders given: overwhelm organic sensors of Vessel, then translate all Vessel passengers to code form. The unordered are weak. Do not overestimate their threat level.\"",
+    "EpsilonWelcome1" : "\"Orders given: While Vessel lives, overwhelm lesser Vessel organic sensors with stimuli of 100 lumens/W and 300 dB. For each Soul in Vessel, swap data-type to Ordered type.\"",
 
     // Harmonic Modulators
 
