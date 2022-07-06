@@ -580,14 +580,16 @@ function initSounds(){
         off: new Audio('sounds/moduleoff.wav'),
         roseic: new Audio('sounds/A_Roseic_Problem.mp3'),
         toxic: new Audio('sounds/ROSEROSEROSEROSE.wav'),
-        toxicdeath : new Audio('sounds/toxicdeath.wav')
+        toxicdeath : new Audio('sounds/toxicdeath.wav'),
+        spire : new Audio('sounds/Fly_on_The_Wall.wav'),
+        spireloop : new Audio('sounds/Buzzard.wav')
     };
 }
 
 function playSound(soundName){                       
     sounds[soundName].currentTime = 0;  
     sounds[soundName].play();
-    let loops = ["cage","max","roseic","title","harmony2","harmony4","harmony6","falsity","seal","quarry","toxic"];
+    let loops = ["cage","max","roseic","title","harmony2","harmony4","harmony6","falsity","seal","quarry","toxic","spire","spireloop"];
     if (loops.includes(soundName)) sounds[soundName].loop = true; 
 }
 function pauseSound(soundName){  
@@ -596,7 +598,7 @@ function pauseSound(soundName){
 }
 
 function pauseAllMusic(){
-    let loops = ["cage","roseic","max","title","harmony2","harmony4","harmony6","falsity","seal","quarry","toxic"];
+    let loops = ["cage","roseic","max","title","harmony2","harmony4","harmony6","falsity","seal","quarry","toxic","spire","spireloop"];
     loops.forEach(function(sound){
         pauseSound(sound);
     });
@@ -614,7 +616,8 @@ function playMusic(){
     }
     else if (area == "Spire" && areachange){
         pauseAllMusic();
-        playSound("harmony4");
+        if (!spirevisited) playSound("spire");
+        else playSound("spireloop");
     }
     else if (level == 0){
         pauseAllMusic();

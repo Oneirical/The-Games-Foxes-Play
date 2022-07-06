@@ -1153,6 +1153,7 @@ class Player extends Monster{
                 dialoguecount = 0;
             }
         }
+        if (area == "Spire") spirevisited = true;
         this.hp = 0;
         areachange = true;
         startLevel(Math.min(maxHp, player.hp+6));
