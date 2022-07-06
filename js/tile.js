@@ -308,6 +308,9 @@ class Exit extends Tile{
                 gameState = "running";
                 sacrifice = 0;
                 rolled = 0;
+                if (level == 17 && area == "Faith"){
+                    message = "EpsilonWelcome1";
+                }
             }
         }
     }

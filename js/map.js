@@ -178,6 +178,37 @@ function generateCircus(){
     }
 }
 
+function generateEpsilon(){
+    let vault = {
+        0: [Wall,Wall,Wall,Wall,Wall,Wall,Wall,Wall,Wall,Wall,Wall,Wall,Wall,Wall,Wall,Wall,Wall,Wall],
+        1: [Wall,Floor,Floor,Floor,Floor,Wall,Floor,Wall,Floor,Floor,Floor,Wall,Floor,Wall,Floor,Floor,Floor,Wall],
+        2: [Wall,Wall,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Wall],
+        3: [Wall,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Wall,Wall],
+        4: [Wall,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Wall],
+        5: [Wall,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Wall,Wall],
+        6: [Wall,Wall,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Wall],
+        7: [Wall,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Wall],
+        8: [Wall,Wall,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Wall],
+        9: [Wall,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Wall,Wall],
+        10: [Wall,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Wall],
+        11: [Wall,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Wall,Wall],
+        12: [Wall,Wall,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Wall],
+        13: [Wall,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Wall],
+        14: [Wall,Wall,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Wall],
+        15: [Wall,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Wall,Wall],
+        16: [Wall,Floor,Floor,Floor,Wall,Floor,Wall,Floor,Floor,Floor,Wall,Floor,Wall,Floor,Floor,Floor,Floor,Wall],
+        17: [Wall,Wall,Wall,Wall,Wall,Wall,Wall,Wall,Wall,Wall,Wall,Wall,Wall,Wall,Wall,Wall,Wall,Wall]
+    }
+    tiles = [];
+    for(let i=0;i<numTiles;i++){
+        tiles[i] = [];
+        for(let j=0;j<numTiles;j++){
+            let tile = vault[j][i];
+            tiles[i][j] = new tile(i,j);
+        }
+    }
+}
+
 function inBounds(x,y){
     if(x == (Math.floor((numTiles-1)/2)) && (y == (numTiles-1)||y==0)){
         return true
@@ -194,7 +225,7 @@ function getTile(x, y){
         return tiles[x][y];
     }else{
         if (level == 0) return new TermiWall(x,y);
-        else if (level == 17) return new RealityWall(x,y);
+        else if (area == "Edge") return new RealityWall(x,y);
         else if (area == "Spire") return new AbazonWall(x,y);
         else return new Wall(x,y);
     }
@@ -232,8 +263,9 @@ function generateMonsters(){
     let numMonsters;
     if (level < 6 && area != "Spire") numMonsters = level+1;
     else if (area == "Spire") numMonsters = 0;
-    else if (level > 6) numMonsters = level;
-    else if (level % 5 == 1 && level > 5) numMonsters = 1;
+    else if (level > 6 && level != 17) numMonsters = level;
+    else if ((level % 5 == 1 && level > 5) || (level == 17 && area == "Faith")) numMonsters = 1;
+    console.log(numMonsters);
     for(let i=0;i<numMonsters;i++){
         spawnMonster();
     }
@@ -251,6 +283,11 @@ function spawnMonster(){
     if (area == "Spire"){
         let monsterType = shuffle([HostileFluffy])[0]; //
         let monster = new monsterType(randomPassableTile());
+        monsters.push(monster);
+    }
+    else if (level == 17 && area == "Faith"){
+        let monsterType = shuffle([Epsilon])[0];
+        let monster = new monsterType(getTile(9,9));
         monsters.push(monster);
     }
     else if ((level % 5 != 1 || level == 1)&& level != 0){

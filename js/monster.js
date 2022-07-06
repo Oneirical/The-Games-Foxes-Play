@@ -1152,6 +1152,9 @@ class Player extends Monster{
                 message = "FluffyWorkshop";
                 dialoguecount = 0;
             }
+            else if (area == "Faith" && level == 17){
+                message = "EpsilonWelcome1";
+            }
         }
         if (area == "Spire") spirevisited = true;
         this.hp = 0;
@@ -1616,5 +1619,16 @@ class Ashsoul extends Monster{
         else{
             super.doStuff();
         }
+    }
+}
+
+class Epsilon extends Monster{
+    constructor(tile){
+        super(tile, 67, 1, "ORDERED", description["Epsilon"]);
+        this.soul = "Animated by an Ordered (5) soul.";
+        this.name = "Epsilon, Supreme Ordered General";
+        this.ability = monabi["Epsilon"];
+        this.abitimer = 0;
+        this.isInvincible = true;
     }
 }

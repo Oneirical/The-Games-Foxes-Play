@@ -126,6 +126,10 @@ messages = {
     "RoseWelcome5" : "\"You will watch the end of the world here, with me, as my loyal subordinate, while the Collective thrives in the Next World.\"",
     "RoseBattle" : "\"This is not up for negociation.\"",
 
+    // Epsilon, Supreme Ordered General
+
+    "EpsilonWelcome1" : "\"Orders given: overwhelm organic sensors of Vessel, then translate all Vessel passengers to code form. The unordered are weak. Do not overestimate their threat level.\"",
+
     // Harmonic Modulators
 
     "FluffyInsufficientPower" : "\"Ruffian user no longer possesses required funds to maintain this Harmonic Modulator online. Shutting down.\"",

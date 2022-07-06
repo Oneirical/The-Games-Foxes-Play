@@ -167,6 +167,7 @@ function draw(){
             let coloring = colours[message];
             if (message.includes("Fluffy")) coloring = "cyan";
             else if (message.includes("Rose")) coloring = "lightpink";
+            else if (message.includes("Epsilon")) coloring = "red";
             if ((!cursormode && !invmode) || (cursormode && invmode)) printAtWordWrap(messages[message], 18, 10, 600, coloring, 20, 940);
             if (rosetoxin > 1){
                 ctx.globalAlpha = 0.5;
@@ -175,7 +176,10 @@ function draw(){
             else{
                 ctx.globalAlpha = 1;
             }
-        } 
+        }
+        if (showboss){
+            showBoss(1);
+        }
     }
 }
 function manageExit(){
@@ -281,13 +285,11 @@ function showTitle(){
     drawText("with music by Zennith", 30, true, canvas.height/2 + 10, "white");
 }
 
-function showBoss(){                                          
+function showBoss(currentboss){                                          
     pauseAllMusic();
-    message = "Empty";
     let bossname = ["ROSE","EPSILON","RONIN","FLUFFY"];
-    let bosstitle = ["-Last of the Saints-","-Supreme Ordered Admiral-","-the Unfaltering Wheel-","-Grand Harmonic Maestra-"];
+    let bosstitle = ["-Last of the Saints-","-Supreme Ordered General-","-the Unfaltering Wheel-","-Grand Harmonic Maestra-"];
     let bosscolour = ["pink","red","purple","cyan"];
-    let currentboss = 1;
     let scale = [0,-100,-50,-75];
     ctx.fillStyle = 'rgba(0,0,0,.75)';
     ctx.fillRect(canvas.width/2-200+scale[currentboss],canvas.height/2 - 120,canvas.width/4+160, canvas.height/5);
@@ -298,7 +300,7 @@ function showBoss(){
 function startGame(){
     pauseSound("title");            
     playSound("cage");                         
-    level = 0;
+    level = 16;
     truehp = 8;
     score = 0;
     numSpells = 0;
@@ -340,7 +342,20 @@ function startLevel(playerHp){
     exitspawn = 0;
     resolve = 3+ 2*Math.floor(level/6);
     playMusic();
-    if (area == "Faith") generateLevel();
+    if (area == "Faith"){
+        if (level == 17){
+            let numtest = numTiles;
+            numTiles = 18;
+            tileSize = (numtest/numTiles)*64;
+            setupCanvas();
+            generateEpsilon();
+            showboss = true;
+            generateMonsters();
+        }
+        else{
+            generateLevel();
+        }
+    }
     else if (area == "Edge"){
         generateEdgeLevel();
         //generateMonsters();
