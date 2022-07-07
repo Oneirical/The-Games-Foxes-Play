@@ -288,7 +288,9 @@ function spawnMonster(){
     else if (level == 17 && area == "Faith"){
         let monsterType = shuffle([Epsilon])[0];
         let monster = new monsterType(getTile(9,9));
+        let tail = new Tail(getTile(9,10));
         monsters.push(monster);
+        monsters.push(tail);
     }
     else if ((level % 5 != 1 || level == 1)&& level != 0){
         let monsterType = shuffle([Weaver,Rendfly, Second, Tinker,Oracle, Snail,Slug,Ragemaw, Felidol,Monk,Scion, Shrike, Apiarist])[0]; //

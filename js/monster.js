@@ -1632,3 +1632,25 @@ class Epsilon extends Monster{
         this.isInvincible = true;
     }
 }
+
+class Tail extends Monster{
+    constructor(tile){
+        super(tile, 64, 1, "ORDERED", description["Tail"]);
+        this.soul = "Soulless.";
+        this.name = "Rubberized Mecha-Segment";
+        this.ability = monabi["Tail"];
+        this.abitimer = 0;
+    }
+    doStuff(){
+        let move = [0,-1];
+        for (let x of monsters){
+            if (x.name == "Epsilon, Supreme Ordered General"){
+                move = x.lastMove;
+                console.log(move);
+            }
+        }
+        if(move){
+            this.tryMove(move[0],move[1]);
+        }
+    }
+}
