@@ -457,7 +457,10 @@ class Player extends Monster{
     tryMove(dx, dy){
         if(super.tryMove(dx,dy)){
             if (this.activemodule == "Thrusters"){
-                if (this.consumeCommon(1,false))spells["FERALNODMG"](this,dx,dy);
+                if (this.consumeCommon(1,false)){
+                    spells["FERALNODMG"](this,dx,dy);
+                    playSound("boost");
+                }
                 else{
                     message = "FluffyInsufficientPower";
                     this.activemodule = "NONE";
@@ -1630,27 +1633,38 @@ class Epsilon extends Monster{
         this.ability = monabi["Epsilon"];
         this.abitimer = 0;
         this.isInvincible = true;
+        this.lastpos = [8,8];
+        this.order = 0;
+    }
+    doStuff(){
+        this.lastpos = [this.tile.x,this.tile.y];
+        super.doStuff();
     }
 }
 
 class Tail extends Monster{
     constructor(tile){
-        super(tile, 64, 1, "ORDERED", description["Tail"]);
+        super(tile, 68, 1, "ORDERED", description["Tail"]);
         this.soul = "Soulless.";
         this.name = "Rubberized Mecha-Segment";
         this.ability = monabi["Tail"];
         this.abitimer = 0;
+        this.teleportCounter = 0;
+        this.order = 1;
     }
     doStuff(){
-        let move = [0,-1];
+        let move;
+        let lmove;
         for (let x of monsters){
-            if (x.name == "Epsilon, Supreme Ordered General"){
-                move = x.lastMove;
-                console.log(move);
+            if (x.order == this.order-1){
+                move = x.lastpos;
+                lmove = x.lastMove;
+                this.lastMove = [0,0];
             }
         }
         if(move){
-            this.tryMove(move[0],move[1]);
+            this.move(getTile(move[0]+lmove[0],move[1]+lmove[1]));
+            this.lastpos = [this.tile.x,this.tile.y];
         }
     }
 }

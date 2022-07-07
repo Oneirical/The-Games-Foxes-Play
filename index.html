@@ -151,7 +151,7 @@
             if(e.key>=1 && e.key<=9 && !cursormode && gameState == "fluffy" && sacrifice < 6 && player.betted) player.sacrificeSpell(e.key-1);
             if(e.key=="f" && gameState == "fluffy" && !cursormode && sacrifice == 6) player.fluffyReroll();
             if(e.key=="f" && gameState == "running" && modules.length > 1 && !cursormode) player.cycleModules();
-            if(e.key=="p") alert(message);
+            if(e.key=="p") showboss = false;
             
         }else if(gameState == "contemplation"){
             if(e.key>=1 && e.key<=9) player.removeSpell(e.key-1);

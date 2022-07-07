@@ -597,7 +597,8 @@ function initSounds(){
         toxic: new Audio('sounds/ROSEROSEROSEROSE.wav'),
         toxicdeath : new Audio('sounds/toxicdeath.wav'),
         spire : new Audio('sounds/Fly_on_The_Wall.wav'),
-        spireloop : new Audio('sounds/Buzzard.wav')
+        spireloop : new Audio('sounds/Buzzard.wav'),
+        boost : new Audio('sounds/boost.wav'),
     };
 }
 
