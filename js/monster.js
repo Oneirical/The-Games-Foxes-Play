@@ -193,9 +193,10 @@ class Monster{
             drawSprite(this.sprite, this.getDisplayX(),  this.getDisplayY());
             this.drawHp();
         }
-
-        this.offsetX -= Math.sign(this.offsetX)*(1/8);     
-        this.offsetY -= Math.sign(this.offsetY)*(1/8); 
+        let speed = 1/8;
+        if (this.isPlayer && this.activemodule == "Thrusters") speed = 1;
+        this.offsetX -= Math.sign(this.offsetX)*(speed);     
+        this.offsetY -= Math.sign(this.offsetY)*(speed); 
     }
 
     drawHp(){

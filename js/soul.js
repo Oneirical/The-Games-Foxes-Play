@@ -68,12 +68,14 @@ spells = {
     FERALNODMG: function(caster, x, y){
         let newTile = caster.tile;
         let shaker = false;
+        let punch = false;
         while(true){
             let testTile = newTile.getNeighbor(x,y);
             if(testTile.passable && !testTile.monster){
                 newTile = testTile;
             }else{
                 if (!testTile.passable) shaker = true;
+                if (testTile.monster) punch = true;
                 break;
             }
         }
@@ -83,6 +85,7 @@ spells = {
                 shakeAmount = 30;
                 playSound("explosion");
             }
+            if (punch) spells["GYVJI"](caster);
         }
     },
     DIG: function(){
