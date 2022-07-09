@@ -181,9 +181,6 @@ class Goop extends Tile{
         this.sprite = 60;
     };
     stepOn(monster){
-        if (monster.isPlayer){
-            player.rosetox += 2;
-        }
         if((!monster.isPlayer&&!monster.charmed)&& this.trap){  
             spells["ARTTRIGGER"](monster.tile);
             playSound("treasure");            

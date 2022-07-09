@@ -414,7 +414,10 @@ class Player extends Monster{
         }
     }
 
-    update(){          
+    update(){
+        if (this.tile.name.includes("Toxin")){
+            player.rosetox += 2;  
+        }     
         this.shield--;
         if (this.rosetox > 0){
             if (this.rosetox < 11)sounds["roseic"].volume = (1-(0.1*this.rosetox));
@@ -1137,7 +1140,7 @@ class Player extends Monster{
         playSound("newLevel");
         level++;
         let areas = ["Faith","Circus","Spire","Edge"]; // add Edge when it's not bugged "Spire"
-        area = areas[randomRange(2,2)]
+        area = areas[randomRange(1,1)]
         for(let i=0;i<this.inhand.length;i++){
             this.discard.push(this.inhand[i]);
         }
