@@ -289,6 +289,9 @@ function spawnMonster(){
         let monsterType = shuffle([Epsilon])[0];
         let monster = new monsterType(getTile(9,9));
         monsters.push(monster);
+        let monsterTypee = shuffle([Box])[0];
+        let monstere = new monsterTypee(getTile(4,4));
+        monsters.push(monstere);
         for (let i = 1; i < 9; i++){
             let tail = new Tail(getTile(8,i+3));
             tail.order = i;

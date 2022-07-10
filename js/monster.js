@@ -305,17 +305,14 @@ class Monster{
                 else if(this.isPlayer && newTile.monster.isGuide && dialoguecount < newTile.monster.diamax){
                     message = newTile.monster.dialogue[dialoguecount];
                     dialoguecount++;
-                    //let lm = player.lastMove;                                 box pushing
-                    //let pushTile = getTile(newTile.x+lm[0],newTile.y+lm[1]);
-                    //if (inBounds(pushTile.x,pushTile.y)) newTile.monster.move(pushTile);
-                    //if (inBounds(pushTile.x,pushTile.y)) this.move(newTile);
                 }else if (this.isPlayer && newTile.monster.isGuide && dialoguecount == newTile.monster.diamax){
                     message = newTile.monster.dialogue[dialoguecount];
                     dialoguecount = newTile.monster.diareset;
-                    //let lm = player.lastMove;
-                    //let pushTile = getTile(newTile.x+lm[0],newTile.y+lm[1]);
-                    //if (inBounds(pushTile.x,pushTile.y)) newTile.monster.move(pushTile);
-                    //if (inBounds(pushTile.x,pushTile.y)) this.move(newTile);
+                }else if (this.isPlayer && newTile.monster.pushable){
+                    let lm = player.lastMove;
+                    let pushTile = getTile(newTile.x+lm[0],newTile.y+lm[1]);
+                    if (inBounds(pushTile.x,pushTile.y)) newTile.monster.move(pushTile);
+                    if (inBounds(pushTile.x,pushTile.y)) this.move(newTile);
                 }
             }
             return true;
@@ -1644,6 +1641,13 @@ class Epsilon extends Monster{
         this.lastpos = [this.tile.x,this.tile.y];
         super.doStuff();
     }
+    update(){
+        let startedStunned = this.stunned;
+        super.update();
+        if(!startedStunned){
+            this.stunned = true;
+        }
+    }
 }
 
 class Tail extends Monster{
@@ -1670,5 +1674,29 @@ class Tail extends Monster{
             this.move(getTile(move[0]+lmove[0],move[1]+lmove[1]));
             this.lastpos = [this.tile.x,this.tile.y];
         }
+    }
+    update(){
+        let startedStunned = this.stunned;
+        super.update();
+        if(!startedStunned){
+            this.stunned = true;
+        }
+    }
+}
+
+class Box extends Monster{
+    constructor(tile){
+        super(tile, 68, 1, "ORDERED", description["Tail"]);
+        this.soul = "Soulless.";
+        this.name = "Rubberized Mecha-Segment";
+        this.ability = monabi["Tail"];
+        this.abitimer = 0;
+        this.teleportCounter = 0;
+        this.pushable = true;
+        this.isInvincible = true;
+    }
+    update(){
+        this.stunned = true;
+        super.update();
     }
 }
