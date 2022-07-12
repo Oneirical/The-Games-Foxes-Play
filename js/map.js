@@ -265,7 +265,6 @@ function generateMonsters(){
     else if (area == "Spire") numMonsters = 0;
     else if (level > 6 && level != 17) numMonsters = level;
     else if ((level % 5 == 1 && level > 5) || (level == 17 && area == "Faith")) numMonsters = 1;
-    console.log(numMonsters);
     for(let i=0;i<numMonsters;i++){
         spawnMonster();
     }
