@@ -117,14 +117,14 @@ function draw(){
         //if (sacrifice < 6 && gameState == "fluffy" && !cursormode) printAtWordWrap("Use Soul View mode (\"c\", then \"i\") if you forgot the value of a certain soul.", 18, 590, 490, "cyan", 20, 350);
         if (sacrifice == 6 && !cursormode) printAtSidebar("Press \"f\" to reroll unclaimed caged souls. Warning: The Harmony will sow a seed within your psyche should you take this action!", 18, 590, 200, "cyan", 20, 350);
         if (level == 0 && !cursormode) printAtSidebar("Use WASD to move around, interact, and attack.", 18, 590, 130, "lime", 20, 350);
-        //if (level == 2 && !cursormode&& gameState == "running") printAtSidebar("Press \"q\" in combat to summon Souls. Summoning costs Resolve, or Ipseity if you have no more Resolve.", 18, 590, 400, "lime", 20, 350);
-        //if (level == 2 && !cursormode&& gameState == "running") printAtSidebar("Press the number keys 1-9 to unleash Souls.", 18, 590, 500, "lime", 20, 350);
+        if (level == 2 && !cursormode&& gameState == "running") printAtSidebar("Press \"q\" in combat to summon Souls. Summoning costs Resolve, or Ipseity if you have no more Resolve.", 18, 590, 350, "lime", 20, 350);
+        if (level == 2 && !cursormode&& gameState == "running") printAtSidebar("Press the number keys 1-9 to unleash Souls.", 18, 590, 425, "lime", 20, 350);
         if (!cursormode && gameState == "contemplation" && !contemhint){
             //printAtSidebar("Death in this world is only the beginning of another cycle. Press the number keys 1-9 to permanently forget Souls you do not wish to keep. You can only forget the Souls you summoned in this room.", 18, 590, 350, "lime", 20, 350);
             //printAtSidebar("Dying costs Ipseity. If your Ipseity reaches zero, you die a true death.", 18, 590, 500, "lime", 20, 350);
             contemhint = false;
         }
-        //if (level == 1 && !cursormode&& gameState == "running") printAtSidebar("Slay enemies to collect their Soul.", 18, 590, 500, "lime", 20, 350);
+        if (level == 1 && !cursormode&& gameState == "running") printAtSidebar("Slay enemies to collect their Soul.", 18, 590, 425, "lime", 20, 350);
         if (level == 0 && !cursormode) printAtSidebar("Press \"c\" to toggle Examine mode.", 18, 590, 210, "lime", 20, 350);
         if (cursormode && !invmode) printAtSidebar("Press \"i\" while in Examine mode to toggle Soul View mode.", 18, 590, 425, "lime", 20, 350);
         
@@ -300,14 +300,16 @@ function showBoss(currentboss){
 function startGame(){
     pauseSound("title");            
     playSound("cage");                         
-    level = 16;
+    level = 0;
     truehp = 8;
     score = 0;
     numSpells = 0;
     aubecounter = 0;
-    invsave = ["SERENE","SAINTLY","SAINTLY","SAINTLY","SAINTLY","SAINTLY","SAINTLY","SAINTLY","SAINTLY","SAINTLY","SAINTLY","SAINTLY","SAINTLY","SAINTLY","SAINTLY",];//[, ] //];
-    modules = ["NONE","Thrusters"];
-    modulators = ["Alacrity","Selective","Thrusters","Hover","Focus"];
+    invsave = [];//[, ] //];
+    modules = ["NONE"];
+    modulators = ["Alacrity","Focus","Thrusters","Selective","Hover"];
+    let modtest = modulators[randomRange(0,2)];
+    modules.push(modtest);
     shuffle(invsave);
     dissave = [];
     startLevel(startingHp);
