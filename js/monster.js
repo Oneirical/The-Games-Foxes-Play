@@ -1080,7 +1080,7 @@ class Player extends Monster{
                     entity.monster.soul = "Contains "+soulname[lootdrop[replacecount]];
                     replacecount--;
                 }
-                else if (!entity.monster || entity.monster.loot != "SERENE"){
+                else if (!entity.monster || entity.monster.loot != "SERENE"){
                     replacecount--;
                 }
             });
