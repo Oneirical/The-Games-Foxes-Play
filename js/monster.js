@@ -552,7 +552,7 @@ class Player extends Monster{
         if (smod.includes(skey)) modules.push(skey);
         else{
             this.discard.push(skey);
-            if (doublecounter!=0) this.inhand.push(skey);
+            if (doublecounter!=0) spells[skey](this);
         }                                              
     }
 
