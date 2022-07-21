@@ -378,7 +378,7 @@ soulabi = {
     "PURPIZUG" : "WHITE BLAZE - When activated, discard your entire paw, then draw souls equal to the amount discarded.",
     "ROSE" : "GLAMOUR AND SMILES - When activated, fire out a ribbon that will wrap around the first enemy hit. That enemy becomes targeted by every other enemy in the room.",
     "ZENESTE" : "PERSUASIVE ENLISTMENT - When activated, empower your next attack with a Charming touch, which converts an enemy to your side... until it is the last one remaining.",
-    "KILAMI" : "COPY KITTY - When activated, all enemies slain this turn, and the next turn, will reward you with two copies of their soul; one in your paw, and one in your discard.",
+    "KILAMI" : "COPY KITTY - When activated, all enemies slain this turn, and the next turn, will have their Soul immediately casted in addition to adding it to your discard pile.",
     "AUBE" : "(Unique) PREPARE - When activated, heal every creature in the room for 2 HP, including you. When Aube has been activated a total of 5 times, transform it into Zenith.",
     "ZENITH" : "(Unique) COOK - When activated, slice all enemies in a 4-radius hourglass pattern, dealing 2 damage to each. When Zenith has been activated a total of 5 times, transform it into Crepusculum.",
     "CREPUSCULUM" : "(Unique) SERVE - When activated, agonize over the past, letting you choose a soul in your paw to forget permanently. When Crepusculum has been activated a total of 5 times, forget it, and restore 3 Ipseity.",
