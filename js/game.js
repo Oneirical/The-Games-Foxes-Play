@@ -232,8 +232,8 @@ function tick(){
             gameState = "contemplation";
             player.inhand.push(...player.saved);
             player.saved.length = 0;
-            truehp -= monsters.length;
-            agony = monsters.length;
+            truehp -= deadcheck;
+            agony = deadcheck;
             if (area == "Faith") message = "Agony";
             else if (area == "Serene"){
                 message = "Fallen";
