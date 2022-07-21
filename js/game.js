@@ -311,6 +311,7 @@ function startGame(){
     let modtest = modulators[randomRange(0,2)];
     modules.push(modtest);
     shuffle(invsave);
+    naiamode = false;
     dissave = [];
     startLevel(startingHp);
     gameState = "running";
