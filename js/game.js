@@ -310,6 +310,7 @@ function startGame(){
     modulators = ["Alacrity","Focus","Thrusters","Selective","Hover"];
     let modtest = modulators[randomRange(0,2)];
     modules.push(modtest);
+    removeItemOnce(modulators,modtest);
     shuffle(invsave);
     naiamode = false;
     dissave = [];
