@@ -213,16 +213,20 @@ function tick(){
         if (exitspawn == 0 && level % 5 != 0){
             tiles[Math.floor((numTiles-1)/2)][numTiles-1] = new Exit(Math.floor((numTiles-1)/2),numTiles-1);
             manageExit();
-            player.activemodule = "NONE";
-            message = "FluffyModuleFarewell";
-            playSound("off");
+            if (player.activemodule == "Hover"){
+                player.activemodule = "NONE";
+                message = "FluffyModuleFarewell";
+                playSound("off");
+            }
         }
         else if (exitspawn == 0 && level % 5 == 0){
             tiles[Math.floor((numTiles-1)/2)][numTiles-1] = new FluffExit(Math.floor((numTiles-1)/2),numTiles-1);
             manageExit();
-            player.activemodule = "NONE";
-            message = "FluffyModuleFarewell";
-            playSound("off");
+            if (player.activemodule == "Hover"){
+                player.activemodule = "NONE";
+                message = "FluffyModuleFarewell";
+                playSound("off");
+            }
         }
     }
 
