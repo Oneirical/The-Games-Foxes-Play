@@ -470,7 +470,7 @@ class Player extends Monster{
             }
             tick();
         }
-        if (area == "Spire" && !(this.tile.getNeighbor(0,1) instanceof Platform || this.tile.getNeighbor(0,1) instanceof Ladder || this.tile instanceof Ladder)){
+        if (area == "Spire" && this.activemodule != "Hover" && !(this.tile.getNeighbor(0,1) instanceof Platform || this.tile.getNeighbor(0,1) instanceof Ladder || this.tile instanceof Ladder)){
             this.fall++;
         }
         if (this.para > 0){
