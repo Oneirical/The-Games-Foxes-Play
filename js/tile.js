@@ -127,7 +127,10 @@ class Floor extends Tile{
     };
 
     stepOn(monster){
-        let trapsafe = player.activemodule != "Hover";
+        let trapsafe = true;
+        if (monster.isPlayer){
+            trapsafe = player.activemodule != "Hover";
+        }
         if (monster.isPlayer && (this.pin || this.eviltrap || this.cuff) && !trapsafe){
             if (!player.consumeCommon(1,false)) {
                 message = "FluffyInsufficientPower";

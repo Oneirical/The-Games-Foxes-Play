@@ -308,7 +308,7 @@ function startGame(){
     invsave = [];//[, ] //];
     modules = ["NONE"];
     modulators = ["Alacrity","Focus","Thrusters","Selective","Hover"];
-    let modtest = modulators[randomRange(0,2)];
+    let modtest = modulators[randomRange(0,4)];
     modules.push(modtest);
     removeItemOnce(modulators,modtest);
     shuffle(invsave);
