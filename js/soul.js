@@ -75,7 +75,7 @@ spells = {
                 newTile = testTile;
             }else{
                 if (!testTile.passable) shaker = true;
-                if (testTile.monster) punch = true;
+                //if (testTile.monster) punch = true;
                 break;
             }
         }
