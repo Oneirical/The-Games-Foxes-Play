@@ -129,6 +129,7 @@
                     player.fall = 0;
                     message = "Empty";
                 }
+                if(player.activemodule == "Hover") player.fall = 0;
             }
             if(e.key=="w"&&cursormode) cursor.tryMove(0, -1);
             if(e.key=="s"&&cursormode) cursor.tryMove(0, 1);
