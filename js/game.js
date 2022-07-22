@@ -210,6 +210,9 @@ function tick(){
     }
     if (deadcheck == 0 && level != 0&& area == "Faith"){
         //gener8 sortie si every1 est ded
+        player.activemodule = "NONE";
+        message = "FluffyModuleFarewell";
+        playSound("off");
         if (exitspawn == 0 && level % 5 != 0){
             tiles[Math.floor((numTiles-1)/2)][numTiles-1] = new Exit(Math.floor((numTiles-1)/2),numTiles-1);
             manageExit();
