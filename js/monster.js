@@ -838,6 +838,7 @@ class Player extends Monster{
             }
             if (!fail) playSound("spell");
             if (!fail) tick();
+            if (fail) message = "CastError";
             fail = false;
         }
     }

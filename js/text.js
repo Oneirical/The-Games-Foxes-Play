@@ -35,6 +35,7 @@ messages = {
     "Paralyzed" : "You are paralyzed! Try to move around to shrug off the paralysis.",
     "Falling" : "You are falling! Try to move around to gain back your footing.",
     "Oversoul" : "Your psyche is trembling with the echo of a thousand chatters! Unleash some souls before drawing more.",
+    "CastError" : "You cannot cast this spell right now!",
     
     
     // Death messages
@@ -191,6 +192,7 @@ colours = {
     "Falling" : "white",
     "Fallen" : "white",
     "Rosified" : "lightpink",
+    "CastError" : "red",
     
     "Discard" : "deepskyblue",
     "Shiza" : "deepskyblue",

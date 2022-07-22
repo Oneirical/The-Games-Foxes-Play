@@ -302,11 +302,17 @@ spells = {
             truehp += 3;
         }
     },
-    SHIZAPIS: function(){
-        discarded = 1;
-        stack = 0;
-        gameState = "vision";
-        player.viewSpell();
+    SHIZAPIS: function(caster){
+        if (caster.inventory.length > 2){
+            discarded = 1;
+            stack = 0;
+            gameState = "vision";
+            player.viewSpell();
+        }
+        else{
+            playSound("fail");
+            fail = true;
+        }
     },
     ABAZON: function(){
         let neighbors = player.tile.getAdjacentNeighbors().filter(t => !t.passable && inBounds(t.x,t.y) && t.sprite != 17);
