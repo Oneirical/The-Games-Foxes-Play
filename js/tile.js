@@ -127,22 +127,31 @@ class Floor extends Tile{
     };
 
     stepOn(monster){
+        let trapsafe = player.activemodule != "Hover";
+        if (monster.isPlayer && (this.pin || this.eviltrap || this.cuff) && !trapsafe){
+            if (!player.consumeCommon(1,false)) {
+                message = "FluffyInsufficientPower";
+                player.activemodule = "NONE";
+                playSound("off");
+                trapsafe = true;
+            }
+        }
         if((!monster.isPlayer&&!monster.charmed)&& this.trap){  
             spells["ARTTRIGGER"](monster.tile);
             playSound("treasure");            
             this.trap = false;
         }
-        if (monster.isPlayer && this.cuff){
+        if (monster.isPlayer && this.cuff && trapsafe){
             player.para = 1;
             playSound("fail");
             this.cuff = false;
         }
-        if ((monster.isPlayer||monster.charmed) && this.eviltrap){
+        if ((monster.isPlayer||monster.charmed) && this.eviltrap && trapsafe){
             playSound("fail");
             spells["ARTTRIGGER"](monster.tile);
             this.eviltrap = false;
         }
-        if ((monster.isPlayer) && this.pin){
+        if ((monster.isPlayer) && this.pin && trapsafe){
             playSound("fail");
             for (let x of monsters){
                 if (x instanceof Weaver){
