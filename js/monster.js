@@ -1299,6 +1299,7 @@ class BattleFluffy extends Monster{
         this.ability = "";
         this.noloot = true;
         this.permacharm = true;
+        this.abitimer = 0;
     }
     doStuff(){
         this.attackedThisTurn = false;
@@ -1326,11 +1327,18 @@ class BattleFluffy extends Monster{
             }
         }
         else if (!this.attackedThisTurn && player.activemodule == "Hover"){
-            if (player.consumeCommon(2,false)) this.tile.flufftrap = true;
+            this.abitimer++;
+            if (this.abitimer == 3){
+                this.abitimer = 0;
+                if (player.consumeCommon(2,false)) this.tile.flufftrap = true;
+                else{
+                    message = "FluffyInsufficientPower";
+                    player.activemodule = "NONE";
+                    playSound("off");
+                }
+            }
             else{
-                message = "FluffyInsufficientPower";
-                player.activemodule = "NONE";
-                playSound("off");
+                super.doStuff();
             }
         }
     }

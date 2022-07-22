@@ -101,7 +101,7 @@ class Tile{
             this.name = "Folded Pinwheel";
         }
         if (this.flufftrap){
-            drawSprite(68,this.x,this.y);
+            drawSprite(69,this.x,this.y);
             this.lore = description["FluffTrap"];
             this.name = "Harmonic Audioplate";
         }
@@ -149,12 +149,12 @@ class Floor extends Tile{
             playSound("treasure");            
             this.trap = false;
         }
-        if((!monster.isPlayer&&!monster.charmed)&& this.flufftrap){
+        if((!monster.isPlayer&&!monster.charmed&&!monster.permacharm)&& this.flufftrap){
+            this.flufftrap = false;
             let fluffy = new BattleFluffy(monster.tile);
             removeItemOnce(monsters, monster);
             monsters.push(fluffy);
             playSound("treasure");      
-            this.flufftrap = false;
         }
         if (monster.isPlayer && this.cuff && trapsafe){
             player.para = 1;
