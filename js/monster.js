@@ -1325,7 +1325,7 @@ class BattleFluffy extends Monster{
                 playSound("off");
             }
         }
-        else if (!this.attackedThisTurn && player.activemodule == "Thrusters"){
+        else if (!this.attackedThisTurn && player.activemodule == "Hover"){
             if (player.consumeCommon(2,false)) this.tile.flufftrap = true;
             else{
                 message = "FluffyInsufficientPower";
