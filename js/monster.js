@@ -344,7 +344,7 @@ class Monster{
             let husk = new Husk(this.tile);
             monsters.push(husk);
         }
-        if (this.tile.siphon && !(this instanceof Felidol)){
+        if (this.tile.siphon && !(this instanceof Felidol) && !(this instanceof Husk)){
             let felid = new Felidol(this.tile);
             let sun = this.loot.charAt(0) + this.loot.substring(1).toLowerCase();
             let n = " ";
