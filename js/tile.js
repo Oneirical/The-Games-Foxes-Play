@@ -100,6 +100,11 @@ class Tile{
             this.lore = description["Pinwheel"];
             this.name = "Folded Pinwheel";
         }
+        if (this.flufftrap){
+            drawSprite(68,this.x,this.y);
+            this.lore = description["FluffTrap"];
+            this.name = "Harmonic Audioplate";
+        }
         if (this instanceof Floor && !(this.trap || this.cuff || this.eviltrap || this.siphon || this.pin)){
             this.lore = description["Floor"];
             this.name = "Eroded Floortiles";
@@ -143,6 +148,13 @@ class Floor extends Tile{
             spells["ARTTRIGGER"](monster.tile);
             playSound("treasure");            
             this.trap = false;
+        }
+        if((!monster.isPlayer&&!monster.charmed)&& this.flufftrap){
+            let fluffy = new BattleFluffy(monster.tile);
+            removeItemOnce(monsters, monster);
+            monsters.push(fluffy);
+            playSound("treasure");      
+            this.flufftrap = false;
         }
         if (monster.isPlayer && this.cuff && trapsafe){
             player.para = 1;

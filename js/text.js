@@ -305,6 +305,7 @@ description = {
     "Rose" : "As Last to Rule the Old World, Rose represents the apex of the slow descent into leisure and egoism that struck the Saints' Dynasty. Under his iconic marching band uniform, the gears and cogs of his many mechanical augmentations whirr in eerie unison.",
     "RoseS" : "A once proud individual, whose willpower and strength of character have long been drained away by the pink twine constricting their body. From the edge of your sight, you swear you occasionally spot Rose himself taking the place of one of his servants, smiling mischievously at your surprise.",
     "RoseSpawn" : "A teletransporter, randomly hauling Rose's most loyal subjects into his circus. The lottery fliers claimed they'd be granted a chance at ascension into the Next World, as long as they swore to extend the Roseic dominion into the realities beyond.",
+    "FluffTrap" : "A vibrating crystal prism, ready to shatter at a moment's notice. Within is contained a recording of the Harmonic Song, sped up and amplified thousandfold. Any foe stepping on this delicate piece of technology will find their psyche immediately Harmonized by an overpowering choir.",
 }
 
 monabi = {
@@ -401,7 +402,7 @@ soulabi = {
     "Alacrity" : "Drawing souls with \"q\" requires zero turns. Serene Peacekeepers gain Haste.",
     "Selective" : "Using Serene Souls will never harmonize a Legendary Soul.  Serene Peacekeepers gain Harmony-branded attacks.",
     "Thrusters" : "Every step you take becomes a dash (that deals zero damage). Serene Peacekeepers perform damaging dashes.",
-    "Hover" : "Gain immunity to all floor traps. You may now fly in the Serene Spire.",
+    "Hover" : "Gain immunity to all floor traps. You may now fly in the Serene Spire. Serene Peacekeepers leave behind Harmonizing traps.",
     "Focus" : "Casting Souls does not return them to the discard pile.",
     "NONE" : "",
     
@@ -442,7 +443,7 @@ soulval = {
     "Alacrity" : "Consumes 1 Common Soul per soul draw.",
     "Selective" : "Consumes 1 Common Soul per use of a Serene Soul. Consumes 3 Common Souls per Harmony-branded attack.",
     "Thrusters" : "Consumes 1 Common Soul per dash. Consumes 1 Common soul per Serene dash.",
-    "Hover" : "Consumes 1 Common Soul per avoided trap.",
+    "Hover" : "Consumes 1 Common Soul per avoided trap. Consumes 2 Common Soul per Harmony trap produced.",
     "Focus" : "Consumes 3 Common Souls per soul cast.",
     "NONE" : "",
 }
