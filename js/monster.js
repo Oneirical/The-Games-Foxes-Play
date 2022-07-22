@@ -838,7 +838,7 @@ class Player extends Monster{
             }
             if (!fail) playSound("spell");
             if (!fail) tick();
-            if (fail) message = "CastError";
+            if (fail && spellName != "SERENE") message = "CastError";
             fail = false;
         }
     }
