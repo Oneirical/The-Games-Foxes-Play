@@ -773,18 +773,16 @@ class Player extends Monster{
 
 
     rollSpell(){
+            //this.discard.push("TAINTED") //remplacer avec curse, dash est un placeholder
+        shuffle(this.discard)
+        for(let i=0;i<this.discard.length;i++){
+            this.inventory.push(this.discard[i]);
+        }
+        this.discard = [];
         let simplicity = this.inventory.filter(soul => basic.includes(soul));
         let simplicit = this.discard.filter(soul => basic.includes(soul));
         let totallength = simplicit.length + simplicity.length;
-        if (totallength <= (6-sacrifice)){
-            //this.discard.push("TAINTED") //remplacer avec curse, dash est un placeholder
-            shuffle(this.discard)
-            for(let i=0;i<this.discard.length;i++){
-                this.inventory.push(this.discard[i]);
-            }
-            this.discard = [];
-        }
-        if (totallength <= (6-sacrifice)){
+        if (totallength < (6-sacrifice)){
             message = "FluffyNotEnoughSoulsTaunt";
             monsters.forEach(function(entity){
                 if (entity.name == "Serene Harmonizer"){
