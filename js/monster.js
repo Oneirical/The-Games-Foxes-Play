@@ -481,7 +481,7 @@ class Player extends Monster{
             message = "Paralyzed";
         }
         if (this.constrict){
-            message = "Constricted";
+            if (!player.dead) message = "Constricted";
         }
         if (this.fall > 0 && !this.dead){ //wtf why is it fluffexit and not ladder? whatever works I guess
             if (this.tile.name != "Harmonic Seal") message = "Falling";
