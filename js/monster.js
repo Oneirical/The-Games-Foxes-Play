@@ -107,12 +107,6 @@ class Monster{
     update(){
         this.shield--;
         this.teleportCounter--;
-        if(this.stunned|| this.teleportCounter > 0){ 
-            this.stunned = false;
-            return;
-        }
-        if(this.paralyzed) return;
-        if(this.charmed && monsters.length < 2 && !this.permacharm) this.charmed = false;
         if (this.deathdelay > 0){
             this.deathdelay--;
             if (this.deathdelay == 0){
@@ -125,6 +119,12 @@ class Monster{
                 } 
             }
         }
+        if(this.stunned|| this.teleportCounter > 0){ 
+            this.stunned = false;
+            return;
+        }
+        if(this.paralyzed) return;
+        if(this.charmed && monsters.length < 2 && !this.permacharm) this.charmed = false;
         this.doStuff();
     }
 
