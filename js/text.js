@@ -36,6 +36,7 @@ messages = {
     "Falling" : "You are falling! Try to move around to gain back your footing.",
     "Oversoul" : "Your psyche is trembling with the echo of a thousand chatters! Unleash some souls before drawing more.",
     "CastError" : "You cannot cast this spell right now!",
+    "Constricted" : "You are constricted! You cannot move normally. Slay or escape the creature constricting you to regain your agility!",
     
     
     // Death messages
@@ -193,6 +194,7 @@ colours = {
     "Fallen" : "white",
     "Rosified" : "lightpink",
     "CastError" : "red",
+    "Constricted" : "yellow",
     
     "Discard" : "deepskyblue",
     "Shiza" : "deepskyblue",
@@ -282,6 +284,7 @@ description = {
     "Third" : "A soft plushie resembling a black arachnid, its eight grey eyes emblazoned with the cursed seal of Affection. Whenever its owner reached adulthood, the child's parents would rip it in half, as a lesson on the ephemerality of all relationships. This specimen has never seen use, and prowls the darkness, looking for a friend to bond with.",
     "Ashsoul" : "In his quest to erase the sin of Affection once and for all, Habor the Fourteenth Saint nominated citizens who would undergo a terrible spiritual ritual. When the monks were done signing, those now remembered as the Ashsoul screamed and screamed again, pushing away all who'd approach them, seeing every single creature as twisted, charred monsters of nightmare.",
     "Tail" : "Glossy, impeccable and blinding in its cleanliness, you can almost glimpse yourself in its reflection. Is that an antenna on your head? Surely, you must have imagined it.",
+    "Apis" : "Interested to learn more about the most valued Feral subcaste - bees - the Saints engineered these half-canine, half-apian six-legged mutants, sending them on a quest to relay the Thinkers with the Unthinking. Falling into the influence of the latter, this extremely strong creature knows only two things: hugging friends, and bashing enemies into the ground. It seems to consider you as the former. Perhaps the latter would have been better for your life expectancy.",
     // Tiles
     "Floor" : "A long time ago, legions of monks carved holy symbols on each floortile of the palaces, so they may be worthy of being treaded by the Saints' steps. Decades of dust has undone the tireless work of these artists.",
     "Seal" : "The Saints feared Terminal would try to escape before the end times. They locked down their royal chambers, trading convenience for the peace of mind that their ticket to immortality would not run away in the middle of the night.",
@@ -325,6 +328,7 @@ monabi = {
     "Rendfly" : "PAIN-HACK INJECTION - Cannot attack. Double speed. Occasionally blinks around the room. Bites enemies, inducing a short-duration Damage Delay effect.",
     "Third" : "WANDERFRIEND - Teleports randomly every 12 turns.",
     "Ashsoul" : "HORRORBLAZE - Teleports randomly every 12 turns. Can occasionally use a powerful knockback punch.",
+    "Apis" : "RIBCRUSH HUG - Will hug you on contact, locking out all normal movement."
 }
 
 souldesc = {

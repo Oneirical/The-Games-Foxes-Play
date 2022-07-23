@@ -295,6 +295,9 @@ class Monster{
                         newTile.monster.deathdelay = 2;
                         
                     }
+                    if (this.specialAttack == "Constrict" && newTile.monster && newTile.monster.isPlayer){
+                        newTile.monster.constrict =true;
+                    }
                     this.bonusAttack = 0;
 
                     shakeAmount = 5;
@@ -394,6 +397,7 @@ class Player extends Monster{
         this.fall = 0;
         this.rosetox = 0;
         this.fov = 0;
+        this.constrict = false;
     }
 
     cycleModules(){
@@ -475,6 +479,9 @@ class Player extends Monster{
         }
         if (this.para > 0){
             message = "Paralyzed";
+        }
+        if (this.constrict){
+            message = "Constricted";
         }
         if (this.fall > 0 && !this.dead){ //wtf why is it fluffexit and not ladder? whatever works I guess
             if (this.tile.name != "Harmonic Seal") message = "Falling";
@@ -1715,5 +1722,18 @@ class Box extends Monster{
     update(){
         this.stunned = true;
         super.update();
+    }
+}
+
+class Apis extends Monster{
+    constructor(tile){
+        super(tile, 70, 2, "UNHINGED", description["Apis"]);
+        this.soul = "Animated by an Unhinged (3) soul.";
+        this.name = "Messenger of Aculeo";
+        this.ability = monabi["Apis"];
+    }
+    doStuff(){
+        this.specialAttack = "Constrict";
+        super.doStuff();
     }
 }
