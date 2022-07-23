@@ -127,6 +127,7 @@
                     else if(e.key=="s"&&!cursormode && player.para == 0&& player.fall == 0 && player.tile.getNeighbor(0, 1).monster) player.tryMove(0, 1);
                     else if(e.key=="a"&&!cursormode && player.para == 0&& player.fall == 0 && player.tile.getNeighbor(-1, 0).monster) player.tryMove(-1, 0);
                     else if(e.key=="d"&&!cursormode && player.para == 0&& player.fall == 0 && player.tile.getNeighbor(1, 0).monster) player.tryMove(1, 0);
+                    else if (player.dead) tick();
                 } 
             }
             else if((e.key=="w"||e.key=="s"||e.key=="a"||e.key=="d") && player.fall != 0) {
