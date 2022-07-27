@@ -203,7 +203,7 @@ class Monster{
             for(let i=0; i<this.hp; i++){
                 drawSprite(
                     9,
-                    this.getDisplayX() + (i%8)*(2/16),   
+                    this.getDisplayX() + (i%8)*(2.7/16),   
                     this.getDisplayY() - Math.floor(i/8)*(2/16)
                 );
             }
