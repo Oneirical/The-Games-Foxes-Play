@@ -9,6 +9,13 @@ function setupCanvas(){
     canvas.style.width = canvas.width + 'px';
     canvas.style.height = canvas.height + 'px';
     ctx.imageSmoothingEnabled = false;
+    canvas.addEventListener('mousemove', function(event) {
+        let rect = canvas.getBoundingClientRect();
+        let x = event.clientX - rect.left;
+        let y = event.clientY - rect.top;
+        mousepos = [x,y];
+        //if(mouspos[0]>603&&mousepos[1]>115){
+    }, false);
 }
 
 function drawSprite(sprite, x, y){
@@ -46,7 +53,9 @@ function drawFilter(){
 function draw(){
     if(gameState == "running" || gameState == "dead" || gameState == "contemplation" || gameState == "fluffy" || gameState == "vision" || gameState == "discard"){  
         ctx.clearRect(0,0,canvas.width,canvas.height);
-
+        let wtfx = mousepos[0];
+        let wtfy = mousepos[1];
+        if(wtfx>603 && wtfy>115) console.log("hi");
         screenshake();
         
         let posgenx = 0;
