@@ -1127,7 +1127,7 @@ class Player extends Monster{
             }
             else{
                 printAtWordWrap(souldesc[spellName], 18, 10, 600, colours[spellName], 20, 940);
-                printAtWordWrap(soulabi[spellName], 18, 10, 630+((souldesc[spellName].length/100)*25), "white", 20, 940);
+                printAtWordWrap(soulabi[spellName], 18, 10, 600+(Math.ceil(souldesc[spellName].length/100)*25), "white", 20, 940);
                 printAtSidebar(soulval[spellName], 18, 590, 195, "cyan", 20, 350);
                 printAtSidebar(soulname[spellName], 18, 590, 130, colours[spellName], 20, 350);
             }

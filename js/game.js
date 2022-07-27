@@ -126,7 +126,7 @@ function draw(){
         }
         if (level == 1 && !cursormode&& gameState == "running") printAtSidebar("Slay enemies to collect their Soul.", 18, 590, 425, "lime", 20, 350);
         if (level == 0 && !cursormode) printAtSidebar("Press \"c\" to toggle Examine mode.", 18, 590, 210, "lime", 20, 350);
-        if (cursormode && !invmode) printAtSidebar("Press \"i\" while in Examine mode to toggle Soul View mode.", 18, 590, 425, "lime", 20, 350);
+        if (level == 0 && !invmode) printAtSidebar("Press \"i\" to toggle Soul View mode.", 18, 590, 275, "lime", 20, 350);
         
         if (cursormode == true && invmode == false){
             cursor.draw();

@@ -87,16 +87,22 @@
                 currentspelldesc = "nan";
                 if (message == "InvPrompt") message = "Empty";
             } 
-            if((e.key=="i")&& cursormode == true){
+            if(e.key=="i"){
+                cursormode = true;
+                cursor = new Cursor(playerTile(), 18);
                 if (currentspelldesc != "nan"){
                     currentspelldesc = "nan";
                 }
                 else{
                     invmode = !invmode;
+                    if (!invmode){
+                        cursormode = false;
+                        message = "Empty";
+                    }
                 }
             }
             if(e.key=="c"&&cursormode) cursor = new Cursor(playerTile(), 18);
-            if(e.key=="c"&&!cursormode) cursor.die();
+            if((e.key=="c"&&!cursormode) || (e.key=="i"&&!cursormode)) cursor.die();
             if(e.key=="w"&&!cursormode && player.para == 0 && player.fall == 0 && !player.constrict) player.tryMove(0, -1);
             else if(e.key=="s"&&!cursormode && player.para == 0&& player.fall == 0 && !player.constrict) player.tryMove(0, 1);
             else if(e.key=="a"&&!cursormode && player.para == 0&& player.fall == 0 && !player.constrict) player.tryMove(-1, 0);
