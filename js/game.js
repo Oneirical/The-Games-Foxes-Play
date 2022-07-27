@@ -16,6 +16,18 @@ function setupCanvas(){
         mousepos = [x,y];
         //if(mouspos[0]>603&&mousepos[1]>115){
     }, false);
+    canvas.addEventListener('click', function(event) {
+        let rect = canvas.getBoundingClientRect();
+        let x = event.clientX - rect.left;
+        let y = event.clientY - rect.top;
+        let clickpos = [x,y];
+        if(clickpos[0]>603&&clickpos[1]>115){
+            let mousdes = Math.ceil((clickpos[1] - 130)/20);
+            if (mousdes+1 <= player.inhand.length){
+                player.castSpell(mousdes);
+            }
+        }
+    }, false);
 }
 
 function drawSprite(sprite, x, y){
