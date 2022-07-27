@@ -110,11 +110,10 @@ class Monster{
         if (this.deathdelay > 0){
             this.deathdelay--;
             if (this.deathdelay == 0){
-                this.hp = this.falsehp;
-                if (this.hp <= 0){
+                if (this.falsehp <= 0){
                     this.hit(99);
-                    removeItemOnce(monsters,this);
-                    if (!this.noloot) player.addSpell(this.loot);
+                    //removeItemOnce(monsters,this);
+                    //if (!this.noloot) player.addSpell(this.loot);
                     this.noloot = true;
                 } 
             }

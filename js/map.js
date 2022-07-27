@@ -298,7 +298,7 @@ function spawnMonster(){
         }
     }
     else if ((level % 5 != 1 || level == 1)&& level != 0){
-        let monsterType = shuffle([Apis,Weaver,Rendfly, Second, Tinker,Oracle, Snail,Slug,Ragemaw, Felidol,Monk,Scion, Shrike, Apiarist])[0]; //
+        let monsterType = shuffle([Apis,Weaver,Rendfly, Second, Tinker,Oracle, Snail,Slug,Ragemaw, Felidol,Monk,Scion, Shrike, Apiarist,Shrike])[0]; //Rendfly
         let monster = new monsterType(randomPassableTile());
         monsters.push(monster);
     }
