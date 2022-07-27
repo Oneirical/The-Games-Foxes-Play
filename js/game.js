@@ -27,6 +27,10 @@ function setupCanvas(){
                 player.castSpell(mousdes);
             }
         }
+        else{
+            let cread = getTile(Math.floor((clickpos[0]-shakeX)/tileSize),Math.floor((clickpos[1]-shakeY)/tileSize));
+            cursor = new Cursor(cread);
+        }
     }, false);
 }
 
@@ -83,6 +87,10 @@ function draw(){
                     printAtWordWrap(soulabi[spellName], 18, 10, 600+(Math.ceil(souldesc[spellName].length/100)*25), "white", 20, 940);
                 }
             }
+        }
+        else{
+            let cread = getTile(Math.floor((mousepos[0]-shakeX)/tileSize),Math.floor((mousepos[1]-shakeY)/tileSize));
+            cursor = new Cursor(cread);
         }
         screenshake();
         
