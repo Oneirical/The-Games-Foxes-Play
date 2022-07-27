@@ -55,7 +55,23 @@ function draw(){
         ctx.clearRect(0,0,canvas.width,canvas.height);
         let wtfx = mousepos[0];
         let wtfy = mousepos[1];
-        if(wtfx>603 && wtfy>115) console.log("hi");
+        let selectation = 99;
+        if(wtfx>603&&wtfy>115){
+            let mousdes = Math.ceil((wtfy - 130)/20);
+            if (mousdes+1 <= player.inhand.length){
+                message = "Empty";
+                let spellName = player.inhand[mousdes];
+                selectation = mousdes;
+                if (rosetoxin > 1){
+                    printAtWordWrap(souldesc["ROSE"], 18, 10, 600, "pink", 20, 940);
+                    printAtWordWrap(soulabi["ROSE"], 18, 10, 725, "pink", 20, 940);
+                }
+                else{
+                    printAtWordWrap(souldesc[spellName], 18, 10, 600, colours[spellName], 20, 940);
+                    printAtWordWrap(soulabi[spellName], 18, 10, 600+(Math.ceil(souldesc[spellName].length/100)*25), "white", 20, 940);
+                }
+            }
+        }
         screenshake();
         
         let posgenx = 0;
@@ -160,8 +176,10 @@ function draw(){
             if (currentspelldesc == "nan" && gameState != "vision"){
                 for(let i=0; i<player.inhand.length; i++){
                     let spellText = (i+1) + ") " + (player.inhand[i] || "");
-                    if (rosetoxin > 1) spellText = (i+1) + ") " + ("ROSE" || "");              
-                    drawText(spellText, 20, false, 130+i*20, "lightskyblue");
+                    if (rosetoxin > 1) spellText = (i+1) + ") " + ("ROSE" || "");
+                    let colour = "lightskyblue";
+                    if (selectation == i) colour = "cyan";     
+                    drawText(spellText, 20, false, 130+i*20, colour);
                 }
                 if (gameState == "discard" && !naiamode) message = "Discard";
                 else if (gameState == "discard" && naiamode) message = "NaiaTime";
