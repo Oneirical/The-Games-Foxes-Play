@@ -293,6 +293,7 @@ function showTitle(){
     drawText("FOXES PLAY", 70, true, canvas.height/2 - 50, "cyan");
     drawText("by Oneirical", 30, true, canvas.height/2 - 20, "white");
     drawText("with music by Zennith", 30, true, canvas.height/2 + 10, "white");
+    drawText("Press any letter key to begin.", 30, true, canvas.height/2 + 110, "white");
 }
 
 function showBoss(currentboss){                                          
