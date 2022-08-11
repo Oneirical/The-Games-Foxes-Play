@@ -297,6 +297,9 @@ class Monster{
                     if (this.specialAttack == "Constrict" && newTile.monster && newTile.monster.isPlayer){
                         newTile.monster.constrict =true;
                     }
+                    if (this.specialAttack == "Tox" && newTile.monster && newTile.monster.isPlayer){
+                        newTile.monster.rosetox++;
+                    }
                     this.bonusAttack = 0;
 
                     shakeAmount = 5;
@@ -357,6 +360,13 @@ class Monster{
             monsters.push(felid);
             this.tile.siphon = false;
             this.noloot = true;
+        }
+        if (this instanceof Embalmer){
+            monsters.forEach(function(entity){
+                if (entity.name == "Rosewrapped Brute"){
+                    entity.enraged = true;
+                }
+            });
         }
         if (this.isFluffy) this.sprite = 2;
         else this.sprite = 1;
@@ -1732,5 +1742,60 @@ class Apis extends Monster{
     doStuff(){
         this.specialAttack = "Constrict";
         super.doStuff();
+    }
+}
+
+class Embalmer extends Monster{
+    constructor(tile){
+        super(tile, 71, 1, "SAINTLY", description["Embalmer"]);
+        this.soul = "Animated by a Saintly (6) soul.";
+        this.name = "Roseic Bioembalmer";
+        this.ability = monabi["Embalmer"];
+        this.dmg = 0;
+    }
+    doStuff(){
+        this.specialAttack = "Tox";
+        this.attackedThisTurn = false;
+        super.doStuff();
+
+        if(!this.attackedThisTurn){
+            super.doStuff();
+        }
+    }
+}
+
+class Brute extends Monster{
+    constructor(tile){
+        super(tile, 72, 2, "ARTISTIC", description["Brute"]);
+        this.soul = "Animated by an Artistic (4) soul.";
+        this.name = "Rosewrapped Brute";
+        this.ability = monabi["Brute"];
+        this.enraged = false;
+        this.dmg = 2;
+    }
+    doStuff(){
+        if (this.enraged){
+            this.attackedThisTurn = false;
+            super.doStuff();
+    
+            if(!this.attackedThisTurn){
+                super.doStuff();
+            }
+        }
+        else{
+            super.doStuff();
+        }
+    }
+    update(){
+        if (!this.enraged){
+            let startedStunned = this.stunned;
+            super.update();
+            if(!startedStunned){
+                this.stunned = true;
+            }
+        }
+        else{
+            super.update();
+        }
     }
 }

@@ -11,17 +11,17 @@ modulators = ["Alacrity","Selective","Thrusters","Hover","Focus"];
 //Monsters
 // Monk
 //Vile
-// Second - Felidol
+// Second - Felidol - Third
 //Feral
 // Ragemaw - Shrike
 //Unhinged
-// Oracle - Ashoul
+// Oracle - Ashoul - Apis
 //Artistic
-// Tinker - Weaver
+// Tinker - Weaver - Brute
 //Ordered
 // Slug - Apiarist - Snail
 //Saintly
-// Scion
+// Scion - Embalmer
 
 messages = {
     // Various out-of-character messages
@@ -285,6 +285,8 @@ description = {
     "Ashsoul" : "In his quest to erase the sin of Affection once and for all, Habor the Fourteenth Saint nominated citizens who would undergo a terrible spiritual ritual. When the monks were done signing, those now remembered as the Ashsoul screamed and screamed again, pushing away all who'd approach them, seeing every single creature as twisted, charred monsters of nightmare.",
     "Tail" : "Glossy, impeccable and blinding in its cleanliness, you can almost glimpse yourself in its reflection. Is that an antenna on your head? Surely, you must have imagined it.",
     "Apis" : "Interested to learn more about the most valued Feral subcaste - bees - the Saints engineered these half-canine, half-apian six-legged mutants, sending them on a quest to relay the Thinkers with the Unthinking. Falling into the influence of the latter, this extremely strong creature knows only two things: hugging friends, and bashing enemies into the ground. It seems to consider you as the former. Perhaps the latter would have been better for your life expectancy.",
+    "Brute" : "Despite Rose's attempts to regulate and monitor the reproduction of all species he deemed unworthy of being his subjects, love triumphed, and, with it, the prevalence of venomous stingers and pincers among the population. As compromise, these Brutes were forced to cover themselves at all times in a cocoon of pink ribbons, each one seeping with Glamorous Toxin as they twist their strong armoured bodies.",
+    "Embalmer" : "A noble fashionista, expert in colour palettes, pricy fabrics and annoyingly high-pitched giggling. Appointed to cleanse Brutes of their unappealing physique, only they hold the many threads keeping their thralls' cocoons in pristine state. Should they be slain, all their \"customers\" will find freedom, and with it, the blind rage of having been contained for far too long.",
     // Tiles
     "Floor" : "A long time ago, legions of monks carved holy symbols on each floortile of the palaces, so they may be worthy of being treaded by the Saints' steps. Decades of dust has undone the tireless work of these artists.",
     "Seal" : "The Saints feared Terminal would try to escape before the end times. They locked down their royal chambers, trading convenience for the peace of mind that their ticket to immortality would not run away in the middle of the night.",
@@ -328,7 +330,9 @@ monabi = {
     "Rendfly" : "PAIN-HACK INJECTION - Cannot attack. Double speed. Occasionally blinks around the room. Bites enemies, inducing a short-duration Damage Delay effect.",
     "Third" : "WANDERFRIEND - Teleports randomly every 12 turns.",
     "Ashsoul" : "HORRORBLAZE - Teleports randomly every 12 turns. Can occasionally use a powerful knockback punch.",
-    "Apis" : "RIBCRUSH HUG - Will hug you on contact, locking out all normal movement."
+    "Apis" : "RIBCRUSH HUG - Will hug you on contact, locking out all normal movement.",
+    "Brute" : "ROSEBOUND - 2-damage attacks but only moves every other turn. When a Bioembalmer is slain, triple the movement speed of all Brutes.",
+    "Embalmer" : "ROSEBINDER - Deals no damage. Inflicts 1 point of Glamour when it attacks. When slain, triple the movement speed of all Brutes.",
 }
 
 souldesc = {

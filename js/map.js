@@ -266,7 +266,11 @@ function generateMonsters(){
     else if (level > 6 && level != 17) numMonsters = level;
     else if ((level % 5 == 1 && level > 5) || (level == 17 && area == "Faith")) numMonsters = 1;
     for(let i=0;i<numMonsters;i++){
-        spawnMonster();
+        if (spawnMonster() == "Embalm"){
+            spawnEmbalm();
+            spawnEmbalm();
+            numMonsters -= 2;
+        } 
     }
     if (area == "Spire" && level % 5 == 1 && level > 5){
         let wtfisthisbug = randomRange(0,modulators.length-1);
@@ -276,6 +280,12 @@ function generateMonsters(){
         let monster = new Harmonizer(getTile(7,1));
         monsters.push(monster);
     }
+}
+
+function spawnEmbalm(){
+    let monsterType = shuffle([Brute])[0]; //
+    let monster = new monsterType(randomPassableTile());
+    monsters.push(monster);
 }
 
 function spawnMonster(){
@@ -298,9 +308,10 @@ function spawnMonster(){
         }
     }
     else if ((level % 5 != 1 || level == 1)&& level != 0){
-        let monsterType = shuffle([Apis,Weaver, Second, Tinker,Oracle, Snail,Slug,Ragemaw, Felidol,Monk,Scion, Shrike, Apiarist,Shrike])[0]; //Rendfly
+        let monsterType = shuffle([Embalmer])[0]; //Rendfly     //Apis,Weaver, Second, Tinker,Oracle, Snail,Slug,Ragemaw, Felidol,Monk,Scion, Shrike, Apiarist,Shrike, 
         let monster = new monsterType(randomPassableTile());
         monsters.push(monster);
+        if (monsterType == Embalmer) return "Embalm";
     }
     else if (level != 0){
         let monsterType = shuffle([Harmonizer])[0];
