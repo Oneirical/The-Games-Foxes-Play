@@ -14,6 +14,11 @@ function setupCanvas(){
         let x = event.clientX - rect.left;
         let y = event.clientY - rect.top;
         mousepos = [x,y];
+        if (cursormode){
+            if (cursor.tile.monster && cursor.tile.monster.teleportCounter <= 0) currentspelldesc = cursor.tile.monster.loot;
+            else if (!cursor.tile.monster) currentspelldesc = "nan";
+        }
+        
         //if(mouspos[0]>603&&mousepos[1]>115){
     }, false);
     canvas.addEventListener('click', function(event) {
@@ -29,7 +34,9 @@ function setupCanvas(){
         }
         else{
             let cread = getTile(Math.floor((clickpos[0]-shakeX)/tileSize),Math.floor((clickpos[1]-shakeY)/tileSize));
-            cursor = new Cursor(cread); // FIX THE OUT OF BOUNDS
+            cursor = new Cursor(cread);
+            invmode = !invmode;
+            
         }
     }, false);
 }
