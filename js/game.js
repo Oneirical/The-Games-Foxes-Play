@@ -132,7 +132,7 @@ function draw(){
         else drawText("Faith's End: level "+level, 30, false, 40, "violet");
         drawText("Ipseity: "+truehp, 30, false, 70, "cyan");
         if (gameState == "running"){
-            if (area != "Circus") drawText("Resolve: "+resolve, 30, false, 100, "orange");
+            if (area != "Circus") drawText("Resolve: "+resolve+"/"+(3+Math.floor(resolvebonus/2)), 30, false, 100, "orange");
             else drawText("Glamour: "+player.rosetox+"/10", 30, false, 100, "lightpink");
         }
         if (gameState == "contemplation"){
@@ -366,6 +366,7 @@ function startGame(){
     pauseSound("title");            
     playSound("cage");                         
     level = 0;
+    resolvebonus = 0;
     truehp = 8;
     score = 0;
     numSpells = 0;
@@ -409,7 +410,7 @@ function startLevel(playerHp){
     spawnRate = 99999999999;
     spawnCounter = spawnRate;  
     exitspawn = 0;
-    resolve = 3+ 2*Math.floor(level/6);
+    resolve = 3+ Math.floor(resolvebonus/2);
     playMusic();
     if (area == "Faith"){
         if (level == 17){

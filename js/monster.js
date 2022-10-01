@@ -868,6 +868,7 @@ class Player extends Monster{
                     if (removeName == "SERENE") agony -= 3;
                     else agony--;
                     this.inhand.splice(index, 1);
+                    resolvebonus++;
                     if (falseagony){
                         gameState = "running";
                         falseagony = false;
