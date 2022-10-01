@@ -50,7 +50,7 @@ messages = {
     "RoomDeath" : "After their fangs were done toying with your flesh, they had taken away much more than sinew and bone. Your soul turned Feral, and the last lights of duty and purpose were soon snuffed out like a candle flame, leaving nothing but a ravenous husk. Your journey has come to its end.",
     "DrawDeath" : "You broke your limits for the last time, and, in doing so, broke yourself as well. What should have been the denizens of the Next World now seep through your closed eyes, while your soul turns Feral and assumes the command of your exhausted body. Your journey has come to its end.",
     
-    // Serene Harmonizer dialogue
+    // Serene Harmonizer
     "FluffyFloorTaunt" : "\"Some call Fluffy heartless -- and yet here you are, attempting to let a proud soul collect muck on the grime-tainted floor. If you won't have the tact to use Fluffy's services properly, at least have the decency to leave and never return in Fluffy's presence.\"",
     "FluffyNoSoulTaunt" : "\"You cannot sacrifice that which does not exist, ruffian. No matter how much the merchants of the Old World enjoyed doing so.\"",
     "FluffyWelcome" : "\"Welcome. I am Fluffy, proud representative of the Serene Collective. I invite you to bask in the beauty that surrounds you. The beauty of my figure, the beauty of our creation, and... the beauty of progress towards perfection.\"",
@@ -109,7 +109,7 @@ messages = {
     "FluffyModule7" : "\"Fluffy is afraid the only way out is down.\"",
     "FluffyModuleRepeat" : "\"Has the Harmonic Song absorbed all your attention, leaving my words to bounce off your enthralled shell? Listen to me carefully this time around - valuable loot is at stake. Something you will actually find important, unlike the ascension of all souls into objective perfection. Hmph!\"",
 
-    // Saints' Voice dialogue
+    // Saints' Voice
     "Saint1" : "\"Vessel. Your rest has come to its end.\"",
     "Saint2" : "\"The cycle nears its end, and the Old World is crumbling once more, soon to be replaced by the Next World.\"",
     "Saint3" : "\"This time, however, we refuse to die. We refuse to be the puppets of a cosmic farce undoing our centuries of scientific and cultural progress.\"",
@@ -133,6 +133,16 @@ messages = {
     // Epsilon, Supreme Ordered General
 
     "EpsilonWelcome1" : "\"Orders given: While Vessel lives, overwhelm lesser Vessel organic sensors with stimuli of 100 lumens/W and 300 dB. For each Soul in Vessel, swap data-type to Ordered type.\"",
+    "EpsilonYellowCore" : "\"Successfully initialized Enthalpic Lead-Plated Radiodiffusor EX x 1. Beginning emission of anti-organic wavebursts.\"",
+    //Weakness: floor objects explode
+    "EpsilonWhiteCore" : "\"Successfully initialized Anti-Entropic Edgeian Thermodynamic Translocator x 1. Drone production rate maximized.\"",
+    //Weakness: self-destructs after some time
+    "EpsilonRedCore" : "\"Successfully initialized Turbo-Kinetic SurgeRockets-Branded Rack x 1. Evaluation results of organic specimen: Very flammable.\"",
+    //Weakness: nooks in the wall
+    "EpsilonCyanCore" : "\"Successfully initialized Fluffal Armour-Plated Subwoofer Delta x 1. NOTE: Remove module following assimilation of organic specimen to avoid data corruption.\"",
+    //Weakness: fluffies can hack it
+    "EpsilonPinkCore" : "\"Successfully initialized Roseic Bio-Pacification Dual-Diffusers 3B x 1. NOTE: Cartridge R1 is running low, please replace following assimilation of organic specimen.\"",
+    //Weakness: while high on toxin, it becomes weak since you are now rose and made it
 
     // Harmonic Modulators
 

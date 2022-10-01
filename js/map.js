@@ -300,7 +300,7 @@ function spawnMonster(){
         let monsterTypee = shuffle([Box])[0];
         let monstere = new monsterTypee(getTile(4,4));
         monsters.push(monstere);
-        for (let i = 1; i < 9; i++){
+        for (let i = 1; i < 5; i++){
             let tail = new Tail(getTile(8,i+3));
             tail.order = i;
             monsters.push(tail);

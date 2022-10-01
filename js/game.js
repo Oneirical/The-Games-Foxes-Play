@@ -365,7 +365,7 @@ function showBoss(currentboss){
 function startGame(){
     pauseSound("title");            
     playSound("cage");                         
-    level = 0;
+    level = 16;
     resolvebonus = 0;
     truehp = 8;
     score = 0;
