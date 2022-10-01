@@ -32,7 +32,7 @@ function setupCanvas(){
                 player.castSpell(mousdes);
             }
         }
-        else{
+        else if (cursormode){
             let cread = getTile(Math.floor((clickpos[0]-shakeX)/tileSize),Math.floor((clickpos[1]-shakeY)/tileSize));
             cursor = new Cursor(cread);
             invmode = !invmode;
