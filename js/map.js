@@ -5,7 +5,6 @@ function generateLevel(){
 
     generateMonsters();
                                            
-
 }
 
 function generateEdgeLevel(){

@@ -23,6 +23,8 @@ modulators = ["Alacrity","Selective","Thrusters","Hover","Focus"];
 //Saintly
 // Scion - Embalmer
 
+//Is anyone still here?
+
 messages = {
     // Various out-of-character messages
     "Empty" : "",
