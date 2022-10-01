@@ -28,7 +28,7 @@ function setupCanvas(){
         let clickpos = [x,y];
         if(clickpos[0]>603&&clickpos[1]>115){
             let mousdes = Math.ceil((clickpos[1] - 130)/20);
-            if (mousdes+1 <= player.inhand.length){
+            if (mousdes+1 <= player.inhand.length && gameState == "running"){
                 player.castSpell(mousdes);
             }
         }
