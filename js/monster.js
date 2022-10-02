@@ -97,6 +97,7 @@ class Monster{
         this.falsehp = 0;
         this.deathdelay = 0;
         this.shield = 0;
+        this.order = -1;
     }
 
     heal(damage){
@@ -1691,8 +1692,9 @@ class Epsilon extends Monster{
         this.ability = monabi["Epsilon"];
         this.abitimer = 0;
         this.isInvincible = true;
-        this.lastpos = [8,8];
+        this.lastpos = [9,9];
         this.order = 0;
+        this.teleportCounter = 0;
     }
     doStuff(){
         this.lastpos = [this.tile.x,this.tile.y];
@@ -1708,18 +1710,19 @@ class Epsilon extends Monster{
 }
 
 class Tail extends Monster{
-    constructor(tile){
+    constructor(tile,order){
         super(tile, 68, 1, "ORDERED", description["Tail"]);
         this.soul = "Soulless.";
         this.name = "Rubberized Mecha-Segment";
         this.ability = monabi["Tail"];
         this.abitimer = 0;
-        this.teleportCounter = 0;
-        this.order = 1;
+        this.teleportCounter = 1;
+        this.order = order;
         this.bosscard = 0;
     }
     doStuff(){
         this.bosscard++
+        this.lastpos = [this.tile.x,this.tile.y];
         if (this.bosscard == 2) showboss = false;
         let move;
         let lmove;
@@ -1731,8 +1734,8 @@ class Tail extends Monster{
             }
         }
         if(move){
-            this.move(getTile(move[0]+lmove[0],move[1]+lmove[1]));
-            this.lastpos = [this.tile.x,this.tile.y];
+            this.move(getTile(move[0],move[1]));
+            this.lastMove = lmove;
         }
     }
     update(){

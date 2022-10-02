@@ -295,18 +295,17 @@ function spawnMonster(){
     }
     else if (level == 17 && area == "Faith"){
         let monsterType = shuffle([Epsilon])[0];
-        let monster = new monsterType(getTile(9,9));
+        let monster = new monsterType(getTile(9,8));
         monsters.push(monster);
+        for (let i = 1; i < 5; i++){
+            let tail = new Tail(getTile(9,i+8),i);
+            monsters.push(tail);
+        }
         let monsterTypee = shuffle([Box])[0];
         let monstere = new monsterTypee(getTile(4,4), 20);
         let monsterf = new monsterTypee(getTile(4,6), 21);
         monsters.push(monstere);
         monsters.push(monsterf);
-        for (let i = 1; i < 5; i++){
-            let tail = new Tail(getTile(9,i+8));
-            tail.order = i;
-            monsters.push(tail);
-        }
     }
     else if ((level % 5 != 1 || level == 1)&& level != 0){
         let monsterType = shuffle([Embalmer,Apis,Weaver, Second, Tinker,Oracle, Snail,Slug,Ragemaw, Felidol,Monk,Scion, Shrike, Apiarist])[0]; //Rendfly     //

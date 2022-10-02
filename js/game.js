@@ -26,7 +26,7 @@ function setupCanvas(){
         let x = event.clientX - rect.left;
         let y = event.clientY - rect.top;
         let clickpos = [x,y];
-        if(clickpos[0]>603&&clickpos[1]>115){
+        if(clickpos[0]>603&&clickpos[1]>115 && gameState == "running"){
             let mousdes = Math.ceil((clickpos[1] - 130)/20);
             if (mousdes+1 <= player.inhand.length){
                 if (gameState == "running") player.castSpell(mousdes);
@@ -268,11 +268,18 @@ function manageExit(){
 function tick(){
     player.update();
     deadcheck = 0;
+    if (level == 17){
+        monsters[0].update();
+        monsters[1].update();
+        monsters[2].update();
+        monsters[3].update();
+        monsters[4].update();
+    }
     for(let k=monsters.length-1;k>=0;k--){
-        if(!monsters[k].dead){
+        if(!monsters[k].dead && monsters[k].order < 0){
             monsters[k].update();
             if (!monsters[k].permacharm || monsters[k].name.includes("Vermin")) deadcheck++
-        }else{
+        }else if (monsters[k].order < 0){
             monsters.splice(k,1);
             
         }
@@ -737,10 +744,8 @@ function playMusic(){
         playSound("quarry");
     }
     else if (level == 17){
-        console.log("uh hi");
         pauseAllMusic();
         playSound("epsilon");
-        console.log("uh hi2");
     }
     
 }
