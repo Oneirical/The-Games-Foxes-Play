@@ -365,18 +365,18 @@ function showBoss(currentboss){
 function startGame(){
     pauseSound("title");            
     playSound("cage");                         
-    level = 16;
+    level = 5;
     resolvebonus = 0;
     truehp = 8;
     score = 0;
     numSpells = 0;
     aubecounter = 0;
-    invsave = [];//[, ] //];
+    invsave = ["UNHINGED","UNHINGED","UNHINGED","UNHINGED","UNHINGED","UNHINGED","UNHINGED", "SAINTLY"];//[, ] //];
     modules = ["NONE"];
     modulators = ["Alacrity","Focus","Thrusters","Selective","Hover"];
-    let modtest = modulators[randomRange(0,4)];
-    modules.push(modtest);
-    removeItemOnce(modulators,modtest);
+    //let modtest = modulators[randomRange(0,4)];
+    //modules.push(modtest);
+    //removeItemOnce(modulators,modtest);
     shuffle(invsave);
     naiamode = false;
     dissave = [];

@@ -1087,6 +1087,20 @@ class Player extends Monster{
                     sacritotal = 0;
                 }
             }
+            if (sacritotal == 0){
+                let moddrop = modulators[randomRange(0,modulators.length-1)];
+                if (!(getTile(4,5).monster instanceof Modulorb)) {
+                    console.log("spawn");
+                    removeItemOnce(modulators,moddrop);
+                    spawnCages(moddrop,getTile(4,5));
+                }
+                else{
+                    let addback = getTile(4,5).monster.loot;
+                    getTile(4,5).monster.loot = moddrop;
+                    getTile(4,5).monster.soul = "Contains the "+modulename[moddrop];
+                    modulators.push(addback);
+                }
+            }
             let polarity = [tiles[3][3].value,tiles[5][3].value,tiles[3][5].value,tiles[5][5].value];
             let lootdrop = this.cageDrop(polarity, sacritotal);
             let bets = [tiles[5][5],tiles[3][5],tiles[5][3],tiles[3][3]];
