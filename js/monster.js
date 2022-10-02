@@ -315,9 +315,20 @@ class Monster{
                     dialoguecount = newTile.monster.diareset;
                 }else if (this.isPlayer && newTile.monster.pushable){
                     let lm = player.lastMove;
+                    let corevore = false;
                     let pushTile = getTile(newTile.x+lm[0],newTile.y+lm[1]);
-                    if (inBounds(pushTile.x,pushTile.y)) newTile.monster.move(pushTile);
-                    if (inBounds(pushTile.x,pushTile.y)) this.move(newTile);
+                    if (inBounds(pushTile.x,pushTile.y) && pushTile.passable){
+                        if (pushTile.monster){
+                            if (pushTile.monster instanceof Epsilon){
+                                newTile.monster.hit(99);
+                                console.log("chomp");
+                                corevore = true;
+                            }
+                            else pushTile.monster.move(getTile(pushTile.x+lm[0],pushTile.y+lm[1]));
+                        }
+                        if (!corevore) newTile.monster.move(pushTile);
+                        this.move(newTile);
+                    }
                 }
             }
             return true;
