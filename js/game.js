@@ -97,7 +97,7 @@ function draw(){
         }
         else{
             let cread = getTile(Math.floor((mousepos[0]-shakeX)/tileSize),Math.floor((mousepos[1]-shakeY)/tileSize));
-            if (cread.x <9 && cread.y < 9) cursor = new Cursor(cread);
+            if (cread.x <numTiles && cread.y < numTiles) cursor = new Cursor(cread);
         }
         screenshake();
         

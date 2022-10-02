@@ -303,7 +303,7 @@ function spawnMonster(){
         monsters.push(monstere);
         monsters.push(monsterf);
         for (let i = 1; i < 5; i++){
-            let tail = new Tail(getTile(8,i+3));
+            let tail = new Tail(getTile(9,i+8));
             tail.order = i;
             monsters.push(tail);
         }
