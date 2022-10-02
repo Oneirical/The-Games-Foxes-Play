@@ -28,8 +28,23 @@ function setupCanvas(){
         let clickpos = [x,y];
         if(clickpos[0]>603&&clickpos[1]>115){
             let mousdes = Math.ceil((clickpos[1] - 130)/20);
-            if (mousdes+1 <= player.inhand.length && gameState == "running"){
-                player.castSpell(mousdes);
+            if (mousdes+1 <= player.inhand.length){
+                if (gameState == "running") player.castSpell(mousdes);
+                else if (gameState == "fluffy"){
+                    if(!cursormode && gameState == "fluffy" && sacrifice < 6 && player.betted) player.sacrificeSpell(mousdes);
+                    if(!cursormode && gameState == "fluffy" && !player.betted && rolled > 0) player.betSpell(mousdes);
+                    else if(gameState == "contemplation"){
+                        player.removeSpell(mousdes);
+                    }else if(gameState == "vision"){
+                        if(discarded > 0){
+                            player.discardSpell(mousdes);
+                            discarded--;
+                        } 
+                        else if(discarded == 0) player.stackSpell(mousdes);
+                    }else if (gameState == "discard"){
+                        player.discardPawSpell(mousdes);
+                    }
+                }
             }
         }
         else if (cursormode){
