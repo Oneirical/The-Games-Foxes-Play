@@ -323,6 +323,11 @@ description = {
     "RoseS" : "A once proud individual, whose willpower and strength of character have long been drained away by the pink twine constricting their body. From the edge of your sight, you swear you occasionally spot Rose himself taking the place of one of his servants, smiling mischievously at your surprise.",
     "RoseSpawn" : "A teletransporter, randomly hauling Rose's most loyal subjects into his circus. The lottery fliers claimed they'd be granted a chance at ascension into the Next World, as long as they swore to extend the Roseic dominion into the realities beyond.",
     "FluffTrap" : "A vibrating crystal prism, ready to shatter at a moment's notice. Within is contained a recording of the Harmonic Song, sped up and amplified thousandfold. Any foe stepping on this delicate piece of technology will find their psyche immediately Harmonized by an overpowering choir.",
+    20 : "5G towers",
+    21 : "beeeeg rockets",
+    22 : "drugs",
+    19 : "shitnapiss",
+    73 : "fuffy",
 }
 
 monabi = {
@@ -345,6 +350,12 @@ monabi = {
     "Apis" : "RIBCRUSH HUG - Will hug you on contact, locking out all normal movement.",
     "Brute" : "ROSEBOUND - 2-damage attacks but only moves every other turn. When a Bioembalmer is slain, triple the movement speed of all Brutes.",
     "Embalmer" : "ROSEBINDER - Deals no damage. Inflicts 1 point of Glamour when it attacks. When slain, triple the movement speed of all Brutes.",
+    20 : "MIND ASUNDER - When installed on Epsilon, periodically launches sonic waves that deal 1 damage, but are blocked by bots. WEAKNESS: Combusts floor traps, creating a 3x3 explosion that will leave Epsilon vulnerable on contact.",
+    21 : "EMERALD RUSH - When installed on Epsilon, periodically causes Epsilon to dash forwards, leaving behind 1-damage fire traps, and crushing all in his way for 2 damage. WEAKNESS: Dashing into a wall alcove will disrupt this Core, leaving Epsilon vulnerable.",
+    22 : "CIRCUS KISSES - When installed on Epsilon, periodically unleashes vapours of Glamorous Toxin, which inflict one point of Glamour per turn. WEAKNESS: At 5 Glamour or more, Epsilon becomes vulnerable.",
+    19: "FORGES OF CREATION - When installed on Epsilon, Ordered Replicators function at extremely enhanced speed. WEAKNESS: Self-destructs when 50 or more bots are on the screen, leaving Epsilon vulnerable.",
+    73: "GRAND CONCERTO - When installed on Epsilon, periodically plays verses from the Harmonic Song, temporarily turning all souls in your paw to Serene souls. WEAKNESS: Briefly renders Epsilon vulnerable when he touches a Harmonizer."
+
 }
 
 souldesc = {
@@ -515,6 +526,19 @@ modulename = {
     "Hover" : "Fluffian Paw-Locked Hover-Field",
     "Focus" : "Serenity Focus Delta-Multiplier",
     "NONE" : "NONE",
+}
+
+core = {
+    //20 = Yellow
+    //21 = Red
+    //22 = Pink
+    //19 = White
+    //73 = Cyan
+    21 : "Turbo-Kinetic SurgeRockets-Branded Rack",
+    20 : "Enthalpic Lead-Plated Radiodiffusor EX",
+    19 : "Anti-Entropic Edgeian Thermodynamic Translocator",
+    73 : "Fluffal Armour-Plated Subwoofer Delta",
+    22 : "Roseic Bio-Pacification Dual-Diffusers 3B",
 }
 //UNUSED
     //"Saintly" : "A Saintly soul eyes your new recruits, its gaze shimmering in disgust. \"More violent thugs to infest my living quarters? I demand some privacy, now!\" You isolate it in a little box, which soon ",

@@ -1717,11 +1717,11 @@ class Tail extends Monster{
 }
 
 class Box extends Monster{
-    constructor(tile){
-        super(tile, 20, 1, "ORDERED", description["Tail"]);
+    constructor(tile, type){
+        super(tile, type, 1, "ORDERED", description[type]);
         this.soul = "Soulless.";
-        this.name = "Rubberized Mecha-Segment";
-        this.ability = monabi["Tail"];
+        this.name = core[type];
+        this.ability = monabi[type];
         this.abitimer = 0;
         this.teleportCounter = 0;
         this.pushable = true;

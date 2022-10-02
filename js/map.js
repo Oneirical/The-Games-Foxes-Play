@@ -298,8 +298,10 @@ function spawnMonster(){
         let monster = new monsterType(getTile(9,9));
         monsters.push(monster);
         let monsterTypee = shuffle([Box])[0];
-        let monstere = new monsterTypee(getTile(4,4));
+        let monstere = new monsterTypee(getTile(4,4), 20);
+        let monsterf = new monsterTypee(getTile(4,6), 21);
         monsters.push(monstere);
+        monsters.push(monsterf);
         for (let i = 1; i < 5; i++){
             let tail = new Tail(getTile(8,i+3));
             tail.order = i;
