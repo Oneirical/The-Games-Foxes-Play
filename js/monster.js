@@ -1716,8 +1716,11 @@ class Tail extends Monster{
         this.abitimer = 0;
         this.teleportCounter = 0;
         this.order = 1;
+        this.bosscard = 0;
     }
     doStuff(){
+        this.bosscard++
+        if (this.bosscard == 2) showboss = false;
         let move;
         let lmove;
         for (let x of monsters){

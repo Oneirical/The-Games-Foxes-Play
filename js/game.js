@@ -366,7 +366,6 @@ function showTitle(){
 }
 
 function showBoss(currentboss){                                          
-    pauseAllMusic();
     let bossname = ["ROSE","EPSILON","RONIN","FLUFFY"];
     let bosstitle = ["-Last of the Saints-","-Supreme Ordered General-","-the Unfaltering Wheel-","-Grand Harmonic Maestra-"];
     let bosscolour = ["pink","red","purple","cyan"];
@@ -380,7 +379,7 @@ function showBoss(currentboss){
 function startGame(){
     pauseSound("title");            
     playSound("cage");                         
-    level = 5;
+    level = 16;
     resolvebonus = 0;
     truehp = 8;
     score = 0;
@@ -684,13 +683,14 @@ function initSounds(){
         spire : new Audio('sounds/Fly_on_The_Wall.wav'),
         spireloop : new Audio('sounds/Buzzard.wav'),
         boost : new Audio('sounds/boost.wav'),
+        epsilon: new Audio('sounds/Infracted.wav')
     };
 }
 
 function playSound(soundName){                       
     sounds[soundName].currentTime = 0;  
     sounds[soundName].play();
-    let loops = ["cage","max","roseic","title","harmony2","harmony4","harmony6","falsity","seal","quarry","toxic","spire","spireloop"];
+    let loops = ["cage","max","roseic","title","harmony2","harmony4","harmony6","falsity","seal","quarry","toxic","spire","spireloop","epsilon"];
     if (loops.includes(soundName)) sounds[soundName].loop = true; 
 }
 function pauseSound(soundName){  
@@ -699,7 +699,7 @@ function pauseSound(soundName){
 }
 
 function pauseAllMusic(){
-    let loops = ["cage","roseic","max","title","harmony2","harmony4","harmony6","falsity","seal","quarry","toxic","spire","spireloop"];
+    let loops = ["cage","roseic","max","title","harmony2","harmony4","harmony6","falsity","seal","quarry","toxic","spire","spireloop","epsilon"];
     loops.forEach(function(sound){
         pauseSound(sound);
     });
@@ -735,6 +735,12 @@ function playMusic(){
     else if (level == 12){
         pauseAllMusic();
         playSound("quarry");
+    }
+    else if (level == 17){
+        console.log("uh hi");
+        pauseAllMusic();
+        playSound("epsilon");
+        console.log("uh hi2");
     }
     
 }
