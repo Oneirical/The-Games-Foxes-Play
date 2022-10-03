@@ -326,11 +326,12 @@ description = {
     "RoseS" : "A once proud individual, whose willpower and strength of character have long been drained away by the pink twine constricting their body. From the edge of your sight, you swear you occasionally spot Rose himself taking the place of one of his servants, smiling mischievously at your surprise.",
     "RoseSpawn" : "A teletransporter, randomly hauling Rose's most loyal subjects into his circus. The lottery fliers claimed they'd be granted a chance at ascension into the Next World, as long as they swore to extend the Roseic dominion into the realities beyond.",
     "FluffTrap" : "A vibrating crystal prism, ready to shatter at a moment's notice. Within is contained a recording of the Harmonic Song, sped up and amplified thousandfold. Any foe stepping on this delicate piece of technology will find their psyche immediately Harmonized by an overpowering choir.",
-    20 : "5G towers",
-    21 : "beeeeg rockets",
-    22 : "drugs",
-    19 : "shitnapiss",
-    73 : "fuffy",
+    //A light beam? A motile tongue that absorbs you?
+    20 : "Epsilon does not understand why the Old World's brainwashing was usually performed with long, impassionated speeches full of rhetoric and fallacies. Blasting feeble organic ears - and the minds beneath - with 300 dB Ordered-aligned slogans works just as well, and is much more respectful of everyone's time. There's just the problem of the more physical part of the equation - concussive sound bursts will rapidly compact the kerosene-scented room's atmosphere, resulting in potential incineration of unprotected ground objects.",
+    21 : "Epsilon appreciates the wonders of exotic technology, but sometimes, you just need a set of massive thrusters, and some poor sod to stand in your way. While 99% of organic specimen are highly combustible, the leftover inferno after use of this Core reacts poorly with sonic waves - as the latter push large masses of flammable air primed for the first spark, the explosions that ensue would make the firework artificers of the Old World pale with envy. Not to mention the natural risks that come with using turbo-jetpacks in cramped spaces.",
+    22 : "After a semi-successful raid on the Roseic Metropolis, Epsilon found this bulky fumigator to be of interest. Ceaselessly breathing out highly concentrated doses of Glamorous Toxin, its hallucinogenic effect on organic specimen is to be appreciated for the immobilization of evasive targets. The intelligence-boosting side effect is, however, quite inconvenient, considering specimen who believe themselves to be Rose simultaneously acquire perfect knowledge of Epsilon's mechanisms, and of his weaknesses.",
+    19 : "The Edge of Reality's strange thermodynamic properties are of particular interest to Epsilon, who highly values mass-production in exchange for very few resources. Translocating some of the anti-entropic flux from the Edge results in impressive effects, though the over-complexification effect makes long-term exposure risky. One would preferably not want their missile launcher factories to reorient into production of quantum rubber duckies.",
+    73 : "After realizing the Serene Collectivists were sadly immune to multiple barrages of missile launchers, Epsilon suggested a favourable trade deal that resulted in the acquisition of this bulky high-fidelity sound blaster, repeating the Harmonic Choir without end. While immensely useful for neutralizing pesky users of the spiritual arts, its identity-warping effects seem to even partially seep through the normally unbreakable mind of Ordered constructs. Epsilon has succeeded at thwarting all outbreaks of Collectivist thought among his forces thus far, though he remains unaware of the self-destruct mechanism installed within this Core, only usable by Harmonic kin.",
 }
 
 monabi = {
@@ -540,7 +541,7 @@ core = {
     //19 = White
     //73 = Cyan
     21 : "Turbo-Kinetic SurgeRockets-Branded Rack",
-    20 : "Enthalpic Lead-Plated Radiodiffusor EX",
+    20 : "Megasonic Lead-Plated Radiodiffusor EX",
     19 : "Anti-Entropic Edgeian Thermodynamic Translocator",
     73 : "Fluffal Armour-Plated Subwoofer Delta",
     22 : "Roseic Bio-Pacification Dual-Diffusers 3B",

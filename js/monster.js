@@ -54,7 +54,8 @@ class Cursor{
             printAtWordWrap(this.tile.monster.lore, 18, 10, 600, "white", 20, 940);
             printAtSidebar(this.tile.monster.soul, 18, 590, 170, "white", 20, 350);
             printAtSidebar(this.tile.monster.name, 18, 590, 130, "white", 20, 350);
-            printAtWordWrap(this.tile.monster.ability, 18, 10, 630+((this.tile.monster.lore.length/100)*20), "pink", 20, 940);
+            if (this.tile.monster.lore.length > 400)printAtWordWrap(this.tile.monster.ability, 18, 10, 600+((this.tile.monster.lore.length/100)*20), "pink", 20, 940);
+            else printAtWordWrap(this.tile.monster.ability, 18, 10, 630+((this.tile.monster.lore.length/100)*20), "pink", 20, 940);
             }
         }
         else{
