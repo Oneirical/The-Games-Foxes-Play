@@ -1720,7 +1720,7 @@ class Epsilon extends Monster{
         super.update();
         if(!startedStunned){
             this.stunned = true;
-            if (this.corelist.includes("Pink")) spells["Pink"](this);
+            if (this.corelist.length > 0) spells[this.corelist[randomRange(0,this.corelist.length-1)]](this);
         }
     }
 }

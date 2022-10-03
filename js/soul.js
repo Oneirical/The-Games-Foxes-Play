@@ -474,6 +474,9 @@ spells = {
                 }
             }
         }
+    },
+    Red: function(caster){
+        shakeAmount = 10;
     }
 };
 
