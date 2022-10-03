@@ -329,6 +329,7 @@ function spawnMonster(){
 
 }
 
+//summon cages in harmonic relay rooms
 function spawnCages(loot, tile){
     let cage;
     if (smod.includes(loot)) cage = new Modulorb(tile, loot);
