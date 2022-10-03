@@ -318,7 +318,6 @@ class Monster{
                 }else if (this.isPlayer && newTile.monster.pushable){
                     let lm = player.lastMove;
                     let corevore = false;
-                    let playermove = false;
                     let pushTile = getTile(newTile.x+lm[0],newTile.y+lm[1]);
                     if (inBounds(pushTile.x,pushTile.y) && pushTile.passable){
                         if (pushTile.monster){
@@ -332,12 +331,15 @@ class Monster{
                                 corevore = true;
                                 newTile.monster.hit(99);
                             }
-                            else if (pushTile.monster instanceof Tail) playermove = true;
+                            else if (pushTile.monster instanceof Tail) return false;
                             else pushTile.monster.move(getTile(pushTile.x+lm[0],pushTile.y+lm[1]));
                         }
-                        if (!corevore&&!playermove) newTile.monster.move(pushTile);
-                        if (!playermove) this.move(newTile);
+                        if (!corevore) newTile.monster.move(pushTile);
+                        this.move(newTile);
                     }
+                }
+                else{
+                    return false;
                 }
             }
             return true;
@@ -1746,7 +1748,6 @@ class Tail extends Monster{
                 this.attackedThisTurn = stop;
             }
         }
-        console.log("ok so " + this.order + " wow " + move+stop)
         if(move && !stop){
             this.move(getTile(move[0],move[1]));
             this.lastMove = lmove;
@@ -1771,6 +1772,7 @@ class Box extends Monster{
         this.teleportCounter = 0;
         this.pushable = true;
         this.isInvincible = true;
+        this.noloot = true;
     }
     update(){
         this.stunned = true;
