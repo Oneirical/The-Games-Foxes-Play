@@ -476,7 +476,23 @@ spells = {
         }
     },
     Red: function(caster){
-        shakeAmount = 10;
+        let newTile = caster.tile;
+        while(true){
+            let testTile = newTile.getNeighbor(caster.lastMove[0],caster.lastMove[1]);
+            if(testTile.passable && !testTile.monster){
+                newTile = testTile;
+                newTile.eviltrap = true;
+                caster.tryMove(caster.lastMove[0],caster.lastMove[1]);
+            }else{
+                break;
+            }
+        }
+        for (let i of monsters){
+            if (i.order > 0 && caster.lastMove[0] == 0 && caster.lastMove[1] < 0) i.move(getTile(caster.tile.x, caster.tile.y+i.order));
+            else if (i.order > 0 && caster.lastMove[0] == 0  && caster.lastMove[1] > 0) i.move(getTile(caster.tile.x, caster.tile.y-i.order));
+            else if (i.order > 0 && caster.lastMove[0] > 0  && caster.lastMove[1] == 0) i.move(getTile(caster.tile.x-i.order, caster.tile.y));
+            else if (i.order > 0 && caster.lastMove[0] < 0  && caster.lastMove[1] == 0) i.move(getTile(caster.tile.x+i.order, caster.tile.y));
+        }
     }
 };
 
