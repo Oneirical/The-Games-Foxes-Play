@@ -29,7 +29,6 @@ function setupCanvas(){
         if(clickpos[0]>603&&clickpos[1]>115 && gameState != "dead" && gameState != "title"){
             let mousdes = Math.ceil((clickpos[1] - 130)/20);
             if (mousdes+1 <= player.inhand.length){
-                console.log(gameState);
                 if (gameState == "running") player.castSpell(mousdes);
                 if (gameState == "fluffy"){
                     if(!cursormode && gameState == "fluffy" && sacrifice < 6 && player.betted) player.sacrificeSpell(mousdes);

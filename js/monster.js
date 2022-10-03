@@ -318,18 +318,25 @@ class Monster{
                 }else if (this.isPlayer && newTile.monster.pushable){
                     let lm = player.lastMove;
                     let corevore = false;
+                    let playermove = false;
                     let pushTile = getTile(newTile.x+lm[0],newTile.y+lm[1]);
                     if (inBounds(pushTile.x,pushTile.y) && pushTile.passable){
                         if (pushTile.monster){
                             if (pushTile.monster instanceof Epsilon){
-                                newTile.monster.hit(99);
-                                console.log("chomp");
+                                pushTile.monster.cores++;
+                                for (let x of monsters){
+                                    if (x.order == pushTile.monster.cores){
+                                        x.sprite = newTile.monster.sprite;
+                                    }
+                                }
                                 corevore = true;
+                                newTile.monster.hit(99);
                             }
+                            else if (pushTile.monster instanceof Tail) playermove = true;
                             else pushTile.monster.move(getTile(pushTile.x+lm[0],pushTile.y+lm[1]));
                         }
-                        if (!corevore) newTile.monster.move(pushTile);
-                        this.move(newTile);
+                        if (!corevore&&!playermove) newTile.monster.move(pushTile);
+                        if (!playermove) this.move(newTile);
                     }
                 }
             }
@@ -1092,7 +1099,6 @@ class Player extends Monster{
             if (sacritotal == 0){
                 let moddrop = modulators[randomRange(0,modulators.length-1)];
                 if (!(getTile(4,5).monster instanceof Modulorb)) {
-                    console.log("spawn");
                     removeItemOnce(modulators,moddrop);
                     spawnCages(moddrop,getTile(4,5));
                 }
@@ -1696,8 +1702,10 @@ class Epsilon extends Monster{
         this.lastpos = [9,9];
         this.order = 0;
         this.teleportCounter = 0;
+        this.cores = 0;
     }
     doStuff(){
+        this.attackedThisTurn = false;
         this.lastpos = [this.tile.x,this.tile.y];
         super.doStuff();
     }
@@ -1728,14 +1736,18 @@ class Tail extends Monster{
         if (this.bosscard == 2) showboss = false;
         let move;
         let lmove;
+        let stop;
         for (let x of monsters){
             if (x.order == this.order-1){
                 move = x.lastpos;
                 lmove = x.lastMove;
+                stop = x.attackedThisTurn;
                 this.lastMove = [0,0];
+                this.attackedThisTurn = stop;
             }
         }
-        if(move){
+        console.log("ok so " + this.order + " wow " + move+stop)
+        if(move && !stop){
             this.move(getTile(move[0],move[1]));
             this.lastMove = lmove;
         }
