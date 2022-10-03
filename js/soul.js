@@ -463,6 +463,18 @@ spells = {
         caster.deathdelay = 7;
         playSound("deathdelay");
     },
+    Pink: function(caster){
+        for (let x of monsters){
+            if (x instanceof Tail){
+                let tiles = x.tile.getAdjacentNeighbors();
+                for (let y of tiles){
+                    if (!y.monster){
+                        y.replace(Goop);
+                    }
+                }
+            }
+        }
+    }
 };
 
 function boltTravel(direction, effect, damage, location, friendly){

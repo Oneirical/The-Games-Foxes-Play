@@ -325,11 +325,14 @@ class Monster{
                                 pushTile.monster.cores++;
                                 for (let x of monsters){
                                     if (x.order == pushTile.monster.cores){
+                                        //NYOM!
                                         x.sprite = newTile.monster.sprite;
+                                        pushTile.monster.corelist.push(newTile.monster.type);
                                     }
                                 }
                                 corevore = true;
                                 newTile.monster.hit(99);
+                                removeItemOnce(monsters, newTile.monster);
                             }
                             else if (pushTile.monster instanceof Tail) return false;
                             else pushTile.monster.move(getTile(pushTile.x+lm[0],pushTile.y+lm[1]));
@@ -347,7 +350,7 @@ class Monster{
     }
 
     hit(damage){            
-        if(this.shield>0){           
+        if(this.shield>0 || this.isInvincible){           
             return;                                                             
         }
         if (this.deathdelay > 0) this.falsehp -= damage;
@@ -1705,6 +1708,7 @@ class Epsilon extends Monster{
         this.order = 0;
         this.teleportCounter = 0;
         this.cores = 0;
+        this.corelist = [];
     }
     doStuff(){
         this.attackedThisTurn = false;
@@ -1716,6 +1720,7 @@ class Epsilon extends Monster{
         super.update();
         if(!startedStunned){
             this.stunned = true;
+            if (this.corelist.includes("Pink")) spells["Pink"](this);
         }
     }
 }
@@ -1769,6 +1774,7 @@ class Box extends Monster{
         this.name = core[core[type]];
         this.ability = monabi[type];
         this.abitimer = 0;
+        this.type = type;
         this.teleportCounter = 0;
         this.pushable = true;
         this.isInvincible = true;
