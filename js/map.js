@@ -302,8 +302,8 @@ function spawnMonster(){
             monsters.push(tail);
         }
         let monsterTypee = shuffle([Box])[0];
-        let monstere = new monsterTypee(getTile(4,4), 20);
-        let monsterf = new monsterTypee(getTile(4,6), 21);
+        let monstere = new monsterTypee(getTile(4,4), "Red");
+        let monsterf = new monsterTypee(getTile(4,6), "Pink");
         monsters.push(monstere);
         monsters.push(monsterf);
     }

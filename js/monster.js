@@ -1751,9 +1751,9 @@ class Tail extends Monster{
 
 class Box extends Monster{
     constructor(tile, type){
-        super(tile, type, 1, "ORDERED", description[type]);
+        super(tile, core[type], 1, "ORDERED", description[type]);
         this.soul = "Soulless.";
-        this.name = core[type];
+        this.name = core[core[type]];
         this.ability = monabi[type];
         this.abitimer = 0;
         this.teleportCounter = 0;
