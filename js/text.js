@@ -1,3 +1,5 @@
+//List of souls
+
 vile = ["ZENESTE","RASEL"];
 feral = ["KILAMI","LASHOL","EZEZZA"];
 unhinged = ["SHIZAPIS","JOLTZAZON"];
@@ -9,6 +11,8 @@ smod = ["Alacrity","Selective","Thrusters","Hover","Focus"];
 modulators = ["Alacrity","Selective","Thrusters","Hover","Focus"];
 
 //Monsters
+
+//Typeless
 // Monk
 //Vile
 // Second - Felidol - Third
@@ -23,8 +27,6 @@ modulators = ["Alacrity","Selective","Thrusters","Hover","Focus"];
 //Saintly
 // Scion - Embalmer
 
-//Is anyone still here?
-
 messages = {
     // Various out-of-character messages
     "Empty" : "",
@@ -37,7 +39,7 @@ messages = {
     "Paralyzed" : "You are paralyzed! Try to move around to shrug off the paralysis.",
     "Falling" : "You are falling! Try to move around to gain back your footing.",
     "Oversoul" : "Your psyche is trembling with the echo of a thousand chatters! Unleash some souls before drawing more.",
-    "CastError" : "You cannot cast this spell right now!",
+    "CastError" : "You cannot cast this soul right now!",
     "Constricted" : "You are constricted! You cannot move normally. Slay or escape the creature constricting you to regain your agility!",
     
     
@@ -69,7 +71,7 @@ messages = {
     "FluffyExplain4" : "\"As you are used to by now, use \'q\' to summon the fortunate souls upon which we shall bestow elevation they could only dream of. Then, stand on top of a Soulscribe, and evoke their assigned number. Once you have nominated between one to four... volunteers, press 'f' to confirm. It stands for 'Fluffy', naturally.\"",//You can demonstrate your understanding of this truth in this very room. Each time you place a soul within a Relay, it will measure the soul's status and attribute it a fitting amount of points. The 3 Relays on the top will form a three digit number once they are filled with souls, and so will those on the bottom. Once you have donated all 6 of your souls, the number on the bottom will be substracted from the one on the top, resulting in the attribution of your Arithmetic Elegance score.
     "FluffyExplain5" : "\"Now, please proceed, before you wear out Fluffy's anticipation.\"", // To impress Fluffy, you must try to reach an Arithmetic Elegance score as close to 0 as possible. A zero is, in fact, only possible if you uplift 6 souls of the exact same type, which is only achievable by the most zealous followers of the Harmonic Truth!
     "FluffyExplain6" : "\"Ah, yes, you will also assist in the uplifting process proper, of course. To carry out a successful Soulscribing, you will need to form a Harmonic Field, formed out of the six Harmonic Relays that spread around you.\"", //You would therefore be wise to hunt more selectively once you leave the blessed premises of Fluffy's abode. You depend on the Collective's benevolence for your survival, while you are but a microbe to us.
-    "FluffyExplain7" : "\"The topmost three, of Fluffy's favourite colour, represents Fluffy herself. The bottommost instead represent all the ruffians of the world, and their many vices. Both of these sets will form a three digit number after they are filled in.\"", //Fluffy is willing to lend a paw in your quest for ultimate sameness, of course. The Collective will generally attempt to deliver you souls that match the status of those you daringly wagered, so you may continue striving towards the shedding of all difference.
+    "FluffyExplain7" : "\"The topmost three, of Fluffy's favourite colour, represent Fluffy herself. The bottommost instead represent all the ruffians of the world, and their many vices. Both of these sets will form a three digit number after they are filled in.\"", //Fluffy is willing to lend a paw in your quest for ultimate sameness, of course. The Collective will generally attempt to deliver you souls that match the status of those you daringly wagered, so you may continue striving towards the shedding of all difference.
     "FluffyExplain8" : "\"Once again, use \'q\' to draw forth the souls that shall fill these Relays. What will happen to them, you ask? Eternal bliss and luxury within the halls of the Serene Collective, of course. Be warned, however, that you should not build a Harmonic Field however you please.\"", //Fluffy cannot guarantee satisfaction. If you are not pleased with our trade, come to Fluffy once again after the cages have been delivered, and the Harmony will propose a way to accomodate your needs. I must warn you that it will not be without a cost.
     "FluffyExplain9" : "\"Once the Harmonic Field is complete, the topmost three digit number will be substracted from the bottommost number, resulting in your Arithmetic Elegance score. First, you seek to achieve a positive result, for to suggest Fluffy is lesser before the ruffians of the Old World is unforgivable.\"", //Now, please divert your gaze from  my dazzling, lustrous physique, and begin choosing the fortunate souls you have nominated for uplifting.
     "FluffyExplain10" : "\"Second, you should attempt to approach zero to the best of your ability, through the placement of similar or identical souls on top of one another. To quote Fluffy's teachings on the Harmonic Truth: \'Individualism leads to decay - only in unity and collectivity do we flourish'\"",
@@ -79,12 +81,12 @@ messages = {
     "FluffyRepeat" : "\"What is it, ruffian? Was your mind stunned by the sheer contrast between the beauty of a proud Collectivist's features versus your meager own? Very well, then. I will repeat, as many times as it takes to drill my words into that thick skull of yours.\"",
     "FluffyReroll1" : "\"And so, it is done. You have expunged the identity of four of your companions, and placed the fates of six more within our grasp. We assure you, the Collective will do everything in its power to integrate the latter as best as possible in their new home.\"",
     "FluffyReroll2" : "\"Yet, you still return to Fluffy. We take it you are unsatisfied with the outcome of our trade. We may... arrange that.\"",
-    "FluffyReroll3" : "\"On your command, Fluffy shall return the undesired caged souls to their containment, and reforge each one into a hopefully more alluring substitute. Through this reroll, the Harmony will even consider your Arithmetic Elegance as being 10 points closer to zero than it actually is!\"",
+    "FluffyReroll3" : "\"On your command, Fluffy shall return the undesired caged souls to their containment, and reforge each one into a hopefully more alluring substitute. Through this reroll, the Harmony will even consider your Arithmetic Elegance as being 10 points closer to zero than it actually is! Reaching a perfect score in this way will even grant an additional little trinket to demonstrate our generosity.\"",
     "FluffyReroll4" : "\"This service comes with two caveats. First, Fluffy will not change Fluffy, for Fluffy is already the pinnacle of perfection. Second, it goes without saying that such a favour will not be free. That cost is very minor, however. One could perhaps even consider it a boon! For you see, you will not be giving something away. You will be... receiving something.\"",
     "FluffyReroll5" : "\"And that something is... myself. Indeed - should you accept our offer, Fluffy shall personally join you in your quest. Having a proud Collectivist on your side can even the odds in your favour, in many ways beyond mere battle.\"",
     "FluffyReroll6" : "\"If you accept... press \'f\'. It stands for \'Fluffy\', of course. Consider it a toast to our new mutual partnership!\"",
     "FluffyRepeat2" : "\"Fluffy is aware being spoken to by a Collectivist who isn't treating you like the incarnation of filth itself can be stunning. Our offer shall be repeated, until you accept it or wander off to dwell on your own mediocrity.\"",
-    "FluffyAccept" : "\"We are one, now, ruffian. Fluffy has reasons to believe she will not be calling you that for much longer.\"",
+    "FluffyAccept" : "The Serene Harmonizer's cloud-body opens into a sinister mockery of a smile before rushing to merge with your psyche. \"We are one, now, ruffian. Fluffy has reasons to believe she will not be calling you that for much longer.\"",
     "FluffySereneRerollTaunt" : "\"Even if I somehow wished to commit such unspeakable heresy, ruffian, I could not revert the Harmonization of your travel companions. They are Fluffy, now, and Fluffy is them, and from now on, they shall only answer to the name Fluffy.\"",
     "FluffyDoubleRerollTaunt" : "A resounding voice echoes inside your skull: \"Your eagerness to join our cause is noted, but Fluffy is afraid she only has herself to offer. There will be no more rerolls within this relay.\"",
     "FluffyNoCageTaunt" : "\"Ruffian... If you were unhappy with what the Collective had so kindly prepared for you, you should have said so before smashing our cages to bits. The stupidity of the unharmonized can get... quite bewildering.\"",
@@ -94,7 +96,7 @@ messages = {
     "FluffyNoRemoveTaunt" : "\"You wish to silence the Harmony's song, ruffian? You will need much more strength than that should you wish to challenge us.\"",
     "FluffyTaintedTaunt" : "\"Yuck. Fluffy makes no promises for that one.\"",
     "FluffyAppalled" : "Fluffy shoots a puff of frigid clouds towards you, chilling your cheeks. \"Are you insinuating that the Harmony is somehow... lesser than all that remains of the Old World? Absurd! What an imprudent little ruffian you are. You require re-education imminently, and I know exactly who should provide it to you.\"",
-    "FluffyNoBetsTaunt" : "\"Why are you wasting Fluffy's precious time? Use Fluffy's services, or do not. The exit is right there, if you refuse to do business with the Collective. A great loss for both of us, that would be...\"",//The Serene Harmonizer's cloud-body opens into a sinister mockery of a smile.
+    "FluffyNoBetsTaunt" : "\"Why are you wasting Fluffy's precious time? Use Fluffy's services, or do not. The exit is right there, if you refuse to do business with the Collective. A great loss for both of us, that would be...\"",
     "FluffyDoubleDrawTaunt" : "\"You clutch a soul in your paws, and yet are already looking to draw out another? This will completely disrupt the Soulscribing process! How rash can you be? I suppose I should not believe such foolishness is beyond your capabilities, for you are not Fluffy.\"",
     "FluffyDoubleDrawTaunt2" : "\"You clutch two souls in your paws, and yet are already looking to draw out more? This will completely disrupt the Soulscribing process! How rash can you be? I suppose I should not believe such foolishness is beyond your capabilities, for you are not Fluffy.\"",
     "FluffyNoConvertTaunt" : "\"Do you believe our aid comes at no cost, ruffian? Fill your subconscious mind with audience for the Harmony's song, and then, we shall sing for you.\"",
@@ -103,7 +105,7 @@ messages = {
     "FluffyModule1" : "\"While your intrusion into our blessed Spire is a crime of the highest order, we attest that you did not come here intentionally.\"",
     "FluffyModule2" : "\"Since that stubborn little fuzzy head of yours won't ever listen to Fluffy's most convincing arguments, allow the Harmony to speak to you in a language you understand: loot.\"",
     "FluffyModule3" : "\"That floating platform under us contains one of Fluffy's legendary creations, a Harmonic Modulator. With this cybernetic, the Harmony shall impart on you a fraction of our grace. Press 'f' to cycle between modulators - it stands for 'Fluffy', of course.\"",
-    "FluffyModule4" : "\"If those voices in your head are ever growing too loud, consider Fluffy's gift a try. You will perform feats ruffians could only dream of, and, in exchange, your souls of the worst quality will be teletransported here for uplifting.\"",
+    "FluffyModule4" : "\"If those voices in your head are ever growing too loud, consider giving Fluffy's gift a try. You will perform feats ruffians could only dream of, and, in exchange, your souls of the worst quality will be teletransported here for uplifting.\"",
     "FluffyModule5" : "\"Fluffy is aware such a cost can... prove limiting for repeated use. You may upgrade your license, of course, thus waiving all fees. How does a ruffian like you purchase such a license, you ask? By synchronizing your motions and mannerisms with the Harmony, of course.\"",
     "FluffyModule6" : "\"Until then, feel free to make use of our trinkets at the basic, Ruffian tier. Oh, and, yes, that platform down there has no ladder. It is not an oversight. Fluffy never makes mistakes.\"",
     "FluffyModule7" : "\"Fluffy is afraid the only way out is down.\"",
@@ -169,7 +171,7 @@ messages = {
     "AUBE" : "\"I picked these flowers just for you... General... why did you step on them?\"",
     "ZENITH" : "\"I paint my face in the ichor of demons, so my enemies may recognize me as one.\"",
     "CREPUSCULUM" : "\"Going to war on an empty stomach must have been my greatest regret of all.\"",
-    "SHIZAPIS" : "\"When I say \'You are only an object\', it's not in a demeaning sense. I'm an object too!\"",
+    "SHIZAPIS" : "\"When I say \'You are only an object\', it's not in a demeaning sense. I'm an object too! Everything is an object!\"",
     "ABAZON" : "\"I was immured in your cell. And now, I am immured inside of you. Some things never change.\"",
     "LASHOL" : "\"Lashol shudders with excitement, surrounding itself in a blue haze. Best not to lick.\"",
     "ZAINT" : "The room falls silent, and all creatures prostrate before Zaint, to the best of their ability with whatever limbs they possess.",
@@ -289,17 +291,17 @@ description = {
     "Husk" : "An animated corpse, bound to the will of Rasel for as long as she remains at the commands of your psyche. With every kill, they perform a short bow, which the fresh corpse soon imitates in turn.",
     "Slug" : "A robotic mollusk, occasionally stopping to dispense a mass-fabricated set of automatic cuffs. Foolish organics who'd attempt to escape prisons guarded by Ordered souls would eventually find themselves tied up in one such dastardly trap, and forced to recite a pledge to the Saints' Grace before returning to their cell.",
     "Monk" : "Through repeated self-directed insults and mantras of worthlessness, the Annihilationists achieved the impossible, and expunged their own soul. Fully dedicated to the incarnation of one of the six spiritual castes, these mages have long forgotten the meaning of existence.",
-    "Felidol" : "Grinning eternally at some cosmic joke only they seem to understand, these feline statues once served as protectors of merchants and slavers. Deprived of purpose, they filled the rivers with coins, and marched on these golden bridges to usurp the Reality Anchor, dreaming of a Next World ordered in masters and servants.",
+    "Felidol" : "Grinning eternally at some cosmic joke only they seem to understand, these living feline statues once served as protectors of merchants and slavers. Deprived of purpose, they filled the rivers with coins, and marched on these golden bridges to usurp the Reality Anchor, dreaming of a Next World ordered in masters and servants.",
     "Weaver" : "One of the many monastic artisans, who enchanted the city streets with their simple songs as their long tongues spun brute materials into beautiful crafts. This one seems to have remained oblivious to the Old World's collapse, endlessly repeating the same three notes while it folds pages from old books into elegant pinwheels. Its trance prevents it from feeling pain -- until you dare damage one of its precious creations, that is.",
-    "Rendfly" : "Once the Rend-Plague outbreak has spread to the headlines of every holoscreen, the population began to exterminate en masse these pesky little insects. Of the millions that caused the epidemic, only a few dozens remain, but the Old World's end has not tempered their terrifying mind-altering bite one bit.",
-    "ModuleOrb" : "A machine holding a pure crystal sphere, within which swirls a billowy, white gas. Across its surface glisten a thousand cyan lights, hinting at the glory of the Collective's technological prowess. A single breath suffices to grant some ability normally reserved for Harmonic kin, though your mind may not remain fully your own following installation of this strange cybernetic.",
+    "Rendfly" : "Once the Rend-Plague outbreak had spread to the headlines of every holoscreen, the population began to exterminate en masse these pesky little insects. Of the millions that caused the epidemic, only a few dozens remain, but the Old World's end has not tempered their terrifying mind-altering bite one bit.",
+    "ModuleOrb" : "A machine holding a pure crystal sphere, within which swirls a billowy, white gas. Across its surface glisten a thousand cyan lights, hinting at the glory of the Collective's technological prowess. A single breath suffices to grant some ability normally reserved for the Harmonic kin, though your mind may not remain fully your own following installation of this strange cybernetic.",
     "Third" : "A soft plushie resembling a black arachnid, its eight grey eyes emblazoned with the cursed seal of Affection. Whenever its owner reached adulthood, the child's parents would rip it in half, as a lesson on the ephemerality of all relationships. This specimen has never seen use, and prowls the darkness, looking for a friend to bond with.",
     "Ashsoul" : "In his quest to erase the sin of Affection once and for all, Habor the Fourteenth Saint nominated citizens who would undergo a terrible spiritual ritual. When the monks were done signing, those now remembered as the Ashsoul screamed and screamed again, pushing away all who'd approach them, seeing every single creature as twisted, charred monsters of nightmare.",
-    "Tail" : "Glossy, impeccable and blinding in its cleanliness, you can almost glimpse yourself in its reflection. Is that an antenna on your head? Surely, you must have imagined it.",
-    "Apis" : "Interested to learn more about the most valued Feral subcaste - bees - the Saints engineered these half-canine, half-apian six-legged mutants, sending them on a quest to relay the Thinkers with the Unthinking. Falling into the influence of the latter, this extremely strong creature knows only two things: hugging friends, and bashing enemies into the ground. It seems to consider you as the former. Perhaps the latter would have been better for your life expectancy.",
-    "Brute" : "Despite Rose's attempts to regulate and monitor the reproduction of all species he deemed unworthy of being his subjects, love triumphed, and, with it, the prevalence of venomous stingers and pincers among the population. As compromise, these Brutes were forced to cover themselves at all times in a cocoon of pink ribbons, each one seeping with Glamorous Toxin as they twist their strong armoured bodies.",
+    "Tail" : "Glossy, impeccable and blinding in its cleanliness, you can almost glimpse yourself in its reflection. Is that a radio antenna on your head? Surely, you must have imagined it.",
+    "Apis" : "Interested to learn more about the most valued Feral subcaste - bees - the Saints engineered these half-canine, half-apian six-legged mutants, sending them on a quest to relay the Thinking with the Unthinking. Falling into the influence of the latter, this extremely strong creature knows only two things: hugging friends, and bashing enemies into the ground. It seems to consider you as the former. Perhaps the latter would have been better for your life expectancy.",
+    "Brute" : "Despite Rose's attempts to regulate and monitor the reproduction of all species he deemed unworthy of being his subjects, love triumphed, and, with it, the prevalence of venomous stingers and pincers among the population. To compromise, these Brutes were forced to cover themselves at all times in a cocoon of pink ribbons, each one seeping with Glamorous Toxin as they twist their strong armoured bodies.",
     "Embalmer" : "A noble fashionista, expert in colour palettes, pricy fabrics and annoyingly high-pitched giggling. Appointed to cleanse Brutes of their unappealing physique, only they hold the many threads keeping their thralls' cocoons in pristine state. Should they be slain, all their \"customers\" will find freedom, and with it, the blind rage of having been contained for far too long.",
-    "Epsilon" : "snek",
+    "Epsilon" : "A titanic serpentine robot, bound by two simple laws: maximize the chances of carrying the Old World's knowledge into the Next, and minimize the lifespan of those who would oppose this goal. Epsilon has eventually determined that latter clause to include all non-Ordered souls, as bickering, free will and emotional attachment are exactly the kind of things that would stop the great Ascension. Strictly prohibited from slaying the Reality Anchor, Epsilon has found a viable alternative, inspired by a certain wispy parasite: Assimilation.",
     // Tiles
     "Floor" : "A long time ago, legions of monks carved holy symbols on each floortile of the palaces, so they may be worthy of being treaded by the Saints' steps. Decades of dust has undone the tireless work of these artists.",
     "Seal" : "The Saints feared Terminal would try to escape before the end times. They locked down their royal chambers, trading convenience for the peace of mind that their ticket to immortality would not run away in the middle of the night.",
@@ -319,7 +321,7 @@ description = {
     "Pinwheel" : "An impeccable little handicraft, gently swirling as gusts of wind sway over it. You doubt its maker would appreciate the destruction of such a delicate thing.",
     "Reality" : "A pocket of unreality, void of the concept of void itself. Your gaze fills it with your flawed preconceptions of what nonexistence must be like - to you, it is a sparkling expanse of starry lights, dancing among the nothingness. To try to step within this space would be just like trying to rewind time before the birth of time: impossible.",
     "Glamour" : "A puff of swirling pink gas, occasionally scintillating as if it were filled with metallic confetti. A single breath crushes the divide between the real and the illusory - a fraction of the power that caused the Roseic Metropolis' inhabitants to fall so easily.",
-    "Roseic" : "A monolithic mass of pink glass, its monotony broken by a complex maze-like pattern spreading within. Its alluring colours and patterns invite you to find an exit to this impossible, titanic puzzle - an offer to be denied, should you wish to remain alive.",
+    "Roseic" : "A monolithic mass of pink glass, its monotony broken by a complex maze-like pattern spreading within. Its alluring colours and patterns invite you to find an exit to this impossible, titanic puzzle - an offer to be denied, should you wish to remain fully in control of your destiny.",
     "Rose" : "As Last to Rule the Old World, Rose represents the apex of the slow descent into leisure and egoism that struck the Saints' Dynasty. Under his iconic marching band uniform, the gears and cogs of his many mechanical augmentations whirr in eerie unison.",
     "RoseS" : "A once proud individual, whose willpower and strength of character have long been drained away by the pink twine constricting their body. From the edge of your sight, you swear you occasionally spot Rose himself taking the place of one of his servants, smiling mischievously at your surprise.",
     "RoseSpawn" : "A teletransporter, randomly hauling Rose's most loyal subjects into his circus. The lottery fliers claimed they'd be granted a chance at ascension into the Next World, as long as they swore to extend the Roseic dominion into the realities beyond.",
@@ -351,8 +353,8 @@ monabi = {
     "Apis" : "RIBCRUSH HUG - Will hug you on contact, locking out all normal movement.",
     "Brute" : "ROSEBOUND - 2-damage attacks but only moves every other turn. When a Bioembalmer is slain, triple the movement speed of all Brutes.",
     "Embalmer" : "ROSEBINDER - Deals no damage. Inflicts 1 point of Glamour when it attacks. When slain, triple the movement speed of all Brutes.",
-    "Tail" : "beeeg",
-    "Epsilon" : "snek",
+    "Tail" : "AWAITING INPUT - Invincible. Gains a unique Weakness upon installation of a Core.",
+    "Epsilon" : "EXPUNGER OF EMOTION - Invincible. Alternates between moving and using one of its Cores at random. Gains Weaknesses depending on installed Cores.",
     20 : "MIND ASUNDER - When installed on Epsilon, periodically launches sonic waves that deal 1 damage, but are blocked by bots. WEAKNESS: Combusts floor traps, creating a 3x3 explosion that will leave Epsilon vulnerable on contact.",
     21 : "EMERALD RUSH - When installed on Epsilon, periodically causes Epsilon to dash forwards, leaving behind 1-damage fire traps, and crushing all in his way for 2 damage. WEAKNESS: Dashing into a wall alcove will disrupt this Core, leaving Epsilon vulnerable.",
     22 : "CIRCUS KISSES - When installed on Epsilon, periodically unleashes vapours of Glamorous Toxin, which inflict one point of Glamour per turn. WEAKNESS: At 5 Glamour or more, Epsilon becomes vulnerable.",
@@ -376,7 +378,7 @@ souldesc = {
     "ROSE" : "The final emperor to rule the Old World, more preoccupied with the best way to wear scarves and frilled robes than with the imminent end of reality. Some accused his narcissism to have seeped out of his mind, and given form to the first Serene Collectivist. Those dissenters spent the rest of their days tangled in pink ribbons, grinning brightly in pride at their new positions as palace servants.",
     "ZENESTE" : "After guarding her trader-master for years, this feline statue eventually decided she had learned enough, and started her own business. It did not take long until her former owner was found toiling away in the mines for the glory of Zeneste Incorporated.",
     "KILAMI" : "A furless feline, occasionally found prowling on the Edge of Reality. She followed travellers around, asking for ear scritches in an exact replica of their voice. Most were too terrified to fulfill her wishes.",
-    "AUBE" : "A weak and ineffectual kit, enlisted in the Saints' royal guard because of an unfortunate misunderstanding. He seemed to care a lot more about cooking than fighting, and his tablets were scribbled with imaginary recipes requiring ingredients from the Edge of Reality.",
+    "AUBE" : "A weak and ineffectual kit, enlisted in the Saints' royal guard because of an unfortunate misunderstanding. He seemed to care a lot more about cooking than fighting, and his tablets were scribbled with imaginary recipes requiring legendary ingredients from the Edge of Reality.",
     "ZENITH" : "Years of harsh training and re-education have expunged all traces of kindness from Aube, who then learned how to cut viscera instead of fruit. His enemies whispered his name with anguish, and even his fellow soldiers feared his notorious cruelty.",
     "CREPUSCULUM" : "An elderly war veteran covered in grey fluff. Many praised him for his legendary feats in battle, but he only responded with regret for the passions the Saints never let him pursue. The recipes from his childhood memories left him one by one, until nothing was left but sorrow.",
     "SHIZAPIS" : "A mute slime-otter, who held a fortune-telling booth at the Edge of Reality. Holographic prophecies constantly poured out from the projector-crystal floating above her head, warning travellers of \"variables\", \"functions\" or \"if statements\". The existential distress she caused in her most faithful visitors eventually caused her practice to be outlawed.",
@@ -393,8 +395,8 @@ souldesc = {
     "KASHIA" : "The first day of her infection, many wondered why Kashia waited five seconds to respond after being asked the most basic questions. After being brought for inspection to a dream-healer, her family gasped in horror at the apparent lack of a soul within her body. Their throats breathed sighs of relief when a little ghostly Kashia arrived five seconds later to mesh with the lizard's flesh, seemingly forever cursed to remain an after-image.",
 
     //modulators
-    "Alacrity" : "A Collectivist's mind isn't located in any centralized brain - their intelligence is rather the sum of billions of tiny atmospheric depressurizations between their body and the outside air. In a vaccuum, a Harmony member would be instantly reduced to a puff of thoughtless gas. This cybernetic allows some degree of connection between your own mushy brain and the outside environment, hastening your wit.", //TODO
-    "Selective" : "To a soul unprotected by its own unique flesh container, the Harmonic song is a tidal wave of cyan paint, erasing all colour and enforcing an irresistible Sameness. The Harmonic song is, thankfully, very recognizable. While it cannot be silenced, it can certainly be redirected towards a weaker recipient. Serene souls will not appreciate this forceful containment, and will seek out additional targets to enthrall... perhaps to your advantage.", //TODO
+    "Alacrity" : "A Collectivist's mind isn't located in any centralized brain - their intelligence is rather the sum of billions of tiny atmospheric depressurizations between their body and the outside air. In a vaccuum, a Harmony member would be instantly reduced to a puff of thoughtless gas. This cybernetic allows some degree of connection between your own mushy brain and the outside environment, hastening your wit.",
+    "Selective" : "To a soul unprotected by its own unique flesh container, the Harmonic song is a tidal wave of cyan paint, erasing all colour and enforcing an irresistible Sameness. The Harmonic song is, thankfully, very recognizable. While it cannot be silenced, it can certainly be redirected towards a weaker recipient. Serene souls will not appreciate this forceful containment, and will seek out additional targets to enthrall... perhaps to your advantage.",
     "Thrusters" : "A more whimsical piece of technology produced by the Collective, mostly used for grandiose dances at the summit of their impossibly tall Spire. Manipulating air as if it were dough, this modulator repeatedly forms vaccuums right in front of the cybernetic, pushing a localized atmospheric bubble forward, and the user with it. The Collective assumes no liability for broken bones or brain damage following the use of this device.",
     "Hover" : "All Collectivists come natively with this module installed, letting them entrance ruffians with their smooth, elegant motions. As if this cybernetic were an insignia of nobility, air recedes from each gesture you intentionally perform, and constantly pushes you ever-so-slightly towards the Spire's summit. That means, generally upwards.",
     "Focus" : "A Soul is a fickle thing, slipping away like quicksilver the moment doubt traverses one's mind. On the other hand, a Collectivist's Serene soul is extremely hard to push out, for they are forever radiating the most immutable confidence, and the unquestionable belief that they are, and have always been Fluffy. A simple change of name is all it takes to apply that unbreakable conviction to the most mundane souls.",
@@ -492,7 +494,7 @@ soulname = {
     "FERAL" : "Feral Soul",
     "VILE" : "Vile Soul",
     "SERENE" : "Serene Soul",
-    "JOLTZAZON" : "Joltzazon, husband of the Scarved River",
+    "JOLTZAZON" : "Joltzazon, Husband of the Scarved River",
     "PURPIZUG" : "Purpizug, Painter of Blank Canvasses",
     "ROSE" : "Rose Sylvie, Last of the Saints",
     "ZENESTE" : "Zeneste, the Felidol Tycoon",
@@ -548,6 +550,6 @@ core = {
     //"Feral" : "A bladefly-shaped Feral soul is swinging around its massive swords-wings, causing other souls to cry out in terror. You wonder why they aren't letting you use that skill instead of a measly dash.",
     //"Ordered" : "You question an Ordered soul on why it keeps beeping in annoyance. \"Vessel. You are breathing an unnecessary volume of oxygen in combat.\""
 
-    //bad = ["KILAMI","SHIZAPIS","PURPIZUG", "ASPHA"];
+//bad = ["KILAMI","SHIZAPIS","PURPIZUG", "ASPHA"];
 //medium = ["ZENESTE","AUBE","BORERORA","ROSE", "ZAINT"];
 //good = ["RASEL","LASHOL","JOLTZAZON","ABAZON"];

@@ -1718,6 +1718,7 @@ class Tail extends Monster{
         this.abitimer = 0;
         this.teleportCounter = 1;
         this.order = order;
+        this.isInvincible = true;
         this.bosscard = 0;
     }
     doStuff(){
