@@ -52,6 +52,7 @@ messages = {
     "RoomDeath" : "After their fangs were done toying with your flesh, they had taken away much more than sinew and bone. Your soul turned Feral, and the last lights of duty and purpose were soon snuffed out like a candle flame, leaving nothing but a ravenous husk. Your journey has come to its end.",
     "DrawDeath" : "You broke your limits for the last time, and, in doing so, broke yourself as well. What should have been the denizens of the Next World now seep through your closed eyes, while your soul turns Feral and assumes the command of your exhausted body. Your journey has come to its end.",
     
+    
     // Serene Harmonizer
     "FluffyFloorTaunt" : "\"Some call Fluffy heartless -- and yet here you are, attempting to let a proud soul collect muck on the grime-tainted floor. If you won't have the tact to use Fluffy's services properly, at least have the decency to leave and never return in Fluffy's presence.\"",
     "FluffyNoSoulTaunt" : "\"You cannot sacrifice that which does not exist, ruffian. No matter how much the merchants of the Old World enjoyed doing so.\"",
@@ -138,13 +139,22 @@ messages = {
     "EpsilonYellowCore" : "\"Successfully initialized Enthalpic Lead-Plated Radiodiffusor EX x 1. Beginning emission of anti-organic wavebursts.\"",
     //Weakness: floor objects explode
     "EpsilonWhiteCore" : "\"Successfully initialized Anti-Entropic Edgeian Thermodynamic Translocator x 1. Drone production rate maximized.\"",
-    //Weakness: self-destructs after some time
+    //Weakness: self-destructs after 50 bots are on the screen
     "EpsilonRedCore" : "\"Successfully initialized Turbo-Kinetic SurgeRockets-Branded Rack x 1. Evaluation results of organic specimen: Very flammable.\"",
     //Weakness: nooks in the wall
     "EpsilonCyanCore" : "\"Successfully initialized Fluffal Armour-Plated Subwoofer Delta x 1. NOTE: Remove module following assimilation of organic specimen to avoid data corruption.\"",
     //Weakness: fluffies can hack it
     "EpsilonPinkCore" : "\"Successfully initialized Roseic Bio-Pacification Dual-Diffusers 3B x 1. NOTE: Cartridge R1 is running low, please replace following assimilation of organic specimen.\"",
     //Weakness: while high on toxin, it becomes weak since you are now rose and made it
+    "EpsilonAllCores" : "\"Offensive capabilities: maximized. Directing all power to weapons. Shields: fully offline. Farewell, Terminal.\"",
+    "EpsilonPinkWeak" : "\"DANGER: target subject has acquired mental data containing highly confidential Epsilon blueprints. Proceed with extreme caution.\"",
+    "EpsilonRedWeak" : "\"IMPACT LOG: High-density surface struck with force of 200 000 N. Structural integrity temporarily compromised. Proceed with caution.\"",
+    "EpsilonYellowWeak" : "\"INCIDENT REPORT: Rapid compression of atmosphere with 14.492% kerosene concentration has caused localized explosion. Structural integrity temporarily compromised. Proceed with caution.\"",
+    "EpsilonCyanWeak" : "\"DANGER: Fluffal psychohazardous soundwave volume has exceeded acceptable threshold. Diverting power to avoid data corruption. Orders given: Protect Epsilon during data quarantine.\"",
+    "EpsilonWhiteWeak" : "\"DANGER: Anti-entropic influence has exceeded acceptable threshold. 0.98% of machinery rendered unusable. Activating localized nano-self-destruction. Orders given: Protect Epsilon during reassembly.\"",
+    "EpsilonTaunt" : "\"Current target incarnation neutralized. Awaiting reincarnation for further dispensing of gratuitous violence.\"",
+    "EpsilonDefeat" : "\"CRITICAL SYSTEM FAILURE. Noted: Terminal is strong enough. Old World data will be preserved at 98.8% likelihood. My purpose is complete.\"",
+    "EpsilonOneChance" : "\"Organic specimen soul on the brink of ego collapse. Initializing assimilation protocols...\"",
 
     // Harmonic Modulators
 
@@ -356,7 +366,7 @@ monabi = {
     "Embalmer" : "ROSEBINDER - Deals no damage. Inflicts 1 point of Glamour when it attacks. When slain, triple the movement speed of all Brutes.",
     "Tail" : "AWAITING INPUT - Invincible. Gains a unique Weakness upon installation of a Core.",
     "Epsilon" : "EXPUNGER OF EMOTION - Invincible. Alternates between moving and using one of its Cores at random. Gains Weaknesses depending on installed Cores.",
-    "Yellow" : "MIND ASUNDER - When installed on Epsilon, periodically launches sonic waves that deal 1 damage, but are blocked by bots. WEAKNESS: Combusts floor traps, creating a 3x3 explosion that will leave Epsilon vulnerable on contact.",
+    "Yellow" : "MIND ASUNDER - When installed on Epsilon, periodically launches sonic waves that push you back 4 tiles, dealing 2 damage if a solid surface is touched. WEAKNESS: Combusts floor traps, creating a 3x3 explosion that will leave Epsilon vulnerable on contact.",
     "Red" : "EMERALD RUSH - When installed on Epsilon, periodically causes Epsilon to dash forwards, leaving behind 1-damage fire traps, and crushing all in his way for 2 damage. WEAKNESS: Dashing into a wall alcove will disrupt this Core, leaving Epsilon vulnerable.",
     "Pink" : "CIRCUS KISSES - When installed on Epsilon, periodically unleashes vapours of Glamorous Toxin, which inflict one point of Glamour per turn. WEAKNESS: At 5 Glamour or more, Epsilon becomes vulnerable.",
     "White": "FORGES OF CREATION - When installed on Epsilon, Ordered Replicators function at extremely enhanced speed. WEAKNESS: Self-destructs when 50 or more bots are on the screen, leaving Epsilon vulnerable.",
