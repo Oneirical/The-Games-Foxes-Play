@@ -68,7 +68,7 @@ spells = {
     FERALNODMG: function(caster, x, y){
         let newTile = caster.tile;
         let shaker = false;
-        let punch = false;
+        let punch = false; //maybe enable this if players gets fluffified
         while(true){
             let testTile = newTile.getNeighbor(x,y);
             if(testTile.passable && !testTile.monster){
@@ -468,7 +468,7 @@ spells = {
             if (x instanceof Tail){
                 let tiles = x.tile.getAdjacentNeighbors();
                 for (let y of tiles){
-                    if (!y.monster){
+                    if (!y.monster && y.passable){
                         y.replace(Goop);
                     }
                 }
@@ -476,16 +476,29 @@ spells = {
         }
     },
     Red: function(caster){
+        caster.turbo = true;
+        let shaker = false;
+        for (let i of monsters){
+            if (i instanceof Tail){
+                i.turbo = true;
+            }
+        }
         let newTile = caster.tile;
         while(true){
             let testTile = newTile.getNeighbor(caster.lastMove[0],caster.lastMove[1]);
             if(testTile.passable && !testTile.monster){
                 newTile = testTile;
                 newTile.eviltrap = true;
-                caster.tryMove(caster.lastMove[0],caster.lastMove[1]);
+                //caster.tryMove(caster.lastMove[0],caster.lastMove[1]);
             }else{
+                if (!testTile.passable) shaker = true;
                 break;
             }
+        }
+        caster.move(newTile);
+        if (shaker){
+            shakeAmount = 30;
+            playSound("explosion");
         }
         for (let i of monsters){
             if (i.order > 0 && caster.lastMove[0] == 0 && caster.lastMove[1] < 0) i.move(getTile(caster.tile.x, caster.tile.y+i.order));

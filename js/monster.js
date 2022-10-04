@@ -196,8 +196,9 @@ class Monster{
         }
         let speed = 1/8;
         if (this.isPlayer && this.activemodule == "Thrusters") speed = 1;
+        if (this.turbo) speed = 1;
         this.offsetX -= Math.sign(this.offsetX)*(speed);     
-        this.offsetY -= Math.sign(this.offsetY)*(speed); 
+        this.offsetY -= Math.sign(this.offsetY)*(speed);
     }
 
     drawHp(){
@@ -1709,10 +1710,13 @@ class Epsilon extends Monster{
         this.teleportCounter = 0;
         this.cores = 0;
         this.corelist = [];
+        this.turbo = false;
     }
     doStuff(){
         this.attackedThisTurn = false;
         this.lastpos = [this.tile.x,this.tile.y];
+        this.turbo = false;
+        //test if surrounded by 3 walls, become vulnerable if so
         super.doStuff();
     }
     update(){
@@ -1721,7 +1725,15 @@ class Epsilon extends Monster{
         if(!startedStunned){
             this.stunned = true;
         }
-        else if (this.corelist.length > 0) spells[this.corelist[randomRange(0,this.corelist.length-1)]](this);
+        else if (this.corelist.length > 0){
+            let antidash = false;
+            if (this.corelist.includes("Red") && (this.tile.x < 2 || this.tile.x > 15 || this.tile.y < 2 || this.tile.y > 15)){
+                removeItemOnce(this.corelist,"Red");
+                antidash = true;
+            } 
+            if (this.corelist.length > 0) spells[this.corelist[randomRange(0,this.corelist.length-1)]](this);
+            if (antidash) this.corelist.push("Red");
+        }
     }
 }
 
@@ -1736,8 +1748,10 @@ class Tail extends Monster{
         this.order = order;
         this.isInvincible = true;
         this.bosscard = 0;
+        this.turbo = false;
     }
     doStuff(){
+        this.turbo = false;
         this.bosscard++
         this.lastpos = [this.tile.x,this.tile.y];
         if (this.bosscard == 2) showboss = false;
