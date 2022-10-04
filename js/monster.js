@@ -1717,6 +1717,9 @@ class Epsilon extends Monster{
         this.lastpos = [this.tile.x,this.tile.y];
         this.turbo = false;
         //test if surrounded by 3 walls, become vulnerable if so
+        //dashing into a core causes vulnerability and installation?
+        //because epsilon is slowing down not wanting to damage the core
+        //also avoid dashing if tail would merge with wall or entity
         super.doStuff();
     }
     update(){

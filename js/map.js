@@ -183,16 +183,16 @@ function generateEpsilon(){
         1: [Wall,Floor,Floor,Floor,Floor,Wall,Floor,Wall,Floor,Floor,Floor,Wall,Floor,Wall,Floor,Floor,Floor,Wall],
         2: [Wall,Wall,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Wall],
         3: [Wall,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Wall,Wall],
-        4: [Wall,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Wall],
-        5: [Wall,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Wall,Wall],
+        4: [Wall,Floor,Floor,Floor,Wall,Wall,Floor,Floor,Floor,Floor,Floor,Floor,Wall,Wall,Floor,Floor,Floor,Wall],
+        5: [Wall,Floor,Floor,Floor,Wall,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Wall,Floor,Floor,Wall,Wall],
         6: [Wall,Wall,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Wall],
         7: [Wall,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Wall],
         8: [Wall,Wall,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Wall],
         9: [Wall,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Wall,Wall],
         10: [Wall,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Wall],
         11: [Wall,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Wall,Wall],
-        12: [Wall,Wall,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Wall],
-        13: [Wall,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Wall],
+        12: [Wall,Wall,Floor,Floor,Wall,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Wall,Floor,Floor,Floor,Wall],
+        13: [Wall,Floor,Floor,Floor,Wall,Wall,Floor,Floor,Floor,Floor,Floor,Floor,Wall,Wall,Floor,Floor,Floor,Wall],
         14: [Wall,Wall,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Wall],
         15: [Wall,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Wall,Wall],
         16: [Wall,Floor,Floor,Floor,Wall,Floor,Wall,Floor,Floor,Floor,Wall,Floor,Wall,Floor,Floor,Floor,Floor,Wall],
@@ -302,7 +302,7 @@ function spawnMonster(){
             monsters.push(tail);
         }
         let monsterTypee = shuffle([Box])[0];
-        let monstere = new monsterTypee(getTile(4,4), "Red");
+        let monstere = new monsterTypee(getTile(4,7), "Red");
         let monsterf = new monsterTypee(getTile(4,6), "Pink");
         let monsterg = new monsterTypee(getTile(4,8), "Cyan");
         monsters.push(monstere);

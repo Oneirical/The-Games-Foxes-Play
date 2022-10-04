@@ -488,23 +488,41 @@ spells = {
             let testTile = newTile.getNeighbor(caster.lastMove[0],caster.lastMove[1]);
             if(testTile.passable && !testTile.monster){
                 newTile = testTile;
-                newTile.eviltrap = true;
+                //newTile.eviltrap = true;
                 //caster.tryMove(caster.lastMove[0],caster.lastMove[1]);
             }else{
                 if (!testTile.passable) shaker = true;
                 break;
             }
         }
-        caster.move(newTile);
-        if (shaker){
-            shakeAmount = 30;
-            playSound("explosion");
-        }
+        let allok = true;
         for (let i of monsters){
-            if (i.order > 0 && caster.lastMove[0] == 0 && caster.lastMove[1] < 0) i.move(getTile(caster.tile.x, caster.tile.y+i.order));
-            else if (i.order > 0 && caster.lastMove[0] == 0  && caster.lastMove[1] > 0) i.move(getTile(caster.tile.x, caster.tile.y-i.order));
-            else if (i.order > 0 && caster.lastMove[0] > 0  && caster.lastMove[1] == 0) i.move(getTile(caster.tile.x-i.order, caster.tile.y));
-            else if (i.order > 0 && caster.lastMove[0] < 0  && caster.lastMove[1] == 0) i.move(getTile(caster.tile.x+i.order, caster.tile.y));
+            if (i.order > 0){
+                let dashtest = [];
+                if (i.order > 0 && caster.lastMove[0] == 0 && caster.lastMove[1] < 0) dashtest = getTile(newTile.x, newTile.y+i.order);
+                else if (i.order > 0 && caster.lastMove[0] == 0  && caster.lastMove[1] > 0) dashtest = getTile(newTile.x, newTile.y-i.order);
+                else if (i.order > 0 && caster.lastMove[0] > 0  && caster.lastMove[1] == 0) dashtest = getTile(newTile.x-i.order, newTile.y);
+                else if (i.order > 0 && caster.lastMove[0] < 0  && caster.lastMove[1] == 0) dashtest = getTile(newTile.x+i.order, newTile.y);
+                if (!dashtest.passable || dashtest.monster) allok = false;
+            }
+        }
+        if (allok){
+            caster.move(newTile);
+            if (shaker){
+                shakeAmount = 30;
+                playSound("explosion");
+            }
+            for (let i of monsters){
+                if (i.order > 0 && caster.lastMove[0] == 0 && caster.lastMove[1] < 0) i.move(getTile(caster.tile.x, caster.tile.y+i.order));
+                else if (i.order > 0 && caster.lastMove[0] == 0  && caster.lastMove[1] > 0) i.move(getTile(caster.tile.x, caster.tile.y-i.order));
+                else if (i.order > 0 && caster.lastMove[0] > 0  && caster.lastMove[1] == 0) i.move(getTile(caster.tile.x-i.order, caster.tile.y));
+                else if (i.order > 0 && caster.lastMove[0] < 0  && caster.lastMove[1] == 0) i.move(getTile(caster.tile.x+i.order, caster.tile.y));
+            }
+        }
+        else{
+            removeItemOnce(caster.corelist,"Red");
+            if (caster.corelist.length > 0) spells[caster.corelist[randomRange(0,caster.corelist.length-1)]](caster);
+            caster.corelist.push("Red");
         }
     },
     Cyan: function(caster){
