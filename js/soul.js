@@ -532,7 +532,6 @@ spells = {
                 for (let y of tiles){
                     if (!y.monster){
                         let shoot = [y.x-x.tile.x,y.y-x.tile.y];
-                        console.log(shoot);
                         boltTravel(shoot, 15 + Math.abs(shoot[1]), 0, x.tile, false);
                     }
                 }
