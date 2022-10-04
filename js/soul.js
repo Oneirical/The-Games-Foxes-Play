@@ -493,6 +493,20 @@ spells = {
             else if (i.order > 0 && caster.lastMove[0] > 0  && caster.lastMove[1] == 0) i.move(getTile(caster.tile.x-i.order, caster.tile.y));
             else if (i.order > 0 && caster.lastMove[0] < 0  && caster.lastMove[1] == 0) i.move(getTile(caster.tile.x+i.order, caster.tile.y));
         }
+    },
+    Cyan: function(caster){
+        for (let x of monsters){
+            if (x instanceof Tail){
+                let tiles = x.tile.getAdjacentNeighbors();
+                for (let y of tiles){
+                    if (!y.monster){
+                        let shoot = [y.x-x.tile.x,y.y-x.tile.y];
+                        console.log(shoot);
+                        boltTravel(shoot, 15 + Math.abs(shoot[1]), 0, x.tile, false);
+                    }
+                }
+            }
+        }
     }
 };
 

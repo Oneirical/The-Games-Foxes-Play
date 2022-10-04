@@ -304,8 +304,10 @@ function spawnMonster(){
         let monsterTypee = shuffle([Box])[0];
         let monstere = new monsterTypee(getTile(4,4), "Red");
         let monsterf = new monsterTypee(getTile(4,6), "Pink");
+        let monsterg = new monsterTypee(getTile(4,8), "Cyan");
         monsters.push(monstere);
         monsters.push(monsterf);
+        monsters.push(monsterg);
     }
     else if ((level % 5 != 1 || level == 1)&& level != 0){
         let monsterType = shuffle([Embalmer,Apis,Weaver, Second, Tinker,Oracle, Snail,Slug,Ragemaw, Felidol,Monk,Scion, Shrike, Apiarist])[0]; //Rendfly     //
