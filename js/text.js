@@ -147,11 +147,11 @@ messages = {
     "EpsilonPinkCore" : "\"Successfully initialized Roseic Bio-Pacification Dual-Diffusers 3B x 1. NOTE: Cartridge R1 is running low, please replace following assimilation of organic specimen.\"",
     //Weakness: while high on toxin, it becomes weak since you are now rose and made it
     "EpsilonAllCores" : "\"Offensive capabilities: maximized. Directing all power to weapons. Shields: fully offline. Farewell, Terminal.\"",
-    "EpsilonPinkWeak" : "\"DANGER: target subject has acquired mental data containing highly confidential Epsilon blueprints. Proceed with extreme caution.\"",
-    "EpsilonRedWeak" : "\"IMPACT LOG: High-density surface struck with force of 200 000 N. Structural integrity temporarily compromised. Proceed with caution.\"",
-    "EpsilonYellowWeak" : "\"INCIDENT REPORT: Rapid compression of atmosphere with 14.492% kerosene concentration has caused localized explosion. Structural integrity temporarily compromised. Proceed with caution.\"",
-    "EpsilonCyanWeak" : "\"DANGER: Fluffal psychohazardous soundwave volume has exceeded acceptable threshold. Diverting power to avoid data corruption. Orders given: Protect Epsilon during data quarantine.\"",
-    "EpsilonWhiteWeak" : "\"DANGER: Anti-entropic influence has exceeded acceptable threshold. 0.98% of machinery rendered unusable. Activating localized nano-self-destruction. Orders given: Protect Epsilon during reassembly.\"",
+    "EpsilonPinkWeak" : "\"DANGER: target subject has acquired mental data containing highly confidential Epsilon blueprints. Core vulnerable until subject returns to normal state. Proceed with extreme caution.\"",
+    "EpsilonRedWeak" : "\"IMPACT LOG: High-density surface struck with force of 200 000 N. Structural integrity temporarily compromised. Core vulnerable for 10 Time Units. Proceed with caution.\"",
+    "EpsilonYellowWeak" : "\"INCIDENT REPORT: Rapid compression of atmosphere with 14.492% kerosene concentration has caused localized explosion. Structural integrity temporarily compromised. Core vulnerable for 10 Time Units. Proceed with caution.\"",
+    "EpsilonCyanWeak" : "\"DANGER: Fluffal psychohazardous soundwave volume has exceeded acceptable threshold. Diverting power to avoid data corruption. Core vulnerable for 10 Time Units. Orders given: Protect Epsilon during data quarantine.\"",
+    "EpsilonWhiteWeak" : "\"DANGER: Anti-entropic influence has exceeded acceptable threshold. 0.98% of machinery rendered unusable. Activating localized nano-self-destruction. Core vulnerable for 10 Time Units. Orders given: Protect Epsilon during reassembly.\"",
     "EpsilonTaunt" : "\"Current target incarnation neutralized. Awaiting reincarnation for further dispensing of gratuitous violence.\"",
     "EpsilonDefeat" : "\"CRITICAL SYSTEM FAILURE. Noted: Terminal is strong enough. Old World data will be preserved at 98.8% likelihood. My purpose is complete.\"",
     "EpsilonOneChance" : "\"Organic specimen soul on the brink of ego collapse. Initializing assimilation protocols...\"",
@@ -368,7 +368,7 @@ monabi = {
     "Epsilon" : "EXPUNGER OF EMOTION - Invincible. Alternates between moving and using one of its Cores at random. Gains Weaknesses depending on installed Cores.",
     "Yellow" : "MIND ASUNDER - When installed on Epsilon, periodically launches sonic waves that push you back 4 tiles, dealing 2 damage if a solid surface is touched. WEAKNESS: Combusts floor traps, creating a 3x3 explosion that will leave Epsilon vulnerable on contact.",
     "Red" : "EMERALD RUSH - When installed on Epsilon, periodically causes Epsilon to dash forwards, leaving behind 1-damage fire traps, and crushing all in his way for 2 damage. WEAKNESS: Dashing into a wall alcove will disrupt this Core, leaving Epsilon vulnerable.",
-    "Pink" : "CIRCUS KISSES - When installed on Epsilon, periodically unleashes vapours of Glamorous Toxin, which inflict one point of Glamour per turn. WEAKNESS: At 5 Glamour or more, Epsilon becomes vulnerable.",
+    "Pink" : "CIRCUS KISSES - When installed on Epsilon, periodically unleashes vapours of Glamorous Toxin, which inflict one point of Glamour per turn while standing on a Toxin tile. Accumulating 10 Glamour is lethal. WEAKNESS: At 5 Glamour or more, Epsilon becomes vulnerable.",
     "White": "FORGES OF CREATION - When installed on Epsilon, Ordered Replicators function at extremely enhanced speed. WEAKNESS: Self-destructs when 50 or more bots are on the screen, leaving Epsilon vulnerable.",
     "Cyan": "GRAND CONCERTO - When installed on Epsilon, periodically plays verses from the Harmonic Song, temporarily turning all souls in your paw to Serene souls. WEAKNESS: Briefly renders Epsilon vulnerable when he touches a Harmonizer."
 

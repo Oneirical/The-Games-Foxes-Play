@@ -738,7 +738,7 @@ class Player extends Monster{
                     rolled--;
                 }
                 else{
-                    message = "FluffyNoSoulTaunt"; // todo
+                    message = "FluffyNoSoulTaunt";
                 }
             }
         }

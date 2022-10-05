@@ -200,7 +200,7 @@ class Ladder extends Floor{
 class Goop extends Tile{
     constructor(x,y){
         super(x, y, 60, true);
-        this.lore = description["Glamour"]; //todo
+        this.lore = description["Glamour"];
         this.name = "Glamorous Toxin";
         this.sprite = 60;
     };
