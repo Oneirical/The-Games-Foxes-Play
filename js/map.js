@@ -310,7 +310,10 @@ function spawnMonster(){
         monsters.push(monsterg);
     }
     else if ((level % 5 != 1 || level == 1)&& level != 0){
-        let monsterType = shuffle([Embalmer,Apis,Weaver, Second, Tinker,Oracle, Snail,Slug,Ragemaw, Felidol,Monk,Scion, Shrike, Apiarist])[0]; //Rendfly     //
+        let monsterType;
+        if (level < 6 && level > 0) monsterType = shuffle([Apis, Second, Tinker, Slug,Scion, Shrike, Apiarist])[0]; //Rendfly     //
+        else if (level < 11 && level > 5)  monsterType = shuffle([Apis,Weaver, Second, Tinker,Oracle, Snail,Slug,Ragemaw, Felidol,Scion, Shrike, Apiarist])[0];
+        else if (level < 17 && level > 10) monsterType = shuffle([Embalmer,Apis,Weaver, Second, Tinker,Oracle, Snail,Slug,Ragemaw, Felidol,Monk,Scion, Shrike, Apiarist])[0];
         let monster = new monsterType(randomPassableTile());
         monsters.push(monster);
         if (monsterType == Embalmer) return "Embalm";
