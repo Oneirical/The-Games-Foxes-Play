@@ -101,8 +101,8 @@ function draw(){
                 let spellName = player.inhand[mousdes];
                 selectation = mousdes;
                 if (rosetoxin > 1){
-                    printAtWordWrap(souldesc["ROSE"], 18, 10, 600, "pink", 20, 940);
-                    printAtWordWrap(soulabi["ROSE"], 18, 10, 725, "pink", 20, 940);
+                    printAtWordWrap(souldesc["ROSEILLUSION"], 18, 10, 600, "pink", 20, 940);
+                    printAtWordWrap(soulabi["ROSEILLUSION"], 18, 10, 725, "pink", 20, 940);
                 }
                 else{
                     printAtWordWrap(souldesc[spellName], 18, 10, 600, colours[spellName], 20, 940);
@@ -147,8 +147,8 @@ function draw(){
         else drawText("Faith's End: level "+level, 30, false, 40, "violet");
         drawText("Ipseity: "+truehp, 30, false, 70, "cyan");
         if (gameState == "running"){
-            if (area != "Circus") drawText("Resolve: "+resolve+"/"+(3+Math.floor(resolvebonus/2)), 30, false, 100, "orange");
-            else drawText("Glamour: "+player.rosetox+"/10", 30, false, 100, "lightpink");
+            drawText("Resolve: "+resolve+"/"+(3+Math.floor(resolvebonus/2)), 30, false, 100, "orange");
+            if (player.rosetox > 0) drawText("Glamour: "+player.rosetox+"/10", 30, false, 440, "lightpink");
         }
         if (gameState == "contemplation"){
             drawText("Agony: "+agony, 30, false, 100, "red");
@@ -184,14 +184,14 @@ function draw(){
         //if (sacrifice < 6 && gameState == "fluffy" && !cursormode) printAtWordWrap("Use Soul View mode (\"c\", then \"i\") if you forgot the value of a certain soul.", 18, 590, 490, "cyan", 20, 350);
         if (sacrifice == 6 && !cursormode) printAtSidebar("Press \"f\" to reroll unclaimed caged souls. Warning: The Harmony will sow a seed within your psyche should you take this action!", 18, 590, 200, "cyan", 20, 350);
         if (level == 0 && !cursormode) printAtSidebar("Use WASD to move around, interact, and attack.", 18, 590, 130, "lime", 20, 350);
-        if (level == 2 && !cursormode&& gameState == "running") printAtSidebar("Press \"q\" in combat to summon Souls. Summoning costs Resolve, or Ipseity if you have no more Resolve.", 18, 590, 350, "lime", 20, 350);
-        if (level == 2 && !cursormode&& gameState == "running") printAtSidebar("Press the number keys 1-9 to unleash Souls.", 18, 590, 425, "lime", 20, 350);
+        if (level == 1 && !cursormode&& gameState == "running") printAtSidebar("Press \"q\" in combat to summon Souls. Summoning costs Resolve, or Ipseity if you have no more Resolve. If you reach zero Ipseity, you lose.", 18, 590, 270, "lime", 20, 350);
+        if (level == 1 && !cursormode&& gameState == "running") printAtSidebar("Press the number keys 1-9 to unleash Souls.", 18, 590, 370, "lime", 20, 350);
         if (!cursormode && gameState == "contemplation" && !contemhint){
             //printAtSidebar("Death in this world is only the beginning of another cycle. Press the number keys 1-9 to permanently forget Souls you do not wish to keep. You can only forget the Souls you summoned in this room.", 18, 590, 350, "lime", 20, 350);
             //printAtSidebar("Dying costs Ipseity. If your Ipseity reaches zero, you die a true death.", 18, 590, 500, "lime", 20, 350);
             contemhint = false;
         }
-        if (level == 1 && !cursormode&& gameState == "running") printAtSidebar("Slay enemies to collect their Soul.", 18, 590, 425, "lime", 20, 350);
+        if (level == 1 && !cursormode&& gameState == "running") printAtSidebar("Slay enemies to collect their Soul.", 18, 590, 210, "lime", 20, 350);
         if (level == 0 && !cursormode) printAtSidebar("Press \"c\" to toggle Examine mode.", 18, 590, 210, "lime", 20, 350);
         if (level == 0 && !invmode) printAtSidebar("Press \"i\" to toggle Soul View mode.", 18, 590, 275, "lime", 20, 350);
         
@@ -320,7 +320,7 @@ function tick(){
             player.saved.length = 0;
             truehp -= deadcheck;
             agony = deadcheck;
-            if (area == "Faith") message = "Agony";
+            if (area == "Faith" && player.rosetox < 10) message = "Agony";
             else if (area == "Serene"){
                 message = "Fallen";
                 fallen = false;
@@ -335,7 +335,8 @@ function tick(){
                 gameState = "dead";
                 pauseAllMusic();
                 playSound("falsity");
-                message = "RoomDeath";
+                if (player.rosetox < 10) message = "RoomDeath";
+                else message = "RoseDeath";
             }
         }
         
@@ -392,7 +393,7 @@ function startGame(){
     score = 0;
     numSpells = 0;
     aubecounter = 0;
-    invsave = ["UNHINGED","UNHINGED","UNHINGED","UNHINGED","UNHINGED","UNHINGED","UNHINGED", "SAINTLY"];//[, ] //];
+    invsave = [];//[, ] //];
     modules = ["NONE"];
     modulators = ["Alacrity","Focus","Thrusters","Selective","Hover"];
     //let modtest = modulators[randomRange(0,4)];

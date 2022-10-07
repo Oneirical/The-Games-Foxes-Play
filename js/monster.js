@@ -302,6 +302,7 @@ class Monster{
                     }
                     if (this.specialAttack == "Tox" && newTile.monster && newTile.monster.isPlayer){
                         newTile.monster.rosetox++;
+                        newTile.monster.toxified = true;
                     }
                     this.bonusAttack = 0;
 
@@ -389,7 +390,7 @@ class Monster{
         }
         if (this instanceof Embalmer){
             monsters.forEach(function(entity){
-                if (entity.name == "Rosewrapped Brute"){
+                if (entity.name == "Rosewrapped Brute" && player.rosetox < 5){
                     entity.enraged = true;
                 }
             });
@@ -433,6 +434,7 @@ class Player extends Monster{
         this.rosetox = 0;
         this.fov = 0;
         this.constrict = false;
+        this.toxified = false;
     }
 
     cycleModules(){
@@ -452,14 +454,17 @@ class Player extends Monster{
 
     update(){
         if (this.tile.name.includes("Toxin")){
-            player.rosetox += 2;  
+            this.rosetox += 2;  
         }     
         this.shield--;
         if (this.rosetox > 0){
             if (this.rosetox < 11)sounds["roseic"].volume = (1-(0.1*this.rosetox));
             if (sounds["toxic"].currentTime == 0) playSound("toxic");
             if (this.rosetox < 11) sounds["toxic"].volume = 0.1 * this.rosetox;
-            this.rosetox--;
+            if (!this.toxified) this.rosetox--;
+            else {
+                this.toxified = false;
+            }
             if (this.rosetox > 3){
                 for (let x of monsters){
                     x.sprite = 61;
@@ -1153,8 +1158,8 @@ class Player extends Monster{
         let spellName = this.inhand[index];
         if(spellName){
             if (rosetoxin > 1){
-                printAtWordWrap(souldesc["ROSE"], 18, 10, 600, "pink", 20, 940);
-                printAtWordWrap(soulabi["ROSE"], 18, 10, 725, "pink", 20, 940);
+                printAtWordWrap(souldesc["ROSEILLUSION"], 18, 10, 600, "pink", 20, 940);
+                printAtWordWrap(soulabi["ROSEILLUSION"], 18, 10, 725, "pink", 20, 940);
                 printAtSidebar(soulval["ROSE"], 18, 590, 195, "cyan", 20, 350);
                 printAtSidebar(soulname["ROSE"], 18, 590, 130, "pink", 20, 350);
             }
@@ -1170,8 +1175,8 @@ class Player extends Monster{
     loreSpellMonster(spellName){
         if(spellName && spellName != "NOTHING"){
             if (rosetoxin > 0){
-                printAtWordWrap(souldesc["ROSE"], 18, 10, 600, "pink", 20, 940);
-                printAtWordWrap(soulabi["ROSE"], 18, 10, 725, "pink", 20, 940);
+                printAtWordWrap(souldesc["ROSEILLUSION"], 18, 10, 600, "pink", 20, 940);
+                printAtWordWrap(soulabi["ROSEILLUSION"], 18, 10, 725, "pink", 20, 940);
                 printAtSidebar(soulval["ROSE"], 18, 590, 195, "cyan", 20, 350);
                 printAtSidebar(soulname["ROSE"], 18, 590, 130, "pink", 20, 350);
             }
@@ -1188,7 +1193,7 @@ class Player extends Monster{
     }
 
     revivify(){
-        gameState = "running";
+        gameState = "running"; 
         playSound("newLevel");
         level++;
         let areas = ["Faith","Circus","Spire","Edge"]; // add Edge when it's not bugged "Spire"
@@ -1218,6 +1223,7 @@ class Player extends Monster{
         if (area == "Spire") spirevisited = true;
         this.hp = 0;
         areachange = true;
+        rosetoxin = 0;
         startLevel(Math.min(maxHp, player.hp+6));
         contemhint = true;
     }

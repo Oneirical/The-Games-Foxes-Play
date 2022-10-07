@@ -46,11 +46,12 @@ messages = {
     // Death messages
     "Fallen" : "The Harmony's song meshes with the howling wind in your ears as you plummet to the Spire's base, unceremoniously snapping your every bone while two nearby Harmonizers release a short \"Hmph!\" of contempt. You are granted the opportunity to abandon souls to the Harmony. Every 2 Souls sacrificed in this way will increase Resolve by 1. Press \"r\" to reincarnate once you have made your choices.",
     "Agony" : "You lie motionless for hours on the cold floor, until a void bubble finally begins approaching your location. You are granted the opportunity to abandon souls to the cataclysm. Every 2 Souls sacrificed in this way will increase Resolve by 1. Press \"r\" to reincarnate once you have made your choices.",
-    "Rosified" : "The Circus's enthralling floral perfume overwhelms your nostrils, stunning you on the spot. In your glamorous trance, you see your paws crowned by perfectly manucured pink claws, and stare, grinning in false pride, while the world slowly dims around you. You are granted the opportunity to abandon souls to the Circus. Every 2 Souls sacrificed in this way will increase Resolve by 1. Press \"r\" to reincarnate once you have made your choices.",
+    "Rosified" : "The enthralling floral perfume overwhelms your nostrils, stunning you on the spot. In your glamorous trance, you see your paws crowned by perfectly manucured pink claws, and stare, grinning in false pride, while the world slowly dims around you. You are granted the opportunity to abandon souls to your own narcissism. Every 2 Souls sacrificed in this way will increase Resolve by 1. Press \"r\" to reincarnate once you have made your choices.",
     
     // True death messages
     "RoomDeath" : "After their fangs were done toying with your flesh, they had taken away much more than sinew and bone. Your soul turned Feral, and the last lights of duty and purpose were soon snuffed out like a candle flame, leaving nothing but a ravenous husk. Your journey has come to its end.",
     "DrawDeath" : "You broke your limits for the last time, and, in doing so, broke yourself as well. What should have been the denizens of the Next World now seep through your closed eyes, while your soul turns Feral and assumes the command of your exhausted body. Your journey has come to its end.",
+    "RoseDeath" : "As the First of the Saints taught, all things decay. The Old World must be allowed to die. You, as the Last of the Saints, will be delighted to sit here until the end of time, which shouldn't take too long. Your journey has come to its end.",
     
     
     // Serene Harmonizer
@@ -211,6 +212,7 @@ colours = {
     "InvPrompt" : "yellow",
     "RoomDeath" : "crimson",
     "DrawDeath" : "crimson",
+    "RoseDeath" : "lightpink",
     "NoSouls" : "yellow",
     "Oversoul" : "yellow",
     "Paralyzed" : "orange",
@@ -310,7 +312,7 @@ description = {
     "Tail" : "Glossy, impeccable and blinding in its cleanliness, you can almost glimpse yourself in its reflection. Is that a radio antenna on your head? Surely, you must have imagined it.",
     "Apis" : "Interested to learn more about the most valued Feral subcaste - bees - the Saints engineered these half-canine, half-apian six-legged mutants, sending them on a quest to relay the Thinking with the Unthinking. Falling into the influence of the latter, this extremely strong creature knows only two things: hugging friends, and bashing enemies into the ground. It seems to consider you as the former. Perhaps the latter would have been better for your life expectancy.",
     "Brute" : "Despite Rose's attempts to regulate and monitor the reproduction of all species he deemed unworthy of being his subjects, love triumphed, and, with it, the prevalence of venomous stingers and pincers among the population. To compromise, these Brutes were forced to cover themselves at all times in a cocoon of pink ribbons, each one seeping with Glamorous Toxin as they twist their strong armoured bodies.",
-    "Embalmer" : "A noble fashionista, expert in colour palettes, pricy fabrics and annoyingly high-pitched giggling. Appointed to cleanse Brutes of their unappealing physique, only they hold the many threads keeping their thralls' cocoons in pristine state. Should they be slain, all their \"customers\" will find freedom, and with it, the blind rage of having been contained for far too long.",
+    "Embalmer" : "A noble fashionista, expert in colour palettes, pricy fabrics and annoyingly high-pitched giggling. Appointed to cleanse Brutes of their unappealing physique, only they hold the many threads keeping their thralls' cocoons in pristine state. Should they be slain, all their \"customers\" will find freedom, and with it, the blind rage of having been contained for far too long - unless a new master anoited by the Roseic Cog takes control, of course.",
     "Epsilon" : "A titanic serpentine robot, bound by two simple laws: maximize the chances of carrying the Old World's knowledge into the Next, and minimize the lifespan of those who would oppose this goal. Epsilon has eventually determined that latter clause to include all non-Ordered souls, as bickering, free will and emotional attachment are exactly the kind of things that would stop the great Ascension. Strictly prohibited from slaying the Reality Anchor, Epsilon has found a viable alternative, inspired by a certain wispy parasite: Assimilation.",
     // Tiles
     "Floor" : "A long time ago, legions of monks carved holy symbols on each floortile of the palaces, so they may be worthy of being treaded by the Saints' steps. Decades of dust has undone the tireless work of these artists.",
@@ -362,8 +364,8 @@ monabi = {
     "Third" : "WANDERFRIEND - Teleports randomly every 12 turns.",
     "Ashsoul" : "HORRORBLAZE - Teleports randomly every 12 turns. Can occasionally use a powerful knockback punch.",
     "Apis" : "RIBCRUSH HUG - Will hug you on contact, locking out all normal movement.",
-    "Brute" : "ROSEBOUND - 2-damage attacks but only moves every other turn. When a Bioembalmer is slain, triple the movement speed of all Brutes.",
-    "Embalmer" : "ROSEBINDER - Deals no damage. Inflicts 1 point of Glamour when it attacks. When slain, triple the movement speed of all Brutes.",
+    "Brute" : "ROSEBOUND - 2-damage attacks but only moves every other turn. When a Bioembalmer is slain, triple the movement speed of all Brutes, unless your Glamour is at 5 or more.",
+    "Embalmer" : "ROSEBINDER - Deals no damage. Inflicts 1 point of Glamour when it attacks. 10 Glamour is lethal. When slain, triple the movement speed of all Brutes, unless your Glamour is at 5 or more.",
     "Tail" : "AWAITING INPUT - Invincible. Gains a unique Weakness upon installation of a Core.",
     "Epsilon" : "EXPUNGER OF EMOTION - Invincible. Alternates between moving and using one of its Cores at random. Gains Weaknesses depending on installed Cores.",
     "Yellow" : "MIND ASUNDER - When installed on Epsilon, periodically launches sonic waves that push you back 4 tiles, dealing 2 damage if a solid surface is touched. WEAKNESS: Combusts floor traps, creating a 3x3 explosion that will leave Epsilon vulnerable on contact.",
@@ -404,6 +406,7 @@ souldesc = {
     "ASTER" : "Saint Rose's exiled son, ostracized due to his pupils of ill-matched colours. After trawling through the shady districts of the Metropolis, the disgraced noble finally found his new purpose: an enforcer of diversity, a comforter of the different, and a warrior battling in the name of Dissonance. Why would the Harmony authorize such a dangerous soul?",
     "GYVJI" : "All contenders of the Saints' Arena feared Gyvji's mythical tail slap, supposedly so strong it could knock your soul out of your body and into the crowd, leaving the body untouched. Thankfully, it wasn't long until reality caught up, causing the victim's flesh to charge into the hopefully empty seats of the stadium, where it would be rejoined with its distraught spirit.",
     "KASHIA" : "The first day of her infection, many wondered why Kashia waited five seconds to respond after being asked the most basic questions. After being brought for inspection to a dream-healer, her family gasped in horror at the apparent lack of a soul within her body. Their throats breathed sighs of relief when a little ghostly Kashia arrived five seconds later to mesh with the lizard's flesh, seemingly forever cursed to remain an after-image.",
+    "ROSEILLUSION" : "No need for survival. No need for struggle.",
 
     //modulators
     "Alacrity" : "A Collectivist's mind isn't located in any centralized brain - their intelligence is rather the sum of billions of tiny atmospheric depressurizations between their body and the outside air. In a vaccuum, a Harmony member would be instantly reduced to a puff of thoughtless gas. This cybernetic allows some degree of connection between your own mushy brain and the outside environment, hastening your wit.",
@@ -444,6 +447,7 @@ soulabi = {
     "ASTER" : "CACOPHONIC RAGE - When activated, forget all Serene souls in your paw, and strike all enemies for 0 damage. +1 bonus damage for each enemy of the same type in the room as the one hit. One additional secret effect...", // to add the secret effect
     "GYVJI" : "DIAMOND STRIKE - When activated, punch the adjacent enemy in the direction of your last move. The target flies until it meets a wall or another enemy, at which point it causes a 1-range blast that destroys walls and inflicts 3 damage. The target must fly at least 1 tile for the blast to take effect.",
     "KASHIA" : "REALITY DELAY - When activated, freeze your current HP, preventing all changes. 5 turns later, apply all damage and healing that occurred during the delay period. Applied healing is doubled.",
+    "ROSEILLUSION" : "ROSE - There is beauty. There is grace. You are beauty, you are grace. You are Rose. All is Rose.",
 
     //modulators
     "Alacrity" : "Drawing souls with \"q\" requires zero turns. Serene Peacekeepers gain Haste.",
