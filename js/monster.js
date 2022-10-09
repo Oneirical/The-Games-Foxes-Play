@@ -1745,7 +1745,7 @@ class Epsilon extends Monster{
     }
     doStuff(){
         this.abitimer++;
-        if (this.abitimer == 99){
+        if (this.abitimer == 6){
             this.abitimer = 0;
             let spawners = [];
             for (let x of tiles){
@@ -1763,7 +1763,7 @@ class Epsilon extends Monster{
         }
         let stuck = this.tile.getAdjacentPassableNeighbors();
         let beepbeepbeep = false;
-        if (stuck.length <= 3 && this.vulnerability == 0){
+        if (stuck.length <= 1){
             beepbeepbeep = true;
             let spawners = [];
             for (let x of tiles){
@@ -1784,7 +1784,6 @@ class Epsilon extends Monster{
                     }
                 }
                 playSound("fail");
-                this.vulnerability = 1;
             }
         }
         this.attackedThisTurn = false;
