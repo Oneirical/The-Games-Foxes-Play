@@ -192,6 +192,7 @@ class Monster{
         }else{
             drawSprite(this.sprite, this.getDisplayX(),  this.getDisplayY());
             this.drawHp();
+            if (this.installed && this.sprite != 61) drawSprite(74, this.getDisplayX(),  this.getDisplayY());
         }
         let speed = 1/8;
         if (this.isPlayer && this.activemodule == "Thrusters") speed = 1;
@@ -328,6 +329,8 @@ class Monster{
                                     if (x.order == pushTile.monster.cores){
                                         //NYOM!
                                         x.sprite = newTile.monster.sprite;
+                                        x.spritesave = newTile.monster.spritesave;
+                                        x.installed = true;
                                         pushTile.monster.corelist.push(newTile.monster.type);
                                     }
                                 }
@@ -1757,6 +1760,7 @@ class Tail extends Monster{
         this.isInvincible = true;
         this.bosscard = 0;
         this.turbo = false;
+        this.installed = false;
     }
     doStuff(){
         this.turbo = false;
