@@ -310,6 +310,9 @@ class Monster{
                         let empty = around.filter(t => !t.monster);
                         if (empty.length > 0) newTile.monster.move(empty[0]);
                     }
+                    if (this.specialAttack == "Trample" && newTile.monster){
+                        newTile.monster.pushable = true;
+                    }
                     this.bonusAttack = 0;
 
                     shakeAmount = 5;
@@ -323,8 +326,9 @@ class Monster{
                 }else if (this.isPlayer && newTile.monster.isGuide && dialoguecount == newTile.monster.diamax){
                     message = newTile.monster.dialogue[dialoguecount];
                     dialoguecount = newTile.monster.diareset;
-                }else if (this.isPlayer && newTile.monster.pushable){
-                    let lm = player.lastMove;
+                }else if (newTile.monster.pushable){
+                    console.log("hi");
+                    let lm = this.lastMove;
                     let corevore = false;
                     let pushTile = getTile(newTile.x+lm[0],newTile.y+lm[1]);
                     if (inBounds(pushTile.x,pushTile.y) && pushTile.passable){
@@ -1889,7 +1893,7 @@ class Brute extends Monster{
 
 class Paradox extends Monster{
     constructor(tile){
-        super(tile, 79, 2, "ORDERED", description["Paradox"]);
+        super(tile, 79, 1, "ORDERED", description["Paradox"]);
         this.soul = "Animated by an Ordered (1) soul.";
         this.name = "Paradox Teledrone";
         this.ability = monabi["Paradox"];
@@ -1911,7 +1915,7 @@ class Paradox extends Monster{
 
 class Binary extends Monster{
     constructor(tile){
-        super(tile, 78, 2, "ORDERED", description["Binary"]);
+        super(tile, 78, 1, "ORDERED", description["Binary"]);
         this.soul = "Animated by a Vile (1) soul.";
         this.name = "Binary Duodrone";
         this.ability = monabi["Third"];
@@ -1932,28 +1936,21 @@ class Binary extends Monster{
 
 class Titanic extends Monster{
     constructor(tile){
-        super(tile, 65, 2, "ORDERED", description["Binary"]);
-        this.soul = "Animated by a Vile (1) soul.";
+        super(tile, 76, 2, "ORDERED", description["Binary"]);
+        this.soul = "Animated by an Ordered (1) soul.";
         this.name = "Titanic Gravidrone";
         this.ability = monabi["Third"];
-        this.abitimer = 0;
         this.noloot = true;
     }
     doStuff(){
-        this.abitimer++;
-        if (this.abitimer == 12){
-            this.abitimer = 0;
-            spells["WOOP"](this);
-        }
-        else{
-            super.doStuff();
-        }
+        this.specialAttack = "Trample";
+        super.doStuff();
     }
 }
 
 class Psydrone extends Monster{
     constructor(tile){
-        super(tile, 65, 2, "ORDERED", description["Binary"]);
+        super(tile, 77, 2, "ORDERED", description["Binary"]);
         this.soul = "Animated by a Vile (1) soul.";
         this.name = "Pulsating Psydrone";
         this.ability = monabi["Third"];

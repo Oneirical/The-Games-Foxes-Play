@@ -308,7 +308,7 @@ function spawnMonster(){
         monsters.push(monstere);
         monsters.push(monsterf);
         monsters.push(monsterg);
-        monsters.push(new Binary(getTile(10,10)));
+        monsters.push(new Titanic(getTile(10,10)));
         monsters.push(new Binary(getTile(3,3)));
         monsters.push(new Binary(getTile(3,10)));
     }
