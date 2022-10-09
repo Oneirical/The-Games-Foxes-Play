@@ -311,7 +311,15 @@ class Monster{
                         if (empty.length > 0) newTile.monster.move(empty[0]);
                     }
                     if (this.specialAttack == "Trample" && newTile.monster){
-                        newTile.monster.pushable = true;
+                        let lm = this.lastMove;
+                        let pushTile = getTile(newTile.x+lm[0],newTile.y+lm[1]);
+                        if (inBounds(pushTile.x,pushTile.y) && pushTile.passable){
+                            if (pushTile.monster){
+                                pushTile.monster.move(getTile(pushTile.x+lm[0],pushTile.y+lm[1]));
+                            }
+                            newTile.monster.move(pushTile);
+                            this.move(newTile);
+                        }
                     }
                     this.bonusAttack = 0;
 
@@ -327,7 +335,6 @@ class Monster{
                     message = newTile.monster.dialogue[dialoguecount];
                     dialoguecount = newTile.monster.diareset;
                 }else if (newTile.monster.pushable){
-                    console.log("hi");
                     let lm = this.lastMove;
                     let corevore = false;
                     let pushTile = getTile(newTile.x+lm[0],newTile.y+lm[1]);
