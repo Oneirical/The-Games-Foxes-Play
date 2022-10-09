@@ -244,6 +244,20 @@ function randomPassableTile(){
     });
     return tile;
 }
+function randomPushableTile(){
+    let tile;
+    tryTo('get random passable tile', function(){
+        let x = randomExcluded(0,numTiles-1,4);
+        let y = randomExcluded(0,numTiles-1,1);
+        tile = getTile(x, y);
+        let box = true;
+        for (let x of tile.getAdjacentNeighbors()){
+            if (x.monster) box = false;
+        }
+        return box && tile.passable && !tile.monster && !(tile instanceof Mobilizer) && tile.x > 1 && tile.x < 16 && tile.y > 1 && tile.y < 16;
+    });
+    return tile;
+}
 function centralTile(){
     let tile;
     let x = (numTiles-1)/2;
@@ -301,13 +315,11 @@ function spawnMonster(){
             let tail = new Tail(getTile(9,i+8),i);
             monsters.push(tail);
         }
-        let monsterTypee = shuffle([Box])[0];
-        let monstere = new monsterTypee(getTile(4,7), "Red");
-        let monsterf = new monsterTypee(getTile(4,6), "Pink");
-        let monsterg = new monsterTypee(getTile(4,8), "Cyan");
-        monsters.push(monstere);
-        monsters.push(monsterf);
-        monsters.push(monsterg);
+        for (let i = 0;i<4;i++){
+            let corecolour = shuffle(["Red","Pink","Cyan"])[0];
+            let monstere = new Box(randomPushableTile(), corecolour);
+            monsters.push(monstere);
+        }
     }
     else if ((level % 5 != 1 || level == 1)&& level != 0){
         let monsterType;
