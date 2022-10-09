@@ -308,6 +308,7 @@ function spawnMonster(){
         monsters.push(monstere);
         monsters.push(monsterf);
         monsters.push(monsterg);
+        monsters.push(new Paradox(getTile(10,10)));
     }
     else if ((level % 5 != 1 || level == 1)&& level != 0){
         let monsterType;

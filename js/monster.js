@@ -304,6 +304,12 @@ class Monster{
                         newTile.monster.rosetox++;
                         newTile.monster.toxified = true;
                     }
+                    if (this.specialAttack == "Warp" && newTile.monster){
+                        spells["WOOP"](this);
+                        let around = this.tile.getAdjacentPassableNeighbors();
+                        let empty = around.filter(t => !t.monster);
+                        if (empty.length > 0) newTile.monster.move(empty[0]);
+                    }
                     this.bonusAttack = 0;
 
                     shakeAmount = 5;
@@ -1877,6 +1883,91 @@ class Brute extends Monster{
         }
         else{
             super.update();
+        }
+    }
+}
+
+class Paradox extends Monster{
+    constructor(tile){
+        super(tile, 79, 2, "ORDERED", description["Paradox"]);
+        this.soul = "Animated by an Ordered (1) soul.";
+        this.name = "Paradox Teledrone";
+        this.ability = monabi["Paradox"];
+        this.abitimer = 0;
+        this.noloot = true;
+    }
+    doStuff(){
+        this.specialAttack = "Warp";
+        this.abitimer++;
+        if (this.abitimer == 12){
+            this.abitimer = 0;
+            spells["WOOP"](this);
+        }
+        else{
+            super.doStuff();
+        }
+    }
+}
+
+class Binary extends Monster{
+    constructor(tile){
+        super(tile, 78, 2, "ORDERED", description["Binary"]);
+        this.soul = "Animated by a Vile (1) soul.";
+        this.name = "Binary Duodrone";
+        this.ability = monabi["Third"];
+        this.abitimer = 0;
+        this.noloot = true;
+    }
+    doStuff(){
+        this.abitimer++;
+        if (this.abitimer == 12){
+            this.abitimer = 0;
+            spells["WOOP"](this);
+        }
+        else{
+            super.doStuff();
+        }
+    }
+}
+
+class Titanic extends Monster{
+    constructor(tile){
+        super(tile, 65, 2, "ORDERED", description["Binary"]);
+        this.soul = "Animated by a Vile (1) soul.";
+        this.name = "Titanic Gravidrone";
+        this.ability = monabi["Third"];
+        this.abitimer = 0;
+        this.noloot = true;
+    }
+    doStuff(){
+        this.abitimer++;
+        if (this.abitimer == 12){
+            this.abitimer = 0;
+            spells["WOOP"](this);
+        }
+        else{
+            super.doStuff();
+        }
+    }
+}
+
+class Psydrone extends Monster{
+    constructor(tile){
+        super(tile, 65, 2, "ORDERED", description["Binary"]);
+        this.soul = "Animated by a Vile (1) soul.";
+        this.name = "Pulsating Psydrone";
+        this.ability = monabi["Third"];
+        this.abitimer = 0;
+        this.noloot = true;
+    }
+    doStuff(){
+        this.abitimer++;
+        if (this.abitimer == 12){
+            this.abitimer = 0;
+            spells["WOOP"](this);
+        }
+        else{
+            super.doStuff();
         }
     }
 }

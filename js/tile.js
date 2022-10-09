@@ -59,6 +59,10 @@ class Tile{
         return this.getAdjacentNeighbors().filter(t => t.passable);
     }
 
+    getAdjacentEmptyNeighbors(){
+        return this.getAdjacentNeighbors().filter(t => !t.monster);
+    }
+
     getConnectedTiles(){
         let connectedTiles = [this];
         let frontier = [this];
