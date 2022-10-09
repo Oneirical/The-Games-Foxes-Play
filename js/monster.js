@@ -1743,7 +1743,7 @@ class Epsilon extends Monster{
     }
     doStuff(){
         this.abitimer++;
-        if (this.abitimer == 6){
+        if (this.abitimer == 99){
             this.abitimer = 0;
             let spawners = [];
             for (let x of tiles){

@@ -472,7 +472,8 @@ function startLevel(playerHp){
         monsters.push(montest);
         monsters.push(montest2);
     } 
-    if (level != 0 && area == "Faith") tile = getTile(Math.floor((numTiles-1)/2), 1);
+    if (level != 0 && level != 17 && area == "Faith") tile = getTile(Math.floor((numTiles-1)/2), 1);
+    else if (level == 17 && area == "Faith") tile = getTile(1,1);
     else if (area == "Spire" && level % 5 == 1 && level > 5) tile = getTile(1,8)
     else if (area == "Spire") tile = spirespawner;
     else if (area == "Circus") tile = getTile(8,8);
