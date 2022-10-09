@@ -1739,8 +1739,26 @@ class Epsilon extends Monster{
         this.corelist = [];
         this.turbo = false;
         this.loveless = true;
+        this.abitimer = 0;
     }
     doStuff(){
+        this.abitimer++;
+        if (this.abitimer == 6){
+            this.abitimer = 0;
+            let spawners = [];
+            for (let x of tiles){
+                for (let y of x){
+                    if (y instanceof Mobilizer) spawners.push(y);
+                }
+            }
+            let dest = spawners[randomRange(0,3)];
+            if (!dest.monster){
+                let type = shuffle([Psydrone,Titanic,Paradox,Binary])[0];
+                console.log(dest);
+                monsters.push(new type(dest));
+            }
+            else playSound("fail");
+        }
         this.attackedThisTurn = false;
         this.lastpos = [this.tile.x,this.tile.y];
         this.turbo = false;
@@ -1947,7 +1965,7 @@ class Binary extends Monster{
 
 class Titanic extends Monster{
     constructor(tile){
-        super(tile, 76, 2, "ORDERED", description["Titanic"]);
+        super(tile, 76, 1, "ORDERED", description["Titanic"]);
         this.soul = "Animated by an Ordered (5) soul.";
         this.name = "Titanic Gravidrone";
         this.ability = monabi["Titanic"];

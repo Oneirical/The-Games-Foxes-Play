@@ -305,12 +305,6 @@ function spawnMonster(){
         let monstere = new monsterTypee(getTile(4,7), "Red");
         let monsterf = new monsterTypee(getTile(4,6), "Pink");
         let monsterg = new monsterTypee(getTile(4,8), "Cyan");
-        monsters.push(monstere);
-        monsters.push(monsterf);
-        monsters.push(monsterg);
-        monsters.push(new Titanic(getTile(10,10)));
-        monsters.push(new Psydrone(getTile(3,3)));
-        monsters.push(new Binary(getTile(3,10)));
     }
     else if ((level % 5 != 1 || level == 1)&& level != 0){
         let monsterType;
