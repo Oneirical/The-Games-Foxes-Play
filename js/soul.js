@@ -469,7 +469,7 @@ spells = {
                 let tiles = x.tile.getAdjacentNeighbors();
                 for (let y of tiles){
                     if (!y.monster && y.passable){
-                        y.replace(Goop);
+                        if (!(y instanceof Mobilizer)) y.replace(Goop);
                     }
                 }
             }

@@ -697,8 +697,7 @@ function initSounds(){
 }
 
 function playSound(soundName){                       
-    sounds[soundName].currentTime = 0;  
-    sounds[soundName].load();
+    sounds[soundName].currentTime = 0;
     sounds[soundName].play();
     let loops = ["cage","max","roseic","title","harmony2","harmony4","harmony6","falsity","seal","quarry","toxic","spire","spireloop","epsilon"];
     if (loops.includes(soundName)) sounds[soundName].loop = true; 

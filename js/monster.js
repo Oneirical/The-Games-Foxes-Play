@@ -356,8 +356,9 @@ class Monster{
                                 newTile.monster.hit(99);
                                 removeItemOnce(monsters, newTile.monster);
                             }
-                            else if (pushTile.monster instanceof Tail) return false;
-                            else pushTile.monster.move(getTile(pushTile.x+lm[0],pushTile.y+lm[1]));
+                            else return false; //sigh, you used to be able to push multiple objects. idk what happened
+                            //else if (pushTile.monster instanceof Tail) return false;
+                            //else pushTile.monster.move(getTile(pushTile.x+lm[0],pushTile.y+lm[1]));
                         }
                         if (!corevore) newTile.monster.move(pushTile);
                         this.move(newTile);
@@ -1740,6 +1741,7 @@ class Epsilon extends Monster{
         this.turbo = false;
         this.loveless = true;
         this.abitimer = 0;
+        this.vulnerability = 0;
     }
     doStuff(){
         this.abitimer++;
@@ -1759,6 +1761,28 @@ class Epsilon extends Monster{
             }
             else playSound("fail");
         }
+        let stuck = this.tile.getAdjacentPassableNeighbors();
+        let beepbeepbeep = false;
+        if (stuck.length <= 3 && this.vulnerability == 0){
+            beepbeepbeep = true;
+            let spawners = [];
+            for (let x of tiles){
+                for (let y of x){
+                    if (y instanceof Mobilizer) spawners.push(y);
+                }
+            }
+            let dest = spawners[randomRange(0,3)];
+            for (let x of monsters){
+                if (x.order >= 0){
+                    if (x.order > 0) x.stunned = false;
+                    if (!dest.monster){
+                        x.move(dest);
+                    }
+                }
+                playSound("fail");
+                this.vulnerability = 1;
+            }
+        }
         this.attackedThisTurn = false;
         this.lastpos = [this.tile.x,this.tile.y];
         this.turbo = false;
@@ -1766,7 +1790,8 @@ class Epsilon extends Monster{
         //dashing into a core causes vulnerability and installation?
         //because epsilon is slowing down not wanting to damage the core
         //TODO: update lore to reflect changes
-        super.doStuff();
+        //TODO: let the player attack any time, remove epsilon's invincibility to avoid softlock
+        if (!beepbeepbeep) super.doStuff();
     }
     update(){
         let startedStunned = this.stunned;
