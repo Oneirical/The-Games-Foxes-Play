@@ -480,3 +480,39 @@ class RoseSpawner extends Tile{
         }
     }
 }
+
+class Mobilizer extends Tile{
+    constructor(x, y){
+        super(x, y, 75, true);
+        this.lore = description["Mobilizer"];
+        this.name = "Automaton Mobilizer";
+        this.sprite = 75;
+    }
+    stepOn(monster){
+        if((!monster.isPlayer&&!monster.charmed)&& this.trap){  
+            spells["ARTTRIGGER"](monster.tile);
+            playSound("treasure");            
+            this.trap = false;
+        }
+        if (monster.isPlayer && this.cuff){
+            player.para = 1;
+            playSound("fail");
+            this.cuff = false;
+        }
+        if ((monster.isPlayer||monster.charmed) && this.eviltrap){
+            playSound("fail");
+            spells["ARTTRIGGER"](monster.tile);
+            this.eviltrap = false;
+        }
+        if ((monster.isPlayer) && this.pin){
+            playSound("fail");
+            for (let x of monsters){
+                if (x instanceof Weaver){
+                    x.enraged = true;
+                    x.isPassive = false;
+                }
+            }
+            this.pin = false;
+        }
+    }
+}
