@@ -550,7 +550,19 @@ spells = {
         for(let k=0;k<directions.length;k++){
             invisBoltTravel(directions[k], 15 + Math.abs(directions[k][1]), 2, caster.tile, friendly);
         }
-    }
+    },
+
+    PSYDRONE: function(caster){
+        caster.tile.getAllNeighbors().forEach(function(t){
+            t.setEffect(75, 30);
+            if(t.monster && caster.charmed && !t.monster.loveless){
+                t.monster.charmed = true;
+            }
+            else if (t.monster && !caster.charmed && t.monster.isPlayer){
+                if (t.monster.inhand.length > 0) t.monster.inhand[randomRange(0,t.monster.inhand.length-1)] = "ORDERED";
+            }
+        });
+    },
 };
 
 function boltTravel(direction, effect, damage, location, friendly){
