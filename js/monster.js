@@ -344,6 +344,7 @@ class Monster{
                         if (!corevore) newTile.monster.move(pushTile);
                         this.move(newTile);
                     }
+                    else return false;
                 }
                 else{
                     return false;
