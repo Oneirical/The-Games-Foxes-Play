@@ -537,6 +537,19 @@ spells = {
                 }
             }
         }
+    },
+    BINARY: function(caster){
+        let directions = [
+            [0, -1],
+            [0, 1],
+            [-1, 0],
+            [1, 0]
+        ];
+        let friendly = false;
+        if (caster.charmed) friendly = true;
+        for(let k=0;k<directions.length;k++){
+            invisBoltTravel(directions[k], 15 + Math.abs(directions[k][1]), 2, caster.tile, friendly);
+        }
     }
 };
 
@@ -545,6 +558,47 @@ function boltTravel(direction, effect, damage, location, friendly){
     while(true){
         let testTile = newTile.getNeighbor(direction[0], direction[1]);
         if(testTile.passable){
+            newTile = testTile;
+            if(newTile.monster && !newTile.monster.isPlayer&& !newTile.monster.charmed && friendly){
+                newTile.monster.hit(damage);
+            }
+            else if (newTile.monster && (newTile.monster.isPlayer || newTile.monster.charmed) && !friendly){
+                newTile.monster.hit(damage);
+            }
+            newTile.setEffect(effect,30);
+        }else{
+            break;
+        }
+    }
+}
+
+function invisBoltTravel(direction, effect, damage, location, friendly){
+    let newTile = location;
+    let target;
+    while(true){
+        let testTile = newTile.getNeighbor(direction[0], direction[1]);
+        if(testTile.passable){
+            newTile = testTile;
+            if(newTile.monster && newTile.monster instanceof Binary && !newTile.monster.charmed && !friendly){
+                target = newTile;
+            }
+            else if (newTile.monster && (newTile.monster.isPlayer || newTile.monster.charmed) && friendly){
+                target = newTile;
+            }
+        }else{
+            break;
+        }
+    }
+    if (target){
+        stopBoltTravel(direction, effect, 2, target, location, friendly);
+    }
+}
+
+function stopBoltTravel(direction, effect, damage, target, location, friendly){
+    let newTile = location;
+    while(true){
+        let testTile = newTile.getNeighbor(direction[0], direction[1]);
+        if(testTile.passable && testTile != target){
             newTile = testTile;
             if(newTile.monster && !newTile.monster.isPlayer&& !newTile.monster.charmed && friendly){
                 newTile.monster.hit(damage);

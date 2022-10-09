@@ -1920,9 +1920,9 @@ class Binary extends Monster{
     }
     doStuff(){
         this.abitimer++;
-        if (this.abitimer == 12){
+        if (this.abitimer == 2){
             this.abitimer = 0;
-            spells["WOOP"](this);
+            spells["BINARY"](this);
         }
         else{
             super.doStuff();
