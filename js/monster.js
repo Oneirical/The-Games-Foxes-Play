@@ -1775,7 +1775,11 @@ class Epsilon extends Monster{
             for (let x of monsters){
                 if (x.order >= 0){
                     if (x.order > 0) x.stunned = false;
-                    if (!dest.monster){
+                    if (!dest.monster && x.order == 0){
+                        x.move(dest);
+                    }
+                    else if (dest.monster && x.order == 0){
+                        dest.monster.hit(99);
                         x.move(dest);
                     }
                 }
