@@ -203,7 +203,7 @@ class Monster{
     }
 
     drawHp(){
-        if (!this.isInvincible){
+        if (!this.isInvincible && this.order < 0){
             for(let i=0; i<this.hp; i++){
                 drawSprite(
                     9,
@@ -1753,9 +1753,25 @@ class Epsilon extends Monster{
     }
     doStuff(){
         this.abitimer++;
+        let restorecheck = this.vulnerability;
         this.vulnerability--;
-        if (this.vulnerability > 0) this.isInvincible = false;
-        else this.isInvincible = true;
+        if (this.vulnerability > 0){
+            this.isInvincible = false;
+            for (let x of monsters){
+                if (x instanceof Tail){
+                    this.isInvincible = false;
+                }
+            }
+        }
+        else if (restorecheck == 1){
+            this.isInvincible = true;
+            message = "EpsilonRestored";
+            for (let x of monsters){
+                if (x instanceof Tail){
+                    this.isInvincible = true;
+                }
+            }
+        }
         if (this.abitimer == 6){
             this.abitimer = 0;
             let spawners = [];
@@ -1767,7 +1783,6 @@ class Epsilon extends Monster{
             let dest = spawners[randomRange(0,3)];
             if (!dest.monster){
                 let type = shuffle([Psydrone,Titanic,Paradox,Binary])[0];
-                console.log(dest);
                 monsters.push(new type(dest));
             }
             else playSound("fail");
@@ -1792,6 +1807,12 @@ class Epsilon extends Monster{
                 playSound("fail");
                 message = "EpsilonRedWeak";
                 this.vulnerability = 10;
+                this.isInvincible = false;
+                for (let x of monsters){
+                    if (x instanceof Tail){
+                        this.isInvincible = false;
+                    }
+                }
                 this.nospell = 2;
             }
         }
