@@ -2032,7 +2032,7 @@ class Paradox extends Monster{
     doStuff(){
         this.specialAttack = "Warp";
         this.abitimer++;
-        if (this.abitimer == 12){
+        if (this.abitimer == 8){
             this.abitimer = 0;
             spells["WOOP"](this);
         }
@@ -2074,6 +2074,13 @@ class Titanic extends Monster{
     doStuff(){
         this.specialAttack = "Trample";
         super.doStuff();
+    }
+    update(){
+        let startedStunned = this.stunned;
+        super.update();
+        if(!startedStunned){
+            this.stunned = true;
+        }
     }
 }
 
