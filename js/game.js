@@ -253,7 +253,7 @@ function draw(){
             for (let x of monsters) {
                 if (x instanceof Epsilon) hpdraw = x.hp;
             }
-            drawBossHp(1, Math.floor((hpdraw/6)*36))
+            drawBossHp(1, Math.floor((hpdraw/6)*36)) //the 6 is the maxhp, replace as needed
         }
     }
 }

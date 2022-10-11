@@ -258,6 +258,12 @@ class Monster{
     }   
 
     tryMove(dx, dy){
+        let movesave;
+        if (dx == -this.lastMove[0] && dy == -this.lastMove[1] && (this instanceof Epsilon)){
+            movesave = dx;
+            dx = dy;
+            dy = movesave;
+        }
         let newTile = this.tile.getNeighbor(dx,dy);
         if(newTile.passable){
             this.lastMove = [dx,dy];
@@ -1742,9 +1748,14 @@ class Epsilon extends Monster{
         this.loveless = true;
         this.abitimer = 0;
         this.vulnerability = 0;
+        this.antidash = 0;
+        this.nospell = false;
     }
     doStuff(){
         this.abitimer++;
+        this.vulnerability--;
+        if (this.vulnerability > 0) this.isInvincible = false;
+        else this.isInvincible = true;
         if (this.abitimer == 6){
             this.abitimer = 0;
             let spawners = [];
@@ -1764,17 +1775,12 @@ class Epsilon extends Monster{
         let stuck = this.tile.getAdjacentPassableNeighbors();
         let beepbeepbeep = false;
         if (stuck.length <= 1){
+            this.antidash = 2;
             beepbeepbeep = true;
-            let spawners = [];
-            for (let x of tiles){
-                for (let y of x){
-                    if (y instanceof Mobilizer) spawners.push(y);
-                }
-            }
-            let dest = spawners[randomRange(0,3)];
+            let dest = getTile(this.tile.x-this.lastMove[0],this.tile.y-this.lastMove[1]);
             for (let x of monsters){
                 if (x.order >= 0){
-                    if (x.order > 0) x.stunned = false;
+                    if (x.order > 0) x.beepbeepbeep = true;
                     if (!dest.monster && x.order == 0){
                         x.move(dest);
                     }
@@ -1784,6 +1790,9 @@ class Epsilon extends Monster{
                     }
                 }
                 playSound("fail");
+                message = "EpsilonRedWeak";
+                this.vulnerability = 10;
+                this.nospell = 2;
             }
         }
         this.attackedThisTurn = false;
@@ -1794,6 +1803,7 @@ class Epsilon extends Monster{
         //because epsilon is slowing down not wanting to damage the core
         //TODO: update lore to reflect changes
         //TODO: let the player attack any time, remove epsilon's invincibility to avoid softlock
+        //don't actually remove hp but make a tink sound
         if (!beepbeepbeep) super.doStuff();
     }
     update(){
@@ -1803,13 +1813,14 @@ class Epsilon extends Monster{
             this.stunned = true;
         }
         else if (this.corelist.length > 0){
-            let antidash = false;
-            if (this.corelist.includes("Red") && (this.tile.x < 2 || this.tile.x > 15 || this.tile.y < 2 || this.tile.y > 15)){
+            if (this.antidash > 0 || (this.corelist.includes("Red") && (this.tile.x < 2 || this.tile.x > 15 || this.tile.y < 2 || this.tile.y > 15))){
                 removeItemOnce(this.corelist,"Red");
-                antidash = true;
+                if (this.antidash <= 0) this.antidash = 1;
             } 
-            if (this.corelist.length > 0) spells[this.corelist[randomRange(0,this.corelist.length-1)]](this);
-            if (antidash) this.corelist.push("Red");
+            if (this.corelist.length > 0 && this.nospell <= 0) spells[this.corelist[randomRange(0,this.corelist.length-1)]](this);
+            if (this.antidash > 0) this.corelist.push("Red");
+            this.antidash--;
+            this.nospell--;
         }
     }
 }
@@ -1828,6 +1839,7 @@ class Tail extends Monster{
         this.turbo = false;
         this.installed = false;
         this.loveless = true;
+        this.beepbeepbeep = false;
     }
     doStuff(){
         this.turbo = false;
@@ -1840,16 +1852,26 @@ class Tail extends Monster{
         for (let x of monsters){
             if (x.order == this.order-1){
                 move = x.lastpos;
-                lmove = x.lastMove;
                 stop = x.attackedThisTurn;
-                this.lastMove = [0,0];
                 this.attackedThisTurn = stop;
             }
+        }
+        for (let x of monsters){
+            if (x instanceof Epsilon) lmove = x.lastMove;
+        }
+        if (this.beepbeepbeep && this.order > 1) {
+            move[0] += (-lmove[0]*2);
+            move[1] += (-lmove[1]*2);
+        }
+        else if (this.beepbeepbeep && this.order == 1) {
+            move[0] += (-lmove[0]);
+            move[1] += (-lmove[1]);
         }
         if(move && !stop){
             this.move(getTile(move[0],move[1]));
             this.lastMove = lmove;
         }
+        if (this.beepbeepbeep) this.beepbeepbeep = false;
     }
     update(){
         let startedStunned = this.stunned;
