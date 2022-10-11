@@ -347,8 +347,9 @@ class Monster{
                 }else if (newTile.monster.pushable){
                     let lm = this.lastMove;
                     let corevore = false;
+                    let abandon = false;
                     let pushTile = getTile(newTile.x+lm[0],newTile.y+lm[1]);
-                    if (inBounds(pushTile.x,pushTile.y) && pushTile.passable && !pushTile.monster.isPlayer){
+                    if (inBounds(pushTile.x,pushTile.y) && pushTile.passable){
                         if (pushTile.monster){
                             if (pushTile.monster instanceof Epsilon){
                                 pushTile.monster.cores++;
@@ -365,15 +366,22 @@ class Monster{
                                 newTile.monster.hit(99);
                                 removeItemOnce(monsters, newTile.monster);
                             }
+                            else if (!(pushTile.monster instanceof Box)){
+                                abandon = true;
+                                let neighbors = this.tile.getAdjacentPassableNeighbors();
+                                if(neighbors.length){
+                                    this.tryMove(neighbors[0].x - this.tile.x, neighbors[0].y - this.tile.y);
+                                }
+                                else return false;
+                            }
                             else return false; //sigh, you used to be able to push multiple objects. idk what happened
                             //else if (pushTile.monster instanceof Tail) return false;
                             //else pushTile.monster.tryMove(getTile(lm[0],lm[1]);
                         }
-                        if (!corevore) newTile.monster.move(pushTile);
-                        this.move(newTile);
+                        if (!corevore && !abandon) newTile.monster.move(pushTile);
+                        if (!abandon) this.move(newTile);
                     }
                     else{
-                        console.log("unable");
                         let neighbors = this.tile.getAdjacentPassableNeighbors();
                         if(neighbors.length){
                             this.tryMove(neighbors[0].x - this.tile.x, neighbors[0].y - this.tile.y);
@@ -382,7 +390,6 @@ class Monster{
                     }
                 }
                 else{
-                    console.log("unable");
                     let neighbors = this.tile.getAdjacentPassableNeighbors();
                     if(neighbors.length){
                         this.tryMove(neighbors[0].x - this.tile.x, neighbors[0].y - this.tile.y);
@@ -1870,7 +1877,7 @@ class Epsilon extends Monster{
 
 class Tail extends Monster{
     constructor(tile,order){
-        super(tile, 68, 1, "ORDERED", description["Tail"]);
+        super(tile, 68, 6, "ORDERED", description["Tail"]);
         this.soul = "Soulless.";
         this.name = "Rubberized Mecha-Segment";
         this.ability = monabi["Tail"];
