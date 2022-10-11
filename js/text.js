@@ -376,8 +376,8 @@ monabi = {
     "Yellow" : "MIND ASUNDER - When installed on Epsilon, periodically launches sonic waves that push you back 4 tiles, dealing 2 damage if a solid surface is touched. WEAKNESS: Combusts floor traps, creating a 3x3 explosion that will leave Epsilon vulnerable on contact.",
     "Red" : "EMERALD RUSH - Can be pushed and pulled. When installed on Epsilon, periodically causes Epsilon to dash forwards, leaving behind 1-damage fire traps, and crushing all in his way for 2 damage. WEAKNESS: Dashing into a wall alcove will disrupt this Core, leaving Epsilon vulnerable.",
     "Pink" : "CIRCUS KISSES - Can be pushed and pulled. When installed on Epsilon, periodically unleashes vapours of Glamorous Toxin, which inflict one point of Glamour per turn while standing on a Toxin tile. Accumulating 10 Glamour is lethal. WEAKNESS: At 5 Glamour or more, Epsilon becomes vulnerable.",
-    "White": "FORGES OF CREATION - Can be pushed and pulled. When installed on Epsilon, Ordered Replicators function at extremely enhanced speed. WEAKNESS: Self-destructs when 50 or more bots are on the screen, leaving Epsilon vulnerable.",
-    "Cyan": "GRAND CONCERTO - Can be pushed and pulled. When installed on Epsilon, periodically plays verses from the Harmonic Song, temporarily turning all souls in your paw to Serene souls. WEAKNESS: Briefly renders Epsilon vulnerable when he touches a Harmonizer."
+    "White": "MAKING OVER UNMAKING - Can be pushed and pulled. When installed on Epsilon, Ordered Replicators function at extremely enhanced speed. WEAKNESS: Reaches critical mass when 50 or more bots are on the screen, leaving Epsilon vulnerable.",
+    "Cyan": "GRAND CONCERTO - Can be pushed and pulled. When installed on Epsilon, periodically blasts verses from the Harmonic Song in parallel sound-beams, temporarily turning all souls in your paw to Serene souls and knocking you back. WEAKNESS: Briefly renders Epsilon vulnerable when he is adjacent to a Harmonizer."
 
 }
 

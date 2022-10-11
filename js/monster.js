@@ -490,6 +490,7 @@ class Player extends Monster{
         this.fov = 0;
         this.constrict = false;
         this.toxified = false;
+        this.fuffified = 0;
     }
 
     cycleModules(){
@@ -510,8 +511,17 @@ class Player extends Monster{
     update(){
         if (this.tile.name.includes("Toxin")){
             this.rosetox += 2;  
-        }     
+        }
+        let recovery = this.fuffified;
         this.shield--;
+        this.fuffified--;
+        if (this.fuffified == 0 && recovery == 1){
+            this.inhand = [];
+            for (let x of pawsave){
+                this.inhand.push(x);
+            }
+            pawsave = [];
+        }
         if (this.rosetox > 0){
             if (this.rosetox < 11)sounds["roseic"].volume = (1-(0.1*this.rosetox));
             if (sounds["toxic"].currentTime == 0) playSound("toxic");

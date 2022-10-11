@@ -458,6 +458,30 @@ spells = {
             shakeAmount = 35;
         }
     },
+    FLUFFPUNCH: function(target, direction){
+        let newTile = target.tile;
+        let testTile = newTile;
+        while(target != null){
+            testTile = newTile.getNeighbor(direction[0],direction[1]);
+            if(testTile.passable && !testTile.monster){
+                newTile.setEffect(target.sprite,30);
+                newTile = testTile;
+            }else{
+                break;
+            }
+        }
+        if(target != null && target.tile != newTile){
+            target.move(newTile);
+            playSound("explosion");
+            for (let i = 0;i<target.inhand.length;i++){
+                pawsave.push(target.inhand[i]);
+                target.inhand.splice(i,1);
+                target.inhand.unshift("SERENE");
+            }
+            target.fuffified = 10;
+            shakeAmount = 35;
+        }
+    },
     KASHIA: function(caster){
         if (caster.falsehp == 0) caster.falsehp = caster.hp;
         caster.deathdelay = 7;
@@ -492,6 +516,7 @@ spells = {
                 //caster.tryMove(caster.lastMove[0],caster.lastMove[1]);
             }else{
                 if (!testTile.passable) shaker = true;
+                if (testTile.monster) testTile.monster.hit(2);
                 break;
             }
         }
@@ -532,7 +557,7 @@ spells = {
                 for (let y of tiles){
                     if (!y.monster){
                         let shoot = [y.x-x.tile.x,y.y-x.tile.y];
-                        boltTravel(shoot, 15 + Math.abs(shoot[1]), 0, x.tile, false);
+                        fluffBoltTravel(shoot, 15 + Math.abs(shoot[1]), 0, x.tile, false);
                     }
                 }
             }
@@ -576,6 +601,25 @@ function boltTravel(direction, effect, damage, location, friendly){
             }
             else if (newTile.monster && (newTile.monster.isPlayer || newTile.monster.charmed) && !friendly){
                 newTile.monster.hit(damage);
+            }
+            newTile.setEffect(effect,30);
+        }else{
+            break;
+        }
+    }
+}
+
+function fluffBoltTravel(direction, effect, damage, location, friendly){
+    let newTile = location;
+    while(true){
+        let testTile = newTile.getNeighbor(direction[0], direction[1]);
+        if(testTile.passable){
+            newTile = testTile;
+            if (newTile.monster){
+                if (newTile.monster.isPlayer) {
+                    spells["FLUFFPUNCH"](newTile.monster,direction);
+                    }
+                break;
             }
             newTile.setEffect(effect,30);
         }else{
