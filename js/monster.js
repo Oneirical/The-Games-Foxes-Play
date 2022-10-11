@@ -1786,7 +1786,7 @@ class Epsilon extends Monster{
             this.isInvincible = false;
             for (let x of monsters){
                 if (x instanceof Tail){
-                    this.isInvincible = false;
+                    x.isInvincible = false;
                 }
             }
         }
@@ -1795,7 +1795,7 @@ class Epsilon extends Monster{
             message = "EpsilonRestored";
             for (let x of monsters){
                 if (x instanceof Tail){
-                    this.isInvincible = true;
+                    x.isInvincible = true;
                 }
             }
         }
