@@ -134,7 +134,7 @@ class Monster{
        
        if (this.charmed == true && !this.name.includes("Rendfly")) neighbors = neighbors.filter(t => !t.monster || !t.monster.isPlayer || !t.monster.marked || !t.monster.charmed);
        else if (this.charmed == true) neighbors = neighbors.filter(t => !t.monster || !t.monster.isPlayer || !t.monster.marked || !t.monster.charmed);
-       else neighbors = neighbors.filter(t => !t.monster || t.monster.isPlayer || t.monster.marked);
+       else neighbors = neighbors.filter(t => !t.monster || t.monster.isPlayer || t.monster.marked || t.monster instanceof Box);
 
        if(neighbors.length){
             let markcheck = false;
