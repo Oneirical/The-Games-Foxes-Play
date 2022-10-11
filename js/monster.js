@@ -265,6 +265,13 @@ class Monster{
             dy = movesave;
         }
         let newTile = this.tile.getNeighbor(dx,dy);
+        let stuck = newTile.getAdjacentPassableNeighbors();
+        if (stuck.length <= 1){
+            movesave = dx;
+            dx = dy;
+            dy = movesave;
+            newTile = this.tile.getNeighbor(dx,dy);
+        }
         if(newTile.passable){
             this.lastMove = [dx,dy];
             if(!newTile.monster){ //||(newTile.monster.charmed&&(this.isPlayer||this.charmed))||newTile.monster.isPassive
