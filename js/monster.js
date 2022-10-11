@@ -271,7 +271,10 @@ class Monster{
                 //if(newTile.monster){
                 //    newTile.monster.move(player.tile);
                 //}
+                let boxpull = false;
+                if ((this.tile.getNeighbor(-dx,-dy).monster instanceof Box) && this.isPlayer) boxpull = this.tile;
                 if (this.canmove) this.move(newTile);
+                if (boxpull) boxpull.getNeighbor(-dx,-dy).monster.move(boxpull);
                 if (this.inhand.includes("LASHOL")) {
                     for (let elem of this.inhand){
                         if(elem == "LASHOL") this.bonusAttack += (1/3);
