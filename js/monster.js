@@ -203,7 +203,7 @@ class Monster{
     }
 
     drawHp(){
-        if (!this.isInvincible && this.order < 0){
+        if (!this.isInvincible && this.order < 4){
             for(let i=0; i<this.hp; i++){
                 drawSprite(
                     9,
@@ -348,7 +348,7 @@ class Monster{
                     let lm = this.lastMove;
                     let corevore = false;
                     let pushTile = getTile(newTile.x+lm[0],newTile.y+lm[1]);
-                    if (inBounds(pushTile.x,pushTile.y) && pushTile.passable){
+                    if (inBounds(pushTile.x,pushTile.y) && pushTile.passable && !pushTile.monster.isPlayer){
                         if (pushTile.monster){
                             if (pushTile.monster instanceof Epsilon){
                                 pushTile.monster.cores++;
@@ -372,9 +372,17 @@ class Monster{
                         if (!corevore) newTile.monster.move(pushTile);
                         this.move(newTile);
                     }
-                    else return false;
+                    else{
+                        console.log("unable");
+                        let neighbors = this.tile.getAdjacentPassableNeighbors();
+                        if(neighbors.length){
+                            this.tryMove(neighbors[0].x - this.tile.x, neighbors[0].y - this.tile.y);
+                        }
+                        else return false;
+                    }
                 }
                 else{
+                    console.log("unable");
                     let neighbors = this.tile.getAdjacentPassableNeighbors();
                     if(neighbors.length){
                         this.tryMove(neighbors[0].x - this.tile.x, neighbors[0].y - this.tile.y);
