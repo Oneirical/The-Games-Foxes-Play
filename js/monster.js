@@ -364,7 +364,7 @@ class Monster{
                             }
                             else return false; //sigh, you used to be able to push multiple objects. idk what happened
                             //else if (pushTile.monster instanceof Tail) return false;
-                            //else pushTile.monster.move(getTile(pushTile.x+lm[0],pushTile.y+lm[1]));
+                            //else pushTile.monster.tryMove(getTile(lm[0],lm[1]);
                         }
                         if (!corevore) newTile.monster.move(pushTile);
                         this.move(newTile);
@@ -384,7 +384,12 @@ class Monster{
             return;                                                             
         }
         if (this.deathdelay > 0) this.falsehp -= damage;
-        else if (this.deathdelay == 0) this.hp -= damage;
+        else if (this.deathdelay == 0 && !(this instanceof Tail)) this.hp -= damage;
+        else if (this instanceof Tail){
+            for (let x of monsters){
+                if (x instanceof Epsilon) x.hp -= damage;
+            }
+        }
         if(this.hp <= 0){
             if (!this.noloot && !this.dead) player.addSpell(this.loot);
             this.die();
