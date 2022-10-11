@@ -115,7 +115,6 @@ function draw(){
             if (cread.x <numTiles && cread.y < numTiles) cursor = new Cursor(cread);
         }
         screenshake();
-        
         let posgenx = 0;
         let posgeny = 0;
         let maxx = numTiles;
@@ -248,6 +247,13 @@ function draw(){
         }
         if (showboss){
             showBoss(1);
+        }
+        else if (level == 17){
+            let hpdraw;
+            for (let x of monsters) {
+                if (x instanceof Epsilon) hpdraw = x.hp;
+            }
+            drawBossHp(1, Math.floor((hpdraw/6)*36))
         }
     }
 }
@@ -382,6 +388,17 @@ function showBoss(currentboss){
     ctx.fillRect(canvas.width/2-200+scale[currentboss],canvas.height/2 - 120,canvas.width/4+160, canvas.height/5);
     drawText(bossname[currentboss], 70, true, canvas.height/2 - 50, bosscolour[currentboss]);
     drawText(bosstitle[currentboss], 40, true, canvas.height/2, "white");
+}
+
+function drawBossHp(currentboss, hp){
+    let bossname = ["ROSE","EPSILON","RONIN","FLUFFY"];
+    let bosscolour = ["pink","red","purple","cyan"];
+    let bar = ["⚙⚙","Σ","❄❄","♡♡"];
+    ctx.fillStyle = 'rgba(0,0,0,.85)';
+    ctx.fillRect(0,canvas.height/2 + 160,canvas.width - 383.5, 32);
+    printAtWordWrap(bossname[currentboss], 21, 10, 568, bosscolour[currentboss], 20, 940);
+    printAtWordWrap("- {                                                                                    }", 21, 105, 566, "white", 20, 940);
+    printAtWordWrap(bar[currentboss].repeat(hp), 21, 125, 568, bosscolour[currentboss], 20, 940);
 }
 
 function startGame(){

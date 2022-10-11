@@ -1727,7 +1727,7 @@ class Ashsoul extends Monster{
 
 class Epsilon extends Monster{
     constructor(tile){
-        super(tile, 67, 1, "ORDERED", description["Epsilon"]);
+        super(tile, 67, 6, "ORDERED", description["Epsilon"]);
         this.soul = "Animated by an Ordered (5) soul.";
         this.name = "Epsilon, Supreme Ordered General";
         this.ability = monabi["Epsilon"];
