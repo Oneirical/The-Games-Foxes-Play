@@ -375,7 +375,11 @@ class Monster{
                     else return false;
                 }
                 else{
-                    return false;
+                    let neighbors = this.tile.getAdjacentPassableNeighbors();
+                    if(neighbors.length){
+                        this.tryMove(neighbors[0].x - this.tile.x, neighbors[0].y - this.tile.y);
+                    }
+                    else return false;
                 }
             }
             return true;
