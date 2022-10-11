@@ -1837,11 +1837,13 @@ class Epsilon extends Monster{
             if (this.antidash > 0 || (this.corelist.includes("Red") && (this.tile.x < 2 || this.tile.x > 15 || this.tile.y < 2 || this.tile.y > 15))){
                 removeItemOnce(this.corelist,"Red");
                 if (this.antidash <= 0) this.antidash = 1;
-            } 
-            if (this.corelist.length > 0 && this.nospell <= 0) spells[this.corelist[randomRange(0,this.corelist.length-1)]](this);
+            }
+            let corecast = this.corelist[randomRange(0,this.corelist.length-1)];
+            if (this.corelist.length > 0 && this.nospell <= 0) spells[corecast](this);
             if (this.antidash > 0) this.corelist.push("Red");
             this.antidash--;
             this.nospell--;
+            if (corecast == "Red") this.antidash = 3;
         }
     }
 }
