@@ -263,7 +263,7 @@ function draw(){
             for (let x of monsters) {
                 if (x instanceof Epsilon) hpdraw = x.hp;
             }
-            drawBossHp(1, Math.floor((hpdraw/12)*36)) //the 6 is the maxhp, replace as needed
+            drawBossHp(1, Math.floor((hpdraw/33)*36)) //the 6 is the maxhp, replace as needed
         }
     }
 }
@@ -304,6 +304,7 @@ function tick(){
         gameState = "dead";
         pauseAllMusic();
         playSound("roseic");
+        message = "EpsilonDefeat";
         victory = true;
     }
     for(let k=monsters.length-1;k>=0;k--){
@@ -462,7 +463,7 @@ function startGame(){
     score = 0;
     numSpells = 0;
     aubecounter = 0;
-    invsave = ["SERENE"];//[, ] //];
+    invsave = ["SERENE", "SAINTLY","FERAL","VILE"];//[, ] //];
     modules = ["NONE"];
     modulators = ["Alacrity","Focus","Thrusters","Selective","Hover"];
     //let modtest = modulators[randomRange(0,4)];

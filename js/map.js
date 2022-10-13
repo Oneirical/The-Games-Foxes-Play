@@ -315,10 +315,12 @@ function spawnMonster(){
             let tail = new Tail(getTile(9,i+8),i);
             monsters.push(tail);
         }
+        let corelist = ["Red","Pink","Cyan","White"];
         for (let i = 0;i<4;i++){
-            let corecolour = shuffle(["Red","Pink","Cyan","White"])[0];
-            let monstere = new Box(randomPushableTile(), corecolour);
-            monsters.push(monstere);
+            let corecolour = shuffle(corelist)[0];
+            removeItemOnce(corelist,corecolour);
+            let box = new Box(randomPushableTile(), corecolour);
+            monsters.push(box);
         }
     }
     else if ((level % 5 != 1 || level == 1)&& level != 0){

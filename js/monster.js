@@ -158,7 +158,7 @@ class Monster{
                     testresult.forEach(function(t){
                         if (option[0].x <= t.x && option[0].y <= t.y) valid = true;
                     });
-                    if (entity.charmed) valid = false;
+                    if (entity.charmed || entity instanceof Box) valid = false;
                     if (valid) enemy = entity;
                     
                 });
@@ -1771,7 +1771,7 @@ class Ashsoul extends Monster{
 
 class Epsilon extends Monster{
     constructor(tile){
-        super(tile, 67, 12, "ORDERED", description["Epsilon"]);
+        super(tile, 67, 33, "ORDERED", description["Epsilon"]);
         this.soul = "Animated by an Ordered (5) soul.";
         this.name = "Epsilon, Supreme Ordered General";
         this.ability = monabi["Epsilon"];
@@ -1824,17 +1824,32 @@ class Epsilon extends Monster{
                 dronecount++;
             }
         }
-        if (dronecount >= 20){
+        if (dronecount >= 20 && this.corelist.includes("White")){
             playSound("fail");
             message = "EpsilonWhiteWeak";
-            this.vulnerability = 10;
+            this.vulnerability = 25;
             removeItemOnce(this.corelist,"White");
         }
         //Pink vuln test
-        if (player.rosetox >= 4){
+        if (player.rosetox >= 4 && this.corelist.includes("Pink")){
             playSound("fail");
             message = "EpsilonPinkWeak";
             this.vulnerability = 1;
+        }
+        //Cyan vuln test
+        for (let x of monsters){
+            if (x.order >= 0){
+                let fuffcheck = x.tile.getAdjacentNeighbors()
+                for (let y of fuffcheck){
+                    if (y.monster && this.corelist.includes("Cyan")){
+                        if (y.monster instanceof BattleFluffy){
+                            message = "EpsilonCyanWeak";
+                            this.vulnerability = 5;
+                            removeItemOnce(this.corelist,"Cyan");
+                        } 
+                    }
+                }
+            }
         }
         if (this.vulnerability > 0){
             this.isInvincible = false;
@@ -2069,7 +2084,7 @@ class Paradox extends Monster{
 
 class Binary extends Monster{
     constructor(tile){
-        super(tile, 78, 1, "ORDERED", description["Binary"]);
+        super(tile, 78, 2, "ORDERED", description["Binary"]);
         this.soul = "Animated by an Ordered (5) soul.";
         this.name = "Binary Duodrone";
         this.ability = monabi["Binary"];
