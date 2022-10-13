@@ -262,7 +262,7 @@ function draw(){
             for (let x of monsters) {
                 if (x instanceof Epsilon) hpdraw = x.hp;
             }
-            drawBossHp(1, Math.floor((hpdraw/6)*36)) //the 6 is the maxhp, replace as needed
+            drawBossHp(1, Math.floor((hpdraw/12)*36)) //the 6 is the maxhp, replace as needed
         }
     }
 }
@@ -283,12 +283,26 @@ function manageExit(){
 function tick(){
     player.update();
     deadcheck = 0;
-    if (level == 17){
+    if (level == 17 && !monsters[0].dead){
         monsters[0].update();
         monsters[1].update();
         monsters[2].update();
         monsters[3].update();
         monsters[4].update();
+    }
+    else if (level == 17 && monsters[0].dead){
+        for (let x of monsters){
+            if (x.order >= 0){
+                x.tile.getAllNeighbors().forEach(function(t){
+                    t.setEffect(1, 30);
+                });
+            }
+            removeItemOnce(monsters,x);
+        }
+        shakeAmount = 40;
+        gameState = "dead";
+        pauseAllMusic();
+        playSound("roseic");
     }
     for(let k=monsters.length-1;k>=0;k--){
         if(!monsters[k].dead && monsters[k].order < 0){
@@ -296,7 +310,6 @@ function tick(){
             if (!monsters[k].permacharm || monsters[k].name.includes("Vermin")) deadcheck++
         }else if (monsters[k].order < 0){
             monsters.splice(k,1);
-            
         }
     }
     if (deadcheck == 0 && level != 0&& area == "Faith"){

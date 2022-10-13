@@ -473,6 +473,7 @@ spells = {
         if(target != null && target.tile != newTile){
             target.move(newTile);
             playSound("explosion");
+            target.hit(1);
             target.fuffified = 10;
             target.sprite = 26;
             shakeAmount = 35;
