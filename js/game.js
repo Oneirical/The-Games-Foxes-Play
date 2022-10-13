@@ -156,9 +156,10 @@ function draw(){
         if (gameState == "contemplation"){
             drawText("Agony: "+agony, 30, false, 100, "red");
         }
-        if (gameState == "dead"){
+        if (gameState == "dead" && !victory){
             drawText("SOUL SHATTERED", 20, false, 100, "red");
         }
+        else if (gameState == "dead" && victory) drawText("VICTORY", 30, false, 100, "lime");
         let basicc = player.inventory.filter(soul => basic.includes(soul)).length + player.inhand.filter(soul => basic.includes(soul)).length + player.discard.filter(soul => basic.includes(soul)).length + player.saved.filter(soul => basic.includes(soul)).length;
         let serc = player.inventory.filter(soul => soul == "SERENE").length + player.inhand.filter(soul => soul == "SERENE").length + player.discard.filter(soul => soul == "SERENE").length + player.saved.filter(soul => soul == "SERENE").length;
         let advc = player.inventory.length + player.inhand.length + player.discard.length + player.saved.length - basicc -serc;
@@ -303,6 +304,7 @@ function tick(){
         gameState = "dead";
         pauseAllMusic();
         playSound("roseic");
+        victory = true;
     }
     for(let k=monsters.length-1;k>=0;k--){
         if(!monsters[k].dead && monsters[k].order < 0){
