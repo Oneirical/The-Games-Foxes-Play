@@ -705,7 +705,7 @@ class Player extends Monster{
             }
             this.inhand.push(this.inventory[0]);
             if(this.inventory[0] == "EZEZZA"){
-                this.para = 3;
+                this.para = 2;
                 message = "EZEZZA";
             }
             this.inventory.shift();
