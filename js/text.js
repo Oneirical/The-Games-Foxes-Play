@@ -434,7 +434,7 @@ soulabi = {
     "ARTISTIC" : "EXPLOSIVE ARTIFICE - When activated, lays down a cross-laser landmine in your current location, which will detonate when an enemy steps on it.",
     "UNHINGED" : "FORSAKEN FAITH - When activated, shoots beams in all 4 diagonal directions.",
     "FERAL" : "WILD CHARGE - When activated, dash in the direction of the your last move, dealing damage to all enemies adjacent to the dash. You are shielded during the dash.",
-    "VILE" : "DEVIOUS STAB - When activated, empower your next attack with 5 bonus damage.",
+    "VILE" : "DEVIOUS STAB - When activated, empower your next attack with 4 bonus damage.",
     "SERENE" : "HARMONIC UPLIFT - When activated, replace a random soul in your inventory with another Serene soul. Then, empower your next attack with a Harmonic touch, which transforms an enemy into a friendly Harmonizer.", //If there are two friendly Harmonizers in the room, they will simply stare at each other and do nothing, obsessed by their beauty.
     "JOLTZAZON" : "SUFFOCATING LOVE - When activated, all enemies adjacent to at least one other enemy take 2 damage.",
     "PURPIZUG" : "WHITE BLAZE - When activated, discard your entire paw, then draw souls equal to the amount discarded.",

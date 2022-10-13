@@ -114,7 +114,7 @@ spells = {
         });
     },
     VILE: function(caster){
-        caster.bonusAttack=5;
+        caster.bonusAttack=4;
     },
     BULLE: function(){
         for(let i=player.spells.length-1;i>0;i--){
