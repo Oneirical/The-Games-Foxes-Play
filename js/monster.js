@@ -1836,7 +1836,11 @@ class Epsilon extends Monster{
             this.vulnerability = 10;
             removeItemOnce(this.corelist,"White");
         }
-        
+        if (player.rosetox >= 5){
+            playSound("fail");
+            message = "EpsilonPinkWeak";
+            this.vulnerability = 1;
+        }
         if (this.vulnerability > 0){
             this.isInvincible = false;
             for (let x of monsters){
