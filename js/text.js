@@ -140,7 +140,7 @@ messages = {
     "EpsilonYellowCore" : "\"Successfully initialized Enthalpic Lead-Plated Radiodiffusor EX x 1. Beginning emission of anti-organic wavebursts.\"",
     //Weakness: floor objects explode
     "EpsilonWhiteCore" : "\"Successfully initialized Anti-Entropic Edgeian Thermodynamic Translocator x 1. Drone production rate maximized.\"",
-    //Weakness: self-destructs after 50 bots are on the screen
+    //Weakness: self-destructs after 20 bots are on the screen
     "EpsilonRedCore" : "\"Successfully initialized Turbo-Kinetic SurgeRockets-Branded Rack x 1. Evaluation results of organic specimen: Very flammable.\"",
     //Weakness: nooks in the wall
     "EpsilonCyanCore" : "\"Successfully initialized Fluffal Armour-Plated Subwoofer Delta x 1. NOTE: Remove module following assimilation of organic specimen to avoid data corruption.\"",

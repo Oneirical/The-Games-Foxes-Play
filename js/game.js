@@ -313,7 +313,7 @@ function tick(){
     }
 
     if(player.dead){
-        if (player.rosetox < 9) playSound("death");
+        if (player.rosetox < 10) playSound("death");
         else playSound("toxicdeath");
         if(truehp < 1){
             gameState = "dead";
@@ -321,28 +321,42 @@ function tick(){
             playSound("falsity");
         }
         else{
-            gameState = "contemplation";
-            player.inhand.push(...player.saved);
-            player.saved.length = 0;
-            truehp -= deadcheck;
-            agony = deadcheck;
-            if (area == "Faith" && player.rosetox < 10) message = "Agony";
-            else if (area == "Serene"){
-                message = "Fallen";
-                fallen = false;
+            if (level != 17) {
+                gameState = "contemplation";
+                player.inhand.push(...player.saved);
+                player.saved.length = 0;
+                truehp -= deadcheck;
+                agony = deadcheck;
+                if (area == "Faith" && player.rosetox < 10) message = "Agony";
+                else if (area == "Serene"){
+                    message = "Fallen";
+                    fallen = false;
+                }
+                else if (player.rosetox > 9){
+                    message = "Rosified";
+                }
+                for(let k=monsters.length-1;k>=0;k--){
+                    monsters.splice(k,1);
+                }
+                if (truehp <= 0){
+                    gameState = "dead";
+                    pauseAllMusic();
+                    playSound("falsity");
+                    if (player.rosetox < 10) message = "RoomDeath";
+                    else message = "RoseDeath";
+                }
             }
-            else if (player.rosetox > 9){
-                message = "Rosified";
-            }
-            for(let k=monsters.length-1;k>=0;k--){
-                monsters.splice(k,1);
-            }
-            if (truehp <= 0){
-                gameState = "dead";
-                pauseAllMusic();
-                playSound("falsity");
-                if (player.rosetox < 10) message = "RoomDeath";
-                else message = "RoseDeath";
+            else{
+                player.discard.push(...player.saved);
+                player.saved.length = 0;
+                truehp -= 1;
+                player.hp += maxHp;
+                message = "EpsilonTaunt";
+                player.dead = false;
+                player.tile.setEffect(1, 30);
+                spells["WOOP"](player);
+                resolve = 3+Math.floor(resolvebonus/2);
+                player.sprite = 0;
             }
         }
         
@@ -410,7 +424,7 @@ function startGame(){
     score = 0;
     numSpells = 0;
     aubecounter = 0;
-    invsave = ["SAINTLY","VILE"];//[, ] //];
+    invsave = ["SERENE"];//[, ] //];
     modules = ["NONE"];
     modulators = ["Alacrity","Focus","Thrusters","Selective","Hover"];
     //let modtest = modulators[randomRange(0,4)];

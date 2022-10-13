@@ -291,7 +291,7 @@ class Monster{
                     }
                 }
             }else{
-                if(((this.isPlayer != newTile.monster.isPlayer)||newTile.monster.marked||(this.charmed && !newTile.monster.isPlayer && !newTile.monster.charmed))&&!this.isPassive&&!newTile.monster.isInvincible && !(this.charmed&&newTile.monster.isPlayer)){
+                if(((this.isPlayer != newTile.monster.isPlayer)||newTile.monster.marked||(this.charmed && !newTile.monster.isPlayer && !newTile.monster.charmed))&&!this.isPassive && !newTile.monster.isGuide &&!newTile.monster.pushable && !(this.charmed&&newTile.monster.isPlayer)){
                     this.attackedThisTurn = true;
                     newTile.monster.hit(this.dmg + Math.floor(this.bonusAttack));
                     if (this.specialAttack == "Charm" && newTile.monster){
@@ -409,8 +409,13 @@ class Monster{
     }
 
     hit(damage){            
-        if(this.shield>0 || this.isInvincible){           
+        if(this.shield>0 || (this.isInvincible && this.order < 0)){           
             return;                                                             
+        }
+        else if (this.isInvincible && this.order >= 0){
+            playSound("fail");
+            tick();
+            return;
         }
         if (this.deathdelay > 0) this.falsehp -= damage;
         else if (this.deathdelay == 0 && !(this instanceof Tail)) this.hp -= damage;
