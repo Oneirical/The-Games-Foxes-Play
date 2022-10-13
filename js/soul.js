@@ -563,6 +563,21 @@ spells = {
             }
         }
     },
+    White: function(caster){
+        let spawners = [];
+        for (let x of tiles){
+            for (let y of x){
+                if (y instanceof Mobilizer) spawners.push(y);
+            }
+        }
+        let type = shuffle([Psydrone,Titanic,Paradox,Binary])[0];
+        for (let u of spawners){
+            if (!u.monster){
+                monsters.push(new type(u));
+            }
+            else playSound("fail");
+        }
+    },
     BINARY: function(caster){
         let directions = [
             [0, -1],

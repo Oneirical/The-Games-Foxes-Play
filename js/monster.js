@@ -266,7 +266,7 @@ class Monster{
         }
         let newTile = this.tile.getNeighbor(dx,dy);
         let stuck = newTile.getAdjacentPassableNeighbors();
-        if (stuck.length <= 1){
+        if (stuck.length <= 1 && this instanceof Epsilon){
             movesave = dx;
             dx = dy;
             dy = movesave;
@@ -1799,6 +1799,44 @@ class Epsilon extends Monster{
         this.abitimer++;
         let restorecheck = this.vulnerability;
         this.vulnerability--;
+        let stuck = this.tile.getAdjacentPassableNeighbors();
+        let beepbeepbeep = false;
+        //Red vuln test
+        if (stuck.length <= 1){
+            this.antidash = 2;
+            beepbeepbeep = true;
+            let dest = getTile(this.tile.x-this.lastMove[0],this.tile.y-this.lastMove[1]);
+            for (let x of monsters){
+                if (x.order >= 0){
+                    if (x.order > 0) x.beepbeepbeep = true;
+                    if (!dest.monster && x.order == 0){
+                        x.move(dest);
+                    }
+                    else if (dest.monster && x.order == 0){
+                        dest.monster.hit(99);
+                        x.move(dest);
+                    }
+                }
+                playSound("fail");
+                message = "EpsilonRedWeak";
+                this.vulnerability = 10;
+                this.nospell = 2;
+            }
+        }
+        //White vuln test
+        let dronecount = 0;
+        for (let p of monsters){
+            if (p.name.includes("drone")){
+                dronecount++;
+            }
+        }
+        if (dronecount >= 20){
+            playSound("fail");
+            message = "EpsilonWhiteWeak";
+            this.vulnerability = 10;
+            removeItemOnce(this.corelist,"White");
+        }
+        
         if (this.vulnerability > 0){
             this.isInvincible = false;
             for (let x of monsters){
@@ -1830,35 +1868,6 @@ class Epsilon extends Monster{
                 monsters.push(new type(dest));
             }
             else playSound("fail");
-        }
-        let stuck = this.tile.getAdjacentPassableNeighbors();
-        let beepbeepbeep = false;
-        if (stuck.length <= 1){
-            this.antidash = 2;
-            beepbeepbeep = true;
-            let dest = getTile(this.tile.x-this.lastMove[0],this.tile.y-this.lastMove[1]);
-            for (let x of monsters){
-                if (x.order >= 0){
-                    if (x.order > 0) x.beepbeepbeep = true;
-                    if (!dest.monster && x.order == 0){
-                        x.move(dest);
-                    }
-                    else if (dest.monster && x.order == 0){
-                        dest.monster.hit(99);
-                        x.move(dest);
-                    }
-                }
-                playSound("fail");
-                message = "EpsilonRedWeak";
-                this.vulnerability = 10;
-                this.isInvincible = false;
-                for (let x of monsters){
-                    if (x instanceof Tail){
-                        this.isInvincible = false;
-                    }
-                }
-                this.nospell = 2;
-            }
         }
         this.attackedThisTurn = false;
         this.lastpos = [this.tile.x,this.tile.y];

@@ -316,7 +316,7 @@ function spawnMonster(){
             monsters.push(tail);
         }
         for (let i = 0;i<4;i++){
-            let corecolour = shuffle(["Red","Pink","Cyan"])[0];
+            let corecolour = shuffle(["Red","Pink","Cyan","White"])[0];
             let monstere = new Box(randomPushableTile(), corecolour);
             monsters.push(monstere);
         }

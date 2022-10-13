@@ -152,7 +152,7 @@ messages = {
     "EpsilonRedWeak" : "\"IMPACT LOG: High-density surface struck with force of 200 000 N. Structural integrity temporarily compromised. Core vulnerable for 10 Time Units. Proceed with caution.\"",
     "EpsilonYellowWeak" : "\"INCIDENT REPORT: Rapid compression of atmosphere with 14.492% kerosene concentration has caused localized explosion. Structural integrity temporarily compromised. Core vulnerable for 10 Time Units. Proceed with caution.\"",
     "EpsilonCyanWeak" : "\"DANGER: Fluffal psychohazardous soundwave volume has exceeded acceptable threshold. Diverting power to avoid data corruption. Core vulnerable for 10 Time Units. Orders given: Protect Epsilon during data quarantine.\"",
-    "EpsilonWhiteWeak" : "\"DANGER: Anti-entropic influence has exceeded acceptable threshold. 0.98% of machinery rendered unusable. Activating localized nano-self-destruction. Core vulnerable for 10 Time Units. Orders given: Protect Epsilon during reassembly.\"",
+    "EpsilonWhiteWeak" : "\"DANGER: Anti-entropic influence has exceeded acceptable threshold. 0.98% of machinery rendered unusable. Activating localized nano-self-destruction. Core vulnerable until situation is resolved + 10 Time Units. Orders given: Protect Epsilon during reassembly.\"",
     "EpsilonTaunt" : "\"Current target incarnation neutralized. Awaiting reincarnation for further dispensing of gratuitous violence.\"",
     "EpsilonRestored" : "\"Self-maintenance complete. Protective subroutines resumed. Invincibility restored. All power diverted to further walloping of target specimen.\"",
     "EpsilonDefeat" : "\"CRITICAL SYSTEM FAILURE. Noted: Terminal is strong enough. Old World data will be preserved at 98.8% likelihood. My purpose is complete.\"",
