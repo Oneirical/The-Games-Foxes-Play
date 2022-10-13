@@ -278,7 +278,7 @@ spells = {
             entity.tile.setEffect(13,30);
         });
         aubecounter++
-        if (aubecounter == 5){
+        if (aubecounter == 3){
             removeItemOnce(player.saved, "AUBE");
             player.saved.push("ZENITH");
         }
@@ -287,7 +287,7 @@ spells = {
         scytheTravel([0,1], 14, 4, player.tile, 3);
         scytheTravel([0,-1], 14, 4, player.tile, 3);
         aubecounter++
-        if (aubecounter == 10){
+        if (aubecounter == 6){
             removeItemOnce(player.saved, "ZENITH");
             player.saved.push("CREPUSCULUM");
         }
@@ -297,7 +297,7 @@ spells = {
         falseagony = true;
         agony = 1;
         aubecounter++
-        if (aubecounter == 15){
+        if (aubecounter == 9){
             removeItemOnce(player.saved, "CREPUSCULUM");
             truehp += 3;
         }
