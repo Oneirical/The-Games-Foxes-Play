@@ -1,5 +1,4 @@
 //TODO
-//-buff zenny by making the evo count 3
 //-buff hover module somehow
 //-make drawing souls fully random?
 //-write TODO lore
@@ -469,7 +468,7 @@ soulabi = {
     "Alacrity" : "Drawing souls with \"q\" requires zero turns. Serene Peacekeepers gain Haste.",
     "Selective" : "Using Serene Souls will never harmonize a Legendary Soul.  Serene Peacekeepers gain Harmony-branded attacks.",
     "Thrusters" : "Every step you take becomes a dash (that deals zero damage). Serene Peacekeepers perform damaging dashes.",
-    "Hover" : "Gain immunity to all floor traps. You may now fly in the Serene Spire. Serene Peacekeepers leave behind Harmonizing traps.",
+    "Hover" : "Gain infinite free non-soul actions on turn 1 of each new room. Gain immunity to all floor traps. You may now fly in the Serene Spire. Serene Peacekeepers leave behind Harmonizing traps.",
     "Focus" : "Casting Souls does not return them to the discard pile.",
     "NONE" : "",
     
@@ -510,7 +509,7 @@ soulval = {
     "Alacrity" : "Consumes 1 Common Soul per soul draw.",
     "Selective" : "Consumes 1 Common Soul per use of a Serene Soul. Consumes 3 Common Souls per Harmony-branded attack.",
     "Thrusters" : "Consumes 1 Common Soul per dash. Consumes 1 Common soul per Serene dash.",
-    "Hover" : "Consumes 1 Common Soul per avoided trap. Consumes 2 Common Soul per Harmony trap produced.",
+    "Hover" : "Consumes 1 Common Soul per avoided trap or non-soul actions taken on first turns. Consumes 2 Common Soul per Harmony trap produced.",
     "Focus" : "Consumes 3 Common Souls per soul cast.",
     "NONE" : "",
 }

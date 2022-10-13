@@ -77,7 +77,7 @@ class Monster{
         this.dmg = 1;
         this.loot = loot;
         this.loveless = false;
-        this.teleportCounter = 2;
+        this.teleportCounter = 3;
         this.offsetX = 0;                                                   
         this.offsetY = 0;      
         this.lastMove = [-1,0];    
@@ -599,6 +599,18 @@ class Player extends Monster{
         if (area == "Spire" && this.activemodule != "Hover" && !(this.tile.getNeighbor(0,1) instanceof Platform || this.tile.getNeighbor(0,1) instanceof Ladder || this.tile instanceof Ladder)){
             this.fall++;
         }
+        if (this.activemodule == "Hover")
+            if (this.consumeCommon(1,false)){
+                for (let x of monsters){
+                    console.log(x.teleportCounter);
+                    if (x.teleportCounter > 0) x.teleportCounter++;
+                }
+            }
+            else{
+                message = "FluffyInsufficientPower";
+                this.activemodule = "NONE";
+                playSound("off");
+            }
         if (this.para > 0){
             message = "Paralyzed";
         }
