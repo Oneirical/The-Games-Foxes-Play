@@ -332,7 +332,7 @@ spells = {
     },
     ZAINT: function(caster){
         monsters.forEach(function(entity){
-            if (entity.name != caster.name){
+            if (entity.name != caster.name && !(entity instanceof Box) && entity.order < 0){
                 entity.paralyzed = true;
             }
         });

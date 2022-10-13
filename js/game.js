@@ -395,6 +395,7 @@ function tick(){
                     spells["WOOP"](player);
                     resolve = 3+Math.floor(resolvebonus/2);
                     player.sprite = 0;
+                    player.fuffified = 0;
                 }
             }
         }
@@ -457,13 +458,13 @@ function drawBossHp(currentboss, hp){
 function startGame(){
     pauseSound("title");            
     playSound("cage");                         
-    level = 16;
+    level = 0;
     resolvebonus = 0;
     truehp = 8;
     score = 0;
     numSpells = 0;
     aubecounter = 0;
-    invsave = ["SERENE", "SAINTLY","FERAL","VILE"];//[, ] //];
+    invsave = [];//[, ] //];
     modules = ["NONE"];
     modulators = ["Alacrity","Focus","Thrusters","Selective","Hover"];
     //let modtest = modulators[randomRange(0,4)];
