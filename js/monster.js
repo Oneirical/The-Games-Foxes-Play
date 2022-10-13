@@ -102,7 +102,12 @@ class Monster{
     }
 
     heal(damage){
-        if (this.deathdelay == 0) this.hp = Math.min(maxHp, this.hp+damage);
+        if (this instanceof Tail){
+            for (let x of monsters){
+                if (x instanceof Epsilon) x.hp = Math.min(33, x.hp+damage);
+            }
+        }
+        else if (this.deathdelay == 0) this.hp = Math.min(maxHp, this.hp+damage);
         else if (this.deathdelay > 0) this.falsehp = Math.min(maxHp, this.falsehp+(damage*2));
     }
 
@@ -203,7 +208,7 @@ class Monster{
     }
 
     drawHp(){
-        if (!this.isInvincible && this.order < 4){
+        if (!this.isInvincible && this.order < 0){
             for(let i=0; i<this.hp; i++){
                 drawSprite(
                     9,
@@ -368,6 +373,15 @@ class Monster{
                                         x.installed = true;
                                         pushTile.monster.corelist.push(newTile.monster.type);
                                     }
+                                }
+                                let corecount = 0;
+                                for (let x of monsters){
+                                    if (x instanceof Tail && ((x.sprite == 21) || (x.sprite == 20) || (x.sprite == 19) || (x.sprite == 73) || (x.sprite == 22))) corecount++;
+                                }
+                                if (corecount == 4){
+                                    pushTile.monster.hastalavista = true;
+                                    message = "EpsilonAllForOne";
+                                    pushTile.monster.vulnerability = 99999;
                                 }
                                 corevore = true;
                                 newTile.monster.hit(99);
@@ -1788,6 +1802,7 @@ class Epsilon extends Monster{
         this.vulnerability = 0;
         this.antidash = 0;
         this.nospell = false;
+        this.hastalavista = false;
     }
     doStuff(){
         this.abitimer++;
@@ -1796,7 +1811,7 @@ class Epsilon extends Monster{
         let stuck = this.tile.getAdjacentPassableNeighbors();
         let beepbeepbeep = false;
         //Red vuln test
-        if (stuck.length <= 1){
+        if (stuck.length <= 1 && this.corelist.includes("Red")){
             this.antidash = 2;
             beepbeepbeep = true;
             let dest = getTile(this.tile.x-this.lastMove[0],this.tile.y-this.lastMove[1]);
@@ -1807,13 +1822,16 @@ class Epsilon extends Monster{
                         x.move(dest);
                     }
                     else if (dest.monster && x.order == 0){
-                        dest.monster.hit(99);
+                        //dest.monster.hit(99);
                         x.move(dest);
                     }
                 }
-                playSound("fail");
-                message = "EpsilonRedWeak";
-                this.vulnerability = 10;
+                if (!this.hastalavista){
+                    playSound("fail");
+                    message = "EpsilonRedWeak";
+                    removeItemOnce(this.corelist,"Red");
+                    this.vulnerability = 15;
+                }
                 this.nospell = 2;
             }
         }
@@ -1824,24 +1842,25 @@ class Epsilon extends Monster{
                 dronecount++;
             }
         }
-        if (dronecount >= 20 && this.corelist.includes("White")){
+        if (dronecount >= 20 && this.corelist.includes("White") && !this.hastalavista){
             playSound("fail");
             message = "EpsilonWhiteWeak";
             this.vulnerability = 25;
             removeItemOnce(this.corelist,"White");
         }
         //Pink vuln test
-        if (player.rosetox >= 4 && this.corelist.includes("Pink")){
+        if (player.rosetox >= 4 && this.corelist.includes("Pink") && !this.hastalavista){
             playSound("fail");
             message = "EpsilonPinkWeak";
-            this.vulnerability = 1;
+            this.vulnerability = 10;
+            removeItemOnce(this.corelist,"Pink");
         }
         //Cyan vuln test
         for (let x of monsters){
             if (x.order >= 0){
                 let fuffcheck = x.tile.getAdjacentNeighbors()
                 for (let y of fuffcheck){
-                    if (y.monster && this.corelist.includes("Cyan")){
+                    if (y.monster && this.corelist.includes("Cyan") && !this.hastalavista){
                         if (y.monster instanceof BattleFluffy){
                             message = "EpsilonCyanWeak";
                             this.vulnerability = 5;
@@ -1907,6 +1926,11 @@ class Epsilon extends Monster{
             }
             let corecast = this.corelist[randomRange(0,this.corelist.length-1)];
             if (this.corelist.length > 0 && this.nospell <= 0) spells[corecast](this);
+            if (this.corelist.length > 1 && this.nospell <= 0 && this.hastalavista){
+                removeItemOnce(this.corelist, corecast);
+                spells[this.corelist[randomRange(0,this.corelist.length-1)]](this);
+                this.corelist.push(corecast);
+            }
             if (this.antidash > 0) this.corelist.push("Red");
             this.antidash--;
             this.nospell--;

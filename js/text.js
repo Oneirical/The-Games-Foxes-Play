@@ -148,12 +148,12 @@ messages = {
     //Weakness: fluffies can hack it
     "EpsilonPinkCore" : "\"Successfully initialized Roseic Bio-Pacification Dual-Diffusers 3B x 1. NOTE: Cartridge R1 is running low, please replace following assimilation of organic specimen.\"",
     //Weakness: while high on toxin, it becomes weak since you are now rose and made it
-    "EpsilonAllCores" : "\"Offensive capabilities: maximized. Directing all power to weapons. Shields: fully offline. Farewell, Terminal.\"",
-    "EpsilonPinkWeak" : "\"DANGER: target subject has acquired mental data containing highly confidential Epsilon blueprints. Chassis vulnerable until subject returns to normal psychological state. Proceed with extreme caution.\"",
-    "EpsilonRedWeak" : "\"IMPACT LOG: High-density surface struck with force of 200 000 N. Structural integrity temporarily compromised. Chassis vulnerable for 10 Time Units. Proceed with caution.\"",
+    "EpsilonAllForOne" : "\"Offensive capabilities: maximized. Directing all power to weapons. Shields: fully offline. Farewell, Terminal.\"",
+    "EpsilonPinkWeak" : "\"DANGER: target subject has acquired mental data containing highly confidential Epsilon blueprints. Rogue core disabled. Chassis vulnerable for 10 Time Units. Proceed with caution.\"", //until subject returns to normal psychological state
+    "EpsilonRedWeak" : "\"IMPACT LOG: High-density surface struck with force of 200 000 N. Structural integrity temporarily compromised. Rogue core disabled. Chassis vulnerable for 15 Time Units. Proceed with caution.\"",
     "EpsilonYellowWeak" : "\"INCIDENT REPORT: Rapid compression of atmosphere with 14.492% kerosene concentration has caused localized explosion. Structural integrity temporarily compromised. Chassis vulnerable for 10 Time Units. Proceed with caution.\"",
-    "EpsilonCyanWeak" : "\"DANGER: Fluffal psychohazardous soundwave volume has exceeded acceptable threshold. Rogue core permanently disabled. Diverting power to avoid data corruption. Chassis vulnerable for 5 Time Units. Orders given: Protect Epsilon during data quarantine.\"",
-    "EpsilonWhiteWeak" : "\"DANGER: Anti-entropic influence has exceeded acceptable threshold. Rogue core permanently disabled. 0.98% of machinery rendered unusable. Activating localized nano-self-destruction. Chassis vulnerable for 25 Time Units. Orders given: Protect Epsilon during reassembly.\"",
+    "EpsilonCyanWeak" : "\"DANGER: Fluffal psychohazardous soundwave volume has exceeded acceptable threshold. Rogue core disabled. Diverting power to avoid data corruption. Chassis vulnerable for 5 Time Units. Orders given: Protect Epsilon during data quarantine.\"",
+    "EpsilonWhiteWeak" : "\"DANGER: Anti-entropic influence has exceeded acceptable threshold. Rogue core disabled. 0.98% of machinery rendered unusable. Activating localized nano-self-destruction. Chassis vulnerable for 25 Time Units. Orders given: Protect Epsilon during reassembly.\"",
     "EpsilonTaunt" : "\"Current target incarnation neutralized. Awaiting reincarnation for further dispensing of gratuitous violence.\"",
     "EpsilonRestored" : "\"Self-maintenance complete. Protective subroutines resumed. Invincibility restored. All power diverted to further walloping of target specimen.\"",
     "EpsilonDefeat" : "\"CRITICAL SYSTEM FAILURE. Noted: Terminal is strong enough. Old World data will be preserved at 98.8% likelihood. My purpose is complete.\"",
