@@ -332,7 +332,7 @@ function tick(){
         else{
             if (level != 17) {
                 gameState = "contemplation";
-                player.inhand.push(...player.saved);
+                for (let x of player.saved) player.inhand.push(x);
                 player.saved.length = 0;
                 truehp -= deadcheck;
                 agony = deadcheck;
@@ -356,16 +356,30 @@ function tick(){
                 }
             }
             else{
-                player.discard.push(...player.saved);
+                for (let x of player.saved) player.discard.push(x);
+                for (let x of player.inhand) player.discard.push(x);
+                player.inhand.length = 0;
                 player.saved.length = 0;
                 truehp -= 1;
-                player.hp += maxHp;
-                message = "EpsilonTaunt";
-                player.dead = false;
-                player.tile.setEffect(1, 30);
-                spells["WOOP"](player);
-                resolve = 3+Math.floor(resolvebonus/2);
-                player.sprite = 0;
+                if(truehp < 1){
+                    gameState = "dead";
+                    pauseAllMusic();
+                    playSound("falsity");
+                    message = "EpsilonDeath";
+                }
+                else{
+                    player.hp = maxHp;
+                    rosetoxin = 0;
+                    player.rosetox = 0;
+                    for (let x of monsters) x.sprite = x.spritesave;
+                    if (truehp > 1) message = "EpsilonTaunt";
+                    else message = "EpsilonOneChance";
+                    player.dead = false;
+                    player.tile.setEffect(1, 30);
+                    spells["WOOP"](player);
+                    resolve = 3+Math.floor(resolvebonus/2);
+                    player.sprite = 0;
+                }
             }
         }
         

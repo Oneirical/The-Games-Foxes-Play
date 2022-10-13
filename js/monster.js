@@ -524,7 +524,6 @@ class Player extends Monster{
         if (this.tile.name.includes("Toxin")){
             this.rosetox += 2;  
         }
-        let recovery = this.fuffified;
         this.shield--;
         this.fuffified--;
         if (this.fuffified < 1) this.sprite = 0;
@@ -552,9 +551,7 @@ class Player extends Monster{
             else if (this.rosetox <= 0){
                 pauseSound("toxic");
                 sounds["roseic"].volume = 1;
-                for (let x of monsters){
-                    x.sprite = x.spritesave;
-                }
+                for (let x of monsters) x.sprite = x.spritesave;
                 rosetoxin = 0;
             }
         } 
@@ -1271,12 +1268,8 @@ class Player extends Monster{
         level++;
         let areas = ["Faith","Circus","Spire","Edge"]; // add Edge when it's not bugged "Spire"
         area = areas[randomRange(0,0)]
-        for(let i=0;i<this.inhand.length;i++){
-            this.discard.push(this.inhand[i]);
-        }
-        for(let i=0;i<player.saved.length;i++){
-            player.discard.push(this.saved[i]);
-        }
+        for(let i=0;i<this.inhand.length;i++) this.discard.push(this.inhand[i]);
+        for(let i=0;i<player.saved.length;i++) player.discard.push(this.saved[i]);
         invsave = this.inventory;
         dissave = this.discard;
         if (level % 5 == 1 && level > 5){
@@ -1837,7 +1830,8 @@ class Epsilon extends Monster{
             this.vulnerability = 10;
             removeItemOnce(this.corelist,"White");
         }
-        if (player.rosetox >= 5){
+        //Pink vuln test
+        if (player.rosetox >= 4){
             playSound("fail");
             message = "EpsilonPinkWeak";
             this.vulnerability = 1;

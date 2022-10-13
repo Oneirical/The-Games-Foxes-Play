@@ -52,6 +52,7 @@ messages = {
     "RoomDeath" : "After their fangs were done toying with your flesh, they had taken away much more than sinew and bone. Your soul turned Feral, and the last lights of duty and purpose were soon snuffed out like a candle flame, leaving nothing but a ravenous husk. Your journey has come to its end.",
     "DrawDeath" : "You broke your limits for the last time, and, in doing so, broke yourself as well. What should have been the denizens of the Next World now seep through your closed eyes, while your soul turns Feral and assumes the command of your exhausted body. Your journey has come to its end.",
     "RoseDeath" : "As the First of the Saints taught, all things decay. The Old World must be allowed to die. You, as the Last of the Saints, will be delighted to sit here until the end of time, which shouldn't take too long. Your journey has come to its end.",
+    "EpsilonDeath" : "TODO",
     
     
     // Serene Harmonizer
@@ -321,10 +322,10 @@ description = {
     "Pink" : "After a semi-successful raid on the Roseic Metropolis, Epsilon found this bulky fumigator to be of interest. Ceaselessly breathing out highly concentrated doses of Glamorous Toxin, its hallucinogenic effect on organic specimen is to be appreciated for the immobilization of evasive targets. The intelligence-boosting side effect is, however, quite inconvenient, considering specimen who believe themselves to be Rose simultaneously acquire perfect knowledge of Epsilon's mechanisms, and of his weaknesses.",
     "White" : "The Edge of Reality's strange thermodynamic properties are of particular interest to Epsilon, who highly values mass-production in exchange for very few resources. Translocating some of the anti-entropic flux from the Edge results in impressive effects, though the over-complexification effect makes long-term exposure risky. One would preferably not want their missile launcher factories to reorient into production of quantum rubber duckies.",
     "Cyan" : "After realizing the Serene Collectivists were sadly immune to multiple barrages of missile launchers, Epsilon suggested a favourable trade deal that resulted in the acquisition of this bulky high-fidelity sound blaster, repeating the Harmonic Choir without end. While immensely useful for neutralizing pesky users of the spiritual arts, its identity-warping effects seem to even partially seep through the normally unbreakable mind of Ordered constructs. Epsilon has succeeded at thwarting all outbreaks of Collectivist thought among his forces thus far, though he remains unaware of the self-destruct mechanism installed within this Core, only usable by Harmonic kin.",
-    "Paradox" : "",
-    "Binary" : "",
-    "Titanic" : "",
-    "Psydrone" : "",
+    "Paradox" : "TODO",
+    "Binary" : "TODO",
+    "Titanic" : "TODO",
+    "Psydrone" : "TODO",
     // Tiles
     "Floor" : "A long time ago, legions of monks carved holy symbols on each floortile of the palaces, so they may be worthy of being treaded by the Saints' steps. Decades of dust has undone the tireless work of these artists.",
     "Seal" : "The Saints feared Terminal would try to escape before the end times. They locked down their royal chambers, trading convenience for the peace of mind that their ticket to immortality would not run away in the middle of the night.",
@@ -377,8 +378,11 @@ monabi = {
     "Red" : "EMERALD RUSH - Can be pushed and pulled. When installed on Epsilon, periodically causes Epsilon to dash forwards, leaving behind 1-damage fire traps, and crushing all in his way for 2 damage. WEAKNESS: Dashing into a wall alcove will disrupt this Core, leaving Epsilon vulnerable.",
     "Pink" : "CIRCUS KISSES - Can be pushed and pulled. When installed on Epsilon, periodically unleashes vapours of Glamorous Toxin, which inflict one point of Glamour per turn while standing on a Toxin tile. Accumulating 10 Glamour is lethal. WEAKNESS: At 5 Glamour or more, Epsilon becomes vulnerable.",
     "White": "MAKING OVER UNMAKING - Can be pushed and pulled. When installed on Epsilon, Ordered Replicators function at extremely enhanced speed. WEAKNESS: Reaches critical mass when 50 or more bots are on the screen, leaving Epsilon vulnerable.",
-    "Cyan": "GRAND CONCERTO - Can be pushed and pulled. When installed on Epsilon, periodically blasts verses from the Harmonic Song in parallel sound-beams, temporarily turning all souls in your paw to Serene souls and knocking you back. WEAKNESS: Briefly renders Epsilon vulnerable when he is adjacent to a Harmonizer."
-
+    "Cyan": "GRAND CONCERTO - Can be pushed and pulled. When installed on Epsilon, periodically blasts verses from the Harmonic Song in parallel sound-beams, temporarily turning all souls in your paw to Serene souls and knocking you back. WEAKNESS: Briefly renders Epsilon vulnerable when he is adjacent to a Harmonizer.",
+    "Paradox" : "TODO",
+    "Binary" : "TODO",
+    "Titanic" : "TODO",
+    "Psydrone" : "TODO",
 }
 
 souldesc = {
