@@ -473,12 +473,8 @@ spells = {
         if(target != null && target.tile != newTile){
             target.move(newTile);
             playSound("explosion");
-            for (let i = 0;i<target.inhand.length;i++){
-                pawsave.push(target.inhand[i]);
-                target.inhand.splice(i,1);
-                target.inhand.unshift("SERENE");
-            }
             target.fuffified = 10;
+            target.sprite = 26;
             shakeAmount = 35;
         }
     },

@@ -527,13 +527,7 @@ class Player extends Monster{
         let recovery = this.fuffified;
         this.shield--;
         this.fuffified--;
-        if (this.fuffified == 0 && recovery == 1){
-            this.inhand = [];
-            for (let x of pawsave){
-                this.inhand.push(x);
-            }
-            pawsave = [];
-        }
+        if (this.fuffified < 1) this.sprite = 0;
         if (this.rosetox > 0){
             if (this.rosetox < 11)sounds["roseic"].volume = (1-(0.1*this.rosetox));
             if (sounds["toxic"].currentTime == 0) playSound("toxic");
@@ -942,6 +936,7 @@ class Player extends Monster{
 
     castSpell(index){                                 
         let spellName = this.inhand[index];
+        if (this.fuffified > 0) spellName = "SERENE";
         if(spellName && !soulabi[spellName].includes("Cannot be activated")){
             message = spellName;
             spells[spellName](this);
@@ -1241,6 +1236,7 @@ class Player extends Monster{
                 printAtSidebar(soulname["ROSE"], 18, 590, 130, "pink", 20, 350);
             }
             else{
+                if (this.fuffified > 0) spellName = "SERENE";
                 printAtWordWrap(souldesc[spellName], 18, 10, 600, colours[spellName], 20, 940);
                 printAtWordWrap(soulabi[spellName], 18, 10, 600+(Math.ceil(souldesc[spellName].length/100)*25), "white", 20, 940);
                 printAtSidebar(soulval[spellName], 18, 590, 195, "cyan", 20, 350);

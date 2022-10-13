@@ -74,9 +74,9 @@ function drawSprite(sprite, x, y){
     //}
 }
 
-function drawFilter(){
+function drawFilter(filter){
     ctx.drawImage(
-        rosefilter,
+        filter,
         0,
         0,
         960,
@@ -103,6 +103,10 @@ function draw(){
                 if (rosetoxin > 1){
                     printAtWordWrap(souldesc["ROSEILLUSION"], 18, 10, 600, "pink", 20, 940);
                     printAtWordWrap(soulabi["ROSEILLUSION"], 18, 10, 725, "pink", 20, 940);
+                }
+                else if (player.fuffified > 0){
+                    printAtWordWrap(souldesc["SERENE"], 18, 10, 600, "cyan", 20, 940);
+                    printAtWordWrap(soulabi["SERENE"], 18, 10, 725, "white", 20, 940);
                 }
                 else{
                     printAtWordWrap(souldesc[spellName], 18, 10, 600, colours[spellName], 20, 940);
@@ -218,6 +222,7 @@ function draw(){
                 for(let i=0; i<player.inhand.length; i++){
                     let spellText = (i+1) + ") " + (player.inhand[i] || "");
                     if (rosetoxin > 1) spellText = (i+1) + ") " + ("ROSE" || "");
+                    if (player.fuffified > 0) spellText = (i+1) + ") " + ("SERENE" || "");
                     let colour = "lightskyblue";
                     if (selectation == i) colour = "cyan";     
                     drawText(spellText, 20, false, 130+i*20, colour);
@@ -239,7 +244,11 @@ function draw(){
             if ((!cursormode && !invmode) || (cursormode && invmode)) printAtWordWrap(messages[message], 18, 10, 600, coloring, 20, 940);
             if (rosetoxin > 1){
                 ctx.globalAlpha = 0.5;
-                drawFilter();
+                drawFilter(rosefilter);
+            }
+            else if (player.fuffified > 0){
+                ctx.globalAlpha = 0.5;
+                drawFilter(cyanfilter);
             }
             else{
                 ctx.globalAlpha = 1;
