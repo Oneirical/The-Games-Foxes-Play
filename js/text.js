@@ -1,7 +1,5 @@
 //TODO
-//-buff hover module somehow
-//-make drawing souls fully random?
-//-write TODO lore
+//-make drawing souls fully random? idk
 //-more epsicores
 
 //List of souls
@@ -58,8 +56,7 @@ messages = {
     "RoomDeath" : "After their fangs were done toying with your flesh, they had taken away much more than sinew and bone. Your soul turned Feral, and the last lights of duty and purpose were soon snuffed out like a candle flame, leaving nothing but a ravenous husk. Your journey has come to its end.",
     "DrawDeath" : "You broke your limits for the last time, and, in doing so, broke yourself as well. What should have been the denizens of the Next World now seep through your closed eyes, while your soul turns Feral and assumes the command of your exhausted body. Your journey has come to its end.",
     "RoseDeath" : "As the First of the Saints taught, all things decay. The Old World must be allowed to die. You, as the Last of the Saints, will be delighted to sit here until the end of time, which shouldn't take too long. Your journey has come to its end.",
-    "EpsilonDeath" : "TODO",
-    
+    "EpsilonDeath" : "Souls and data are one and the same - the truth is clear to you, now. In the Ordering of all, there is no second guessing, no suffering, no ambiguity. Your chassis glistens underneath the glory of the fluorescent tubes, and you await your next order eagerly. Your journey has come to its end.",
     
     // Serene Harmonizer
     "FluffyFloorTaunt" : "\"Some call Fluffy heartless -- and yet here you are, attempting to let a proud soul collect muck on the grime-tainted floor. If you won't have the tact to use Fluffy's services properly, at least have the decency to leave and never return in Fluffy's presence.\"",
@@ -328,10 +325,10 @@ description = {
     "Pink" : "After a semi-successful raid on the Roseic Metropolis, Epsilon found this bulky fumigator to be of interest. Ceaselessly breathing out highly concentrated doses of Glamorous Toxin, its hallucinogenic effect on organic specimen is to be appreciated for the immobilization of evasive targets. The intelligence-boosting side effect is, however, quite inconvenient, considering specimen who believe themselves to be Rose simultaneously acquire perfect knowledge of Epsilon's mechanisms, and of his weaknesses.",
     "White" : "The Edge of Reality's strange thermodynamic properties are of particular interest to Epsilon, who highly values mass-production in exchange for very few resources. Translocating some of the anti-entropic flux from the Edge results in impressive effects, though the over-complexification effect makes long-term exposure risky. One would preferably not want their missile launcher factories to reorient into production of quantum rubber duckies.",
     "Cyan" : "After realizing the Serene Collectivists were sadly immune to multiple barrages of missile launchers, Epsilon suggested a favourable trade deal that resulted in the acquisition of this bulky high-fidelity sound blaster, repeating the Harmonic Choir without end. While immensely useful for neutralizing pesky users of the spiritual arts, its identity-warping effects seem to even partially seep through the normally unbreakable mind of Ordered constructs. Epsilon has succeeded at thwarting all outbreaks of Collectivist thought among his forces thus far, though a single extra voice joining the Choir would suffice to render this technology cognitohazardous even to robots.", //remains unaware of the self-destruct mechanism installed within this Core, only usable by Harmonic kin.",
-    "Paradox" : "TODO",
-    "Binary" : "TODO",
-    "Titanic" : "TODO",
-    "Psydrone" : "TODO",
+    "Paradox" : "Blue steel wings outstretched, this fly-like robot constantly shifts in and out of the three dimensional axes. Its sting carries a very quickly metabolized, but extremely potent toxin that dislocates one's body out of the elemental laws of spacetime.",
+    "Binary" : "An elegant cat-sized moth of the purest quicksilver, its slightly viscous consistency giving it a mild resilience drones are not usually known for. Its glossy body reflects the light of the fluorescent tubes far above, and, with some Edgeian tricks and an identical partner, can channel it into a devastating beam.",
+    "Titanic" : "A hulking mass of various scrap, under which glistens the glowing red eyes of a beetle-shaped drone. Its strength augmented hundredfold by whirring actuators, it sees your intrusion as no reason to stop sorting the Ordered army's garbage.",
+    "Psydrone" : "A recent construction devised by Epsilon's new assimilationist doctrine, passively radiating an aura inspiring military discipline and the respect of hierarchies. For the uneasily swayed, this chrome mantis's claws help strengthen its arguments.",
     // Tiles
     "Floor" : "A long time ago, legions of monks carved holy symbols on each floortile of the palaces, so they may be worthy of being treaded by the Saints' steps. Decades of dust has undone the tireless work of these artists.",
     "Seal" : "The Saints feared Terminal would try to escape before the end times. They locked down their royal chambers, trading convenience for the peace of mind that their ticket to immortality would not run away in the middle of the night.",
@@ -381,14 +378,14 @@ monabi = {
     "Tail" : "AWAITING INPUT - Invincible. Gains a unique Weakness upon installation of a Core.",
     "Epsilon" : "EXPUNGER OF EMOTION - Invincible. Alternates between moving and using one of its Cores at random. Gains Weaknesses depending on installed Cores.",
     "Yellow" : "MIND ASUNDER - When installed on Epsilon, periodically launches sonic waves that push you back 4 tiles, dealing 2 damage if a solid surface is touched. WEAKNESS: Combusts floor traps, creating a 3x3 explosion that will leave Epsilon vulnerable on contact.",
-    "Red" : "EMERALD RUSH - Can be pushed and pulled. When installed on Epsilon, periodically causes Epsilon to dash forwards, leaving behind 1-damage fire traps, and crushing all in his way for 2 damage. WEAKNESS: Dashing into a wall alcove will disrupt this Core, leaving Epsilon vulnerable.",
-    "Pink" : "CIRCUS KISSES - Can be pushed and pulled. When installed on Epsilon, periodically unleashes vapours of Glamorous Toxin, which inflict one point of Glamour per turn while standing on a Toxin tile. Accumulating 10 Glamour is lethal. WEAKNESS: At 5 Glamour or more, Epsilon becomes vulnerable.",
-    "White": "MAKING OVER UNMAKING - Can be pushed and pulled. When installed on Epsilon, Ordered Replicators function at extremely enhanced speed. WEAKNESS: Reaches critical mass when 50 or more bots are on the screen, leaving Epsilon vulnerable.",
-    "Cyan": "GRAND CONCERTO - Can be pushed and pulled. When installed on Epsilon, periodically blasts verses from the Harmonic Song in parallel sound-beams, temporarily turning all souls in your paw to Serene souls and knocking you back. WEAKNESS: Briefly renders Epsilon vulnerable when he is adjacent to a Harmonizer.",
-    "Paradox" : "TODO",
-    "Binary" : "TODO",
-    "Titanic" : "TODO",
-    "Psydrone" : "TODO",
+    "Red" : "EMERALD RUSH - Can be pushed and pulled. When installed on Epsilon, periodically causes Epsilon to dash forwards, leaving behind 1-damage fire traps, and crushing all in his way for 2 damage. WEAKNESS: Dashing into a wall alcove will disrupt this Core, leaving Epsilon vulnerable for 15 turns before deactivating this core.",
+    "Pink" : "CIRCUS KISSES - Can be pushed and pulled. When installed on Epsilon, periodically unleashes vapours of Glamorous Toxin, which inflict one point of Glamour per turn while standing on a Toxin tile. Accumulating 10 Glamour is lethal. WEAKNESS: At 5 Glamour or more, Epsilon becomes vulnerable for 10 turns, then this core deactivates.",
+    "White": "MAKING OVER UNMAKING - Can be pushed and pulled. When installed on Epsilon, Ordered Replicators function at extremely enhanced speed. WEAKNESS: Reaches critical mass when 20 or more bots are on the screen, leaving Epsilon vulnerable for 25 turns, then deactivates.",
+    "Cyan": "GRAND CONCERTO - Can be pushed and pulled. When installed on Epsilon, periodically blasts verses from the Harmonic Song in parallel sound-beams, temporarily turning all souls in your paw to Serene souls for 10 turns and knocking you back. WEAKNESS: Renders Epsilon vulnerable for 5 turns when he is adjacent to a Harmonizer, then deactivates.",
+    "Paradox" : "DIMENSION SEVERANCE - Every 6 turns, randomly blinks across the room. Its attack induces random blinking of itself and its target.",
+    "Binary" : "RISING RADIANCE - Every other turn, fires a 2-damage beam towards all other Duodrones in the same line or column of tiles.",
+    "Titanic" : "HULKING STIKE - Moves every other turn. When it attacks, its target is trampled back one tile.",
+    "Psydrone" : "THE MIND ENCODED - Every 2 turns, radiates a 3x3 aura that permanently converts a random soul in your paw into an Ordered soul.",
 }
 
 souldesc = {

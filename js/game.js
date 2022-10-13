@@ -469,8 +469,8 @@ function startGame(){
     score = 0;
     numSpells = 0;
     aubecounter = 0;
-    invsave = ["SAINTLY","SAINTLY","SAINTLY","SAINTLY",];//[, ] //];
-    modules = ["NONE","Hover"];
+    invsave = [];//[, ] //];
+    modules = ["NONE"];
     modulators = ["Alacrity","Focus","Thrusters","Selective","Hover"];
     //let modtest = modulators[randomRange(0,4)];
     //modules.push(modtest);
