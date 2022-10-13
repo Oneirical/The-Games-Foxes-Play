@@ -1,5 +1,4 @@
 //TODO
-//-let player hover mouse over modulators
 //-buff shizapis by making it autocast without consuming the 2 remaining ones
 //-buff ezzeza by reducing the para
 //-buff zenny by making the evo count 3
@@ -454,7 +453,7 @@ soulabi = {
     "AUBE" : "(Unique) PREPARE - When activated, heal every creature in the room for 2 HP, including you. When Aube has been activated a total of 5 times, transform it into Zenith.",
     "ZENITH" : "(Unique) COOK - When activated, slice all enemies in a 4-radius hourglass pattern, dealing 2 damage to each. When Zenith has been activated a total of 5 times, transform it into Crepusculum.",
     "CREPUSCULUM" : "(Unique) SERVE - When activated, agonize over the past, letting you choose a soul in your paw to forget permanently. When Crepusculum has been activated a total of 5 times, forget it, and restore 3 Ipseity.",
-    "SHIZAPIS" : "ARRAY WARP - When activated, peer into the top 3 souls of your deck. Discard one, then place back the remaining 2 in any order.",
+    "SHIZAPIS" : "ARRAY WARP - When activated, peer into the top 3 souls of your deck. Discard one, then place back the remaining 2 in any order. Souls placed back on the deck also have their effect unleashed for free.",
     "ABAZON" : "TERRACUTTER - When activated, transform a nearby (non-outer) wall into an immobile, invincible Sentry who will attack nearby enemies.",
     "LASHOL" : "RAMPING SURGE - Cannot be activated. Passive: every 3 steps you take, charge up your next attack with 1 bonus damage.",
     "ZAINT" : "ORIGIN OF ALL - When activated, incite surrender from all enemies in the room, then forget Zaint.",

@@ -369,8 +369,10 @@ spells = {
         naiamode = true;
     },
     LASHOL: function(){
+        //cannot be evoked
     },
     EZEZZA: function(){
+        //cannot be evoked
     },
     ASTER: function(){
         removeItemAll(player.inhand, "SERENE");

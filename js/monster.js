@@ -1034,6 +1034,7 @@ class Player extends Monster{
             this.inventory.unshift(stackName);
             this.vision.splice(index, 1);
             stack++;
+            spells[stackName](this);
             if (stack == 2){
                 stack = 0;
                 discarded = 0;
