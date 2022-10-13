@@ -28,8 +28,9 @@ function setupCanvas(){
         let clickpos = [x,y];
         if(clickpos[0]>603&&clickpos[1]>115 && gameState != "dead" && gameState != "title"){
             let mousdes = Math.ceil((clickpos[1] - 130)/20);
-            if (mousdes+1 <= player.inhand.length){
-                if (gameState == "running") player.castSpell(mousdes);
+            if (mousdes+1 <= player.inhand.length || mousdes == 21 || mousdes == 22){
+                if (gameState == "running" && mousdes <21) player.castSpell(mousdes);
+                else if (gameState == "running" && mousdes >=21&& modules.length > 1 && !cursormode) player.cycleModules();
                 if (gameState == "fluffy"){
                     if(!cursormode && gameState == "fluffy" && sacrifice < 6 && player.betted) player.sacrificeSpell(mousdes);
                     else if(!cursormode && gameState == "fluffy" && !player.betted && rolled > 0) player.betSpell(mousdes);
@@ -96,9 +97,11 @@ function draw(){
         let selectation = 99;
         if(wtfx>603&&wtfy>115){
             let mousdes = Math.ceil((wtfy - 130)/20);
-            if (mousdes+1 <= player.inhand.length){
+            if (mousdes+1 <= player.inhand.length || mousdes == 21 || mousdes == 22){
                 message = "Empty";
-                let spellName = player.inhand[mousdes];
+                let spellName;
+                if (mousdes != 21 && mousdes != 22) spellName = player.inhand[mousdes];
+                else spellName = player.activemodule;
                 selectation = mousdes;
                 if (rosetoxin > 1){
                     printAtWordWrap(souldesc["ROSEILLUSION"], 18, 10, 600, "pink", 20, 940);
@@ -166,7 +169,9 @@ function draw(){
         printAtSidebar("Common Souls: "+basicc, 18, 590, 475, "white", 20, 350);
         printAtSidebar("Legendary Souls: "+advc, 18, 590, 500, "yellow", 20, 350);
         printAtSidebar("Serene Souls: "+serc, 18, 590, 525, "cyan", 20, 350);
-        printAtSidebar("f) Harmonic Modulator: "+modulename[player.activemodule], 18, 590, 550, "cyan", 20, 350);
+        let modulecol = "cyan";
+        if (selectation == 21 || selectation == 22) modulecol = "white";
+        printAtSidebar("f) Harmonic Modulator: "+modulename[player.activemodule], 18, 590, 550, modulecol, 20, 350);
         if ((gameState == "vision" && discarded > 0) || (gameState == "discard" && !naiamode)) drawText("Which soul to discard?", 20, false, 100, "deepskyblue");
         if (gameState == "discard" && naiamode) drawText("Which soul to cast?", 20, false, 100, "fuchsia");
         if (gameState == "vision" && discarded == 0) drawText("Which soul to stack?", 20, false, 100, "deepskyblue");
@@ -465,7 +470,7 @@ function startGame(){
     numSpells = 0;
     aubecounter = 0;
     invsave = [];//[, ] //];
-    modules = ["NONE"];
+    modules = ["NONE","Focus"];
     modulators = ["Alacrity","Focus","Thrusters","Selective","Hover"];
     //let modtest = modulators[randomRange(0,4)];
     //modules.push(modtest);

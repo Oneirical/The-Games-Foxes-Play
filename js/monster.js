@@ -303,7 +303,7 @@ class Monster{
                         newTile.monster.charmed = !newTile.monster.charmed;
                         this.specialAttack = "";
                     }
-                    if (this.specialAttack == "Harmony" && newTile.monster &&!newTile.monster.isPlayer){
+                    if (this.specialAttack == "Harmony" && newTile.monster &&!newTile.monster.isPlayer&&!newTile.monster.loveless){
                         removeItemOnce(monsters, newTile.monster);
                         let fluffy = new BattleFluffy(newTile);
                         monsters.push(fluffy);

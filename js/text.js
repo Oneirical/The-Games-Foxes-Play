@@ -1,3 +1,13 @@
+//TODO
+//-let player hover mouse over modulators
+//-buff shizapis by making it autocast without consuming the 2 remaining ones
+//-buff ezzeza by reducing the para
+//-buff zenny by making the evo count 3
+//-buff hover module somehow
+//-make drawing souls fully random?
+//-write TODO lore
+//-more epsicores
+
 //List of souls
 
 vile = ["ZENESTE","RASEL"];
