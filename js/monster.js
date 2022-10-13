@@ -389,7 +389,7 @@ class Monster{
                             }
                             else if (!(pushTile.monster instanceof Box)){
                                 abandon = true;
-                                let neighbors = this.tile.getAdjacentPassableNeighbors();
+                                let neighbors = this.tile.getAdjacentPassableEmptyNeighbors();
                                 if(neighbors.length){
                                     this.tryMove(neighbors[0].x - this.tile.x, neighbors[0].y - this.tile.y);
                                 }
@@ -403,7 +403,7 @@ class Monster{
                         if (!abandon) this.move(newTile);
                     }
                     else{
-                        let neighbors = this.tile.getAdjacentPassableNeighbors();
+                        let neighbors = this.tile.getAdjacentPassableEmptyNeighbors();
                         if(neighbors.length){
                             this.tryMove(neighbors[0].x - this.tile.x, neighbors[0].y - this.tile.y);
                         }
@@ -411,7 +411,7 @@ class Monster{
                     }
                 }
                 else{
-                    let neighbors = this.tile.getAdjacentPassableNeighbors();
+                    let neighbors = this.tile.getAdjacentPassableEmptyNeighbors();
                     if(neighbors.length){
                         this.tryMove(neighbors[0].x - this.tile.x, neighbors[0].y - this.tile.y);
                     }
