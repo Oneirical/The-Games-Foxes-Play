@@ -428,7 +428,6 @@ class Monster{
         }
         else if (this.isInvincible && this.order >= 0){
             playSound("epsitink");
-            tick();
             return;
         }
         if (this.deathdelay > 0) this.falsehp -= damage;
