@@ -1,6 +1,7 @@
 //TODO
 //-make drawing souls fully random? idk
 //-more epsicores
+//-review lore and core descriptions
 
 //List of souls
 
@@ -328,7 +329,7 @@ description = {
     "Paradox" : "Blue steel wings outstretched, this fly-like robot constantly shifts in and out of the three dimensional axes. Its sting carries a very quickly metabolized, but extremely potent toxin that dislocates one's body out of the elemental laws of spacetime.",
     "Binary" : "An elegant cat-sized moth of the purest quicksilver, its slightly viscous consistency giving it a mild resilience drones are not usually known for. Its glossy body reflects the light of the fluorescent tubes far above, and, with some Edgeian tricks and an identical partner, can channel it into a devastating beam.",
     "Titanic" : "A hulking mass of various scrap, under which glistens the glowing red eyes of a beetle-shaped drone. Its strength augmented hundredfold by whirring actuators, it sees your intrusion as no reason to stop sorting the Ordered army's garbage.",
-    "Psydrone" : "A recent construction devised by Epsilon's new assimilationist doctrine, passively radiating an aura inspiring military discipline and the respect of hierarchies. For the uneasily swayed, this chrome mantis's claws help strengthen its arguments.",
+    "Psydrone" : "A recent construction devised by Epsilon's new assimilationist doctrine, passively radiating a hypnotic aura inspiring military discipline and the respect of hierarchies. For the uneasily swayed, this chrome mantis's claws help strengthen its arguments.",
     // Tiles
     "Floor" : "A long time ago, legions of monks carved holy symbols on each floortile of the palaces, so they may be worthy of being treaded by the Saints' steps. Decades of dust has undone the tireless work of these artists.",
     "Seal" : "The Saints feared Terminal would try to escape before the end times. They locked down their royal chambers, trading convenience for the peace of mind that their ticket to immortality would not run away in the middle of the night.",

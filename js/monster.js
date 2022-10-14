@@ -1651,7 +1651,7 @@ class Monk extends Monster{
 
 class Felidol extends Monster{
     constructor(tile){
-        super(tile, 49, 3, "VILE", description["Felidol"]);
+        super(tile, 49, 2, "VILE", description["Felidol"]);
         this.soul = "Animated by a Vile (1) soul.";
         this.name = "Greedswept Felidol";
         this.ability = monabi["Felidol"];
