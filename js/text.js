@@ -3,9 +3,7 @@
 //-more epsicores
 //-review lore and core descriptions
 //-remove fluff inspect overlap with ci text and soul list on the side
-//-add sounds for tink tink tink, vulnerability, change epsilon colour
 //-buff naia
-// - change epsilon title room
 
 //List of souls
 

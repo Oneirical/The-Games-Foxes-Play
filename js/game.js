@@ -150,6 +150,7 @@ function draw(){
         else if (level % 5 == 1 && level > 5 && area == "Spire") drawText("Fluffian Workshop", 30, false, 40, "violet");
         else if (area == "Spire") drawText("Serene Spire: floor "+level, 30, false, 40, "violet");
         else if (area == "Circus") drawText("Roseic Circus", 30, false, 40, "violet");
+        else if (level == 17 && area == "Faith") drawText("Industrial Apex", 30, false, 40, "violet");
         else drawText("Faith's End: level "+level, 30, false, 40, "violet");
         drawText("Ipseity: "+truehp, 30, false, 70, "cyan");
         if (gameState == "running"){
