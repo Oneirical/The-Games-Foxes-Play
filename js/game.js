@@ -307,6 +307,7 @@ function tick(){
         }
         shakeAmount = 40;
         gameState = "dead";
+        playSound("epsideath");
         pauseAllMusic();
         playSound("roseic");
         message = "EpsilonDefeat";
@@ -463,13 +464,13 @@ function drawBossHp(currentboss, hp){
 function startGame(){
     pauseSound("title");            
     playSound("cage");                         
-    level = 0;
+    level = 16;
     resolvebonus = 0;
     truehp = 8;
     score = 0;
     numSpells = 0;
     aubecounter = 0;
-    invsave = [];//[, ] //];
+    invsave = ["JOLTZAZON","JOLTZAZON","JOLTZAZON",];//[, ] //];
     modules = ["NONE"];
     modulators = ["Alacrity","Focus","Thrusters","Selective","Hover"];
     //let modtest = modulators[randomRange(0,4)];
@@ -768,7 +769,11 @@ function initSounds(){
         spire : new Audio('sounds/Fly_on_The_Wall.wav'),
         spireloop : new Audio('sounds/Buzzard.wav'),
         boost : new Audio('sounds/boost.wav'),
-        epsilon: new Audio('sounds/Infracted.wav')
+        epsilon: new Audio('sounds/Infracted.wav'),
+        epsirepair : new Audio('sounds/EpsilonRepair.wav'),
+        epsideath : new Audio('sounds/EpsilonDeath.wav'),
+        epsitink : new Audio('sounds/EpsilonTink.wav'),
+        epsivuln : new Audio('sounds/EpsilonVuln.wav'),
     };
 }
 

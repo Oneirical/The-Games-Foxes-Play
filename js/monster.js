@@ -427,7 +427,7 @@ class Monster{
             return;                                                             
         }
         else if (this.isInvincible && this.order >= 0){
-            playSound("fail");
+            playSound("epsitink");
             tick();
             return;
         }
@@ -1840,7 +1840,7 @@ class Epsilon extends Monster{
                     }
                 }
                 if (!this.hastalavista){
-                    playSound("fail");
+                    playSound("epsivuln");
                     message = "EpsilonRedWeak";
                     removeItemOnce(this.corelist,"Red");
                     this.vulnerability = 15;
@@ -1856,14 +1856,14 @@ class Epsilon extends Monster{
             }
         }
         if (dronecount >= 20 && this.corelist.includes("White") && !this.hastalavista){
-            playSound("fail");
+            playSound("epsivuln");
             message = "EpsilonWhiteWeak";
             this.vulnerability = 25;
             removeItemOnce(this.corelist,"White");
         }
         //Pink vuln test
         if (player.rosetox >= 4 && this.corelist.includes("Pink") && !this.hastalavista){
-            playSound("fail");
+            playSound("epsivuln");
             message = "EpsilonPinkWeak";
             this.vulnerability = 10;
             removeItemOnce(this.corelist,"Pink");
@@ -1876,6 +1876,7 @@ class Epsilon extends Monster{
                     if (y.monster && this.corelist.includes("Cyan") && !this.hastalavista){
                         if (y.monster instanceof BattleFluffy){
                             message = "EpsilonCyanWeak";
+                            playSound("epsivuln");
                             this.vulnerability = 5;
                             removeItemOnce(this.corelist,"Cyan");
                         } 
@@ -1894,6 +1895,7 @@ class Epsilon extends Monster{
         else if (restorecheck == 1){
             this.isInvincible = true;
             message = "EpsilonRestored";
+            playSound("epsirepair");
             for (let x of monsters){
                 if (x instanceof Tail){
                     x.isInvincible = true;
