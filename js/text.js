@@ -1,7 +1,6 @@
 //TODO
 //-make drawing souls fully random? idk
 //-more epsicores
-//-remove fluff inspect overlap with ci text and soul list on the side
 //-buff naia
 
 //List of souls
