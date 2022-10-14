@@ -22,6 +22,8 @@ function setupCanvas(){
         //if(mouspos[0]>603&&mousepos[1]>115){
     }, false);
     canvas.addEventListener('click', function(event) {
+        event.stopPropagation();
+        event.preventDefault();
         let rect = canvas.getBoundingClientRect();
         let x = event.clientX - rect.left;
         let y = event.clientY - rect.top;
@@ -94,6 +96,7 @@ function draw(){
         ctx.clearRect(0,0,canvas.width,canvas.height);
         let wtfx = mousepos[0];
         let wtfy = mousepos[1];
+        let fufflore = false;
         let selectation = 99;
         if(wtfx>603&&wtfy>115){
             let mousdes = Math.ceil((wtfy - 130)/20);
@@ -114,6 +117,11 @@ function draw(){
                 else{
                     printAtWordWrap(souldesc[spellName], 18, 10, 600, colours[spellName], 20, 940);
                     printAtWordWrap(soulabi[spellName], 18, 10, 600+(Math.ceil(souldesc[spellName].length/100)*25), "white", 20, 940);
+                    if (spellName == player.activemodule){
+                        printAtSidebar(soulval[spellName], 18, 590, 195, "cyan", 20, 350);
+                        printAtSidebar(soulname[spellName], 18, 590, 130, colours[spellName], 20, 350);
+                        fufflore = true;
+                    }
                 }
             }
         }
@@ -211,7 +219,7 @@ function draw(){
         }
         
         else {
-            if (invmode == true){
+            if (invmode == true  && wtfx<603){
                 cursor.draw();
                 if (currentspelldesc == "nan"){
                     message = "InvPrompt";
@@ -225,7 +233,7 @@ function draw(){
                     player.loreSpellMonster(currentspelldesc);
                 }
             }
-            if (currentspelldesc == "nan" && gameState != "vision"){
+            if (currentspelldesc == "nan" && gameState != "vision" && !fufflore){
                 for(let i=0; i<player.inhand.length; i++){
                     let spellText = (i+1) + ") " + (player.inhand[i] || "");
                     if (rosetoxin > 1) spellText = (i+1) + ") " + ("ROSE" || "");
@@ -237,7 +245,7 @@ function draw(){
                 if (gameState == "discard" && !naiamode) message = "Discard";
                 else if (gameState == "discard" && naiamode) message = "NaiaTime";
             }
-            else if (gameState == "vision"){
+            else if (gameState == "vision"  && !fufflore){
                 for(let i=0; i<player.vision.length; i++){
                     let spellText = (i+1) + ") " + (player.vision[i] || "");                        
                     drawText(spellText, 20, false, 130+i*20, "lightskyblue");
@@ -471,8 +479,8 @@ function startGame(){
     score = 0;
     numSpells = 0;
     aubecounter = 0;
-    invsave = ["JOLTZAZON","JOLTZAZON","JOLTZAZON",];//[, ] //];
-    modules = ["NONE"];
+    invsave = ["JOLTZAZON","JOLTZAZON","JOLTZAZON","SAINTLY","FERAL"];//[, ] //];
+    modules = ["NONE","Hover"];
     modulators = ["Alacrity","Focus","Thrusters","Selective","Hover"];
     //let modtest = modulators[randomRange(0,4)];
     //modules.push(modtest);
@@ -489,23 +497,23 @@ function startLevel(playerHp){
         let numtest = numTiles;
         numTiles = 18;
         tileSize = (numtest/numTiles)*64;
-        if (numtest != numTiles) setupCanvas();
+        //if (numtest != numTiles) setupCanvas();
     }
     else if (area == "Spire"){
-        let numtest = numTiles;
+        //let numtest = numTiles;
         numTiles = 9;
-        if (numtest != numTiles) setupCanvas();
+        //if (numtest != numTiles) setupCanvas();
     }
     else if (area == "Circus"){
         let numtest = numTiles;
         numTiles = 18;
         tileSize = (numtest/numTiles)*64;
-        if (numtest != numTiles) setupCanvas();
+        //if (numtest != numTiles) setupCanvas(); WILL POSSIBLY BREAK SOMETHING
     }
     else if (area == "Faith"){
-        let numtest = numTiles;
+        //let numtest = numTiles;
         numTiles = 9;
-        if (numtest != numTiles) setupCanvas();
+        //if (numtest != numTiles) setupCanvas();
     }
     spawnRate = 99999999999;
     spawnCounter = spawnRate;  
@@ -517,7 +525,7 @@ function startLevel(playerHp){
             let numtest = numTiles;
             numTiles = 18;
             tileSize = (numtest/numTiles)*64;
-            setupCanvas();
+            //setupCanvas();
             generateEpsilon();
             showboss = true;
             generateMonsters();

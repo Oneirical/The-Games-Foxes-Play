@@ -507,8 +507,8 @@ soulval = {
     //modulators
     "Alacrity" : "Consumes 1 Common Soul per soul draw.",
     "Selective" : "Consumes 1 Common Soul per use of a Serene Soul. Consumes 3 Common Souls per Harmony-branded attack.",
-    "Thrusters" : "Consumes 1 Common Soul per dash. Consumes 1 Common soul per Serene dash.",
-    "Hover" : "Consumes 1 Common Soul per avoided trap or non-soul actions taken on first turns. Consumes 2 Common Soul per Harmony trap produced.",
+    "Thrusters" : "Consumes 1 Common Soul per dash. Consumes 1 Common Soul per Serene dash.",
+    "Hover" : "Consumes 1 Common Soul per avoided trap or non-soul actions taken on first turns. Consumes 2 Common Souls per Harmony trap produced.",
     "Focus" : "Consumes 3 Common Souls per soul cast.",
     "NONE" : "",
 }

@@ -534,6 +534,7 @@ class Player extends Monster{
         if (this.activemodule == "NONE"){
             message = "FluffyModuleFarewell";
             playSound("off");
+            
         }
         else{
             message = "FluffyModuleOnline";
