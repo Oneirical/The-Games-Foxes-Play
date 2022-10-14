@@ -198,7 +198,9 @@ class Monster{
         }else{
             drawSprite(this.sprite, this.getDisplayX(),  this.getDisplayY());
             this.drawHp();
-            if (this.installed && this.sprite != 61) drawSprite(74, this.getDisplayX(),  this.getDisplayY());
+            let chassis = 74;
+            if (this.triggered) chassis = 80;
+            if (this.installed && this.sprite != 61) drawSprite(chassis, this.getDisplayX(),  this.getDisplayY());
         }
         let speed = 1/8;
         if (this.isPlayer && this.activemodule == "Thrusters") speed = 1;
@@ -369,6 +371,9 @@ class Monster{
                                     if (x.order == pushTile.monster.cores){
                                         //NYOM!
                                         x.sprite = newTile.monster.sprite;
+                                        x.name = newTile.monster.name;
+                                        x.ability = newTile.monster.ability;
+                                        x.lore = newTile.monster.lore;
                                         x.spritesave = newTile.monster.spritesave;
                                         x.installed = true;
                                         pushTile.monster.corelist.push(newTile.monster.type);
@@ -381,6 +386,9 @@ class Monster{
                                 if (corecount == 4){
                                     pushTile.monster.hastalavista = true;
                                     message = "EpsilonAllForOne";
+                                    for (let z of monsters){
+                                        if (z.order > 0) z.triggered = true;
+                                    }
                                     pushTile.monster.vulnerability = 99999;
                                 }
                                 corevore = true;
@@ -390,7 +398,7 @@ class Monster{
                             else if (!(pushTile.monster instanceof Box)){
                                 abandon = true;
                                 let neighbors = this.tile.getAdjacentPassableEmptyNeighbors();
-                                if(neighbors.length){
+                                if(neighbors.length && !this.isPlayer){
                                     this.tryMove(neighbors[0].x - this.tile.x, neighbors[0].y - this.tile.y);
                                 }
                                 else return false;
@@ -404,7 +412,7 @@ class Monster{
                     }
                     else{
                         let neighbors = this.tile.getAdjacentPassableEmptyNeighbors();
-                        if(neighbors.length){
+                        if(neighbors.length && !this.isPlayer){
                             this.tryMove(neighbors[0].x - this.tile.x, neighbors[0].y - this.tile.y);
                         }
                         else return false;
@@ -412,7 +420,7 @@ class Monster{
                 }
                 else{
                     let neighbors = this.tile.getAdjacentPassableEmptyNeighbors();
-                    if(neighbors.length){
+                    if(neighbors.length && !this.isPlayer){
                         this.tryMove(neighbors[0].x - this.tile.x, neighbors[0].y - this.tile.y);
                     }
                     else return false;
@@ -601,7 +609,6 @@ class Player extends Monster{
         if (this.activemodule == "Hover")
             if (this.consumeCommon(1,false)){
                 for (let x of monsters){
-                    console.log(x.teleportCounter);
                     if (x.teleportCounter > 0) x.teleportCounter++;
                 }
             }
@@ -1842,6 +1849,10 @@ class Epsilon extends Monster{
                     playSound("epsivuln");
                     message = "EpsilonRedWeak";
                     removeItemOnce(this.corelist,"Red");
+                    for (let z of monsters){
+                        if (z.name.includes("Turbo")) z.triggered = true;
+                    }
+                    this.sprite = 81;
                     this.vulnerability = 15;
                 }
                 this.nospell = 2;
@@ -1859,6 +1870,10 @@ class Epsilon extends Monster{
             message = "EpsilonWhiteWeak";
             this.vulnerability = 25;
             removeItemOnce(this.corelist,"White");
+            for (let z of monsters){
+                if (z.name.includes("Entropic")) z.triggered = true;
+            }
+            this.sprite = 81;
         }
         //Pink vuln test
         if (player.rosetox >= 4 && this.corelist.includes("Pink") && !this.hastalavista){
@@ -1866,6 +1881,10 @@ class Epsilon extends Monster{
             message = "EpsilonPinkWeak";
             this.vulnerability = 10;
             removeItemOnce(this.corelist,"Pink");
+            for (let z of monsters){
+                if (z.name.includes("Roseic")) z.triggered = true;
+            }
+            this.sprite = 81;
         }
         //Cyan vuln test
         for (let x of monsters){
@@ -1878,6 +1897,10 @@ class Epsilon extends Monster{
                             playSound("epsivuln");
                             this.vulnerability = 5;
                             removeItemOnce(this.corelist,"Cyan");
+                            for (let z of monsters){
+                                if (z.name.includes("Subwoofer")) z.triggered = true;
+                            }
+                            this.sprite = 81;
                         } 
                     }
                 }
@@ -1895,6 +1918,7 @@ class Epsilon extends Monster{
             this.isInvincible = true;
             message = "EpsilonRestored";
             playSound("epsirepair");
+            this.sprite = 67;
             for (let x of monsters){
                 if (x instanceof Tail){
                     x.isInvincible = true;
@@ -1968,6 +1992,7 @@ class Tail extends Monster{
         this.installed = false;
         this.loveless = true;
         this.beepbeepbeep = false;
+        this.triggered = false;
     }
     doStuff(){
         this.turbo = false;
