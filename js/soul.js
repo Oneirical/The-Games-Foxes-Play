@@ -630,7 +630,7 @@ spells = {
         let doit = false;
         while(true){
             let testTile = newTile.getNeighbor(0,1);
-            if(!(testTile instanceof Platform) && !testTile.monster && testTile.y < 9){
+            if(!(testTile instanceof Platform) && !(testTile instanceof Ladder) && !testTile.monster && testTile.y < 9){
                 newTile = testTile;
             }else if (testTile instanceof Platform){
                 doit = true;
@@ -640,11 +640,14 @@ spells = {
                 if ((caster.charmed || caster.isPlayer) && !testTile.monster.isPlayer){
                     testTile.monster.fp++;
                     testTile.monster.knockback(testTile.monster.fp,[0,-1])
+                    break;
                 }
-                else if (!caster.charmed &&  testTile.monster.isPlayer){
+                else if (!caster.charmed && testTile.monster.isPlayer){
                     testTile.monster.fp++;
                     testTile.monster.knockback(testTile.monster.fp,[0,-1])
+                    break;
                 }
+                else break;
             }
             else if (testTile.y > 8) break;
             else break;
@@ -658,7 +661,7 @@ spells = {
                 let platTile = testTile.getNeighbor(0,1);
                 if((platTile instanceof Platform)){
                     testTile.setEffect(75,30); //TODO
-                    if (testTile.monster){
+                    if (testTile.monster && testTile != caster.tile){
                         testTile.monster.fp++;
                         testTile.monster.knockback(testTile.monster.fp,[0,-1]);
                     }
@@ -672,7 +675,7 @@ spells = {
                 let platTile = testTile.getNeighbor(0,1);
                 if((platTile instanceof Platform)){
                     testTile.setEffect(75,30); //TODO
-                    if (testTile.monster){
+                    if (testTile.monster && testTile != caster.tile){
                         testTile.monster.fp++;
                         testTile.monster.knockback(testTile.monster.fp,[0,-1]);
                     }

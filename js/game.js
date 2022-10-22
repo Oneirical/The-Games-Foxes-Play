@@ -375,9 +375,9 @@ function tick(){
                 else if (player.rosetox > 9){
                     message = "Rosified";
                 }
-                for(let k=monsters.length-1;k>=0;k--){
-                    monsters.splice(k,1);
-                }
+                //for(let k=monsters.length-1;k>=0;k--){
+                //    monsters.splice(k,1);
+                //}
                 if (truehp <= 0){
                     gameState = "dead";
                     pauseAllMusic();

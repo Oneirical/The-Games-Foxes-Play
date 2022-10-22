@@ -208,7 +208,11 @@ class Monster{
             }
         }
         if(this.tile != newTile){
-            this.move(newTile);
+            if (!(testTile instanceof AbazonWall)) this.move(newTile);
+            else{
+                this.hit(99);
+                this.sprite = 83;
+            }
             //playSound("explosion"); TODO put a cool ori-style sound here later
             //shakeAmount = 35;
         }
@@ -217,7 +221,7 @@ class Monster{
     draw(){
         if(this.teleportCounter > 0){                  
             drawSprite(10, this.getDisplayX(),  this.getDisplayY());                 
-        }else{
+        }else if (!(this.hp < 0 && area == "Spire")){
             drawSprite(this.sprite, this.getDisplayX(),  this.getDisplayY());
             this.drawHp();
             let chassis = 74;
@@ -241,7 +245,7 @@ class Monster{
                 );
             }
         }
-        if (!this.isInvincible && this.order < 0){
+        if (!this.isInvincible && this.order < 0 && !this.dead){
             for(let i=0; i<this.fp; i++){
                 drawSprite(
                     82,
@@ -518,8 +522,8 @@ class Monster{
                 }
             });
         }
-        if (this.isFluffy) this.sprite = 2;
-        else this.sprite = 1;
+        if (area != "Spire") this.sprite = 1;
+        else this.sprite = 83;
     }
 
     move(tile){
@@ -639,7 +643,7 @@ class Player extends Monster{
             }
             tick();
         }
-        if (area == "Spire" && this.activemodule != "Hover" && !(this.tile.getNeighbor(0,1) instanceof Platform || this.tile.getNeighbor(0,1) instanceof Ladder || this.tile instanceof Ladder)){
+        if (area == "Spire" && this.activemodule != "Hover" && !(this.tile.getNeighbor(0,1) instanceof Platform || this.tile.getNeighbor(0,1) instanceof Ladder || this.tile instanceof Ladder || this.tile.getNeighbor(0,1).monster)){
             this.fall++;
         }
         if (this.activemodule == "Hover")
