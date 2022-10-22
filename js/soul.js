@@ -607,10 +607,20 @@ spells = {
         caster.tile.getAllNeighbors().forEach(function(t){
             t.setEffect(75, 30); // TODO the effect will have to get changed here
             if(t.monster && caster.charmed && !t.monster.loveless && !t.monster.isPlayer){
-                t.monster.charmed = true;
+                let dir = [randomRange(-1,1),randomRange(-1,1)];
+                t.monster.fp++;
+                let pow = t.monster.fp;
+                t.monster.knockback(pow,dir);
+                dir = [-dir[0],-dir[1]];
+                caster.knockback(caster.fp+1,dir);
             }
             else if (t.monster && !caster.charmed && t.monster.isPlayer){
-                
+                let dir = [randomRange(-1,1),randomRange(-1,1)];
+                t.monster.fp++;
+                let pow = t.monster.fp;
+                t.monster.knockback(pow,dir);
+                dir = [-dir[0],-dir[1]];
+                caster.knockback(caster.fp+1,dir);
             }
         });
     }

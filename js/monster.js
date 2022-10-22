@@ -330,7 +330,7 @@ class Monster{
             }else{
                 if(((this.isPlayer != newTile.monster.isPlayer)||newTile.monster.marked||(this.charmed && !newTile.monster.isPlayer && !newTile.monster.charmed))&&!this.isPassive && !newTile.monster.isGuide &&!newTile.monster.pushable && !(this.charmed&&newTile.monster.isPlayer)){
                     this.attackedThisTurn = true;
-                    if (!this.isFluffy) newTile.monster.hit(this.dmg + Math.floor(this.bonusAttack));
+                    if (!this.isFluffy && !(this.isPlayer && area == "Spire")) newTile.monster.hit(this.dmg + Math.floor(this.bonusAttack));
                     else newTile.monster.fp++;
                     if (newTile.monster.fp > 0){
                         newTile.monster.knockback(newTile.monster.fp, [dx, dy]);
@@ -1546,7 +1546,18 @@ class HostileFluffy extends Monster{
         this.name = "Serene Peacemaker";
         this.isFluffy = true;
         this.ability = "";
+        this.abitimer = 0;
         this.noloot = true;
+    }
+    doStuff(){
+        this.abitimer++;
+        if (this.abitimer == 3){
+            this.abitimer = 0;
+            spells["FUFFYORI"](this);
+        }
+        else{
+            super.doStuff();
+        }
     }
 }
 
