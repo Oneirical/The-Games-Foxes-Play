@@ -194,6 +194,7 @@ class Monster{
     }
 
     knockback(power, direction){ //TODO something will have to be done to fix epsilon with this eventually
+        //TODO also add suicide protection as a toggle
         let newTile = this.tile;
         let testTile = newTile;
         while(power > 0){
@@ -1553,7 +1554,7 @@ class HostileFluffy extends Monster{
         this.abitimer++;
         if (this.abitimer == 3){
             this.abitimer = 0;
-            spells["FUFFYORI"](this);
+            spells["FUFFYSTOMP"](this);
         }
         else{
             super.doStuff();

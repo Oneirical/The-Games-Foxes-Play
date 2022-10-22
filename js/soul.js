@@ -623,7 +623,66 @@ spells = {
                 caster.knockback(caster.fp+1,dir);
             }
         });
-    }
+    },
+
+    FUFFYSTOMP: function(caster){
+        let newTile = caster.tile;
+        let doit = false;
+        while(true){
+            let testTile = newTile.getNeighbor(0,1);
+            if(!(testTile instanceof Platform) && !testTile.monster && testTile.y < 9){
+                newTile = testTile;
+            }else if (testTile instanceof Platform){
+                doit = true;
+                break;
+            }
+            else if(testTile.monster){
+                if ((caster.charmed || caster.isPlayer) && !testTile.monster.isPlayer){
+                    testTile.monster.fp++;
+                    testTile.monster.knockback(testTile.monster.fp,[0,-1])
+                }
+                else if (!caster.charmed &&  testTile.monster.isPlayer){
+                    testTile.monster.fp++;
+                    testTile.monster.knockback(testTile.monster.fp,[0,-1])
+                }
+            }
+            else if (testTile.y > 8) break;
+            else break;
+        }
+        if(caster.tile != newTile && doit){
+            caster.move(newTile);
+            shakeAmount = 30;
+            playSound("explosion");
+            while(true){
+                let testTile = newTile.getNeighbor(1,0);
+                let platTile = testTile.getNeighbor(0,1);
+                if((platTile instanceof Platform)){
+                    testTile.setEffect(75,30); //TODO
+                    if (testTile.monster){
+                        testTile.monster.fp++;
+                        testTile.monster.knockback(testTile.monster.fp,[0,-1]);
+                    }
+                    newTile = testTile;
+                }else{
+                    break;
+                }
+            }
+            while(true){
+                let testTile = newTile.getNeighbor(-1,0);
+                let platTile = testTile.getNeighbor(0,1);
+                if((platTile instanceof Platform)){
+                    testTile.setEffect(75,30); //TODO
+                    if (testTile.monster){
+                        testTile.monster.fp++;
+                        testTile.monster.knockback(testTile.monster.fp,[0,-1]);
+                    }
+                    newTile = testTile;
+                }else{
+                    break;
+                }
+            }
+        }
+    },
 };
 
 function boltTravel(direction, effect, damage, location, friendly){
