@@ -424,13 +424,6 @@ function tick(){
         }
         
     }
-
-    spawnCounter--;
-    if(spawnCounter <= 0){  
-        spawnMonster();
-        spawnCounter = spawnRate;
-        spawnRate--;
-    }
     if (doublecounter != 0) doublecounter--;
 }
 
@@ -493,6 +486,7 @@ function startGame(){
 }
 
 function startLevel(playerHp){
+    area = "Spire"; //temp (remove later)
     if (area == "Edge") {
         let numtest = numTiles;
         numTiles = 18;
@@ -515,8 +509,6 @@ function startLevel(playerHp){
         numTiles = 9;
         //if (numtest != numTiles) setupCanvas();
     }
-    spawnRate = 99999999999;
-    spawnCounter = spawnRate;  
     exitspawn = 0;
     resolve = 3+ Math.floor(resolvebonus/2);
     playMusic();

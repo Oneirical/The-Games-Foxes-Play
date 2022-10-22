@@ -594,7 +594,7 @@ spells = {
     PSYDRONE: function(caster){
         caster.tile.getAllNeighbors().forEach(function(t){
             t.setEffect(75, 30);
-            if(t.monster && caster.charmed && !t.monster.loveless){
+            if(t.monster && caster.charmed && !t.monster.loveless && !t.monster.isPlayer){
                 t.monster.charmed = true;
             }
             else if (t.monster && !caster.charmed && t.monster.isPlayer){
@@ -602,6 +602,18 @@ spells = {
             }
         });
     },
+
+    FUFFYORI: function(caster){
+        caster.tile.getAllNeighbors().forEach(function(t){
+            t.setEffect(75, 30); // TODO the effect will have to get changed here
+            if(t.monster && caster.charmed && !t.monster.loveless && !t.monster.isPlayer){
+                t.monster.charmed = true;
+            }
+            else if (t.monster && !caster.charmed && t.monster.isPlayer){
+                
+            }
+        });
+    }
 };
 
 function boltTravel(direction, effect, damage, location, friendly){

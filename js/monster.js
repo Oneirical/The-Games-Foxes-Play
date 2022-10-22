@@ -74,6 +74,7 @@ class Monster{
         this.sprite = sprite;
         this.spritesave = sprite;
         this.hp = hp;
+        this.fp = 0; //it stands for fluffy points
         this.dmg = 1;
         this.loot = loot;
         this.loveless = false;
@@ -192,6 +193,26 @@ class Monster{
         return this.tile.y + this.offsetY;
     }
 
+    knockback(power, direction){ //TODO something will have to be done to fix epsilon with this eventually
+        let newTile = this.tile;
+        let testTile = newTile;
+        while(power > 0){
+            testTile = newTile.getNeighbor(direction[0],direction[1]);
+            if(testTile.passable && !testTile.monster){
+                newTile.setEffect(this.sprite,30);
+                newTile = testTile;
+                power--;
+            }else{
+                break;
+            }
+        }
+        if(this.tile != newTile){
+            this.move(newTile);
+            //playSound("explosion"); TODO put a cool ori-style sound here later
+            //shakeAmount = 35;
+        }
+    }
+
     draw(){
         if(this.teleportCounter > 0){                  
             drawSprite(10, this.getDisplayX(),  this.getDisplayY());                 
@@ -214,6 +235,15 @@ class Monster{
             for(let i=0; i<this.hp; i++){
                 drawSprite(
                     9,
+                    this.getDisplayX() + (i%8)*(2.7/16),   
+                    this.getDisplayY() - Math.floor(i/8)*(2/16)
+                );
+            }
+        }
+        if (!this.isInvincible && this.order < 0){
+            for(let i=0; i<this.fp; i++){
+                drawSprite(
+                    82,
                     this.getDisplayX() + (i%8)*(2.7/16),   
                     this.getDisplayY() - Math.floor(i/8)*(2/16)
                 );
@@ -300,7 +330,11 @@ class Monster{
             }else{
                 if(((this.isPlayer != newTile.monster.isPlayer)||newTile.monster.marked||(this.charmed && !newTile.monster.isPlayer && !newTile.monster.charmed))&&!this.isPassive && !newTile.monster.isGuide &&!newTile.monster.pushable && !(this.charmed&&newTile.monster.isPlayer)){
                     this.attackedThisTurn = true;
-                    newTile.monster.hit(this.dmg + Math.floor(this.bonusAttack));
+                    if (!this.isFluffy) newTile.monster.hit(this.dmg + Math.floor(this.bonusAttack));
+                    else newTile.monster.fp++;
+                    if (newTile.monster.fp > 0){
+                        newTile.monster.knockback(newTile.monster.fp, [dx, dy]);
+                    }
                     if (this.specialAttack == "Charm" && newTile.monster){
                         newTile.monster.charmed = !newTile.monster.charmed;
                         this.specialAttack = "";
