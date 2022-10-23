@@ -246,7 +246,7 @@ class Monster{
             }
         }
         if (!this.isInvincible && this.order < 0 && !this.dead){
-            for(let i=0; i<this.fp; i++){
+            for(let i=0; i<Math.min(this.fp,6); i++){
                 drawSprite(
                     82,
                     this.getDisplayX() + (i%8)*(2.7/16),   
@@ -1361,7 +1361,7 @@ class Player extends Monster{
         }
         if (area == "Spire") spirevisited = true;
         this.hp = 0;
-        areachange = true;
+        areachange = false;
         rosetoxin = 0;
         startLevel(Math.min(maxHp, player.hp+6));
         contemhint = true;
@@ -1545,7 +1545,7 @@ class BattleFluffy extends Monster{
 
 class HostileFluffy extends Monster{
     constructor(tile){
-        super(tile, 26, 5, "SERENE", description["Peacemaker"]);
+        super(tile, 26, 6, "SERENE", description["Peacemaker"]);
         this.soul = "Animated by a Serene (?) soul.";
         this.name = "Serene Peacemaker";
         this.isFluffy = true;

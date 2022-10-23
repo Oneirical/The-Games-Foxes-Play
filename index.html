@@ -58,7 +58,7 @@
     dialoguecount = 0;
     fail = false;
     fallen = false;
-    areachange = false;
+    areachange = true;
     spirevisited = false;
     showboss = false;
 
@@ -160,8 +160,8 @@
                     if (player.tile.getNeighbor(0, 1).monster) player.tile.getNeighbor(0, 1).monster.knockback(1, [0,1]);
                 }
                 let tile = getTile(player.tile.x,player.tile.y+1);
-                player.move(tile);
-                if (tile.y > 8 || tile.x > 8 || tile.x < 0 || tile.y < 0){
+                if (player.fall > 0) player.move(tile);
+                if (player.tile.y > 8 || player.tile.x > 8 || player.tile.x < 0 || player.tile.y < 0){
                     player.hit(99);
                     player.sprite = 83;
                     fallen = true;

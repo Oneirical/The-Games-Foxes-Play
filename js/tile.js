@@ -385,6 +385,7 @@ class Booster extends Exit{
         this.sprite = 59;
     }
     stepOn(monster){
+        player.fall = 0;
         areachange = false;
         super.stepOn(monster);
         if (level % 5 == 1 && level > 5) message= "FluffyWorkshop";

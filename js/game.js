@@ -808,26 +808,26 @@ function playMusic(){
     }
     else if (area == "Spire" && areachange){
         pauseAllMusic();
-        if (!spirevisited) playSound("spire");
+        if (!spirevisited) playSound("spireloop");
         else playSound("spireloop");
     }
     else if (level == 0){
         pauseAllMusic();
         playSound("cage");
     }
-    else if (level == 7){
+    else if (level == 7&& area == "Faith"){
         pauseAllMusic();
         playSound("seal");
     }
-    else if (level == 1){
+    else if (level == 1&& area == "Faith"){
         pauseAllMusic();
         playSound("max");
     }
-    else if (level == 12){
+    else if (level == 12&& area == "Faith"){
         pauseAllMusic();
         playSound("quarry");
     }
-    else if (level == 17){
+    else if (level == 17&& area == "Faith"){
         pauseAllMusic();
         playSound("epsilon");
     }
