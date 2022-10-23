@@ -663,7 +663,7 @@ class Player extends Monster{
         if (this.constrict){
             if (!player.dead) message = "Constricted";
         }
-        if (this.fall > 0 && !this.dead){ //wtf why is it fluffexit and not ladder? whatever works I guess
+        if (this.fall > 1 && !this.dead){ //wtf why is it fluffexit and not ladder? whatever works I guess
             if (this.tile.name != "Harmonic Seal") message = "Falling";
         }
         if (message == "Falling" && this.fall == 0) message = "Empty";
@@ -1546,7 +1546,6 @@ class BattleFluffy extends Monster{
 class HostileFluffy extends Monster{
     constructor(tile){
         super(tile, 26, 5, "SERENE", description["Peacemaker"]);
-        this.teleportCounter = 0;
         this.soul = "Animated by a Serene (?) soul.";
         this.name = "Serene Peacemaker";
         this.isFluffy = true;
@@ -1558,7 +1557,8 @@ class HostileFluffy extends Monster{
         this.abitimer++;
         if (this.abitimer == 3){
             this.abitimer = 0;
-            spells["FUFFYSTOMP"](this);
+            let fuffyabi = ["FUFFYSTOMP","FUFFYORI"];
+            spells[fuffyabi[randomRange(0,1)]](this);
         }
         else{
             super.doStuff();
