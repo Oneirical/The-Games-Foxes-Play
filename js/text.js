@@ -134,10 +134,37 @@ messages = {
 
     "RoseWelcome1" : "\"A pleasure to meet you in person, dear Terminal. I would tell you to take a seat, but it seems I forgot to provide you one. You may have to build one yourself out of the corpses that will soon litter this Circus.\"",
     "RoseWelcome2" : "\"I'm sure your time is as valuable as mine, so I won't bother mincing words. I'm happy enough to negotiate - I'll grant you all the comfort you deserve, and can say the same for those Souls chattering about in that mind of yours.\"",
-    "RoseWelcome3" : "\"But the completion of your pilgrimage is not on the table. The Next World will be harmonized. I offered your creator increasingly generous compromises - ten, five, a single Serene soul to slot inside your skull. No, no and no. By walking away with nothing in my paws, it may seem like I have failed to uphold my end of my contract with Fluffy.\"",
+    "RoseWelcome3" : "\"But the completion of your pilgrimage is not on the table. The Next World will be harmonized. I offered your creator increasingly generous compromises - ten, five, a single Serene soul to slot inside your skull. All my requests were denied. By walking away with nothing in my paws, it may seem like I have failed to uphold my end of my contract with Fluffy.\"",
     "RoseWelcome4" : "\"Instead, I, Rose, Last of the Saints, will walk away with everything, as I ever do.\"",
     "RoseWelcome5" : "\"You will watch the end of the world here, with me, as my loyal subordinate, while the Collective thrives in the Next World.\"",
-    "RoseBattle" : "\"This is not up for negociation.\"",
+    "RoseWelcome6" : "\"This is not up for negociation.\"",
+
+    // Trade for rosids
+    "RoseMarket" : "\"Ah, Terminal. You are such a loyal pet, listening to my memories with such diligence. As is customary in any museum visit, the exit is always through the gift shop.\"",
+
+    "RoseDark1" : "\"You must be growing weary of contrasting my illustrious figure with whatever the wet towel serving as your body is. Allow me to provide you with some reprieve.\"",
+    "RoseDark2" : "\"One of my predecessors did insist on the value of darkness for recollection and introspection.\"",
+    "RoseDark3" : "\"I trust this experience will let you meditate on all the mistakes you made that led to a truly harrowing fate: not being me.\"",
+    "RoseDark4" : "\"Thankfully, such weaknesses can be remedied. All you must do is follow my voice, like lanterns across a starlit path...\"",
+    "RoseDarkBoss" : "\"So much ignorance. Falsity and illusion infested the Old World, and I was the cure. Uniformity. Authority. I made doubt and confusion shrivel away under pink radiance.\"",
+
+    "RoseChem1" : "\"Saints' Breath, Glamorous Toxin, 'the pink stuff'. My finest creation takes many names.\"",
+    "RoseChem2" : "\"A gasp is all it takes to become the absolute best version of yourself. Under its influence, work is play, crime is myth, and divinity is identity.\"",
+    "RoseChem3" : "\"In trials, the Vile love to claim their every deed was the product of a long chain of immutable memories and bad influences.\"",
+    "RoseChem4" : "\"They were right in blaming their origins. They were wrong in believing these were immutable.\"",
+    "RoseChemBoss" : "\"Oh, how wide they grinned... How shining their manes had become... How numerous their frills and ribbons were. I had truly enlightened them.\"",
+
+    "RoseHarmony1" : "\"Ah, the Collective. Fluffy breeds mystique, harbours elegance and knows nothing of mediocrity. Just like me. No wonder we get along so well.\"",
+    "RoseHarmony2" : "\"At this point in time, there is no use in hiding it - the Harmony is the distilled version of my majesty, extracted from my psyche better than any masterful chemist ever could have done.\"",
+    "RoseHarmony3" : "\"Some call her cancer - self-duplication with no purpose or end goal other than consumption of all. As far as I can remember, tumours weren't always so beautiful!\"",
+    "RoseHarmony4" : "\"Under a rebranded, purified form, roseic grace spreads, and I do not have to lift a single paw. I have achieved the dream every ruler, missionary and influencer ever desired. I am ecstasy itself.\"",
+    "RoseHarmonyBoss" : "\"Hmm. I'd just wish they liked the color pink a little bit more.\"",
+
+    "RoseEdge1" : "\"Creation triumphs over destruction, so they said. It was much more than a simple exhortation to hard work!\"",
+    "RoseEdge2" : "\"Unsupervised, grain of sand became pebble, and pebble became factory. A set of cogs and pipes designed by, producing for and obeying to no one.\"",
+    "RoseEdge3" : "\"Could you imagine how easy discovery and development must have been under this principle? One would think of treasures and obtain them!\"",
+    "RoseEdge4" : "\"And now, the Next World, under the iron paw of the Harmony, will have this primordial force exploited anew, this time by organized, intelligent minds with a passion for growth.\"",
+    "RoseEdgeBoss" : "\"A shame we won't be around to witness it, beloved Terminal. We can only stay here and dream. And to think you wanted to prevent this!\"",
 
     // Epsilon, Supreme Ordered General
 
