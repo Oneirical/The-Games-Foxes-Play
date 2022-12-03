@@ -12,6 +12,7 @@ artistic = ["PURPIZUG","AUBE","BORERORA", "GYVJI"];
 ordered = ["ASPHA","ABAZON","NAIA"];
 saintly = ["ROSE","ZAINT","ASTER"];
 basic = ["TAINTED","VILE","FERAL","UNHINGED","ARTISTIC","ORDERED","SAINTLY"];
+basicspire = ["VILES","FERALS","UNHINGEDS","ARTISTICS","ORDEREDS","SAINTLYS"];
 smod = ["Alacrity","Selective","Thrusters","Hover","Focus"];
 modulators = ["Alacrity","Selective","Thrusters","Hover","Focus"];
 
@@ -148,17 +149,17 @@ messages = {
     "RoseDark4" : "\"Thankfully, such weaknesses can be remedied. All you must do is follow my voice, like lanterns across a starlit path...\"",
     "RoseDarkBoss" : "\"So much ignorance. Falsity and illusion infested the Old World, and I was the cure. Uniformity. Authority. I made doubt and confusion shrivel away under pink radiance.\"",
 
-    "RoseChem1" : "\"Saints' Breath, Glamorous Toxin, 'the pink stuff'. My finest creation takes many names.\"",
+    "RoseChem1" : "\"Saints' Breath, Glamorous Toxin... My finest creation takes many names.\"",
     "RoseChem2" : "\"A gasp is all it takes to become the absolute best version of yourself. Under its influence, work is play, crime is myth, and divinity is identity.\"",
     "RoseChem3" : "\"In trials, the Vile love to claim their every deed was the product of a long chain of immutable memories and bad influences.\"",
     "RoseChem4" : "\"They were right in blaming their origins. They were wrong in believing these were immutable.\"",
-    "RoseChemBoss" : "\"Oh, how wide they grinned... How shining their manes had become... How numerous their frills and ribbons were. I had truly enlightened them.\"",
+    "RoseChemBoss" : "\"Oh, how wide they grinned... How shining their coats had become... How numerous their frills and ribbons were. I had truly enlightened them.\"",
 
     "RoseHarmony1" : "\"Ah, the Collective. Fluffy breeds mystique, harbours elegance and knows nothing of mediocrity. Just like me. No wonder we get along so well.\"",
     "RoseHarmony2" : "\"At this point in time, there is no use in hiding it - the Harmony is the distilled version of my majesty, extracted from my psyche better than any masterful chemist ever could have done.\"",
     "RoseHarmony3" : "\"Some call her cancer - self-duplication with no purpose or end goal other than consumption of all. As far as I can remember, tumours weren't always so beautiful!\"",
     "RoseHarmony4" : "\"Under a rebranded, purified form, roseic grace spreads, and I do not have to lift a single paw. I have achieved the dream every ruler, missionary and influencer ever desired. I am ecstasy itself.\"",
-    "RoseHarmonyBoss" : "\"Hmm. I'd just wish they liked the color pink a little bit more.\"",
+    "RoseHarmonyBoss" : "\"Hmm. I just wish they liked the color pink a little bit more.\"",
 
     "RoseEdge1" : "\"Creation triumphs over destruction, so they said. It was much more than a simple exhortation to hard work!\"",
     "RoseEdge2" : "\"Unsupervised, grain of sand became pebble, and pebble became factory. A set of cogs and pipes designed by, producing for and obeying to no one.\"",
@@ -234,7 +235,9 @@ messages = {
     "ARTISTICF" : "\"But- All the things I was going to do in the Next World... You would take them away from me?\"",
     "UNHINGEDF" : "\"Swapping out a tyrant for another?! You are no better than the Saints!\"",
     "FERALF" : "The Feral soul whimpers in terrible anguish.",
-    "VILEF" : "The Vile soul whispers through its ghostly fangs. \"Had the tables been turned, you would be begging for my mercy...\""
+    "VILEF" : "The Vile soul whispers through its ghostly fangs. \"Had the tables been turned, you would be begging for my mercy...\"",
+
+    "SAINTLYS" : "\"The... The foxes! Don't look at them, don't listen to them, don't even think about them! Your name is Terminal! Terminal!!\"",
 
 }
 
@@ -273,6 +276,7 @@ colours = {
     "SOULLESS" : "grey",
     "TAINTED" : "magenta",
     "SAINTLY" : "lime",
+    "SAINTLYS" : "lime",
     "ORDERED" : "red",
     "ARTISTIC" : "orange",
     "UNHINGED" : "yellow",
@@ -447,7 +451,7 @@ souldesc = {
     "GYVJI" : "All contenders of the Saints' Arena feared Gyvji's mythical tail slap, supposedly so strong it could knock your soul out of your body and into the crowd, leaving the body untouched. Thankfully, it wasn't long until reality caught up, causing the victim's flesh to charge into the hopefully empty seats of the stadium, where it would be rejoined with its distraught spirit.",
     "KASHIA" : "The first day of her infection, many wondered why Kashia waited five seconds to respond after being asked the most basic questions. After being brought for inspection to a dream-healer, her family gasped in horror at the apparent lack of a soul within her body. Their throats breathed sighs of relief when a little ghostly Kashia arrived five seconds later to mesh with the lizard's flesh, seemingly forever cursed to remain an after-image.",
     "ROSEILLUSION" : "No need for survival. No need for struggle.",
-
+    "SAINTLYS" : "The upper castes were the first to fall for the Harmony's schemes. Obsessed with decorum and etiquette, they saw in Fluffy an esteemed contact, and not the identity-expunging force she truly is.",
     //modulators
     "Alacrity" : "A Collectivist's mind isn't located in any centralized brain - their intelligence is rather the sum of billions of tiny atmospheric depressurizations between their body and the outside air. In a vaccuum, a Harmony member would be instantly reduced to a puff of thoughtless gas. This cybernetic allows some degree of connection between your own mushy brain and the outside environment, hastening your wit.",
     "Selective" : "To a soul unprotected by its own unique flesh container, the Harmonic song is a tidal wave of cyan paint, erasing all colour and enforcing an irresistible Sameness. The Harmonic song is, thankfully, very recognizable. While it cannot be silenced, it can certainly be redirected towards a weaker recipient. Serene souls will not appreciate this forceful containment, and will seek out additional targets to enthrall... perhaps to your advantage.",
@@ -488,6 +492,7 @@ soulabi = {
     "GYVJI" : "DIAMOND STRIKE - When activated, punch the adjacent enemy in the direction of your last move. The target flies until it meets a wall or another enemy, at which point it causes a 1-range blast that destroys walls and inflicts 3 damage. The target must fly at least 1 tile for the blast to take effect.",
     "KASHIA" : "REALITY DELAY - When activated, freeze your current HP, preventing all changes. 5 turns later, apply all damage and healing that occurred during the delay period. Applied healing is doubled.",
     "ROSEILLUSION" : "ROSE - There is beauty. There is grace. You are beauty, you are grace. You are Rose. All is Rose.",
+    "SAINTLYS" : "DELAYING THE INEVITABLE - When activated, knock back all adjacent creatures one tile away, then remove 2 Influence points from each one affected. Remove 2 Influence points from yourself.",
 
     //modulators
     "Alacrity" : "Drawing souls with \"q\" requires zero turns. Serene Peacekeepers gain Haste.",
@@ -503,6 +508,7 @@ soulval = {
     "SOULLESS" : "Cannot be traded in a Harmonic Relay.",
     "TAINTED" : "Worth a random number of points (between 1 and 6) in a Harmonic Relay.",
     "SAINTLY" : "Worth 6 points in a Harmonic Relay.",
+    "SAINTLYS" : "Worth 6 points in a Harmonic Relay.",
     "ORDERED" : "Worth 5 points in a Harmonic Relay.",
     "ARTISTIC" : "Worth 4 points in a Harmonic Relay.",
     "UNHINGED" : "Worth 3 points in a Harmonic Relay.",
@@ -543,6 +549,7 @@ soulname = {
     "SOULLESS" : "Devouring Soul",
     "TAINTED" : "Tainted Soul",
     "SAINTLY" : "Saintly Soul",
+    "SAINTLYS" : "Harmonic Saintly Soul",
     "ORDERED" : "Ordered Soul",
     "ARTISTIC" : "Artistic Soul",
     "UNHINGED" : "Unhinged Soul",

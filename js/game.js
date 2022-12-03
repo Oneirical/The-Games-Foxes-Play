@@ -106,6 +106,7 @@ function draw(){
                 if (mousdes != 21 && mousdes != 22) spellName = player.inhand[mousdes];
                 else spellName = player.activemodule;
                 selectation = mousdes;
+                if (basic.includes(spellName) && area == "Spire") spellName = spellName+"S";
                 if (rosetoxin > 1){
                     printAtWordWrap(souldesc["ROSEILLUSION"], 18, 10, 600, "pink", 20, 940);
                     printAtWordWrap(soulabi["ROSEILLUSION"], 18, 10, 725, "pink", 20, 940);
@@ -472,7 +473,7 @@ function startGame(){
     score = 0;
     numSpells = 0;
     aubecounter = 0;
-    invsave = [];//[, ] //];
+    invsave = ["SAINTLY","SAINTLY"];//[, ] //];
     modules = ["NONE"];
     modulators = ["Alacrity","Focus","Thrusters","Selective","Hover"];
     //let modtest = modulators[randomRange(0,4)];

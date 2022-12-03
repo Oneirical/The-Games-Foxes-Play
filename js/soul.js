@@ -31,6 +31,17 @@ spells = {
         caster.tile.setEffect(13,30);
         caster.heal(2);
     },
+    SAINTLYS: function(caster){
+        caster.tile.getAllNeighbors().forEach(function(t){
+            t.setEffect(13, 30);
+            if(t.monster){
+                t.monster.fp = Math.max(0,t.monster.fp-2);
+                t.monster.knockback(1, [t.x-caster.tile.x,t.y-caster.tile.y]);
+            }
+        });
+        caster.tile.setEffect(13,30);
+        caster.fp = Math.max(0,caster.fp-2);
+    },
     FERAL: function(caster){
         caster.shield = 1;
         let friendly = (caster.isPlayer || caster.charmed);

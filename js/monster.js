@@ -1006,9 +1006,11 @@ class Player extends Monster{
     castSpell(index){                                 
         let spellName = this.inhand[index];
         if (this.fuffified > 0) spellName = "SERENE";
+        if (basic.includes(spellName) && area == "Spire") spellName = spellName+"S";
         if(spellName && !soulabi[spellName].includes("Cannot be activated")){
             message = spellName;
             spells[spellName](this);
+            if (basicspire.includes(spellName)) spellName = spellName.slice(0, -1);
             if (!fail && this.activemodule != "Focus"){
                 this.saved.push(spellName);
                 this.inhand.splice(index, 1); 
@@ -1298,6 +1300,7 @@ class Player extends Monster{
 
     loreSpell(index){
         let spellName = this.inhand[index];
+        if (basic.includes(spellName) && area == "Spire") spellName = spellName+"S";
         if(spellName){
             if (rosetoxin > 1){
                 printAtWordWrap(souldesc["ROSEILLUSION"], 18, 10, 600, "pink", 20, 940);
