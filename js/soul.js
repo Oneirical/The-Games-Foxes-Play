@@ -42,6 +42,12 @@ spells = {
         caster.tile.setEffect(13,30);
         caster.fp = Math.max(0,caster.fp-2);
     },
+    ORDEREDS: function(caster){
+        spells["FUFFYSTOMP"](caster);
+    },
+    FERALS: function(caster){
+
+    },
     FERAL: function(caster){
         caster.shield = 1;
         let friendly = (caster.isPlayer || caster.charmed);

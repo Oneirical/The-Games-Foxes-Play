@@ -238,6 +238,11 @@ messages = {
     "VILEF" : "The Vile soul whispers through its ghostly fangs. \"Had the tables been turned, you would be begging for my mercy...\"",
 
     "SAINTLYS" : "\"The... The foxes! Don't look at them, don't listen to them, don't even think about them! Your name is Terminal! Terminal!!\"",
+    "ORDEREDS" : "\"It would be most advisable if you held your breath as we crush these pesky parasites, esteemed Vessel. Under no circumstance should you inhale their vapours.\"",
+    "ARTISTICS" : "\"You can't help but admire the architecture... the artistry... the quality of their craft...\"",
+    "UNHINGEDS" : "\"Tyrants beget tyrants. If the Saints are cultivators of misery, the Harmony are the vile seeds they sow upon the world.\"",
+    "FERALS" : "The Feral soul lies eerily still, mesmerized by an acrobatic calculation of complexity much greater than its usual faculties.",
+    "VILES" : "\"They do not beg for mercy, nor can they have their limbs torn apart one by one... Such boring creatures.\"",
 
 }
 
@@ -452,6 +457,11 @@ souldesc = {
     "KASHIA" : "The first day of her infection, many wondered why Kashia waited five seconds to respond after being asked the most basic questions. After being brought for inspection to a dream-healer, her family gasped in horror at the apparent lack of a soul within her body. Their throats breathed sighs of relief when a little ghostly Kashia arrived five seconds later to mesh with the lizard's flesh, seemingly forever cursed to remain an after-image.",
     "ROSEILLUSION" : "No need for survival. No need for struggle.",
     "SAINTLYS" : "The upper castes were the first to fall for the Harmony's schemes. Obsessed with decorum and etiquette, they saw in Fluffy an esteemed contact, and not the identity-expunging force she truly is.",
+    "ORDEREDS" : "The Ordered legions thought themselves immune to Harmonic influence for the longest time. When the alarm finally resounded, no bot could be trusted to build an antivirus that would not convert all remaining soldiers into puppets of the Harmony.",
+    "ARTISTICS" : "The more eccentric members among the worker castes welcomed the Harmony as the next step in the march of progress. First to surrender, they devised some of the Collective's most dastardly plans atop the Spire they now called home.",
+    "UNHINGEDS" : "For even the most inquisitive outcasts of civilization, the Harmony lied beyond understanding. Still, as anything that came from the Saints must be bad news, the Unhinged made up their mind quite quickly.",
+    "FERALS" : "With the most vulnerable minds of all, the mere presence of a Collectivist sufficed to induce oddly intelligent behaviour in wild beasts. Some paranoid individuals held a caged bird atop their homes, waiting for its chirping to turn to discernible words. Even as they reached for their bunkers, they quickly learned that cement cannot silence the Harmonic song.",
+    "VILES" : "When the first Collectivists entered the markets, they became the favourite customer of many a merchant thanks to their seemingly limitless funds and curiosity. As it turned out, spending big is easily justifiable if the one counting your coins swears surrender of material and spiritual possessions the next day.",
     //modulators
     "Alacrity" : "A Collectivist's mind isn't located in any centralized brain - their intelligence is rather the sum of billions of tiny atmospheric depressurizations between their body and the outside air. In a vaccuum, a Harmony member would be instantly reduced to a puff of thoughtless gas. This cybernetic allows some degree of connection between your own mushy brain and the outside environment, hastening your wit.",
     "Selective" : "To a soul unprotected by its own unique flesh container, the Harmonic song is a tidal wave of cyan paint, erasing all colour and enforcing an irresistible Sameness. The Harmonic song is, thankfully, very recognizable. While it cannot be silenced, it can certainly be redirected towards a weaker recipient. Serene souls will not appreciate this forceful containment, and will seek out additional targets to enthrall... perhaps to your advantage.",
@@ -464,10 +474,10 @@ souldesc = {
 soulabi = {
     "SOULLESS" : "",
     "TAINTED" : "ERRATIC BABBLE - When activated, does absolutely nothing.",
-    "SAINTLY" : "REGAL CONFIDENCE - When activated, channels the grace of the Saints to heal 2 hitpoints in a 1-tile range cross.",
-    "ORDERED" : "STALWART STANCE - When activated, grants invulnerability to damage for 1 turn.",
-    "ARTISTIC" : "EXPLOSIVE ARTIFICE - When activated, lays down a cross-laser landmine in your current location, which will detonate when an enemy steps on it.",
-    "UNHINGED" : "FORSAKEN FAITH - When activated, shoots beams in all 4 diagonal directions.",
+    "SAINTLY" : "REGAL CONFIDENCE - When activated, channel the grace of the Saints to heal 2 hitpoints in a 1-tile range cross.",
+    "ORDERED" : "STALWART STANCE - When activated, receive invulnerability to damage for 1 turn.",
+    "ARTISTIC" : "EXPLOSIVE ARTIFICE - When activated, lay down a cross-laser landmine in your current location, which will detonate when an enemy steps on it.",
+    "UNHINGED" : "FORSAKEN FAITH - When activated, shoot beams in all 4 diagonal directions.",
     "FERAL" : "WILD CHARGE - When activated, dash in the direction of the your last move, dealing damage to all enemies adjacent to the dash. You are shielded during the dash.",
     "VILE" : "DEVIOUS STAB - When activated, empower your next attack with 4 bonus damage.",
     "SERENE" : "HARMONIC UPLIFT - When activated, replace a random soul in your inventory with another Serene soul. Then, empower your next attack with a Harmonic touch, which transforms an enemy into a friendly Harmonizer.", //If there are two friendly Harmonizers in the room, they will simply stare at each other and do nothing, obsessed by their beauty.
@@ -493,6 +503,11 @@ soulabi = {
     "KASHIA" : "REALITY DELAY - When activated, freeze your current HP, preventing all changes. 5 turns later, apply all damage and healing that occurred during the delay period. Applied healing is doubled.",
     "ROSEILLUSION" : "ROSE - There is beauty. There is grace. You are beauty, you are grace. You are Rose. All is Rose.",
     "SAINTLYS" : "DELAYING THE INEVITABLE - When activated, knock back all adjacent creatures one tile away, then remove 2 Influence points from each one affected. Remove 2 Influence points from yourself.",
+    "ORDEREDS" : "GAS COMPRESSOR - When activated, shield yourself from all knockback for one turn, then punch one tile away in the direction of your last move at a force equal to all negated knockback.",
+    "ARTISTICS" : "SANITY ANCHOR - When activated, lay down a waypoint at your current position. The next time you are hit, warp back to the waypoint instead of enduring knockback, and unleash a range 2 explosion around yourself.",
+    "UNHINGEDS" : "SWELLING DISDAIN - When activated, propel forwards a slow-moving projectile which explodes upon touching a creature or the level's edge. The explosion unleashes an X-cross of knockback beams.",
+    "FERALS" : "TRANCE OF THE WILDS - When activated, stop time. Gain the ability to dash in the direction of your choice, knocking back any creature at the end and refreshing your dash. The ability ends when no creatures are hit by a dash.",
+    "VILES" : "BASH & DASH - When activated, pick a random adjacent creature, and knock it back as if it had just been struck. Dash in the opposite direction for the same number of tiles the target was knocked back across.",
 
     //modulators
     "Alacrity" : "Drawing souls with \"q\" requires zero turns. Serene Peacekeepers gain Haste.",
@@ -509,6 +524,11 @@ soulval = {
     "TAINTED" : "Worth a random number of points (between 1 and 6) in a Harmonic Relay.",
     "SAINTLY" : "Worth 6 points in a Harmonic Relay.",
     "SAINTLYS" : "Worth 6 points in a Harmonic Relay.",
+    "ORDEREDS" : "Worth 5 points in a Harmonic Relay.",
+    "ARTISTICS" : "Worth 4 points in a Harmonic Relay.",
+    "UNHINGEDS" : "Worth 3 points in a Harmonic Relay.",
+    "FERALS" : "Worth 2 points in a Harmonic Relay.",
+    "VILES" : "Worth 1 points in a Harmonic Relay.",
     "ORDERED" : "Worth 5 points in a Harmonic Relay.",
     "ARTISTIC" : "Worth 4 points in a Harmonic Relay.",
     "UNHINGED" : "Worth 3 points in a Harmonic Relay.",
@@ -551,10 +571,15 @@ soulname = {
     "SAINTLY" : "Saintly Soul",
     "SAINTLYS" : "Harmonic Saintly Soul",
     "ORDERED" : "Ordered Soul",
+    "ORDEREDS" : "Harmonic Ordered Soul",
     "ARTISTIC" : "Artistic Soul",
+    "ARTISTICS" : "Harmonic Artistic Soul",
     "UNHINGED" : "Unhinged Soul",
+    "UNHINGEDS" : "Harmonic Unhinged Soul",
     "FERAL" : "Feral Soul",
+    "FERALS" : "Harmonic Feral Soul",
     "VILE" : "Vile Soul",
+    "VILES" : "Harmonic Vile Soul",
     "SERENE" : "Serene Soul",
     "JOLTZAZON" : "Joltzazon, Husband of the Scarved River",
     "PURPIZUG" : "Purpizug, Painter of Blank Canvasses",
