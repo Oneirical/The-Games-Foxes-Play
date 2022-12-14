@@ -366,6 +366,7 @@ description = {
     "Binary" : "An elegant cat-sized moth of the purest quicksilver, its slightly viscous consistency giving it a mild resilience drones are not usually known for. Its glossy body reflects the light of the fluorescent tubes far above, and, with some Edgeian tricks and an identical partner, can channel it into a devastating beam.",
     "Titanic" : "A hulking mass of various scrap, under which glistens the glowing red eyes of a beetle-shaped drone. Its strength augmented hundredfold by whirring actuators, it sees your intrusion as no reason to stop sorting the Ordered army's garbage.",
     "Psydrone" : "A recent construction devised by Epsilon's new assimilationist doctrine, passively radiating a hypnotic aura inspiring military discipline and the respect of hierarchies. For the uneasily swayed, this chrome mantis's claws help strengthen its arguments.",
+    "Exploder" : "Even after the Unhinged fell one by one to the Spire's influence, their assimilation caused these globs of compressed spite to float up into the skies, where they bursted in a glorious fireworks show celebrating the Old World's downfall.",
     // Tiles
     "Floor" : "A long time ago, legions of monks carved holy symbols on each floortile of the palaces, so they may be worthy of being treaded by the Saints' steps. Decades of dust has undone the tireless work of these artists.",
     "Seal" : "The Saints feared Terminal would try to escape before the end times. They locked down their royal chambers, trading convenience for the peace of mind that their ticket to immortality would not run away in the middle of the night.",
@@ -390,6 +391,7 @@ description = {
     "RoseS" : "A once proud individual, whose willpower and strength of character have long been drained away by the pink twine constricting their body. From the edge of your sight, you swear you occasionally spot Rose himself taking the place of one of his servants, smiling mischievously at your surprise.",
     "RoseSpawn" : "A teletransporter, randomly hauling Rose's most loyal subjects into his circus. The lottery fliers claimed they'd be granted a chance at ascension into the Next World, as long as they swore to extend the Roseic dominion into the realities beyond.",
     "FluffTrap" : "A vibrating crystal prism, ready to shatter at a moment's notice. Within is contained a recording of the Harmonic Song, sped up and amplified thousandfold. Any foe stepping on this delicate piece of technology will find their psyche immediately Harmonized by an overpowering choir.",
+    "RecallPoint" : "An unnatural pocket of vacuum, providing shelter from the Harmony's song. After being struck by a Collectivist's sonic attack, your mind will seek refuge in this space, and your body will soon follow, collapsing the vacuum and unleashing a cross-shaped shockwave.",
 }
 
 monabi = {
@@ -423,6 +425,7 @@ monabi = {
     "Binary" : "RISING RADIANCE - Every other turn, fires a 2-damage beam towards all other Duodrones in the same line or column of tiles.",
     "Titanic" : "HULKING STIKE - Moves every other turn. When it attacks, its target is trampled back one tile.",
     "Psydrone" : "THE MIND ENCODED - Every 2 turns, radiates a 3x3 aura that permanently converts a random soul in your paw into an Ordered soul.",
+    "Exploder" : "HIGH-PRESSURE WRATH - Moves in the same direction every turn. When it hits a creature or the level's edge, it unleashes a cross-shaped knockback shockwave and teleports you to the burst location.",
 }
 
 souldesc = {

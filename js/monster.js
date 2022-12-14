@@ -2019,8 +2019,6 @@ class Epsilon extends Monster{
         //test if surrounded by 3 walls, become vulnerable if so
         //dashing into a core causes vulnerability and installation?
         //because epsilon is slowing down not wanting to damage the core
-        //TODO: update lore to reflect changes
-        //TODO: let the player attack any time, remove epsilon's invincibility to avoid softlock
         //don't actually remove hp but make a tink sound
         if (!beepbeepbeep) super.doStuff();
     }
