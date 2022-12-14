@@ -36,8 +36,8 @@ spells = {
             t.setEffect(13, 30);
             if(t.monster){
                 t.monster.fp = Math.max(0,t.monster.fp-2);
-                t.monster.knockback(1, [t.x-caster.tile.x,t.y-caster.tile.y]);
                 t.monster.stunned = true;
+                t.monster.knockback(1, [t.x-caster.tile.x,t.y-caster.tile.y]);
             }
         });
         caster.tile.setEffect(13,30);
@@ -241,6 +241,17 @@ spells = {
             boltTravel(directions[k], 15 + Math.abs(directions[k][1]), 2, caster, friendly);
         }
         caster.monster.hit(3);
+    },
+    ARTTRIGGERS: function(caster){
+        let directions = [
+            [0, -1],
+            [0, 1],
+            [-1, 0],
+            [1, 0]
+        ];
+        for(let k=0;k<directions.length;k++){
+            knockbackBoltTravel(directions[k], 15 + Math.abs(directions[k][1]), caster);
+        }
     },
     UNHINGED: function(caster){
         let directions = [
@@ -773,6 +784,24 @@ function boltTravel(direction, effect, damage, location, friendly){
                 newTile.monster.hit(damage);
             }
             newTile.setEffect(effect,30);
+        }else{
+            break;
+        }
+    }
+}
+
+function knockbackBoltTravel(direction, effect, location){
+    let newTile = location.tile;
+    while(true){
+        let testTile = newTile.getNeighbor(direction[0], direction[1]);
+        if(testTile.passable){
+            newTile = testTile;
+            if (newTile.monster){
+                newTile.monster.fp++;
+                newTile.monster.knockback(newTile.monster.fp,direction);
+                break;
+            }
+            else newTile.setEffect(effect,30);
         }else{
             break;
         }

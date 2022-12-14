@@ -204,14 +204,7 @@ class Monster{
         if (recallcheck && this.isPlayer){
             this.move(recallcheck);
             recallcheck.recallpoint = false;
-            this.tile.getAllNeighbors().forEach(function(t){
-                t.setEffect(13, 30);
-                if(t.monster){
-                    t.monster.fp++;
-                    t.monster.knockback(t.monster.fp, [t.x-this.tile.x,t.y-this.tile.y]);
-                    t.monster.stunned = true;
-                }
-            });
+            spells["ARTTRIGGERS"](this);
             return;
         }
         let newTile = this.tile;
