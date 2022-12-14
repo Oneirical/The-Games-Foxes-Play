@@ -46,6 +46,16 @@ spells = {
     ORDEREDS: function(caster){
         spells["FUFFYSTOMP"](caster); //TODO
     },
+    UNHINGEDS: function(caster){
+        let newTile = caster.tile;
+        newTile = newTile.getNeighbor(caster.lastMove[0],caster.lastMove[1]);
+        newTile.setEffect(14,30);
+        if (newTile.passable){
+            let orb = new Exploder(newTile);
+            orb.direction = [caster.lastMove[0],caster.lastMove[1]];
+            monsters.push(orb);
+        }
+    },
     FERALS: function(caster){
         for(let i=0;i<monsters.length;i++){
             monsters[i].stunned = true;
@@ -262,6 +272,17 @@ spells = {
         ];
         for(let k=0;k<directions.length;k++){
             boltTravel(directions[k], 14, 3, caster.tile, (caster.isPlayer||caster.charmed));
+        }
+    },
+    UNHINGEDSTRIGGER: function(caster){
+        let directions = [
+            [-1, -1],
+            [-1, 1],
+            [1, -1],
+            [1, 1]
+        ];
+        for(let k=0;k<directions.length;k++){
+            knockbackBoltTravel(directions[k], 14, caster);
         }
     },
     TAINTED: function(){

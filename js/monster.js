@@ -194,7 +194,6 @@ class Monster{
     }
 
     knockback(power, direction, antisuicide){ //TODO something will have to be done to fix epsilon with this eventually
-        //TODO also add suicide protection as a toggle
         let recallcheck = false;
         for(let i=0;i<numTiles;i++){
             for(let j=0;j<numTiles;j++){
@@ -2264,7 +2263,7 @@ class Titanic extends Monster{
 class Psydrone extends Monster{
     constructor(tile){
         super(tile, 77, 1, "ORDERED", description["Psydrone"]);
-        this.soul = "Animated by a Ordered (5) soul.";
+        this.soul = "Animated by an Ordered (5) soul.";
         this.name = "Pulsating Psydrone";
         this.ability = monabi["Psydrone"];
         this.abitimer = 0;
@@ -2279,5 +2278,31 @@ class Psydrone extends Monster{
         else{
             super.doStuff();
         }
+    }
+}
+
+class Exploder extends Monster{
+    constructor(tile){
+        super(tile, 77, 1, "NOTHING", description["Exploder"]); //TODO
+        this.soul = "Soulless.";
+        this.name = "Compacted Disdain";
+        this.ability = monabi["Exploder"];
+        this.noloot = true;
+        this.direction = [];
+        this.teleportCounter = 0;
+    }
+    doStuff(){
+        let testTile = getTile(this.tile.x+this.direction[0],this.tile.y+this.direction[1]);
+        if (testTile.monster || !inBounds(testTile.x,testTile.y)){
+            spells["UNHINGEDSTRIGGER"](this);
+            if (testTile.monster) {
+                testTile.monster.fp++;
+                testTile.monster.stunned = true;
+                testTile.monster.knockback(testTile.monster.fp,this.direction,false);
+            }
+            player.move(this.tile);
+            this.hit(99);
+        }
+        else this.tryMove(this.direction[0], this.direction[1]);
     }
 }

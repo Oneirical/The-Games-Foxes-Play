@@ -505,7 +505,7 @@ soulabi = {
     "SAINTLYS" : "DELAYING THE INEVITABLE - When activated, knock back all adjacent creatures one tile away, then remove 2 Influence points from each one affected. Remove 2 Influence points from yourself.",
     "ORDEREDS" : "GAS COMPRESSOR - When activated, shield yourself from all knockback for one turn, then punch one tile away in the direction of your last move at a force equal to all negated knockback.",
     "ARTISTICS" : "IDENTITY ANCHOR - When activated, lay down a waypoint at your current position. The next time you are hit, warp back to the waypoint instead of enduring knockback, and unleash a cross of knockback beams around yourself.",
-    "UNHINGEDS" : "SWELLING DISDAIN - When activated, propel forwards a slow-moving projectile which explodes upon touching a creature or the level's edge. The explosion unleashes an X-cross of knockback beams.",
+    "UNHINGEDS" : "SWELLING DISDAIN - When activated, propel forwards a slow-moving projectile which explodes upon touching a creature or the level's edge. The explosion unleashes an X-cross of knockback beams, then teleports you at the projectile's burst location.",
     "FERALS" : "TRANCE OF THE WILDS - When activated, stop time. Gain the ability to dash in the direction of your choice, knocking back any creature at the end and refreshing your dash. The ability ends when no creatures are hit by a dash.",
     "VILES" : "BASH & DASH - When activated, pick a random adjacent creature, and knock it back as if it had just been struck. Dash in the opposite direction for the same number of tiles the target was knocked back across.",
 
