@@ -83,6 +83,22 @@ spells = {
             }
         }
     },
+    VILES: function(caster){
+        let targetlist = [];
+        caster.tile.getAllNeighbors().forEach(function(t){
+            t.setEffect(75, 30); // TODO the effect will have to get changed here
+            if (t.monster) targetlist.push(t.monster);
+        });
+        let target = targetlist[randomRange(0,targetlist.length-1)];
+        let dir = [target.tile.x-caster.tile.x,target.tile.y-caster.tile.y];
+        console.log(dir);
+        target.fp++;
+        let pow = target.fp;
+        console.log(pow);
+        target.knockback(pow,dir);
+        dir = [-dir[0],-dir[1]];
+        caster.knockback(caster.fp+1,dir,true);
+    },
     FERAL: function(caster){
         caster.shield = 1;
         let friendly = (caster.isPlayer || caster.charmed);

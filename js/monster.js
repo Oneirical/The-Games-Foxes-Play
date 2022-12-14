@@ -193,7 +193,7 @@ class Monster{
         return this.tile.y + this.offsetY;
     }
 
-    knockback(power, direction){ //TODO something will have to be done to fix epsilon with this eventually
+    knockback(power, direction, antisuicide){ //TODO something will have to be done to fix epsilon with this eventually
         //TODO also add suicide protection as a toggle
         let newTile = this.tile;
         let testTile = newTile;
@@ -209,10 +209,11 @@ class Monster{
         }
         if(true){
             if (!(testTile instanceof AbazonWall)) this.move(newTile);
-            else{
+            else if (!antisuicide){
                 this.hit(99);
                 this.sprite = 83;
             }
+            else this.move(newTile);
             //playSound("explosion"); TODO put a cool ori-style sound here later
             //shakeAmount = 35;
         }

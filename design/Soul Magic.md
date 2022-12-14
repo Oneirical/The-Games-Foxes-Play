@@ -16,8 +16,19 @@ As long as you have Souls in storage, you can press "q" to build a line-up of id
 
 You can gain more Resolve by sacrificing Souls after death. Souls used in this way are permanently removed.
 
-Pressing the number keys 1-9 will invoke that specific Soul, and execute a special effect alongside it, depending on the soul type that was used. That soul is then placed in a "discard" pile, where it will cycle back eventually for usage.
+Pressing the number keys 1-9 will invoke that specific Soul, and execute a special effect alongside it, depending on the soul type that was used. Some souls react differently depending on which branch they are used in, while others are always the same.
+
+That soul is then placed in a "discard" pile, where it will cycle back eventually for usage.
 
 To check what a specific Soul does, drag your mouse cursor over them. Alternatively, press "c", then "i", then the number corresponding to the one you wish to inspect.
 
 If a particular Soul is bloating your inventory and drowning out access to more desirable spells, it can be removed through sacrificing them at a Relay, using a special "Forget" power from another soul, tossing them into the void after your character dies, or using them to power a Harmonic Modulator.
+
+## The Six Castes
+
+* **Saintly**: Centered on healing, safety and deflection.
+* **Ordered**: Centered on defense, endurance and brute force.
+* **Artistic**: Centered on craftiness, traps and placed objects.
+* **Unhinged**: Centered on explosions, missiles, lasers and other fun artillery.
+* **Feral**: Centered on motion, speed and agility.
+* **Vile**: Centered on stealth, single-target assassination and debuffs.
