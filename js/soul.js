@@ -37,16 +37,51 @@ spells = {
             if(t.monster){
                 t.monster.fp = Math.max(0,t.monster.fp-2);
                 t.monster.knockback(1, [t.x-caster.tile.x,t.y-caster.tile.y]);
+                t.monster.stunned = true;
             }
         });
         caster.tile.setEffect(13,30);
         caster.fp = Math.max(0,caster.fp-2);
     },
     ORDEREDS: function(caster){
-        spells["FUFFYSTOMP"](caster);
+        spells["FUFFYSTOMP"](caster); //TODO
     },
     FERALS: function(caster){
-
+        for(let i=0;i<monsters.length;i++){
+            monsters[i].stunned = true;
+        }
+        caster.entranced = true;
+    },
+    FERALNODMGS: function(caster, x, y){
+        let newTile = caster.tile;
+        let target;
+        let punch = false; //maybe enable this if players gets fluffified
+        while(true){
+            let testTile = newTile.getNeighbor(x,y);
+            if(testTile.passable && !testTile.monster && inBounds(testTile.x,testTile.y)) newTile = testTile;
+            else{
+                if (testTile.monster){
+                    punch = true;
+                    testTile.monster.stunned = true;
+                    target = testTile.monster;
+                } 
+                break;
+            }
+        }
+        if(true){
+            caster.move(newTile);
+            shakeAmount = 30;
+            if (punch){
+                target.fp++;
+                target.knockback(target.fp+1,[x,y]);
+                playSound("explosion");
+                return true;
+            } 
+            else {
+                playSound("off");
+                return false;
+            }
+        }
     },
     FERAL: function(caster){
         caster.shield = 1;

@@ -207,7 +207,7 @@ class Monster{
                 break;
             }
         }
-        if(this.tile != newTile){
+        if(true){
             if (!(testTile instanceof AbazonWall)) this.move(newTile);
             else{
                 this.hit(99);
@@ -229,7 +229,7 @@ class Monster{
             if (this.installed && this.sprite != 61) drawSprite(chassis, this.getDisplayX(),  this.getDisplayY());
         }
         let speed = 1/8;
-        if (this.isPlayer && this.activemodule == "Thrusters") speed = 1;
+        if (this.isPlayer && (this.activemodule == "Thrusters" || this.entranced)) speed = 1;
         if (this.turbo) speed = 1;
         this.offsetX -= Math.sign(this.offsetX)*(speed);     
         this.offsetY -= Math.sign(this.offsetY)*(speed);
@@ -554,15 +554,18 @@ class Player extends Monster{
         this.vision = [];
         this.ability = "";
         this.noloot = true;
-        this.reaping = false;
         this.betted = false;
-        this.para = 0;
-        this.fall = 0;
-        this.rosetox = 0;
         this.fov = 0;
+
+        //status effects
         this.constrict = false;
         this.toxified = false;
         this.fuffified = 0;
+        this.entranced = false;
+        this.reaping = false;
+        this.para = 0;
+        this.fall = 0;
+        this.rosetox = 0;
     }
 
     cycleModules(){
@@ -630,7 +633,11 @@ class Player extends Monster{
 
     tryMove(dx, dy){
         if(super.tryMove(dx,dy)){
-            if (this.activemodule == "Thrusters"){
+            if (this.entranced){
+                if (!spells["FERALNODMGS"](this,dx,dy)) this.entranced = false;
+                playSound("boost");
+            }
+            else if (this.activemodule == "Thrusters"){
                 if (this.consumeCommon(1,false)){
                     spells["FERALNODMG"](this,dx,dy);
                     playSound("boost");
