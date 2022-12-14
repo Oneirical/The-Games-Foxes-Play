@@ -473,7 +473,7 @@ function startGame(){
     score = 0;
     numSpells = 0;
     aubecounter = 0;
-    invsave = ["SAINTLY","FERAL", "VILE"];//[, ] //];
+    invsave = ["SAINTLY","FERAL", "ARTISTIC"];//[, ] //];
     modules = ["NONE"];
     modulators = ["Alacrity","Focus","Thrusters","Selective","Hover"];
     //let modtest = modulators[randomRange(0,4)];

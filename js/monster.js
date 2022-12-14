@@ -195,6 +195,25 @@ class Monster{
 
     knockback(power, direction, antisuicide){ //TODO something will have to be done to fix epsilon with this eventually
         //TODO also add suicide protection as a toggle
+        let recallcheck = false;
+        for(let i=0;i<numTiles;i++){
+            for(let j=0;j<numTiles;j++){
+                if (getTile(i,j).recallpoint) recallcheck = getTile(i,j);
+            }
+        }
+        if (recallcheck && this.isPlayer){
+            this.move(recallcheck);
+            recallcheck.recallpoint = false;
+            this.tile.getAllNeighbors().forEach(function(t){
+                t.setEffect(13, 30);
+                if(t.monster){
+                    t.monster.fp++;
+                    t.monster.knockback(t.monster.fp, [t.x-this.tile.x,t.y-this.tile.y]);
+                    t.monster.stunned = true;
+                }
+            });
+            return;
+        }
         let newTile = this.tile;
         let testTile = newTile;
         while(power > 0){

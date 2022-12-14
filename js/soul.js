@@ -99,6 +99,10 @@ spells = {
         dir = [-dir[0],-dir[1]];
         caster.knockback(caster.fp+1,dir,true);
     },
+    ARTISTICS: function(caster){
+        caster.tile.recallpoint = true;
+    },
+        
     FERAL: function(caster){
         caster.shield = 1;
         let friendly = (caster.isPlayer || caster.charmed);

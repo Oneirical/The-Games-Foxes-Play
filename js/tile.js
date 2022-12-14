@@ -10,6 +10,7 @@ class Tile{
         this.eviltrap = false;
         this.siphon = false;
         this.pin = false;
+        this.recallpoint = false;
     }
 
     replace(newTileType){
@@ -112,6 +113,11 @@ class Tile{
             drawSprite(69,this.x,this.y);
             this.lore = description["FluffTrap"];
             this.name = "Harmonic Audioplate";
+        }
+        if (this.recallpoint){
+            drawSprite(69,this.x,this.y);
+            this.lore = description["RecallPoint"]; //TODO
+            this.name = "Identity Anchor";
         }
         if (this instanceof Floor && !(this.trap || this.cuff || this.eviltrap || this.siphon || this.pin)){
             this.lore = description["Floor"];
