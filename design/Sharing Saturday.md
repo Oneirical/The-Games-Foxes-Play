@@ -1,0 +1,23 @@
+*"As they bore the most vulnerable minds of all, the mere presence of a Collectivist sufficed to induce oddly intelligent behaviour in wild beasts. Some paranoid individuals held a caged bird atop their homes, waiting for its chirping to turn to discernible words. Even as they reached for their bunkers, they quickly learned that cement cannot silence the Harmonic song."*
+
+- Harmonized Feral Soul description
+
+**The Games Foxes Play** ([github](https://github.com/Oneirical/The-Games-Foxes-Play) | [original post](https://www.reddit.com/r/roguelikedev/comments/uzb3iu/sharing_saturday_416/iaa1w3u/) | [play online in browser on itch.io!](https://oneirical.itch.io/tgfp))
+
+It seems my eternal cycle of obsession and laziness has circled back to the former. Things quieted down in Real Life™ after completion of a major project at work, so I've had plenty of time to devote to the finding of new ways of pulverizing pixelated creatures.
+
+My main focus this week was centered around solving a design issue. I have three main branches, each with unique gameplay, but spells and player abilities that are the same everywhere. This is a problem: whereas a simple dashing ability (Feral Soul) is very powerful in a traditional top-down roguelike grid, in the Serene Spire where gravity is a factor, I've noticed that using a dash like this is especially suicidal and ends half the time with the player falling down a death pit.
+
+Enter Adaptative Souls. All six Common souls of the game have been reworked to have a different effect depending on which branch they are used in - the effects are similar in theme across all branches, but are more adapted to their environment. They thus come in Subdued (Faith's End), Harmonized (Serene Spire) or Glamorous (Roseic Circus) forms.
+
+Here are some of these new variants:
+
+**The Harmonized Unhinged Soul** fires a slow-moving orb bearing a devastating payload. The moment it hits a wall or a creature, it detonates, knocking back everything in an X-shaped cross and also teleporting the player to the burst location. Besides the obvious offensive purpose, this also serves as a fun recovery tool: fire an orb towards a safe location, make a leap of faith into the void, go all out with aerial combat against flying enemies and be teleported back to safety before you plummet to your doom.
+
+**The Harmonized Artistic Soul** is another powerful recovery option. Upon use, it places down a waypoint, which you will be instantly teleported back to the next time you are struck by an attack. This can be lifesaving, as Serene Spire enemies rely on knocking you out of the map instead of doing damage to kill you. You can therefore engage in a really risky position or expose yourself to a devastating blow, and return to safety the next turn. In addition, the waypoint also detonates in a cross-shaped laser upon being teleported back to it, potentially returning the favour on the attacker that was just about to demolish you.
+
+**Glamorous Souls** in general have all been turned into summoning-based powers. I realized that having allies is one of the most fun parts of my game, but despite my attempts at making multiple ways to charm enemies, it was still too scarce in my game. The Roseic Circus is really well suited to ally combat due to the wide open space, so why not let the player form their own personal militia? It's less development time (as now every enemy in the game also serves as a potential effect of an ally spell, and I'm already coding them this way due to the existence of charming effects already in the game), and the player gets to use their most hated foes as assets to thwart the Circus's challenges.
+
+There are quite a bit more. A part of me hopes it's not getting too confusing, with many of your spells having their effects changed completely just because you are in a different location. It's not something that the player usually expects from a roguelike.
+
+I've long debated what I wanted the gimmick of Roseic Circus to be exactly. I think I've settled on it at last: flipping the roguelike formula on its head. There will be only one single enemy, the tyrant Rose, serving as a boss, and the vast swarms of enemies will be on the *player's* side, so fed up with Rose's narcissism that they are putting aside their animosity, just this once. I'm interested to see how fun using the Glamorous summoning powers will be to take down a single highly-evasive, overpowered and tricky target. Also known as a @ - a "protagonist"! If my neurons fire their productivity juices correctly, I'll return soon with an implementation of this concept.
