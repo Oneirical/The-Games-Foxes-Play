@@ -635,6 +635,10 @@ core = {
     73 : "Fluffal Armour-Plated Subwoofer Delta",
     22 : "Roseic Bio-Pacification Dual-Diffusers 3B",
 }
+
+items = {
+    "Breath" : "A glass canister filled with wispy, pink vapour. The label reads, \"Once the fluorescent tubes' buzzing becomes unbearable, break immediately and inhale contents. May induce ego death.\""
+}
 //UNUSED
     //"Saintly" : "A Saintly soul eyes your new recruits, its gaze shimmering in disgust. \"More violent thugs to infest my living quarters? I demand some privacy, now!\" You isolate it in a little box, which soon ",
     //"Feral" : "A bladefly-shaped Feral soul is swinging around its massive swords-wings, causing other souls to cry out in terror. You wonder why they aren't letting you use that skill instead of a measly dash.",

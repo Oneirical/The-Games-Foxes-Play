@@ -21,7 +21,9 @@
 * Gravity gimmick, where damage is converted to knockback as seen in platform fighters.
 * Revolves around impressive combos, numerous hordes of enemies and agile motion.
 
-Branches in TGFP are not accessed through the traditional method of entering a doorway found somewhere within a dungeon. Instead, every single time Terminal dies, he is transported randomly to one of these 4 branches. A typical run will therefore clear individual segments of each branch, and will never see the entire thing. Unless one never dies and remains in the same branch the whole game. I plan to make that nigh impossible. At the end of a branch is a boss - only 1 of these bosses is fought every run, and it depends on which branch the player finishes first.
+Faith's End is all-encompassing, and spans the entire world. The player always begins in Faith's End. The Roseic Circus *is* Faith's End, but seen through the lens of Glamorous toxin, a potent hallucinogen. The Serene Spire can be accessed through various access points around Faith's End.
+
+Each time the player dies, they are warped to a random location in Faith's End.
 
 * **Faith's End** - A claustrophobic complex, composed of small cubic rooms and tight hallways with randomly generated layouts. Playstyle here is all about strategic steps and attacks, not getting cornered, and managing Resolve -- the amount of Souls you can summon in each room. You can summon souls beyond your Resolve counter, but that costs Ipseity. Every 5 rooms, a Harmonic Relay grants you the opportunity to trade 10 Common Souls for 4 Legendary Souls, but messing up the minigame may generate Serene Souls instead. At the end of Faith's End awaits the boss Epsilon, a robotic snake who executes movements based on code blocks placed on the battlefield.
 

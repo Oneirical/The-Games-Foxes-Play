@@ -486,15 +486,13 @@ function startGame(){
     gameState = "running";
 }
 
-function startLevel(playerHp){
+function startLevel(playerHp,deaths){
     area = "Spire"; //temp (remove later)
-    if (area == "Edge") {
-        let numtest = numTiles;
-        numTiles = 18;
-        tileSize = (numtest/numTiles)*64;
-        //if (numtest != numTiles) setupCanvas();
-    }
-    else if (area == "Spire"){
+    let inSpire = false;
+    if (area == "Spire") inSpire = true;
+    world = new World(deaths, inSpire);
+    world.createWorld();
+    if (area == "Spire"){
         //let numtest = numTiles;
         numTiles = 9;
         //if (numtest != numTiles) setupCanvas();
@@ -526,10 +524,6 @@ function startLevel(playerHp){
         else{
             generateLevel();
         }
-    }
-    else if (area == "Edge"){
-        generateEdgeLevel();
-        //generateMonsters();
     }
     else if (area == "Spire"){
         if (level % 5 == 1 && level > 5){
