@@ -647,7 +647,7 @@ class Player extends Monster{
         if(super.tryMove(dx,dy)){
             if (this.entranced){
                 if (!spells["FERALNODMGS"](this,dx,dy)) this.entranced = false;
-                playSound("boost");
+                //playSound("boost");
             }
             else if (this.activemodule == "Thrusters"){
                 if (this.consumeCommon(1,false)){
