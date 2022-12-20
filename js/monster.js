@@ -66,6 +66,9 @@ class Cursor{
         
 
     }
+    debug(){
+        console.log(this.tile instanceof ReturnExit);
+    }
 }
 
 class Monster{
@@ -349,8 +352,8 @@ class Monster{
                     this.attackedThisTurn = true;
                     if (!this.isFluffy && !(this.isPlayer && area == "Spire")) newTile.monster.hit(this.dmg + Math.floor(this.bonusAttack));
                     else newTile.monster.fp++;
-                    if (newTile.monster.fp > 0){
-                        newTile.monster.knockback(newTile.monster.fp, [dx, dy]);
+                    if (newTile.monster){
+                        if (newTile.monster.fp > 0 && world.serene) newTile.monster.knockback(newTile.monster.fp, [dx, dy]);
                     }
                     if (this.specialAttack == "Charm" && newTile.monster){
                         newTile.monster.charmed = !newTile.monster.charmed;
@@ -559,6 +562,7 @@ class Player extends Monster{
         this.inhand = [];
         this.discard = [];
         this.saved = [];
+        this.resolve = 0;
         this.name = "Terminal, the Reality Anchor";
         this.soul = "Does not have a soul of its own -- is merely the combination of its many passengers.";
         this.activemodule = "NONE";
@@ -786,8 +790,8 @@ class Player extends Monster{
                 message = "EZEZZA";
             }
             this.inventory.shift();
-            if (resolve > 0){
-                resolve--
+            if (this.resolve > 0){
+                this.resolve--
             }
             else{
                 truehp--
@@ -1385,7 +1389,7 @@ class Player extends Monster{
         this.hp = 0;
         areachange = false;
         rosetoxin = 0;
-        startLevel(Math.min(maxHp, player.hp+6));
+        startWorld(Math.min(maxHp, player.hp+6));
         contemhint = true;
     }
 }

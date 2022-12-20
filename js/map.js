@@ -223,7 +223,7 @@ function getTile(x, y){
     if(inBounds(x,y)){
         return tiles[x][y];
     }else{
-        if (level == 0) return new TermiWall(x,y);
+        if (world.getRoom() instanceof WorldSeed) return new TermiWall(x,y);
         else if (area == "Edge") return new RealityWall(x,y);
         else if (area == "Spire") return new AbazonWall(x,y);
         else return new Wall(x,y);

@@ -153,25 +153,21 @@ function draw(){
         for(let i=0;i<monsters.length;i++){
             if (viewedTiles.includes(monsters[i].tile) || monsters[i].charmed)monsters[i].draw();
         }
-        
-        if (level == 0) drawText("World Seed", 30, false, 40, "violet");
-        else if (level % 5 == 1 && level > 5 && area == "Faith") drawText("Test of Unity", 30, false, 40, "violet");
-        else if (level % 5 == 1 && level > 5 && area == "Spire") drawText("Fluffian Workshop", 30, false, 40, "violet");
-        else if (area == "Spire") drawText("Serene Spire: floor "+level, 30, false, 40, "violet");
-        else if (area == "Circus") drawText("Roseic Circus", 30, false, 40, "violet");
-        else if (level == 17 && area == "Faith") drawText("Industrial Apex", 30, false, 40, "violet");
-        else drawText("Faith's End: level "+level, 30, false, 40, "violet");
+        drawText(world.getRoom().name, 30, false, 40, "violet");
+        //if (level == 0) drawText("World Seed", 30, false, 40, "violet");
+        //else if (level % 5 == 1 && level > 5 && area == "Faith") drawText("Test of Unity", 30, false, 40, "violet");
+        //else if (level % 5 == 1 && level > 5 && area == "Spire") drawText("Fluffian Workshop", 30, false, 40, "violet");
+        //else if (area == "Spire") drawText("Serene Spire: floor "+level, 30, false, 40, "violet");
+        //else if (area == "Circus") drawText("Roseic Circus", 30, false, 40, "violet");
+        //else if (level == 17 && area == "Faith") drawText("Industrial Apex", 30, false, 40, "violet");
+        //else drawText("Faith's End - Reality "+(100-level)+"%", 30, false, 40, "violet");
         drawText("Ipseity: "+truehp, 30, false, 70, "cyan");
         if (gameState == "running"){
-            drawText("Resolve: "+resolve+"/"+(3+Math.floor(resolvebonus/2)), 30, false, 100, "orange");
+            drawText("Resolve: "+player.resolve+"/"+(3+Math.floor(resolvebonus/2)), 30, false, 100, "orange");
             if (player.rosetox > 0) drawText("Glamour: "+player.rosetox+"/10", 30, false, 440, "lightpink");
         }
-        if (gameState == "contemplation"){
-            drawText("Agony: "+agony, 30, false, 100, "red");
-        }
-        if (gameState == "dead" && !victory){
-            drawText("SOUL SHATTERED", 20, false, 100, "red");
-        }
+        if (gameState == "contemplation") drawText("Agony: "+agony, 30, false, 100, "red");
+        if (gameState == "dead" && !victory) drawText("SOUL SHATTERED", 20, false, 100, "red");
         else if (gameState == "dead" && victory) drawText("VICTORY", 30, false, 100, "lime");
         let basicc = player.inventory.filter(soul => basic.includes(soul)).length + player.inhand.filter(soul => basic.includes(soul)).length + player.discard.filter(soul => basic.includes(soul)).length + player.saved.filter(soul => basic.includes(soul)).length;
         let serc = player.inventory.filter(soul => soul == "SERENE").length + player.inhand.filter(soul => soul == "SERENE").length + player.discard.filter(soul => soul == "SERENE").length + player.saved.filter(soul => soul == "SERENE").length;
@@ -333,8 +329,9 @@ function tick(){
     }
     if (deadcheck == 0 && level != 0&& area == "Faith"){
         //gener8 sortie si every1 est ded
-        if (exitspawn == 0 && level % 5 != 0){
-            tiles[Math.floor((numTiles-1)/2)][numTiles-1] = new Exit(Math.floor((numTiles-1)/2),numTiles-1);
+        if (exitspawn == 0 && level % 5 != 0 && world.fighting){
+            tiles[Math.floor((numTiles-1)/2)][numTiles-1] = new ExpandExit(Math.floor((numTiles-1)/2),numTiles-1);
+            tiles[Math.floor((numTiles-1)/2)][0] = new ReturnExit(Math.floor((numTiles-1)/2),0);
             manageExit();
             if (player.activemodule == "Hover"){
                 player.activemodule = "NONE";
@@ -342,8 +339,9 @@ function tick(){
                 playSound("off");
             }
         }
-        else if (exitspawn == 0 && level % 5 == 0){
-            tiles[Math.floor((numTiles-1)/2)][numTiles-1] = new FluffExit(Math.floor((numTiles-1)/2),numTiles-1);
+        else if (exitspawn == 0 && level % 5 == 0 && world.fighting){
+            tiles[Math.floor((numTiles-1)/2)][numTiles-1] = new ExpandExit(Math.floor((numTiles-1)/2),numTiles-1);
+            tiles[Math.floor((numTiles-1)/2)][0] = new ReturnExit(Math.floor((numTiles-1)/2),0);
             manageExit();
             if (player.activemodule == "Hover"){
                 player.activemodule = "NONE";
@@ -409,7 +407,7 @@ function tick(){
                     player.dead = false;
                     player.tile.setEffect(1, 30);
                     spells["WOOP"](player);
-                    resolve = 3+Math.floor(resolvebonus/2);
+                    player.resolve = 3+Math.floor(resolvebonus/2);
                     player.sprite = 0;
                     player.fuffified = 0;
                 }
@@ -473,7 +471,7 @@ function startGame(){
     score = 0;
     numSpells = 0;
     aubecounter = 0;
-    invsave = ["SAINTLY","FERAL", "VILE", "ARTISTIC", "UNHINGED"];//[, ] //];
+    invsave = ["ZAINT"];//[, ] //];
     modules = ["NONE"];
     modulators = ["Alacrity","Focus","Thrusters","Selective","Hover"];
     //let modtest = modulators[randomRange(0,4)];
@@ -482,88 +480,17 @@ function startGame(){
     shuffle(invsave);
     naiamode = false;
     dissave = [];
-    startLevel(startingHp);
+    startWorld(startingHp);
     gameState = "running";
 }
 
-function startLevel(playerHp){
-    //world.addroom();
-    area = "Spire"; //temp (remove later)
+function startWorld(playerHp){
+    //area = "Spire"; //temp (remove later)
     let inSpire = false;
     if (area == "Spire") inSpire = true;
     world = new World(inSpire);
-    //world.createWorld(); do something that actually starts this whole process
-    if (area == "Spire"){
-        //let numtest = numTiles;
-        numTiles = 9;
-        //if (numtest != numTiles) setupCanvas();
-    }
-    else if (area == "Circus"){
-        let numtest = numTiles;
-        numTiles = 18;
-        tileSize = (numtest/numTiles)*64;
-        //if (numtest != numTiles) setupCanvas(); WILL POSSIBLY BREAK SOMETHING
-    }
-    else if (area == "Faith"){
-        //let numtest = numTiles;
-        numTiles = 9;
-        //if (numtest != numTiles) setupCanvas();
-    }
-    exitspawn = 0;
-    resolve = 3+ Math.floor(resolvebonus/2);
-    playMusic();
-    if (area == "Faith"){
-        if (level == 17){
-            let numtest = numTiles;
-            numTiles = 18;
-            tileSize = (numtest/numTiles)*64;
-            //setupCanvas();
-            generateEpsilon();
-            showboss = true;
-            generateMonsters();
-        }
-        else{
-            generateLevel();
-        }
-    }
-    else if (area == "Spire"){
-        if (level % 5 == 1 && level > 5){
-            generateModule();
-            generateMonsters();
-            message = "FluffyWorkshop";
-            dialoguecount = 0;
-        }
-        else{
-            generateSpire();
-            generateMonsters();
-        }
-    }
-    else if (area == "Circus"){
-        
-        generateCircus();
-        let montest = new Third(getTile(9,9));
-        let montest2 = new Ashsoul(getTile(9,10));
-        monsters.push(montest);
-        monsters.push(montest2);
-    } 
-    if (level != 0 && level != 17 && area == "Faith") tile = getTile(Math.floor((numTiles-1)/2), 1);
-    else if (level == 17 && area == "Faith") tile = getTile(1,1);
-    else if (area == "Spire" && level % 5 == 1 && level > 5) tile = getTile(1,8)
-    else if (area == "Spire") tile = spirespawner;
-    else if (area == "Circus") tile = getTile(8,8);
-    else tile = getTile(Math.floor((numTiles-1)/2),Math.floor((numTiles-1)/2));
-    if (area == "Spire" && !(level % 5 == 1 && level > 5)) tile.replace(Ladder);
-    player = new Player(tile);
-    if (area == "Circus") player.fov = 2; //temp remove
-    player.discard = dissave;
-    player.inventory = invsave;
-    player.teleportCounter = 0;
-    player.isPlayer = true;
-    player.hp = playerHp;
-    sacritotal = "nan";
-    sacrifice = 0;
-    rolled = 0;
-    if (level % 5 != 1 || level == 1 || area == "Spire") message = "Empty";
+    world.selectRooms();
+    world.playRoom(world.addRoom(), playerHp);
 }
 
 function drawText(text, size, centered, textY, color){

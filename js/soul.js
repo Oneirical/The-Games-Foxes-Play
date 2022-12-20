@@ -101,10 +101,8 @@ spells = {
         });
         let target = targetlist[randomRange(0,targetlist.length-1)];
         let dir = [target.tile.x-caster.tile.x,target.tile.y-caster.tile.y];
-        console.log(dir);
         target.fp++;
         let pow = target.fp;
-        console.log(pow);
         target.knockback(pow,dir);
         dir = [-dir[0],-dir[1]];
         caster.knockback(caster.fp+1,dir,true);
@@ -363,7 +361,7 @@ spells = {
         });
         player.inhand.length = 0;
         for(var i = 0; i < draw; i++){
-            resolve++
+            player.resolve++
             player.drawSpell();
         }
     },

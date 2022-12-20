@@ -1,7 +1,8 @@
 //TODO
-//-make drawing souls fully random? idk
-//-more epsicores
+//make more variables tied to class objects like serene harmonizer sacrifice
+//-more epsicores?
 //-buff naia
+//-ordered harmony soul
 
 //List of souls
 

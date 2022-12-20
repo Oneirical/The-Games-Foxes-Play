@@ -320,7 +320,6 @@ class Exit extends Tile{
 
     stepOn(monster){
         if(monster.isPlayer){
-
             playSound("newLevel"); 
             if(level == numLevels){
                 player.inventory = [];
@@ -337,22 +336,66 @@ class Exit extends Tile{
                 invsave = player.inventory;
                 dissave = player.discard;
                 pauseSound("harmony2");
-                startLevel(Math.min(maxHp, player.hp+2));
+                //startLevel(Math.min(maxHp, player.hp+2));
                 sacritotal = "nan";
                 rerolled = false;
                 gameState = "running";
                 sacrifice = 0;
                 rolled = 0;
                 rosetoxin = 0;
-                if (level == 17 && area == "Faith"){
-                    message = "EpsilonWelcome1";
-                }
+                //if (level == 17 && area == "Faith"){
+                //    message = "EpsilonWelcome1";
+                //}
             }
         }
     }
 }
 
-class TermiExit extends Exit{
+class ExpandExit extends Exit{
+    constructor(x, y){
+        super(x, y, 11, true);
+        this.lore = description["OpenSeal"];
+        this.name = "Unraveled Seal";
+        this.id = world.currentroom-1;
+        this.usedup = false;
+    }
+    stepOn(monster){
+        super.stepOn(monster);
+        if(monster.isPlayer){
+            world.fighting = true;
+            let newexit = this.replace(ReturnExit);
+            newexit.id = world.currentroom+1;
+            world.saveRoom(tiles, monsters);
+            let entering = world.addRoom();
+            player.hp = Math.min(maxHp, player.hp++);
+            world.playRoom(entering, player.hp);
+        }
+    }
+}
+
+class ReturnExit extends Exit {
+    constructor(x, y){
+        super(x, y, 38, true);
+        this.lore = description["OpenSeal"];
+        this.name = "Unraveled Seal";
+        this.id = world.currentroom-1;
+        this.sprite = 38;
+    }
+    stepOn(monster){
+        super.stepOn(monster);
+        if(monster.isPlayer){
+            world.saveRoom(tiles, monsters);
+            world.fighting = false;
+            level--;
+            let playerhpsaveseriouslywtfevenisthis = player.hp;
+            if (this.monster) this.monster.hit(99);
+            player.hp = playerhpsaveseriouslywtfevenisthis;
+            world.reloadRoom(this.id, this.x,this.y);
+        }
+    }
+}
+
+class TermiExit extends ExpandExit{
     constructor(x, y){
         super(x, y, 38, true);
         this.lore = description["TermiSeal"];
