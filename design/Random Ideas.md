@@ -4,6 +4,8 @@ Current project:
 
 The reason the game is in glyphs is because it must be "censored" as some creatures are cognitohazardous.
 
+A weird item that induces a positive effect if your room path causes two rooms to superpose upon each other
+
 An item that occasionally gives difficult "Simon Says" rules to follow. The player is rewarded for not transgressing.
 
 A massive enemy over 9 tiles, composed of combined textures. Maybe in the Spire.

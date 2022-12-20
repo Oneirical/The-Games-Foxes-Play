@@ -486,12 +486,13 @@ function startGame(){
     gameState = "running";
 }
 
-function startLevel(playerHp,deaths){
+function startLevel(playerHp){
+    //world.addroom();
     area = "Spire"; //temp (remove later)
     let inSpire = false;
     if (area == "Spire") inSpire = true;
-    world = new World(deaths, inSpire);
-    world.createWorld();
+    world = new World(inSpire);
+    //world.createWorld(); do something that actually starts this whole process
     if (area == "Spire"){
         //let numtest = numTiles;
         numTiles = 9;
