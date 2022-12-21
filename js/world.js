@@ -39,9 +39,13 @@ class World{
         return room;
     }
 
-    playRoom(room,playerHp){
+    playRoom(room,playerHp, coordinates){
         this.currentroom = room.index;
         room.startingplayerHP = playerHp;
+        if (coordinates == 3) room.playerspawn = room.entrancepoints[0];
+        else if (coordinates == -3) room.playerspawn = room.entrancepoints[1];
+        else if (coordinates == 4) room.playerspawn = room.entrancepoints[2];
+        else if (coordinates == -4) room.playerspawn = room.entrancepoints[3];
         room.initializeRoom();
         console.log(monsters);
     }
@@ -69,13 +73,11 @@ class World{
 class Room{
     constructor(size){
         this.tier = level;
-        this.NExit = 0;
-        this.SExit = 0;
-        this.EExit = 0;
-        this.WExit = 0;
         this.startingplayerHP = 0;
         this.roseic = false;
         this.size = size;
+        this.entrancepoints = [getTile(Math.floor((numTiles-1)/2),1), getTile(1,Math.floor((numTiles-1)/2)),getTile((numTiles-2),Math.floor((numTiles-1)/2)),getTile(Math.floor((numTiles-1)/2)),(numTiles-2)];
+        //up left right down
         this.music = false;
         this.entrymessage = false;
         this.playerspawn = 0; //TODO adjust depending on NSWE entrance

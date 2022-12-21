@@ -368,7 +368,7 @@ class ExpandExit extends Exit{
             world.saveRoom(tiles, monsters);
             let entering = world.addRoom();
             player.hp = Math.min(maxHp, player.hp++);
-            world.playRoom(entering, player.hp);
+            world.playRoom(entering, player.hp, (this.x-this.y));
         }
     }
 }
