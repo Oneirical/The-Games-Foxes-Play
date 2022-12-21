@@ -56,18 +56,18 @@ function generateTiles(){
     return passableTiles;
 }
 
-function blockedExits(){
+function blockedExits(connector){
     let exitnumber = world.getRoom().possibleexits.length;
     let exitlocations = world.getRoom().possibleexits;
-    console.log(exitlocations);
     let returnpoint = world.getRoom().returnpoint;
     for (let i = 0;i<exitnumber;i++){
         let exitdirection = shuffle(exitlocations)[0];
         tiles[exitdirection.x][exitdirection.y].replace(BExit);
-        console.log("i replaced");
         removeItemOnce(exitlocations,exitdirection);
     }
     tiles[returnpoint.x][returnpoint.y].replace(BReturnExit);
+    tiles[returnpoint.x][returnpoint.y].id = connector;
+    console.log(tiles[returnpoint.x][returnpoint.y].id);
     for (let i = 0;i<exitlocations.length;i++){
         let exitdirection = exitlocations[i];
         tiles[exitdirection.x][exitdirection.y].replace(Wall);

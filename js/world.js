@@ -15,7 +15,7 @@ class World{
         else this.roompool = [StandardFaith];
     }
 
-    addRoom(coordinates){
+    addRoom(coordinates, connector){
         let roomType;
         if (level == 0) roomType = WorldSeed;
         else if (level == 17 && !this.serene) roomType = EpsilonArena;
@@ -36,22 +36,19 @@ class World{
             room.playerspawn = room.entrancepoints[2];
             room.returnpoint = room.possibleexits[2];
             room.possibleexits.splice(2,1);
-            console.log("E");
         }
         else if (coordinates == room.possibleexits[2]){ 
             room.playerspawn = room.entrancepoints[1];
             room.returnpoint = room.possibleexits[1];
             room.possibleexits.splice(1,1);
-            console.log("W");
         }
         else if (coordinates == room.possibleexits[3]){ 
             room.playerspawn = room.entrancepoints[0];
             room.returnpoint = room.possibleexits[0];
             room.possibleexits.splice(0,1);
-            console.log("S");
         }
         this.roomlist.push(room);
-        room.buildRoom();
+        room.buildRoom(connector);
         return room;
     }
 
@@ -166,10 +163,10 @@ class StandardFaith extends Room{
         this.possibleexits = [getTile(Math.floor((numTiles-1)/2),0), getTile(0,Math.floor((numTiles-1)/2)),getTile((numTiles-1),Math.floor((numTiles-1)/2)),getTile(Math.floor((numTiles-1)/2),numTiles-1)];
     }
 
-    buildRoom(){
+    buildRoom(connector){
         super.buildRoom();
         generateLevel();
-        blockedExits();
+        blockedExits(connector);
     }
 
     initializeRoom(){
@@ -184,6 +181,7 @@ class HarmonyRelay extends Room{
         this.entrymessage = "FluffyWelcome";
         this.name = "Test of Unity";
         this.entrancepoints = [getTile(Math.floor((numTiles-1)/2),1), getTile(1,Math.floor((numTiles-1)/2)),getTile((numTiles-2),Math.floor((numTiles-1)/2)),getTile(Math.floor((numTiles-1)/2)),(numTiles-2)];
+        this.possibleexits = [getTile(Math.floor((numTiles-1)/2),0), getTile(0,Math.floor((numTiles-1)/2)),getTile((numTiles-1),Math.floor((numTiles-1)/2)),getTile(Math.floor((numTiles-1)/2),numTiles-1)];
     }
     
     buildRoom(){

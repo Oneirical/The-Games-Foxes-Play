@@ -300,6 +300,7 @@ class BReturnExit extends Tile{
         this.name = "Soulsteel Seal";
         this.eat = false;
         this.tile = 56;
+        this.id = -1;
     }
 }
 
@@ -366,16 +367,16 @@ class ExpandExit extends Exit{
         super(x, y, 11, true);
         this.lore = description["OpenSeal"];
         this.name = "Unraveled Seal";
-        this.id = world.currentroom-1;
     }
     stepOn(monster){
         super.stepOn(monster);
         if(monster.isPlayer){
             world.fighting = true;
             let newexit = this.replace(ReturnExit);
-            newexit.id = world.currentroom+1;
+            newexit.id = world.roomlist.length;
             world.saveRoom(tiles, monsters);
-            let entering = world.addRoom(getTile(this.x,this.y));
+            console.log(world.currentroom);
+            let entering = world.addRoom(getTile(this.x,this.y),world.currentroom);
             player.hp = Math.min(maxHp, player.hp++);
             world.playRoom(entering, player.hp);
         }
@@ -387,7 +388,7 @@ class ReturnExit extends Exit {
         super(x, y, 12, true);
         this.lore = description["OpenSeal"];
         this.name = "Unraveled Seal";
-        this.id = world.currentroom-1;
+        this.id = -1;
         this.sprite = 12;
         this.direction = "nan";
     }
