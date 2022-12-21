@@ -252,16 +252,11 @@ function randomExcluded(min, max, excluded) {
 function randomPassableTile(){
     let tile;
     tryTo('get random passable tile', function(){
-        let x = randomRange(0,numTiles-1);
-        let y = randomRange(0,numTiles-1);
+        let x = randomRange(1,numTiles-2);
+        let y = randomRange(1,numTiles-2);
         if (x == world.getRoom().playerspawn.x && y == world.getRoom().playerspawn.y){
-            x++;
-            y++;
+            return false;
         }
-        if (x == 0) x++;
-        if (x == 8) x--;
-        if (y == 0) y++;
-        if (y == 8) y--;
         tile = getTile(x, y);
         return tile.passable && !tile.monster;
     });

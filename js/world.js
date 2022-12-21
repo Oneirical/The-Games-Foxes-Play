@@ -124,6 +124,7 @@ class Room{
         else message = "Empty";
         if (level == 0) this.playerspawn = getTile(Math.floor((numTiles-1)/2),Math.floor((numTiles-1)/2));
         player = new Player(this.playerspawn);
+        player.tryMove(0,0); //this is such code gore, good lord, it will totally break something at one point
         player.resolve = 3+ Math.floor(resolvebonus/2);
         if (this.effects.includes("Darkness")) player.fov = 2;
         player.discard = dissave;
