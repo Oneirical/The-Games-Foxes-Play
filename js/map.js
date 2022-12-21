@@ -57,7 +57,7 @@ function generateTiles(){
 }
 
 function blockedExits(connector){
-    let exitnumber = world.getRoom().possibleexits.length;
+    let exitnumber = shuffle([1,2,2,3])[0];
     let exitlocations = world.getRoom().possibleexits;
     let returnpoint = world.getRoom().returnpoint;
     for (let i = 0;i<exitnumber;i++){
