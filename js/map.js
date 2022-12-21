@@ -65,9 +65,10 @@ function blockedExits(connector){
         tiles[exitdirection.x][exitdirection.y].replace(BExit);
         removeItemOnce(exitlocations,exitdirection);
     }
-    tiles[returnpoint.x][returnpoint.y].replace(BReturnExit);
-    tiles[returnpoint.x][returnpoint.y].id = connector;
-    console.log(tiles[returnpoint.x][returnpoint.y].id);
+    if (returnpoint) {
+        tiles[returnpoint.x][returnpoint.y].replace(BReturnExit);
+        tiles[returnpoint.x][returnpoint.y].id = connector;
+    }
     for (let i = 0;i<exitlocations.length;i++){
         let exitdirection = exitlocations[i];
         tiles[exitdirection.x][exitdirection.y].replace(Wall);

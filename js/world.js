@@ -99,7 +99,7 @@ class Room{
         //up left right down
         this.music = false;
         this.entrymessage = false;
-        this.playerspawn = 0; //TODO adjust depending on NSWE entrance
+        this.playerspawn = 0;
         this.effects = [];
         this.previousRoom = -1; //Maybe secretly divide arrow tiles into return/generator tiles?
         this.index = -1;
@@ -122,7 +122,8 @@ class Room{
         }
         if (this.entrymessage) message = this.entrymessage;
         else message = "Empty";
-        if (level == 0) this.playerspawn = getTile(Math.floor((numTiles-1)/2),Math.floor((numTiles-1)/2));
+        if (world.roomlist.length == 1 && level == 0) this.playerspawn = getTile(Math.floor((numTiles-1)/2),Math.floor((numTiles-1)/2));
+        else if (world.roomlist.length == 1) this.playerspawn = randomPassableTile();
         player = new Player(this.playerspawn);
         player.tryMove(0,0); //this is such code gore, good lord, it will totally break something at one point
         player.resolve = 3+ Math.floor(resolvebonus/2);

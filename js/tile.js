@@ -116,7 +116,7 @@ class Tile{
         }
         if (this.recallpoint){
             drawSprite(69,this.x,this.y);
-            this.lore = description["RecallPoint"]; //TODO
+            this.lore = description["RecallPoint"];
             this.name = "Identity Anchor";
         }
         if (this instanceof Floor && !(this.trap || this.cuff || this.eviltrap || this.siphon || this.pin)){

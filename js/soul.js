@@ -762,7 +762,7 @@ spells = {
                 let testTile = newTile.getNeighbor(1,0);
                 let platTile = testTile.getNeighbor(0,1);
                 if((platTile instanceof Platform)){
-                    testTile.setEffect(75,30); //TODO
+                    testTile.setEffect(75,30); //TODO new effect
                     if (testTile.monster && testTile != caster.tile){
                         testTile.monster.fp++;
                         testTile.monster.knockback(testTile.monster.fp,[0,-1]);
@@ -776,7 +776,7 @@ spells = {
                 let testTile = newTile.getNeighbor(-1,0);
                 let platTile = testTile.getNeighbor(0,1);
                 if((platTile instanceof Platform)){
-                    testTile.setEffect(75,30); //TODO
+                    testTile.setEffect(75,30); //TODO new effect
                     if (testTile.monster && testTile != caster.tile){
                         testTile.monster.fp++;
                         testTile.monster.knockback(testTile.monster.fp,[0,-1]);
