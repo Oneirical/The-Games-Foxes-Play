@@ -292,6 +292,21 @@ function manageExit(){
     exitspawn = 1;
 }
 
+function summonExits(){
+    for (let x of tiles){
+        for (let y of x){
+            if (y instanceof BExit) y.replace(ExpandExit)
+            else if (y instanceof BReturnExit) y.replace(ReturnExit);
+        }
+    }
+    manageExit();
+    if (player.activemodule == "Hover"){
+        player.activemodule = "NONE";
+        message = "FluffyModuleFarewell";
+        playSound("off");
+    }
+}
+
 function tick(){
     player.update();
     deadcheck = 0;
@@ -329,25 +344,8 @@ function tick(){
     }
     if (deadcheck == 0 && level != 0&& area == "Faith"){
         //gener8 sortie si every1 est ded
-        if (exitspawn == 0 && level % 5 != 0 && world.fighting){
-            tiles[Math.floor((numTiles-1)/2)][numTiles-1] = new ExpandExit(Math.floor((numTiles-1)/2),numTiles-1);
-            tiles[Math.floor((numTiles-1)/2)][0] = new ReturnExit(Math.floor((numTiles-1)/2),0);
-            manageExit();
-            if (player.activemodule == "Hover"){
-                player.activemodule = "NONE";
-                message = "FluffyModuleFarewell";
-                playSound("off");
-            }
-        }
-        else if (exitspawn == 0 && level % 5 == 0 && world.fighting){
-            tiles[Math.floor((numTiles-1)/2)][numTiles-1] = new ExpandExit(Math.floor((numTiles-1)/2),numTiles-1);
-            tiles[Math.floor((numTiles-1)/2)][0] = new ReturnExit(Math.floor((numTiles-1)/2),0);
-            manageExit();
-            if (player.activemodule == "Hover"){
-                player.activemodule = "NONE";
-                message = "FluffyModuleFarewell";
-                playSound("off");
-            }
+        if (exitspawn == 0 && world.fighting){
+            summonExits();
         }
     }
 
@@ -490,7 +488,7 @@ function startWorld(playerHp){
     if (area == "Spire") inSpire = true;
     world = new World(inSpire);
     world.selectRooms();
-    world.playRoom(world.addRoom(), playerHp);
+    world.playRoom(world.addRoom("firstroom"), playerHp);
 }
 
 function drawText(text, size, centered, textY, color){

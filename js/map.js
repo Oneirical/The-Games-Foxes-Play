@@ -24,15 +24,11 @@ function generateTiles(){
     for(let i=0;i<numTiles;i++){
         tiles[i] = [];
         for(let j=0;j<numTiles;j++){
-            if((j==(numTiles-1)&&i==Math.floor((numTiles-1)/2))&&level!= 0||(j==0&&i==Math.floor((numTiles-1)/2))){
-                if (level!=0) tiles[i][j] = new BExit(i,j);
-                else tiles[i][j] = new TermiWall(i,j);
-            }
-            else if ((j==(numTiles-1)&&i==Math.floor((numTiles-1)/2))&&level==0){
+            if ((j==(numTiles-1)&&i==Math.floor((numTiles-1)/2)) && world.getRoom() instanceof WorldSeed){
                 tiles[i][j] = new TermiExit(i,j);
                 passableTiles++;
             }
-            else if((j==(numTiles-2)&&i==Math.floor((numTiles-1)/2))||(j==1&&i==Math.floor((numTiles-1)/2))){
+            else if((j==(numTiles-2)&&i==Math.floor((numTiles-1)/2))||(j==1&&i==Math.floor((numTiles-1)/2)) || (j==Math.floor((numTiles-1)/2)&&i==numTiles-2) || (j==Math.floor((numTiles-1)/2)&&i==1)){
                 tiles[i][j] = new Floor(i,j);
                 passableTiles++;
             }
@@ -58,6 +54,24 @@ function generateTiles(){
         }
     }
     return passableTiles;
+}
+
+function blockedExits(){
+    let exitnumber = world.getRoom().possibleexits.length;
+    let exitlocations = world.getRoom().possibleexits;
+    console.log(exitlocations);
+    let returnpoint = world.getRoom().returnpoint;
+    for (let i = 0;i<exitnumber;i++){
+        let exitdirection = shuffle(exitlocations)[0];
+        tiles[exitdirection.x][exitdirection.y].replace(BExit);
+        console.log("i replaced");
+        removeItemOnce(exitlocations,exitdirection);
+    }
+    tiles[returnpoint.x][returnpoint.y].replace(BReturnExit);
+    for (let i = 0;i<exitlocations.length;i++){
+        let exitdirection = exitlocations[i];
+        tiles[exitdirection.x][exitdirection.y].replace(Wall);
+    }
 }
 
 function generateEdge(section){
@@ -209,8 +223,9 @@ function generateEpsilon(){
 }
 
 function inBounds(x,y){
-    if(x == (Math.floor((numTiles-1)/2)) && (y == (numTiles-1)||y==0)){
-        return true
+    if((x == (Math.floor((numTiles-1)/2)) && (y == (numTiles-1)||y==0)) || (x == (numTiles-1)||x==0) && y == (Math.floor((numTiles-1)/2))){
+        if (world.getRoom() instanceof WorldSeed && y != numTiles-1) return false
+        else return true;
     }
     else{
     if (area != "Spire" && area != "Circus") return x>0 && y>0 && x<numTiles-1 && y<numTiles-1
@@ -237,8 +252,16 @@ function randomExcluded(min, max, excluded) {
 function randomPassableTile(){
     let tile;
     tryTo('get random passable tile', function(){
-        let x = randomExcluded(0,numTiles-1,4);
-        let y = randomExcluded(0,numTiles-1,1);
+        let x = randomRange(0,numTiles-1);
+        let y = randomRange(0,numTiles-1);
+        if (x == world.getRoom().playerspawn.x && y == world.getRoom().playerspawn.y){
+            x++;
+            y++;
+        }
+        if (x == 0) x++;
+        if (x == 8) x--;
+        if (y == 0) y++;
+        if (y == 8) y--;
         tile = getTile(x, y);
         return tile.passable && !tile.monster;
     });

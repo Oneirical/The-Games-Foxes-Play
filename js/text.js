@@ -4,6 +4,9 @@
 //-buff naia
 //-ordered harmony soul
 
+// bugfix: enemies spawning on top and moving on top of you
+// multi-return exit making the game explode
+
 //List of souls
 
 vile = ["ZENESTE","RASEL"];
