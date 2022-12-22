@@ -136,6 +136,12 @@ class Tile{
         this.effect = effectSprite;
         this.effectCounter = time;
     }
+    checkDirection(){
+        if (this.x == 4 && this.y == 0) this.direction = "N";
+        else if (this.x == 0 && this.y == 4) this.direction = "W";
+        else if (this.x == 8 && this.y == 4) this.direction = "E";
+        else if (this.x == 4 && this.y == 8) this.direction = "S";
+    }
 }
 
 class Floor extends Tile{
@@ -290,17 +296,33 @@ class BExit extends Tile{
         this.lore = description["Seal"];
         this.name = "Soulsteel Seal";
         this.eat = false;
+        this.checkDirection();
+        this.textures = {
+            "N" : 84,
+            "S" : 17,
+            "W" : 83,
+            "E" : 85
+        }
+        this.sprite = this.textures[this.direction];
     }
 }
 
 class BReturnExit extends Tile{
     constructor(x,y){
-        super(x, y, 56, false);
+        super(x, y, 17, false);
         this.lore = description["Seal"];
         this.name = "Soulsteel Seal";
         this.eat = false;
-        this.tile = 56;
+        //this.tile = 56;
         this.id = -1;
+        this.checkDirection();
+        this.textures = {
+            "N" : 84,
+            "S" : 17,
+            "W" : 83,
+            "E" : 85
+        }
+        this.sprite = this.textures[this.direction];
     }
 }
 
@@ -327,6 +349,22 @@ class Exit extends Tile{
         super(x, y, 11, true);
         this.lore = description["OpenSeal"];
         this.name = "Unraveled Seal";
+        this.checkDirection();
+        this.textures = {
+            "N" : 89,
+            "S" : 86,
+            "W" : 87,
+            "E" : 88
+        }
+        this.sprite = this.textures[this.direction];
+        if (world.getRoom() instanceof WorldSeed) this.sprite = 38;
+    }
+
+    checkDirection(){
+        if (this.x == 4 && this.y == 0) this.direction = "N";
+        else if (this.x == 0 && this.y == 4) this.direction = "W";
+        else if (this.x == 8 && this.y == 4) this.direction = "E";
+        else if (this.x == 4 && this.y == 8) this.direction = "S";
     }
 
     stepOn(monster){
@@ -389,14 +427,10 @@ class ReturnExit extends Exit {
         this.lore = description["OpenSeal"];
         this.name = "Unraveled Seal";
         this.id = -1;
-        this.sprite = 12;
-        this.direction = "nan";
+        //this.sprite = 12;
+        
     }
     stepOn(monster){
-        if (this.x == 4 && this.y == 0) this.direction = "N";
-        else if (this.x == 0 && this.y == 4) this.direction = "W";
-        else if (this.x == 8 && this.y == 4) this.direction = "E";
-        else if (this.x == 4 && this.y == 8) this.direction = "S";
         super.stepOn(monster);
         if(monster.isPlayer){
             world.saveRoom(tiles, monsters);
