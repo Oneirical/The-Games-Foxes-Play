@@ -292,6 +292,27 @@ function manageExit(){
     exitspawn = 1;
 }
 
+function summonExits(){
+    for (let x of tiles){
+        for (let y of x){
+            if (y instanceof BExit) y.replace(ExpandExit)
+            else if (y instanceof BReturnExit){
+                let id = y.id;
+                let px = y.x;
+                let py = y.y;
+                y.replace(ReturnExit);
+                tiles[px][py].id = id;
+            } 
+        }
+    }
+    manageExit();
+    if (player.activemodule == "Hover"){
+        player.activemodule = "NONE";
+        message = "FluffyModuleFarewell";
+        playSound("off");
+    }
+}
+
 function tick(){
     player.update();
     deadcheck = 0;
@@ -329,25 +350,8 @@ function tick(){
     }
     if (deadcheck == 0 && level != 0&& area == "Faith"){
         //gener8 sortie si every1 est ded
-        if (exitspawn == 0 && level % 5 != 0 && world.fighting){
-            tiles[Math.floor((numTiles-1)/2)][numTiles-1] = new ExpandExit(Math.floor((numTiles-1)/2),numTiles-1);
-            tiles[Math.floor((numTiles-1)/2)][0] = new ReturnExit(Math.floor((numTiles-1)/2),0);
-            manageExit();
-            if (player.activemodule == "Hover"){
-                player.activemodule = "NONE";
-                message = "FluffyModuleFarewell";
-                playSound("off");
-            }
-        }
-        else if (exitspawn == 0 && level % 5 == 0 && world.fighting){
-            tiles[Math.floor((numTiles-1)/2)][numTiles-1] = new ExpandExit(Math.floor((numTiles-1)/2),numTiles-1);
-            tiles[Math.floor((numTiles-1)/2)][0] = new ReturnExit(Math.floor((numTiles-1)/2),0);
-            manageExit();
-            if (player.activemodule == "Hover"){
-                player.activemodule = "NONE";
-                message = "FluffyModuleFarewell";
-                playSound("off");
-            }
+        if (exitspawn == 0 && world.fighting){
+            summonExits();
         }
     }
 
@@ -474,7 +478,7 @@ function startGame(){
     invsave = ["ZAINT"];//[, ] //];
     modules = ["NONE"];
     modulators = ["Alacrity","Focus","Thrusters","Selective","Hover"];
-    //let modtest = modulators[randomRange(0,4)];
+    //let modtest = modulators[randomRange(0,4)]; //start with a modulator
     //modules.push(modtest);
     //removeItemOnce(modulators,modtest);
     shuffle(invsave);
@@ -490,7 +494,7 @@ function startWorld(playerHp){
     if (area == "Spire") inSpire = true;
     world = new World(inSpire);
     world.selectRooms();
-    world.playRoom(world.addRoom(), playerHp);
+    world.playRoom(world.addRoom("firstroom"), playerHp);
 }
 
 function drawText(text, size, centered, textY, color){

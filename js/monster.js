@@ -1390,6 +1390,7 @@ class Player extends Monster{
         areachange = false;
         rosetoxin = 0;
         startWorld(Math.min(maxHp, player.hp+6));
+        world.fighting = true;
         contemhint = true;
     }
 }
@@ -2285,7 +2286,7 @@ class Psydrone extends Monster{
 
 class Exploder extends Monster{
     constructor(tile){
-        super(tile, 77, 1, "NOTHING", description["Exploder"]); //TODO
+        super(tile, 77, 1, "NOTHING", description["Exploder"]);
         this.soul = "Soulless.";
         this.name = "Compacted Disdain";
         this.ability = monabi["Exploder"];

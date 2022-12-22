@@ -15,7 +15,7 @@ class World{
         else this.roompool = [StandardFaith];
     }
 
-    addRoom(previousRoom, entranceTile){
+    addRoom(coordinates, connector){
         let roomType;
         if (level == 0) roomType = WorldSeed;
         else if (level == 17 && !this.serene) roomType = EpsilonArena;
@@ -23,19 +23,32 @@ class World{
         else if (level % 5 == 1 && level > 5 && !this.serene) roomType = HarmonyRelay;
         else roomType = shuffle(this.roompool)[0];
         let room = new roomType();
-        let previous;
-        let position;
-        room.buildRoom(previous, position);
-        if (this.roomlist.length == 0){
-            previous = "NONE";
-            position = randomPassableTile();
-        }
-        else{
-            previous = previousRoom; //make the exit tile transfer this data
-            position = entranceTile;
-        }
         room.index = this.roomlist.length;
+        this.currentroom = room.index;
+        if (coordinates == "firstroom"){
+        }
+        else if (coordinates == room.possibleexits[0]){
+            room.playerspawn = room.entrancepoints[3];
+            room.returnpoint = room.possibleexits[3];
+            room.possibleexits.splice(3,1);
+        }
+        else if (coordinates == room.possibleexits[1]){ 
+            room.playerspawn = room.entrancepoints[2];
+            room.returnpoint = room.possibleexits[2];
+            room.possibleexits.splice(2,1);
+        }
+        else if (coordinates == room.possibleexits[2]){ 
+            room.playerspawn = room.entrancepoints[1];
+            room.returnpoint = room.possibleexits[1];
+            room.possibleexits.splice(1,1);
+        }
+        else if (coordinates == room.possibleexits[3]){ 
+            room.playerspawn = room.entrancepoints[0];
+            room.returnpoint = room.possibleexits[0];
+            room.possibleexits.splice(0,1);
+        }
         this.roomlist.push(room);
+        room.buildRoom(connector);
         return room;
     }
 
@@ -43,24 +56,33 @@ class World{
         this.currentroom = room.index;
         room.startingplayerHP = playerHp;
         room.initializeRoom();
-        console.log(monsters);
     }
 
     saveRoom(tiles, monsters){
         this.roomlist[this.currentroom].monsters = monsters;
         this.roomlist[this.currentroom].tiles = tiles;
-        this.roomlist[this.currentroom].tiles[4][8].usedup = true;
-        this.roomlist[this.currentroom].tiles[4][8].sprite = 38;
     }
 
-    reloadRoom(id, dirx, diry){
+    reloadRoom(id, coordinates){
+        let room = this.roomlist[id];
         monsters = this.roomlist[id].monsters;
         tiles = this.roomlist[id].tiles;
         let spawnlocation;
-        if (dirx == 4){
-            if (diry == 0) spawnlocation = getTile(Math.floor((numTiles-1)/2),numTiles-2);
-            else spawnlocation = getTile(Math.floor((numTiles-1)/2),1);
+        if (coordinates == "firstroom"){
         }
+        else if (coordinates == "N"){
+            spawnlocation = room.entrancepoints[3];
+        }
+        else if (coordinates == "W"){ 
+            spawnlocation = room.entrancepoints[2];
+        }
+        else if (coordinates == "E"){ 
+            spawnlocation = room.entrancepoints[1];
+        }
+        else if (coordinates == "S"){ 
+            spawnlocation = room.entrancepoints[0];
+        }
+        else console.log("uh oh")
         this.roomlist[id].playerspawn = spawnlocation;
         this.playRoom(this.roomlist[id], player.hp);
     }
@@ -69,16 +91,15 @@ class World{
 class Room{
     constructor(size){
         this.tier = level;
-        this.NExit = 0;
-        this.SExit = 0;
-        this.EExit = 0;
-        this.WExit = 0;
         this.startingplayerHP = 0;
         this.roseic = false;
         this.size = size;
+        this.entrancepoints;
+        this.returnpoint;
+        //up left right down
         this.music = false;
         this.entrymessage = false;
-        this.playerspawn = 0; //TODO adjust depending on NSWE entrance
+        this.playerspawn = 0;
         this.effects = [];
         this.previousRoom = -1; //Maybe secretly divide arrow tiles into return/generator tiles?
         this.index = -1;
@@ -101,8 +122,10 @@ class Room{
         }
         if (this.entrymessage) message = this.entrymessage;
         else message = "Empty";
-        if (level == 0) this.playerspawn = getTile(Math.floor((numTiles-1)/2),Math.floor((numTiles-1)/2));
+        if (world.roomlist.length == 1 && level == 0) this.playerspawn = getTile(Math.floor((numTiles-1)/2),Math.floor((numTiles-1)/2));
+        else if (world.roomlist.length == 1) this.playerspawn = randomPassableTile();
         player = new Player(this.playerspawn);
+        player.tryMove(0,0); //this is such code gore, good lord, it will totally break something at one point
         player.resolve = 3+ Math.floor(resolvebonus/2);
         if (this.effects.includes("Darkness")) player.fov = 2;
         player.discard = dissave;
@@ -128,6 +151,7 @@ class WorldSeed extends Room{
     }
 
     initializeRoom(){
+        this.entrancepoints = [getTile(Math.floor((numTiles-1)/2),1), getTile(1,Math.floor((numTiles-1)/2)),getTile((numTiles-2),Math.floor((numTiles-1)/2)),getTile(Math.floor((numTiles-1)/2),(numTiles-2))];
         super.initializeRoom();
     }
 }
@@ -135,13 +159,16 @@ class WorldSeed extends Room{
 class StandardFaith extends Room{
     constructor(){
         super(9);
-        this.playerspawn = getTile(Math.floor((numTiles-1)/2),1);
+        //this.playerspawn = getTile(Math.floor((numTiles-1)/2),1);
         this.name = "Faith's End";
+        this.entrancepoints = [getTile(Math.floor((numTiles-1)/2),1), getTile(1,Math.floor((numTiles-1)/2)),getTile((numTiles-2),Math.floor((numTiles-1)/2)),getTile(Math.floor((numTiles-1)/2),(numTiles-2))];
+        this.possibleexits = [getTile(Math.floor((numTiles-1)/2),0), getTile(0,Math.floor((numTiles-1)/2)),getTile((numTiles-1),Math.floor((numTiles-1)/2)),getTile(Math.floor((numTiles-1)/2),numTiles-1)];
     }
 
-    buildRoom(){
+    buildRoom(connector){
         super.buildRoom();
         generateLevel();
+        blockedExits(connector);
     }
 
     initializeRoom(){
@@ -155,6 +182,8 @@ class HarmonyRelay extends Room{
         super(9);
         this.entrymessage = "FluffyWelcome";
         this.name = "Test of Unity";
+        this.entrancepoints = [getTile(Math.floor((numTiles-1)/2),1), getTile(1,Math.floor((numTiles-1)/2)),getTile((numTiles-2),Math.floor((numTiles-1)/2)),getTile(Math.floor((numTiles-1)/2)),(numTiles-2)];
+        this.possibleexits = [getTile(Math.floor((numTiles-1)/2),0), getTile(0,Math.floor((numTiles-1)/2)),getTile((numTiles-1),Math.floor((numTiles-1)/2)),getTile(Math.floor((numTiles-1)/2),numTiles-1)];
     }
     
     buildRoom(){

@@ -116,7 +116,7 @@ class Tile{
         }
         if (this.recallpoint){
             drawSprite(69,this.x,this.y);
-            this.lore = description["RecallPoint"]; //TODO
+            this.lore = description["RecallPoint"];
             this.name = "Identity Anchor";
         }
         if (this instanceof Floor && !(this.trap || this.cuff || this.eviltrap || this.siphon || this.pin)){
@@ -293,6 +293,17 @@ class BExit extends Tile{
     }
 }
 
+class BReturnExit extends Tile{
+    constructor(x,y){
+        super(x, y, 56, false);
+        this.lore = description["Seal"];
+        this.name = "Soulsteel Seal";
+        this.eat = false;
+        this.tile = 56;
+        this.id = -1;
+    }
+}
+
 class TermiWall extends Wall{
     constructor(x, y){
         super(x, y, 37, false);
@@ -356,17 +367,16 @@ class ExpandExit extends Exit{
         super(x, y, 11, true);
         this.lore = description["OpenSeal"];
         this.name = "Unraveled Seal";
-        this.id = world.currentroom-1;
-        this.usedup = false;
     }
     stepOn(monster){
         super.stepOn(monster);
         if(monster.isPlayer){
             world.fighting = true;
             let newexit = this.replace(ReturnExit);
-            newexit.id = world.currentroom+1;
+            newexit.id = world.roomlist.length;
             world.saveRoom(tiles, monsters);
-            let entering = world.addRoom();
+            console.log(world.currentroom);
+            let entering = world.addRoom(getTile(this.x,this.y),world.currentroom);
             player.hp = Math.min(maxHp, player.hp++);
             world.playRoom(entering, player.hp);
         }
@@ -375,13 +385,18 @@ class ExpandExit extends Exit{
 
 class ReturnExit extends Exit {
     constructor(x, y){
-        super(x, y, 38, true);
+        super(x, y, 12, true);
         this.lore = description["OpenSeal"];
         this.name = "Unraveled Seal";
-        this.id = world.currentroom-1;
-        this.sprite = 38;
+        this.id = -1;
+        this.sprite = 12;
+        this.direction = "nan";
     }
     stepOn(monster){
+        if (this.x == 4 && this.y == 0) this.direction = "N";
+        else if (this.x == 0 && this.y == 4) this.direction = "W";
+        else if (this.x == 8 && this.y == 4) this.direction = "E";
+        else if (this.x == 4 && this.y == 8) this.direction = "S";
         super.stepOn(monster);
         if(monster.isPlayer){
             world.saveRoom(tiles, monsters);
@@ -390,7 +405,7 @@ class ReturnExit extends Exit {
             let playerhpsaveseriouslywtfevenisthis = player.hp;
             if (this.monster) this.monster.hit(99);
             player.hp = playerhpsaveseriouslywtfevenisthis;
-            world.reloadRoom(this.id, this.x,this.y);
+            world.reloadRoom(this.id, this.direction);
         }
     }
 }
