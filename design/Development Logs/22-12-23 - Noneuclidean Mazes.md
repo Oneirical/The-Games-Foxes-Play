@@ -2,7 +2,7 @@
 
 - Unraveled Seal description
 
-**The Games Foxes Play** ([github](https://github.com/Oneirical/The-Games-Foxes-Play) | [original post](https://www.reddit.com/r/roguelikedev/comments/uzb3iu/sharing_saturday_416/iaa1w3u/) | [play online in browser on itch.io!](https://oneirical.itch.io/tgfp))
+**The Games Foxes Play** ([github](https://github.com/Oneirical/The-Games-Foxes-Play) | [view all previous posts](https://github.com/Oneirical/The-Games-Foxes-Play/tree/main/design/Development%20Logs) | [play online in browser on itch.io!](https://oneirical.itch.io/tgfp) (latest winnable build, does not include this week's features as I expect them to break the Relay rooms)) 
 
 My motivation had been wavering in November, causing a long month of very little updates. How strange, considering how rent free my game's lore and mechanics had lived in my head during that time. This week, I asked myself, "Why didn't I feel like actually putting in the work?"
 
