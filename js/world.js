@@ -28,22 +28,22 @@ class World{
         if (coordinates == "firstroom"){
         }
         else if (coordinates == room.possibleexits[0]){
-            room.playerspawn = room.entrancepoints[3];
+            //room.playerspawn = room.entrancepoints[3];
             room.returnpoint = room.possibleexits[3];
             room.possibleexits.splice(3,1);
         }
         else if (coordinates == room.possibleexits[1]){ 
-            room.playerspawn = room.entrancepoints[2];
+            //room.playerspawn = room.entrancepoints[2];
             room.returnpoint = room.possibleexits[2];
             room.possibleexits.splice(2,1);
         }
         else if (coordinates == room.possibleexits[2]){ 
-            room.playerspawn = room.entrancepoints[1];
+            //room.playerspawn = room.entrancepoints[1];
             room.returnpoint = room.possibleexits[1];
             room.possibleexits.splice(1,1);
         }
         else if (coordinates == room.possibleexits[3]){ 
-            room.playerspawn = room.entrancepoints[0];
+            //room.playerspawn = room.entrancepoints[0];
             room.returnpoint = room.possibleexits[0];
             room.possibleexits.splice(0,1);
         }
@@ -83,7 +83,7 @@ class World{
             spawnlocation = room.entrancepoints[0];
         }
         else console.log("uh oh")
-        this.roomlist[id].playerspawn = spawnlocation;
+        this.roomlist[id].playerspawn = [spawnlocation.x,spawnlocation.y];
         this.playRoom(this.roomlist[id], player.hp);
     }
 }
@@ -120,18 +120,16 @@ class Room{
             pauseAllMusic();
             playSound(music);
         }
+        let randomtile = randomPassableTile();
         if (this.entrymessage) message = this.entrymessage;
         else message = "Empty";
-        if (world.roomlist.length == 1 && level == 0) this.playerspawn = getTile(Math.floor((numTiles-1)/2),Math.floor((numTiles-1)/2));
-        else if (world.roomlist.length == 1) this.playerspawn = randomPassableTile();
-        player = new Player(this.playerspawn);
-        player.tryMove(0,0); //this is such code gore, good lord, it will totally break something at one point
+        if (world.roomlist.length == 1 && level == 0) this.playerspawn = [Math.floor((numTiles-1)/2),Math.floor((numTiles-1)/2)];
+        else if (world.roomlist.length == 1) this.playerspawn = getTile(randomtile.x,randomtile.y);
+        player = new Player(getTile(this.playerspawn[0], this.playerspawn[1]));
         player.resolve = 3+ Math.floor(resolvebonus/2);
         if (this.effects.includes("Darkness")) player.fov = 2;
         player.discard = dissave;
         player.inventory = invsave;
-        player.teleportCounter = 0;
-        player.isPlayer = true;
         player.hp = this.startingplayerHP;
         sacritotal = "nan";
         sacrifice = 0;

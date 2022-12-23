@@ -320,9 +320,14 @@ class BReturnExit extends Tile{
             "N" : 84,
             "S" : 17,
             "W" : 83,
-            "E" : 85
+            "E" : 85,
+            "NW" : [0,1],
+            "SW" : [0,-1],
+            "WW" : [1,0],
+            "EW" : [-1,0],
         }
         this.sprite = this.textures[this.direction];
+        world.getRoom().playerspawn = [this.x+this.textures[this.direction + "W"][0], this.y+this.textures[this.direction + "W"][1]];
     }
 }
 
