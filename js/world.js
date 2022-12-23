@@ -17,6 +17,7 @@ class World{
 
     addRoom(coordinates, connector){
         let roomType;
+        if (gameState == "fluffy") gameState = "running";
         if (level == 0) roomType = WorldSeed;
         else if (level == 17 && !this.serene) roomType = EpsilonArena;
         else if (level % 5 == 1 && level > 5 && this.serene) roomType = FluffianWorkshop; //TODO increase the randomness on these
@@ -25,24 +26,27 @@ class World{
         let room = new roomType();
         room.index = this.roomlist.length;
         this.currentroom = room.index;
+        let numtest = numTiles;
+        numTiles = room.size;
+        tileSize = (numtest/numTiles)*64;
         if (coordinates == "firstroom"){
         }
-        else if (coordinates == room.possibleexits[0]){
+        else if (coordinates == "N"){
             //room.playerspawn = room.entrancepoints[3];
             room.returnpoint = room.possibleexits[3];
             room.possibleexits.splice(3,1);
         }
-        else if (coordinates == room.possibleexits[1]){ 
+        else if (coordinates == "W"){ 
             //room.playerspawn = room.entrancepoints[2];
             room.returnpoint = room.possibleexits[2];
             room.possibleexits.splice(2,1);
         }
-        else if (coordinates == room.possibleexits[2]){ 
+        else if (coordinates == "E"){ 
             //room.playerspawn = room.entrancepoints[1];
             room.returnpoint = room.possibleexits[1];
             room.possibleexits.splice(1,1);
         }
-        else if (coordinates == room.possibleexits[3]){ 
+        else if (coordinates == "S"){ 
             //room.playerspawn = room.entrancepoints[0];
             room.returnpoint = room.possibleexits[0];
             room.possibleexits.splice(0,1);
@@ -64,6 +68,7 @@ class World{
     }
 
     reloadRoom(id, coordinates){
+        if (gameState == "fluffy") gameState = "running";
         let room = this.roomlist[id];
         monsters = this.roomlist[id].monsters;
         tiles = this.roomlist[id].tiles;
@@ -82,7 +87,6 @@ class World{
         else if (coordinates == "S"){ 
             spawnlocation = room.entrancepoints[0];
         }
-        else console.log("uh oh")
         this.roomlist[id].playerspawn = [spawnlocation.x,spawnlocation.y];
         this.playRoom(this.roomlist[id], player.hp);
     }
@@ -106,12 +110,11 @@ class Room{
         this.tiles = []; //it will also need to stock the contents of course
         this.monsters = [];
         this.name = "Bugtopia";
+        this.fourway = false;
     }
 
     buildRoom(){
-        let numtest = numTiles;
-        numTiles = this.size;
-        tileSize = (numtest/numTiles)*64;
+
     }
 
     initializeRoom(){
@@ -124,7 +127,8 @@ class Room{
         if (this.entrymessage) message = this.entrymessage;
         else message = "Empty";
         if (world.roomlist.length == 1 && level == 0) this.playerspawn = [Math.floor((numTiles-1)/2),Math.floor((numTiles-1)/2)];
-        else if (world.roomlist.length == 1) this.playerspawn = getTile(randomtile.x,randomtile.y);
+        else if (world.roomlist.length == 1) this.playerspawn = [randomtile.x,randomtile.y];
+        //if (world.getRoom() instanceof EpsilonArena) this.playerspawn = [1,1];
         player = new Player(getTile(this.playerspawn[0], this.playerspawn[1]));
         player.resolve = 3+ Math.floor(resolvebonus/2);
         if (this.effects.includes("Darkness")) player.fov = 2;
@@ -146,6 +150,7 @@ class WorldSeed extends Room{
     buildRoom(){
         super.buildRoom();
         generateLevel();
+        generateMonsters();
     }
 
     initializeRoom(){
@@ -160,13 +165,14 @@ class StandardFaith extends Room{
         //this.playerspawn = getTile(Math.floor((numTiles-1)/2),1);
         this.name = "Faith's End";
         this.entrancepoints = [getTile(Math.floor((numTiles-1)/2),1), getTile(1,Math.floor((numTiles-1)/2)),getTile((numTiles-2),Math.floor((numTiles-1)/2)),getTile(Math.floor((numTiles-1)/2),(numTiles-2))];
-        this.possibleexits = [getTile(Math.floor((numTiles-1)/2),0), getTile(0,Math.floor((numTiles-1)/2)),getTile((numTiles-1),Math.floor((numTiles-1)/2)),getTile(Math.floor((numTiles-1)/2),numTiles-1)];
+        this.possibleexits = [[Math.floor((numTiles-1)/2),0], [0,Math.floor((numTiles-1)/2)],[(numTiles-1),Math.floor((numTiles-1)/2)],[Math.floor((numTiles-1)/2),numTiles-1]];
     }
 
     buildRoom(connector){
         super.buildRoom();
         generateLevel();
         blockedExits(connector);
+        generateMonsters();
     }
 
     initializeRoom(){
@@ -181,18 +187,22 @@ class HarmonyRelay extends Room{
         this.entrymessage = "FluffyWelcome";
         this.name = "Test of Unity";
         this.entrancepoints = [getTile(Math.floor((numTiles-1)/2),1), getTile(1,Math.floor((numTiles-1)/2)),getTile((numTiles-2),Math.floor((numTiles-1)/2)),getTile(Math.floor((numTiles-1)/2)),(numTiles-2)];
-        this.possibleexits = [getTile(Math.floor((numTiles-1)/2),0), getTile(0,Math.floor((numTiles-1)/2)),getTile((numTiles-1),Math.floor((numTiles-1)/2)),getTile(Math.floor((numTiles-1)/2),numTiles-1)];
+        this.possibleexits = [[Math.floor((numTiles-1)/2),0], [0,Math.floor((numTiles-1)/2)],[(numTiles-1),Math.floor((numTiles-1)/2)],[Math.floor((numTiles-1)/2),numTiles-1]];
     }
     
-    buildRoom(){
+    buildRoom(connector){
         super.buildRoom();
         generateLevel();
+        blockedExits(connector);
+        generateMonsters();
     }
 
     initializeRoom(){
+        world.fighting = false;
         dialoguecount = 0;
         gameState = "fluffy";
         super.initializeRoom();
+        summonExits();
     }
 } 
 
@@ -237,17 +247,21 @@ class EpsilonArena extends Room{
         super(18);
         this.entrymessage = "EpsilonWelcome1";
         this.name = "Industrial Apex";
+        this.fourway = true;
+        this.possibleexits = [[1,0], [0,numTiles-2],[numTiles-1,1],[numTiles-2,numTiles-1]];
     }
 
-    buildRoom(){
+    buildRoom(connector){
         super.buildRoom();
         generateEpsilon();
         showboss = true;
+        //setupCanvas();
         generateMonsters();
+        blockedExits(connector);
     }
 
     initializeRoom(){
-        this.playerspawn = getTile(1,1);
+        this.entrancepoints = [getTile(1,1), getTile(1,numTiles-2),getTile(numTiles-2,1),getTile(numTiles-2,numTiles-2)];
         super.initializeRoom();
     }
 }

@@ -419,12 +419,12 @@ function tick(){
         }
         
         //gener8 exit if u r ded
-        if (level % 5 != 0 && area == "Faith"){
-            tiles[Math.floor((numTiles-1)/2)][numTiles-1] = new Exit(Math.floor((numTiles-1)/2),numTiles-1)
-        }
-        else if (area == "Faith"){
-            tiles[Math.floor((numTiles-1)/2)][numTiles-1] = new FluffExit(Math.floor((numTiles-1)/2),numTiles-1)
-        }
+        //if (level % 5 != 0 && area == "Faith"){
+        //    tiles[Math.floor((numTiles-1)/2)][numTiles-1] = new Exit(Math.floor((numTiles-1)/2),numTiles-1)
+        //}
+        //else if (area == "Faith"){
+        //    tiles[Math.floor((numTiles-1)/2)][numTiles-1] = new FluffExit(Math.floor((numTiles-1)/2),numTiles-1)
+        //}
         
     }
     if (doublecounter != 0) doublecounter--;
@@ -462,7 +462,7 @@ function drawBossHp(currentboss, hp){
     ctx.fillStyle = 'rgba(0,0,0,.85)';
     ctx.fillRect(0,canvas.height/2 + 160,canvas.width - 383.5, 32);
     printAtWordWrap(bossname[currentboss], 21, 10, 568, bosscolour[currentboss], 20, 940);
-    printAtWordWrap("- {                                                                                    }", 21, 105, 566, "white", 20, 940);
+    printAtWordWrap("-", 21, 105, 566, "white", 20, 940);
     printAtWordWrap(bar[currentboss].repeat(hp), 21, 125, 568, bosscolour[currentboss], 20, 940);
 }
 
@@ -475,7 +475,7 @@ function startGame(){
     score = 0;
     numSpells = 0;
     aubecounter = 0;
-    invsave = ["ZAINT"];//[, ] //];
+    invsave = [];//[, ] //];
     modules = ["NONE"];
     modulators = ["Alacrity","Focus","Thrusters","Selective","Hover"];
     //let modtest = modulators[randomRange(0,4)]; //start with a modulator

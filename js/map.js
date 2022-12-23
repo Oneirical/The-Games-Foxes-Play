@@ -1,10 +1,7 @@
 function generateLevel(){
     tryTo('generate map', function(){
         return generateTiles() == randomPassableTile().getConnectedTiles().length;
-    });
-
-    generateMonsters();
-                                           
+    });                                    
 }
 
 function generateEdgeLevel(){
@@ -12,10 +9,6 @@ function generateEdgeLevel(){
         return generateEdge() == randomPassableTile().getConnectedTiles().length;
         
     });
-
-    generateMonsters();
-                                           
-
 }
 
 function generateTiles(){
@@ -58,20 +51,21 @@ function generateTiles(){
 
 function blockedExits(connector){
     let exitnumber = shuffle([1,2,2,3])[0];
+    if (world.getRoom().fourway) exitnumber = 3;
     let exitlocations = world.getRoom().possibleexits;
     let returnpoint = world.getRoom().returnpoint;
     for (let i = 0;i<exitnumber;i++){
         let exitdirection = shuffle(exitlocations)[0];
-        tiles[exitdirection.x][exitdirection.y].replace(BExit);
+        tiles[exitdirection[0]][exitdirection[1]].replace(BExit);
         removeItemOnce(exitlocations,exitdirection);
     }
     if (returnpoint) {
-        tiles[returnpoint.x][returnpoint.y].replace(BReturnExit);
-        tiles[returnpoint.x][returnpoint.y].id = connector;
+        tiles[returnpoint[0]][returnpoint[1]].replace(BReturnExit);
+        tiles[returnpoint[0]][returnpoint[1]].id = connector;
     }
     for (let i = 0;i<exitlocations.length;i++){
         let exitdirection = exitlocations[i];
-        tiles[exitdirection.x][exitdirection.y].replace(Wall);
+        tiles[exitdirection[0]][exitdirection[1]].replace(Wall);
     }
 }
 
@@ -255,10 +249,11 @@ function randomPassableTile(){
     tryTo('get random passable tile', function(){
         let x = randomRange(1,numTiles-2);
         let y = randomRange(1,numTiles-2);
-        if (x == world.getRoom().playerspawn.x && y == world.getRoom().playerspawn.y){
-            return false;
-        }
         tile = getTile(x, y);
+        let surround = tile.getAdjacentNeighbors();
+        for (i of surround){
+            if (i instanceof BExit || i instanceof BReturnExit) return false;
+        }
         return tile.passable && !tile.monster;
     });
     return tile;

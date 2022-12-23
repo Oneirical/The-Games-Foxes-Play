@@ -3,6 +3,14 @@ spells = {
     WOOP: function(caster){
         caster.move(randomPassableTile());
     },
+    ANNIHILATE: function(caster){
+        for (i of monsters){
+            if (!(i instanceof Ragemaw)) i.hit(99);
+        }
+        for (i of monsters){
+            if (i instanceof Ragemaw) i.hit(99);
+        }
+    },
     QUAKE: function(){                  
         for(let i=0; i<numTiles; i++){
             for(let j=0; j<numTiles; j++){

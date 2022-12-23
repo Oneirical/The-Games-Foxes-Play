@@ -137,10 +137,10 @@ class Tile{
         this.effectCounter = time;
     }
     checkDirection(){
-        if (this.x == 4 && this.y == 0) this.direction = "N";
-        else if (this.x == 0 && this.y == 4) this.direction = "W";
-        else if (this.x == 8 && this.y == 4) this.direction = "E";
-        else if (this.x == 4 && this.y == 8) this.direction = "S";
+        if (this.y == 0) this.direction = "N";
+        else if (this.x == 0) this.direction = "W";
+        else if (this.x == numTiles-1) this.direction = "E";
+        else if (this.y == numTiles-1) this.direction = "S";
     }
 }
 
@@ -354,7 +354,7 @@ class Exit extends Tile{
         super(x, y, 11, true);
         this.lore = description["OpenSeal"];
         this.name = "Unraveled Seal";
-        this.checkDirection();
+        super.checkDirection();
         this.textures = {
             "N" : 89,
             "S" : 86,
@@ -363,13 +363,6 @@ class Exit extends Tile{
         }
         this.sprite = this.textures[this.direction];
         if (world.getRoom() instanceof WorldSeed) this.sprite = 38;
-    }
-
-    checkDirection(){
-        if (this.x == 4 && this.y == 0) this.direction = "N";
-        else if (this.x == 0 && this.y == 4) this.direction = "W";
-        else if (this.x == 8 && this.y == 4) this.direction = "E";
-        else if (this.x == 4 && this.y == 8) this.direction = "S";
     }
 
     stepOn(monster){
@@ -410,6 +403,7 @@ class ExpandExit extends Exit{
         super(x, y, 11, true);
         this.lore = description["OpenSeal"];
         this.name = "Unraveled Seal";
+        this.checkDirection();
     }
     stepOn(monster){
         super.stepOn(monster);
@@ -418,9 +412,8 @@ class ExpandExit extends Exit{
             let newexit = this.replace(ReturnExit);
             newexit.id = world.roomlist.length;
             world.saveRoom(tiles, monsters);
-            console.log(world.currentroom);
-            let entering = world.addRoom(getTile(this.x,this.y),world.currentroom);
-            player.hp = Math.min(maxHp, player.hp++);
+            let entering = world.addRoom(this.direction,world.currentroom);
+            player.hp = Math.min(maxHp, player.hp+1);
             world.playRoom(entering, player.hp);
         }
     }
@@ -459,6 +452,7 @@ class TermiExit extends ExpandExit{
     stepOn(monster){
         pauseAllMusic();
         super.stepOn(monster);
+        level+=14; //debug
     }
 
 }

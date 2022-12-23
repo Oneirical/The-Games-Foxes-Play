@@ -201,6 +201,7 @@ messages = {
 
     // Souls dialogue
     "SOULLESS" : "\"Hi, this is Terminal. Yes, yourself. You bugged the game and managed to cast yourself. I guess the world explodes and you win now.\"",
+    "ANNIHILATE" : "boom",
     "TAINTED" : "\"he- hehe- beau- ti- ful- wo-r-ld... all... go- ne-...\"",
     "SAINTLY" : "\"What? Terminal, you are the one tasked to fight, not us! Fine. If it must be so.\"",
     "ORDERED" : "\"Efficiency. Discipline. Wisdom. These are your weapons, and certaintly not these dull claws.\"",
@@ -477,6 +478,7 @@ souldesc = {
 
 soulabi = {
     "SOULLESS" : "",
+    "ANNIHILATE" : "please don't bug this time",
     "TAINTED" : "ERRATIC BABBLE - When activated, does absolutely nothing.",
     "SAINTLY" : "REGAL CONFIDENCE - When activated, channel the grace of the Saints to heal 2 hitpoints in a 1-tile range cross.",
     "ORDERED" : "STALWART STANCE - When activated, receive invulnerability to damage for 1 turn.",
