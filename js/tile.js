@@ -433,12 +433,11 @@ class ReturnExit extends Exit {
     stepOn(monster){
         super.stepOn(monster);
         if(monster.isPlayer){
-            world.saveRoom(tiles, monsters);
+            //world.saveRoom(tiles, monsters);
             world.fighting = false;
             level--;
-            let playerhpsaveseriouslywtfevenisthis = player.hp;
-            if (this.monster) this.monster.hit(99);
-            player.hp = playerhpsaveseriouslywtfevenisthis;
+            this.monster = null;
+            world.saveRoom(tiles, monsters);
             world.reloadRoom(this.id, this.direction);
         }
     }
