@@ -5,7 +5,7 @@ function setupCanvas(){
     //canvas.width = tileSize*(numTiles+uiWidth);
     //canvas.height = tileSize*(numTiles+uiHeight);
     canvas.width = 960;
-    canvas.height = 768;
+    canvas.height = 833;
     canvas.style.width = canvas.width + 'px';
     canvas.style.height = canvas.height + 'px';
     ctx.imageSmoothingEnabled = false;
@@ -145,7 +145,7 @@ function draw(){
 
         for(let i=posgenx;i<maxx;i++){
             for(let j=posgeny;j<maxy;j++){
-                getTile(i,j).draw();
+                getTileButNotCursed(i,j).draw();
                 viewedTiles.push(getTile(i,j));
             }
         }
@@ -460,10 +460,10 @@ function drawBossHp(currentboss, hp){
     let bosscolour = ["pink","red","purple","cyan"];
     let bar = ["⚙⚙","Σ","❄❄","♡♡"];
     ctx.fillStyle = 'rgba(0,0,0,.85)';
-    ctx.fillRect(0,canvas.height/2 + 160,canvas.width - 383.5, 32);
-    printAtWordWrap(bossname[currentboss], 21, 10, 568, bosscolour[currentboss], 20, 940);
-    printAtWordWrap("-", 21, 105, 566, "white", 20, 940);
-    printAtWordWrap(bar[currentboss].repeat(hp), 21, 125, 568, bosscolour[currentboss], 20, 940);
+    ctx.fillRect(0,(canvas.height-(833-768)+20)/2 + 160,canvas.width - 383.5, 22);
+    printAtWordWrap(bossname[currentboss], 21, 10, 578, bosscolour[currentboss], 20, 940);
+    printAtWordWrap("-", 21, 105, 576, "white", 20, 940);
+    printAtWordWrap(bar[currentboss].repeat(hp), 21, 125, 578, bosscolour[currentboss], 20, 940);
 }
 
 function startGame(){

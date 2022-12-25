@@ -28,6 +28,8 @@ class World{
         this.currentroom = room.index;
         let numtest = numTiles;
         numTiles = room.size;
+        if (level == 17) room.possibleexits = [[1,0], [0,numTiles-2],[numTiles-1,1],[numTiles-2,numTiles-1]];
+        console.log(room.possibleexits);
         tileSize = (numtest/numTiles)*64;
         if (coordinates == "firstroom"){
         }
@@ -111,6 +113,7 @@ class Room{
         this.monsters = [];
         this.name = "Bugtopia";
         this.fourway = false;
+        this.violatereality = false;
     }
 
     buildRoom(){
@@ -145,6 +148,7 @@ class WorldSeed extends Room{
     constructor(){
         super(9);
         this.name = "World Seed";
+        this.possibleexits = [[4,8]];
     }
 
     buildRoom(){
@@ -249,19 +253,21 @@ class EpsilonArena extends Room{
         this.name = "Industrial Apex";
         this.fourway = true;
         this.possibleexits = [[1,0], [0,numTiles-2],[numTiles-1,1],[numTiles-2,numTiles-1]];
+        this.entrancepoints = [getTile(1,1), getTile(1,numTiles-2),getTile(numTiles-2,1),getTile(numTiles-2,numTiles-2)];
+        this.violatereality = true;
     }
 
     buildRoom(connector){
         super.buildRoom();
         generateEpsilon();
         showboss = true;
-        //setupCanvas();
-        generateMonsters();
         blockedExits(connector);
+        this.violatereality = false;
+        generateMonsters();
     }
 
     initializeRoom(){
-        this.entrancepoints = [getTile(1,1), getTile(1,numTiles-2),getTile(numTiles-2,1),getTile(numTiles-2,numTiles-2)];
+        //this.entrancepoints = [getTile(1,1), getTile(1,numTiles-2),getTile(numTiles-2,1),getTile(numTiles-2,numTiles-2)];
         super.initializeRoom();
     }
 }

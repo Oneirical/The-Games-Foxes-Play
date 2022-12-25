@@ -3,6 +3,7 @@
 //-more epsicores?
 //-buff naia
 //-ordered harmony soul
+//-description for epsilon spawners, harmony platforms and ladders
 
 //List of souls
 

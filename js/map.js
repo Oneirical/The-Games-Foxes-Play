@@ -26,7 +26,8 @@ function generateTiles(){
                 passableTiles++;
             }
             else if((((Math.random() < 0.3 && (level % 5 != 1 || level == 1) && level !=0 && level != 17) || !inBounds(i,j)))){
-                tiles[i][j] = new Wall(i,j);
+                if (level != 0) tiles[i][j] = new Wall(i,j);
+                else tiles[i][j] = new TermiWall(i,j);
             }
             else if(level % 5 == 1 && level > 5 && ((((j == 2) && (i == 4)))||((j==3)&&(i==2))||((j == 3) && (i == 6)))){
                 tiles[i][j] = new PosAltar(i,j);
@@ -188,8 +189,8 @@ function generateCircus(){
 
 function generateEpsilon(){
     let vault = {
-        0: [Wall,Wall,Wall,Wall,Wall,Wall,Wall,Wall,Wall,Wall,Wall,Wall,Wall,Wall,Wall,Wall,Wall,Wall],
-        1: [Wall,Floor,Wall,Floor,Wall,Floor,Floor,Floor,Floor,Floor,Wall,Floor,Wall,Floor,Floor,Floor,Floor,Wall],
+        0: [Wall,BExit,Wall,Wall,Wall,Wall,Wall,Wall,Wall,Wall,Wall,Wall,Wall,Wall,Wall,Wall,Wall,Wall],
+        1: [Wall,Floor,Wall,Floor,Wall,Floor,Floor,Floor,Floor,Floor,Wall,Floor,Wall,Floor,Floor,Floor,Floor,BExit],
         2: [Wall,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Wall,Wall],
         3: [Wall,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Wall],
         4: [Wall,Floor,Floor,Floor,Wall,Wall,Floor,Floor,Floor,Floor,Floor,Floor,Wall,Wall,Floor,Floor,Wall,Wall],
@@ -204,8 +205,8 @@ function generateEpsilon(){
         13: [Wall,Wall,Floor,Floor,Wall,Wall,Floor,Floor,Floor,Floor,Floor,Floor,Wall,Wall,Floor,Floor,Floor,Wall],
         14: [Wall,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Wall],
         15: [Wall,Wall,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Wall],
-        16: [Wall,Floor,Floor,Floor,Floor,Wall,Floor,Wall,Floor,Floor,Floor,Floor,Floor,Wall,Floor,Wall,Floor,Wall],
-        17: [Wall,Wall,Wall,Wall,Wall,Wall,Wall,Wall,Wall,Wall,Wall,Wall,Wall,Wall,Wall,Wall,Wall,Wall]
+        16: [BExit,Floor,Floor,Floor,Floor,Wall,Floor,Wall,Floor,Floor,Floor,Floor,Floor,Wall,Floor,Wall,Floor,Wall],
+        17: [Wall,Wall,Wall,Wall,Wall,Wall,Wall,Wall,Wall,Wall,Wall,Wall,Wall,Wall,Wall,Wall,BExit,Wall]
     }
     tiles = [];
     for(let i=0;i<numTiles;i++){
@@ -218,16 +219,21 @@ function generateEpsilon(){
 }
 
 function inBounds(x,y){
+    let array = [x,y];
     if((x == (Math.floor((numTiles-1)/2)) && (y == (numTiles-1)||y==0)) || (x == (numTiles-1)||x==0) && y == (Math.floor((numTiles-1)/2))){
-        if (world.getRoom() instanceof WorldSeed && y != numTiles-1) return false
+        if (world.getRoom() instanceof WorldSeed && y != numTiles-1) return false;
         else return true;
     }
+    else if (world.getRoom().possibleexits.includes(array)) return true;
     else{
     if (area != "Spire" && area != "Circus") return x>0 && y>0 && x<numTiles-1 && y<numTiles-1
     else return x>-1 && y>-1 && x<numTiles && y<numTiles
     }
 }
 
+function getTileButNotCursed(x, y){
+    return tiles[x][y];
+}
 
 function getTile(x, y){
     if(inBounds(x,y)){
@@ -351,7 +357,7 @@ function spawnMonster(){
         let tile = getTile(4,4);
         let monster = new monsterType(tile);
         monsters.push(monster);
-        tiles[(numTiles-1)/2][numTiles-1] = new Exit((numTiles-1)/2,numTiles-1);
+        //tiles[(numTiles-1)/2][numTiles-1] = new Exit((numTiles-1)/2,numTiles-1);
     }
     else if (level == 0){
         let monsterType = shuffle([Hologram])[0];
