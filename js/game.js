@@ -263,6 +263,7 @@ function draw(){
                 drawFilter(cyanfilter);
             }
             else{
+                //drawFilter(blackfilter);
                 ctx.globalAlpha = 1;
             }
         }

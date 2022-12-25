@@ -4,6 +4,8 @@
 //-buff naia
 //-ordered harmony soul
 //-description for epsilon spawners, harmony platforms and ladders
+//-make boss bars look nicer
+//
 
 //List of souls
 
