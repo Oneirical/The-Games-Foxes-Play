@@ -13,4 +13,4 @@ Featuring:
 
 * **Extensive lore presented through nonmodal elements** - If you care about why exactly the air elemental foxes have cybernetic augments, you can learn all my worldbuilding through tile descriptions and dialogue in a message box, but you will (almost) never be locked out of key-mashing and combat. Those who don't care about the "why" and just want to smash some robotic woodland critters can easily do so without interruption.
 
-Check the "design" folder in the files list for more information.
+Check the "design" folder in the files list for more information. Run index.html to play the game.
