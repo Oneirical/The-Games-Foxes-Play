@@ -51,6 +51,9 @@ messages = {
     "Oversoul" : "Your psyche is trembling with the echo of a thousand chatters! Unleash some souls before drawing more.",
     "CastError" : "You cannot cast this soul right now!",
     "Constricted" : "You are constricted! You cannot move normally. Slay or escape the creature constricting you to regain your agility!",
+
+    //Inventory screen
+    "InvTutorial" : "Incarnate up to six Legendary Souls - one of each type - to lead each of the spiritual castes and to enforce their will upon your Common passengers. Alter the function of your basic abilties, gain new passive effects and assemble powerful combinations. Store up to four unused Souls in your subconscious mind for later use. Be wary, for Legendary souls have a mind of their own, and may not have the Old World's interests at heart...",
     
     
     // Death messages
@@ -267,6 +270,8 @@ colours = {
     "Rosified" : "lightpink",
     "CastError" : "red",
     "Constricted" : "yellow",
+
+    "InvTutorial" : "white",
     
     "Discard" : "deepskyblue",
     "Shiza" : "deepskyblue",

@@ -91,6 +91,20 @@ function drawFilter(filter){
     );
 }
 
+function drawSymbol(sprite, x, y, size){
+    ctx.drawImage(
+        invsheet,
+        sprite*16,
+        0,
+        16,
+        16,
+        x,
+        y,
+        size,
+        size
+    );
+}
+
 function draw(){
     if(gameState == "running" || gameState == "dead" || gameState == "contemplation" || gameState == "fluffy" || gameState == "vision" || gameState == "discard"){  
         ctx.clearRect(0,0,canvas.width,canvas.height);
@@ -263,8 +277,31 @@ function draw(){
                 drawFilter(cyanfilter);
             }
             else{
-                //drawFilter(blackfilter);
+                drawFilter(blackfilter);
+                drawSymbol(6, 0, 0, 577);
+                //drawSymbol(0, 75, 90, 32);
+                //drawSymbol(1, 472, 90, 32);
+                //drawSymbol(3, 542, 273, 32);
+                //drawSymbol(2, 2, 273, 32);
+                //drawSymbol(4, 75, 455, 32);
+                //drawSymbol(5, 472, 455, 32);
+                ctx.globalAlpha = 0.55;
+                //intérieur
+                drawSymbol(0, 148, 76, 64);
+                drawSymbol(1, 366, 76, 64);
+                drawSymbol(2, 76, 257, 64);
+                drawSymbol(3, 438, 257, 64);
+                drawSymbol(4, 148, 438, 64);
+                drawSymbol(5, 366, 438, 64);
+                //stockage
                 ctx.globalAlpha = 1;
+                let dist = 154
+                drawSymbol(1, 257, dist, 64);
+                drawSymbol(5, 257, dist+68, 64);
+                drawSymbol(3, 257, dist+138, 64);
+                drawSymbol(2, 257, dist+138+68, 64);
+                message = "InvTutorial";
+                
             }
         }
         if (showboss){

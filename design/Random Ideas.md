@@ -4,7 +4,9 @@ Current project:
 
 The reason the game is in glyphs is because it must be "censored" as some creatures are cognitohazardous.
 
-A weird item that induces a positive effect if your room path causes two rooms to superpose upon each other
+A weird item that induces a positive effect if your room path causes two rooms to superpose upon each other - maybe a shizapis passive?
+
+Cool item that lets you place a legendary in a slot it's not supposed to go in
 
 An item that occasionally gives difficult "Simon Says" rules to follow. The player is rewarded for not transgressing.
 
