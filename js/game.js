@@ -228,6 +228,22 @@ function draw(){
             cursor.draw();
             cursor.info();
         }
+        else if (inInventory){
+            drawFilter(blackfilter);
+            drawSymbol(6, 0, 0, 577);
+            ctx.globalAlpha = 0.55;
+            //intérieur
+            for (let k of legendaries.active){
+                ctx.globalAlpha = k.alpha;
+                drawSymbol(k.icon, legendaries.actcoords[legendaries.active.indexOf(k)][0], legendaries.actcoords[legendaries.active.indexOf(k)][1], 64);
+            }
+            //stockage
+            for (let k of legendaries.storage){
+                ctx.globalAlpha = k.alpha;
+                drawSymbol(k.icon, legendaries.storecoords[legendaries.storage.indexOf(k)][0], legendaries.storecoords[legendaries.storage.indexOf(k)][1], 64);
+            }
+            message = "InvTutorial";
+        }
         
         else {
             if (invmode == true  && wtfx<603){
@@ -275,33 +291,6 @@ function draw(){
             else if (player.fuffified > 0){
                 ctx.globalAlpha = 0.5;
                 drawFilter(cyanfilter);
-            }
-            else{
-                drawFilter(blackfilter);
-                drawSymbol(6, 0, 0, 577);
-                //drawSymbol(0, 75, 90, 32);
-                //drawSymbol(1, 472, 90, 32);
-                //drawSymbol(3, 542, 273, 32);
-                //drawSymbol(2, 2, 273, 32);
-                //drawSymbol(4, 75, 455, 32);
-                //drawSymbol(5, 472, 455, 32);
-                ctx.globalAlpha = 0.55;
-                //intérieur
-                drawSymbol(0, 148, 76, 64);
-                drawSymbol(1, 366, 76, 64);
-                drawSymbol(2, 76, 257, 64);
-                drawSymbol(3, 438, 257, 64);
-                drawSymbol(4, 148, 438, 64);
-                drawSymbol(5, 366, 438, 64);
-                //stockage
-                ctx.globalAlpha = 1;
-                let dist = 154
-                drawSymbol(1, 257, dist, 64);
-                drawSymbol(5, 257, dist+68, 64);
-                drawSymbol(3, 257, dist+138, 64);
-                drawSymbol(2, 257, dist+138+68, 64);
-                message = "InvTutorial";
-                
             }
         }
         if (showboss){
@@ -524,6 +513,7 @@ function startGame(){
     dissave = [];
     startWorld(startingHp);
     gameState = "running";
+    legendaries = new Inventory();
 }
 
 function startWorld(playerHp){

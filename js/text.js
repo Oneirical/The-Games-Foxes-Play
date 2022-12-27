@@ -9,7 +9,7 @@
 
 //List of souls
 
-vile = ["ZENESTE","RASEL"];
+vile = ["SENET","RASEL"];
 feral = ["KILAMI","LASHOL","EZEZZA"];
 unhinged = ["SHIZAPIS","JOLTZAZON"];
 artistic = ["PURPIZUG","AUBE","BORERORA", "GYVJI"];
@@ -219,7 +219,7 @@ messages = {
     "JOLTZAZON" : "\"She put home-knitted scarves on my neck... They said it was just a necklace of river pebbles, but I knew.\"",
     "PURPIZUG" : "\"This world sucked anyways. The Next World will clearly be better.\"",
     "ROSE" : "\"Only Rose will lead the Next World to perfection~\"",
-    "ZENESTE" : "\"\'Don't hold back. Market yourself too.\' - the Zeneste Mindset Handbook, p. 54.\"",
+    "SENET" : "\"\'Don't hold back. Market yourself too.\' - the Senet Mindset Handbook, p. 54.\"",
     "KILAMI" : "Kilami purrs as your scratch behind her metaphorical ears.",
     "AUBE" : "\"I picked these flowers just for you... General... why did you step on them?\"",
     "ZENITH" : "\"I paint my face in the ichor of demons, so my enemies may recognize me as one.\"",
@@ -301,7 +301,7 @@ colours = {
     "JOLTZAZON" : "yellow",
     "PURPIZUG" : "orange",
     "ROSE" : "lightpink",
-    "ZENESTE" : "mediumorchid",
+    "SENET" : "mediumorchid",
     "KILAMI" : "lightgoldenrodyellow",
     "AUBE" : "darkseagreen",
     "ZENITH" : "mediumpurple",
@@ -451,7 +451,7 @@ souldesc = {
     "JOLTZAZON" : "When the youth took too long to find a partner, their guardians would tell them the tale of Joltzazon, who married a river out of disinterest for his kin, and eventually drowned in it. In his honour, the tea savoured by the newly-wed is prepared from the waters of this stream.",
     "PURPIZUG" : "Dozens of rivers have been used up in paint, and yet, this mad artist has never completed a single work. Every time a near-perfect masterpiece was about to be completed, it met its fate drowned in an ocean of white colour, soon to be covered by yet another ephemeral creation.",
     "ROSE" : "The final emperor to rule the Old World, more preoccupied with the best way to wear scarves and frilled robes than with the imminent end of reality. Some accused his narcissism to have seeped out of his mind, and given form to the first Serene Collectivist. Those dissenters spent the rest of their days tangled in pink ribbons, grinning brightly in pride at their new positions as palace servants.",
-    "ZENESTE" : "After guarding her trader-master for years, this feline statue eventually decided she had learned enough, and started her own business. It did not take long until her former owner was found toiling away in the mines for the glory of Zeneste Incorporated.",
+    "SENET" : "After guarding her trader-master for years, this feline statue eventually decided she had learned enough, and started her own business. It did not take long until her former owner was found toiling away in the mines for the glory of Senet Incorporated.",
     "KILAMI" : "A furless feline, occasionally found prowling on the Edge of Reality. She followed travellers around, asking for ear scritches in an exact replica of their voice. Most were too terrified to fulfill her wishes.",
     "AUBE" : "A weak and ineffectual kit, enlisted in the Saints' royal guard because of an unfortunate misunderstanding. He seemed to care a lot more about cooking than fighting, and his tablets were scribbled with imaginary recipes requiring legendary ingredients from the Edge of Reality.",
     "ZENITH" : "Years of harsh training and re-education have expunged all traces of kindness from Aube, who then learned how to cut viscera instead of fruit. His enemies whispered his name with anguish, and even his fellow soldiers feared his notorious cruelty.",
@@ -498,7 +498,7 @@ soulabi = {
     "JOLTZAZON" : "SUFFOCATING LOVE - When activated, all enemies adjacent to at least one other enemy take 2 damage.",
     "PURPIZUG" : "WHITE BLAZE - When activated, discard your entire paw, then draw souls equal to the amount discarded.",
     "ROSE" : "GLAMOUR AND SMILES - When activated, fire out a ribbon that will wrap around the first enemy hit. That enemy becomes targeted by every other enemy in the room.",
-    "ZENESTE" : "PERSUASIVE ENLISTMENT - When activated, empower your next attack with a Charming touch, which converts an enemy to your side... until it is the last one remaining.",
+    "SENET" : "PERSUASIVE ENLISTMENT - When activated, empower your next attack with a Charming touch, which converts an enemy to your side... until it is the last one remaining.",
     "KILAMI" : "COPY KITTY - When activated, all enemies slain this turn, and the next turn, will have their Soul immediately casted in addition to adding it to your discard pile.",
     "AUBE" : "(Unique) PREPARE - When activated, heal every creature in the room for 2 HP, including you. When Aube has been activated a total of 5 times, transform it into Zenith.",
     "ZENITH" : "(Unique) COOK - When activated, slice all enemies in a 4-radius hourglass pattern, dealing 2 damage to each. When Zenith has been activated a total of 5 times, transform it into Crepusculum.",
@@ -552,7 +552,7 @@ soulval = {
     "JOLTZAZON" : "Worth 3 points in a Harmonic Relay",
     "PURPIZUG" : "Worth 4 points in a Harmonic Relay",
     "ROSE" : "Worth 6 points in a Harmonic Relay",
-    "ZENESTE" : "Worth 1 point in a Harmonic Relay",
+    "SENET" : "Worth 1 point in a Harmonic Relay",
     "KILAMI" : "Worth 2 points in a Harmonic Relay",
     "AUBE" : "Worth 4 points in a Harmonic Relay",
     "ZENITH" : "Worth 4 points in a Harmonic Relay",
@@ -598,7 +598,7 @@ soulname = {
     "JOLTZAZON" : "Joltzazon, Husband of the Scarved River",
     "PURPIZUG" : "Purpizug, Painter of Blank Canvasses",
     "ROSE" : "Rose Sylvie, Last of the Saints",
-    "ZENESTE" : "Zeneste, the Felidol Tycoon",
+    "SENET" : "Senet, the Felidol Tycoon",
     "KILAMI" : "Kilami, the Echo at the Outskirts of the World",
     "AUBE" : "Aube, Grain of Rice",
     "ZENITH" : "Zenith, Rice-Flower",
@@ -656,5 +656,5 @@ items = {
     //"Ordered" : "You question an Ordered soul on why it keeps beeping in annoyance. \"Vessel. You are breathing an unnecessary volume of oxygen in combat.\""
 
 //bad = ["KILAMI","SHIZAPIS","PURPIZUG", "ASPHA"];
-//medium = ["ZENESTE","AUBE","BORERORA","ROSE", "ZAINT"];
+//medium = ["SENET","AUBE","BORERORA","ROSE", "ZAINT"];
 //good = ["RASEL","LASHOL","JOLTZAZON","ABAZON"];

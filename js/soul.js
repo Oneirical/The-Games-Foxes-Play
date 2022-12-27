@@ -376,7 +376,7 @@ spells = {
     ROSE: function(){
         ribbonTravel(player.lastMove, 33 + Math.abs(player.lastMove[1]), player.tile);
     },
-    ZENESTE: function(){
+    SENET: function(){
         player.specialAttack = "Charm";
     },
     KILAMI: function(){

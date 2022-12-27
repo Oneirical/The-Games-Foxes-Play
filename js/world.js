@@ -29,7 +29,6 @@ class World{
         let numtest = numTiles;
         numTiles = room.size;
         if (level == 17) room.possibleexits = [[1,0], [0,numTiles-2],[numTiles-1,1],[numTiles-2,numTiles-1]];
-        console.log(room.possibleexits);
         tileSize = (numtest/numTiles)*64;
         if (coordinates == "firstroom"){
         }

@@ -563,7 +563,6 @@ class Player extends Monster{
         this.inhand = [];
         this.discard = [];
         this.saved = [];
-        this.legendaries = [null,null,null,null,null,null,null,null,null,null];
         this.resolve = 0;
         this.name = "Terminal, the Reality Anchor";
         this.soul = "Does not have a soul of its own -- is merely the combination of its many passengers.";
