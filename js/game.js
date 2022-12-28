@@ -201,14 +201,14 @@ function draw(){
         //else if (area == "Circus") drawText("Roseic Circus", 30, false, 40, "violet");
         //else if (level == 17 && area == "Faith") drawText("Industrial Apex", 30, false, 40, "violet");
         //else drawText("Faith's End - Reality "+(100-level)+"%", 30, false, 40, "violet");
-        drawText("Ipseity: "+truehp, 30, false, 70, "cyan");
-        if (gameState == "running"){
-            drawText("Resolve: "+player.resolve+"/"+(3+Math.floor(resolvebonus/2)), 30, false, 100, "orange");
-            if (player.rosetox > 0) drawText("Glamour: "+player.rosetox+"/10", 30, false, 440, "lightpink");
-        }
-        if (gameState == "contemplation") drawText("Agony: "+agony, 30, false, 100, "red");
-        if (gameState == "dead" && !victory) drawText("SOUL SHATTERED", 20, false, 100, "red");
-        else if (gameState == "dead" && victory) drawText("VICTORY", 30, false, 100, "lime");
+        //drawText("Ipseity: "+truehp, 30, false, 70, "cyan");
+        //if (gameState == "running"){
+        //    drawText("Resolve: "+player.resolve+"/"+(3+Math.floor(resolvebonus/2)), 30, false, 100, "orange");
+        //    if (player.rosetox > 0) drawText("Glamour: "+player.rosetox+"/10", 30, false, 440, "lightpink");
+        //}
+        //if (gameState == "contemplation") drawText("Agony: "+agony, 30, false, 100, "red");
+        //if (gameState == "dead" && !victory) drawText("SOUL SHATTERED", 20, false, 100, "red");
+        //else if (gameState == "dead" && victory) drawText("VICTORY", 30, false, 100, "lime");
         let basicc = player.inventory.filter(soul => basic.includes(soul)).length + player.inhand.filter(soul => basic.includes(soul)).length + player.discard.filter(soul => basic.includes(soul)).length + player.saved.filter(soul => basic.includes(soul)).length;
         let serc = player.inventory.filter(soul => soul == "SERENE").length + player.inhand.filter(soul => soul == "SERENE").length + player.discard.filter(soul => soul == "SERENE").length + player.saved.filter(soul => soul == "SERENE").length;
         let advc = player.inventory.length + player.inhand.length + player.discard.length + player.saved.length - basicc -serc;

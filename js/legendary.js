@@ -6,8 +6,8 @@ class DrawWheel{
         let pi = Math.PI;
         this.wheelcoords = [[center[0], center[1]-dist],[center[0]+Math.cos(pi/4)*dist, center[1]-Math.sin(pi/4)*dist],[center[0]+dist, center[1]],[center[0]+Math.cos(pi/4)*dist, center[1]+Math.sin(pi/4)*dist],[center[0], center[1]+dist],[center[0]-Math.cos(pi/4)*dist, center[1]+Math.sin(pi/4)*dist],[center[0]-dist, center[1]],[center[0]-Math.cos(pi/4)*dist, center[1]-Math.sin(pi/4)*dist]];
 
-        this.pile = [new Saintly(), new Feral(), new Vile(), new Ordered()];
-        this.discard = [new Artistic()];
+        this.pile = [];
+        this.discard = [];
         this.resolve = 3; //update this later with the bonus
         this.castes = [new Saintly(),new Ordered(),new Artistic(),new Unhinged(),new Feral(),new Vile()];
         let first = [587, 420];
@@ -17,6 +17,13 @@ class DrawWheel{
     }
 
     display(){
+        drawSymbol(9, 590, 130, 64);
+        drawSymbol(10, 880, 130, 64);
+        drawSymbol(6, 880, 320, 64);
+        drawSymbol(11, 590, 50, 64);
+        drawSymbol(12, 880, 50, 64);
+        printAtSidebar(" "+truehp, 23, 660, 90, "plum", 20, 350);
+        printAtSidebar(player.resolve+"/"+(3+Math.floor(resolvebonus/2))+" ", 23, 835, 90, "lightskyblue", 20, 350);
         for (let k of this.wheel){
             drawSymbol(k.icon, this.wheelcoords[this.wheel.indexOf(k)][0], this.wheelcoords[this.wheel.indexOf(k)][1], 64);
         }

@@ -461,7 +461,7 @@ souldesc = {
     "ORDERED" : "An honour granted upon those who risked their lives to prevent the loss of value, such as guards, automatons and soldiers.",
     "ARTISTIC" : "The most populous spiritual caste, tasked with the production and refinement of value. Performers, artisans and hunters belonged to this group.",
     "UNHINGED" : "Disruptors of the monastic order, who still provided value through the amusment derived from mocking them. Fools, seers and eccentric inviduals were cursed with this mark.",
-    "FERAL" : "The designation common to all wild flora and fauna, who produced value by their existence, but refused to share it.",
+    "FERAL" : "The designation common to all wild flora and fauna, who produced value through their existence, but refused to share it.",
     "VILE" : "A mark branded upon those who consumed or handled value without ever producing it, such as merchants, criminals and thieves.",
     "SERENE" : "They are servitors of sameness, crusaders against individuality, and warpers of identity. They will only rest once all speak as they speak, look as they look, and think as they think.", //And yet you have chosen to host them. Peace be upon your soul.
     "JOLTZAZON" : "When the youth took too long to find a partner, their guardians would tell them the tale of Joltzazon, who married a river out of disinterest for his kin, and eventually drowned in it. In his honour, the tea savoured by the newly-wed is prepared from the waters of this stream.",
