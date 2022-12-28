@@ -1,4 +1,11 @@
-Current project:
+Current project: circle UI
+
+Make the souls in a circle with squares for empty slots. below there are buttons for legendary tree & modulator tree, maybe some rose thing too
+A real text log at the bottom like most roguelikes?
+Types: Assimilating, Commanding, Independent
+
+
+
 
 - Dreamy rooms that can be backtracked but do not actually fit in a grid.
 
@@ -15,6 +22,8 @@ A massive enemy over 9 tiles, composed of combined textures. Maybe in the Spire.
 A Soul that freezes time in an area, and damages everything not frozen.
 
 Items that lets you use Glamorous or Harmonized versions of their souls outside their normal branches.
+
+Keep the invtree texture, use it as a cool legendary soul effect that has something to do with the inventory.
 
 For next devlog:
 

@@ -37,6 +37,13 @@ modulators = ["Alacrity","Selective","Thrusters","Hover","Focus"];
 //Saintly
 // Scion - Embalmer
 
+inventorytext = {
+    "A" : "ASSIMILATING: When incarnated, this Soul replaces the active effects of its Caste with its own.",
+    "C" : "COMMANDING: When incarnated, this Soul adds its own active effect to the standard active effects of its Caste.",
+    "I" : "INDIVIDUALISTIC: When incarnated, this Soul does not modify the standard active effects of its Caste.",
+    "Danger" : "CAUTION - This Soul is extremely influential and may cause alteration of your thought-processes if incarnated."
+}
+
 messages = {
     // Various out-of-character messages
     "Empty" : "",

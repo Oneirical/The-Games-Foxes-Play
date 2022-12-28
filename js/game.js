@@ -28,6 +28,20 @@ function setupCanvas(){
         let x = event.clientX - rect.left;
         let y = event.clientY - rect.top;
         let clickpos = [x,y];
+        if (gameState != "title"){
+            if(inInventory){
+                for (let i of legendaries.storecoords){
+                    if (clickpos[0] > i[0] && clickpos[0] < (i[0]+64) && clickpos[1] > i[1] && clickpos[1] < (i[1]+64)){
+                        legendaries.activateSoul(legendaries.storecoords.indexOf(i));
+                    }
+                }
+                for (let i of legendaries.actcoords){
+                    if (clickpos[0] > i[0] && clickpos[0] < (i[0]+64) && clickpos[1] > i[1] && clickpos[1] < (i[1]+64)){
+                        legendaries.storeSoul(legendaries.actcoords.indexOf(i));
+                    }
+                }
+            }
+        }
         if(clickpos[0]>603&&clickpos[1]>115 && gameState != "dead" && gameState != "title"){
             let mousdes = Math.ceil((clickpos[1] - 130)/20);
             if (mousdes+1 <= player.inhand.length || mousdes == 21 || mousdes == 22){
@@ -106,12 +120,26 @@ function drawSymbol(sprite, x, y, size){
 }
 
 function draw(){
-    if(gameState == "running" || gameState == "dead" || gameState == "contemplation" || gameState == "fluffy" || gameState == "vision" || gameState == "discard"){  
+    if(gameState == "running" || gameState == "dead" || gameState == "contemplation" || gameState == "fluffy" || gameState == "vision" || gameState == "discard"){
         ctx.clearRect(0,0,canvas.width,canvas.height);
         let wtfx = mousepos[0];
         let wtfy = mousepos[1];
         let fufflore = false;
         let selectation = 99;
+        if(inInventory){
+            for (let i of legendaries.storecoords){
+                if (mousepos[0] > i[0] && mousepos[0] < (i[0]+64) && mousepos[1] > i[1] && mousepos[1] < (i[1]+64)){
+                    printAtWordWrap(legendaries.storage[legendaries.storecoords.indexOf(i)].lore, 18, 10, 600, colours[legendaries.storage[legendaries.storecoords.indexOf(i)].id], 20, 940);
+                    printAtWordWrap(legendaries.storage[legendaries.storecoords.indexOf(i)].subdescript, 18, 10, 600+(Math.ceil(legendaries.storage[legendaries.storecoords.indexOf(i)].lore.length/100)*25), "white", 20, 940);
+                }
+            }
+            for (let i of legendaries.actcoords){
+                if (mousepos[0] > i[0] && mousepos[0] < (i[0]+64) && mousepos[1] > i[1] && mousepos[1] < (i[1]+64)){
+                    printAtWordWrap(legendaries.active[legendaries.actcoords.indexOf(i)].lore, 18, 10, 600, colours[legendaries.active[legendaries.actcoords.indexOf(i)].id], 20, 940);
+                    printAtWordWrap(legendaries.active[legendaries.actcoords.indexOf(i)].subdescript, 18, 10, 600+(Math.ceil(legendaries.active[legendaries.actcoords.indexOf(i)].lore.length/100)*25), "white", 20, 940);
+                }
+            }
+        }
         if(wtfx>603&&wtfy>115){
             let mousdes = Math.ceil((wtfy - 130)/20);
             if (mousdes+1 <= player.inhand.length || mousdes == 21 || mousdes == 22){
@@ -303,6 +331,12 @@ function draw(){
             }
             drawBossHp(1, Math.floor((hpdraw/33)*36)) //the 6 is the maxhp, replace as needed
         }
+        ctx.strokeStyle = 'white';
+        ctx.lineWidth = 1.5;
+        ctx.beginPath();
+        ctx.moveTo(0, 577);
+        ctx.lineTo(960, 577);
+        ctx.stroke();
     }
 }
 function manageExit(){

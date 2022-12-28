@@ -1,7 +1,7 @@
 //TODO cool animation?
 class Inventory{
     constructor(){
-        this.active = [new Vile(),new Feral(),new Unhinged(),new Artistic(),new Ordered(),new Saintly()];
+        this.active = [new Senet(),new Feral(),new Unhinged(),new Artistic(),new Ordered(),new Saintly()];
         this.storage = [new Senet(),new Lashol(),new Rasel(),new Empty()];
         this.actcoords = [[148, 76],[366, 76],[76, 257],[438, 257],[148, 438],[366, 438]];
         this.actcoords.reverse();//don't feel like re-writing these in the correct order lmao
@@ -10,25 +10,30 @@ class Inventory{
         this.storecoords = [[257, 154],[257, 154+68],[257, 154+138],[257, 154+138+68]];
         
     }
-    //this may need a bit more thought...
-    activateSoul(slot,soul){
-        let caste = this.castes.indexOf(soul.caste);
+    activateSoul(slot){
+        let soul = this.storage[slot];
+        if (soul instanceof Empty) return;
+        let caste = this.castes.indexOf(this.storage[slot].caste);
         this.storage[slot] = new Empty();
         this.storeSoul(caste, this.active[caste]);
         this.active[caste] = soul;
     }
 
-    storeSoul(slot, soul){
-        if (basic.includes(soul.id)) return;
+    storeSoul(slot){
+        let soul = this.active[slot];
+        if (basic.includes(this.active[slot].id)) return;
         else{
+            let noroom = 0;
             for (let i of this.storage){
-                if (i instanceof Empty){
+                if (noroom == this.storage.length) return;
+                else if (i instanceof Empty){
                     this.storage[this.storage.indexOf(i)] = soul;
                     break;
                 }
+                else noroom++;
             }
-            this.active[slot] = this.castesclass[slot];
-        } // TODO what if nothing empty in storage?
+            if (noroom != this.storage.length) this.active[slot] = this.castesclass[slot];
+        }
     }
 }
 
@@ -60,6 +65,8 @@ class Empty extends LegendarySoul{
         this.icon = 7;
         this.caste = "EMPTY";
         this.danger = false;
+        this.lore = "TODO";//remove
+        this.subdescript = "TODO"; //remove
     }
 }
 
