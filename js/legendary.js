@@ -1,4 +1,129 @@
-//TODO cool animation?
+class DrawWheel{
+    constructor(){
+        this.wheel = [new Empty(),new Empty(),new Empty(),new Empty(),new Empty(),new Empty(),new Empty(),new Empty()];
+        let center = [736, 223];
+        let dist = 100;
+        let pi = Math.PI;
+        this.wheelcoords = [[center[0], center[1]-dist],[center[0]+Math.cos(pi/4)*dist, center[1]-Math.sin(pi/4)*dist],[center[0]+dist, center[1]],[center[0]+Math.cos(pi/4)*dist, center[1]+Math.sin(pi/4)*dist],[center[0], center[1]+dist],[center[0]-Math.cos(pi/4)*dist, center[1]+Math.sin(pi/4)*dist],[center[0]-dist, center[1]],[center[0]-Math.cos(pi/4)*dist, center[1]-Math.sin(pi/4)*dist]];
+
+        this.pile = [new Saintly(), new Feral(), new Vile(), new Ordered()];
+        this.discard = [new Artistic()];
+        this.resolve = 3; //update this later with the bonus
+        this.castes = [new Saintly(),new Ordered(),new Artistic(),new Unhinged(),new Feral(),new Vile()];
+        let first = [587, 420];
+        let vert = 52;
+        let hori = 64*5-5;
+        this.castecoords = [first,[first[0]+hori,first[1]],[first[0],first[1]+vert],[first[0]+hori,first[1]+vert],[first[0],first[1]+vert*2],[first[0]+hori,first[1]+vert*2]]
+    }
+
+    display(){
+        for (let k of this.wheel){
+            drawSymbol(k.icon, this.wheelcoords[this.wheel.indexOf(k)][0], this.wheelcoords[this.wheel.indexOf(k)][1], 64);
+        }
+        for (let k of this.castes){
+            drawSymbol(k.icon, this.castecoords[this.castes.indexOf(k)][0], this.castecoords[this.castes.indexOf(k)][1], 48);
+        }
+        for (let k of this.castes){
+            if (this.castes.indexOf(k) % 2 == 0){
+            printAtSidebar(" - " + this.countPileSouls()[this.castes.indexOf(k)], 18, this.castecoords[5-this.castes.indexOf(k)][0]-265, this.castecoords[this.castes.indexOf(k)][1]+32, "white", 20, 350);
+            printAtSidebar("(" + this.countDiscardSouls()[(this.castes.indexOf(k))] + ")", 18, this.castecoords[5-this.castes.indexOf(k)][0]-265+ctx.measureText(" - " + this.countPileSouls()[this.castes.indexOf(k)]).width+10, this.castecoords[this.castes.indexOf(k)][1]+32, "pink", 20, 350); 
+            }
+            else if (this.castes.indexOf(k) % 2 == 1){
+                printAtSidebar(this.countPileSouls()[this.castes.indexOf(k)] + " - ", 18, this.castecoords[5-this.castes.indexOf(k)][0]+285, this.castecoords[this.castes.indexOf(k)][1]+32, "white", 20, 350);
+                printAtSidebar("(" + this.countDiscardSouls()[(this.castes.indexOf(k))] + ")", 18, this.castecoords[5-this.castes.indexOf(k)][0]+285-ctx.measureText(" - " + this.countPileSouls()[this.castes.indexOf(k)]).width-10, this.castecoords[this.castes.indexOf(k)][1]+32, "pink", 20, 350); 
+            }
+        }
+    }
+
+    countPileSouls(){
+        let counts = [0,0,0,0,0,0];
+        for (let k of this.pile){
+            for (let g of this.castes){
+                if (k.caste == g.caste) counts[this.castes.indexOf(g)]++;
+            } 
+        }
+        return counts;
+    }
+
+    countDiscardSouls(){
+        let counts = [0,0,0,0,0,0];
+        for (let k of this.discard){
+            for (let g of this.castes){
+                if (k.caste ==  g.caste) counts[this.castes.indexOf(g)]++;
+            } 
+        }
+        return counts;
+    }
+
+    addSoul(skey){
+        if (smod.includes(skey)) modules.push(skey);
+        else{
+            this.discard.push(skey);
+            //if (doublecounter!=0) spells[skey](this);
+        }  
+    }
+
+    drawSoul(){
+        if (this.discard.length <= 0 && this.pile.length <= 0){
+            message = "NoSouls";
+            shakeAmount = 5;
+            return;
+        }
+        let space = 8;
+        for (let k of this.wheel){
+            if (!(k instanceof Empty)) space--;
+        }
+        if (space == 0){
+            message = "Oversoul";
+            shakeAmount = 5; 
+            return;
+        }
+        else{
+            message = "Empty";
+            if (this.pile.length <= 0){
+                //this.discard.push("TAINTED") //remplacer avec curse, dash est un placeholder
+    
+                shuffle(this.discard)
+                for(let i=0;i<this.discard.length;i++){
+                    this.pile.push(this.discard[i]);
+                }
+                this.discard = [];
+            }
+            for (let k of this.wheel){
+                if (k instanceof Empty){
+                    this.wheel[this.wheel.indexOf(k)] = this.pile[0];
+                    break;
+                } 
+            }
+            //if(this.inventory[0] == "EZEZZA"){
+            //    this.para = 2;
+            //    message = "EZEZZA";
+            //}
+            this.pile.shift();
+            if (this.resolve > 0){
+                this.resolve--
+            }
+            else{
+                truehp--
+                if (truehp <= 0){
+                    gameState = "dead"
+                    pauseAllMusic();
+                    playSound("falsity");
+                    message = "DrawDeath";
+                }
+            }
+            if (this.activemodule != "Alacrity") tick();
+            else if (!this.consumeCommon(1,false)){
+                message = "FluffyInsufficientPower";
+                playSound("off");
+                tick();
+                this.activemodule = "NONE";
+            } 
+        }
+    }
+}
+
+//TODO cool sliding animation?
 class Inventory{
     constructor(){
         this.active = [new Senet(),new Feral(),new Unhinged(),new Artistic(),new Ordered(),new Saintly()];
@@ -7,8 +132,7 @@ class Inventory{
         this.actcoords.reverse();//don't feel like re-writing these in the correct order lmao
         this.castes = ["VILE","FERAL","UNHINGED","ARTISTIC","ORDERED","SAINTLY"];
         this.castesclass = [new Vile(),new Feral(),new Unhinged(),new Artistic(),new Ordered(),new Saintly()];
-        this.storecoords = [[257, 154],[257, 154+68],[257, 154+138],[257, 154+138+68]];
-        
+        this.storecoords = [[257, 154],[257, 154+68],[257, 154+138],[257, 154+138+68]];   
     }
     activateSoul(slot){
         let soul = this.storage[slot];
@@ -62,6 +186,7 @@ class LegendarySoul{
         else printAtSidebar(this.name, 18, 590, 130, colours[this.id], 20, 6*64-35);
         printAtSidebar(this.subdescript, 18, 590, 210, "white", 20, 6*64-35);
         printAtWordWrap(this.lore, 18, 10, 600, colours[this.id], 20, 940);
+        drawSymbol(this.icon, 890, 110, 64);
     }
 }
 

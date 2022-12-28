@@ -104,6 +104,7 @@ class Monster{
         this.deathdelay = 0;
         this.shield = 0;
         this.order = -1;
+        if (legendaries.castes.includes(this.loot)) this.loot = wheel.castes[5-legendaries.castes.indexOf(this.loot)];
     }
 
     heal(damage){
@@ -125,7 +126,7 @@ class Monster{
                 if (this.falsehp <= 0){
                     this.hit(99);
                     //removeItemOnce(monsters,this);
-                    //if (!this.noloot) player.addSpell(this.loot);
+                    //if (!this.noloot) wheel.addSoul(this.loot);
                     this.noloot = true;
                 } 
             }
@@ -501,7 +502,7 @@ class Monster{
             }
         }
         if(this.hp <= 0){
-            if (!this.noloot && !this.dead) player.addSpell(this.loot);
+            if (!this.noloot && !this.dead) wheel.addSoul(this.loot);
             this.die();
         }
 
@@ -642,7 +643,7 @@ class Player extends Monster{
                 this.hp = this.falsehp;
                 if (this.hp <= 0) this.hit(99);
                 removeItemOnce(monsters,this);
-                if (!this.noloot) player.addSpell(this.loot);
+                if (!this.noloot) wheel.addSoul(this.loot);
                 this.noloot = true;
             }
         }                                                 
@@ -764,7 +765,7 @@ class Player extends Monster{
         else{
             this.discard.push(skey);
             if (doublecounter!=0) spells[skey](this);
-        }                                              
+        }                                             
     }
 
     drawSpell(){
@@ -1703,7 +1704,7 @@ class Ragemaw extends Monster{
             super.die();
         }
         else{
-            player.addSpell(this.loot);
+            wheel.addSoul(this.loot);
             super.die();
         }
     }

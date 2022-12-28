@@ -212,12 +212,12 @@ function draw(){
         let basicc = player.inventory.filter(soul => basic.includes(soul)).length + player.inhand.filter(soul => basic.includes(soul)).length + player.discard.filter(soul => basic.includes(soul)).length + player.saved.filter(soul => basic.includes(soul)).length;
         let serc = player.inventory.filter(soul => soul == "SERENE").length + player.inhand.filter(soul => soul == "SERENE").length + player.discard.filter(soul => soul == "SERENE").length + player.saved.filter(soul => soul == "SERENE").length;
         let advc = player.inventory.length + player.inhand.length + player.discard.length + player.saved.length - basicc -serc;
-        printAtSidebar("Common Souls: "+basicc, 18, 590, 475, "white", 20, 350);
-        printAtSidebar("Legendary Souls: "+advc, 18, 590, 500, "yellow", 20, 350);
-        printAtSidebar("Serene Souls: "+serc, 18, 590, 525, "cyan", 20, 350);
+        //printAtSidebar("Common Souls: "+basicc, 18, 590, 475, "white", 20, 350);
+        //printAtSidebar("Legendary Souls: "+advc, 18, 590, 500, "yellow", 20, 350);
+        //printAtSidebar("Serene Souls: "+serc, 18, 590, 525, "cyan", 20, 350);
         let modulecol = "cyan";
         if (selectation == 21 || selectation == 22) modulecol = "white";
-        printAtSidebar("f) Harmonic Modulator: "+modulename[player.activemodule], 18, 590, 550, modulecol, 20, 350);
+        //printAtSidebar("f) Harmonic Modulator: "+modulename[player.activemodule], 18, 590, 550, modulecol, 20, 350);
         if ((gameState == "vision" && discarded > 0) || (gameState == "discard" && !naiamode)) drawText("Which soul to discard?", 20, false, 100, "deepskyblue");
         if (gameState == "discard" && naiamode) drawText("Which soul to cast?", 20, false, 100, "fuchsia");
         if (gameState == "vision" && discarded == 0) drawText("Which soul to stack?", 20, false, 100, "deepskyblue");
@@ -286,6 +286,7 @@ function draw(){
                     player.loreSpellMonster(currentspelldesc);
                 }
             }
+            wheel.display();
             if (currentspelldesc == "nan" && gameState != "vision" && !fufflore){
                 for(let i=0; i<player.inhand.length; i++){
                     let spellText = (i+1) + ") " + (player.inhand[i] || "");
@@ -339,6 +340,16 @@ function draw(){
         ctx.moveTo(577, 577);
         ctx.lineTo(577, 0);
         ctx.stroke();
+        if (!inInventory){
+            ctx.beginPath();
+            ctx.moveTo(768, 577);
+            ctx.lineTo(768, 415);
+            ctx.stroke();
+            ctx.beginPath();
+            ctx.moveTo(577, 415);
+            ctx.lineTo(960, 415);
+            ctx.stroke();
+        }
     }
 }
 function manageExit(){
@@ -547,9 +558,10 @@ function startGame(){
     shuffle(invsave);
     naiamode = false;
     dissave = [];
+    legendaries = new Inventory();
+    wheel = new DrawWheel();
     startWorld(startingHp);
     gameState = "running";
-    legendaries = new Inventory();
 }
 
 function startWorld(playerHp){
@@ -632,7 +644,7 @@ function printAtWordWrap(text, size, x, y, color, lineHeight, fitWidth)
 
 function printAtSidebar(text, size, x, y, color, lineHeight, fitWidth)
 {
-    let sx = canvas.width-uiWidth*64+25;;
+    let sx = x || canvas.width-uiWidth*64+25;
     fitWidth = fitWidth || 0;
     ctx.fillStyle = color;
     ctx.font = size + "px rockwell";

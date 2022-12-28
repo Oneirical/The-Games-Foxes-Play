@@ -208,7 +208,7 @@
             if(e.key>=1 && e.key<=9 && !cursormode && gameState == "running" && player.para == 0) player.castSpell(e.key-1);
             if(e.key>=1 && e.key<=9 && cursormode && invmode) currentspelldesc = e.key-1;
             if(e.key=="f" && cursormode && invmode) currentspelldesc = player.activemodule;
-            if(e.key=="q" && gameState != "fluffy"&& !cursormode && level != 0 && player.para == 0) player.drawSpell();
+            if(e.key=="q" && gameState != "fluffy"&& !cursormode && level != 0 && player.para == 0) wheel.drawSoul();//player.drawSpell();
             if(e.key=="q" && gameState == "fluffy" && rolled == 0 && !cursormode && !player.betted) player.evalSpell();
             else if(e.key=="q" && gameState == "fluffy" && rolled != 0 && !cursormode && !player.betted && message != "FluffyNotEnoughSoulsTaunt") message = "FluffyDoubleDrawTaunt";
             if(e.key>=1 && e.key<=9 && !cursormode && gameState == "fluffy" && !player.betted && rolled > 0) player.betSpell(e.key-1);
