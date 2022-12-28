@@ -44,7 +44,15 @@ function setupCanvas(){
         }
         if(clickpos[0]>603&&clickpos[1]>115 && gameState != "dead" && gameState != "title"){
             let mousdes = Math.ceil((clickpos[1] - 130)/20);
-            if (mousdes+1 <= player.inhand.length || mousdes == 21 || mousdes == 22){
+            if (clickpos[0] >= 590 && clickpos[0] <= 590+64 && clickpos[1] >= 130 && clickpos[1] <= 130+64){
+                cursormode = !cursormode;
+                invmode = false;
+                currentspelldesc = "nan";
+                if (message == "InvPrompt") message = "Empty";
+                if (cursormode) cursor = new Cursor(playerTile());
+                else cursor.die();
+            } 
+            else if (mousdes+1 <= player.inhand.length || mousdes == 21 || mousdes == 22){
                 if (gameState == "running" && mousdes <21) player.castSpell(mousdes);
                 else if (gameState == "running" && mousdes >=21&& modules.length > 1 && !cursormode) player.cycleModules();
                 if (gameState == "fluffy"){
@@ -253,6 +261,7 @@ function draw(){
         if (cursormode == true && invmode == false){
             cursor.draw();
             cursor.info();
+            drawSymbol(9, 590, 130, 64);
         }
         else if (inInventory){
             drawFilter(blackfilter);

@@ -16,7 +16,7 @@ class DrawWheel{
         this.castecoords = [first,[first[0]+hori,first[1]],[first[0],first[1]+vert],[first[0]+hori,first[1]+vert],[first[0],first[1]+vert*2],[first[0]+hori,first[1]+vert*2]]
     }
 
-    display(){
+    display(){ //TODO these should stay in cursormode, and you should be able to inspect them
         drawSymbol(9, 590, 130, 64);
         drawSymbol(10, 880, 130, 64);
         drawSymbol(6, 880, 320, 64);
