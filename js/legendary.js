@@ -46,6 +46,7 @@ class LegendarySoul{
         this.icon;
         this.lore = souldesc[name];
         this.caste;
+        this.command = "S";
         this.danger;
         this.subdescript = soulabi[name];
         this.glamdescript;
@@ -55,7 +56,12 @@ class LegendarySoul{
     }
 
     describe(){
-
+        printAtSidebar(toTitleCase(this.caste) + " Caste", 18, 590, 150, colours[this.caste], 20, 6*64-35);
+        printAtSidebar(inventorytext[this.command], 18, 590, 170, colours[this.command], 20, 6*64-35);
+        if (basic.includes(this.id)) printAtSidebar("Empty Slot", 18, 590, 130, "white", 20, 6*64-35);
+        else printAtSidebar(this.name, 18, 590, 130, colours[this.id], 20, 6*64-35);
+        printAtSidebar(this.subdescript, 18, 590, 210, "white", 20, 6*64-35);
+        printAtWordWrap(this.lore, 18, 10, 600, colours[this.id], 20, 940);
     }
 }
 
@@ -67,6 +73,7 @@ class Empty extends LegendarySoul{
         this.danger = false;
         this.lore = "TODO";//remove
         this.subdescript = "TODO"; //remove
+        this.name = "TODO";
     }
 }
 

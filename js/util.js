@@ -100,3 +100,7 @@ function removeItemAll(arr, value) {
     }
     return arr;
   }
+
+  function toTitleCase(str) {
+    return str.charAt(0).toUpperCase() + str.substr(1).toLowerCase();
+  }

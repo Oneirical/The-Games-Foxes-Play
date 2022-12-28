@@ -129,14 +129,12 @@ function draw(){
         if(inInventory){
             for (let i of legendaries.storecoords){
                 if (mousepos[0] > i[0] && mousepos[0] < (i[0]+64) && mousepos[1] > i[1] && mousepos[1] < (i[1]+64)){
-                    printAtWordWrap(legendaries.storage[legendaries.storecoords.indexOf(i)].lore, 18, 10, 600, colours[legendaries.storage[legendaries.storecoords.indexOf(i)].id], 20, 940);
-                    printAtWordWrap(legendaries.storage[legendaries.storecoords.indexOf(i)].subdescript, 18, 10, 600+(Math.ceil(legendaries.storage[legendaries.storecoords.indexOf(i)].lore.length/100)*25), "white", 20, 940);
+                    legendaries.storage[legendaries.storecoords.indexOf(i)].describe();
                 }
             }
             for (let i of legendaries.actcoords){
                 if (mousepos[0] > i[0] && mousepos[0] < (i[0]+64) && mousepos[1] > i[1] && mousepos[1] < (i[1]+64)){
-                    printAtWordWrap(legendaries.active[legendaries.actcoords.indexOf(i)].lore, 18, 10, 600, colours[legendaries.active[legendaries.actcoords.indexOf(i)].id], 20, 940);
-                    printAtWordWrap(legendaries.active[legendaries.actcoords.indexOf(i)].subdescript, 18, 10, 600+(Math.ceil(legendaries.active[legendaries.actcoords.indexOf(i)].lore.length/100)*25), "white", 20, 940);
+                    legendaries.active[legendaries.actcoords.indexOf(i)].describe();
                 }
             }
         }
@@ -240,17 +238,17 @@ function draw(){
         //if (sacrifice < 6 && gameState == "fluffy" && !cursormode) printAtWordWrap("The red Relays are substracted from the blue Relays, forming a 3-digit number. Try to get as close to 0 as possible!", 18, 590, 390, "cyan", 20, 350);
         //if (sacrifice < 6 && gameState == "fluffy" && !cursormode) printAtWordWrap("Use Soul View mode (\"c\", then \"i\") if you forgot the value of a certain soul.", 18, 590, 490, "cyan", 20, 350);
         if (sacrifice == 6 && !cursormode) printAtSidebar("Press \"f\" to reroll unclaimed caged souls. Warning: The Harmony will sow a seed within your psyche should you take this action!", 18, 590, 200, "cyan", 20, 350);
-        if (level == 0 && !cursormode) printAtSidebar("Use WASD to move around, interact, and attack.", 18, 590, 130, "lime", 20, 350);
-        if (level == 1 && !cursormode&& gameState == "running") printAtSidebar("Press \"q\" in combat to summon Souls. Summoning costs Resolve, or Ipseity if you have no more Resolve. If you reach zero Ipseity, you lose.", 18, 590, 270, "lime", 20, 350);
-        if (level == 1 && !cursormode&& gameState == "running") printAtSidebar("Press the number keys 1-9 to unleash Souls.", 18, 590, 370, "lime", 20, 350);
+        //if (level == 0 && !cursormode) printAtSidebar("Use WASD to move around, interact, and attack.", 18, 590, 130, "lime", 20, 350);
+        //if (level == 1 && !cursormode&& gameState == "running") printAtSidebar("Press \"q\" in combat to summon Souls. Summoning costs Resolve, or Ipseity if you have no more Resolve. If you reach zero Ipseity, you lose.", 18, 590, 270, "lime", 20, 350);
+        //if (level == 1 && !cursormode&& gameState == "running") printAtSidebar("Press the number keys 1-9 to unleash Souls.", 18, 590, 370, "lime", 20, 350);
         if (!cursormode && gameState == "contemplation" && !contemhint){
             //printAtSidebar("Death in this world is only the beginning of another cycle. Press the number keys 1-9 to permanently forget Souls you do not wish to keep. You can only forget the Souls you summoned in this room.", 18, 590, 350, "lime", 20, 350);
             //printAtSidebar("Dying costs Ipseity. If your Ipseity reaches zero, you die a true death.", 18, 590, 500, "lime", 20, 350);
             contemhint = false;
         }
-        if (level == 1 && !cursormode&& gameState == "running") printAtSidebar("Slay enemies to collect their Soul.", 18, 590, 210, "lime", 20, 350);
-        if (level == 0 && !cursormode) printAtSidebar("Press \"c\" to toggle Examine mode.", 18, 590, 210, "lime", 20, 350);
-        if (level == 0 && !invmode) printAtSidebar("Press \"i\" to toggle Soul View mode.", 18, 590, 275, "lime", 20, 350);
+        //if (level == 1 && !cursormode&& gameState == "running") printAtSidebar("Slay enemies to collect their Soul.", 18, 590, 210, "lime", 20, 350);
+        //if (level == 0 && !cursormode) printAtSidebar("Press \"c\" to toggle Examine mode.", 18, 590, 210, "lime", 20, 350);
+        //if (level == 0 && !invmode) printAtSidebar("Press \"i\" to toggle Soul View mode.", 18, 590, 275, "lime", 20, 350);
         
         if (cursormode == true && invmode == false){
             cursor.draw();
@@ -336,6 +334,10 @@ function draw(){
         ctx.beginPath();
         ctx.moveTo(0, 577);
         ctx.lineTo(960, 577);
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.moveTo(577, 577);
+        ctx.lineTo(577, 0);
         ctx.stroke();
     }
 }
@@ -603,13 +605,13 @@ function printAtWordWrap(text, size, x, y, color, lineHeight, fitWidth)
         ctx.fillText( text, x, sy );
         return;
     }
-    var words = text.split(' ');
-    var currentLine = 0;
-    var idx = 1;
+    let words = text.split(' ');
+    let currentLine = 0;
+    let idx = 1;
     while (words.length > 0 && idx <= words.length)
     {
-        var str = words.slice(0,idx).join(' ');
-        var w = ctx.measureText(str).width;
+        let str = words.slice(0,idx).join(' ');
+        let w = ctx.measureText(str).width;
         if ( w > fitWidth )
         {
             if (idx==1)
@@ -639,13 +641,13 @@ function printAtSidebar(text, size, x, y, color, lineHeight, fitWidth)
         ctx.fillText( text, x, y );
         return;
     }
-    var words = text.split(' ');
-    var currentLine = 0;
-    var idx = 1;
+    let words = text.split(' ');
+    let currentLine = 0;
+    let idx = 1;
     while (words.length > 0 && idx <= words.length)
     {
-        var str = words.slice(0,idx).join(' ');
-        var w = ctx.measureText(str).width;
+        let str = words.slice(0,idx).join(' ');
+        let w = ctx.measureText(str).width;
         if ( w > fitWidth )
         {
             if (idx==1)

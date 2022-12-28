@@ -38,9 +38,13 @@ modulators = ["Alacrity","Selective","Thrusters","Hover","Focus"];
 // Scion - Embalmer
 
 inventorytext = {
-    "A" : "ASSIMILATING: When incarnated, this Soul replaces the active effects of its Caste with its own.",
-    "C" : "COMMANDING: When incarnated, this Soul adds its own active effect to the standard active effects of its Caste.",
-    "I" : "INDIVIDUALISTIC: When incarnated, this Soul does not modify the standard active effects of its Caste.",
+    "S" : "Subdued",
+    "H" : "Harmonized",
+    "G" : "Glamorous",
+    "I" : "Immutable",
+    //"A" : "ASSIMILATING: When incarnated, this Soul replaces the active effects of its Caste with its own.",
+    //"C" : "COMMANDING: When incarnated, this Soul adds its own active effect to the standard active effects of its Caste.",
+    //"I" : "INDIVIDUALISTIC: When incarnated, this Soul does not modify the standard active effects of its Caste.",
     "Danger" : "CAUTION - This Soul is extremely influential and may cause alteration of your thought-processes if incarnated."
 }
 
@@ -277,6 +281,11 @@ colours = {
     "Rosified" : "lightpink",
     "CastError" : "red",
     "Constricted" : "yellow",
+    "S" : "gainsboro",
+    "H" : "cyan",
+    "G" : "lightpink",
+    "I" : "white",
+    "A" : "red",
 
     "InvTutorial" : "white",
     
@@ -538,6 +547,10 @@ soulabi = {
     "Focus" : "Casting Souls does not return them to the discard pile.",
     "NONE" : "",
     
+}
+
+soulpassive = {
+    "SERENE" : "Passive: IN UNITY WE FLOURISH - Cannot be removed once placed. Unlocks one additional Harmonic Modulator slot. Increases reputation with Serene Collectivists."
 }
 
 soulval = {
