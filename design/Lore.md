@@ -1,5 +1,7 @@
 # Lore
 
+## I'm not really updating this document anymore for now - why write lore here when I can write it directly for my game? Recommended only if you like reading random archives that may or may not get invalidated later.
+
 Spoilers.
 
 ## Edge of Reality - Creation Over Destruction
