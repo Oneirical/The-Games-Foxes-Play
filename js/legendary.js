@@ -8,6 +8,7 @@ class DrawWheel{
 
         this.pile = [];
         this.discard = [];
+        this.saved = [];
         this.resolve = 3; //update this later with the bonus
         this.castes = [new Saintly(),new Ordered(),new Artistic(),new Unhinged(),new Feral(),new Vile()];
         let first = [587, 420];
@@ -24,8 +25,8 @@ class DrawWheel{
         drawSymbol(12, 880, 50, 64);
         printAtSidebar(" "+truehp, 23, 660, 90, "plum", 20, 350);
         printAtSidebar(player.resolve+"/"+(3+Math.floor(resolvebonus/2))+" ", 23, 835, 90, "lightskyblue", 20, 350);
-        for (let k of this.wheel){
-            drawSymbol(k.icon, this.wheelcoords[this.wheel.indexOf(k)][0], this.wheelcoords[this.wheel.indexOf(k)][1], 64);
+        for (let k = 0;k<8;k++){
+            drawSymbol(this.wheel[k].icon, this.wheelcoords[k][0], this.wheelcoords[k][1], 64);
         }
         for (let k of this.castes){
             drawSymbol(k.icon, this.castecoords[this.castes.indexOf(k)][0], this.castecoords[this.castes.indexOf(k)][1], 48);
@@ -128,6 +129,46 @@ class DrawWheel{
             } 
         }
     }
+
+    castSoul(slot){
+        let soul = this.wheel[slot];
+        if (soul instanceof Empty){
+            shakeAmount = 5;
+            message = "EmptyCast";
+            return;
+        }
+        else{
+            //if (soul.id == "SERENE") TODO make this
+            let num = legendaries.castes.indexOf(soul.id);
+            let spellName = soul.id;
+            if (legendaries.active[num].influence == "C" || legendaries.active[num].influence == "A"){
+                spellName = legendaries.active[num].id;
+            }
+            if (player.fuffified > 0) spellName = "SERENE";
+            if (spellName){
+                if (basic.includes(spellName) && area == "Spire") spellName = spellName+"S";
+                message = spellName;
+                spells[spellName](player);
+                if (!fail && player.activemodule != "Focus"){
+                    this.saved.push(this.wheel[slot]);
+                    this.wheel[slot] = new Empty(); 
+                }
+                else if (this.activemodule == "Focus"){
+                    if(!player.consumeCommon(3,false)){
+                        message = "FluffyInsufficientPower";
+                        this.saved.push(this.wheel[slot]);
+                        this.wheel[slot] = new Empty(); 
+                        player.activemodule = "NONE";
+                        playSound("off");
+                    }
+                }
+                if (!fail) playSound("spell");
+                if (!fail) tick();
+                if (fail && spellName != "SERENE") message = "CastError";
+                fail = false;
+            }
+        }
+    }
 }
 
 //TODO cool sliding animation?
@@ -178,6 +219,7 @@ class LegendarySoul{
         this.lore = souldesc[name];
         this.caste;
         this.command = "S";
+        this.influence = "A";
         this.danger;
         this.subdescript = soulabi[name];
         this.glamdescript;

@@ -60,6 +60,7 @@ messages = {
     "Paralyzed" : "You are paralyzed! Try to move around to shrug off the paralysis.",
     "Falling" : "You are falling! Try to move around to gain back your footing.",
     "Oversoul" : "Your psyche is trembling with the echo of a thousand chatters! Unleash some souls before drawing more.",
+    "EmptyCast" : "An empty mind is suited for introspection, not battle. Select a slot on the wheel containing a soul, or draw more souls if you have none!",
     "CastError" : "You cannot cast this soul right now!",
     "Constricted" : "You are constricted! You cannot move normally. Slay or escape the creature constricting you to regain your agility!",
 
@@ -275,6 +276,7 @@ colours = {
     "RoseDeath" : "lightpink",
     "NoSouls" : "yellow",
     "Oversoul" : "yellow",
+    "EmptySlot" : "yellow",
     "Paralyzed" : "orange",
     "Falling" : "white",
     "Fallen" : "white",

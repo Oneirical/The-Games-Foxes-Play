@@ -205,7 +205,7 @@
             if(e.key=="s"&&cursormode) cursor.tryMove(0, 1);
             if(e.key=="a"&&cursormode) cursor.tryMove(-1, 0);
             if(e.key=="d"&&cursormode) cursor.tryMove(1, 0);
-            if(e.key>=1 && e.key<=9 && !cursormode && gameState == "running" && player.para == 0) player.castSpell(e.key-1);
+            if(e.key>=1 && e.key<=9 && !cursormode && gameState == "running" && player.para == 0) wheel.castSoul(e.key-1);//player.castSpell(e.key-1);
             if(e.key>=1 && e.key<=9 && cursormode && invmode) currentspelldesc = e.key-1;
             if(e.key=="f" && cursormode && invmode) currentspelldesc = player.activemodule;
             if(e.key=="q" && gameState != "fluffy"&& !cursormode && level != 0 && player.para == 0) wheel.drawSoul();//player.drawSpell();
