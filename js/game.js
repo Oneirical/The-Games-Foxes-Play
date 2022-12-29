@@ -51,7 +51,8 @@ function setupCanvas(){
                 if (message == "InvPrompt") message = "Empty";
                 if (cursormode) cursor = new Cursor(playerTile());
                 else cursor.die();
-            } 
+            }
+            else if (clickpos[0] >= 880 && clickpos[0] <= 880+64 && clickpos[1] >= 320 && clickpos[1] <= 320+64) inInventory = !inInventory;
             else if (mousdes+1 <= player.inhand.length || mousdes == 21 || mousdes == 22){
                 if (gameState == "running" && mousdes <21) player.castSpell(mousdes);
                 else if (gameState == "running" && mousdes >=21&& modules.length > 1 && !cursormode) player.cycleModules();
@@ -266,6 +267,7 @@ function draw(){
         else if (inInventory){
             drawFilter(blackfilter);
             drawSymbol(6, 0, 0, 577);
+            drawSymbol(6, 880, 320, 64);
             ctx.globalAlpha = 0.55;
             //intérieur
             for (let k of legendaries.active){

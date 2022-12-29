@@ -115,7 +115,7 @@ class Room{
     }
 
     buildRoom(){
-
+        //it does nothing lol
     }
 
     initializeRoom(){
