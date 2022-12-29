@@ -276,7 +276,7 @@ colours = {
     "RoseDeath" : "lightpink",
     "NoSouls" : "yellow",
     "Oversoul" : "yellow",
-    "EmptySlot" : "yellow",
+    "EmptyCast" : "yellow",
     "Paralyzed" : "orange",
     "Falling" : "white",
     "Fallen" : "white",

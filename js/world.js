@@ -8,7 +8,7 @@ class World{
     }
 
     getRoom(){
-        return (this.roomlist[this.currentroom])
+        return (this.roomlist[this.currentroom]);
     }
     selectRooms(){
         if (this.serene) this.roompool = [StandardSpire];
@@ -23,9 +23,8 @@ class World{
         else if (level % 5 == 1 && level > 5 && this.serene) roomType = FluffianWorkshop; //TODO increase the randomness on these
         else if (level % 5 == 1 && level > 5 && !this.serene) roomType = HarmonyRelay;
         else roomType = shuffle(this.roompool)[0];
-        let room = new roomType();
-        room.index = this.roomlist.length;
-        this.currentroom = room.index;
+        let room = new roomType(this.roomlist.length);
+        this.currentroom = this.roomlist.length;
         let numtest = numTiles;
         numTiles = room.size;
         if (level == 17) room.possibleexits = [[1,0], [0,numTiles-2],[numTiles-1,1],[numTiles-2,numTiles-1]];
@@ -94,11 +93,11 @@ class World{
 }
 
 class Room{
-    constructor(size){
+    constructor(index){
         this.tier = level;
         this.startingplayerHP = 0;
         this.roseic = false;
-        this.size = size;
+        this.size = 9;
         this.entrancepoints;
         this.returnpoint;
         //up left right down
@@ -107,7 +106,7 @@ class Room{
         this.playerspawn = 0;
         this.effects = [];
         this.previousRoom = -1; //Maybe secretly divide arrow tiles into return/generator tiles?
-        this.index = -1;
+        this.index = index;
         this.tiles = []; //it will also need to stock the contents of course
         this.monsters = [];
         this.name = "Bugtopia";
@@ -131,8 +130,8 @@ class Room{
         if (world.roomlist.length == 1 && level == 0) this.playerspawn = [Math.floor((numTiles-1)/2),Math.floor((numTiles-1)/2)];
         else if (world.roomlist.length == 1) this.playerspawn = [randomtile.x,randomtile.y];
         //if (world.getRoom() instanceof EpsilonArena) this.playerspawn = [1,1];
-        player = new Player(getTile(this.playerspawn[0], this.playerspawn[1]));
-        player.resolve = 3+ Math.floor(resolvebonus/2);
+        player = new Player(getTileButNotCursed(this.playerspawn[0], this.playerspawn[1]));
+        wheel.resolve = 3+ Math.floor(resolvebonus/2);
         if (this.effects.includes("Darkness")) player.fov = 2;
         player.discard = dissave;
         player.inventory = invsave;
@@ -144,8 +143,8 @@ class Room{
 }
 
 class WorldSeed extends Room{
-    constructor(){
-        super(9);
+    constructor(index){
+        super(index);
         this.name = "World Seed";
         this.possibleexits = [[4,8]];
     }
@@ -157,17 +156,17 @@ class WorldSeed extends Room{
     }
 
     initializeRoom(){
-        this.entrancepoints = [getTile(Math.floor((numTiles-1)/2),1), getTile(1,Math.floor((numTiles-1)/2)),getTile((numTiles-2),Math.floor((numTiles-1)/2)),getTile(Math.floor((numTiles-1)/2),(numTiles-2))];
+        this.entrancepoints = [getTileButNotCursed(Math.floor((numTiles-1)/2),1), getTileButNotCursed(1,Math.floor((numTiles-1)/2)),getTileButNotCursed((numTiles-2),Math.floor((numTiles-1)/2)),getTileButNotCursed(Math.floor((numTiles-1)/2),(numTiles-2))];
         super.initializeRoom();
     }
 }
 
 class StandardFaith extends Room{
-    constructor(){
-        super(9);
-        //this.playerspawn = getTile(Math.floor((numTiles-1)/2),1);
+    constructor(index){
+        super(index);
+        //this.playerspawn = getTileButNotCursed(Math.floor((numTiles-1)/2),1);
         this.name = "Faith's End";
-        this.entrancepoints = [getTile(Math.floor((numTiles-1)/2),1), getTile(1,Math.floor((numTiles-1)/2)),getTile((numTiles-2),Math.floor((numTiles-1)/2)),getTile(Math.floor((numTiles-1)/2),(numTiles-2))];
+        this.entrancepoints = [getTileButNotCursed(Math.floor((numTiles-1)/2),1), getTileButNotCursed(1,Math.floor((numTiles-1)/2)),getTileButNotCursed((numTiles-2),Math.floor((numTiles-1)/2)),getTileButNotCursed(Math.floor((numTiles-1)/2),(numTiles-2))];
         this.possibleexits = [[Math.floor((numTiles-1)/2),0], [0,Math.floor((numTiles-1)/2)],[(numTiles-1),Math.floor((numTiles-1)/2)],[Math.floor((numTiles-1)/2),numTiles-1]];
     }
 
@@ -179,17 +178,17 @@ class StandardFaith extends Room{
     }
 
     initializeRoom(){
-        //this.playerspawn = getTile(Math.floor((numTiles-1)/2),1);
+        //this.playerspawn = getTileButNotCursed(Math.floor((numTiles-1)/2),1);
         super.initializeRoom();
     }
 }
 
 class HarmonyRelay extends Room{
-    constructor(){
-        super(9);
+    constructor(index){
+        super(index);
         this.entrymessage = "FluffyWelcome";
         this.name = "Test of Unity";
-        this.entrancepoints = [getTile(Math.floor((numTiles-1)/2),1), getTile(1,Math.floor((numTiles-1)/2)),getTile((numTiles-2),Math.floor((numTiles-1)/2)),getTile(Math.floor((numTiles-1)/2)),(numTiles-2)];
+        this.entrancepoints = [getTileButNotCursed(Math.floor((numTiles-1)/2),1), getTileButNotCursed(1,Math.floor((numTiles-1)/2)),getTileButNotCursed((numTiles-2),Math.floor((numTiles-1)/2)),getTileButNotCursed(Math.floor((numTiles-1)/2)),(numTiles-2)];
         this.possibleexits = [[Math.floor((numTiles-1)/2),0], [0,Math.floor((numTiles-1)/2)],[(numTiles-1),Math.floor((numTiles-1)/2)],[Math.floor((numTiles-1)/2),numTiles-1]];
     }
     
@@ -210,8 +209,8 @@ class HarmonyRelay extends Room{
 } 
 
 class StandardSpire extends Room{
-    constructor(){
-        super(9);
+    constructor(index){
+        super(index);
         this.name = "Serene Spire";
     }
 
@@ -229,9 +228,10 @@ class StandardSpire extends Room{
 }
 
 class RoseicCogArena extends Room{
-    constructor(){
-        super(18);
+    constructor(index){
+        super(index);
         this.name = "Roseic Circus";
+        this.size = 18;
     }
 
     buildRoom(){
@@ -240,19 +240,20 @@ class RoseicCogArena extends Room{
     }
 
     initializeRoom(){
-        this.playerspawn = getTile(8,8);
+        this.playerspawn = getTileButNotCursed(8,8);
         super.initializeRoom();
     }
 }
 
 class EpsilonArena extends Room{
-    constructor(){
-        super(18);
+    constructor(index){
+        super(index);
+        this.size = 18;
         this.entrymessage = "EpsilonWelcome1";
         this.name = "Industrial Apex";
         this.fourway = true;
         this.possibleexits = [[1,0], [0,numTiles-2],[numTiles-1,1],[numTiles-2,numTiles-1]];
-        this.entrancepoints = [getTile(1,1), getTile(1,numTiles-2),getTile(numTiles-2,1),getTile(numTiles-2,numTiles-2)];
+        this.entrancepoints = [getTileButNotCursed(1,1), getTileButNotCursed(1,numTiles-2),getTileButNotCursed(numTiles-2,1),getTileButNotCursed(numTiles-2,numTiles-2)];
         this.violatereality = true;
     }
 
@@ -266,14 +267,14 @@ class EpsilonArena extends Room{
     }
 
     initializeRoom(){
-        //this.entrancepoints = [getTile(1,1), getTile(1,numTiles-2),getTile(numTiles-2,1),getTile(numTiles-2,numTiles-2)];
+        //this.entrancepoints = [getTileButNotCursed(1,1), getTileButNotCursed(1,numTiles-2),getTileButNotCursed(numTiles-2,1),getTileButNotCursed(numTiles-2,numTiles-2)];
         super.initializeRoom();
     }
 }
 
 class FluffianWorkshop extends Room{
-    constructor(){
-        super(9);
+    constructor(index){
+        super(index);
         this.entrymessage = "FluffyWorkshop";
         this.name = "Fluffian Workshop";
     }
@@ -286,7 +287,7 @@ class FluffianWorkshop extends Room{
 
     initializeRoom(){
         dialoguecount = 0;
-        this.playerspawn = getTile(1,8);
+        this.playerspawn = getTileButNotCursed(1,8);
         super.initializeRoom();
     }
 }

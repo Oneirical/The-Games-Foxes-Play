@@ -3,7 +3,8 @@
 Current project: circle UI
 
 Make the souls in a circle with squares for empty slots. below there are buttons for legendary tree & modulator tree, maybe some rose thing too
-A real text log at the bottom like most roguelikes?
+Make it so souls in the wheel don't disappear when leaving room to reward good play
+A real text log at the bottom like most roguelikes? with a confirm prompt if you draw after 0 resolve
 You can place Rose/Serene in a slot to make it glamorous/harmonized
 after a forceful removal all souls that go in there afterwards receive an upgrade
 add a screenshake if removal fails

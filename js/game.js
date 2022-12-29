@@ -494,7 +494,7 @@ function tick(){
                     player.dead = false;
                     player.tile.setEffect(1, 30);
                     spells["WOOP"](player);
-                    player.resolve = 3+Math.floor(resolvebonus/2);
+                    wheel.resolve = 3+Math.floor(resolvebonus/2);
                     player.sprite = 0;
                     player.fuffified = 0;
                 }

@@ -369,7 +369,7 @@ spells = {
         });
         player.inhand.length = 0;
         for(var i = 0; i < draw; i++){
-            player.resolve++
+            wheel.resolve++
             player.drawSpell();
         }
     },
