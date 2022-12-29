@@ -61,6 +61,7 @@ messages = {
     "Falling" : "You are falling! Try to move around to gain back your footing.",
     "Oversoul" : "Your psyche is trembling with the echo of a thousand chatters! Unleash some souls before drawing more.",
     "EmptyCast" : "An empty mind is suited for introspection, not battle. Select a slot on the wheel containing a soul, or draw more souls if you have none!",
+    "EmptyRemove" : "The void hungers not for that which does not exist. Select a slot on the wheel containing a soul to sacrifice it!",
     "CastError" : "You cannot cast this soul right now!",
     "Constricted" : "You are constricted! You cannot move normally. Slay or escape the creature constricting you to regain your agility!",
 
@@ -277,6 +278,7 @@ colours = {
     "NoSouls" : "yellow",
     "Oversoul" : "yellow",
     "EmptyCast" : "yellow",
+    "EmptyRemove" : "yellow",
     "Paralyzed" : "orange",
     "Falling" : "white",
     "Fallen" : "white",

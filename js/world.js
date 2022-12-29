@@ -133,8 +133,10 @@ class Room{
         player = new Player(getTileButNotCursed(this.playerspawn[0], this.playerspawn[1]));
         wheel.resolve = 3+ Math.floor(resolvebonus/2);
         if (this.effects.includes("Darkness")) player.fov = 2;
-        player.discard = dissave;
-        player.inventory = invsave;
+        for (let k of wheel.saved){
+            if (!(k instanceof Empty))wheel.discard.push(k);
+        }
+        wheel.saved = [new Empty(),new Empty(),new Empty(),new Empty(),new Empty(),new Empty(),new Empty(),new Empty()];
         player.hp = this.startingplayerHP;
         sacritotal = "nan";
         sacrifice = 0;

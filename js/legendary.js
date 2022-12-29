@@ -11,7 +11,7 @@ class DrawWheel{
 
         this.pile = [];
         this.discard = [];
-        this.saved = [];
+        this.saved = [new Empty(),new Empty(),new Empty(),new Empty(),new Empty(),new Empty(),new Empty(),new Empty()];
         this.resolve = 3; //update this later with the bonus
         this.castes = [new Saintly(),new Ordered(),new Artistic(),new Unhinged(),new Feral(),new Vile()];
         let first = [587, 420];
@@ -25,11 +25,21 @@ class DrawWheel{
         drawSymbol(10, 880, 130, 64);
         drawSymbol(6, 880, 320, 64);
         drawSymbol(11, 590, 50, 64);
-        drawSymbol(12, 880, 50, 64);
+        if (gameState != "contemplation"){
+            drawSymbol(12, 880, 50, 64);
+            printAtSidebar(wheel.resolve+"/"+(3+Math.floor(resolvebonus/2))+" ", 23, 835, 90, "lightskyblue", 20, 350);
+        } 
+        else{
+            drawSymbol(13, 880, 50, 64);
+            printAtSidebar(agony+" ", 23, 835, 90, "red", 20, 350);
+        }
         printAtSidebar(" "+truehp, 23, 660, 90, "plum", 20, 350);
-        printAtSidebar(wheel.resolve+"/"+(3+Math.floor(resolvebonus/2))+" ", 23, 835, 90, "lightskyblue", 20, 350);
+
+        let display;
         for (let k = 0;k<8;k++){
-            drawSymbol(this.wheel[k].icon, this.wheelcoords[k][0], this.wheelcoords[k][1], 64);
+            if (gameState != "contemplation") display = this.wheel[k].icon;
+            else display = this.saved[k].icon;
+            drawSymbol(display, this.wheelcoords[k][0], this.wheelcoords[k][1], 64);
             printAtWordWrap(k+1+"",18, this.hotkeycoords[k][0], this.hotkeycoords[k][1], "white",20,350);
         }
         for (let k of this.castes){
@@ -38,11 +48,13 @@ class DrawWheel{
         for (let k of this.castes){
             if (this.castes.indexOf(k) % 2 == 0){
             printAtSidebar(" - " + this.countPileSouls()[this.castes.indexOf(k)], 18, this.castecoords[5-this.castes.indexOf(k)][0]-265, this.castecoords[this.castes.indexOf(k)][1]+32, "white", 20, 350);
-            printAtSidebar("(" + this.countDiscardSouls()[(this.castes.indexOf(k))] + ")", 18, this.castecoords[5-this.castes.indexOf(k)][0]-265+ctx.measureText(" - " + this.countPileSouls()[this.castes.indexOf(k)]).width+10, this.castecoords[this.castes.indexOf(k)][1]+32, "pink", 20, 350); 
+            printAtSidebar("(" + this.countDiscardSouls()[(this.castes.indexOf(k))] + ")", 18, this.castecoords[5-this.castes.indexOf(k)][0]-265+ctx.measureText(" - " + this.countPileSouls()[this.castes.indexOf(k)]).width+10, this.castecoords[this.castes.indexOf(k)][1]+32, "pink", 20, 350);
+            printAtSidebar("(" + this.countSavedSouls()[(this.castes.indexOf(k))] + ")", 18, 720, this.castecoords[this.castes.indexOf(k)][1]+32, "yellow", 20, 350); 
             }
             else if (this.castes.indexOf(k) % 2 == 1){
                 printAtSidebar(this.countPileSouls()[this.castes.indexOf(k)] + " - ", 18, this.castecoords[5-this.castes.indexOf(k)][0]+285, this.castecoords[this.castes.indexOf(k)][1]+32, "white", 20, 350);
-                printAtSidebar("(" + this.countDiscardSouls()[(this.castes.indexOf(k))] + ")", 18, this.castecoords[5-this.castes.indexOf(k)][0]+285-ctx.measureText(" - " + this.countPileSouls()[this.castes.indexOf(k)]).width-10, this.castecoords[this.castes.indexOf(k)][1]+32, "pink", 20, 350); 
+                printAtSidebar("(" + this.countDiscardSouls()[(this.castes.indexOf(k))] + ")", 18, this.castecoords[5-this.castes.indexOf(k)][0]+285-ctx.measureText(" - " + this.countPileSouls()[this.castes.indexOf(k)]).width-10, this.castecoords[this.castes.indexOf(k)][1]+32, "pink", 20, 350);
+                printAtSidebar("(" + this.countSavedSouls()[(this.castes.indexOf(k))] + ")", 18, this.castecoords[5-this.castes.indexOf(k)][0]+285-ctx.measureText(" - " + this.countPileSouls()[this.castes.indexOf(k)]).width-60, this.castecoords[this.castes.indexOf(k)][1]+32, "yellow", 20, 350);
             }
         }
     }
@@ -60,6 +72,16 @@ class DrawWheel{
     countDiscardSouls(){
         let counts = [0,0,0,0,0,0];
         for (let k of this.discard){
+            for (let g of this.castes){
+                if (k.caste ==  g.caste) counts[this.castes.indexOf(g)]++;
+            } 
+        }
+        return counts;
+    }
+
+    countSavedSouls(){
+        let counts = [0,0,0,0,0,0];
+        for (let k of this.saved){
             for (let g of this.castes){
                 if (k.caste ==  g.caste) counts[this.castes.indexOf(g)]++;
             } 
@@ -125,7 +147,7 @@ class DrawWheel{
                 }
             }
             if (this.activemodule != "Alacrity") tick();
-            else if (!this.consumeCommon(1,false)){
+            else if (!player.consumeCommon(1,false)){ //TODO this is broken and must be fixed
                 message = "FluffyInsufficientPower";
                 playSound("off");
                 tick();
@@ -154,8 +176,26 @@ class DrawWheel{
                 message = spellName;
                 spells[spellName](player);
                 if (!fail && player.activemodule != "Focus"){
-                    this.saved.push(this.wheel[slot]);
-                    this.wheel[slot] = new Empty(); 
+                    let lookingfor = 0;
+                    for (let k of this.saved){
+                        if (k instanceof Empty){
+                            this.saved[this.saved.indexOf(k)] = this.wheel[slot];
+                            break;
+                        } 
+                        else lookingfor++;
+                    }
+                    if (lookingfor == 8){
+                        let exile = shuffle(this.saved)[0];
+                        this.saved[this.saved.indexOf(exile)] = new Empty();
+                        this.discard.push(exile);
+                        for (let k of this.saved){
+                            if (k instanceof Empty){
+                                this.saved[this.saved.indexOf(k)] = this.wheel[slot];
+                                break;
+                            } 
+                        }
+                    }
+                    this.wheel[slot] = new Empty();
                 }
                 else if (this.activemodule == "Focus"){
                     if(!player.consumeCommon(3,false)){
@@ -170,6 +210,35 @@ class DrawWheel{
                 if (!fail) tick();
                 if (fail && spellName != "SERENE") message = "CastError";
                 fail = false;
+            }
+        }
+    }
+
+    removeSoul(slot){
+        let soul = this.saved[slot];
+        if (soul instanceof Empty){
+            shakeAmount = 5;
+            message = "EmptyRemove";
+            return;
+        }
+        else{
+            if (agony > 0){
+                if (soul instanceof Serene && agony < 3){
+                    message = "FluffyNoRemoveTaunt";
+                }
+                else{
+                    if (soul instanceof Serene) agony -= 3;
+                    else agony--;
+                    this.saved[slot] = new Empty();
+                    resolvebonus++;
+                    if (falseagony){
+                        gameState = "running";
+                        falseagony = false;
+                    }
+                }
+            }
+            else{
+                message = "AgonyWarning";
             }
         }
     }
@@ -333,5 +402,13 @@ class Rasel extends LegendarySoul{
         this.icon = 2;
         this.caste = "VILE";
         this.danger = false;
+    }
+}
+class Serene extends LegendarySoul{
+    constructor(){
+        super("SERENE");
+        this.icon = 2; //replace
+        this.caste = "SERENE";
+        this.danger = true;
     }
 }
