@@ -2,7 +2,7 @@
 
 **UI**
 
-* Add a rose button in the bottom right.
+* Add a rose button in the bottom right. Actually, maybe it should be a status effect tracker instead...
 * Make it so souls in the wheel don't disappear when leaving room to reward good play
 * A real text log at the bottom like most roguelikes? with a confirm prompt if you draw after 0 resolve
 * numeric system based on basic castes.
@@ -39,7 +39,7 @@
 
 **Weird/overly ambitious stuff**
 
-* The final boss being inspired by M. Industries. Inside Ronin's spaceship (built out of antientropic force), farm tokens on 4 plates while being assailed by the Harmony, and buy upgrades in the form of pushable boxes to give more firepower to Ronin's squad.
+* The final boss being inspired by M. Industries. Inside Ronin's spaceship (built out of negentropic force), farm tokens on 4 plates while being assailed by the Harmony, and buy upgrades in the form of pushable boxes to give more firepower to Ronin's squad.
 
 * Ronin's weapon should be a big-ass war vacuum.
 

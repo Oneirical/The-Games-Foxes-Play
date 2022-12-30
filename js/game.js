@@ -550,17 +550,17 @@ function drawBossHp(currentboss, hp){
     let bosscolour = ["pink","red","purple","cyan"];
     let bar = ["⚙⚙","Σ","❄❄","♡♡"];
     ctx.fillStyle = 'rgba(0,0,0,.85)';
-    ctx.fillRect(0,(canvas.height-(833-768)+20)/2 + 160,canvas.width - 383.5, 22);
-    printAtWordWrap(bossname[currentboss], 21, 10, 578, bosscolour[currentboss], 20, 940);
-    printAtWordWrap("-", 21, 105, 576, "white", 20, 940);
-    printAtWordWrap(bar[currentboss].repeat(hp), 21, 125, 578, bosscolour[currentboss], 20, 940);
+    ctx.fillRect(0,577-32,577,32);
+    printAtWordWrap(bossname[currentboss], 21, 10, 568, bosscolour[currentboss], 20, 940);
+    printAtWordWrap(" - ", 21, 105, 566, "white", 20, 940);
+    printAtWordWrap(bar[currentboss].repeat(hp), 21, 125, 568, bosscolour[currentboss], 20, 940);
 }
 
 function startGame(){
     pauseSound("title");            
     playSound("cage");                         
     level = 0;
-    resolvebonus = 0;
+    resolvebonus = 9;
     truehp = 8;
     score = 0;
     numSpells = 0;

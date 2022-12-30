@@ -122,7 +122,7 @@ class Room{
         exitspawn = 0;
         if (this.music) {
             pauseAllMusic();
-            playSound(music);
+            playSound(this.music);
         }
         let randomtile = randomPassableTile();
         if (this.entrymessage) message = this.entrymessage;
@@ -254,6 +254,7 @@ class EpsilonArena extends Room{
         this.size = 18;
         this.entrymessage = "EpsilonWelcome1";
         this.name = "Industrial Apex";
+        this.music = "epsilon";
         this.fourway = true;
         this.possibleexits = [[1,0], [0,numTiles-2],[numTiles-1,1],[numTiles-2,numTiles-1]];
         this.entrancepoints = [getTileButNotCursed(1,1), getTileButNotCursed(1,numTiles-2),getTileButNotCursed(numTiles-2,1),getTileButNotCursed(numTiles-2,numTiles-2)];
