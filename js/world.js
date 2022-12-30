@@ -141,6 +141,7 @@ class Room{
         sacritotal = "nan";
         sacrifice = 0;
         rolled = 0;
+        gameState = "running";
     }
 }
 
@@ -196,7 +197,7 @@ class HarmonyRelay extends Room{
     
     buildRoom(connector){
         super.buildRoom();
-        generateLevel();
+        generateRelay();
         blockedExits(connector);
         generateMonsters();
     }
@@ -204,8 +205,8 @@ class HarmonyRelay extends Room{
     initializeRoom(){
         world.fighting = false;
         dialoguecount = 0;
-        gameState = "fluffy";
         super.initializeRoom();
+        gameState = "fluffy";
         summonExits();
     }
 } 

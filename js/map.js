@@ -29,18 +29,6 @@ function generateTiles(){
                 if (level != 0) tiles[i][j] = new Wall(i,j);
                 else tiles[i][j] = new TermiWall(i,j);
             }
-            else if(level % 5 == 1 && level > 5 && ((((j == 2) && (i == 4)))||((j==3)&&(i==2))||((j == 3) && (i == 6)))){
-                tiles[i][j] = new PosAltar(i,j);
-                passableTiles++;
-            }
-            else if(level % 5 == 1 && level > 5 && ((((j == 6) && (i == 4)))||((j==5)&&(i==2))||((j == 5) && (i == 6)))){
-                tiles[i][j] = new NegAltar(i,j);
-                passableTiles++;
-            }
-            else if (level % 5 == 1 && level > 5 && ((((j==3) && (i == 5)))||((j==5)&&(i==3))||((j==5)&&(i==5))||((j==3)&&(i==3)))){
-                tiles[i][j] = new BetAltar(i,j);
-                passableTiles++;
-            }
             else{
                 tiles[i][j] = new Floor(i,j);
                 passableTiles++;
@@ -48,6 +36,33 @@ function generateTiles(){
         }
     }
     return passableTiles;
+}
+
+function generateRelay(){
+    tiles = [];
+    for(let i=0;i<numTiles;i++){
+        tiles[i] = [];
+        for(let j=0;j<numTiles;j++){
+            if((j==(numTiles-2)&&i==Math.floor((numTiles-1)/2))||(j==1&&i==Math.floor((numTiles-1)/2)) || (j==Math.floor((numTiles-1)/2)&&i==numTiles-2) || (j==Math.floor((numTiles-1)/2)&&i==1)){
+                tiles[i][j] = new Floor(i,j);
+            }
+            else if(!inBounds(i,j)){
+                tiles[i][j] = new Wall(i,j);
+            }
+            else if(((((j == 2) && (i == 4)))||((j==3)&&(i==2))||((j == 3) && (i == 6)))){
+                tiles[i][j] = new PosAltar(i,j);
+            }
+            else if(((((j == 6) && (i == 4)))||((j==5)&&(i==2))||((j == 5) && (i == 6)))){
+                tiles[i][j] = new NegAltar(i,j);
+            }
+            else if (j==3 && i == 4){ //||((j==5)&&(i==3))||((j==5)&&(i==5))||((j==3)&&(i==3)))
+                tiles[i][j] = new BetAltar(i,j);
+            }
+            else{
+                tiles[i][j] = new Floor(i,j);
+            }
+        }
+    }
 }
 
 function blockedExits(connector){

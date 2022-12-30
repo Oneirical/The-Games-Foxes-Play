@@ -231,16 +231,20 @@ function draw(){
         if (gameState == "discard" && naiamode) drawText("Which soul to cast?", 20, false, 100, "fuchsia");
         if (gameState == "vision" && discarded == 0) drawText("Which soul to stack?", 20, false, 100, "deepskyblue");
         player.draw();
-        if (level % 5 == 1 && level > 5 && area == "Faith") drawChar(tiles[2][3].value, 30, 151, 235, "cyan");
-        if (level % 5 == 1 && level > 5 && area == "Faith") drawChar(tiles[4][2].value, 30, 280, 171, "cyan");
-        if (level % 5 == 1 && level > 5 && area == "Faith") drawChar(tiles[6][3].value, 30, 408, 235, "cyan");
-        if (level % 5 == 1 && level > 5 && area == "Faith") drawChar(tiles[2][5].value, 30, 151, 363, "red");
-        if (level % 5 == 1 && level > 5 && area == "Faith") drawChar(tiles[4][6].value, 30, 280, 427, "red");
-        if (level % 5 == 1 && level > 5 && area == "Faith") drawChar(tiles[6][5].value, 30, 408, 363, "red");
-        if (level % 5 == 1 && level > 5 && !player.betted && area == "Faith") drawChar(tiles[5][5].value, 30, 343, 363, "yellow");
-        if (level % 5 == 1 && level > 5 && !player.betted && area == "Faith") drawChar(tiles[3][5].value, 30, 215, 363, "yellow");
-        if (level % 5 == 1 && level > 5 && !player.betted && area == "Faith") drawChar(tiles[3][3].value, 30, 215, 235, "yellow");
-        if (level % 5 == 1 && level > 5 && !player.betted && area == "Faith") drawChar(tiles[5][3].value, 30, 343, 235, "yellow");
+        if (world.getRoom() instanceof HarmonyRelay){
+            drawChar(tiles[2][3].value, 30, 151, 235, "cyan");
+            drawChar(tiles[4][2].value, 30, 280, 171, "cyan");
+            drawChar(tiles[6][3].value, 30, 408, 235, "cyan");
+            drawChar(tiles[2][5].value, 30, 151, 363, "red");
+            drawChar(tiles[4][6].value, 30, 280, 427, "red");
+            drawChar(tiles[6][5].value, 30, 408, 363, "red");
+            if (!player.betted){
+                drawChar(tiles[4][3].value, 30, 343, 363, "yellow");
+                //drawChar(tiles[3][5].value, 30, 215, 363, "yellow");
+                //drawChar(tiles[3][3].value, 30, 215, 235, "yellow");
+                //drawChar(tiles[5][3].value, 30, 343, 235, "yellow");
+            }
+        } 
         if (sacrifice == 6 && !cursormode) printAtSidebar("Your Fluffian Arithmetic Elegance Score is "+sacritotal+".", 18, 590, 130, "cyan", 20, 350);
         //if (sacrifice < 6 && gameState == "fluffy" && !cursormode) printAtWordWrap("Press the corresponding number while standing on a Relay to sacrifice a soul.", 18, 590, 320, "cyan", 20, 350);
         //if (sacrifice < 6 && gameState == "fluffy" && !cursormode) printAtWordWrap("Press \"q\" to bring forth souls to sacrifice.", 18, 590, 250, "cyan", 20, 350);
