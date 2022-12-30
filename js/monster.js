@@ -1613,7 +1613,7 @@ class Hologram extends Monster{
     }
 }
 
-class Abazon extends Monster{
+class AbazonSummon extends Monster{
     constructor(tile){
         super(tile, 28, 5, "ABAZON", description["Abazon"]);
         this.teleportCounter = 0;

@@ -248,7 +248,7 @@ class DrawWheel{
 class Inventory{
     constructor(){
         this.active = [new Vile(),new Feral(),new Unhinged(),new Artistic(),new Ordered(),new Saintly()];
-        this.storage = [new Sugcha(),new Empty(),new Empty(),new Empty()];
+        this.storage = [new Ezezza(),new Kashia(),new Aster(),new Naia()];
         this.actcoords = [[148, 76],[366, 76],[76, 257],[438, 257],[148, 438],[366, 438]];
         this.actcoords.reverse();//don't feel like re-writing these in the correct order lmao
         this.castes = ["VILE","FERAL","UNHINGED","ARTISTIC","ORDERED","SAINTLY"];
@@ -293,7 +293,6 @@ class LegendarySoul{
         this.caste;
         this.command = "S";
         this.influence = "A";
-        this.danger;
         this.subdescript = soulabi[name];
         this.glamdescript;
         this.hardescript;
@@ -302,8 +301,10 @@ class LegendarySoul{
     }
 
     describe(){
-        printAtSidebar(toTitleCase(this.caste) + " Caste", 18, 590, 150, colours[this.caste], 20, 6*64-35);
-        printAtSidebar(inventorytext[this.command], 18, 590, 170, colours[this.command], 20, 6*64-35);
+        let bump = 0;
+        if ((6*64+75-ctx.measureText(this.name).width) < 0) bump = 20; 
+        printAtSidebar(toTitleCase(this.caste) + " Caste", 18, 590, 150 + bump, colours[this.caste], 20, 6*64-35);
+        //printAtSidebar(inventorytext[this.command], 18, 590, 170, colours[this.command], 20, 6*64-35); for future use, or maybe just place this thing in its own screen
         if (basic.includes(this.id)) printAtSidebar("Empty Slot", 18, 590, 130, "white", 20, 6*64-35);
         else printAtSidebar(this.name, 18, 590, 130, colours[this.id], 20, 6*64-35);
         printAtSidebar(this.subdescript, 18, 590, 210, "white", 20, 6*64-35);
@@ -317,7 +318,6 @@ class Empty extends LegendarySoul{
         super("EMPTY");
         this.icon = 7;
         this.caste = "EMPTY";
-        this.danger = false;
         this.lore = "TODO";//remove
         this.subdescript = "TODO"; //remove
         this.name = "TODO";
@@ -329,7 +329,6 @@ class Vile extends LegendarySoul{
         super("VILE");
         this.icon = 5;
         this.caste = "VILE";
-        this.danger = false;
     }
 }
 
@@ -338,7 +337,6 @@ class Feral extends LegendarySoul{
         super("FERAL");
         this.icon = 4;
         this.caste = "FERAL";
-        this.danger = false;
     }
 }
 
@@ -347,7 +345,6 @@ class Unhinged extends LegendarySoul{
         super("UNHINGED");
         this.icon = 3;
         this.caste = "UNHINGED";
-        this.danger = false;
     }
 }
 
@@ -356,7 +353,6 @@ class Artistic extends LegendarySoul{
         super("ARTISTIC");
         this.icon = 2;
         this.caste = "ARTISTIC";
-        this.danger = false;
     }
 }
 
@@ -365,7 +361,6 @@ class Ordered extends LegendarySoul{
         super("ORDERED");
         this.icon = 1;
         this.caste = "ORDERED";
-        this.danger = false;
     }
 }
 
@@ -374,7 +369,6 @@ class Saintly extends LegendarySoul{
         super("SAINTLY");
         this.icon = 0;
         this.caste = "SAINTLY";
-        this.danger = false;
     }
 }
 
@@ -383,33 +377,22 @@ class Senet extends LegendarySoul{
         super("SENET");
         this.icon = 8;
         this.caste = "VILE";
-        this.danger = false;
     }
 }
 
 class Lashol extends LegendarySoul{
     constructor(){
         super("LASHOL");
-        this.icon = 6;
+        this.icon = 23;
         this.caste = "FERAL";
-        this.danger = false;
     }
 }
 
-class Rasel extends LegendarySoul{
-    constructor(){
-        super("RASEL");
-        this.icon = 2;
-        this.caste = "VILE";
-        this.danger = false;
-    }
-}
 class Serene extends LegendarySoul{
     constructor(){
         super("SERENE");
-        this.icon = 2; //replace
+        this.icon = 21;
         this.caste = "SERENE";
-        this.danger = true;
     }
 }
 
@@ -418,7 +401,126 @@ class Sugcha extends LegendarySoul{
         super("SUGCHA");
         this.icon = 14;
         this.caste = "SAINTLY";
-        this.danger = false;
         this.uses = 0;
+    }
+}
+
+class Joltzazon extends LegendarySoul{
+    constructor(){
+        super("SUGCHA");
+        this.icon = 15;
+        this.caste = "UNHINGED";
+    }
+}
+
+class Purpizug extends LegendarySoul{
+    constructor(){
+        super("PURPIZUG");
+        this.icon = 16;
+        this.caste = "ARTISTIC";
+    }
+}
+
+class Rose extends LegendarySoul{
+    constructor(){
+        super("ROSE");
+        this.icon = 17;
+        this.caste = "SAINTLY";
+    }
+}
+
+class Aspha extends LegendarySoul{
+    constructor(){
+        super("ASPHA");
+        this.icon = 18;
+        this.caste = "ORDERED";
+    }
+}
+
+class Kilami extends LegendarySoul{
+    constructor(){
+        super("KILAMI");
+        this.icon = 19;
+        this.caste = "FERAL";
+    }
+}
+
+class Shizapis extends LegendarySoul{
+    constructor(){
+        super("SHIZAPIS");
+        this.icon = 20;
+        this.caste = "UNHINGED";
+    }
+}
+
+class Abazon extends LegendarySoul{
+    constructor(){
+        super("ABAZON");
+        this.icon = 22;
+        this.caste = "ORDERED";
+    }
+}
+
+class Zaint extends LegendarySoul{
+    constructor(){
+        super("ZAINT");
+        this.icon = 24;
+        this.caste = "SAINTLY";
+    }
+}
+
+class Rasel extends LegendarySoul{
+    constructor(){
+        super("RASEL");
+        this.icon = 25;
+        this.caste = "VILE";
+    }
+}
+
+class Borerora extends LegendarySoul{
+    constructor(){
+        super("BORERORA");
+        this.icon = 26;
+        this.caste = "ARTISTIC";
+    }
+}
+
+class Gyvji extends LegendarySoul{
+    constructor(){
+        super("GYVJI");
+        this.icon = 27;
+        this.caste = "ARTISTIC";
+    }
+}
+
+class Naia extends LegendarySoul{
+    constructor(){
+        super("NAIA");
+        this.icon = 28;
+        this.caste = "ORDERED";
+    }
+}
+
+class Aster extends LegendarySoul{
+    constructor(){
+        super("ASTER");
+        this.icon = 29;
+        this.caste = "SAINTLY";
+    }
+}
+
+class Ezezza extends LegendarySoul{
+    constructor(){
+        super("EZEZZA");
+        this.icon = 30;
+        this.caste = "FERAL";
+    }
+}
+
+class Kashia extends LegendarySoul{
+    constructor(){
+        super("KASHIA");
+        this.icon = 31;
+        this.caste = "UNHINGED";
     }
 }

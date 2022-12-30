@@ -342,11 +342,13 @@ colours = {
     "RASEL" : "thistle",
     "BORERORA" : "palevioletred",
     "ASPHA" : "gainsboro",
+    "GYVJI" : "dodgerblue",
+    //do these next
     "NAIA" : "fuchsia",
     "EZEZZA" : "olivedrab",
     "ASTER" : "pink",
-    "GYVJI" : "dodgerblue",
     "KASHIA" : "magenta",
+    "SUGCHA" : "mediumseagreen",
 
     "TAINTEDF" : "magenta",
     "SAINTLYF" : "lime",

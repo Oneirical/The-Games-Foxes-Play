@@ -444,7 +444,7 @@ spells = {
         if(neighbors.length){
             let tile = neighbors.pop();
             tiles[tile.x][tile.y] = new AbazonWall(tile.x,tile.y)
-            let monster = new Abazon(tile);
+            let monster = new AbazonSummon(tile);
             tile.monster
             monsters.push(monster);
             fail = false;
