@@ -9,7 +9,7 @@ class DrawWheel{
         center = [center[0]+28,center[1]+38];
         this.hotkeycoords = [[center[0], center[1]-dist],[center[0]+Math.cos(pi/4)*dist, center[1]-Math.sin(pi/4)*dist],[center[0]+dist, center[1]],[center[0]+Math.cos(pi/4)*dist, center[1]+Math.sin(pi/4)*dist],[center[0], center[1]+dist],[center[0]-Math.cos(pi/4)*dist, center[1]+Math.sin(pi/4)*dist],[center[0]-dist, center[1]],[center[0]-Math.cos(pi/4)*dist, center[1]-Math.sin(pi/4)*dist]];
 
-        this.pile = [new Saintly(), new Saintly()];
+        this.pile = [new Artistic(), new Artistic()];
         this.discard = [];
         this.saved = [new Empty(),new Empty(),new Empty(),new Empty(),new Empty(),new Empty(),new Empty(),new Empty()];
         this.resolve = 3; //update this later with the bonus
@@ -23,7 +23,6 @@ class DrawWheel{
     display(){ //TODO these should stay in cursormode, and you should be able to inspect them
         drawSymbol(9, 590, 130, 64);
         drawSymbol(10, 880, 130, 64);
-        drawSymbol(6, 880, 320, 64);
         drawSymbol(11, 590, 50, 64);
         if (gameState != "contemplation"){
             drawSymbol(12, 880, 50, 64);
@@ -248,7 +247,7 @@ class DrawWheel{
 class Inventory{
     constructor(){
         this.active = [new Vile(),new Feral(),new Unhinged(),new Artistic(),new Ordered(),new Saintly()];
-        this.storage = [new Ezezza(),new Kashia(),new Aster(),new Naia()];
+        this.storage = [new Gyvji(),new Rasel(),new Aspha(),new Rose()];
         this.actcoords = [[148, 76],[366, 76],[76, 257],[438, 257],[148, 438],[366, 438]];
         this.actcoords.reverse();//don't feel like re-writing these in the correct order lmao
         this.castes = ["VILE","FERAL","UNHINGED","ARTISTIC","ORDERED","SAINTLY"];
@@ -302,14 +301,14 @@ class LegendarySoul{
 
     describe(){
         let bump = 0;
-        if ((6*64+75-ctx.measureText(this.name).width) < 0) bump = 20; 
-        printAtSidebar(toTitleCase(this.caste) + " Caste", 18, 590, 150 + bump, colours[this.caste], 20, 6*64-35);
+        if ((5*64-32-ctx.measureText(this.name).width) < 0) bump = 20; 
+        printAtSidebar(toTitleCase(this.caste) + " Caste", 18, 590, 50 + bump, colours[this.caste], 20, 6*64-35);
         //printAtSidebar(inventorytext[this.command], 18, 590, 170, colours[this.command], 20, 6*64-35); for future use, or maybe just place this thing in its own screen
-        if (basic.includes(this.id)) printAtSidebar("Empty Slot", 18, 590, 130, "white", 20, 6*64-35);
-        else printAtSidebar(this.name, 18, 590, 130, colours[this.id], 20, 6*64-35);
-        printAtSidebar(this.subdescript, 18, 590, 210, "white", 20, 6*64-35);
+        if (basic.includes(this.id)) printAtSidebar("Empty Slot", 18, 590, 30, "white", 20, 6*64-35);
+        else printAtSidebar(this.name, 18, 590, 30, colours[this.id], 20, 6*64-100);
+        printAtSidebar(this.subdescript, 18, 590, 110, "white", 20, 6*64-35);
         printAtWordWrap(this.lore, 18, 10, 600, colours[this.id], 20, 940);
-        drawSymbol(this.icon, 890, 110, 64);
+        drawSymbol(this.icon, 890, 20, 64);
     }
 }
 
@@ -317,10 +316,10 @@ class Empty extends LegendarySoul{
     constructor(){
         super("EMPTY");
         this.icon = 7;
-        this.caste = "EMPTY";
-        this.lore = "TODO";//remove
-        this.subdescript = "TODO"; //remove
-        this.name = "TODO";
+        this.caste = "NO";
+        this.lore = "The Annihilationists seared their flesh, insulted each other for hours on end while sitting in a circle, and refused all companionship all in the name of expunging their own soul. The most radical of them all would even try their luck with a home-made lobotomy. For Terminal, these cultists' reason to be is simply the natural state of things.";//remove
+        this.subdescript = "This central chamber can store up to four inactive Legendary Souls for future use."; //remove
+        this.name = "Empty Slot";
     }
 }
 

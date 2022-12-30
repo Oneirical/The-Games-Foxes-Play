@@ -52,7 +52,8 @@ function setupCanvas(){
                 if (cursormode) cursor = new Cursor(playerTile());
                 else cursor.die();
             }
-            else if (clickpos[0] >= 880 && clickpos[0] <= 880+64 && clickpos[1] >= 320 && clickpos[1] <= 320+64) inInventory = !inInventory;
+            else if (clickpos[0] >= 880 && clickpos[0] <= 880+64 && clickpos[1] >= 320 && clickpos[1] <= 320+64 && !inInventory) inInventory = true;
+            else if (clickpos[0] >= 880 && clickpos[0] <= 880+64 && clickpos[1] >= 490 && clickpos[1] <= 490+64 && inInventory) inInventory = false;
             else if (mousdes+1 <= player.inhand.length || mousdes == 21 || mousdes == 22){
                 if (gameState == "running" && mousdes <21) player.castSpell(mousdes);
                 else if (gameState == "running" && mousdes >=21&& modules.length > 1 && !cursormode) player.cycleModules();
@@ -202,7 +203,7 @@ function draw(){
         for(let i=0;i<monsters.length;i++){
             if (viewedTiles.includes(monsters[i].tile) || monsters[i].charmed)monsters[i].draw();
         }
-        drawText(world.getRoom().name, 30, false, 40, "violet");
+        if (!inInventory) drawText(world.getRoom().name, 30, false, 40, "violet");
         //if (level == 0) drawText("World Seed", 30, false, 40, "violet");
         //else if (level % 5 == 1 && level > 5 && area == "Faith") drawText("Test of Unity", 30, false, 40, "violet");
         //else if (level % 5 == 1 && level > 5 && area == "Spire") drawText("Fluffian Workshop", 30, false, 40, "violet");
@@ -262,7 +263,7 @@ function draw(){
         //if (level == 1 && !cursormode&& gameState == "running") printAtSidebar("Slay enemies to collect their Soul.", 18, 590, 210, "lime", 20, 350);
         //if (level == 0 && !cursormode) printAtSidebar("Press \"c\" to toggle Examine mode.", 18, 590, 210, "lime", 20, 350);
         //if (level == 0 && !invmode) printAtSidebar("Press \"i\" to toggle Soul View mode.", 18, 590, 275, "lime", 20, 350);
-        
+        if (!inInventory) drawSymbol(6, 880, 320, 64);
         if (cursormode == true && invmode == false){
             cursor.draw();
             cursor.info();
@@ -271,7 +272,7 @@ function draw(){
         else if (inInventory){
             drawFilter(blackfilter);
             drawSymbol(6, 0, 0, 577);
-            drawSymbol(6, 880, 320, 64);
+            drawSymbol(6, 880, 490, 64);
             ctx.globalAlpha = 0.55;
             //intérieur
             for (let k of legendaries.active){
