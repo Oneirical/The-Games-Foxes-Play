@@ -412,6 +412,21 @@ spells = {
             truehp += 3;
         }
     },
+    SUGCHA: function(caster, soul){
+        let adj = caster.tile.getAllNeighbors();
+        adj = shuffle(adj);
+        let cap = 8-soul.uses;
+        for (let x of adj){
+            if (cap == 0) break;
+            else if (x.monster){
+                x.monster.hit(1);
+                x.setEffect(14, 30);
+                caster.heal(1);
+                cap--;
+            }
+        }
+        legendaries.active[legendaries.active.indexOf(soul)].uses++;
+    },
     SHIZAPIS: function(caster){
         if (caster.inventory.length > 2){
             discarded = 1;

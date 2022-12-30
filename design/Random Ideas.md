@@ -47,6 +47,8 @@
 
 * If a trailer is ever made it should not be a trailer, but rather pure boss battle footage with Zaint who criticizes the concept of trailers. After all, if an image is worth a thousand words, surely a video must be worth a million.
 
+* Bringing Sugcha all the way to the end of the game should result in something funny.
+
 **To use later**
 
 *"A glass canister filled with wispy, pink vapour. The label reads, 'Once the fluorescent tubes' buzzing becomes unbearable, break immediately and inhale contents. May induce ego death.'"*

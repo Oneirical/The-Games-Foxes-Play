@@ -9,7 +9,7 @@ class DrawWheel{
         center = [center[0]+28,center[1]+38];
         this.hotkeycoords = [[center[0], center[1]-dist],[center[0]+Math.cos(pi/4)*dist, center[1]-Math.sin(pi/4)*dist],[center[0]+dist, center[1]],[center[0]+Math.cos(pi/4)*dist, center[1]+Math.sin(pi/4)*dist],[center[0], center[1]+dist],[center[0]-Math.cos(pi/4)*dist, center[1]+Math.sin(pi/4)*dist],[center[0]-dist, center[1]],[center[0]-Math.cos(pi/4)*dist, center[1]-Math.sin(pi/4)*dist]];
 
-        this.pile = [];
+        this.pile = [new Saintly(), new Saintly()];
         this.discard = [];
         this.saved = [new Empty(),new Empty(),new Empty(),new Empty(),new Empty(),new Empty(),new Empty(),new Empty()];
         this.resolve = 3; //update this later with the bonus
@@ -174,7 +174,7 @@ class DrawWheel{
             if (spellName){
                 if (basic.includes(spellName) && area == "Spire") spellName = spellName+"S";
                 message = spellName;
-                spells[spellName](player);
+                spells[spellName](player, legendaries.active[num]);
                 if (!fail && player.activemodule != "Focus"){
                     let lookingfor = 0;
                     for (let k of this.saved){
@@ -247,8 +247,8 @@ class DrawWheel{
 //TODO cool sliding animation?
 class Inventory{
     constructor(){
-        this.active = [new Senet(),new Feral(),new Unhinged(),new Artistic(),new Ordered(),new Saintly()];
-        this.storage = [new Senet(),new Lashol(),new Rasel(),new Empty()];
+        this.active = [new Vile(),new Feral(),new Unhinged(),new Artistic(),new Ordered(),new Saintly()];
+        this.storage = [new Sugcha(),new Empty(),new Empty(),new Empty()];
         this.actcoords = [[148, 76],[366, 76],[76, 257],[438, 257],[148, 438],[366, 438]];
         this.actcoords.reverse();//don't feel like re-writing these in the correct order lmao
         this.castes = ["VILE","FERAL","UNHINGED","ARTISTIC","ORDERED","SAINTLY"];
@@ -410,5 +410,15 @@ class Serene extends LegendarySoul{
         this.icon = 2; //replace
         this.caste = "SERENE";
         this.danger = true;
+    }
+}
+
+class Sugcha extends LegendarySoul{
+    constructor(){
+        super("SUGCHA");
+        this.icon = 14;
+        this.caste = "SAINTLY";
+        this.danger = false;
+        this.uses = 0;
     }
 }

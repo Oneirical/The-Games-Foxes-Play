@@ -521,7 +521,7 @@ class Monster{
         }
         if (this.tile.siphon && !(this instanceof Felidol) && !(this instanceof Husk)){
             let felid = new Felidol(this.tile);
-            let sun = this.loot.charAt(0) + this.loot.substring(1).toLowerCase();
+            let sun = this.loot.id.charAt(0) + this.loot.id.substring(1).toLowerCase();
             let n = " ";
             if (sun == "Ordered" || sun == "Artistic" || sun == "Unhinged") n = "n ";
             felid.soul = "Animated by a"+n+sun+" ("+basic.indexOf(this.loot)+") soul.";
@@ -1714,7 +1714,7 @@ class Monk extends Monster{
         super(tile, 45, 2, "NOTHING", description["Monk"]);
         let index = randomRange(1,6);
         this.loot = basic[index];
-        let sun = this.loot.charAt(0) + this.loot.substring(1).toLowerCase();
+        let sun = this.loot.id.charAt(0) + this.loot.id.substring(1).toLowerCase();
         let n = " ";
         if (sun == "Ordered" || sun == "Artistic" || sun == "Unhinged") n = "n ";
         this.soul = "Animated by a"+n+sun+" ("+index+") soul.";

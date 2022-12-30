@@ -6,6 +6,7 @@
 //-description for epsilon spawners, harmony platforms and ladders
 //-make boss bars look nicer
 //-there might still be a bug with returning from a fluffy room that shows phantom text
+//-more soul dialogue. especially sugcha
 
 //List of souls
 
@@ -228,6 +229,7 @@ messages = {
     "ANNIHILATE" : "boom",
     "TAINTED" : "\"he- hehe- beau- ti- ful- wo-r-ld... all... go- ne-...\"",
     "SUGCHA" : "\"What? Terminal, you are the one tasked to fight, not me! Fine. If it must be so.\"",
+    "SUGCHATIRED" : "\"If I gave you these claws, then perhaps I expected you to use them - what do you think? I'm done helping you. Wake me up when you arrive to the Next World.\"",
     "SAINTLY" : "\"What a wondrous creation you are, Terminal. It is a shame your maker refused to share her ascension with us.\"",
     "ORDERED" : "\"Efficiency. Discipline. Wisdom. These are your weapons, and certaintly not these dull claws.\"",
     "ARTISTIC" : "\"A second chance? More... time, for me, and for those I love? Oh, Terminal, please, I beg you, do not see me as simple fodder...\"",
@@ -362,8 +364,6 @@ colours = {
     "NONE" : "cyan",
 }
 
-//Now, if only this decrepit noble could give a semblance of a fight... keep this for Sugcha
-
 description = {
     // Creatures
     "Terminal" : "Sugcha's famed biological contraption, its flesh twisted by centuries of exposure to Antientropy. Wiser souls should disregard its green tongue writhing like a worm, and see Terminal as the saviour who will free them from the grasp of oblivion. Deep down the Vessel's overdeveloped brain lies enough storage space for the desires, thoughts and worries of a million minds, squirming under a narrow layer of purple fur stained by viscous slime. Should the Reality Anchor make the pilgrimage to the Reality Vortex, its ethereal passengers will achieve the impossible, and transit into the Next World, where they would be given a chance to rebuild society from scratch...",
@@ -385,7 +385,7 @@ description = {
     "Slug" : "A robotic mollusk, occasionally stopping to dispense a mass-fabricated set of automatic cuffs. Foolish organics who'd attempt to escape prisons guarded by Ordered souls would eventually find themselves tied up in one such dastardly trap, and forced to recite a pledge to the Saints' Grace before returning to their cell.",
     "Monk" : "Through repeated self-directed insults and mantras of worthlessness, the Annihilationists achieved the impossible, and expunged their own soul. Fully dedicated to the incarnation of one of the six spiritual castes, these mages have long forgotten the meaning of existence.",
     "Felidol" : "Grinning eternally at some cosmic joke only they seem to understand, these living feline statues once served as protectors of merchants and slavers. Deprived of purpose, they filled the rivers with coins, and marched on these golden bridges to usurp the Reality Anchor, dreaming of a Next World ordered in masters and servants.",
-    "Weaver" : "One of the many monastic artisans, who enchanted the city streets with their simple songs as their long tongues spun brute materials into beautiful crafts. This one seems to have remained oblivious to the Old World's collapse, endlessly repeating the same three notes while it folds pages from old books into elegant pinwheels. Its trance prevents it from feeling pain -- until you dare damage one of its precious creations, that is.",
+    "Weaver" : "One of the many monastic artisans, who enchanted the city streets with their simple songs as their long tongues spun brute materials into beautiful crafts. This one seems to have remained oblivious to the Old World's imminent collapse, endlessly repeating the same three notes while it folds pages from old books into elegant pinwheels of great complexity and value. Its trance prevents it from feeling pain -- until you dare damage one of its precious creations, that is.",
     "Rendfly" : "Once the Rend-Plague outbreak had spread to the headlines of every holoscreen, the population began to exterminate en masse these pesky little insects. Of the millions that caused the epidemic, only a few dozens remain, but the Old World's end has not tempered their terrifying mind-altering bite one bit.",
     "ModuleOrb" : "A machine holding a pure crystal sphere, within which swirls a billowy, white gas. Across its surface glisten a thousand cyan lights, hinting at the glory of the Collective's technological prowess. A single breath suffices to grant some ability normally reserved for Harmonic kin, though your mind may not remain fully your own following installation of this strange cybernetic.",
     "Third" : "A soft plushie resembling a black arachnid, its eight grey eyes emblazoned with the cursed seal of Affection. Whenever its owner reached adulthood, the child's parents would rip it in half, as a lesson on the ephemerality of all relationships. This specimen has never seen use, and prowls the darkness, looking for a friend to bond with.",
@@ -498,6 +498,8 @@ souldesc = {
     "ASTER" : "Saint Rose's exiled son, ostracized due to his pupils of ill-matched colours. After trawling through the bleak corridors of Faith's End, the disgraced noble finally found his new purpose: an enforcer of diversity, a comforter of the different, and a warrior battling in the name of Dissonance. Why would the Harmony authorize the trade of such a dangerous soul?",
     "GYVJI" : "All contenders of the Saints' Arena feared Gyvji's mythical tail slap, supposedly so strong it could knock your soul out of your body and into the crowd, leaving the body untouched. Thankfully, it wasn't long until reality caught up, causing the victim's flesh to charge into the hopefully empty seats of the stadium, where it would be rejoined with its distraught spirit.",
     "KASHIA" : "The first day of her infection, many wondered why Kashia waited five seconds to respond after being asked the most basic questions. After being brought for inspection to a dream-healer, her family gasped in horror at the apparent lack of a soul within her body. Their throats breathed sighs of half-relief, half-despair when a little ghostly Kashia arrived five seconds later to mesh with the lizard's flesh, seemingly forever cursed to remain an after-image.",
+    "SUGCHA" : "Penultimate among the Saints, Sugcha was no doubt the most delusional of them all, obsessed with cheating death and somehow surviving the Old World's downfall. To this end, she created Terminal, the Reality Anchor, expecting this biological contraption to journey with her soul towards the Reality Vortex's eye. Within, she would doom her old subjects to oblivion, and step into a Next World filled with untapped potential. If only this decrepit noble could put up a semblance of a fight...",
+
     "ROSEILLUSION" : "No need for survival. No need for struggle.",
     "SAINTLYS" : "The upper castes were the first to fall for the Harmony's schemes. Obsessed with decorum and etiquette, they saw in Fluffy an esteemed contact, and not the identity-expunging force she truly is.",
     "ORDEREDS" : "The Ordered legions thought themselves immune to Harmonic influence for the longest time. When the alarm finally resounded, no bot could be trusted to build an antivirus that would not convert all remaining soldiers into puppets of the Harmony.",
@@ -528,7 +530,7 @@ soulabi = {
     "JOLTZAZON" : "SUFFOCATING LOVE - When activated, all enemies adjacent to at least one other enemy take 2 damage.",
     "PURPIZUG" : "WHITE BLAZE - When activated, discard your entire paw, then draw souls equal to the amount discarded.",
     "ROSE" : "GLAMOUR AND SMILES - When activated, fire out a ribbon that will wrap around the first enemy hit. That enemy becomes targeted by every other enemy in the room.",
-    "SENET" : "PERSUASIVE ENLISTMENT - When activated, empower your next attack with a Charming touch, which converts an enemy to your side... until it is the last one remaining.",
+    "SENET" : "PERSUASIVE ENLISTMENT - Overrides the Vile caste. When activated, empower your next attack with a Charming touch, which converts an enemy to your side... until it is the last one remaining.",
     "KILAMI" : "COPY KITTY - When activated, all enemies slain this turn, and the next turn, will have their Soul immediately casted in addition to adding it to your discard pile.",
     "AUBE" : "(Unique) PREPARE - When activated, heal every creature in the room for 2 HP, including you. When Aube has been activated a total of 5 times, transform it into Zenith.",
     "ZENITH" : "(Unique) COOK - When activated, slice all enemies in a 4-radius hourglass pattern, dealing 2 damage to each. When Zenith has been activated a total of 5 times, transform it into Crepusculum.",
@@ -540,11 +542,13 @@ soulabi = {
     "RASEL" : "EXTENSION OF WILL - When activated, become empowered with Reaping, reviving all targets you slay as friendly 1 HP Husks.",
     "BORERORA" : "THUNDEROUS APPLAUSE - When activated, unleash a 2-damage sonic beam, which passes through walls and bounces an amount of times equal to double the number of souls in your paw.",
     "ASPHA" : "SECURE THE PERIMETER - When activated, discard as many souls as you desire. For each discarded soul, teleport to a random location, and slash all adjacent and diagonal tiles for 2 damage.",
-    "NAIA" : "TO THINK IS TO DO - When activated, stop time. While time is stopped, you can only cast souls from your paw, and nothing else.",
+    "NAIA" : "TO THINK IS TO DO - When activated, stop time and gain infinite turns. Moving away from your currently occupied square instantly breaks the trance.",
     "EZEZZA" : "MIND LOCK - Cannot be activated. Passive: as long as Ezezza is somewhere in your inventory or discard pile, double Ipseity gains on room clear. When Ezezza is drawn, become paralyzed for 3 turns. ",
-    "ASTER" : "CACOPHONIC RAGE - When activated, forget all Serene souls in your paw, and strike all enemies for 0 damage. +1 bonus damage for each enemy of the same type in the room as the one hit. One additional secret effect...", // to add the secret effect
+    "ASTER" : "CACOPHONIC RAGE - When activated, forget all Serene souls in your wheel, and strike all enemies for 0 damage. +1 bonus damage for each enemy of the same type in the room as the one hit. One additional secret effect...", // to add the secret effect
     "GYVJI" : "DIAMOND STRIKE - When activated, punch the adjacent enemy in the direction of your last move. The target flies until it meets a wall or another enemy, at which point it causes a 1-range blast that destroys walls and inflicts 3 damage. The target must fly at least 1 tile for the blast to take effect.",
     "KASHIA" : "REALITY DELAY - When activated, freeze your current HP, preventing all changes. 5 turns later, apply all damage and healing that occurred during the delay period. Applied healing is doubled.",
+    "SUGCHA" : "ELITES' LASSITUDE - Overrides the Saintly caste. When activated, steal one Life point from up to 8 adjacent creatures. With each usage, reduce the maximum number of affected creatures by 1. After 8 casts, this Soul does nothing.",
+
     "ROSEILLUSION" : "ROSE - There is beauty. There is grace. You are beauty, you are grace. You are Rose. All is Rose.",
     "SAINTLYS" : "DELAYING THE INEVITABLE - When activated, knock back all adjacent creatures one tile away, then remove 2 Influence points from each one affected. Remove 2 Influence points from yourself.",
     "ORDEREDS" : "GAS COMPRESSOR - When activated, shield yourself from all knockback for one turn, then punch one tile away in the direction of your last move at a force equal to all negated knockback.",
@@ -649,6 +653,7 @@ soulname = {
     "ASTER" : "Aster, the Dissonant Crusader",
     "GYVJI" : "Gyvji, Soul-Severer",
     "KASHIA" : "Kashia, Patient Zero of the Rend-Plague",
+    "SUGCHA" : "Sugcha, Vilest of the Saints",
 
     //modulators
     "Alacrity" : "Mind-Alacrity-Enhancing Fluffifier",
