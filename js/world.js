@@ -24,6 +24,12 @@ class World{
         else if (level % 5 == 1 && level > 5 && !this.serene) roomType = HarmonyRelay;
         else roomType = shuffle(this.roompool)[0];
         let room = new roomType(this.roomlist.length);
+        if (coordinates != "firstroom"){
+            if (this.getRoom().music){
+                if (this.getRoom().music == room.music) room.music = false;
+                currenttrack = this.getRoom().music;
+            }
+        }
         this.currentroom = this.roomlist.length;
         let numtest = numTiles;
         numTiles = room.size;
@@ -120,7 +126,7 @@ class Room{
 
     initializeRoom(){
         exitspawn = 0;
-        if (this.music) {
+        if (this.music && this.music != currenttrack) {
             pauseAllMusic();
             playSound(this.music);
         }
@@ -169,6 +175,7 @@ class StandardFaith extends Room{
         super(index);
         //this.playerspawn = getTileButNotCursed(Math.floor((numTiles-1)/2),1);
         this.name = "Faith's End";
+        this.music = "malform";
         this.entrancepoints = [getTileButNotCursed(Math.floor((numTiles-1)/2),1), getTileButNotCursed(1,Math.floor((numTiles-1)/2)),getTileButNotCursed((numTiles-2),Math.floor((numTiles-1)/2)),getTileButNotCursed(Math.floor((numTiles-1)/2),(numTiles-2))];
         this.possibleexits = [[Math.floor((numTiles-1)/2),0], [0,Math.floor((numTiles-1)/2)],[(numTiles-1),Math.floor((numTiles-1)/2)],[Math.floor((numTiles-1)/2),numTiles-1]];
     }

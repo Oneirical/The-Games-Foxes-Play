@@ -240,7 +240,7 @@ messages = {
     "ORDERED" : "\"Efficiency. Discipline. Wisdom. These are your weapons, and certaintly not these dull claws.\"",
     "ARTISTIC" : "\"A second chance? More... time, for me, and for those I love? Oh, Terminal, please, I beg you, do not see me as simple fodder...\"",
     // THIS SHOULD BE A QUOTE FOR SOMEONE ELSE "ARTISTIC" : "\"In the Next World, I'll build a bridge with a 0.000001% chance of exploding every time someone steps on it!\"",
-    "UNHINGED" : "\"Don't listen to the Saints! Throw those tyrants out at the first chance you get! The Next World musn't repeat the mistakes of the Old.\"",
+    "UNHINGED" : "\"Don't listen to the Saints! Throw those tyrants out at the first chance you get! The Next World mustn't repeat the mistakes of the Old.\"",
     "FERAL" : "The Feral soul vibrates in happiness that you are giving it attention.",
     "VILE" : "\"After this ordeal is over, I will gladly make you my second in command in the Next World. If you keep me around, that is.\"",
     "SERENE" : "\"Synchronize your motions and your mannerisms.\"",

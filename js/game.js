@@ -169,8 +169,8 @@ function draw(){
                     printAtWordWrap(souldesc[spellName], 18, 10, 600, colours[spellName], 20, 940);
                     printAtWordWrap(soulabi[spellName], 18, 10, 600+(Math.ceil(souldesc[spellName].length/100)*25), "white", 20, 940);
                     if (spellName == player.activemodule){
-                        printAtSidebar(soulval[spellName], 18, 590, 195, "cyan", 20, 350);
-                        printAtSidebar(soulname[spellName], 18, 590, 130, colours[spellName], 20, 350);
+                        //printAtSidebar(soulval[spellName], 18, 590, 195, "cyan", 20, 350);
+                        //printAtSidebar(soulname[spellName], 18, 590, 130, colours[spellName], 20, 350);
                         fufflore = true;
                     }
                 }
@@ -284,7 +284,7 @@ function draw(){
                 ctx.globalAlpha = k.alpha;
                 drawSymbol(k.icon, legendaries.storecoords[legendaries.storage.indexOf(k)][0], legendaries.storecoords[legendaries.storage.indexOf(k)][1], 64);
             }
-            message = "InvTutorial";
+            //message = "InvTutorial"; TODO
         }
         
         else {
@@ -560,7 +560,7 @@ function startGame(){
     pauseSound("title");            
     playSound("cage");                         
     level = 0;
-    resolvebonus = 9;
+    resolvebonus = 0;
     truehp = 8;
     score = 0;
     numSpells = 0;
@@ -794,6 +794,7 @@ function initSounds(){
         epsideath : new Audio('sounds/EpsilonDeath.wav'),
         epsitink : new Audio('sounds/EpsilonTink.wav'),
         epsivuln : new Audio('sounds/EpsilonVuln.wav'),
+        malform : new Audio('sounds/Malform.wav'),
     };
 }
 

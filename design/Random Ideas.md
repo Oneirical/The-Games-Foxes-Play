@@ -58,3 +58,5 @@
 The dungeon branch that is currently known as the "Roseic Circus" will be *merged* with Faith's End, and will be made accessible only through the inhalation of the mysterious psychedelic toxin already used by some of the game's enemies - Saints' Breath. This should encourage the player to clear a few rooms, toke some of "that sweet pink stuff", and then *retrace their steps* as they now have a new series of hallucinatory creatures to fend off in these normally deserted rooms, with appropriate psychic-themed loot.
 
 I'm really excited about this plan and the progress done this week, and I look forward to deepening this concept!
+
+**NOTE: If a wanderer of the Internet stumbles upon this log, the features mentioned in it are not finished yet (I am working on them this week) and the text below may change. The reason I write these in advance is because pretending that I made great progress inspires me to actually make great progress. Fake it til' you make it. Everything I post in Sharing Saturday - that means, all previous devlog entries in this folder - are completed, of course.**
