@@ -48,7 +48,6 @@ function setupCanvas(){
                 cursormode = !cursormode;
                 invmode = false;
                 currentspelldesc = "nan";
-                if (message == "InvPrompt") message = "Empty";
                 if (cursormode) cursor = new Cursor(playerTile());
                 else cursor.die();
             }
@@ -151,7 +150,7 @@ function draw(){
         if(wtfx>603&&wtfy>115){
             let mousdes = Math.ceil((wtfy - 130)/20);
             if (mousdes+1 <= player.inhand.length || mousdes == 21 || mousdes == 22){
-                message = "Empty";
+                //log.addLog("Empty");
                 let spellName;
                 if (mousdes != 21 && mousdes != 22) spellName = player.inhand[mousdes];
                 else spellName = player.activemodule;
@@ -291,14 +290,14 @@ function draw(){
             if (invmode == true  && wtfx<603){
                 cursor.draw();
                 if (currentspelldesc == "nan"){
-                    message = "InvPrompt";
+                    log.addLog("InvPrompt");
                 }
                 else if (currentspelldesc != "nan" && Number.isInteger(currentspelldesc)){
-                    message = "Empty";
+                    //log.addLog("Empty");
                     player.loreSpell(currentspelldesc);
                 }
                 else{
-                    message = "Empty";
+                    //log.addLog("Empty");
                     player.loreSpellMonster(currentspelldesc);
                 }
             }
@@ -312,21 +311,17 @@ function draw(){
                     if (selectation == i) colour = "cyan";     
                     drawText(spellText, 20, false, 130+i*20, colour);
                 }
-                if (gameState == "discard" && !naiamode) message = "Discard";
-                else if (gameState == "discard" && naiamode) message = "NaiaTime";
+                if (gameState == "discard" && !naiamode) log.addLog("Discard");
+                else if (gameState == "discard" && naiamode) log.addLog("NaiaTime");
             }
             else if (gameState == "vision"  && !fufflore){
                 for(let i=0; i<player.vision.length; i++){
                     let spellText = (i+1) + ") " + (player.vision[i] || "");                        
                     drawText(spellText, 20, false, 130+i*20, "lightskyblue");
                 }
-                message = "Shiza";
+                log.addLog("Shiza");
             }
-            let coloring = colours[message];
-            if (message.includes("Fluffy")) coloring = "cyan";
-            else if (message.includes("Rose")) coloring = "lightpink";
-            else if (message.includes("Epsilon")) coloring = "red";
-            if ((!cursormode && !invmode) || (cursormode && invmode)) printAtWordWrap(messages[message], 18, 10, 600, coloring, 20, 940);
+            if ((!cursormode && !invmode) || (cursormode && invmode)) log.display();//printAtWordWrap(messages[message], 18, 10, 600, coloring, 20, 940);
             if (rosetoxin > 1){
                 ctx.globalAlpha = 0.5;
                 drawFilter(rosefilter);
@@ -398,7 +393,7 @@ function summonExits(){
     manageExit();
     if (player.activemodule == "Hover"){
         player.activemodule = "NONE";
-        message = "FluffyModuleFarewell";
+        log.addLog("FluffyModuleFarewell");
         playSound("off");
     }
 }
@@ -427,7 +422,7 @@ function tick(){
         playSound("epsideath");
         pauseAllMusic();
         playSound("roseic");
-        message = "EpsilonDefeat";
+        log.addLog("EpsilonDefeat");
         victory = true;
     }
     for(let k=monsters.length-1;k>=0;k--){
@@ -460,13 +455,13 @@ function tick(){
                 player.saved.length = 0;
                 truehp -= deadcheck;
                 agony = deadcheck;
-                if (area == "Faith" && player.rosetox < 10) message = "Agony";
+                if (area == "Faith" && player.rosetox < 10) log.addLog("Agony");
                 else if (area == "Serene"){
-                    message = "Fallen";
+                    log.addLog("Fallen");
                     fallen = false;
                 }
                 else if (player.rosetox > 9){
-                    message = "Rosified";
+                    log.addLog("Rosified");
                 }
                 //for(let k=monsters.length-1;k>=0;k--){
                 //    monsters.splice(k,1);
@@ -475,8 +470,8 @@ function tick(){
                     gameState = "dead";
                     pauseAllMusic();
                     playSound("falsity");
-                    if (player.rosetox < 10) message = "RoomDeath";
-                    else message = "RoseDeath";
+                    if (player.rosetox < 10) log.addLog("RoomDeath");
+                    else  log.addLog("RoseDeath");
                 }
             }
             else{
@@ -489,15 +484,15 @@ function tick(){
                     gameState = "dead";
                     pauseAllMusic();
                     playSound("falsity");
-                    message = "EpsilonDeath";
+                    log.addLog("EpsilonDeath");
                 }
                 else{
                     player.hp = maxHp;
                     rosetoxin = 0;
                     player.rosetox = 0;
                     for (let x of monsters) x.sprite = x.spritesave;
-                    if (truehp > 1) message = "EpsilonTaunt";
-                    else message = "EpsilonOneChance";
+                    if (truehp > 1) log.addLog("EpsilonTaunt");
+                    else  log.addLog("EpsilonOneChance");
                     player.dead = false;
                     player.tile.setEffect(1, 30);
                     spells["WOOP"](player);
@@ -526,7 +521,6 @@ function showTitle(){
     pauseAllMusic();
     gameState = "title";
     playSound("title"); 
-    message = "Empty";
     drawText("THE GAMES", 40, true, canvas.height/2 - 110, "cyan");
     drawText("FOXES PLAY", 70, true, canvas.height/2 - 50, "cyan");
     drawText("by Oneirical", 30, true, canvas.height/2 - 20, "white");
@@ -576,6 +570,7 @@ function startGame(){
     dissave = [];
     legendaries = new Inventory();
     wheel = new DrawWheel();
+    log = new MessageLog();
     startWorld(startingHp);
     gameState = "running";
 }
@@ -824,7 +819,7 @@ function playMusic(){
     else if (area == "Circus"){
         pauseAllMusic();
         playSound("roseic");
-        message = "RoseWelcome1";
+         log.addLog("RoseWelcome1");
     }
     else if (area == "Spire" && areachange){
         pauseAllMusic();

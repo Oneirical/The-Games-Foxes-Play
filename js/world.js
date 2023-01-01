@@ -131,8 +131,8 @@ class Room{
             playSound(this.music);
         }
         let randomtile = randomPassableTile();
-        if (this.entrymessage) message = this.entrymessage;
-        else message = "Empty";
+        if (this.entrymessage) log.addLog(this.entrymessage);
+        else  //log.addLog("Empty");
         if (world.roomlist.length == 1 && level == 0) this.playerspawn = [Math.floor((numTiles-1)/2),Math.floor((numTiles-1)/2)];
         else if (world.roomlist.length == 1) this.playerspawn = [randomtile.x,randomtile.y];
         //if (world.getRoom() instanceof EpsilonArena) this.playerspawn = [1,1];

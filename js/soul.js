@@ -310,7 +310,7 @@ spells = {
         }
         if (player.activemodule != "Selective"){
             if (!player.harmonizeAny(1)){
-                message = "FluffyNoConvertTaunt";
+                log.addLog("FluffyNoConvertTaunt");
                 removeItemOnce(player.saved,"SERENE");
                 fail = true;
             }
@@ -323,7 +323,7 @@ spells = {
             if (player.consumeCommon(1,false)){ // pay the price
                 if (!player.consumeCommon(1,true)){
                     player.discard.push(dontremove[0]);
-                    message = "FluffyNoConvertTaunt";
+                    log.addLog("FluffyNoConvertTaunt");
                     removeItemOnce(player.saved,"SERENE");
                     fail = true;
                 }
@@ -333,11 +333,11 @@ spells = {
                 }
             }
             else{
-                message = "FluffyInsufficientPower";
+                log.addLog("FluffyInsufficientPower");
                 playSound("off");
                 player.activemodule = "NONE";
                 if (!player.harmonizeAny(1)){
-                    message = "FluffyNoConvertTaunt";
+                    log.addLog("FluffyNoConvertTaunt");
                     removeItemOnce(player.saved,"SERENE");
                     fail = true;
                 }
@@ -474,7 +474,7 @@ spells = {
     ASPHA: function(){
         gameState = "discard";
         discarded = 0;
-        message = "Discard";
+        log.addLog("Discard");
     },
     ASPHAF: function(power){
         for (let i = 0; i<power; i++){
@@ -490,7 +490,7 @@ spells = {
     NAIA: function(){
         gameState = "discard";
         discarded = 0;
-        message = "Discard";
+        log.addLog("Discard");
         naiamode = true;
     },
     LASHOL: function(){

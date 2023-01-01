@@ -158,7 +158,7 @@ class Floor extends Tile{
         }
         if (monster.isPlayer && (this.pin || this.eviltrap || this.cuff) && !trapsafe){
             if (!player.consumeCommon(1,false)) {
-                message = "FluffyInsufficientPower";
+                log.addLog("FluffyInsufficientPower");
                 player.activemodule = "NONE";
                 playSound("off");
                 trapsafe = true;
@@ -391,7 +391,7 @@ class Exit extends Tile{
                 rolled = 0;
                 rosetoxin = 0;
                 //if (level == 17 && area == "Faith"){
-                //    message = "EpsilonWelcome1";
+                //    log.addLog("EpsilonWelcome1");
                 //}
             }
         }
@@ -467,7 +467,7 @@ class FluffExit extends Exit{
 
     stepOn(monster){
         super.stepOn(monster);
-        message = "FluffyWelcome";
+        log.addLog("FluffyWelcome");
         gameState = "fluffy";
 
     }

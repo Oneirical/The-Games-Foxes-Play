@@ -345,7 +345,7 @@ class Monster{
                         if(elem == "LASHOL") this.bonusAttack += (1/3);
                     }
                     if (this.bonusAttack >= 5 && this.isPlayer){
-                        message = "LASHOL";
+                        log.addLog("LASHOL");
                     }
                 }
             }else{
@@ -408,10 +408,10 @@ class Monster{
                     this.offsetY = (newTile.y - this.tile.y)/2;   
                 }
                 else if(this.isPlayer && newTile.monster.isGuide && dialoguecount < newTile.monster.diamax){
-                    message = newTile.monster.dialogue[dialoguecount];
+                    log.addLog(newTile.monster.dialogue[dialoguecount]);
                     dialoguecount++;
                 }else if (this.isPlayer && newTile.monster.isGuide && dialoguecount == newTile.monster.diamax){
-                    message = newTile.monster.dialogue[dialoguecount];
+                    log.addLog(newTile.monster.dialogue[dialoguecount]);//message = newTile.monster.dialogue[dialoguecount];
                     dialoguecount = newTile.monster.diareset;
                 }else if (newTile.monster.pushable){
                     let lm = this.lastMove;
@@ -440,7 +440,7 @@ class Monster{
                                 }
                                 if (corecount == 4){
                                     pushTile.monster.hastalavista = true;
-                                    message = "EpsilonAllForOne";
+                                    log.addLog("EpsilonAllForOne");
                                     for (let z of monsters){
                                         if (z.order > 0) z.triggered = true;
                                     }
@@ -591,12 +591,12 @@ class Player extends Monster{
         else modid++;
         this.activemodule = modules[modid];
         if (this.activemodule == "NONE"){
-            message = "FluffyModuleFarewell";
+            log.addLog("FluffyModuleFarewell");
             playSound("off");
             
         }
         else{
-            message = "FluffyModuleOnline";
+            log.addLog("FluffyModuleOnline");
             playSound("on");
         }
     }
@@ -660,7 +660,7 @@ class Player extends Monster{
                     playSound("boost");
                 }
                 else{
-                    message = "FluffyInsufficientPower";
+                    log.addLog("FluffyInsufficientPower");
                     this.activemodule = "NONE";
                     playSound("off");
                 }
@@ -677,20 +677,19 @@ class Player extends Monster{
                 }
             }
             else{
-                message = "FluffyInsufficientPower";
+                log.addLog("FluffyInsufficientPower");
                 this.activemodule = "NONE";
                 playSound("off");
             }
         if (this.para > 0){
-            message = "Paralyzed";
+            log.addLog("Paralyzed");
         }
         if (this.constrict){
-            if (!player.dead) message = "Constricted";
+            if (!player.dead) log.addLog("Constricted");
         }
         if (this.fall > 1 && !this.dead){ //wtf why is it fluffexit and not ladder? whatever works I guess
-            if (this.tile.name != "Harmonic Seal") message = "Falling";
+            if (this.tile.name != "Harmonic Seal") log.addLog("Falling");
         }
-        if (message == "Falling" && this.fall == 0) message = "Empty";
     }
 
     consumeCommon(num, harmonize){
@@ -769,13 +768,13 @@ class Player extends Monster{
 
     drawSpell(){
         if (this.discard.length <= 0 && this.inventory.length <= 0){
-            message = "NoSouls";
+            log.addLog("NoSouls");
         }
         else if (this.inhand.length > 8){
-            message = "Oversoul";
+            log.addLog("Oversoul");
         }
         else{
-            message = "Empty";
+            //log.addLog("Empty");
             if (this.inventory.length <= 0){
                 //this.discard.push("TAINTED") //remplacer avec curse, dash est un placeholder
     
@@ -788,7 +787,7 @@ class Player extends Monster{
             this.inhand.push(this.inventory[0]);
             if(this.inventory[0] == "EZEZZA"){
                 this.para = 2;
-                message = "EZEZZA";
+                log.addLog("EZEZZA");
             }
             this.inventory.shift();
             if (this.resolve > 0){
@@ -800,12 +799,12 @@ class Player extends Monster{
                     gameState = "dead"
                     pauseAllMusic();
                     playSound("falsity");
-                    message = "DrawDeath";
+                    log.addLog("DrawDeath");
                 }
             }
             if (this.activemodule != "Alacrity") tick();
             else if (!this.consumeCommon(1,false)){
-                message = "FluffyInsufficientPower";
+                log.addLog("FluffyInsufficientPower");
                 playSound("off");
                 tick();
                 this.activemodule = "NONE";
@@ -843,7 +842,7 @@ class Player extends Monster{
             this.discard = [];
         }
         if (totallength < 7){
-            message = "FluffyNotEnoughSoulsTaunt";
+            log.addLog("FluffyNotEnoughSoulsTaunt");
             monsters.forEach(function(entity){
                 if (entity.name == "Serene Harmonizer"){
                     player.tile.setEffect(26,40);
@@ -887,7 +886,7 @@ class Player extends Monster{
         
         if (this.tile == tiles[3][3]||this.tile == tiles[3][5]||this.tile == tiles[5][5]||this.tile == tiles[5][3]){
             if (this.tile.value != 0){
-                message = "FluffyDoubleBetTaunt";
+                log.addLog("FluffyDoubleBetTaunt");
             }
             else{
                 let removeName = this.inhand[index];
@@ -899,32 +898,32 @@ class Player extends Monster{
                     this.tile.value = worth;
                     rolled--;
                     removeName +="F";
-                    message = removeName;
+                    log.addLog(removeName);
                 }
                 else if(removeName == "TAINTED"){
-                    message = "FluffyTaintedTaunt";
+                    log.addLog("FluffyTaintedTaunt");
                     this.tile.value = "0";
                     rolled--;
                 }
                 else{
-                    message = "FluffyNoSoulTaunt";
+                    log.addLog("FluffyNoSoulTaunt");
                 }
             }
         }
         else{
             let removeName = this.inhand[index];
             if (removeName){
-                message = "FluffyFloorTaunt";
+                log.addLog("FluffyFloorTaunt");
             }
             else{
-                message = "FluffyNoSoulTaunt";
+                log.addLog("FluffyNoSoulTaunt");
             }
         }
     }
 
     acceptBet(){
         if (tiles[3][3].value == "" && tiles[3][5].value == "" && tiles[5][3].value == "" && tiles[5][5].value == ""){
-            message = "FluffyNoBetsTaunt";
+            log.addLog("FluffyNoBetsTaunt");
         }
         else{
             this.betted = true;
@@ -956,7 +955,7 @@ class Player extends Monster{
                     entity.sprite = 30
                 }
             });
-            message = "FluffyAllBetsIn";
+            log.addLog("FluffyAllBetsIn");
             playSound("newLevel");
             for(let i=0;i<this.inhand.length;i++){
                 this.discard.push(player.inhand[i]);
@@ -965,8 +964,8 @@ class Player extends Monster{
             rolled = 0;
             monsters.forEach(function(entity){
                 if (entity.name == "Serene Harmonizer"){
-                    entity.dialogue = ["FluffyExplain6", "FluffyExplain7", "FluffyExplain8", "FluffyExplain9", "FluffyExplain10", "FluffyExplain11", "FluffyExplain12","FluffyExplain13","Empty", "FluffyRepeat"];
-                    entity.diamax = 9;
+                    entity.dialogue = ["FluffyExplain6", "FluffyExplain7", "FluffyExplain8", "FluffyExplain9", "FluffyExplain10", "FluffyExplain11", "FluffyExplain12","FluffyExplain13", "FluffyRepeat"];
+                    entity.diamax = 8;
                     entity.diareset = 2;
                     dialoguecount = 0;
                 } 
@@ -987,7 +986,7 @@ class Player extends Monster{
         let simplicit = this.discard.filter(soul => basic.includes(soul));
         let totallength = simplicit.length + simplicity.length;
         if (totallength < (6-sacrifice)){
-            message = "FluffyNotEnoughSoulsTaunt";
+            log.addLog("FluffyNotEnoughSoulsTaunt");
             monsters.forEach(function(entity){
                 if (entity.name == "Serene Harmonizer"){
                     player.tile.setEffect(26,40);
@@ -1032,7 +1031,7 @@ class Player extends Monster{
         if (this.fuffified > 0) spellName = "SERENE";
         if (basic.includes(spellName) && area == "Spire") spellName = spellName+"S";
         if(spellName && !soulabi[spellName].includes("Cannot be activated")){
-            message = spellName;
+            log.addLog(spellName);
             spells[spellName](this);
             if (basicspire.includes(spellName)) spellName = spellName.slice(0, -1);
             if (!fail && this.activemodule != "Focus"){
@@ -1041,7 +1040,7 @@ class Player extends Monster{
             } //
             else if (this.activemodule == "Focus"){
                 if(!this.consumeCommon(3,false)){
-                    message = "FluffyInsufficientPower";
+                    log.addLog("FluffyInsufficientPower");
                     this.inhand.splice(index, 1);
                     player.activemodule = "NONE";
                     playSound("off");
@@ -1050,7 +1049,7 @@ class Player extends Monster{
             }
             if (!fail) playSound("spell");
             if (!fail) tick();
-            if (fail && spellName != "SERENE") message = "CastError";
+            if (fail && spellName != "SERENE") log.addLog("CastError");
             fail = false;
         }
     }
@@ -1060,7 +1059,7 @@ class Player extends Monster{
         if (removeName){
             if (agony > 0){
                 if (removeName == "SERENE" && agony < 3){
-                    message = "FluffyNoRemoveTaunt";
+                    log.addLog("FluffyNoRemoveTaunt");
                 }
                 else{
                     if (removeName == "SERENE") agony -= 3;
@@ -1074,7 +1073,7 @@ class Player extends Monster{
                 }
             }
             else{
-                message = "AgonyWarning";
+                log.addLog("AgonyWarning");
             }
         }
     }
@@ -1102,11 +1101,11 @@ class Player extends Monster{
     undiscard(){
         gameState = "running";
         if (!naiamode){
-            message = "ASPHA";
+            log.addLog("ASPHA");
             spells["ASPHAF"](discarded);
         }
         else if (naiamode){
-            message = "NAIA";
+            log.addLog("NAIA");
             naiamode = false;
         }
         discarded = 0;
@@ -1123,7 +1122,7 @@ class Player extends Monster{
                 stack = 0;
                 discarded = 0;
                 gameState = "running";
-                message = "SHIZAPIS";
+                log.addLog("SHIZAPIS");
             }
         }
     }
@@ -1133,7 +1132,7 @@ class Player extends Monster{
     sacrificeSpell(index){
         if (this.tile == tiles[2][3]||this.tile == tiles[4][2]||this.tile == tiles[6][3]||this.tile == tiles[2][5]||this.tile == tiles[4][6] || this.tile == tiles[6][5]){
             if (this.tile.value != 0){
-                message = "FluffyDoubleSacTaunt";
+                log.addLog("FluffyDoubleSacTaunt");
             } 
             else{
                 let removeName = this.inhand[index];
@@ -1147,7 +1146,7 @@ class Player extends Monster{
                     rolled--;
                     sacrifice++;
                     removeName +="F";
-                    message = removeName;
+                    log.addLog(removeName);
                     if (sacrifice == 6){
                         sacritotal = parseInt(""+tiles[2][3].value+tiles[4][2].value+tiles[6][3].value) - parseInt(""+tiles[2][5].value+tiles[4][6].value+tiles[6][5].value);
                         //let polarity = mode([tiles[2][3].value,tiles[4][2].value,tiles[6][3].value,tiles[2][5].value,tiles[4][6].value,tiles[6][5].value]);
@@ -1156,17 +1155,17 @@ class Player extends Monster{
                     }
                 }
                 else{
-                    message = "FluffyNoSoulTaunt";
+                    log.addLog("FluffyNoSoulTaunt");
                 }
             }
         }
         else{
             let removeName = this.inhand[index];
             if (removeName){
-                message = "FluffyFloorTaunt";
+                log.addLog("FluffyFloorTaunt");
             }
             else{
-                message = "FluffyNoSoulTaunt";
+                log.addLog("FluffyNoSoulTaunt");
             }
             
         }
@@ -1194,29 +1193,29 @@ class Player extends Monster{
         let bets = [tiles[3][3],tiles[5][3],tiles[3][5],tiles[5][5]];
         let lootdrop = this.decideLoot(polarity);
         if (quality < 0){
-            message = "FluffyAppalled";
+            log.addLog("FluffyAppalled");
             fluffchance = 100;
         }
         else if (quality >= 300){
-            message = "FluffyMocking";
+            log.addLog("FluffyMocking");
         }
         else if (quality > 99 && quality <= 299){
-            message = "FluffyDisgusted";
+            log.addLog("FluffyDisgusted");
         }
         else if (quality > 10 && quality <= 99){
-            message = "FluffySatisfied";
+            log.addLog("FluffySatisfied");
         }
         else if (quality > 0 && quality <= 10){
-            message = "FluffyImpressed";
+            log.addLog("FluffyImpressed");
             fluffchance = 0;
         }
         else if (quality == 0){
-            message = "FluffyExalted";
+            log.addLog("FluffyExalted");
             fluffchance = 0;
             bonusartifact = true;
         }
         else{
-            message = "FluffyCheat";
+            log.addLog("FluffyCheat");
             lootdrop[0] = lootdrop[1] = lootdrop[2] = lootdrop[3] = "SHIZAPIS";
             fluffchance = 0;
         }
@@ -1239,8 +1238,8 @@ class Player extends Monster{
         
         monsters.forEach(function(entity){
             if (entity.name == "Serene Harmonizer"){
-                entity.dialogue = ["FluffyReroll1", "FluffyReroll2", "FluffyReroll3", "FluffyReroll4", "FluffyReroll5", "FluffyReroll6", "Empty", "FluffyRepeat2"];
-                entity.diamax = 7;
+                entity.dialogue = ["FluffyReroll1", "FluffyReroll2", "FluffyReroll3", "FluffyReroll4", "FluffyReroll5", "FluffyReroll6", "FluffyRepeat2"];
+                entity.diamax = 6;
                 entity.diareset = 2;
                 dialoguecount = 0;
             } 
@@ -1258,9 +1257,9 @@ class Player extends Monster{
                 }
             }
         });
-        if (replacecount == 0) message = "FluffyNoCageTaunt";
-        else if (rerolled) message = "FluffyDoubleRerollTaunt";
-        else if (allfluffy) message = "FluffySereneRerollTaunt";
+        if (replacecount == 0) log.addLog("FluffyNoCageTaunt");
+        else if (rerolled) log.addLog("FluffyDoubleRerollTaunt");
+        else if (allfluffy) log.addLog("FluffySereneRerollTaunt");
         else{
             rerolled = true;
             if (sacritotal > 0) {
@@ -1300,7 +1299,7 @@ class Player extends Monster{
             while (findCommonElement(alreadythere,lootdrop)){
                 lootdrop = this.cageDrop(polarity, sacritotal);
             }
-            message = "FluffyAccept";
+            log.addLog("FluffyAccept");
             replacecount = 3;
             bets.forEach(function(entity){
                 if (entity.monster && entity.monster.name == "Harmonic Cage" && entity.monster.loot != "SERENE"){
@@ -1358,7 +1357,7 @@ class Player extends Monster{
             }
         }
         else{
-            message = "InvPrompt";
+            log.addLog("InvPrompt");
         }
     }
 
@@ -1375,15 +1374,15 @@ class Player extends Monster{
         if (level % 5 == 1 && level > 5){
             if (area == "Faith"){
                 gameState = "fluffy";
-                message = "FluffyWelcome";
+                log.addLog("FluffyWelcome");
                 dialoguecount = 0;
             }
             else if (area == "Spire"){
-                message = "FluffyWorkshop";
+                log.addLog("FluffyWorkshop");
                 dialoguecount = 0;
             }
             else if (area == "Faith" && level == 17){
-                message = "EpsilonWelcome1";
+                log.addLog("EpsilonWelcome1");
             }
         }
         if (area == "Spire") spirevisited = true;
@@ -1489,13 +1488,13 @@ class Harmonizer extends Monster{
         this.ability = "";
         this.paralyzed = true;
         if (area == "Faith"){
-            this.dialogue = ["FluffyHmm","FluffyExplain1", "FluffyExplain2", "FluffyExplain3","FluffyExplain4","FluffyExplain5","Empty","FluffyRepeat"];
-            this.diamax = 7;
+            this.dialogue = ["FluffyHmm","FluffyExplain1", "FluffyExplain2", "FluffyExplain3","FluffyExplain4","FluffyExplain5","FluffyRepeat"];
+            this.diamax = 6;
             this.diareset = 3;
         }
         else if (area == "Spire"){
-            this.dialogue = ["FluffyModule1","FluffyModule2","FluffyModule3","FluffyModule4","FluffyModule5","FluffyModule6","FluffyModule7","Empty","FluffyModuleRepeat"];
-            this.diamax = 8;
+            this.dialogue = ["FluffyModule1","FluffyModule2","FluffyModule3","FluffyModule4","FluffyModule5","FluffyModule6","FluffyModule7","FluffyModuleRepeat"];
+            this.diamax = 7;
             this.diareset = 3;
         }
 
@@ -1540,7 +1539,7 @@ class BattleFluffy extends Monster{
                 this.specialAttack = "Harmony";
             }
             else{
-                message = "FluffyInsufficientPower";
+                log.addLog("FluffyInsufficientPower");
                 player.activemodule = "NONE";
                 playSound("off");
             }
@@ -1548,7 +1547,7 @@ class BattleFluffy extends Monster{
         else if (!this.attackedThisTurn && player.activemodule == "Thrusters"){
             if (player.consumeCommon(1,false)) spells["FERAL"](this);
             else{
-                message = "FluffyInsufficientPower";
+                log.addLog("FluffyInsufficientPower");
                 player.activemodule = "NONE";
                 playSound("off");
             }
@@ -1559,7 +1558,7 @@ class BattleFluffy extends Monster{
                 this.abitimer = 0;
                 if (player.consumeCommon(2,false)) this.tile.flufftrap = true;
                 else{
-                    message = "FluffyInsufficientPower";
+                    log.addLog("FluffyInsufficientPower");
                     player.activemodule = "NONE";
                     playSound("off");
                 }
@@ -1606,8 +1605,8 @@ class Hologram extends Monster{
         this.isGuide = true;
         this.ability = "";
         this.paralyzed = true;
-        this.diamax = 10;
-        this.dialogue = ["Saint1","Saint2","Saint3","Saint4","Saint5","Saint6","Saint7","Saint8","Saint9","SaintRepeat","Empty"]
+        this.diamax = 9;
+        this.dialogue = ["Saint1","Saint2","Saint3","Saint4","Saint5","Saint6","Saint7","Saint8","Saint9","SaintRepeat"]
         this.diareset = 0;
         this.noloot = true;
     }
@@ -1926,7 +1925,7 @@ class Epsilon extends Monster{
                 }
                 if (!this.hastalavista){
                     playSound("epsivuln");
-                    message = "EpsilonRedWeak";
+                    log.addLog("EpsilonRedWeak");
                     removeItemOnce(this.corelist,"Red");
                     for (let z of monsters){
                         if (z.name.includes("Turbo")) z.triggered = true;
@@ -1946,7 +1945,7 @@ class Epsilon extends Monster{
         }
         if (dronecount >= 20 && this.corelist.includes("White") && !this.hastalavista){
             playSound("epsivuln");
-            message = "EpsilonWhiteWeak";
+            log.addLog("EpsilonWhiteWeak");
             this.vulnerability = 25;
             removeItemOnce(this.corelist,"White");
             for (let z of monsters){
@@ -1957,7 +1956,7 @@ class Epsilon extends Monster{
         //Pink vuln test
         if (player.rosetox >= 4 && this.corelist.includes("Pink") && !this.hastalavista){
             playSound("epsivuln");
-            message = "EpsilonPinkWeak";
+            log.addLog("EpsilonPinkWeak");
             this.vulnerability = 10;
             removeItemOnce(this.corelist,"Pink");
             for (let z of monsters){
@@ -1972,7 +1971,7 @@ class Epsilon extends Monster{
                 for (let y of fuffcheck){
                     if (y.monster && this.corelist.includes("Cyan") && !this.hastalavista){
                         if (y.monster instanceof BattleFluffy){
-                            message = "EpsilonCyanWeak";
+                            log.addLog("EpsilonCyanWeak");
                             playSound("epsivuln");
                             this.vulnerability = 5;
                             removeItemOnce(this.corelist,"Cyan");
@@ -1995,7 +1994,7 @@ class Epsilon extends Monster{
         }
         else if (restorecheck == 1){
             this.isInvincible = true;
-            message = "EpsilonRestored";
+            log.addLog("EpsilonRestored");
             playSound("epsirepair");
             this.sprite = 67;
             for (let x of monsters){

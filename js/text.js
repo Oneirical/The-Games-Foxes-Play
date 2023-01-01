@@ -7,6 +7,7 @@
 //-make boss bars look nicer
 //-there might still be a bug with returning from a fluffy room that shows phantom text
 //-more soul dialogue. especially sugcha
+//-slow down lag by not calling draw for text or HUD
 
 //List of souls
 

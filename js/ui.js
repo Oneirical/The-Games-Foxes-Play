@@ -1,3 +1,55 @@
+class MessageLog{
+    constructor(){
+        this.history = [];
+        this.writeheight = [];
+        this.repeats = [];
+    }
+    addLog(message){
+        this.repeats.push(1);
+        if (message != this.history[this.history.length-1]){
+            this.history.push(message);
+            this.writeheight.push(600);
+            if (this.writeheight.length > 1){
+                for (let x = this.writeheight.length-2;x >= 0; x--){
+                    this.writeheight[x] += 30 * Math.ceil((ctx.measureText(messages[this.history[this.history.length-1]]).width/940));
+                }
+            }
+            if (this.history.length > 5){
+                this.history.shift();
+                this.writeheight.shift();
+            } 
+        }
+        else this.repeats[this.history.length-1]++;
+    }
+
+    display(){
+        for (let x = 0; x<this.history.length; x++){
+            let coloring = colours[this.history[x]];
+            if (x != this.history.length-1) coloring = "lightgray";
+            else if (this.history[x].includes("Fluffy")) coloring = "cyan";
+            else if (this.history[x].includes("Rose")) coloring = "lightpink";
+            else if (this.history[x].includes("Epsilon")) coloring = "red";
+            let print = messages[this.history[x]];
+            if (this.repeats[x] > 1) print += " x"+this.repeats[x];
+            printAtWordWrap(print, 18, 10, this.writeheight[x], coloring, 20, 940);
+            for (let y = 0; y < this.writeheight.length-1; y++){
+                let margin = 26;
+                let wtf = Math.ceil(ctx.measureText(messages[this.history[y+1]]).width/940);
+                let wtf2 = Math.ceil(ctx.measureText(messages[this.history[y]]).width/940)
+                if(wtf == 1 ||wtf2 == 1){
+                    margin = 20;
+                }
+                ctx.strokeStyle = 'white';
+                ctx.lineWidth = 1.5;
+                ctx.beginPath();
+                ctx.moveTo(0, this.writeheight[y]-margin);
+                ctx.lineTo(960, this.writeheight[y]-margin);
+                ctx.stroke();
+            }
+        }
+    }
+}
+
 class DrawWheel{
     constructor(){
         this.wheel = [new Empty(),new Empty(),new Empty(),new Empty(),new Empty(),new Empty(),new Empty(),new Empty()];
@@ -98,7 +150,7 @@ class DrawWheel{
 
     drawSoul(){
         if (this.discard.length <= 0 && this.pile.length <= 0){
-            message = "NoSouls";
+            log.addLog("NoSouls");
             shakeAmount = 5;
             return;
         }
@@ -107,12 +159,12 @@ class DrawWheel{
             if (!(k instanceof Empty)) space--;
         }
         if (space == 0){
-            message = "Oversoul";
+            log.addLog("Oversoul");
             shakeAmount = 5; 
             return;
         }
         else{
-            message = "Empty";
+            //log.addLog("Empty");
             if (this.pile.length <= 0){
                 //this.discard.push("TAINTED") //remplacer avec curse, dash est un placeholder
     
@@ -130,7 +182,7 @@ class DrawWheel{
             }
             //if(this.inventory[0] == "EZEZZA"){
             //    this.para = 2;
-            //    message = "EZEZZA";
+            //    log.addLog("EZEZZA";
             //}
             this.pile.shift();
             if (this.resolve > 0){
@@ -142,12 +194,12 @@ class DrawWheel{
                     gameState = "dead"
                     pauseAllMusic();
                     playSound("falsity");
-                    message = "DrawDeath";
+                    log.addLog("DrawDeath");
                 }
             }
             if (this.activemodule != "Alacrity") tick();
             else if (!player.consumeCommon(1,false)){ //TODO this is broken and must be fixed
-                message = "FluffyInsufficientPower";
+                log.addLog("FluffyInsufficientPower");
                 playSound("off");
                 tick();
                 this.activemodule = "NONE";
@@ -159,7 +211,7 @@ class DrawWheel{
         let soul = this.wheel[slot];
         if (soul instanceof Empty){
             shakeAmount = 5;
-            message = "EmptyCast";
+            log.addLog("EmptyCast");
             return;
         }
         else{
@@ -172,7 +224,7 @@ class DrawWheel{
             if (player.fuffified > 0) spellName = "SERENE";
             if (spellName){
                 if (basic.includes(spellName) && area == "Spire") spellName = spellName+"S";
-                message = spellName;
+                log.addLog(spellName);
                 spells[spellName](player, legendaries.active[num]);
                 if (!fail && player.activemodule != "Focus"){
                     let lookingfor = 0;
@@ -198,7 +250,7 @@ class DrawWheel{
                 }
                 else if (this.activemodule == "Focus"){
                     if(!player.consumeCommon(3,false)){
-                        message = "FluffyInsufficientPower";
+                        log.addLog("FluffyInsufficientPower");
                         this.saved.push(this.wheel[slot]);
                         this.wheel[slot] = new Empty(); 
                         player.activemodule = "NONE";
@@ -207,7 +259,7 @@ class DrawWheel{
                 }
                 if (!fail) playSound("spell");
                 if (!fail) tick();
-                if (fail && spellName != "SERENE") message = "CastError";
+                if (fail && spellName != "SERENE") log.addLog("CastError");
                 fail = false;
             }
         }
@@ -217,13 +269,13 @@ class DrawWheel{
         let soul = this.saved[slot];
         if (soul instanceof Empty){
             shakeAmount = 5;
-            message = "EmptyRemove";
+            log.addLog("EmptyRemove");
             return;
         }
         else{
             if (agony > 0){
                 if (soul instanceof Serene && agony < 3){
-                    message = "FluffyNoRemoveTaunt";
+                    log.addLog("FluffyNoRemoveTaunt");
                 }
                 else{
                     if (soul instanceof Serene) agony -= 3;
@@ -237,7 +289,7 @@ class DrawWheel{
                 }
             }
             else{
-                message = "AgonyWarning";
+                log.addLog("AgonyWarning");
             }
         }
     }
