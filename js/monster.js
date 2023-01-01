@@ -103,6 +103,8 @@ class Monster{
         this.deathdelay = 0;
         this.shield = 0;
         this.order = -1;
+        this.speed = 1;
+        this.previousdir;
         if (legendaries.castes.includes(this.loot)) this.loot = wheel.castes[5-legendaries.castes.indexOf(this.loot)];
     }
 
@@ -181,7 +183,10 @@ class Monster{
             }
            
            let newTile = neighbors[0];
+           if (newTile.x == this.previousdir.x && newTile.y == this.previousdir.y && speed > 1 && neighbors.length > 1) newTile = neighbors[1];
+           else if (newTile.x == this.previousdir.x && newTile.y == this.previousdir.y && speed > 1 && neighbors.length <= 1) return; 
            this.tryMove(newTile.x - this.tile.x, newTile.y - this.tile.y);
+           this.previousdir =this.tile;
        }
     }
 
@@ -1410,6 +1415,7 @@ class Shrike extends Monster{
         this.soul = "Animated by a Feral (2) soul.";
         this.name = "Starpaper Shrike";
         this.ability = monabi["Shrike"];
+        this.speed = 2;
     }
 
     doStuff(){
@@ -1759,6 +1765,7 @@ class Weaver extends Monster{
     }
     doStuff(){
         if (this.enraged){
+            this.speed = 2;
             this.attackedThisTurn = false;
             super.doStuff();
     
@@ -2174,6 +2181,7 @@ class Brute extends Monster{
     }
     doStuff(){
         if (this.enraged){
+            this.speed = 2;
             this.attackedThisTurn = false;
             super.doStuff();
     
