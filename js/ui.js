@@ -77,6 +77,9 @@ class DrawWheel{
         drawSymbol(9, 590, 130, 64);
         drawSymbol(10, 880, 130, 64);
         drawSymbol(11, 590, 50, 64);
+        let icon = 33;
+        if (player.infested) icon = 34;
+        drawSymbol(icon,590,320,64);
         if (gameState != "contemplation"){
             drawSymbol(12, 880, 50, 64);
             printAtSidebar(wheel.resolve+"/"+(3+Math.floor(resolvebonus/2))+" ", 23, 835, 90, "lightskyblue", 20, 350);
@@ -296,6 +299,26 @@ class DrawWheel{
     }
 }
 
+class Modules{
+    constructor(){
+        this.active = [new Empty(),new Empty(),new Empty(),new Empty(),new Empty(),new Empty()];
+        this.storage = [new Empty(),new Empty()];
+        this.actcoords = [[257, 40],[366+68, 76],[257, 257],[472, 257],[257, 474],[366+68, 438]];
+        this.storecoords = [[112,185],[112,330]];
+    }
+
+    display(){
+        drawFilter(blackfilter);
+        drawSymbol(10, 0, 0, 577);
+        for (let k of this.active){
+            drawSymbol(k.icon, this.actcoords[this.active.indexOf(k)][0], this.actcoords[this.active.indexOf(k)][1], 64);
+        }
+        for (let k of this.storage){
+            drawSymbol(k.icon, this.storecoords[this.storage.indexOf(k)][0], this.storecoords[this.storage.indexOf(k)][1], 64);
+        }
+    }
+}
+
 //TODO cool sliding animation?
 class Inventory{
     constructor(){
@@ -306,6 +329,24 @@ class Inventory{
         this.castes = ["VILE","FERAL","UNHINGED","ARTISTIC","ORDERED","SAINTLY"];
         this.castesclass = [new Vile(),new Feral(),new Unhinged(),new Artistic(),new Ordered(),new Saintly()];
         this.storecoords = [[257, 154],[257, 154+68],[257, 154+138],[257, 154+138+68]];   
+    }
+
+    display(){
+        drawFilter(blackfilter);
+        drawSymbol(6, 0, 0, 577);
+        drawSymbol(6, 880, 490, 64);
+        ctx.globalAlpha = 0.55;
+        //intérieur
+        for (let k of this.active){
+            ctx.globalAlpha = k.alpha;
+            drawSymbol(k.icon, this.actcoords[this.active.indexOf(k)][0], this.actcoords[this.active.indexOf(k)][1], 64);
+        }
+        //stockage
+        for (let k of this.storage){
+            ctx.globalAlpha = k.alpha;
+            drawSymbol(k.icon, this.storecoords[this.storage.indexOf(k)][0], this.storecoords[this.storage.indexOf(k)][1], 64);
+        }
+        //message = "InvTutorial"; TODO
     }
     activateSoul(slot){
         let soul = this.storage[slot];

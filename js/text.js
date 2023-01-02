@@ -4,10 +4,9 @@
 //-buff naia
 //-ordered harmony soul
 //-description for epsilon spawners, harmony platforms and ladders
-//-make boss bars look nicer
-//-there might still be a bug with returning from a fluffy room that shows phantom text
 //-more soul dialogue. especially sugcha
 //-slow down lag by not calling draw for text or HUD
+//-update souls to new system
 
 //List of souls
 

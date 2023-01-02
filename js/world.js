@@ -17,7 +17,6 @@ class World{
 
     addRoom(coordinates, connector){
         let roomType;
-        if (gameState == "fluffy") gameState = "running";
         if (level == 0) roomType = WorldSeed;
         else if (level == 17 && !this.serene) roomType = EpsilonArena;
         else if (level % 5 == 1 && level > 5 && this.serene) roomType = FluffianWorkshop; //TODO increase the randomness on these
@@ -75,7 +74,6 @@ class World{
     }
 
     reloadRoom(id, coordinates){
-        if (gameState == "fluffy") gameState = "running";
         let room = this.roomlist[id];
         monsters = this.roomlist[id].monsters;
         tiles = this.roomlist[id].tiles;
@@ -198,6 +196,7 @@ class HarmonyRelay extends Room{
         super(index);
         this.entrymessage = "FluffyWelcome";
         this.name = "Test of Unity";
+        this.fuffspawn = null;
         this.entrancepoints = [getTileButNotCursed(Math.floor((numTiles-1)/2),1), getTileButNotCursed(1,Math.floor((numTiles-1)/2)),getTileButNotCursed((numTiles-2),Math.floor((numTiles-1)/2)),getTileButNotCursed(Math.floor((numTiles-1)/2)),(numTiles-2)];
         this.possibleexits = [[Math.floor((numTiles-1)/2),0], [0,Math.floor((numTiles-1)/2)],[(numTiles-1),Math.floor((numTiles-1)/2)],[Math.floor((numTiles-1)/2),numTiles-1]];
     }
@@ -213,7 +212,6 @@ class HarmonyRelay extends Room{
         world.fighting = false;
         dialoguecount = 0;
         super.initializeRoom();
-        gameState = "fluffy";
         summonExits();
     }
 } 

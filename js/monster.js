@@ -104,6 +104,7 @@ class Monster{
         this.deathdelay = 0;
         this.shield = 0;
         this.order = -1;
+        this.infested = false;
         this.previousdir;
         if (legendaries.castes.includes(this.loot)) this.loot = wheel.castes[5-legendaries.castes.indexOf(this.loot)];
     }
@@ -339,10 +340,7 @@ class Monster{
         }
         if(newTile.passable){
             this.lastMove = [dx,dy];
-            if(!newTile.monster){ //||(newTile.monster.charmed&&(this.isPlayer||this.charmed))||newTile.monster.isPassive
-                //if(newTile.monster){
-                //    newTile.monster.move(player.tile);
-                //}
+            if(!newTile.monster || (newTile.monster && newTile.monster instanceof Harmonizer)){ //||(newTile.monster.charmed&&(this.isPlayer||this.charmed))||newTile.monster.isPassive
                 let boxpull = false;
                 if ((this.tile.getNeighbor(-dx,-dy).monster instanceof Box) && this.isPlayer) boxpull = this.tile;
                 if (this.canmove) this.move(newTile);
@@ -657,6 +655,10 @@ class Player extends Monster{
 
     tryMove(dx, dy){
         if(super.tryMove(dx,dy)){
+            if (world.getRoom() instanceof HarmonyRelay){
+                if (world.getRoom().fuffspawn.x == this.tile.x && world.getRoom().fuffspawn.y == this.tile.y) this.infested = true;
+                else this.infested = false;
+            }
             if (this.entranced){
                 if (!spells["FERALNODMGS"](this,dx,dy)) this.entranced = false;
                 //playSound("boost");

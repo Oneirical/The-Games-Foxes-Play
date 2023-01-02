@@ -55,7 +55,7 @@ function generateRelay(){
             else if(((((j == 6) && (i == 4)))||((j==5)&&(i==2))||((j == 5) && (i == 6)))){
                 tiles[i][j] = new NegAltar(i,j);
             }
-            else if (j==3 && i == 4){ //||((j==5)&&(i==3))||((j==5)&&(i==5))||((j==3)&&(i==3)))
+            else if (j==4 && i == 4){ //||((j==5)&&(i==3))||((j==5)&&(i==5))||((j==3)&&(i==3)))
                 tiles[i][j] = new BetAltar(i,j);
             }
             else{
@@ -369,7 +369,13 @@ function spawnMonster(){
     }
     else if (level != 0){
         let monsterType = shuffle([Harmonizer])[0];
-        let tile = getTile(4,4);
+        let harspawn;
+        if (world.getRoom().playerspawn[0] == 1) harspawn = getTile(6,4);
+        else if (world.getRoom().playerspawn[0] == 7) harspawn = getTile(2,4);
+        else if (world.getRoom().playerspawn[1] == 1) harspawn = getTile(4,6);
+        else if (world.getRoom().playerspawn[1] == 7) harspawn = getTile(4,2);
+        let tile = harspawn;
+        world.getRoom().fuffspawn = tile;
         let monster = new monsterType(tile);
         monsters.push(monster);
         //tiles[(numTiles-1)/2][numTiles-1] = new Exit((numTiles-1)/2,numTiles-1);

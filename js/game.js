@@ -198,7 +198,7 @@ function draw(){
                 viewedTiles.push(getTile(i,j));
             }
         }
-        
+        player.draw();
         for(let i=0;i<monsters.length;i++){
             if (viewedTiles.includes(monsters[i].tile) || monsters[i].charmed)monsters[i].draw();
         }
@@ -230,7 +230,7 @@ function draw(){
         if ((gameState == "vision" && discarded > 0) || (gameState == "discard" && !naiamode)) drawText("Which soul to discard?", 20, false, 100, "deepskyblue");
         if (gameState == "discard" && naiamode) drawText("Which soul to cast?", 20, false, 100, "fuchsia");
         if (gameState == "vision" && discarded == 0) drawText("Which soul to stack?", 20, false, 100, "deepskyblue");
-        player.draw();
+        
         if (world.getRoom() instanceof HarmonyRelay){
             drawChar(tiles[2][3].value, 30, 151, 235, "cyan");
             drawChar(tiles[4][2].value, 30, 280, 171, "cyan");
@@ -239,7 +239,7 @@ function draw(){
             drawChar(tiles[4][6].value, 30, 280, 427, "red");
             drawChar(tiles[6][5].value, 30, 408, 363, "red");
             if (!player.betted){
-                drawChar(tiles[4][3].value, 30, 343, 363, "yellow");
+                //drawChar(tiles[4][3].value, 30, 343, 363, "yellow");
                 //drawChar(tiles[3][5].value, 30, 215, 363, "yellow");
                 //drawChar(tiles[3][3].value, 30, 215, 235, "yellow");
                 //drawChar(tiles[5][3].value, 30, 343, 235, "yellow");
@@ -268,24 +268,8 @@ function draw(){
             cursor.info();
             drawSymbol(9, 590, 130, 64);
         }
-        else if (inInventory){
-            drawFilter(blackfilter);
-            drawSymbol(6, 0, 0, 577);
-            drawSymbol(6, 880, 490, 64);
-            ctx.globalAlpha = 0.55;
-            //intérieur
-            for (let k of legendaries.active){
-                ctx.globalAlpha = k.alpha;
-                drawSymbol(k.icon, legendaries.actcoords[legendaries.active.indexOf(k)][0], legendaries.actcoords[legendaries.active.indexOf(k)][1], 64);
-            }
-            //stockage
-            for (let k of legendaries.storage){
-                ctx.globalAlpha = k.alpha;
-                drawSymbol(k.icon, legendaries.storecoords[legendaries.storage.indexOf(k)][0], legendaries.storecoords[legendaries.storage.indexOf(k)][1], 64);
-            }
-            //message = "InvTutorial"; TODO
-        }
-        
+        else if (inInventory) legendaries.display();
+        else if (inModules) cybernetics.display();
         else {
             if (invmode == true  && wtfx<603){
                 cursor.draw();
@@ -569,6 +553,7 @@ function startGame(){
     naiamode = false;
     dissave = [];
     legendaries = new Inventory();
+    cybernetics = new Modules();
     wheel = new DrawWheel();
     log = new MessageLog();
     startWorld(startingHp);
