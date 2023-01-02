@@ -104,7 +104,7 @@ class Monster{
         this.deathdelay = 0;
         this.shield = 0;
         this.order = -1;
-        this.infested = false;
+        this.infested = 0;
         this.previousdir;
         if (legendaries.castes.includes(this.loot)) this.loot = wheel.castes[5-legendaries.castes.indexOf(this.loot)];
     }
@@ -612,7 +612,7 @@ class Player extends Monster{
         }
         this.shield--;
         this.fuffified--;
-        if (this.fuffified < 1) this.sprite = 0;
+        if (this.fuffified < 1 && this.infested < 1) this.sprite = 0;
         if (this.rosetox > 0){
             if (this.rosetox < 11)sounds["roseic"].volume = (1-(0.1*this.rosetox));
             if (sounds["toxic"].currentTime == 0) playSound("toxic");
@@ -656,8 +656,8 @@ class Player extends Monster{
     tryMove(dx, dy){
         if(super.tryMove(dx,dy)){
             if (world.getRoom() instanceof HarmonyRelay){
-                if (world.getRoom().fuffspawn.x == this.tile.x && world.getRoom().fuffspawn.y == this.tile.y) this.infested = true;
-                else this.infested = false;
+                if (world.getRoom().fuffspawn && world.getRoom().fuffspawn.x == this.tile.x && world.getRoom().fuffspawn.y == this.tile.y) this.infested = 1;
+                else if (player.infested == 1) this.infested = 0;
             }
             if (this.entranced){
                 if (!spells["FERALNODMGS"](this,dx,dy)) this.entranced = false;

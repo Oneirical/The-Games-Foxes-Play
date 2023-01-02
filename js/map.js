@@ -47,15 +47,15 @@ function generateRelay(){
                 tiles[i][j] = new Floor(i,j);
             }
             else if(!inBounds(i,j)){
-                tiles[i][j] = new Wall(i,j);
+                tiles[i][j] = new AbazonWall(i,j);
             }
-            else if(((((j == 2) && (i == 4)))||((j==3)&&(i==2))||((j == 3) && (i == 6)))){
+            else if(((((j == 2) && (i == 4)))||((j==3)&&(i==1))||((j == 3) && (i == 7)))){
                 tiles[i][j] = new PosAltar(i,j);
             }
-            else if(((((j == 6) && (i == 4)))||((j==5)&&(i==2))||((j == 5) && (i == 6)))){
+            else if(((((j == 6) && (i == 4)))||((j==5)&&(i==1))||((j == 5) && (i == 7)))){
                 tiles[i][j] = new NegAltar(i,j);
             }
-            else if (j==4 && i == 4){ //||((j==5)&&(i==3))||((j==5)&&(i==5))||((j==3)&&(i==3)))
+            else if (j==4 && i == 3 || j==4 && i == 5){ //||((j==5)&&(i==3))||((j==5)&&(i==5))||((j==3)&&(i==3)))
                 tiles[i][j] = new BetAltar(i,j);
             }
             else{
@@ -81,7 +81,7 @@ function blockedExits(connector){
     }
     for (let i = 0;i<exitlocations.length;i++){
         let exitdirection = exitlocations[i];
-        tiles[exitdirection[0]][exitdirection[1]].replace(Wall);
+        tiles[exitdirection[0]][exitdirection[1]].replace(world.getRoom().filler);
     }
 }
 
@@ -369,12 +369,7 @@ function spawnMonster(){
     }
     else if (level != 0){
         let monsterType = shuffle([Harmonizer])[0];
-        let harspawn;
-        if (world.getRoom().playerspawn[0] == 1) harspawn = getTile(6,4);
-        else if (world.getRoom().playerspawn[0] == 7) harspawn = getTile(2,4);
-        else if (world.getRoom().playerspawn[1] == 1) harspawn = getTile(4,6);
-        else if (world.getRoom().playerspawn[1] == 7) harspawn = getTile(4,2);
-        let tile = harspawn;
+        let tile = getTile(4,4);
         world.getRoom().fuffspawn = tile;
         let monster = new monsterType(tile);
         monsters.push(monster);

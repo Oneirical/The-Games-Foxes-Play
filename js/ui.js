@@ -3,18 +3,20 @@ class MessageLog{
         this.history = [];
         this.writeheight = [];
         this.repeats = [];
+        this.allgrey = false;
     }
     addLog(message){
+        this.allgrey = false;
         this.repeats.push(1);
         if (message != this.history[this.history.length-1]){
             this.history.push(message);
             this.writeheight.push(600);
             if (this.writeheight.length > 1){
                 for (let x = this.writeheight.length-2;x >= 0; x--){
-                    this.writeheight[x] += 30 * Math.ceil((ctx.measureText(messages[this.history[this.history.length-1]]).width/940));
+                    this.writeheight[x] += 25 * Math.ceil((ctx.measureText(messages[this.history[this.history.length-1]]).width/940));
                 }
             }
-            if (this.history.length > 5){
+            if (this.history.length > 7){
                 this.history.shift();
                 this.writeheight.shift();
                 this.repeats.shift();
@@ -26,27 +28,27 @@ class MessageLog{
     display(){
         for (let x = 0; x<this.history.length; x++){
             let coloring = colours[this.history[x]];
-            if (x != this.history.length-1) coloring = "lightgray";
+            if (x != this.history.length-1 || this.allgrey) coloring = "lightgray";
             else if (this.history[x].includes("Fluffy")) coloring = "cyan";
             else if (this.history[x].includes("Rose")) coloring = "lightpink";
             else if (this.history[x].includes("Epsilon")) coloring = "red";
             let print = messages[this.history[x]];
             if (this.repeats[x] > 1) print += " x"+this.repeats[x];
             printAtWordWrap(print, 18, 10, this.writeheight[x], coloring, 20, 940);
-            for (let y = 0; y < this.writeheight.length-1; y++){
-                let margin = 26;
-                let wtf = Math.ceil(ctx.measureText(messages[this.history[y+1]]).width/940);
-                let wtf2 = Math.ceil(ctx.measureText(messages[this.history[y]]).width/940)
-                if(wtf == 1 ||wtf2 == 1){
-                    margin = 20;
-                }
-                ctx.strokeStyle = 'white';
-                ctx.lineWidth = 1.5;
-                ctx.beginPath();
-                ctx.moveTo(0, this.writeheight[y]-margin);
-                ctx.lineTo(960, this.writeheight[y]-margin);
-                ctx.stroke();
-            }
+            //for (let y = 0; y < this.writeheight.length-1; y++){
+                //let margin = 26;
+                //let wtf = Math.ceil(ctx.measureText(messages[this.history[y+1]]+"x00").width/940);
+                //let wtf2 = Math.ceil(ctx.measureText(messages[this.history[y]]+"x00").width/940)
+                //if(wtf == 1 ||wtf2 == 1){
+                //    margin = 20;
+                //}
+                //ctx.strokeStyle = 'white';
+                //ctx.lineWidth = 1.5;
+                //ctx.beginPath();
+                //ctx.moveTo(0, this.writeheight[y]-margin);
+                //ctx.lineTo(960, this.writeheight[y]-margin);
+                //ctx.stroke();
+            //}
         }
     }
 }
@@ -78,22 +80,28 @@ class DrawWheel{
         drawSymbol(10, 880, 130, 64);
         drawSymbol(11, 590, 50, 64);
         let icon = 33;
-        if (player.infested) icon = 34;
+        if (player.infested > 0) icon = 34;
         drawSymbol(icon,590,320,64);
-        if (gameState != "contemplation"){
-            drawSymbol(12, 880, 50, 64);
-            printAtSidebar(wheel.resolve+"/"+(3+Math.floor(resolvebonus/2))+" ", 23, 835, 90, "lightskyblue", 20, 350);
-        } 
-        else{
+        if (gameState == "contemplation"){
             drawSymbol(13, 880, 50, 64);
             printAtSidebar(agony+" ", 23, 835, 90, "red", 20, 350);
+        }
+
+        else if (player.infested > 1){
+            drawSymbol(32, 880, 50, 64);
+        }
+        else{
+            drawSymbol(12, 880, 50, 64);
+            printAtSidebar(wheel.resolve+"/"+(3+Math.floor(resolvebonus/2))+" ", 23, 835, 90, "lightskyblue", 20, 350);
         }
         printAtSidebar(" "+truehp, 23, 660, 90, "plum", 20, 350);
 
         let display;
         for (let k = 0;k<8;k++){
-            if (gameState != "contemplation") display = this.wheel[k].icon;
-            else display = this.saved[k].icon;
+            if (player.infested > 1 && this.wheel[k].chosen) display = this.wheel[k].hicon;
+            else if (player.infested > 1 && !this.wheel[k].chosen) display = this.wheel[k].gicon;
+            else if (gameState == "contemplation") display = this.saved[k].icon;
+            else  display = this.wheel[k].icon;
             drawSymbol(display, this.wheelcoords[k][0], this.wheelcoords[k][1], 64);
             printAtWordWrap(k+1+"",18, this.hotkeycoords[k][0], this.hotkeycoords[k][1], "white",20,350);
         }
@@ -152,7 +160,66 @@ class DrawWheel{
         }  
     }
 
+    breatheSoul(){
+        if (player.infested == 1){
+            player.sprite = 90;
+            monsters.forEach(function(entity){
+                if (entity.name == "Serene Harmonizer"){
+                    player.tile.setEffect(26,35);
+                    removeItemOnce(monsters,entity);
+                }
+            });
+            player.infested++;
+            world.getRoom().fuffspawn = null;
+            for (let x of this.wheel){
+                if (!(x instanceof Empty)) this.discard.push(x);
+            }
+            this.wheel = [new Empty(),new Empty(),new Empty(),new Empty(),new Empty(),new Empty(),new Empty(),new Empty()];
+            this.discard = shuffle(this.discard);
+            for(let i=0;i<this.discard.length;i++){
+                this.pile.push(this.discard[i]);
+            }
+            this.discard = [];
+            if (this.pile.length >= 8){
+                log.addLog("FluffyExplain1");
+                for (let o = 0; o < 8; o++){
+                    for (let k of this.wheel){
+                        if (k instanceof Empty){
+                            this.wheel[this.wheel.indexOf(k)] = this.pile[0];
+                            break;
+                        } 
+                    }
+                    this.pile.shift();
+                }
+                let chosen = [];
+                while(chosen.length < 2){
+                    while (true){
+                        let sacrifices = randomRange(0,7);
+                        if (!this.wheel[sacrifices].chosen){
+                            this.wheel[sacrifices].chosen = true;
+                            chosen.push(this.wheel[sacrifices]);
+                            break;
+                        }
+                    }
+
+                }
+                
+            }
+            else{
+                log.addLog("FluffyNotEnoughSoulsTaunt");
+                //TODO stuff here
+            }
+        }
+        else if (player.infested > 1 && player.infested < 6){
+            
+        }
+    }
+
     drawSoul(){
+        if (player.infested > 0){
+            this.breatheSoul();
+            return;
+        }
         if (this.discard.length <= 0 && this.pile.length <= 0){
             log.addLog("NoSouls");
             shakeAmount = 5;
@@ -172,7 +239,7 @@ class DrawWheel{
             if (this.pile.length <= 0){
                 //this.discard.push("TAINTED") //remplacer avec curse, dash est un placeholder
     
-                shuffle(this.discard)
+                this.discard = shuffle(this.discard);
                 for(let i=0;i<this.discard.length;i++){
                     this.pile.push(this.discard[i]);
                 }
@@ -211,7 +278,60 @@ class DrawWheel{
         }
     }
 
+    sacrificeSoul(slot){
+        let soul = this.wheel[slot];
+        if (soul instanceof Empty){
+            shakeAmount = 5;
+            log.addLog("FluffyNoSoulTaunt");
+            return;
+        }
+        else if (!(player.tile instanceof PosAltar || player.tile instanceof NegAltar || player.tile instanceof BetAltar)){
+            shakeAmount = 5;
+            log.addLog("FluffyFloorTaunt");
+            return; 
+        }
+        else if (!soul.chosen){
+            shakeAmount = 5;
+            log.addLog("FluffyNotChosenTaunt");
+            return;
+        }
+        else if (!(player.tile.value instanceof Empty)){
+            shakeAmount = 5;
+            log.addLog("FluffyDoubleSacTaunt");
+            return;
+        }
+        else {
+            log.addLog(soul.id+"F");
+            this.wheel[slot] = new Empty();
+            player.tile.value = soul;
+            let remain = false;
+            let done = true;
+            for (let g of this.wheel) if (g.chosen) remain = true;
+            for (let g of this.wheel) if (!(g instanceof Empty)) done = false;
+            if (!remain && !done){
+                let chosen = [];
+                while(chosen.length < 2){
+                    while (true){
+                        let sacrifices = randomRange(0,7);
+                        if (!this.wheel[sacrifices].chosen && !(this.wheel[sacrifices] instanceof Empty)){
+                            this.wheel[sacrifices].chosen = true;
+                            chosen.push(this.wheel[sacrifices]);
+                            break;
+                        }
+                    }
+                }
+            }
+            else if (!remain && done){
+                //spawn the rewards
+            }
+        }
+    }
+
     castSoul(slot){
+        if (player.infested > 1){
+            this.sacrificeSoul(slot);
+            return;
+        }
         let soul = this.wheel[slot];
         if (soul instanceof Empty){
             shakeAmount = 5;
@@ -390,6 +510,7 @@ class LegendarySoul{
         this.glamdescript;
         this.hardescript;
         this.alpha = 1;
+        this.chosen = false;
         if (basic.includes(name)) this.alpha = 0.55;
     }
 
@@ -410,6 +531,8 @@ class Empty extends LegendarySoul{
     constructor(){
         super("EMPTY");
         this.icon = 7;
+        this.gicon = 7;
+        this.hicon = 7;
         this.caste = "NO";
         this.lore = "The Annihilationists seared their flesh, insulted each other for hours on end while sitting in a circle, and refused all companionship all in the name of expunging their own soul. The most radical of them all would even try their luck with a home-made lobotomy. For Terminal, these cultists' reason to be is simply the natural state of things.";//remove
         this.subdescript = "This central chamber can store up to four inactive Legendary Souls for future use."; //remove
@@ -421,6 +544,8 @@ class Vile extends LegendarySoul{
     constructor(){
         super("VILE");
         this.icon = 5;
+        this.gicon = 46;
+        this.hicon = 40;
         this.caste = "VILE";
     }
 }
@@ -429,6 +554,8 @@ class Feral extends LegendarySoul{
     constructor(){
         super("FERAL");
         this.icon = 4;
+        this.gicon = 45;
+        this.hicon = 39;
         this.caste = "FERAL";
     }
 }
@@ -437,6 +564,8 @@ class Unhinged extends LegendarySoul{
     constructor(){
         super("UNHINGED");
         this.icon = 3;
+        this.gicon = 44;
+        this.hicon = 38;
         this.caste = "UNHINGED";
     }
 }
@@ -445,6 +574,8 @@ class Artistic extends LegendarySoul{
     constructor(){
         super("ARTISTIC");
         this.icon = 2;
+        this.gicon = 43;
+        this.hicon = 37;
         this.caste = "ARTISTIC";
     }
 }
@@ -453,6 +584,8 @@ class Ordered extends LegendarySoul{
     constructor(){
         super("ORDERED");
         this.icon = 1;
+        this.gicon = 42;
+        this.hicon = 36;
         this.caste = "ORDERED";
     }
 }
@@ -461,6 +594,8 @@ class Saintly extends LegendarySoul{
     constructor(){
         super("SAINTLY");
         this.icon = 0;
+        this.gicon = 41;
+        this.hicon = 35;
         this.caste = "SAINTLY";
     }
 }

@@ -16,6 +16,7 @@ class World{
     }
 
     addRoom(coordinates, connector){
+        log.allgrey = true;
         let roomType;
         if (level == 0) roomType = WorldSeed;
         else if (level == 17 && !this.serene) roomType = EpsilonArena;
@@ -108,7 +109,7 @@ class Room{
         //up left right down
         this.music = false;
         this.entrymessage = false;
-        this.playerspawn = 0;
+        this.playerspawn = [4,4];
         this.effects = [];
         this.previousRoom = -1; //Maybe secretly divide arrow tiles into return/generator tiles?
         this.index = index;
@@ -117,6 +118,7 @@ class Room{
         this.name = "Bugtopia";
         this.fourway = false;
         this.violatereality = false;
+        this.filler = Wall;
     }
 
     buildRoom(){
@@ -131,9 +133,11 @@ class Room{
         }
         let randomtile = randomPassableTile();
         if (this.entrymessage) log.addLog(this.entrymessage);
-        else  //log.addLog("Empty");
         if (world.roomlist.length == 1 && level == 0) this.playerspawn = [Math.floor((numTiles-1)/2),Math.floor((numTiles-1)/2)];
-        else if (world.roomlist.length == 1) this.playerspawn = [randomtile.x,randomtile.y];
+        else if (world.roomlist.length == 1){
+            this.playerspawn[0] = randomtile.x;
+            this.playerspawn[1] = randomtile.y;
+        }
         //if (world.getRoom() instanceof EpsilonArena) this.playerspawn = [1,1];
         player = new Player(getTileButNotCursed(this.playerspawn[0], this.playerspawn[1]));
         if (this.effects.includes("Darkness")) player.fov = 2;
@@ -197,6 +201,7 @@ class HarmonyRelay extends Room{
         this.entrymessage = "FluffyWelcome";
         this.name = "Test of Unity";
         this.fuffspawn = null;
+        this.filler = AbazonWall;
         this.entrancepoints = [getTileButNotCursed(Math.floor((numTiles-1)/2),1), getTileButNotCursed(1,Math.floor((numTiles-1)/2)),getTileButNotCursed((numTiles-2),Math.floor((numTiles-1)/2)),getTileButNotCursed(Math.floor((numTiles-1)/2)),(numTiles-2)];
         this.possibleexits = [[Math.floor((numTiles-1)/2),0], [0,Math.floor((numTiles-1)/2)],[(numTiles-1),Math.floor((numTiles-1)/2)],[Math.floor((numTiles-1)/2),numTiles-1]];
     }

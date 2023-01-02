@@ -488,38 +488,49 @@ class Booster extends Exit{
     }
 }
 
-
-class PosAltar extends Tile{
+class Altar extends Floor{
     constructor(x,y){
-        super(x, y, 2, true); //30
-        this.value = "";
+        super(x, y, 30, true); //30
+        this.value = new Empty();
         this.name = "Positive Harmonic Relay";
         this.lore = description["PosRelay"];
     }
-    stepOn(monster){
 
+    draw(){
+        super.draw();
+        drawSymbol(this.value.icon, this.x*tileSize+8, this.y*tileSize+8,48);
     }
 }
 
-class NegAltar extends Tile{
+
+class PosAltar extends Altar{
     constructor(x,y){
-        super(x, y, 2, true); //31
-        this.name = "Negative Harmonic Relay";
-        this.lore = description["NegRelay"];
-        this.value = "";
-    }
-    stepOn(monster){
+        super(x, y, 30, true); //30
+        this.value = new Empty();
+        this.sprite = 30;
+        this.name = "Positive Harmonic Relay";
+        this.lore = description["PosRelay"];
     }
 }
 
-class BetAltar extends Tile{
+class NegAltar extends Altar{
+    constructor(x,y){
+        super(x, y, 31, true); //31
+        this.name = "Negative Harmonic Relay";
+        this.sprite = 31;
+        this.lore = description["NegRelay"];
+        this.value = new Empty();
+    }
+
+}
+
+class BetAltar extends Altar{
     constructor(x,y){
         super(x, y, 43, true); 
         this.name = "Soulscribe";
+        this.sprite = 43;
         this.lore = description["Soulscribe"];
-        this.value = "";
-    }
-    stepOn(monster){
+        this.value = new Empty();
     }
 }
 

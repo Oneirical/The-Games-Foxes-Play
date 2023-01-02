@@ -53,6 +53,7 @@ function setupCanvas(){
             }
             else if (clickpos[0] >= 880 && clickpos[0] <= 880+64 && clickpos[1] >= 320 && clickpos[1] <= 320+64 && !inInventory) inInventory = true;
             else if (clickpos[0] >= 880 && clickpos[0] <= 880+64 && clickpos[1] >= 490 && clickpos[1] <= 490+64 && inInventory) inInventory = false;
+            else if (clickpos[0] >= 590 && clickpos[0] <= 590+64 && clickpos[1] >= 320 && clickpos[1] <= 320+64) wheel.drawSoul();
             else if (mousdes+1 <= player.inhand.length || mousdes == 21 || mousdes == 22){
                 if (gameState == "running" && mousdes <21) player.castSpell(mousdes);
                 else if (gameState == "running" && mousdes >=21&& modules.length > 1 && !cursormode) player.cycleModules();
@@ -232,12 +233,12 @@ function draw(){
         if (gameState == "vision" && discarded == 0) drawText("Which soul to stack?", 20, false, 100, "deepskyblue");
         
         if (world.getRoom() instanceof HarmonyRelay){
-            drawChar(tiles[2][3].value, 30, 151, 235, "cyan");
-            drawChar(tiles[4][2].value, 30, 280, 171, "cyan");
-            drawChar(tiles[6][3].value, 30, 408, 235, "cyan");
-            drawChar(tiles[2][5].value, 30, 151, 363, "red");
-            drawChar(tiles[4][6].value, 30, 280, 427, "red");
-            drawChar(tiles[6][5].value, 30, 408, 363, "red");
+            //drawChar(tiles[2][3].value, 30, 151, 235, "cyan");
+            //drawChar(tiles[4][2].value, 30, 280, 171, "cyan");
+            //drawChar(tiles[6][3].value, 30, 408, 235, "cyan");
+            //drawChar(tiles[2][5].value, 30, 151, 363, "red");
+            //drawChar(tiles[4][6].value, 30, 280, 427, "red");
+            //drawChar(tiles[6][5].value, 30, 408, 363, "red");
             if (!player.betted){
                 //drawChar(tiles[4][3].value, 30, 343, 363, "yellow");
                 //drawChar(tiles[3][5].value, 30, 215, 363, "yellow");
