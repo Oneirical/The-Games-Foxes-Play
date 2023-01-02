@@ -77,6 +77,7 @@ class Monster{
         this.sprite = sprite;
         this.spritesave = sprite;
         this.hp = hp;
+        this.speed = 1;
         this.fp = 0; //it stands for fluffy points
         this.dmg = 1;
         this.loot = loot;
@@ -103,7 +104,6 @@ class Monster{
         this.deathdelay = 0;
         this.shield = 0;
         this.order = -1;
-        this.speed = 1;
         this.previousdir;
         if (legendaries.castes.includes(this.loot)) this.loot = wheel.castes[5-legendaries.castes.indexOf(this.loot)];
     }
@@ -183,8 +183,10 @@ class Monster{
             }
            
            let newTile = neighbors[0];
-           if (newTile.x == this.previousdir.x && newTile.y == this.previousdir.y && speed > 1 && neighbors.length > 1) newTile = neighbors[1];
-           else if (newTile.x == this.previousdir.x && newTile.y == this.previousdir.y && speed > 1 && neighbors.length <= 1) return; 
+           if (this.previousdir){
+               if (newTile.x == this.previousdir.x && newTile.y == this.previousdir.y && this.speed > 1 && neighbors.length > 1) newTile = neighbors[1];
+               else if (newTile.x == this.previousdir.x && newTile.y == this.previousdir.y && this.speed > 1 && neighbors.length <= 1) return; 
+           }
            this.tryMove(newTile.x - this.tile.x, newTile.y - this.tile.y);
            this.previousdir =this.tile;
        }
@@ -1718,7 +1720,7 @@ class Monk extends Monster{
     constructor(tile){
         super(tile, 45, 2, "NOTHING", description["Monk"]);
         let index = randomRange(1,6);
-        this.loot = basic[index];
+        this.loot = wheel.castes[index];
         let sun = this.loot.id.charAt(0) + this.loot.id.substring(1).toLowerCase();
         let n = " ";
         if (sun == "Ordered" || sun == "Artistic" || sun == "Unhinged") n = "n ";

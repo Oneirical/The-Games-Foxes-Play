@@ -59,6 +59,7 @@ class World{
         }
         this.roomlist.push(room);
         room.buildRoom(connector);
+        wheel.resolve = 3+ Math.floor(resolvebonus/2);
         return room;
     }
 
@@ -137,7 +138,6 @@ class Room{
         else if (world.roomlist.length == 1) this.playerspawn = [randomtile.x,randomtile.y];
         //if (world.getRoom() instanceof EpsilonArena) this.playerspawn = [1,1];
         player = new Player(getTileButNotCursed(this.playerspawn[0], this.playerspawn[1]));
-        wheel.resolve = 3+ Math.floor(resolvebonus/2);
         if (this.effects.includes("Darkness")) player.fov = 2;
         for (let k of wheel.saved){
             if (!(k instanceof Empty))wheel.discard.push(k);

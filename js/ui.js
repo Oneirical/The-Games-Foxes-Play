@@ -17,6 +17,7 @@ class MessageLog{
             if (this.history.length > 5){
                 this.history.shift();
                 this.writeheight.shift();
+                this.repeats.shift();
             } 
         }
         else this.repeats[this.history.length-1]++;
