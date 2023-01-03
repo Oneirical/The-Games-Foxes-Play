@@ -207,9 +207,9 @@
             if(e.key>=1 && e.key<=9 && !cursormode && gameState == "running" && player.para == 0) wheel.castSoul(e.key-1);//player.castSpell(e.key-1);
             if(e.key>=1 && e.key<=9 && cursormode && invmode) currentspelldesc = e.key-1;
             if(e.key=="f" && cursormode && invmode) currentspelldesc = player.activemodule;
-            if(e.key=="q" && !cursormode && level != 0 && player.para == 0) wheel.drawSoul();//player.drawSpell();
+            if(e.key=="q" && !cursormode && player.para == 0) wheel.drawSoul();//player.drawSpell();
             if(e.key=="v" && cursormode && invmode && cursor.tile.monster.teleportCounter <= 0) currentspelldesc = cursor.tile.monster.loot;
-            if(e.key=="f" && gameState == "running" && modules.length > 1 && !cursormode) player.cycleModules();
+            if(e.key=="f" && gameState == "running" && !cursormode) log.addLog("WIP");//player.cycleModules();
             if(e.key=="p") cursor.debug();
             
         }else if(gameState == "contemplation"){

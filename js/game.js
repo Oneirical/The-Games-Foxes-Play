@@ -44,7 +44,7 @@ function setupCanvas(){
         }
         if(clickpos[0]>603&&clickpos[1]>115 && gameState != "dead" && gameState != "title"){
             let mousdes = Math.ceil((clickpos[1] - 130)/20);
-            if (clickpos[0] >= 590 && clickpos[0] <= 590+64 && clickpos[1] >= 130 && clickpos[1] <= 130+64){
+            if ((clickpos[0] >= 590 && clickpos[0] <= 590+64 && clickpos[1] >= 130 && clickpos[1] <= 130+64 && !cursormode) || (clickpos[0] >= 590 && clickpos[0] <= 590+64 && clickpos[1] >= 500 && clickpos[1] <= 500+64 && cursormode)){
                 cursormode = !cursormode;
                 invmode = false;
                 currentspelldesc = "nan";
@@ -53,7 +53,7 @@ function setupCanvas(){
             }
             else if (clickpos[0] >= 880 && clickpos[0] <= 880+64 && clickpos[1] >= 320 && clickpos[1] <= 320+64 && !inInventory) inInventory = true;
             else if (clickpos[0] >= 880 && clickpos[0] <= 880+64 && clickpos[1] >= 490 && clickpos[1] <= 490+64 && inInventory) inInventory = false;
-            else if (clickpos[0] >= 880 && clickpos[0] <= 880+64 && clickpos[1] >= 130 && clickpos[1] <= 130+64 && !inInventory) inModules = !inModules;
+            else if (clickpos[0] >= 880 && clickpos[0] <= 880+64 && clickpos[1] >= 130 && clickpos[1] <= 130+64 && !inInventory) log.addLog("WIP");//inModules = !inModules;
             else if (clickpos[0] >= 590 && clickpos[0] <= 590+64 && clickpos[1] >= 320 && clickpos[1] <= 320+64 && !inInventory) wheel.drawSoul();
             else if (inTriangle(clickpos,[0,577],[289,289],[577,577])) player.tryMove(0,1);
             else{
@@ -202,7 +202,7 @@ function draw(){
         for(let i=0;i<monsters.length;i++){
             if (viewedTiles.includes(monsters[i].tile) || monsters[i].charmed)monsters[i].draw();
         }
-        if (!inInventory) drawText(world.getRoom().name, 30, false, 40, "violet");
+        if (!inInventory && !cursormode) drawText(world.getRoom().name, 30, false, 40, "violet");
         //if (level == 0) drawText("World Seed", 30, false, 40, "violet");
         //else if (level % 5 == 1 && level > 5 && area == "Faith") drawText("Test of Unity", 30, false, 40, "violet");
         //else if (level % 5 == 1 && level > 5 && area == "Spire") drawText("Fluffian Workshop", 30, false, 40, "violet");
@@ -258,11 +258,11 @@ function draw(){
         //if (level == 1 && !cursormode&& gameState == "running") printAtSidebar("Slay enemies to collect their Soul.", 18, 590, 210, "lime", 20, 350);
         //if (level == 0 && !cursormode) printAtSidebar("Press \"c\" to toggle Examine mode.", 18, 590, 210, "lime", 20, 350);
         //if (level == 0 && !invmode) printAtSidebar("Press \"i\" to toggle Soul View mode.", 18, 590, 275, "lime", 20, 350);
-        if (!inInventory) drawSymbol(6, 880, 320, 64);
-        if (cursormode == true && invmode == false){
+        if (!inInventory && !cursormode) drawSymbol(6, 880, 320, 64);
+        if (cursormode && !invmode){
             cursor.draw();
             cursor.info();
-            drawSymbol(9, 590, 130, 64);
+            drawSymbol(9, 590, 500, 64);
         }
         else if (inInventory) legendaries.display();
         else if (inModules) cybernetics.display();
@@ -331,7 +331,7 @@ function draw(){
         ctx.moveTo(577, 577);
         ctx.lineTo(577, 0);
         ctx.stroke();
-        if (!inInventory){
+        if (!inInventory && !cursormode){
             ctx.beginPath();
             ctx.moveTo(768, 577);
             ctx.lineTo(768, 415);

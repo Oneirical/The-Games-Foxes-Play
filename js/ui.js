@@ -79,6 +79,10 @@ class DrawWheel{
         drawSymbol(9, 590, 130, 64);
         drawSymbol(10, 880, 130, 64);
         drawSymbol(11, 590, 50, 64);
+        printAtWordWrap("Q",18, 614, 398, "white",20,350);
+        printAtWordWrap("C",18, 614, 208, "white",20,350);
+        printAtWordWrap("F",18, 906, 208, "white",20,350);
+        printAtWordWrap("L",18, 906, 400, "white",20,350);
         let icon = 33;
         if (player.infested > 0) icon = 34;
         drawSymbol(icon,590,320,64);

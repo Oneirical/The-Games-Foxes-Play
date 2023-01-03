@@ -28,6 +28,7 @@ inventorytext = {
 messages = {
     // Various out-of-character messages
     "Empty" : "",
+    "WIP" : "This feature is not completed yet.",
     "AgonyWarning" : "You do not have enough Agony to forget this soul!",
     "Shiza" : "Select one soul to discard, then two to stack on top of your deck. The last selected card goes on top of the deck.",
     "InvPrompt": "Press the number corresponding to the soul in your paw you wish to inspect, or press \"v\"/mouseover on top of a creature to view the details of their soul. Press \"c\" at any time to exit.",
@@ -258,6 +259,7 @@ messages = {
 colours = {
     "Empty" : "black",
     "Agony" : "red",
+    "WIP" : "yellow",
     "UsedRelay" : "cyan",
     "AgonyWarning" : "red",
     "InvPrompt" : "yellow",
