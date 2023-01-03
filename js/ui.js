@@ -190,6 +190,22 @@ class DrawWheel{
     }
 
     breatheSoul(){
+        if (player.tile instanceof BetAltar){
+            let commoncheck = false;
+            for (let x of commons){
+                if (player.tile.value instanceof x) commoncheck = true;
+            }
+            if (!commoncheck){
+                legendaries.addSoul(player.tile.value);
+                tiles = world.getRoom().tiles;
+                player.infested = 0;
+                player.sprite = 0;
+                player.tile.setEffect(26,35);
+                log.addLog("FluffyThanks");
+                world.getRoom().entrymessage = "UsedRelay";
+                return;
+            }
+        }
         if (player.infested == 1){
             let wheelcount = 0;
             for (let i of this.wheel) if (!(i instanceof Empty)) wheelcount++;
@@ -216,7 +232,7 @@ class DrawWheel{
                 this.pile.push(this.discard[i]);
             }
             this.discard = [];
-            log.addLog("FluffyExplain1");
+            log.addLog("FluffyTrance");
             for (let o = 0; o < 8; o++){
                 for (let k of this.wheel){
                     if (k instanceof Empty){
@@ -238,7 +254,15 @@ class DrawWheel{
                 }
             }
         }
-        //q-ing some more should bring up a tutorial
+        else if (player.infested > 1){
+            let tutorial = "FluffyExplain" + (player.infested-1).toString();
+            if (player.infested-1 == 9){
+                player.infested = 3;
+                tutorial = "FluffyRepeat";
+            }
+            log.addLog(tutorial);
+            player.infested++;
+        }
     }
 
     drawSoul(){
@@ -373,12 +397,6 @@ class DrawWheel{
                 }
                 results = results[0]*100+results[1]*10+results[2];
                 world.getRoom().summonLoot(results,tiles[3][4],tiles[5][4]);
-                //tiles = world.getRoom().tiles;
-                player.infested = 0;
-                player.sprite = 0;
-                player.tile.setEffect(26,35);
-                log.addLog("FluffyThanks");
-                world.getRoom().entrymessage = "UsedRelay"; //TODO put something flavourful here
             }
         }
     }
@@ -535,6 +553,18 @@ class Inventory{
         this.storage[slot] = new Empty();
         this.storeSoul(caste, this.active[caste]);
         this.active[caste] = soul;
+    }
+
+    addSoul(soul){
+        let noroom = 0;
+        for (let i of this.storage){
+            if (noroom == this.storage.length) return;
+            else if (i instanceof Empty){
+                this.storage[this.storage.indexOf(i)] = soul;
+                break;
+            }
+            else noroom++;
+        }
     }
 
     storeSoul(slot){

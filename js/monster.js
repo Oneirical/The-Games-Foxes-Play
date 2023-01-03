@@ -939,67 +939,6 @@ class Player extends Monster{
         }
     }
 
-            //cagedrop once used to be lootdrop[0] = bad[Math.abs(Math.floor((bad.length-1)/6 * polarity - randomRange(0, (bad.length-1)/6)))];
-    cageDrop(polarity, quality){
-        let fluffchance  = quality/4;
-        if (rerolled) fluffchance = 0;
-        let bonusartifact = false;
-        let bets = [tiles[3][3],tiles[5][3],tiles[3][5],tiles[5][5]];
-        let lootdrop = this.decideLoot(polarity);
-        if (quality < 0){
-            log.addLog("FluffyAppalled");
-            fluffchance = 100;
-        }
-        else if (quality >= 300){
-            log.addLog("FluffyMocking");
-        }
-        else if (quality > 99 && quality <= 299){
-            log.addLog("FluffyDisgusted");
-        }
-        else if (quality > 10 && quality <= 99){
-            log.addLog("FluffySatisfied");
-        }
-        else if (quality > 0 && quality <= 10){
-            log.addLog("FluffyImpressed");
-            fluffchance = 0;
-        }
-        else if (quality == 0){
-            log.addLog("FluffyExalted");
-            fluffchance = 0;
-            bonusartifact = true;
-        }
-        else{
-            log.addLog("FluffyCheat");
-            lootdrop[0] = lootdrop[1] = lootdrop[2] = lootdrop[3] = "SHIZAPIS";
-            fluffchance = 0;
-        }
-            
-        for (let i = 0;i<lootdrop.length;i++){
-            if (lootdrop[i]!="NOTHING"){
-                if (randomRange(0,100) < fluffchance){
-                    lootdrop[i] = "SERENE";
-                }
-                if (!rerolled) spawnCages(lootdrop[i],bets[i]);
-                else return lootdrop;
-            }
-        }
-        if (bonusartifact){
-            let moddrop = modulators[randomRange(0,modulators.length-1)];
-            removeItemOnce(modulators,moddrop);
-            spawnCages(moddrop,getTile(4,5));
-        }
-        
-        
-        monsters.forEach(function(entity){
-            if (entity.name == "Serene Harmonizer"){
-                entity.dialogue = ["FluffyReroll1", "FluffyReroll2", "FluffyReroll3", "FluffyReroll4", "FluffyReroll5", "FluffyReroll6", "FluffyRepeat2"];
-                entity.diamax = 6;
-                entity.diareset = 2;
-                dialoguecount = 0;
-            } 
-        });
-    }
-
     fluffyReroll(){
         let replacecount = 0;
         let allfluffy = true;
@@ -1241,12 +1180,7 @@ class Harmonizer extends Monster{
         this.isGuide = true;
         this.ability = "";
         this.paralyzed = true;
-        if (area == "Faith"){
-            this.dialogue = ["FluffyHmm","FluffyExplain1", "FluffyExplain2", "FluffyExplain3","FluffyExplain4","FluffyExplain5","FluffyRepeat"];
-            this.diamax = 6;
-            this.diareset = 3;
-        }
-        else if (area == "Spire"){
+        if (area == "Spire"){
             this.dialogue = ["FluffyModule1","FluffyModule2","FluffyModule3","FluffyModule4","FluffyModule5","FluffyModule6","FluffyModule7","FluffyModuleRepeat"];
             this.diamax = 7;
             this.diareset = 3;
