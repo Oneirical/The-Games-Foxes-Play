@@ -110,7 +110,7 @@ class DrawWheel{
             let results = ["?","?","?"];
             for (let q = 0; q < 3; q++){
                 if (paltars[q] && naltars[q]){
-                    results[q] = (paltars[q] - naltars[q]); //review this for hundreds
+                    results[q] = (paltars[q] - naltars[q]);
                 }
             }
             if (results.includes("?")) results = "???";
@@ -226,7 +226,7 @@ class DrawWheel{
             }
             let chosen = [];
             while(chosen.length < 2){
-                while (true){
+                while (true){ // todo understand why it chooses 3 sometimes
                     let sacrifices = randomRange(0,7);
                     if (!this.wheel[sacrifices].chosen){
                         this.wheel[sacrifices].chosen = true;
@@ -236,6 +236,7 @@ class DrawWheel{
                 }
             }
         }
+        //q-ing some more should bring up a tutorial
     }
 
     drawSoul(){
@@ -361,6 +362,10 @@ class DrawWheel{
     castSoul(slot){
         if (player.infested > 1){
             this.sacrificeSoul(slot);
+            return;
+        }
+        else if (gameState == "contemplation"){
+            this.removeSoul(slot);
             return;
         }
         let soul = this.wheel[slot];

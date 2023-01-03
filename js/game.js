@@ -53,17 +53,16 @@ function setupCanvas(){
             }
             else if (clickpos[0] >= 880 && clickpos[0] <= 880+64 && clickpos[1] >= 320 && clickpos[1] <= 320+64 && !inInventory) inInventory = true;
             else if (clickpos[0] >= 880 && clickpos[0] <= 880+64 && clickpos[1] >= 490 && clickpos[1] <= 490+64 && inInventory) inInventory = false;
-            else if (clickpos[0] >= 590 && clickpos[0] <= 590+64 && clickpos[1] >= 320 && clickpos[1] <= 320+64) wheel.drawSoul();
-            else if (mousdes+1 <= player.inhand.length || mousdes == 21 || mousdes == 22){
-                if (gameState == "running" && mousdes <21) player.castSpell(mousdes);
-                else if (gameState == "running" && mousdes >=21&& modules.length > 1 && !cursormode) player.cycleModules();
-                if (gameState == "fluffy"){
-                    if(!cursormode && gameState == "fluffy" && sacrifice < 6 && player.betted) player.sacrificeSpell(mousdes);
-                    else if(!cursormode && gameState == "fluffy" && !player.betted && rolled > 0) player.betSpell(mousdes);
+            else if (clickpos[0] >= 880 && clickpos[0] <= 880+64 && clickpos[1] >= 130 && clickpos[1] <= 130+64 && !inInventory) inModules = !inModules;
+            else if (clickpos[0] >= 590 && clickpos[0] <= 590+64 && clickpos[1] >= 320 && clickpos[1] <= 320+64 && !inInventory) wheel.drawSoul();
+            else if (inTriangle(clickpos,[0,577],[289,289],[577,577])) player.tryMove(0,1);
+            else{
+                for (let x = 0; x <8 ; x++){
+                    if (!inInventory && clickpos[0] >= wheel.wheelcoords[x][0] && clickpos[0] <= wheel.wheelcoords[x][0]+64 && clickpos[1] >= wheel.wheelcoords[x][1] && clickpos[1] <= wheel.wheelcoords[x][1]+64){
+                        wheel.castSoul(x);
+                    }
                 }
-                if(gameState == "contemplation"){
-                    player.removeSpell(mousdes);
-                }if(gameState == "vision"){
+                if(gameState == "vision"){
                     if(discarded > 0){
                         player.discardSpell(mousdes);
                         discarded--;
@@ -130,7 +129,7 @@ function drawSymbol(sprite, x, y, size){
 }
 
 function draw(){
-    if(gameState == "running" || gameState == "dead" || gameState == "contemplation" || gameState == "fluffy" || gameState == "vision" || gameState == "discard"){
+    if(gameState == "running" || gameState == "dead" || gameState == "contemplation" || gameState == "vision" || gameState == "discard"){
         ctx.clearRect(0,0,canvas.width,canvas.height);
         let wtfx = mousepos[0];
         let wtfy = mousepos[1];
@@ -247,10 +246,6 @@ function draw(){
             }
         } 
         if (sacrifice == 6 && !cursormode) printAtSidebar("Your Fluffian Arithmetic Elegance Score is "+sacritotal+".", 18, 590, 130, "cyan", 20, 350);
-        //if (sacrifice < 6 && gameState == "fluffy" && !cursormode) printAtWordWrap("Press the corresponding number while standing on a Relay to sacrifice a soul.", 18, 590, 320, "cyan", 20, 350);
-        //if (sacrifice < 6 && gameState == "fluffy" && !cursormode) printAtWordWrap("Press \"q\" to bring forth souls to sacrifice.", 18, 590, 250, "cyan", 20, 350);
-        //if (sacrifice < 6 && gameState == "fluffy" && !cursormode) printAtWordWrap("The red Relays are substracted from the blue Relays, forming a 3-digit number. Try to get as close to 0 as possible!", 18, 590, 390, "cyan", 20, 350);
-        //if (sacrifice < 6 && gameState == "fluffy" && !cursormode) printAtWordWrap("Use Soul View mode (\"c\", then \"i\") if you forgot the value of a certain soul.", 18, 590, 490, "cyan", 20, 350);
         if (sacrifice == 6 && !cursormode) printAtSidebar("Press \"f\" to reroll unclaimed caged souls. Warning: The Harmony will sow a seed within your psyche should you take this action!", 18, 590, 200, "cyan", 20, 350);
         //if (level == 0 && !cursormode) printAtSidebar("Use WASD to move around, interact, and attack.", 18, 590, 130, "lime", 20, 350);
         //if (level == 1 && !cursormode&& gameState == "running") printAtSidebar("Press \"q\" in combat to summon Souls. Summoning costs Resolve, or Ipseity if you have no more Resolve. If you reach zero Ipseity, you lose.", 18, 590, 270, "lime", 20, 350);
