@@ -939,20 +939,6 @@ class Player extends Monster{
         }
     }
 
-    decideLoot(polarity){
-        let lootdrop = ["NOTHING","NOTHING","NOTHING","NOTHING"];
-        for (let i = 0;i<polarity.length;i++){
-            if (polarity[i] == 1) lootdrop[i] = vile[randomRange(0,vile.length-1)];
-            else if (polarity[i] == 2) lootdrop[i] = feral[randomRange(0,feral.length-1)];
-            else if (polarity[i] == 3) lootdrop[i] = unhinged[randomRange(0,unhinged.length-1)];
-            else if (polarity[i] == 4) lootdrop[i] = artistic[randomRange(0,artistic.length-1)];
-            else if (polarity[i] == 5) lootdrop[i] = ordered[randomRange(0,ordered.length-1)];
-            else if (polarity[i] == 6) lootdrop[i] = saintly[randomRange(0,saintly.length-1)];
-            else if (polarity[i] == "0") lootdrop[i] = "SERENE";
-            if (lootdrop[i]=="AUBE") removeItemOnce(artistic, "AUBE");
-        }
-        return lootdrop;
-    }
             //cagedrop once used to be lootdrop[0] = bad[Math.abs(Math.floor((bad.length-1)/6 * polarity - randomRange(0, (bad.length-1)/6)))];
     cageDrop(polarity, quality){
         let fluffchance  = quality/4;

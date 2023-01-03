@@ -8,36 +8,6 @@
 //-slow down lag by not calling draw for text or HUD
 //-update souls to new system
 
-//List of souls
-
-vile = ["SENET","RASEL"];
-feral = ["KILAMI","LASHOL","EZEZZA"];
-unhinged = ["SHIZAPIS","JOLTZAZON"];
-artistic = ["PURPIZUG","AUBE","BORERORA", "GYVJI"];
-ordered = ["ASPHA","ABAZON","NAIA"];
-saintly = ["ROSE","ZAINT","ASTER"];
-basic = ["TAINTED","VILE","FERAL","UNHINGED","ARTISTIC","ORDERED","SAINTLY"];
-basicspire = ["VILES","FERALS","UNHINGEDS","ARTISTICS","ORDEREDS","SAINTLYS"];
-smod = ["Alacrity","Selective","Thrusters","Hover","Focus"];
-modulators = ["Alacrity","Selective","Thrusters","Hover","Focus"];
-
-//Monsters
-
-//Typeless
-// Monk
-//Vile
-// Second - Felidol - Third
-//Feral
-// Ragemaw - Shrike
-//Unhinged
-// Oracle - Ashoul - Apis
-//Artistic
-// Tinker - Weaver - Brute
-//Ordered
-// Slug - Apiarist - Snail
-//Saintly
-// Scion - Embalmer
-
 inventorytext = {
     "S" : "Subdued",
     "H" : "Harmonized",

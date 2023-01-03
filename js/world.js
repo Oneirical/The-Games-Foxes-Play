@@ -202,7 +202,7 @@ class HarmonyRelay extends Room{
         this.name = "Test of Unity";
         this.fuffspawn = null;
         //this.filler = AbazonWall;
-        this.entrancepoints = [getTileButNotCursed(Math.floor((numTiles-1)/2),1), getTileButNotCursed(1,Math.floor((numTiles-1)/2)),getTileButNotCursed((numTiles-2),Math.floor((numTiles-1)/2)),getTileButNotCursed(Math.floor((numTiles-1)/2)),(numTiles-2)];
+        this.entrancepoints = [getTileButNotCursed(Math.floor((numTiles-1)/2),1), getTileButNotCursed(1,Math.floor((numTiles-1)/2)),getTileButNotCursed((numTiles-2),Math.floor(numTiles-1)/2),getTileButNotCursed(Math.floor((numTiles-1)/2),(numTiles-2))];
         this.possibleexits = [[Math.floor((numTiles-1)/2),0], [0,Math.floor((numTiles-1)/2)],[(numTiles-1),Math.floor((numTiles-1)/2)],[Math.floor((numTiles-1)/2),numTiles-1]];
     }
     
@@ -218,6 +218,56 @@ class HarmonyRelay extends Room{
         dialoguecount = 0;
         super.initializeRoom();
         summonExits();
+    }
+
+    determineLoot(type){
+        let lootdrop = new Senet();
+        lootdrop = relayPool[type][randomRange(0,relayPool[type].length-1)];
+        return lootdrop;
+    }
+
+    summonLoot(elegance, slot1, slot2){
+        let fluffchance  = elegance/5;
+        let bonusartifact = false;
+        let zones = [tiles[3][4],tiles[5][4]];
+        let lootdrop = [this.determineLoot(slot1.value.caste),this.determineLoot(slot2.value.caste)];
+        if (elegance < 0){
+            log.addLog("FluffyAppalled");
+            fluffchance = 100;
+        }
+        else if (elegance >= 300){
+            log.addLog("FluffyMocking");
+        }
+        else if (elegance > 99 && elegance <= 299){
+            log.addLog("FluffyDisgusted");
+        }
+        else if (elegance > 10 && elegance <= 99){
+            log.addLog("FluffySatisfied");
+        }
+        else if (elegance > 0 && elegance <= 10){
+            log.addLog("FluffyImpressed");
+            fluffchance = 0;
+        }
+        else if (elegance == 0){
+            log.addLog("FluffyExalted");
+            fluffchance = 0;
+            bonusartifact = true;
+        }
+        else{
+            log.addLog("FluffyCheat");
+            lootdrop = [new Shizapis(), new Shizapis()];
+            fluffchance = 0;
+        }
+            
+        for (let i = 0;i<lootdrop.length;i++){
+            if (randomRange(0,100) < fluffchance) lootdrop[i] = new Serene();
+            zones[i].value = lootdrop[i]; 
+        }
+        //if (bonusartifact){
+        //    let moddrop = modulators[randomRange(0,modulators.length-1)];
+        //    removeItemOnce(modulators,moddrop);
+        //    spawnCages(moddrop,getTile(4,4));
+        //}
     }
 } 
 

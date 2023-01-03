@@ -137,14 +137,16 @@ class DrawWheel{
         }
         for (let k of this.castes){
             if (this.castes.indexOf(k) % 2 == 0){
-            printAtSidebar(" - " + this.countPileSouls()[this.castes.indexOf(k)], 18, this.castecoords[5-this.castes.indexOf(k)][0]-265, this.castecoords[this.castes.indexOf(k)][1]+32, "white", 20, 350);
-            printAtSidebar("(" + this.countDiscardSouls()[(this.castes.indexOf(k))] + ")", 18, this.castecoords[5-this.castes.indexOf(k)][0]-265+ctx.measureText(" - " + this.countPileSouls()[this.castes.indexOf(k)]).width+10, this.castecoords[this.castes.indexOf(k)][1]+32, "pink", 20, 350);
-            printAtSidebar("(" + this.countSavedSouls()[(this.castes.indexOf(k))] + ")", 18, 720, this.castecoords[this.castes.indexOf(k)][1]+32, "yellow", 20, 350); 
+                printAtSidebar(" - " + this.countPileSouls()[this.castes.indexOf(k)], 18, this.castecoords[5-this.castes.indexOf(k)][0]-265, this.castecoords[this.castes.indexOf(k)][1]+32, "white", 20, 350);
+                printAtSidebar("(" + this.countDiscardSouls()[(this.castes.indexOf(k))] + ")", 18, this.castecoords[5-this.castes.indexOf(k)][0]-265+ctx.measureText(" - " + this.countPileSouls()[this.castes.indexOf(k)]).width+10, this.castecoords[this.castes.indexOf(k)][1]+32, "pink", 20, 350);
+                if (player.infested > 1) printAtSidebar("= " + (6-this.castes.indexOf(k)), 18, 720, this.castecoords[this.castes.indexOf(k)][1]+32, "cyan", 20, 350);
+                else printAtSidebar("(" + this.countSavedSouls()[(this.castes.indexOf(k))] + ")", 18, 720, this.castecoords[this.castes.indexOf(k)][1]+32, "yellow", 20, 350); 
             }
             else if (this.castes.indexOf(k) % 2 == 1){
                 printAtSidebar(this.countPileSouls()[this.castes.indexOf(k)] + " - ", 18, this.castecoords[5-this.castes.indexOf(k)][0]+285, this.castecoords[this.castes.indexOf(k)][1]+32, "white", 20, 350);
                 printAtSidebar("(" + this.countDiscardSouls()[(this.castes.indexOf(k))] + ")", 18, this.castecoords[5-this.castes.indexOf(k)][0]+285-ctx.measureText(" - " + this.countPileSouls()[this.castes.indexOf(k)]).width-10, this.castecoords[this.castes.indexOf(k)][1]+32, "pink", 20, 350);
-                printAtSidebar("(" + this.countSavedSouls()[(this.castes.indexOf(k))] + ")", 18, this.castecoords[5-this.castes.indexOf(k)][0]+285-ctx.measureText(" - " + this.countPileSouls()[this.castes.indexOf(k)]).width-60, this.castecoords[this.castes.indexOf(k)][1]+32, "yellow", 20, 350);
+                if (player.infested > 1) printAtSidebar((6-this.castes.indexOf(k))+ " =", 18, this.castecoords[5-this.castes.indexOf(k)][0]+285-ctx.measureText(" - " + this.countPileSouls()[this.castes.indexOf(k)]).width-60, this.castecoords[this.castes.indexOf(k)][1]+32, "cyan", 20, 350);
+                else printAtSidebar("(" + this.countSavedSouls()[(this.castes.indexOf(k))] + ")", 18, this.castecoords[5-this.castes.indexOf(k)][0]+285-ctx.measureText(" - " + this.countPileSouls()[this.castes.indexOf(k)]).width-60, this.castecoords[this.castes.indexOf(k)][1]+32, "yellow", 20, 350);
             }
         }
     }
@@ -342,14 +344,36 @@ class DrawWheel{
                         let sacrifices = randomRange(0,7);
                         if (!this.wheel[sacrifices].chosen && !(this.wheel[sacrifices] instanceof Empty)){
                             this.wheel[sacrifices].chosen = true;
-                            chosen.push(this.wheel[sacrifices]);
+                            chosen.push(this.wheel[sacrifices]);                            
                             break;
                         }
                     }
                 }
             }
             else if (!remain && done){
-                tiles = world.getRoom().tiles;
+                let paltars = [];
+                let naltars = [];
+                for (let x of tiles){
+                    for (let y of x){
+                        if (y instanceof PosAltar) paltars.push(y.getValue());
+                        else if (y instanceof NegAltar) naltars.push(y.getValue());
+                    }
+                }
+                for (let k = 0; k < 3; k++){
+                    paltars[k] = parseInt(paltars[k])
+                }
+                for (let e = 0; e < 3; e++){
+                    naltars[e] = parseInt(naltars[e])
+                }
+                let results = [0,0,0];
+                for (let q = 0; q < 3; q++){
+                    if (paltars[q] && naltars[q]){
+                        results[q] = (paltars[q] - naltars[q]);
+                    }
+                }
+                results = results[0]*100+results[1]*10+results[2];
+                world.getRoom().summonLoot(results,tiles[3][4],tiles[5][4]);
+                //tiles = world.getRoom().tiles;
                 player.infested = 0;
                 player.sprite = 0;
                 player.tile.setEffect(26,35);
