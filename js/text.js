@@ -87,6 +87,10 @@ messages = {
     "RoseDeath" : "As the First of the Saints taught, all things decay. The Old World must be allowed to die. You, as the Last of the Saints, will be delighted to sit here until the end of time, which shouldn't take too long. Your journey has come to its end.",
     "EpsilonDeath" : "Souls and data are one and the same - the truth is clear to you, now. In the Ordering of all, there is no second guessing, no suffering, no ambiguity. Your chassis glistens underneath the glory of the fluorescent tubes, and you await your next order eagerly. Your journey has come to its end.",
     
+    // Entrance flavour text
+
+    "UsedRelay" : "While this room appears completely empty, the soft chiming of bells still resonates at a barely audible volume, and you cannot help but feel a twinge of pride before your mission.",
+
     // Serene Harmonizer
     "FluffyFloorTaunt" : "\"Some call Fluffy heartless -- and yet here you are, attempting to let a proud soul collect muck on the grime-tainted floor. If you won't have the tact to use Fluffy's services properly, at least have the decency to leave and never return in Fluffy's presence.\"",
     "FluffyNoSoulTaunt" : "\"You cannot sacrifice that which does not exist, ruffian. No matter how much the merchants of the Old World enjoyed doing so.\"",
@@ -100,6 +104,7 @@ messages = {
     "FluffyExalted" : "\"My apologies for not recognizing you through your disguise, honoured Collectivist! I jest, of course. You have, however, greatly impressed Fluffy, and as such find yourself the recipient of a little bonus reward. May it assist in the attainment of both our respective objectives.\"",
     "FluffyDoubleSacTaunt" : "\"Fu! You have already designated a soul for uplifting at this Harmony Relay. Do you seriously think I will allow you to change your mind? Fluffy is never uncertain about anything, and you should follow her example.\"",
     "FluffyNotChosenTaunt" : "TODO",
+    "FluffyThanks" : "\"The Harmony welcomes your business, Vessel. I trust our goods shall allow you to accumulate additional currency in preparation for our next encounter.\" The Serene Collectivist's fine mist seeps out of your nostrils, and floats up through a tiny hole in the ceiling, no doubt on her way to add your payment to the Harmony's sinister treasury.",
 
     "FluffyExplain1" : "\"Fu! This is the ruffian appointed as the saviour of the non-Harmonized? The muckiness of your lungs is excused by your ignorance. I hereby invite you to glance upon the companions that you let flutter inside that little fuzzy head of yours: they are weak. Ineffectual. You will never reach the Reality Vortex with these good-for-nothing fools.\"", //Harmonic Relays are, if you will, the Collective's trading posts. You are invited to donate 6 of your feeble, imperfect souls, and in exchange, the Harmony will be pleased to provide you with 4 of the finest souls it has to offer.
     "FluffyExplain2" : "\"That is why the honoured Serene Collective has elected to aid you in your quest. Of course, Fluffy has reasons to believe you too will aid the Harmony in return, whether you want to or not.\"", //It is a win-win scenario for all of us! Access to the luxurious installations of the Collective shall be bestowed upon your travel companions, with a free ride into the Next World to boot. As for you, you will receive some of the hardiest spirits this world has ever seen to help you survive. This is an offer you would be extremely foolish to refuse - though I am not convinced such foolishness is beyond your capabilities, for you are not Fluffy.
@@ -126,7 +131,7 @@ messages = {
     "FluffySereneRerollTaunt" : "\"Even if I somehow wished to commit such unspeakable heresy, ruffian, I could not revert the Harmonization of your travel companion. They are Fluffy, now, and Fluffy is them, and from now on, they shall only answer to the name Fluffy.\"",
     "FluffyDoubleRerollTaunt" : "A resounding voice echoes inside your skull: \"Your eagerness to join our cause is noted, but Fluffy is afraid she only has herself to offer. There will be no more rerolls within this relay.\"",
     "FluffyNoCageTaunt" : "\"Ruffian... If you were unhappy with what the Collective had so kindly prepared for you, you should have said so before smashing our cage to bits. The stupidity of the unharmonized can get... quite bewildering.\"",
-    "FluffyNotEnoughSoulsTaunt" : "\"Fu! You expect to do business with the Collective when you harbour so little souls to use in trade? How pitiful! Take your weak companions back, you clearly need them more than the Harmony does. Now, Fluffy shall join your quest and show you how to properly hunt souls. The Collective is ever-merciful!\"",
+    "FluffyNotEnoughSoulsTaunt" : "\"Fu! You expect to do business with the Collective when you harbour so little souls to use in trade? How pitiful! Return here only once you have properly earned your title of Vessel, with at least 8 common Souls swirling in that fuzzy skull of yours. Until then, begone, foolish ruffian!\"", //Take your weak companions back, you clearly need them more than the Harmony does. Now, Fluffy shall join your quest and show you how to properly hunt souls. The Collective is ever-merciful!
     "FluffyAllBetsIn" : "With a sinister hiss, the Soulscribe slides into the floor, meshing seamlessly with the ground. \"All bets are off, ruffian. Do not worry about your companion, the soulscribing process is completely painless - if a little overwhelming.\"",
 
     "FluffyNoRemoveTaunt" : "\"You wish to silence the Harmony's song, ruffian? You will need much more strength than that should you wish to challenge us.\"",
@@ -286,6 +291,7 @@ messages = {
 colours = {
     "Empty" : "black",
     "Agony" : "red",
+    "UsedRelay" : "cyan",
     "AgonyWarning" : "red",
     "InvPrompt" : "yellow",
     "RoomDeath" : "crimson",

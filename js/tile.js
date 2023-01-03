@@ -500,6 +500,17 @@ class Altar extends Floor{
         super.draw();
         drawSymbol(this.value.icon, this.x*tileSize+8, this.y*tileSize+8,48);
     }
+
+    getValue(){
+        let number = "?";
+        if (this.value instanceof Saintly) number = "6";
+        else if (this.value instanceof Ordered) number = "5";
+        else if (this.value instanceof Artistic) number = "4";
+        else if (this.value instanceof Unhinged) number = "3";
+        else if (this.value instanceof Feral) number = "2";
+        else if (this.value instanceof Vile) number = "1";
+        return number;
+    }
 }
 
 

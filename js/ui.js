@@ -65,7 +65,7 @@ class DrawWheel{
         this.hotkeycoords = [[center[0], center[1]-dist],[center[0]+Math.cos(pi/4)*dist, center[1]-Math.sin(pi/4)*dist],[center[0]+dist, center[1]],[center[0]+Math.cos(pi/4)*dist, center[1]+Math.sin(pi/4)*dist],[center[0], center[1]+dist],[center[0]-Math.cos(pi/4)*dist, center[1]+Math.sin(pi/4)*dist],[center[0]-dist, center[1]],[center[0]-Math.cos(pi/4)*dist, center[1]-Math.sin(pi/4)*dist]];
 
         this.pile = [];
-        this.discard = [new Artistic(), new Ordered(),new Vile(), new Artistic(),new Saintly(), new Feral(),new Unhinged(),new Vile(),new Ordered(),new Vile()];
+        this.discard = [new Artistic(), new Ordered(),new Vile(), new Artistic(),new Saintly(), new Feral(),new Unhinged(),new Vile(),new Ordered(),new Vile()]; //
         this.saved = [new Empty(),new Empty(),new Empty(),new Empty(),new Empty(),new Empty(),new Empty(),new Empty()];
         this.resolve = 3; //update this later with the bonus
         this.castes = [new Saintly(),new Ordered(),new Artistic(),new Unhinged(),new Feral(),new Vile()];
@@ -89,6 +89,33 @@ class DrawWheel{
 
         else if (player.infested > 1){
             drawSymbol(32, 880, 50, 64);
+            let paltars = [];
+            let naltars = [];
+            for (let x of tiles){
+                for (let y of x){
+                    if (y instanceof PosAltar) paltars.push(y.getValue());
+                    else if (y instanceof NegAltar) naltars.push(y.getValue());
+                }
+            }
+            printAtSidebar(paltars[0]+paltars[1]+paltars[2], 23, 780, 75, "cyan", 20, 350);
+            printAtSidebar("-", 23, 825, 75, "white", 20, 350);
+            printAtSidebar(naltars[0]+naltars[1]+naltars[2], 23, 839, 75, "red", 20, 350);
+            printAtSidebar("=", 23, 805, 105, "white", 20, 350);
+            for (let k = 0; k < 3; k++){
+                paltars[k] = parseInt(paltars[k])
+            }
+            for (let e = 0; e < 3; e++){
+                naltars[e] = parseInt(naltars[e])
+            }
+            let results = ["?","?","?"];
+            for (let q = 0; q < 3; q++){
+                if (paltars[q] && naltars[q]){
+                    results[q] = (paltars[q] - naltars[q]); //review this for hundreds
+                }
+            }
+            if (results.includes("?")) results = "???";
+            else results = results[0]*100+results[1]*10+results[2];
+            printAtSidebar(results.toString(), 23, 825, 102, "white", 20, 350);
         }
         else{
             drawSymbol(12, 880, 50, 64);
@@ -162,10 +189,17 @@ class DrawWheel{
 
     breatheSoul(){
         if (player.infested == 1){
+            let wheelcount = 0;
+            for (let i of this.wheel) if (!(i instanceof Empty)) wheelcount++;
+            if ((this.pile.length + this.discard.length + wheelcount) < 8){
+                log.addLog("FluffyNotEnoughSoulsTaunt");
+                return;
+            }
+            world.getRoom().tiles = tiles;
+            generateRelay();
             player.sprite = 90;
             monsters.forEach(function(entity){
                 if (entity.name == "Serene Harmonizer"){
-                    player.tile.setEffect(26,35);
                     removeItemOnce(monsters,entity);
                 }
             });
@@ -180,38 +214,27 @@ class DrawWheel{
                 this.pile.push(this.discard[i]);
             }
             this.discard = [];
-            if (this.pile.length >= 8){
-                log.addLog("FluffyExplain1");
-                for (let o = 0; o < 8; o++){
-                    for (let k of this.wheel){
-                        if (k instanceof Empty){
-                            this.wheel[this.wheel.indexOf(k)] = this.pile[0];
-                            break;
-                        } 
-                    }
-                    this.pile.shift();
+            log.addLog("FluffyExplain1");
+            for (let o = 0; o < 8; o++){
+                for (let k of this.wheel){
+                    if (k instanceof Empty){
+                        this.wheel[this.wheel.indexOf(k)] = this.pile[0];
+                        break;
+                    } 
                 }
-                let chosen = [];
-                while(chosen.length < 2){
-                    while (true){
-                        let sacrifices = randomRange(0,7);
-                        if (!this.wheel[sacrifices].chosen){
-                            this.wheel[sacrifices].chosen = true;
-                            chosen.push(this.wheel[sacrifices]);
-                            break;
-                        }
+                this.pile.shift();
+            }
+            let chosen = [];
+            while(chosen.length < 2){
+                while (true){
+                    let sacrifices = randomRange(0,7);
+                    if (!this.wheel[sacrifices].chosen){
+                        this.wheel[sacrifices].chosen = true;
+                        chosen.push(this.wheel[sacrifices]);
+                        break;
                     }
-
                 }
-                
             }
-            else{
-                log.addLog("FluffyNotEnoughSoulsTaunt");
-                //TODO stuff here
-            }
-        }
-        else if (player.infested > 1 && player.infested < 6){
-            
         }
     }
 
@@ -306,8 +329,11 @@ class DrawWheel{
             player.tile.value = soul;
             let remain = false;
             let done = true;
+            for (let g = 0;g<8;g++){
+                if (!(this.wheel[g] instanceof Empty)) done = false;
+                else this.wheel[g].chosen = false;
+            }
             for (let g of this.wheel) if (g.chosen) remain = true;
-            for (let g of this.wheel) if (!(g instanceof Empty)) done = false;
             if (!remain && !done){
                 let chosen = [];
                 while(chosen.length < 2){
@@ -322,7 +348,12 @@ class DrawWheel{
                 }
             }
             else if (!remain && done){
-                //spawn the rewards
+                tiles = world.getRoom().tiles;
+                player.infested = 0;
+                player.sprite = 0;
+                player.tile.setEffect(26,35);
+                log.addLog("FluffyThanks");
+                world.getRoom().entrymessage = "UsedRelay"; //TODO put something flavourful here
             }
         }
     }

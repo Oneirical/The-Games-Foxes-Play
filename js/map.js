@@ -38,6 +38,24 @@ function generateTiles(){
     return passableTiles;
 }
 
+function generateUnityTest(){
+    tiles = [];
+    for(let i=0;i<numTiles;i++){
+        tiles[i] = [];
+        for(let j=0;j<numTiles;j++){
+            if((j==(numTiles-2)&&i==Math.floor((numTiles-1)/2))||(j==1&&i==Math.floor((numTiles-1)/2)) || (j==Math.floor((numTiles-1)/2)&&i==numTiles-2) || (j==Math.floor((numTiles-1)/2)&&i==1)){
+                tiles[i][j] = new Floor(i,j);
+            }
+            else if(!inBounds(i,j)){
+                tiles[i][j] = new Wall(i,j);
+            }
+            else{
+                tiles[i][j] = new Floor(i,j);
+            }
+        }
+    }
+}
+
 function generateRelay(){
     tiles = [];
     for(let i=0;i<numTiles;i++){
@@ -241,7 +259,13 @@ function inBounds(x,y){
     }
     else if (world.getRoom().possibleexits.includes(array)) return true;
     else{
-    if (area != "Spire" && area != "Circus") return x>0 && y>0 && x<numTiles-1 && y<numTiles-1
+    if (area != "Spire" && area != "Circus"){
+        if (player){
+            if (player.infested > 0) return x>-1 && y>-1 && x<numTiles && y<numTiles;
+            else return x>0 && y>0 && x<numTiles-1 && y<numTiles-1;
+        }
+        else return x>0 && y>0 && x<numTiles-1 && y<numTiles-1;
+    }
     else return x>-1 && y>-1 && x<numTiles && y<numTiles
     }
 }

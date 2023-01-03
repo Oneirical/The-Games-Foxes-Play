@@ -201,14 +201,14 @@ class HarmonyRelay extends Room{
         this.entrymessage = "FluffyWelcome";
         this.name = "Test of Unity";
         this.fuffspawn = null;
-        this.filler = AbazonWall;
+        //this.filler = AbazonWall;
         this.entrancepoints = [getTileButNotCursed(Math.floor((numTiles-1)/2),1), getTileButNotCursed(1,Math.floor((numTiles-1)/2)),getTileButNotCursed((numTiles-2),Math.floor((numTiles-1)/2)),getTileButNotCursed(Math.floor((numTiles-1)/2)),(numTiles-2)];
         this.possibleexits = [[Math.floor((numTiles-1)/2),0], [0,Math.floor((numTiles-1)/2)],[(numTiles-1),Math.floor((numTiles-1)/2)],[Math.floor((numTiles-1)/2),numTiles-1]];
     }
     
     buildRoom(connector){
         super.buildRoom();
-        generateRelay();
+        generateUnityTest();
         blockedExits(connector);
         generateMonsters();
     }
