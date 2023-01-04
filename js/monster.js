@@ -106,6 +106,7 @@ class Monster{
         this.order = -1;
         this.infested = 0;
         this.previousdir;
+        this.lootid = this.loot;
         if (legendaries.castes.includes(this.loot)) this.loot = commoneq[this.loot];
     }
 
@@ -526,10 +527,10 @@ class Monster{
         }
         if (this.tile.siphon && !(this instanceof Felidol) && !(this instanceof Husk)){
             let felid = new Felidol(this.tile);
-            let sun = this.loot.id.charAt(0) + this.loot.id.substring(1).toLowerCase();
+            let sun = this.lootid.charAt(0) + this.lootid.substring(1).toLowerCase();
             let n = " ";
             if (sun == "Ordered" || sun == "Artistic" || sun == "Unhinged") n = "n ";
-            felid.soul = "Animated by a"+n+sun+" ("+basic.indexOf(this.loot)+") soul.";
+            felid.soul = "Animated by a"+n+sun+" ("+basic.indexOf(this.lootid)+") soul.";
             felid.loot = this.loot;
             if (this.charmed && !this.name.includes("Vermin")) felid.charmed = true;
             monsters.push(felid);
@@ -1398,10 +1399,8 @@ class Ragemaw extends Monster{
 
 class Monk extends Monster{
     constructor(tile){
-        super(tile, 45, 2, "NOTHING", description["Monk"]);
-        let index = randomRange(1,6);
-        this.loot = wheel.castes[index];
-        let sun = this.loot.id.charAt(0) + this.loot.id.substring(1).toLowerCase();
+        super(tile, 45, 2, commoneq[legendaries.castes[randomRange(1,6)]], description["Monk"]);
+        let sun = this.lootid.charAt(0) + this.lootid.substring(1).toLowerCase();
         let n = " ";
         if (sun == "Ordered" || sun == "Artistic" || sun == "Unhinged") n = "n ";
         this.soul = "Animated by a"+n+sun+" ("+index+") soul.";
@@ -1413,7 +1412,7 @@ class Monk extends Monster{
         this.abitimer++;
         if (this.abitimer == 3){
             this.abitimer = 0;
-            spells[this.loot](this);
+            spells[this.lootid](this);
         }
         else{
             super.doStuff();

@@ -20,7 +20,7 @@ commoneq = {
     "UNHINGED" : Unhinged,
     "ARTISTIC" : Artistic,
     "ORDERED" : Ordered,
-    "SAINTLY" : Saintly
+    "SAINTLY" : Saintly,
 }
 
 //Monsters
