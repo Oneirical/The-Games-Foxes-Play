@@ -12,6 +12,17 @@ function randomRange(min, max){
     return Math.floor(Math.random()*(max-min+1))+min;
 }
 
+function randomRangeTwo(min,max){
+    let x = 0;
+    let y = 0;
+    while (true){
+        x = Math.floor(Math.random()*(max-min+1))+min;
+        y = Math.floor(Math.random()*(max-min+1))+min;
+        if (x != y) break;
+    }
+    return [x,y];
+}
+
 function shuffle(arr){
     let temp, r;
     for (let i = 1; i < arr.length; i++) {

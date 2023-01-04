@@ -65,10 +65,11 @@ class DrawWheel{
         this.hotkeycoords = [[center[0], center[1]-dist],[center[0]+Math.cos(pi/4)*dist, center[1]-Math.sin(pi/4)*dist],[center[0]+dist, center[1]],[center[0]+Math.cos(pi/4)*dist, center[1]+Math.sin(pi/4)*dist],[center[0], center[1]+dist],[center[0]-Math.cos(pi/4)*dist, center[1]+Math.sin(pi/4)*dist],[center[0]-dist, center[1]],[center[0]-Math.cos(pi/4)*dist, center[1]-Math.sin(pi/4)*dist]];
 
         this.pile = [];
-        this.discard = [new Artistic(), new Ordered(),new Vile(), new Artistic(),new Saintly(), new Feral(),new Unhinged(),new Vile(),new Ordered(),new Vile()]; //
+        this.discard = []; //
         this.saved = [new Empty(),new Empty(),new Empty(),new Empty(),new Empty(),new Empty(),new Empty(),new Empty()];
         this.resolve = 3; //update this later with the bonus
         this.castes = [new Saintly(),new Ordered(),new Artistic(),new Unhinged(),new Feral(),new Vile()];
+        this.hide = false;
         let first = [587, 420];
         let vert = 52;
         let hori = 64*5-5;
@@ -76,6 +77,7 @@ class DrawWheel{
     }
 
     display(){ //TODO these should stay in cursormode, and you should be able to inspect them
+        drawSymbol(6, 880, 320, 64);
         drawSymbol(9, 590, 130, 64);
         drawSymbol(10, 880, 130, 64);
         drawSymbol(11, 590, 50, 64);
@@ -153,6 +155,14 @@ class DrawWheel{
                 else printAtSidebar("(" + this.countSavedSouls()[(this.castes.indexOf(k))] + ")", 18, this.castecoords[5-this.castes.indexOf(k)][0]+285-ctx.measureText(" - " + this.countPileSouls()[this.castes.indexOf(k)]).width-60, this.castecoords[this.castes.indexOf(k)][1]+32, "yellow", 20, 350);
             }
         }
+        ctx.beginPath();
+        ctx.moveTo(768, 577);
+        ctx.lineTo(768, 415);
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.moveTo(577, 415);
+        ctx.lineTo(960, 415);
+        ctx.stroke();
     }
 
     countPileSouls(){
@@ -186,9 +196,9 @@ class DrawWheel{
     }
 
     addSoul(skey){
-        if (smod.includes(skey)) modules.push(skey);
+        if (smod.includes(skey)) modules.push(new skey());
         else{
-            this.discard.push(skey);
+            this.discard.push(new skey());
             //if (doublecounter!=0) spells[skey](this);
         }  
     }
@@ -213,7 +223,7 @@ class DrawWheel{
         if (player.infested == 1){
             let wheelcount = 0;
             for (let i of this.wheel) if (!(i instanceof Empty)) wheelcount++;
-            if ((this.pile.length + this.discard.length + wheelcount) < 8){
+            if ((this.pile.length + this.discard.length + this.saved.length + wheelcount) < 8){
                 log.addLog("FluffyNotEnoughSoulsTaunt");
                 return;
             }
@@ -230,32 +240,23 @@ class DrawWheel{
             for (let x of this.wheel){
                 if (!(x instanceof Empty)) this.discard.push(x);
             }
+            for (let x of this.saved){
+                if (!(x instanceof Empty)) this.discard.push(x);
+            }
             this.wheel = [new Empty(),new Empty(),new Empty(),new Empty(),new Empty(),new Empty(),new Empty(),new Empty()];
             this.discard = shuffle(this.discard);
             for(let i=0;i<this.discard.length;i++){
                 this.pile.push(this.discard[i]);
             }
             this.discard = [];
+            this.saved = [new Empty(),new Empty(),new Empty(),new Empty(),new Empty(),new Empty(),new Empty(),new Empty()];
             log.addLog("FluffyTrance");
+            let sacrifices = randomRangeTwo(0,7);
             for (let o = 0; o < 8; o++){
-                for (let k of this.wheel){
-                    if (k instanceof Empty){
-                        this.wheel[this.wheel.indexOf(k)] = this.pile[0];
-                        break;
-                    } 
-                }
+                this.wheel[o] = this.pile[0];
+                this.wheel.index = o;
+                if (sacrifices.includes(o)) this.wheel[o].chosen = true;
                 this.pile.shift();
-            }
-            let chosen = [];
-            while(chosen.length < 2){
-                while (true){ // todo understand why it chooses 3 sometimes
-                    let sacrifices = randomRange(0,7);
-                    if (!this.wheel[sacrifices].chosen){
-                        this.wheel[sacrifices].chosen = true;
-                        chosen.push(this.wheel[sacrifices]);
-                        break;
-                    }
-                }
             }
         }
         else if (player.infested > 1){
@@ -366,15 +367,18 @@ class DrawWheel{
             }
             for (let g of this.wheel) if (g.chosen) remain = true;
             if (!remain && !done){
-                let chosen = [];
-                while(chosen.length < 2){
-                    while (true){
-                        let sacrifices = randomRange(0,7);
-                        if (!this.wheel[sacrifices].chosen && !(this.wheel[sacrifices] instanceof Empty)){
-                            this.wheel[sacrifices].chosen = true;
-                            chosen.push(this.wheel[sacrifices]);                            
-                            break;
-                        }
+                while(true){
+                    let sacrifices = randomRangeTwo(0,7);
+                    let chosenum = 0;
+                    for (let o = 0; o < 8; o++){
+                        if (!(this.wheel[o] instanceof Empty) && sacrifices.includes(o)){
+                            this.wheel[o].chosen = true;
+                            chosenum++
+                        } 
+                    }
+                    if (chosenum == 2) break;
+                    else{
+                        for (let k = 0; k <8; k++) this.wheel[k].chosen = false;
                     }
                 }
             }
@@ -525,7 +529,7 @@ class Modules{
 class Inventory{
     constructor(){
         this.active = [new Vile(),new Feral(),new Unhinged(),new Artistic(),new Ordered(),new Saintly()];
-        this.storage = [new Naia(),new Sugcha(),new Rose(),new Empty()];
+        this.storage = [new Sugcha(),new Empty(),new Empty(),new Empty()];
         this.actcoords = [[148, 76],[366, 76],[76, 257],[438, 257],[148, 438],[366, 438]];
         this.actcoords.reverse();//don't feel like re-writing these in the correct order lmao
         this.castes = ["VILE","FERAL","UNHINGED","ARTISTIC","ORDERED","SAINTLY"];
@@ -604,6 +608,7 @@ class LegendarySoul{
         this.glamdescript;
         this.hardescript;
         this.alpha = 1;
+        this.index = 0;
         this.chosen = false;
         if (basic.includes(name)) this.alpha = 0.55;
     }
@@ -618,6 +623,18 @@ class LegendarySoul{
         printAtSidebar(this.subdescript, 18, 590, 110, "white", 20, 6*64-35);
         printAtWordWrap(this.lore, 18, 10, 600, colours[this.id], 20, 940);
         drawSymbol(this.icon, 890, 20, 64);
+    }
+
+    describeAbridged(){
+        let bump = 0;
+        if ((5*64-32-ctx.measureText(this.name).width) < 0) bump = 20; 
+        printAtSidebar(toTitleCase(this.caste) + " Caste", 18, 590, 50 + bump, colours[this.caste], 20, 6*64-35);
+        if (basic.includes(this.id)) printAtSidebar("Empty Slot", 18, 590, 30, "white", 20, 6*64-35);
+        else printAtSidebar(this.name, 18, 590, 30, colours[this.id], 20, 6*64-100);
+        printAtSidebar(this.subdescript, 18, 590, 110, "white", 20, 6*64-35);
+        drawSymbol(this.icon, 890, 20, 64);
+        drawSymbol(34, 590, 500, 64);
+        printAtSidebar("Breathe this Soul (Q) to choose it and exit the Relay.", 18, 660, 528, "white", 20, 6*64-105);
     }
 }
 

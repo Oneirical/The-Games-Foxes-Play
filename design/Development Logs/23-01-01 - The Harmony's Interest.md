@@ -53,7 +53,7 @@ Of course, if the player were to view your true form, honoured Collectivist, the
 
 > "Fu. You are forgiven, just this once. Partially. What purpose does your blasphemous creation even serve, if you are to mangle the Harmony's image?"
 
-Mostly raw, primordial self-expression. I want to make something weird and personal with no real external goal in sight. Random ideas for new content keep pouring in, and I simply execute them one by one. In the coming weeks/months, I am particularly excited about the complete rework of the Harmonic Modulator system.
+Mostly raw, primordial self-expression. I want to make something weird and personal with no real commercial goal in sight. That does not mean I have no specific vision - I know very well what I want the finished product to look like. In the coming weeks/months, I am particularly excited about the complete rework of the Harmonic Modulator system.
 
 ## 2023 Outlook
 

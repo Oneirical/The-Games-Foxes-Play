@@ -202,7 +202,7 @@ function draw(){
         for(let i=0;i<monsters.length;i++){
             if (viewedTiles.includes(monsters[i].tile) || monsters[i].charmed)monsters[i].draw();
         }
-        if (!inInventory && !cursormode) drawText(world.getRoom().name, 30, false, 40, "violet");
+        if (!inInventory && !cursormode && !wheel.hide) drawText(world.getRoom().name, 30, false, 40, "violet");
         //if (level == 0) drawText("World Seed", 30, false, 40, "violet");
         //else if (level % 5 == 1 && level > 5 && area == "Faith") drawText("Test of Unity", 30, false, 40, "violet");
         //else if (level % 5 == 1 && level > 5 && area == "Spire") drawText("Fluffian Workshop", 30, false, 40, "violet");
@@ -230,21 +230,9 @@ function draw(){
         if ((gameState == "vision" && discarded > 0) || (gameState == "discard" && !naiamode)) drawText("Which soul to discard?", 20, false, 100, "deepskyblue");
         if (gameState == "discard" && naiamode) drawText("Which soul to cast?", 20, false, 100, "fuchsia");
         if (gameState == "vision" && discarded == 0) drawText("Which soul to stack?", 20, false, 100, "deepskyblue");
-        
-        if (world.getRoom() instanceof HarmonyRelay){
-            //drawChar(tiles[2][3].value, 30, 151, 235, "cyan");
-            //drawChar(tiles[4][2].value, 30, 280, 171, "cyan");
-            //drawChar(tiles[6][3].value, 30, 408, 235, "cyan");
-            //drawChar(tiles[2][5].value, 30, 151, 363, "red");
-            //drawChar(tiles[4][6].value, 30, 280, 427, "red");
-            //drawChar(tiles[6][5].value, 30, 408, 363, "red");
-            if (!player.betted){
-                //drawChar(tiles[4][3].value, 30, 343, 363, "yellow");
-                //drawChar(tiles[3][5].value, 30, 215, 363, "yellow");
-                //drawChar(tiles[3][3].value, 30, 215, 235, "yellow");
-                //drawChar(tiles[5][3].value, 30, 343, 235, "yellow");
-            }
-        } 
+
+        world.getRoom().draw();
+
         if (sacrifice == 6 && !cursormode) printAtSidebar("Your Fluffian Arithmetic Elegance Score is "+sacritotal+".", 18, 590, 130, "cyan", 20, 350);
         if (sacrifice == 6 && !cursormode) printAtSidebar("Press \"f\" to reroll unclaimed caged souls. Warning: The Harmony will sow a seed within your psyche should you take this action!", 18, 590, 200, "cyan", 20, 350);
         //if (level == 0 && !cursormode) printAtSidebar("Use WASD to move around, interact, and attack.", 18, 590, 130, "lime", 20, 350);
@@ -258,7 +246,6 @@ function draw(){
         //if (level == 1 && !cursormode&& gameState == "running") printAtSidebar("Slay enemies to collect their Soul.", 18, 590, 210, "lime", 20, 350);
         //if (level == 0 && !cursormode) printAtSidebar("Press \"c\" to toggle Examine mode.", 18, 590, 210, "lime", 20, 350);
         //if (level == 0 && !invmode) printAtSidebar("Press \"i\" to toggle Soul View mode.", 18, 590, 275, "lime", 20, 350);
-        if (!inInventory && !cursormode) drawSymbol(6, 880, 320, 64);
         if (cursormode && !invmode){
             cursor.draw();
             cursor.info();
@@ -281,7 +268,7 @@ function draw(){
                     player.loreSpellMonster(currentspelldesc);
                 }
             }
-            wheel.display();
+            if (!wheel.hide) wheel.display();
             if (currentspelldesc == "nan" && gameState != "vision" && !fufflore){
                 for(let i=0; i<player.inhand.length; i++){
                     let spellText = (i+1) + ") " + (player.inhand[i] || "");
@@ -331,16 +318,6 @@ function draw(){
         ctx.moveTo(577, 577);
         ctx.lineTo(577, 0);
         ctx.stroke();
-        if (!inInventory && !cursormode){
-            ctx.beginPath();
-            ctx.moveTo(768, 577);
-            ctx.lineTo(768, 415);
-            ctx.stroke();
-            ctx.beginPath();
-            ctx.moveTo(577, 415);
-            ctx.lineTo(960, 415);
-            ctx.stroke();
-        }
     }
 }
 function manageExit(){

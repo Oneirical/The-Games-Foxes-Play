@@ -106,7 +106,7 @@ class Monster{
         this.order = -1;
         this.infested = 0;
         this.previousdir;
-        if (legendaries.castes.includes(this.loot)) this.loot = wheel.castes[5-legendaries.castes.indexOf(this.loot)];
+        if (legendaries.castes.includes(this.loot)) this.loot = commoneq[this.loot];
     }
 
     heal(damage){
@@ -405,7 +405,7 @@ class Monster{
                             this.move(newTile);
                         }
                     }
-                    this.bonusAttack = 0;
+                    this.bonusAttack = 0; //if (this.isPlayer) this.bonusAttack = 99; //godmode
 
                     shakeAmount = 5;
 

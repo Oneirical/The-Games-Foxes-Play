@@ -14,6 +14,15 @@ modulators = ["Alacrity","Selective","Thrusters","Hover","Focus"];
 
 commons = [Empty,Vile,Feral,Unhinged,Artistic,Ordered,Saintly];
 
+commoneq = {
+    "VILE" : Vile,
+    "FERAL" : Feral,
+    "UNHINGED" : Unhinged,
+    "ARTISTIC" : Artistic,
+    "ORDERED" : Ordered,
+    "SAINTLY" : Saintly
+}
+
 //Monsters
 
 //Typeless

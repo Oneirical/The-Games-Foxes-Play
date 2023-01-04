@@ -125,6 +125,10 @@ class Room{
         //it does nothing lol
     }
 
+    draw(){
+
+    }
+
     initializeRoom(){
         exitspawn = 0;
         if (this.music && this.music != currenttrack) {
@@ -224,6 +228,20 @@ class HarmonyRelay extends Room{
         let lootdrop = new Senet();
         lootdrop = relayPool[type][randomRange(0,relayPool[type].length-1)];
         return lootdrop;
+    }
+
+    draw(){
+        wheel.hide = false;
+        if (player.tile instanceof BetAltar){
+            let commoncheck = false;
+            for (let x of commons){
+                if (player.tile.value instanceof x) commoncheck = true;
+            }
+            if (!commoncheck){
+                player.tile.value.describeAbridged();
+                wheel.hide = true;
+            }
+        }
     }
 
     summonLoot(elegance, slot1, slot2){
