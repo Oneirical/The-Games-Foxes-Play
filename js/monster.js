@@ -248,7 +248,9 @@ class Monster{
         if(this.teleportCounter > 0){                  
             drawSprite(10, this.getDisplayX(),  this.getDisplayY());                 
         }else if (!(this.hp < 0 && area == "Spire")){
+            if (this.isFluffy) ctx.globalAlpha = 0.5;
             drawSprite(this.sprite, this.getDisplayX(),  this.getDisplayY());
+            ctx.globalAlpha = 1;
             this.drawHp();
             let chassis = 74;
             if (this.triggered) chassis = 80;
@@ -615,7 +617,7 @@ class Player extends Monster{
         }
         this.shield--;
         this.fuffified--;
-        if (this.fuffified < 1 && this.infested < 1) this.sprite = 0;
+        if (this.fuffified < 1 && this.infested < 1 && !this.dead) this.sprite = 0;
         if (this.rosetox > 0){
             if (this.rosetox < 11)sounds["roseic"].volume = (1-(0.1*this.rosetox));
             if (sounds["toxic"].currentTime == 0) playSound("toxic");
