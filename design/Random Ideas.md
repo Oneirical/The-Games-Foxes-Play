@@ -3,7 +3,7 @@
 **Current Project**
 * Release 0.2.
 
-* Make all Souls actually work.
+* Make all Souls actually work with the new system.
 * Add tile abilties. Like "opens on room clear". Maybe make returnExits different too.
 * Fix mouse movement with falling and para. If there's a bug there.
 * Make mouse movement follow Terminal.
@@ -14,14 +14,16 @@ bugs:
 * Agonyremove keyboard not working
 * no music loop
 * hovering in inventory while on spire shrine overlaps descriptions
-* lastmove when entering new room is confusing
-* psydrone doesn't work
+
+**Low priority nitpicks**
+
+* When the player respawns, their lastMove is right by default, which is kind of weird.
+* Double speed enemies still seem to occasionally return to their previous tile.
+* Psychodrones risk being grindy if they let you farm Ordered souls. Find a way to avoid this.
 
 **UI**
 
-* Add a rose button in the bottom right. Actually, maybe it should be a status effect tracker instead...
-* Make it so souls in the wheel don't disappear when leaving room to reward good play
-* A real text log at the bottom like most roguelikes? with a confirm prompt if you draw after 0 resolve
+* A confirm prompt if you draw after 0 resolve. Also make the resolve counter red at 0.
 * numeric system based on basic castes.
 
 **Rooms & Creatures**
@@ -43,28 +45,24 @@ bugs:
 
 **Souls**
 
-* Psychodrones risk being grindy if they let you farm Ordered souls. Find a way to avoid this.
 * A passive Soul that does something cool when the deck is reshuffled. Maybe something to do with Serenes to make them less of a chore... Good synergy with purpizug.
 * A soul that places a recall point when equipped, and teleports you back there when unequipped.
-* A weird soul that induces a positive effect if your room path causes two rooms to superpose upon each other - maybe a shizapis passive?
+* A weird soul that induces a positive effect if your room path causes two rooms to superpose upon each other?
 * Non-serenes with effects on modulators.
-* Cool soul that lets you place a legendary in a slot it's not supposed to go in
+* Cool soul that lets you swap the effects of two castes that sandwich the legendary in question.
 * A soul that occasionally gives difficult "Simon Says" rules to follow. The player is rewarded for not transgressing.
 * A Soul that freezes time in an area, and damages everything not frozen.
 * Something that lets you use Glamorous or Harmonized versions of their souls outside their normal branches. - this might be managing to pull out a serene or a roseic out of the slot it's stuck to, leaving it influenced.
 * Keep the invtree texture, use it as a cool legendary soul effect that has something to do with the inventory.
 * probably terrible. cast empty soul slots on the wheel to lose them forever with a deranged legendary.
 
-**Weird/overly ambitious stuff**
+**Insane/overly ambitious stuff**
 
+* Inhalable Glamorous Toxin that transforms the current room into a hallucinatory version. Maybe Rose's soul does this.
 * The final boss being inspired by M. Industries. Inside Ronin's spaceship (built out of negentropic force), farm tokens on 4 plates while being assailed by the Harmony, and buy upgrades in the form of pushable boxes to give more firepower to Ronin's squad.
-
 * Ronin's weapon should be a big-ass war vacuum.
-
 * Also look into a possible internet component to this encounter.
-
 * If a trailer is ever made it should not be a trailer, but rather pure boss battle footage with Zaint who criticizes the concept of trailers. After all, if an image is worth a thousand words, surely a video must be worth a million.
-
 * Bringing Sugcha all the way to the end of the game should result in something funny.
 
 **To use later**

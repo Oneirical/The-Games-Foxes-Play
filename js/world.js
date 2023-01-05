@@ -41,21 +41,25 @@ class World{
             //room.playerspawn = room.entrancepoints[3];
             room.returnpoint = room.possibleexits[3];
             room.possibleexits.splice(3,1);
+            room.playerlastmove = [0,-1];
         }
         else if (coordinates == "W"){ 
             //room.playerspawn = room.entrancepoints[2];
             room.returnpoint = room.possibleexits[2];
             room.possibleexits.splice(2,1);
+            room.playerlastmove = [-1,0];
         }
         else if (coordinates == "E"){ 
             //room.playerspawn = room.entrancepoints[1];
             room.returnpoint = room.possibleexits[1];
             room.possibleexits.splice(1,1);
+            room.playerlastmove = [1,0];
         }
         else if (coordinates == "S"){ 
             //room.playerspawn = room.entrancepoints[0];
             room.returnpoint = room.possibleexits[0];
             room.possibleexits.splice(0,1);
+            room.playerlastmove = [0,1];
         }
         this.roomlist.push(room);
         room.buildRoom(connector);
@@ -83,15 +87,19 @@ class World{
         }
         else if (coordinates == "N"){
             spawnlocation = room.entrancepoints[3];
+            room.playerlastmove = [0,-1];
         }
         else if (coordinates == "W"){ 
             spawnlocation = room.entrancepoints[2];
+            room.playerlastmove = [-1,0];
         }
         else if (coordinates == "E"){ 
             spawnlocation = room.entrancepoints[1];
+            room.playerlastmove = [1,0];
         }
         else if (coordinates == "S"){ 
             spawnlocation = room.entrancepoints[0];
+            room.playerlastmove = [0,1];
         }
         this.roomlist[id].playerspawn = [spawnlocation.x,spawnlocation.y];
         this.playRoom(this.roomlist[id], player.hp);
@@ -109,6 +117,7 @@ class Room{
         //up left right down
         this.music = false;
         this.entrymessage = false;
+        this.playerlastmove = [0,-1];
         this.playerspawn = [4,4];
         this.effects = [];
         this.previousRoom = -1; //Maybe secretly divide arrow tiles into return/generator tiles?
@@ -150,6 +159,7 @@ class Room{
         }
         wheel.saved = [new Empty(),new Empty(),new Empty(),new Empty(),new Empty(),new Empty(),new Empty(),new Empty()];
         player.hp = this.startingplayerHP;
+        player.lastMove = this.playerlastmove;
         sacritotal = "nan";
         sacrifice = 0;
         rolled = 0;
