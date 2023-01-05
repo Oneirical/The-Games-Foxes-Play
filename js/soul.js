@@ -473,15 +473,37 @@ spells = {
                 entity.paralyzed = true;
             }
         });
-        removeItemOnce(caster.saved,"ZAINT");
+        legendaries.active.forEach(function(soul){
+            if (soul instanceof Zaint){
+                legendaries.active[5] = new Saintly(); // if there ever is a soul that lets you place things anywhere it will mess this up
+            }
+        });
     },
     RASEL: function(){
         player.reaping = true;
     },
-    BORERORA: function(){
-        if (player.inhand.length >= 1){
-           bounceboltTravel(player.lastMove, 15 + Math.abs(player.lastMove[1]), 2, player.tile, player.inhand.length*2);
+    BORERORA: function(caster){
+        monsters.forEach(function(entity){
+            if (!entity.isPlayer){
+                entity.stunned = true;
+            }
+        });
+        let bouncecount = 0;
+        for (let x of wheel.wheel){
+            if (!(x instanceof Empty)) bouncecount++;
         }
+        let key;
+        if (caster.lastMove[0] == -1) key = "left";
+        else if (caster.lastMove[1] == 1) key = "down";
+        else if (caster.lastMove[0] == 1) key = "right";
+        else key = "up";
+        let equi = {
+            "left" : [-1,-1],
+            "down" : [-1,1],
+            "right" : [1,1],
+            "up" : [1,-1]
+        }
+        if (bouncecount > 0) bounceboltTravel(equi[key], 14, 2, caster.tile, bouncecount*2);
     },
     ASPHA: function(){
         gameState = "discard";
@@ -927,24 +949,17 @@ function bounceboltTravel(direction, effect, damage, location, times){
     let newTile = location;
     while(true){
         let testTile = newTile.getNeighbor(direction[0], direction[1]);
-        if(testTile.x <= 8 && testTile.y <= 8 && testTile.x >= 0 && testTile.y >= 0){
+        testTile.setEffect(effect,120);
+        if(testTile.monster && !testTile.monster.isPlayer){
+            testTile.monster.hit(damage);
+        }
+        if(testTile.x <= numTiles-3 && testTile.y <= numTiles-3 && testTile.x >= 2 && testTile.y >= 2){
             newTile = testTile;
-            if(newTile.monster && !newTile.monster.isPlayer){
-                newTile.monster.hit(damage);
-            }
-            newTile.setEffect(effect,30);
         }else{
-            let testTile = newTile.getNeighbor(direction[0], -direction[1]);
             times--;
             let newdir = [];
-            if (direction[0] == 0 && direction[1] == 1) newdir = [-1,-1];
-            else if (direction[0] == 1 && direction[1] == 0) newdir = [-1,1];
-            else if (direction[0] == 0 && direction[1] == -1) newdir = [-1,-1];
-            else if (direction[0] == -1 && direction[1] == 0) newdir = [-1,-1];
-            else if (direction[0] == -1 && direction[1] == -1) newdir = [1,-1];
-            else if (direction[0] == 1 && direction[1] == -1) newdir = [1,1];
-            else if (direction[0] == 1 && direction[1] == 1) newdir = [-1,1];
-            else if (direction[0] == -1 && direction[1] == 1) newdir = [-1,-1];
+            if (testTile.y<2 || testTile.y > numTiles-3) newdir = [direction[0],-direction[1]];
+            else if (testTile.x<2 || testTile.x > numTiles-3) newdir = [-direction[0],direction[1]];
             if (times > 0){
                 bounceboltTravel(newdir, 14, damage, testTile, times);
             }

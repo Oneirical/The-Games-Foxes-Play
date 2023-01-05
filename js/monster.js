@@ -347,18 +347,18 @@ class Monster{
                 if ((this.tile.getNeighbor(-dx,-dy).monster instanceof Box) && this.isPlayer) boxpull = this.tile;
                 if (this.canmove) this.move(newTile);
                 if (boxpull) boxpull.getNeighbor(-dx,-dy).monster.move(boxpull);
-                if (this.inhand.includes("LASHOL")) {
-                    for (let elem of this.inhand){
-                        if(elem == "LASHOL") this.bonusAttack += (1/3);
-                    }
-                    if (this.bonusAttack >= 5 && this.isPlayer){
-                        log.addLog("LASHOL");
-                    }
+                for (let x of legendaries.active){
+                    if (x instanceof Lashol) player.bonusAttack += (1/3);
+                }
+                if (this.bonusAttack == 3 && this.isPlayer){
+                    log.addLog("LASHOL");
                 }
             }else{
                 if(((this.isPlayer != newTile.monster.isPlayer)||newTile.monster.marked||(this.charmed && !newTile.monster.isPlayer && !newTile.monster.charmed))&&!this.isPassive && !newTile.monster.isGuide &&!newTile.monster.pushable && !(this.charmed&&newTile.monster.isPlayer)){
                     this.attackedThisTurn = true;
-                    if (!this.isFluffy && !(this.isPlayer && area == "Spire")) newTile.monster.hit(this.dmg + Math.floor(this.bonusAttack));
+                    let bonusAttack = this.bonusAttack;
+                    this.bonusAttack = 0;
+                    if (!this.isFluffy && !(this.isPlayer && area == "Spire")) newTile.monster.hit(this.dmg + Math.floor(bonusAttack));
                     else newTile.monster.fp++;
                     if (newTile.monster){
                         if (newTile.monster.fp > 0 && world.serene) newTile.monster.knockback(newTile.monster.fp, [dx, dy]);
@@ -408,7 +408,7 @@ class Monster{
                             this.move(newTile);
                         }
                     }
-                    this.bonusAttack = 0; //if (this.isPlayer) this.bonusAttack = 99; //godmode
+                    //this.bonusAttack = 0; //if (this.isPlayer) this.bonusAttack = 99; //godmode
 
                     shakeAmount = 5;
 
@@ -509,8 +509,8 @@ class Monster{
             }
         }
         if(this.hp <= 0){
-            if (!this.noloot && !this.dead) wheel.addSoul(this.loot);
             this.die();
+            if (!this.noloot) wheel.addSoul(this.loot);
         }
 
         if(this.isPlayer){                                                     
@@ -663,7 +663,7 @@ class Player extends Monster{
         for (let i of neighbours){
             if(i.monster instanceof Apis){
                 check = false;
-                if (i.monster.tile.x-this.tile.x == dx && i.monster.tile.y-this.tile.y == dy) constrictatk = true;
+                if (getTile(this.tile.x + dx,this.tile.y+dy).monster) constrictatk = true;
             }
         }
         if (check) this.constrict = false;
@@ -1408,8 +1408,8 @@ class Ragemaw extends Monster{
             super.die();
         }
         else{
-            wheel.addSoul(this.loot);
             super.die();
+            wheel.addSoul(this.loot);
         }
     }
 }

@@ -196,10 +196,13 @@ class DrawWheel{
     }
 
     addSoul(skey){
-        if (smod.includes(skey)) modules.push(new skey());
+        let loot = new skey();
+        if (smod.includes(skey)) modules.push(loot);
         else{
-            this.discard.push(new skey());
-            //if (doublecounter!=0) spells[skey](this);
+            this.discard.push(loot);
+            for (let x of legendaries.active){
+                if (x instanceof Kilami) spells[loot.id](player);
+            }
         }  
     }
 
@@ -459,7 +462,7 @@ class DrawWheel{
             shakeAmount = 5;
             log.addLog("EmptyCast");
             return;
-        }
+        }                
         else{
             //if (soul.id == "SERENE") TODO make this
             let num = legendaries.castes.indexOf(soul.id);
@@ -470,7 +473,7 @@ class DrawWheel{
             if (player.fuffified > 0) spellName = "SERENE";
             if (spellName){
                 if (basic.includes(spellName) && area == "Spire") spellName = spellName+"S";
-                log.addLog(spellName);
+                legendaries.active[num].talk();
                 spells[spellName](player, legendaries.active[num]);
                 if (legendaries.active[num].influence == "C") spells[legendaries.active[num].caste](player);
                 if (!fail && player.activemodule != "Focus"){
@@ -566,7 +569,7 @@ class Modules{
 class Inventory{
     constructor(){
         this.active = [new Vile(),new Feral(),new Unhinged(),new Artistic(),new Ordered(),new Saintly()];
-        this.storage = [new Sugcha(),new Purpizug(),new Empty(),new Empty()];
+        this.storage = [new Sugcha(),new Borerora(),new Empty(),new Empty()];
         this.actcoords = [[148, 76],[366, 76],[76, 257],[438, 257],[148, 438],[366, 438]];
         this.actcoords.reverse();//don't feel like re-writing these in the correct order lmao
         this.castes = ["VILE","FERAL","UNHINGED","ARTISTIC","ORDERED","SAINTLY"];
@@ -673,6 +676,10 @@ class LegendarySoul{
         drawSymbol(34, 590, 500, 64);
         printAtSidebar("Breathe this Soul (Q) to choose it and exit the Relay.", 18, 660, 528, "white", 20, 6*64-105);
     }
+
+    talk(){
+        log.addLog(this.id);
+    }
 }
 
 class Empty extends LegendarySoul{
@@ -778,6 +785,11 @@ class Sugcha extends LegendarySoul{
         this.icon = 14;
         this.caste = "SAINTLY";
         this.uses = 0;
+    }
+
+    talk(){
+        if (this.uses >= 8) log.addLog("SUGCHATIRED");
+        else super.talk();
     }
 }
 

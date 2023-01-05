@@ -4,11 +4,11 @@
 * Release 0.2.
 
 * Make all Souls actually work.
-* Make it so Sugcha comments after becoming tired.
 * Add tile abilties. Like "opens on room clear". Maybe make returnExits different too.
 * Fix mouse movement with falling and para. If there's a bug there.
 * Make mouse movement follow Terminal.
 * Review dialogue and Negentropy nerdiness being too weird.
+* Look into a rework of filters with Canvas elements.
 
 **UI**
 
