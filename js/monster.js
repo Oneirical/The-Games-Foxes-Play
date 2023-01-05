@@ -1416,7 +1416,7 @@ class Ragemaw extends Monster{
 
 class Monk extends Monster{
     constructor(tile){
-        super(tile, 45, 2, commoneq[legendaries.castes[randomRange(1,6)]], description["Monk"]);
+        super(tile, 45, 2, commoneq[legendaries.castes[randomRange(0,5)]], description["Monk"]);
         this.lootid = new this.loot().id;
         let sun = this.lootid.charAt(0) + this.lootid.substring(1).toLowerCase();
         let n = " ";
