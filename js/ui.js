@@ -226,7 +226,8 @@ class DrawWheel{
         if (player.infested == 1){
             let wheelcount = 0;
             for (let i of this.wheel) if (!(i instanceof Empty)) wheelcount++;
-            if ((this.pile.length + this.discard.length + this.saved.length + wheelcount) < 8){
+            for (let i of this.saved) if (!(i instanceof Empty)) wheelcount++;
+            if ((this.pile.length + this.discard.length + wheelcount) < 8){
                 log.addLog("FluffyNotEnoughSoulsTaunt");
                 return;
             }
