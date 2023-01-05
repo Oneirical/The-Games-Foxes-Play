@@ -352,25 +352,37 @@ spells = {
     JOLTZAZON: function(){
         monsters.forEach(function(entity){
             if (!entity.isPlayer){
+                let tile = [];
                 entity.tile.getAdjacentNeighbors().forEach(t => {
                     if(t.monster && !t.monster.isPlayer){
-                        t.monster.stunned = true;
-                        t.setEffect(32,30);
-                        t.monster.hit(2);
+                        tile.push(t);
                     }
                 });
+                if (tile.length == 1){
+                    entity.stunned = true;
+                    entity.tile.setEffect(32,45);
+                    entity.targeted = true;
+                }
+            }
+        });
+        monsters.forEach(function(entity){
+            if (entity.targeted) {
+                entity.targeted = false;
+                entity.hit(2);
             }
         });
     },
     PURPIZUG: function(){
-        let draw = player.inhand.length+1;
-        player.inhand.forEach(t => {
-            player.discard.push(t);
+        let draw = 0;
+        wheel.wheel.forEach(t => {
+            if (!(t instanceof Empty)){
+                wheel.discard.push(t);
+                draw++;
+            }
         });
-        player.inhand.length = 0;
+        wheel.wheel = [new Empty(),new Empty(),new Empty(),new Empty(),new Empty(),new Empty(),new Empty(),new Empty()];
         for(var i = 0; i < draw; i++){
-            wheel.resolve++
-            player.drawSpell();
+            wheel.drawSoulFree();
         }
     },
     ROSE: function(){

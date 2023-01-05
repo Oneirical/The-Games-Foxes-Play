@@ -1,11 +1,12 @@
 ## This is a chaotic canvas on which I launch all the random things I come up with while going about my day. It is not meant to be comprehensible.
 
 **Current Project**
+* Release 0.2.
 
-* Rework Harmonic Relays.
-* The player inhales the Harmonizer.
-* They draw 8 Souls.
-* 2 are picked at a time, to be placed in any of the 8 slots.
+* Make Souls actually work.
+* Make it so Sugcha comments after becoming tired.
+* Add tile abilties. Like "opens on room clear". Maybe make returnExits different too.
+* Fix mouse movement with falling and para. If there's a bug there.
 
 **UI**
 
@@ -33,8 +34,8 @@
 
 **Souls**
 
-* Terminal's creator as a starter Soul. Made to be thrown away at the first opportunity. 
-
+* Psychodrones risk being grindy if they let you farm Ordered souls. Find a way to avoid this.
+* A passive Soul that does something cool when the deck is reshuffled. Maybe something to do with Serenes to make them less of a chore... Good synergy with purpizug.
 * A soul that places a recall point when equipped, and teleports you back there when unequipped.
 * A weird soul that induces a positive effect if your room path causes two rooms to superpose upon each other - maybe a shizapis passive?
 * Non-serenes with effects on modulators.

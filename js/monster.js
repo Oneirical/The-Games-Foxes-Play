@@ -42,18 +42,18 @@ class Cursor{
         if (this.tile.monster){
             if (rosetoxin > 0){
                 printAtWordWrap(description["Rose"], 18, 10, 600, "pink", 20, 940);
-                printAtSidebar("Rose Rose Rose", 18, 590, 170, "pink", 20, 350);
-                printAtSidebar("Rose", 18, 590, 130, "pink", 20, 350);
+                printAtSidebar("Rose Rose Rose", 18, 590, 70, "pink", 20, 350);
+                printAtSidebar("Rose", 18, 590, 30, "pink", 20, 350);
             }
             else if (this.tile.monster.teleportCounter > 0){
                 printAtWordWrap(description["Warp"], 18, 10, 600, "white", 20, 940);
-                printAtSidebar("The details of this soul are not clear to you yet.", 18, 590, 170, "white", 20, 350);
-                printAtSidebar("Warp-wisp", 18, 590, 130, "white", 20, 350);
+                printAtSidebar("The details of this soul are not clear to you yet.", 18, 590, 70, "white", 20, 350);
+                printAtSidebar("Warp-wisp", 18, 590, 30, "white", 20, 350);
             }
             else{
             printAtWordWrap(this.tile.monster.lore, 18, 10, 600, "white", 20, 940);
-            printAtSidebar(this.tile.monster.soul, 18, 590, 170, "white", 20, 350);
-            printAtSidebar(this.tile.monster.name, 18, 590, 130, "white", 20, 350);
+            printAtSidebar(this.tile.monster.soul, 18, 590, 70, "white", 20, 350);
+            printAtSidebar(this.tile.monster.name, 18, 590, 30, "white", 20, 350);
             printAtWordWrap(this.tile.monster.ability, 18, 10, 630+((this.tile.monster.lore.length/100)*20), "pink", 20, 940);
             }
         }
@@ -61,7 +61,7 @@ class Cursor{
             let colour = "lightgray";
             if (this.tile.sprite == 61 || this.tile.sprite == 62) colour = "white";
             printAtWordWrap(this.tile.lore, 18, 10, 600, colour, 20, 950);
-            printAtSidebar(this.tile.name, 18, 590, 130, colour, 20, 350);
+            printAtSidebar(this.tile.name, 18, 590, 30, colour, 20, 350);
         }
         
 
@@ -85,7 +85,8 @@ class Monster{
         this.teleportCounter = 3;
         this.offsetX = 0;                                                   
         this.offsetY = 0;      
-        this.lastMove = [-1,0];    
+        this.lastMove = [-1,0];
+        this.targeted = false;   
         this.bonusAttack = 0;
         this.lore = lore;
         this.specialAttack = "";
@@ -383,6 +384,7 @@ class Monster{
                         
                     }
                     if (this.specialAttack == "Constrict" && newTile.monster && newTile.monster.isPlayer){
+                        if (!newTile.monster.constrict) log.addLog("Constricted");
                         newTile.monster.constrict =true;
                     }
                     if (this.specialAttack == "Tox" && newTile.monster && newTile.monster.isPlayer){
@@ -655,6 +657,24 @@ class Player extends Monster{
     }
 
     tryMove(dx, dy){
+        let neighbours = player.tile.getAdjacentNeighbors();
+        let check = true;
+        let constrictatk = false;
+        for (let i of neighbours){
+            if(i.monster instanceof Apis){
+                check = false;
+                if (i.monster.tile.x-this.tile.x == dx && i.monster.tile.y-this.tile.y == dy) constrictatk = true;
+            }
+        }
+        if (check) this.constrict = false;
+        if (this.constrict){
+            if (!player.dead) {
+                if (!constrictatk){
+                    log.addLog("Constricted");
+                    return;
+                }
+            }
+        }
         if(super.tryMove(dx,dy)){
             if (world.getRoom() instanceof HarmonyRelay){
                 if (world.getRoom().fuffspawn && world.getRoom().fuffspawn.x == this.tile.x && world.getRoom().fuffspawn.y == this.tile.y) this.infested = 1;
@@ -693,9 +713,6 @@ class Player extends Monster{
             }
         if (this.para > 0){
             log.addLog("Paralyzed");
-        }
-        if (this.constrict){
-            if (!player.dead) log.addLog("Constricted");
         }
         if (this.fall > 1 && !this.dead){ //wtf why is it fluffexit and not ladder? whatever works I guess
             if (this.tile.name != "Harmonic Seal") log.addLog("Falling");

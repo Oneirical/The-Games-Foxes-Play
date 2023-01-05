@@ -145,9 +145,9 @@
                 tick();
             }
             else if((e.key=="w"||e.key=="s"||e.key=="a"||e.key=="d") && player.constrict) {
-                let tiles = player.tile.getAdjacentNeighbors();
+                let neighbours = player.tile.getAdjacentNeighbors();
                 let check = true;
-                for (let i of tiles){
+                for (let i of neighbours){
                     if(i.monster instanceof Apis){
                         check = false;
                     }

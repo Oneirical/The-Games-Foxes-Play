@@ -119,11 +119,6 @@ class Tile{
             this.lore = description["RecallPoint"];
             this.name = "Identity Anchor";
         }
-        if (this instanceof Floor && !(this.trap || this.cuff || this.eviltrap || this.siphon || this.pin)){
-            this.lore = description["Floor"];
-            this.name = "Eroded Floortiles";
-        }
-
         if(this.effectCounter){                    
             this.effectCounter--;
             ctx.globalAlpha = this.effectCounter/30;
@@ -452,7 +447,7 @@ class TermiExit extends ExpandExit{
     stepOn(monster){
         pauseAllMusic();
         super.stepOn(monster);
-        //level+=4; //debug
+        level+=4; //debug
     }
 
 }

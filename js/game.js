@@ -42,7 +42,7 @@ function setupCanvas(){
                 }
             }
         }
-        if(clickpos[0]>603&&clickpos[1]>115 && gameState != "dead" && gameState != "title"){
+        if(gameState != "dead" && gameState != "title"){
             let mousdes = Math.ceil((clickpos[1] - 130)/20);
             if ((clickpos[0] >= 590 && clickpos[0] <= 590+64 && clickpos[1] >= 130 && clickpos[1] <= 130+64 && !cursormode) || (clickpos[0] >= 590 && clickpos[0] <= 590+64 && clickpos[1] >= 500 && clickpos[1] <= 500+64 && cursormode)){
                 cursormode = !cursormode;
@@ -56,6 +56,9 @@ function setupCanvas(){
             else if (clickpos[0] >= 880 && clickpos[0] <= 880+64 && clickpos[1] >= 130 && clickpos[1] <= 130+64 && !inInventory) log.addLog("WIP");//inModules = !inModules;
             else if (clickpos[0] >= 590 && clickpos[0] <= 590+64 && clickpos[1] >= 320 && clickpos[1] <= 320+64 && !inInventory) wheel.drawSoul();
             else if (inTriangle(clickpos,[0,577],[289,289],[577,577])) player.tryMove(0,1);
+            else if (inTriangle(clickpos,[0,0],[289,289],[0,577])) player.tryMove(-1,0);
+            else if (inTriangle(clickpos,[577,0],[289,289],[577,577])) player.tryMove(1,0);
+            else if (inTriangle(clickpos,[0,0],[289,289],[577,0])) player.tryMove(0,-1);
             else{
                 for (let x = 0; x <8 ; x++){
                     if (!inInventory && clickpos[0] >= wheel.wheelcoords[x][0] && clickpos[0] <= wheel.wheelcoords[x][0]+64 && clickpos[1] >= wheel.wheelcoords[x][1] && clickpos[1] <= wheel.wheelcoords[x][1]+64){
@@ -317,6 +320,15 @@ function draw(){
         ctx.beginPath();
         ctx.moveTo(577, 577);
         ctx.lineTo(577, 0);
+        ctx.stroke();
+
+        ctx.beginPath();
+        ctx.moveTo(0, 0);
+        ctx.lineTo(577, 577);
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.moveTo(577, 0);
+        ctx.lineTo(0, 577);
         ctx.stroke();
     }
 }

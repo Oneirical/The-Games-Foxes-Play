@@ -31,7 +31,7 @@ messages = {
     "WIP" : "This feature is not completed yet.",
     "AgonyWarning" : "You do not have enough Agony to forget this soul!",
     "Shiza" : "Select one soul to discard, then two to stack on top of your deck. The last selected card goes on top of the deck.",
-    "InvPrompt": "Press the number corresponding to the soul in your paw you wish to inspect, or press \"v\"/mouseover on top of a creature to view the details of their soul. Press \"c\" at any time to exit.",
+    "InvPrompt": "Press the number corresponding to the soul in your wheel you wish to inspect, or press \"v\"/mouseover on top of a creature to view the details of their soul. Press \"c\" at any time to exit.",
     "Discard" : "Press the numbers corresponding to the souls you wish to discard. Press \"r\" when finished.",
     "NaiaTime" : "The realms of thoughts and actions synchronize into one, turning your every wish into reality. Cast as many souls as you wish. Once finished, press \"r\" to exit this trance.",
     "NoSouls" : "Your mind is devoid of souls, except for your own. Slay enemies to harvest souls!",
@@ -444,11 +444,11 @@ monabi = {
     "Red" : "EMERALD RUSH - Can be pushed and pulled. When installed on Epsilon, periodically causes Epsilon to dash forwards, crushing all in his way for 2 damage. WEAKNESS: Dashing into a wall alcove will disrupt this Core, leaving Epsilon vulnerable for 15 turns before deactivating this core.", //leaves fire traps?
     "Pink" : "CIRCUS KISSES - Can be pushed and pulled. When installed on Epsilon, periodically unleashes vapours of Glamorous Toxin, which inflict one point of Glamour per turn while standing on a Toxin tile. Accumulating 10 Glamour is lethal. WEAKNESS: At 5 Glamour or more, Epsilon becomes vulnerable for 10 turns, then this core deactivates.",
     "White": "MAKING OVER UNMAKING - Can be pushed and pulled. When installed on Epsilon, Ordered Replicators function at extremely enhanced speed, summoning 4 Drones per use. WEAKNESS: Reaches critical mass when 20 or more bots are on the screen, leaving Epsilon vulnerable for 25 turns, then deactivates.",
-    "Cyan": "GRAND CONCERTO - Can be pushed and pulled. When installed on Epsilon, periodically blasts verses from the Harmonic Song in parallel sound-beams, temporarily turning all souls in your paw to Serene souls for 10 turns and knocking you back. WEAKNESS: Renders Epsilon vulnerable for 5 turns when he is adjacent to a Harmonizer, then deactivates.",
+    "Cyan": "GRAND CONCERTO - Can be pushed and pulled. When installed on Epsilon, periodically blasts verses from the Harmonic Song in parallel sound-beams, temporarily turning all souls in your wheel to Serene souls for 10 turns and knocking you back. WEAKNESS: Renders Epsilon vulnerable for 5 turns when he is adjacent to a Harmonizer, then deactivates.",
     "Paradox" : "DIMENSION SEVERANCE - Every 6 turns, randomly blinks across the room. Its attack induces random blinking of itself and its target.",
     "Binary" : "RISING RADIANCE - Every other turn, fires a 2-damage beam towards all other Duodrones in the same line or column of tiles.",
     "Titanic" : "HULKING STIKE - Moves every other turn. When it attacks, its target is trampled back one tile.",
-    "Psydrone" : "THE MIND ENCODED - Every 2 turns, radiates a 3x3 aura that permanently converts a random soul in your paw into an Ordered soul.",
+    "Psydrone" : "THE MIND ENCODED - Every 2 turns, radiates a 3x3 aura that permanently converts a random soul in your wheel into an Ordered soul.",
     "Exploder" : "HIGH-PRESSURE WRATH - Moves in the same direction every turn. When it hits a creature or the level's edge, it unleashes a cross-shaped knockback shockwave and teleports you to the burst location.",
 }
 
@@ -511,14 +511,14 @@ soulabi = {
     "FERAL" : "WILD CHARGE - When activated, dash in the direction of the your last move, dealing damage to all enemies adjacent to the dash. You are shielded during the dash.",
     "VILE" : "DEVIOUS STAB - When activated, empower your next attack with 4 bonus damage.",
     "SERENE" : "HARMONIC UPLIFT - Overrides the caste this Soul is placed in. When activated, transform a random Common Soul in your reserves into a Common Soul corresponding to the Serene Soul's caste. Then, empower your next attack with a Harmonic touch, which transforms an enemy into a friendly Harmonizer.", //If there are two friendly Harmonizers in the room, they will simply stare at each other and do nothing, obsessed by their beauty.
-    "JOLTZAZON" : "SUFFOCATING LOVE - Overrides the Unhinged caste. When activated, all enemies adjacent to at least one other enemy take 2 damage.",
+    "JOLTZAZON" : "SUFFOCATING LOVE - Overrides the Unhinged caste. When activated, all enemies adjacent to only one other enemy take 2 damage.",
     "PURPIZUG" : "WHITE BLAZE - Complements the Artistic caste. When activated, discard your entire wheel, then draw souls equal to the amount discarded.",
     "ROSE" : "GLAMOUR AND SMILES - Overrides the Saintly caste. When activated, fire out a ribbon that will wrap around the first enemy hit. That enemy becomes targeted by every other enemy in the room.",
     "SENET" : "PERSUASIVE ENLISTMENT - Overrides the Vile caste. When activated, empower your next attack with a Charming touch, which converts an enemy to your side... until it is the last one remaining.",
     "KILAMI" : "ECHOES OF THE EDGE - Complements the Feral caste. When activated, for the next 3 turns, each time a Soul is added to your discard pile, also trigger its effect for free.",
     "AUBE" : "(Unique) PREPARE - When activated, heal every creature in the room for 2 HP, including you. When Aube has been activated a total of 5 times, transform it into Zenith.", //TODO THIS ONE HAS NO TEXTURE
     "ZENITH" : "(Unique) COOK - When activated, slice all enemies in a 4-radius hourglass pattern, dealing 2 damage to each. When Zenith has been activated a total of 5 times, transform it into Crepusculum.",
-    "CREPUSCULUM" : "(Unique) SERVE - When activated, agonize over the past, letting you choose a soul in your paw to forget permanently. When Crepusculum has been activated a total of 5 times, forget it, and restore 3 Ipseity.",
+    "CREPUSCULUM" : "(Unique) SERVE - When activated, agonize over the past, letting you choose a soul in your wheel to forget permanently. When Crepusculum has been activated a total of 5 times, forget it, and restore 3 Ipseity.",
     "SHIZAPIS" : "ARRAY WARP - Complements the Unhinged caste. When activated, peer into the top 3 souls of your draw pile. Discard one, then place back the remaining 2 in any order. Souls placed back on the draw pile also have their effect triggered for free.",
     "ABAZON" : "TERRACUTTER - Overrides the Ordered caste. When activated, transform a nearby (non-outer) wall into an immobile, invincible Sentry who will attack nearby enemies.",
     "LASHOL" : "RAMPING SURGE - Passive: does not affect the Feral caste. Every 3 steps you take, charge up your next attack with 1 bonus damage.",

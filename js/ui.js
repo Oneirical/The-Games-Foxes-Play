@@ -65,7 +65,7 @@ class DrawWheel{
         this.hotkeycoords = [[center[0], center[1]-dist],[center[0]+Math.cos(pi/4)*dist, center[1]-Math.sin(pi/4)*dist],[center[0]+dist, center[1]],[center[0]+Math.cos(pi/4)*dist, center[1]+Math.sin(pi/4)*dist],[center[0], center[1]+dist],[center[0]-Math.cos(pi/4)*dist, center[1]+Math.sin(pi/4)*dist],[center[0]-dist, center[1]],[center[0]-Math.cos(pi/4)*dist, center[1]-Math.sin(pi/4)*dist]];
 
         this.pile = [];
-        this.discard = []; //
+        this.discard = [new Saintly(),new Ordered(),new Artistic(),new Unhinged(),new Feral(),new Vile(),new Saintly(),new Ordered(),new Artistic(),new Unhinged(),new Feral(),new Vile(),new Saintly(),new Ordered(),new Artistic(),new Unhinged(),new Feral(),new Vile()]; //
         this.saved = [new Empty(),new Empty(),new Empty(),new Empty(),new Empty(),new Empty(),new Empty(),new Empty()];
         this.resolve = 3; //update this later with the bonus
         this.castes = [new Saintly(),new Ordered(),new Artistic(),new Unhinged(),new Feral(),new Vile()];
@@ -270,6 +270,42 @@ class DrawWheel{
         }
     }
 
+    drawSoulFree(){
+        if (this.discard.length <= 0 && this.pile.length <= 0){
+            log.addLog("NoSouls");
+            shakeAmount = 5;
+            return;
+        }
+        let space = 8;
+        for (let k of this.wheel){
+            if (!(k instanceof Empty)) space--;
+        }
+        if (space == 0){
+            log.addLog("Oversoul");
+            shakeAmount = 5; 
+            return;
+        }
+        else{
+            //log.addLog("Empty");
+            if (this.pile.length <= 0){
+                //this.discard.push("TAINTED") //remplacer avec curse, dash est un placeholder
+    
+                this.discard = shuffle(this.discard);
+                for(let i=0;i<this.discard.length;i++){
+                    this.pile.push(this.discard[i]);
+                }
+                this.discard = [];
+            }
+            for (let k of this.wheel){
+                if (k instanceof Empty){
+                    this.wheel[this.wheel.indexOf(k)] = this.pile[0];
+                    break;
+                } 
+            }
+            this.pile.shift();
+        }
+    }
+
     drawSoul(){
         if (player.infested > 0){
             this.breatheSoul();
@@ -436,6 +472,7 @@ class DrawWheel{
                 if (basic.includes(spellName) && area == "Spire") spellName = spellName+"S";
                 log.addLog(spellName);
                 spells[spellName](player, legendaries.active[num]);
+                if (legendaries.active[num].influence == "C") spells[legendaries.active[num].caste](player);
                 if (!fail && player.activemodule != "Focus"){
                     let lookingfor = 0;
                     for (let k of this.saved){
@@ -529,7 +566,7 @@ class Modules{
 class Inventory{
     constructor(){
         this.active = [new Vile(),new Feral(),new Unhinged(),new Artistic(),new Ordered(),new Saintly()];
-        this.storage = [new Sugcha(),new Empty(),new Empty(),new Empty()];
+        this.storage = [new Sugcha(),new Purpizug(),new Empty(),new Empty()];
         this.actcoords = [[148, 76],[366, 76],[76, 257],[438, 257],[148, 438],[366, 438]];
         this.actcoords.reverse();//don't feel like re-writing these in the correct order lmao
         this.castes = ["VILE","FERAL","UNHINGED","ARTISTIC","ORDERED","SAINTLY"];
@@ -645,8 +682,8 @@ class Empty extends LegendarySoul{
         this.gicon = 7;
         this.hicon = 7;
         this.caste = "NO";
-        this.lore = "The Annihilationists seared their flesh, insulted each other for hours on end while sitting in a circle, and refused all companionship all in the name of expunging their own soul. The most radical of them all would even try their luck with a home-made lobotomy. For Terminal, these cultists' reason to be is simply the natural state of things.";//remove
-        this.subdescript = "This central chamber can store up to four inactive Legendary Souls for future use."; //remove
+        this.lore = "The Annihilationists seared their flesh, insulted each other for hours on end while sitting in a circle, and refused all companionship all in the name of expunging their own soul. The most radical of them all would even try their luck with a home-made lobotomy. For Terminal, these cultists' reason to be is simply the natural state of things.";
+        this.subdescript = "This central chamber can store up to four inactive Legendary Souls for future use.";
         this.name = "Empty Slot";
     }
 }
@@ -746,7 +783,7 @@ class Sugcha extends LegendarySoul{
 
 class Joltzazon extends LegendarySoul{
     constructor(){
-        super("SUGCHA");
+        super("JOLTZAZON");
         this.icon = 15;
         this.caste = "UNHINGED";
     }
@@ -757,6 +794,7 @@ class Purpizug extends LegendarySoul{
         super("PURPIZUG");
         this.icon = 16;
         this.caste = "ARTISTIC";
+        this.influence = "C";
     }
 }
 
