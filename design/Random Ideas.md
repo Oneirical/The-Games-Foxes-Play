@@ -11,7 +11,6 @@
 
 bugs:
 * Doublecheck all Souls to actually work with the new system.
-* monks are still bugged
 * Fix the music
 
 **Low priority nitpicks**

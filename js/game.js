@@ -109,12 +109,12 @@ function drawFilter(filter){
         filter,
         0,
         0,
-        960,
-        768,
-        0,
-        0,
-        960,
-        768
+        577,
+        577,
+        0 + shakeX,
+        0 + shakeX,
+        577,
+        577
     );
 }
 
@@ -296,10 +296,12 @@ function draw(){
             if (rosetoxin > 1){
                 ctx.globalAlpha = 0.5;
                 drawFilter(rosefilter);
+                ctx.globalAlpha = 1;
             }
             else if (player.fuffified > 0){
                 ctx.globalAlpha = 0.5;
                 drawFilter(cyanfilter);
+                ctx.globalAlpha = 1;
             }
         }
         if (showboss){
