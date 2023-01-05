@@ -247,7 +247,7 @@ class HarmonyRelay extends Room{
             for (let x of commons){
                 if (player.tile.value instanceof x) commoncheck = true;
             }
-            if (!commoncheck){
+            if (!commoncheck && !inInventory && !inModules){
                 player.tile.value.describeAbridged();
                 wheel.hide = true;
             }

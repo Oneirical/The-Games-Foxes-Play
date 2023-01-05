@@ -3,7 +3,6 @@
 **Current Project**
 * Release 0.2.
 
-* Make all Souls actually work with the new system.
 * Add tile abilties. Like "opens on room clear". Maybe make returnExits different too.
 * Fix mouse movement with falling and para. If there's a bug there.
 * Make mouse movement follow Terminal.
@@ -11,9 +10,9 @@
 * Look into a rework of filters with Canvas elements.
 
 bugs:
-* Agonyremove keyboard not working
-* no music loop
-* hovering in inventory while on spire shrine overlaps descriptions
+* Doublecheck all Souls to actually work with the new system.
+* monks are still bugged
+* Fix the music
 
 **Low priority nitpicks**
 
