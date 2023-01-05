@@ -757,7 +757,20 @@ spells = {
                 t.monster.charmed = true;
             }
             else if (t.monster && !caster.charmed && t.monster.isPlayer){
-                if (t.monster.inhand.length > 0) t.monster.inhand[randomRange(0,t.monster.inhand.length-1)] = "ORDERED";
+                let fullempty = true;
+                for (let i of wheel.wheel){
+                    if (!(i instanceof Empty)) fullempty = false;
+                }
+                if (fullempty) return;
+                else{
+                    while (true){
+                        let id = randomRange(0,wheel.wheel.length);
+                        if (!(wheel.wheel[id] instanceof Empty)){
+                            wheel.wheel[id] = new Ordered();
+                            break;
+                        }
+                    }
+                }
             }
         });
     },
