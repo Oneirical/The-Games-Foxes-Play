@@ -65,7 +65,7 @@ class DrawWheel{
         this.hotkeycoords = [[center[0], center[1]-dist],[center[0]+Math.cos(pi/4)*dist, center[1]-Math.sin(pi/4)*dist],[center[0]+dist, center[1]],[center[0]+Math.cos(pi/4)*dist, center[1]+Math.sin(pi/4)*dist],[center[0], center[1]+dist],[center[0]-Math.cos(pi/4)*dist, center[1]+Math.sin(pi/4)*dist],[center[0]-dist, center[1]],[center[0]-Math.cos(pi/4)*dist, center[1]-Math.sin(pi/4)*dist]];
 
         this.pile = [];
-        this.discard = [new Saintly(),new Ordered(),new Artistic(),new Unhinged(),new Feral(),new Vile(),new Saintly(),new Ordered(),new Artistic(),new Unhinged(),new Feral(),new Vile(),new Saintly(),new Ordered(),new Artistic(),new Unhinged(),new Feral(),new Vile()]; //
+        this.discard = []; //
         this.saved = [new Empty(),new Empty(),new Empty(),new Empty(),new Empty(),new Empty(),new Empty(),new Empty()];
         this.resolve = 3; //update this later with the bonus
         this.castes = [new Saintly(),new Ordered(),new Artistic(),new Unhinged(),new Feral(),new Vile()];
@@ -473,7 +473,8 @@ class DrawWheel{
             if (player.fuffified > 0) spellName = "SERENE";
             if (spellName){
                 if (basic.includes(spellName) && area == "Spire") spellName = spellName+"S";
-                legendaries.active[num].talk();
+                if (legendaries.active[num].influence != "I") legendaries.active[num].talk();
+                else log.addLog(spellName);
                 spells[spellName](player, legendaries.active[num]);
                 if (legendaries.active[num].influence == "C") spells[legendaries.active[num].caste](player);
                 if (!fail && player.activemodule != "Focus"){
@@ -569,7 +570,7 @@ class Modules{
 class Inventory{
     constructor(){
         this.active = [new Vile(),new Feral(),new Unhinged(),new Artistic(),new Ordered(),new Saintly()];
-        this.storage = [new Sugcha(),new Borerora(),new Empty(),new Empty()];
+        this.storage = [new Sugcha(),new Empty(),new Empty(),new Empty()];
         this.actcoords = [[148, 76],[366, 76],[76, 257],[438, 257],[148, 438],[366, 438]];
         this.actcoords.reverse();//don't feel like re-writing these in the correct order lmao
         this.castes = ["VILE","FERAL","UNHINGED","ARTISTIC","ORDERED","SAINTLY"];
@@ -768,6 +769,7 @@ class Lashol extends LegendarySoul{
         super("LASHOL");
         this.icon = 23;
         this.caste = "FERAL";
+        this.influence = "I";
     }
 }
 
@@ -831,6 +833,7 @@ class Kilami extends LegendarySoul{
         super("KILAMI");
         this.icon = 19;
         this.caste = "FERAL";
+        this.influence = "I";
     }
 }
 

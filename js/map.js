@@ -100,6 +100,7 @@ function blockedExits(connector){
     for (let i = 0;i<exitlocations.length;i++){
         let exitdirection = exitlocations[i];
         tiles[exitdirection[0]][exitdirection[1]].replace(world.getRoom().filler);
+        tiles[exitdirection[0]][exitdirection[1]].eat = false;
     }
 }
 

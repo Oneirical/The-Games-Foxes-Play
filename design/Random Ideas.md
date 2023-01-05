@@ -10,6 +10,13 @@
 * Review dialogue and Negentropy nerdiness being too weird.
 * Look into a rework of filters with Canvas elements.
 
+bugs:
+* Agonyremove keyboard not working
+* no music loop
+* hovering in inventory while on spire shrine overlaps descriptions
+* lastmove when entering new room is confusing
+* psydrone doesn't work
+
 **UI**
 
 * Add a rose button in the bottom right. Actually, maybe it should be a status effect tracker instead...

@@ -1417,10 +1417,11 @@ class Ragemaw extends Monster{
 class Monk extends Monster{
     constructor(tile){
         super(tile, 45, 2, commoneq[legendaries.castes[randomRange(1,6)]], description["Monk"]);
+        this.lootid = new this.loot().id;
         let sun = this.lootid.charAt(0) + this.lootid.substring(1).toLowerCase();
         let n = " ";
         if (sun == "Ordered" || sun == "Artistic" || sun == "Unhinged") n = "n ";
-        this.soul = "Animated by a"+n+sun+" ("+index+") soul.";
+        this.soul = "Animated by a"+n+sun+" ("+basic.indexOf(this.lootid)+") soul.";
         this.name = "Self-Erased Monk";
         this.ability = monabi["Monk"];
         this.abitimer = 0;

@@ -452,7 +452,7 @@ spells = {
         }
     },
     ABAZON: function(){
-        let neighbors = player.tile.getAdjacentNeighbors().filter(t => !t.passable && inBounds(t.x,t.y) && t.sprite != 17);
+        let neighbors = player.tile.getAdjacentNeighbors().filter(t => !t.passable && t.eat && inBounds(t.x,t.y) && t.sprite != 17);
         if(neighbors.length){
             let tile = neighbors.pop();
             tiles[tile.x][tile.y] = new AbazonWall(tile.x,tile.y)

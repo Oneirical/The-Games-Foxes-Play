@@ -323,14 +323,15 @@ function draw(){
         ctx.lineTo(577, 0);
         ctx.stroke();
 
-        ctx.beginPath();
-        ctx.moveTo(0, 0);
-        ctx.lineTo(577, 577);
-        ctx.stroke();
-        ctx.beginPath();
-        ctx.moveTo(577, 0);
-        ctx.lineTo(0, 577);
-        ctx.stroke();
+        //mouseclick lines
+        //ctx.beginPath();
+        //ctx.moveTo(0, 0);
+        //ctx.lineTo(577, 577);
+        //ctx.stroke();
+        //ctx.beginPath();
+        //ctx.moveTo(577, 0);
+        //ctx.lineTo(0, 577);
+        //ctx.stroke();
     }
 }
 function manageExit(){
@@ -517,7 +518,7 @@ function drawBossHp(currentboss, hp){
     ctx.fillRect(0,577-32,577,32);
     printAtWordWrap(bossname[currentboss], 21, 10, 568, bosscolour[currentboss], 20, 940);
     printAtWordWrap(" - ", 21, 105, 566, "white", 20, 940);
-    printAtWordWrap(bar[currentboss].repeat(hp), 21, 125, 568, bosscolour[currentboss], 20, 940);
+    if (hp >= 0) printAtWordWrap(bar[currentboss].repeat(hp), 21, 125, 568, bosscolour[currentboss], 20, 940);
 }
 
 function startGame(){
@@ -529,6 +530,8 @@ function startGame(){
     score = 0;
     numSpells = 0;
     aubecounter = 0;
+    tileSize = 64;
+    numTiles = 9;
     invsave = [];//[, ] //];
     modules = ["NONE"];
     modulators = ["Alacrity","Focus","Thrusters","Selective","Hover"];
