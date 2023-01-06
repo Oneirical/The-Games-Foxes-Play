@@ -44,8 +44,8 @@ commoneq = {
 relayPool = {
     "VILE" : [new Senet(),new Rasel()],
     "FERAL" : [new Kilami(), new Lashol(), new Ezezza()],
-    "UNHINGED" : [new Shizapis(), new Joltzazon(), new Kashia()],
-    "ARTISTIC" : [new Purpizug(), new Gyvji()],
+    "UNHINGED" : [new Joltzazon(), new Kashia()], //new Shizapis()
+    "ARTISTIC" : [new Purpizug(), new Gyvji()], //new Borerora()
     "ORDERED" : [new Aspha(), new Abazon, new Naia()],
-    "SAINTLY" : [new Rose(), new Aster()],
+    "SAINTLY" : [new Rose()], //new Aster()
 }
