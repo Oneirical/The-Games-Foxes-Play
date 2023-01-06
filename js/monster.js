@@ -691,6 +691,11 @@ class Player extends Monster{
                 }
             }
         }
+        if (this.para > 0){
+            player.para--;
+            tick();
+            return;
+        }
         if(super.tryMove(dx,dy)){
             if (world.getRoom() instanceof HarmonyRelay){
                 if (world.getRoom().fuffspawn && world.getRoom().fuffspawn.x == this.tile.x && world.getRoom().fuffspawn.y == this.tile.y) this.infested = 1;
