@@ -661,10 +661,12 @@ class Player extends Monster{
         let neighbours = player.tile.getAdjacentNeighbors();
         let check = true;
         let constrictatk = false;
+        if (getTile(this.tile.x + dx,this.tile.y+dy).monster) constrictatk = true;
+        if (naiamode && !constrictatk) wheel.endDiscard();
+        else if (gameState == "discard" && !constrictatk) return;
         for (let i of neighbours){
             if(i.monster instanceof Apis){
                 check = false;
-                if (getTile(this.tile.x + dx,this.tile.y+dy).monster) constrictatk = true;
             }
         }
         if (check) this.constrict = false;
@@ -696,7 +698,7 @@ class Player extends Monster{
                     playSound("off");
                 }
             }
-            tick();
+            if (!naiamode) tick();
         }
         if (area == "Spire" && this.activemodule != "Hover" && !(this.tile.getNeighbor(0,1) instanceof Platform || this.tile.getNeighbor(0,1) instanceof Ladder || this.tile instanceof Ladder || this.tile.getNeighbor(0,1).monster)){
             this.fall++;

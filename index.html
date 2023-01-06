@@ -225,6 +225,10 @@
             } 
             else if(e.key>=1 && e.key<=9 && player.discarded == 0) player.stackSpell(e.key-1);
         }else if (gameState == "discard"){
+            if(e.key=="w"&&!cursormode) player.tryMove(0, -1);
+            else if(e.key=="s"&&!cursormode) player.tryMove(0, 1);
+            else if(e.key=="a"&&!cursormode) player.tryMove(-1, 0);
+            else if(e.key=="d"&&!cursormode) player.tryMove(1, 0);
             if (e.key>=1 && e.key<=9){
                 wheel.discardSoul(e.key-1);
             }

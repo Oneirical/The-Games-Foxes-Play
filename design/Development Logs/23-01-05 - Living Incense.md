@@ -15,6 +15,8 @@ To move the player character using the mouse, one simply needs to click in any o
 
 Also on the topic of UI, there is now a [text log]() at the bottom of the screen, just like the OGs. It may seem strange to only implement one this late, but that is because it was already pretty clear who was attacking who just by paying attention to the animations. If anything, most of the text that goes in that log is dialogue or general status messages warning you of illegal moves or dangerous status effects. Top message is coloured, the rest is grey. I also spent an hour implementing line separators and immediately dropped them afterwards because they [looked ugly](). Oh well. At least I improved my coding skills in doing so.
 
+I am open to font suggestions, if you have any. I've tested out a few and liked none of them. I need something that is both easy to read and that fits well my game's aesthetic.
+
 ## Spiritual Trafficking With Narcisstic Elementals
 
 In order to be actually capable of obtaining the sweet new Legendary Souls I presented last week, I had to completely rework my game's trading posts, the Harmony Relays. Thematically, they are also a lot more disturbing. A Collectivist - the main antagonistic faction of my game, made up of air elementals - beckons the player forward to *inhale their gaseous body*, which induces a *deep trance* in which their thoughts mesh with your own. Then, they force you to partake in a strange ritual that does not end well for the hapless souls involved. Deranged. Hey, at least you got loot.

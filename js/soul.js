@@ -522,7 +522,12 @@ spells = {
         }
         log.addLog("ASPHA");
     },
-    NAIA: function(){
+    NAIA: function(caster){
+        if (naiamode){
+            log.addLog("NaiaProtect");
+            spells["ORDERED"](caster)
+            return;
+        }
         gameState = "discard";
         player.discarded = 0;
         log.addLog("NaiaTime");

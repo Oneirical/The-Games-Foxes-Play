@@ -5,8 +5,7 @@
 
 * Review dialogue and Negentropy nerdiness being too weird.
 * Add hotkeys to the inventory screen.
-* Add a way to revive with mouse (Q)
-* Naia is too OP vs Epsilon. Make Epsilon knockback the player and gain invulnerability if he loses more than 33% of his HP in a single turn.
+* Description for Epsilon spawners, harmony platforms and ladders
 
 bugs:
 * Fix mouse movement with falling and para. Or anything else that's buggy.
@@ -15,9 +14,11 @@ bugs:
 
 **Low priority nitpicks**
 
+* Naia is too OP vs Epsilon. Make Epsilon knockback the player and gain invulnerability if he loses more than 33% of his HP in a single turn.
 * When the player respawns, their lastMove is right by default, which is kind of weird.
 * Double speed enemies still seem to occasionally return to their previous tile.
 * Psychodrones risk being grindy if they let you farm Ordered souls. Find a way to avoid this.
+* Lag on low-end devices. Slow down draw calls for the HUD.
 
 **UI**
 
@@ -29,6 +30,7 @@ bugs:
 
 **Rooms & Creatures**
 
+* Add more Epsilon cores to vary the runs. Massive tongue-whip with interesting pathfinding, shockwave that causes kerosene explosions.
 * lotus incense. sacrifice a legendary to mark the room with a respawn/recall point.
 * a gardener room that is completely peaceful but gets ridiculously hectic if the player dares step on a flower.
 * A peaceful lake that becomes sinister while using roseic toxin.
@@ -47,6 +49,7 @@ bugs:
 
 **Souls**
 
+* Ordered Harmony Soul.
 * A passive Soul that does something cool when the deck is reshuffled. Maybe something to do with Serenes to make them less of a chore... Good synergy with purpizug.
 * A soul that places a recall point when equipped, and teleports you back there when unequipped.
 * A weird soul that induces a positive effect if your room path causes two rooms to superpose upon each other?

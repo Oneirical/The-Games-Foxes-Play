@@ -65,7 +65,7 @@ class DrawWheel{
         this.hotkeycoords = [[center[0], center[1]-dist],[center[0]+Math.cos(pi/4)*dist, center[1]-Math.sin(pi/4)*dist],[center[0]+dist, center[1]],[center[0]+Math.cos(pi/4)*dist, center[1]+Math.sin(pi/4)*dist],[center[0], center[1]+dist],[center[0]-Math.cos(pi/4)*dist, center[1]+Math.sin(pi/4)*dist],[center[0]-dist, center[1]],[center[0]-Math.cos(pi/4)*dist, center[1]-Math.sin(pi/4)*dist]];
 
         this.pile = [];
-        this.discard = [new Ordered(), new Ordered(),new Ordered(), new Ordered()]; //
+        this.discard = [new Ordered(), new Ordered(),new Ordered(), new Artistic(), new Feral(), new Vile()]; //
         this.saved = [new Empty(),new Empty(),new Empty(),new Empty(),new Empty(),new Empty(),new Empty(),new Empty()];
         this.resolve = 3; //update this later with the bonus
         this.castes = [new Saintly(),new Ordered(),new Artistic(),new Unhinged(),new Feral(),new Vile()];
@@ -216,7 +216,7 @@ class DrawWheel{
         else{
             this.discard.push(soul);
             if (naiamode){
-                this.castSoulFree(index)
+                this.castSoulFree(index);
             }
             this.wheel[index] = new Empty();
             player.discarded++;
@@ -346,6 +346,10 @@ class DrawWheel{
         }
         if (gameState == "discard"){
             wheel.endDiscard();
+            return;
+        }
+        if (gameState == "contemplation"){
+            player.revivify();
             return;
         }
         if (this.discard.length <= 0 && this.pile.length <= 0){
@@ -657,7 +661,7 @@ class Modules{
 class Inventory{
     constructor(){
         this.active = [new Vile(),new Feral(),new Unhinged(),new Artistic(),new Ordered(),new Saintly()];
-        this.storage = [new Sugcha(),new Aspha(),new Empty(),new Empty()];
+        this.storage = [new Sugcha(),new Naia(),new Empty(),new Empty()];
         this.actcoords = [[148, 76],[366, 76],[76, 257],[438, 257],[148, 438],[366, 438]];
         this.actcoords.reverse();//don't feel like re-writing these in the correct order lmao
         this.castes = ["VILE","FERAL","UNHINGED","ARTISTIC","ORDERED","SAINTLY"];
@@ -981,6 +985,7 @@ class Naia extends LegendarySoul{
         this.icon = 28;
         this.caste = "ORDERED";
     }
+    talk(){}
 }
 
 class Aster extends LegendarySoul{

@@ -1,13 +1,3 @@
-//TODO
-//make more variables tied to class objects like serene harmonizer sacrifice
-//-more epsicores?
-//-buff naia
-//-ordered harmony soul
-//-description for epsilon spawners, harmony platforms and ladders
-//-more soul dialogue. especially sugcha
-//-slow down lag by not calling draw for text or HUD
-//-update souls to new system
-
 inventorytext = {
     "S" : "Subdued",
     "H" : "Harmonized",
@@ -35,6 +25,7 @@ messages = {
     "InvPrompt": "Press the number corresponding to the soul in your wheel you wish to inspect, or press \"v\"/mouseover on top of a creature to view the details of their soul. Press \"c\" at any time to exit.",
     "Discard" : "Select the souls you wish to discard. Inhale (Q) when finished.",
     "NaiaTime" : "The realms of thoughts and actions synchronize into one, turning your every wish into reality. Cast as many souls as you wish. Once finished, inhale (Q) to exit this trance.",
+    "NaiaProtect" : "\"Ah, Terminal, I was not built for protection... But perhaps if you imagined me as a fantastical beast of legend... or as General Epsilon... Yes, that could work!\"",
     "NoSouls" : "Your mind is devoid of souls, except for your own. Slay enemies to harvest souls!",
     "Paralyzed" : "You are paralyzed! Try to move around to shrug off the paralysis.",
     "Falling" : "You are falling! Try to move around to gain back your footing.",
@@ -288,6 +279,7 @@ colours = {
     "Discard" : "deepskyblue",
     "Shiza" : "deepskyblue",
     "NaiaTime" : "fuchsia",
+    "NaiaProtect" : "fuchsia",
 
     "Saint1" : "lime",
     "Saint2" : "lime",
@@ -527,7 +519,7 @@ soulabi = {
     "RASEL" : "EXTENSION OF WILL - Overrides the Vile caste. When activated, become empowered with Reaping until a new room is revealed, reviving all slain targets as friendly 1 HP Husks.",
     "BORERORA" : "THUNDEROUS APPLAUSE - Overrides the Artistic caste. When activated, unleash a 2-damage sonic beam, which passes through walls and bounces an amount of times equal to double the number of souls in your wheel.",
     "ASPHA" : "SECURE THE PERIMETER - Overrides the Ordered caste. When activated, discard as many souls as you desire. For each discarded soul, teleport to a random location, and slash all adjacent and diagonal tiles for 2 damage.",
-    "NAIA" : "TO THINK IS TO DO - Complements the Ordered caste. When activated, stop time and gain infinite turns. Moving away from your currently occupied square instantly breaks the trance.",
+    "NAIA" : "TO THINK IS TO DO - Overrides the Ordered caste. When activated, stop time and gain infinite turns. Ordered Souls cast during this period trigger their Common effect. Moving normally or inhaling instantly breaks the trance.",
     "EZEZZA" : "MIND LOCK - Passive: does not affect the Feral caste. Gain double Negentropy on room clear. When a Feral soul is drawn, become paralyzed for 1 turn. Can only be incarnated or inactivated when out of combat.",
     "ASTER" : "CACOPHONIC RAGE - Overrides the Saintly caste. When activated, forget all Serene souls in your wheel, and strike all enemies for 0 damage. +1 bonus damage for each enemy of the same type in the room as the one hit. One additional secret effect...", // to add the secret effect
     "GYVJI" : "DIAMOND STRIKE - Overrides the Artistic caste. When activated, punch the adjacent enemy in the direction of your last move. The target flies until it meets a wall or another enemy, at which point it causes a 1-range blast that destroys walls and inflicts 3 damage. The target must fly at least 1 tile for the blast to take effect.",
