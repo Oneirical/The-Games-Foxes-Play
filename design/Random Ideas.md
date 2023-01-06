@@ -4,12 +4,12 @@
 * Release 0.2.
 
 * Review dialogue and Negentropy nerdiness being too weird.
-* Add hotkeys to the inventory screen.
+* Add hotkeys to the inventory screen and block casting/moving in inventory.
 * Description for Epsilon spawners, harmony platforms and ladders
 
 bugs:
 * Fix mouse movement with falling and para. Or anything else that's buggy.
-* Doublecheck all Souls to actually work with the new system.
+* Shizapis, aster, Serene, borerora, aube.
 * Fix the music
 
 **Low priority nitpicks**
@@ -60,6 +60,8 @@ bugs:
 * Something that lets you use Glamorous or Harmonized versions of their souls outside their normal branches. - this might be managing to pull out a serene or a roseic out of the slot it's stuck to, leaving it influenced.
 * Keep the invtree texture, use it as a cool legendary soul effect that has something to do with the inventory.
 * probably terrible. cast empty soul slots on the wheel to lose them forever with a deranged legendary.
+
+* Should extra inventory slots be unlockable throughout a run to scale player power?
 
 **Insane/overly ambitious stuff**
 

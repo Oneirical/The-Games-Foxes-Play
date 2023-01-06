@@ -644,10 +644,23 @@ class Player extends Monster{
                 for (let x of monsters) x.sprite = x.spritesave;
                 rosetoxin = 0;
             }
-        } 
+        }
+        if (legendaries.hasSoul(Kashia) && this.deathdelay < 1){
+            this.deathdelay = 5;
+            this.falsehp = this.hp;
+        }
         if (this.deathdelay > 0){
             this.deathdelay--;
+            if (this.falsehp < 1){
+                log.addLog("KashiaLethal");
+                playSound("deathdelay");
+            }
             if (this.deathdelay == 0){
+                if (this.isPlayer){
+                    for (let g of legendaries.active){
+                        if (g instanceof Kashia) this.deathdelay = 5;
+                    }
+                }
                 this.hp = this.falsehp;
                 if (this.hp <= 0) this.hit(99);
                 removeItemOnce(monsters,this);

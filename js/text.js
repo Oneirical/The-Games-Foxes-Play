@@ -27,6 +27,7 @@ messages = {
     "NaiaTime" : "The realms of thoughts and actions synchronize into one, turning your every wish into reality. Cast as many souls as you wish. Once finished, inhale (Q) to exit this trance.",
     "NaiaProtect" : "\"Ah, Terminal, I was not built for protection... But perhaps if you imagined me as a fantastical beast of legend... or as General Epsilon... Yes, that could work!\"",
     "NoSouls" : "Your mind is devoid of souls, except for your own. Slay enemies to harvest souls!",
+    "KashiaLethal" : "You sense your imminent demise. Clear this room or heal yourself to survive the next burst of damage!",
     "Paralyzed" : "You are paralyzed! Try to move around to shrug off the paralysis.",
     "Falling" : "You are falling! Try to move around to gain back your footing.",
     "Oversoul" : "Your psyche is trembling with the echo of a thousand chatters! Unleash some souls before drawing more.",
@@ -229,7 +230,7 @@ messages = {
     "EZEZZA" : "Ezezza unleashes a terrifying shriek as soon as the thought of its existence enters your mind! Try to move around to shrug off the paralysis.",
     "ASTER" : "\"We may all be little whimsical dreams, but the shapes we call our own are diverse and beautiful.\"",
     "GYVJI" : "\"Autographs after we get to the Next World, please. We'll have plenty of time then.\"",
-    "KASHIA" : "\"One month until the world ends? What's all the hurry about? Surely we should be stuffing ourselves full of Saints' Breath instead of running around like the Feral.\"",
+    "KASHIA" : "\"One month until the world ends? What's all the hurry about? Surely we should be stuffing ourselves full of Saints' Breath instead of killing each other.\"",
 
     "TAINTEDF" : "\"hehe-... th...ank- you...\"",
     "SAINTLYF" : "\"Wh- what is the meaning of this? This is mutiny! Terminal, remember what you were built for! Remember your mission!\"",
@@ -260,6 +261,7 @@ colours = {
     "RoseDeath" : "lightpink",
     "NoSouls" : "yellow",
     "Oversoul" : "yellow",
+    "KashiaLethal" : "magenta",
     "EmptyCast" : "yellow",
     "EmptyRemove" : "yellow",
     "Paralyzed" : "orange",
@@ -523,7 +525,7 @@ soulabi = {
     "EZEZZA" : "MIND LOCK - Passive: does not affect the Feral caste. Gain double Negentropy on room clear. When a Feral soul is drawn, become paralyzed for 1 turn. Can only be incarnated or inactivated when out of combat.",
     "ASTER" : "CACOPHONIC RAGE - Overrides the Saintly caste. When activated, forget all Serene souls in your wheel, and strike all enemies for 0 damage. +1 bonus damage for each enemy of the same type in the room as the one hit. One additional secret effect...", // to add the secret effect
     "GYVJI" : "DIAMOND STRIKE - Overrides the Artistic caste. When activated, punch the adjacent enemy in the direction of your last move. The target flies until it meets a wall or another enemy, at which point it causes a 1-range blast that destroys walls and inflicts 3 damage. The target must fly at least 1 tile for the blast to take effect.",
-    "KASHIA" : "REALITY DELAY - Overrides the Unhinged caste. When activated, freeze your current HP, preventing all changes. 5 turns later, apply all damage and healing that occurred during the delay period. Applied healing is doubled.",
+    "KASHIA" : "REALITY DELAY - Passive: does not affect the Unhinged caste. All damage and healing received is only applied every 5 turns. Applied healing is doubled. If suffering from imminent lethal damage, clearing a room allows survival with 1 HP.",
     "SUGCHA" : "ELITES' LASSITUDE - Overrides the Saintly caste. When activated, steal one Life point from up to 8 adjacent creatures. With each usage, reduce the maximum number of affected creatures by 1. After 8 casts, this Soul does nothing.",
 
     "ROSEILLUSION" : "ROSE - There is beauty. There is grace. You are beauty, you are grace. You are Rose. All is Rose.",

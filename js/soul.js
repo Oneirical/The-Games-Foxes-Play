@@ -649,9 +649,7 @@ spells = {
         }
     },
     KASHIA: function(caster){
-        if (caster.falsehp == 0) caster.falsehp = caster.hp;
-        caster.deathdelay = 7;
-        playSound("deathdelay");
+        log.addLog("Bug");
     },
     Pink: function(caster){
         for (let x of monsters){

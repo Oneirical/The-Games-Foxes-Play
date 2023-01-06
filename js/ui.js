@@ -661,7 +661,7 @@ class Modules{
 class Inventory{
     constructor(){
         this.active = [new Vile(),new Feral(),new Unhinged(),new Artistic(),new Ordered(),new Saintly()];
-        this.storage = [new Sugcha(),new Naia(),new Empty(),new Empty()];
+        this.storage = [new Sugcha(),new Kashia(),new Empty(),new Empty()];
         this.actcoords = [[148, 76],[366, 76],[76, 257],[438, 257],[148, 438],[366, 438]];
         this.actcoords.reverse();//don't feel like re-writing these in the correct order lmao
         this.castes = ["VILE","FERAL","UNHINGED","ARTISTIC","ORDERED","SAINTLY"];
@@ -694,6 +694,17 @@ class Inventory{
         this.storage[slot] = new Empty();
         this.storeSoul(caste, this.active[caste]);
         this.active[caste] = soul;
+        if (soul instanceof Kashia){
+            player.deathdelay = 5;
+            player.falsehp = player.hp;
+        }
+    }
+
+    hasSoul(type){
+        for (let x of this.active){
+            if (x instanceof type) return true;
+        }
+        return false;
     }
 
     addSoul(soul){
@@ -713,6 +724,11 @@ class Inventory{
         if (soul instanceof Ezezza && exitspawn == 0) return;
         if (basic.includes(this.active[slot].id)) return;
         else{
+            if (soul instanceof Kashia){
+                player.deathdelay = 0;
+                player.hp = player.falsehp;
+                if (player.hp <= 0) player.hit(99);
+            }
             let noroom = 0;
             for (let i of this.storage){
                 if (noroom == this.storage.length) return;
@@ -1010,5 +1026,6 @@ class Kashia extends LegendarySoul{
         super("KASHIA");
         this.icon = 31;
         this.caste = "UNHINGED";
+        this.influence = "I";
     }
 }

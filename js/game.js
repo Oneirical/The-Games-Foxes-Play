@@ -376,6 +376,10 @@ function tick(){
         //gener8 sortie si every1 est ded
         if (exitspawn == 0 && world.fighting){
             summonExits();
+            if (player.falsehp < 1 && legendaries.hasSoul(Kashia)){
+                player.falsehp = 1;
+                log.addLog("KASHIA");
+            }
         }
     }
 
