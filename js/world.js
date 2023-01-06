@@ -20,7 +20,7 @@ class World{
         let roomType;
         if (level == 0) roomType = WorldSeed;
         else if (level == 17 && !this.serene) roomType = EpsilonArena;
-        else if (level % 5 == 1 && level > 5 && this.serene) roomType = FluffianWorkshop; //TODO increase the randomness on these
+        else if (level % 5 == 1 && level > 5 && this.serene) roomType = FluffianWorkshop;
         else if (level % 5 == 1 && level > 5 && !this.serene) roomType = HarmonyRelay;
         else roomType = shuffle(this.roompool)[0];
         let room = new roomType(this.roomlist.length);
@@ -172,6 +172,7 @@ class WorldSeed extends Room{
     constructor(index){
         super(index);
         this.name = "World Seed";
+        this.music = "cage"
         this.possibleexits = [[4,8]];
     }
 
@@ -193,6 +194,8 @@ class StandardFaith extends Room{
         //this.playerspawn = getTileButNotCursed(Math.floor((numTiles-1)/2),1);
         this.name = "Faith's End";
         this.music = "malform";
+        if (level > 5) this.music = "max";
+        else if (level > 10) this.music = "quarry";
         this.entrancepoints = [getTileButNotCursed(Math.floor((numTiles-1)/2),1), getTileButNotCursed(1,Math.floor((numTiles-1)/2)),getTileButNotCursed((numTiles-2),Math.floor((numTiles-1)/2)),getTileButNotCursed(Math.floor((numTiles-1)/2),(numTiles-2))];
         this.possibleexits = [[Math.floor((numTiles-1)/2),0], [0,Math.floor((numTiles-1)/2)],[(numTiles-1),Math.floor((numTiles-1)/2)],[Math.floor((numTiles-1)/2),numTiles-1]];
     }
@@ -215,6 +218,7 @@ class HarmonyRelay extends Room{
         super(index);
         this.entrymessage = "FluffyWelcome";
         this.name = "Test of Unity";
+        this.music = "harmony2";
         this.fuffspawn = null;
         //this.filler = AbazonWall;
         this.entrancepoints = [getTileButNotCursed(Math.floor((numTiles-1)/2),1), getTileButNotCursed(1,Math.floor((numTiles-1)/2)),getTileButNotCursed((numTiles-2),Math.floor(numTiles-1)/2),getTileButNotCursed(Math.floor((numTiles-1)/2),(numTiles-2))];

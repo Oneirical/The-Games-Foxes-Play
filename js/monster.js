@@ -206,7 +206,7 @@ class Monster{
         return this.tile.y + this.offsetY;
     }
 
-    knockback(power, direction, antisuicide){ //TODO something will have to be done to fix epsilon with this eventually
+    knockback(power, direction, antisuicide){
         let recallcheck = false;
         for(let i=0;i<numTiles;i++){
             for(let j=0;j<numTiles;j++){
@@ -238,8 +238,6 @@ class Monster{
                 this.sprite = 83;
             }
             else this.move(newTile);
-            //playSound("explosion"); TODO put a cool ori-style sound here later
-            //shakeAmount = 35;
         }
     }
 

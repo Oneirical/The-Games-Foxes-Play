@@ -138,16 +138,20 @@ function draw(){
         let fufflore = false;
         let selectation = 99;
         if(inInventory){
+            let nohover = true;
             for (let i of legendaries.storecoords){
                 if (mousepos[0] > i[0] && mousepos[0] < (i[0]+64) && mousepos[1] > i[1] && mousepos[1] < (i[1]+64)){
                     legendaries.storage[legendaries.storecoords.indexOf(i)].describe();
+                    nohover = false;
                 }
             }
             for (let i of legendaries.actcoords){
                 if (mousepos[0] > i[0] && mousepos[0] < (i[0]+64) && mousepos[1] > i[1] && mousepos[1] < (i[1]+64)){
                     legendaries.active[legendaries.actcoords.indexOf(i)].describe();
+                    nohover = false;
                 }
             }
+            if (nohover) printAtWordWrap(messages["InvTutorial"], 18, 10, 600, "white", 20, 940);
         }
         if(wtfx>603&&wtfy>115){
             let mousdes = Math.ceil((wtfy - 130)/20);
@@ -742,7 +746,7 @@ function initSounds(){
 function playSound(soundName){                       
     sounds[soundName].currentTime = 0;
     sounds[soundName].play();
-    let loops = ["cage","max","roseic","title","harmony2","harmony4","harmony6","falsity","seal","quarry","toxic","spire","spireloop","epsilon"];
+    let loops = ["cage","max","roseic","title","harmony2","harmony4","harmony6","falsity","seal","quarry","toxic","spire","spireloop","epsilon","malform"];
     if (loops.includes(soundName)) sounds[soundName].loop = true; 
 }
 function pauseSound(soundName){  
@@ -751,7 +755,7 @@ function pauseSound(soundName){
 }
 
 function pauseAllMusic(){
-    let loops = ["cage","roseic","max","title","harmony2","harmony4","harmony6","falsity","seal","quarry","toxic","spire","spireloop","epsilon"];
+    let loops = ["cage","roseic","max","title","harmony2","harmony4","harmony6","falsity","seal","quarry","toxic","spire","spireloop","epsilon","malform"];
     loops.forEach(function(sound){
         pauseSound(sound);
     });

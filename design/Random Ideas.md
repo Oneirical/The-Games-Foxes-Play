@@ -3,12 +3,18 @@
 **Current Project**
 * Release 0.2.
 
-* Add hotkeys to the inventory screen and block casting/moving in inventory.
+* Add hotkeys to the inventory screen.
 * Shizapis, aster, Serene, borerora, aube.
 * Fix the music
 
+**Serene Project**
+
+* Change back the "bonus trinket" dialogue line when modulators are implemented.
+* DrawSoul + Alacrity needs to be fixed.
+
 **Bugs**
 
+* Aube has no texture.
 * Falling in the Serene Spire can be ignored with mouse movement.
 * Descriptions for harmony platforms and ladders
 
@@ -22,7 +28,9 @@
 
 **UI**
 
+* Inspect elements in the sidebar to know what they do.
 * Add tile abilties. Like "opens on room clear". Maybe make returnExits different too.
+* Cool sliding animation in Inventory/Modules.
 * Bring back the glamour counter. Make the filter scale with glamour level too.
 * Make mouse movement follow Terminal.
 * A confirm prompt if you draw after 0 resolve. Also make the resolve counter red at 0.
@@ -30,6 +38,7 @@
 
 **Rooms & Creatures**
 
+* Make rooms more random.
 * Add more Epsilon cores to vary the runs. Massive tongue-whip with interesting pathfinding, shockwave that causes kerosene explosions.
 * lotus incense. sacrifice a legendary to mark the room with a respawn/recall point.
 * a gardener room that is completely peaceful but gets ridiculously hectic if the player dares step on a flower.
@@ -39,6 +48,7 @@
 
 **Lore**
 
+* Make InvTutorial sound less like a marketing pitch.
 * Rename Ipseity to Complexity/Value.
 * Harmonizers are invincible and ethereal outside the spire, because they can only harm their own. In the Spire you have a bit more power over them, as the influence of the environment makes you a little bit more like them.
 * Make it clearer why enemies attack the player - they are desperate for a ride and are also testing to see if Terminal is their true saviour. Maybe add dialogue upon entering random rooms that highlights this

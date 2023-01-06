@@ -197,7 +197,7 @@ class Floor extends Tile{
 class Platform extends Floor{
     constructor(x,y){
         super(x, y, 57, true);
-        this.lore = description["Floor"]; //todo
+        this.lore = description["Floor"];
         this.name = "Eroded Floortiles";
         this.sprite = 57;
     };
@@ -206,7 +206,7 @@ class Platform extends Floor{
 class Ladder extends Floor{
     constructor(x,y){
         super(x, y, 58, true);
-        this.lore = description["Floor"]; //todo
+        this.lore = description["Floor"];
         this.name = "Eroded Floortiles";
         this.sprite = 58;
     };
@@ -447,7 +447,7 @@ class TermiExit extends ExpandExit{
     stepOn(monster){
         pauseAllMusic();
         super.stepOn(monster);
-        level+=4; //debug
+        //level+=4; //debug
     }
 
 }

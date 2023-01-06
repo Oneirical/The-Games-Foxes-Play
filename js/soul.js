@@ -52,7 +52,7 @@ spells = {
         caster.fp = Math.max(0,caster.fp-2);
     },
     ORDEREDS: function(caster){
-        spells["FUFFYSTOMP"](caster); //TODO
+        spells["FUFFYSTOMP"](caster);
     },
     UNHINGEDS: function(caster){
         let newTile = caster.tile;
@@ -104,7 +104,7 @@ spells = {
     VILES: function(caster){
         let targetlist = [];
         caster.tile.getAllNeighbors().forEach(function(t){
-            t.setEffect(75, 30); // TODO the effect will have to get changed here
+            t.setEffect(75, 30);
             if (t.monster) targetlist.push(t.monster);
         });
         let target = targetlist[randomRange(0,targetlist.length-1)];
@@ -783,7 +783,7 @@ spells = {
 
     FUFFYORI: function(caster){
         caster.tile.getAllNeighbors().forEach(function(t){
-            t.setEffect(75, 30); // TODO the effect will have to get changed here
+            t.setEffect(75, 30);
             if(t.monster && caster.charmed && !t.monster.loveless && !t.monster.isPlayer){
                 let dir = [randomRange(-1,1),randomRange(-1,1)];
                 t.monster.fp++;
@@ -838,7 +838,7 @@ spells = {
                 let testTile = newTile.getNeighbor(1,0);
                 let platTile = testTile.getNeighbor(0,1);
                 if((platTile instanceof Platform)){
-                    testTile.setEffect(75,30); //TODO change the effect
+                    testTile.setEffect(75,30);
                     if (testTile.monster && testTile != caster.tile){
                         testTile.monster.fp++;
                         testTile.monster.knockback(testTile.monster.fp,[0,-1]);
@@ -852,7 +852,7 @@ spells = {
                 let testTile = newTile.getNeighbor(-1,0);
                 let platTile = testTile.getNeighbor(0,1);
                 if((platTile instanceof Platform)){
-                    testTile.setEffect(75,30); //TODO change the effect
+                    testTile.setEffect(75,30);
                     if (testTile.monster && testTile != caster.tile){
                         testTile.monster.fp++;
                         testTile.monster.knockback(testTile.monster.fp,[0,-1]);

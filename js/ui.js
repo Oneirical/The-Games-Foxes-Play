@@ -65,7 +65,7 @@ class DrawWheel{
         this.hotkeycoords = [[center[0], center[1]-dist],[center[0]+Math.cos(pi/4)*dist, center[1]-Math.sin(pi/4)*dist],[center[0]+dist, center[1]],[center[0]+Math.cos(pi/4)*dist, center[1]+Math.sin(pi/4)*dist],[center[0], center[1]+dist],[center[0]-Math.cos(pi/4)*dist, center[1]+Math.sin(pi/4)*dist],[center[0]-dist, center[1]],[center[0]-Math.cos(pi/4)*dist, center[1]-Math.sin(pi/4)*dist]];
 
         this.pile = [];
-        this.discard = [new Ordered(), new Ordered(),new Ordered(), new Artistic(), new Feral(), new Vile()]; //
+        this.discard = []; //
         this.saved = [new Empty(),new Empty(),new Empty(),new Empty(),new Empty(),new Empty(),new Empty(),new Empty()];
         this.resolve = 3; //update this later with the bonus
         this.castes = [new Saintly(),new Ordered(),new Artistic(),new Unhinged(),new Feral(),new Vile()];
@@ -76,7 +76,7 @@ class DrawWheel{
         this.castecoords = [first,[first[0]+hori,first[1]],[first[0],first[1]+vert],[first[0]+hori,first[1]+vert],[first[0],first[1]+vert*2],[first[0]+hori,first[1]+vert*2]]
     }
 
-    display(){ //TODO these should stay in cursormode, and you should be able to inspect them
+    display(){
         drawSymbol(6, 880, 320, 64);
         drawSymbol(9, 590, 130, 64);
         drawSymbol(10, 880, 130, 64);
@@ -405,7 +405,7 @@ class DrawWheel{
                 }
             }
             if (this.activemodule != "Alacrity") tick();
-            else if (!player.consumeCommon(1,false)){ //TODO this is broken and must be fixed
+            else if (!player.consumeCommon(1,false)){
                 log.addLog("FluffyInsufficientPower");
                 playSound("off");
                 tick();
@@ -498,7 +498,7 @@ class DrawWheel{
             return;
         }                
         else{
-            //if (soul.id == "SERENE") TODO make this
+            //if (soul.id == "SERENE") make this
             let num = legendaries.castes.indexOf(soul.id);
             let spellName = soul.id;
             if (legendaries.active[num].influence == "C" || legendaries.active[num].influence == "A"){
@@ -555,7 +555,7 @@ class DrawWheel{
             return;
         }                
         else{
-            //if (soul.id == "SERENE") TODO make this
+            //if (soul.id == "SERENE") make this
             let num = legendaries.castes.indexOf(soul.id);
             let spellName = soul.id;
             if (legendaries.active[num].influence == "C" || legendaries.active[num].influence == "A"){
@@ -657,11 +657,10 @@ class Modules{
     }
 }
 
-//TODO cool sliding animation?
 class Inventory{
     constructor(){
         this.active = [new Vile(),new Feral(),new Unhinged(),new Artistic(),new Ordered(),new Saintly()];
-        this.storage = [new Sugcha(),new Kashia(),new Empty(),new Empty()];
+        this.storage = [new Sugcha(),new Empty(),new Empty(),new Empty()];
         this.actcoords = [[148, 76],[366, 76],[76, 257],[438, 257],[148, 438],[366, 438]];
         this.actcoords.reverse();//don't feel like re-writing these in the correct order lmao
         this.castes = ["VILE","FERAL","UNHINGED","ARTISTIC","ORDERED","SAINTLY"];
