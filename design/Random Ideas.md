@@ -4,12 +4,11 @@
 * Release 0.2.
 
 * Add tile abilties. Like "opens on room clear". Maybe make returnExits different too.
-* Fix mouse movement with falling and para. If there's a bug there.
-* Make mouse movement follow Terminal.
 * Review dialogue and Negentropy nerdiness being too weird.
-* Look into a rework of filters with Canvas elements.
+* Add hotkeys to the inventory screen.
 
 bugs:
+* Fix mouse movement with falling and para. Or anything else that's buggy.
 * Doublecheck all Souls to actually work with the new system.
 * Fix the music
 
@@ -21,6 +20,7 @@ bugs:
 
 **UI**
 
+* Make mouse movement follow Terminal.
 * A confirm prompt if you draw after 0 resolve. Also make the resolve counter red at 0.
 * numeric system based on basic castes.
 
