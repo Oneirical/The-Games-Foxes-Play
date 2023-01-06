@@ -300,6 +300,30 @@ spells = {
     },
 
     SERENE: function(){
+        player.specialAttack = "Harmony";
+        fail = false;
+    },
+
+    SERENEFU: function(){
+        if (wheel.pile.length == 0){
+            shuffle(wheel.discard)
+            for(let i=0;i<wheel.discard.length;i++){
+                wheel.pile.push(wheel.discard[i]);
+            }
+            wheel.discard = [];
+        }
+        for (let x of wheel.wheel){
+            if (!(x instanceof Empty)){
+                wheel.wheel[indexOf(x)] = new Empty();
+                player.specialAttack = "Harmony";
+                fail = false;
+                return;
+            }
+            log.addLog("FluffyNoConvertTaunt");
+        }
+    },
+
+    SERENEUNUSED: function(){
         if (player.inventory.length == 0){
             //player.discard.push("TAINTED") //remplacer avec curse, dash est un placeholder
             shuffle(player.discard)

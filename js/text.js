@@ -506,7 +506,8 @@ soulabi = {
     "UNHINGED" : "FORSAKEN FAITH - When activated, shoot beams in all 4 diagonal directions.",
     "FERAL" : "WILD CHARGE - When activated, dash in the direction of the your last move, dealing damage to all enemies adjacent to the dash. You are shielded during the dash.",
     "VILE" : "DEVIOUS STAB - When activated, empower your next attack with 4 bonus damage.",
-    "SERENE" : "HARMONIC UPLIFT - Overrides the caste this Soul is placed in. When activated, transform a random Common Soul in your reserves into a Common Soul corresponding to the Serene Soul's caste. Then, empower your next attack with a Harmonic touch, which transforms an enemy into a friendly Harmonizer.", //If there are two friendly Harmonizers in the room, they will simply stare at each other and do nothing, obsessed by their beauty.
+    "SERENE" : "HARMONIC UPLIFT - Overrides the caste this Soul is placed in. When activated, delete a random Common Soul in your wheel. Then, empower your next attack with a Harmonic touch, which transforms an enemy into a friendly Harmonizer.", //If there are two friendly Harmonizers in the room, they will simply stare at each other and do nothing, obsessed by their beauty.
+    //  transform into Common Soul corresponding to the Serene Soul's caste
     "JOLTZAZON" : "SUFFOCATING LOVE - Overrides the Unhinged caste. When activated, all enemies adjacent to only one other enemy take 2 damage.",
     "PURPIZUG" : "WHITE BLAZE - Complements the Artistic caste. When activated, discard your entire wheel, then draw souls equal to the amount discarded.",
     "ROSE" : "GLAMOUR AND SMILES - Overrides the Saintly caste. When activated, fire out a ribbon that will wrap around the first enemy hit. That enemy becomes targeted by every other enemy in the room.",

@@ -357,7 +357,7 @@ class Monster{
                     this.attackedThisTurn = true;
                     let bonusAttack = this.bonusAttack;
                     this.bonusAttack = 0;
-                    if (!this.isFluffy && !(this.isPlayer && area == "Spire")) newTile.monster.hit(this.dmg + Math.floor(bonusAttack));
+                    if (area != "Spire") newTile.monster.hit(this.dmg + Math.floor(bonusAttack));
                     else newTile.monster.fp++;
                     if (newTile.monster){
                         if (newTile.monster.fp > 0 && world.serene) newTile.monster.knockback(newTile.monster.fp, [dx, dy]);

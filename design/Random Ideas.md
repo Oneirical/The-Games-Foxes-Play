@@ -1,11 +1,10 @@
-## This is a chaotic canvas on which I launch all the random things I come up with while going about my day. It is not meant to be comprehensible.
+## This is a chaotic canvas on which I launch all the random things I come up with while going about my day and bugs I notice throughout playtesting. It is not meant to be comprehensible.
 
 **Current Project**
 * Release 0.2.
 
 * Add hotkeys to the inventory screen.
 * Shizapis, aster, Serene, borerora, aube.
-* Fix the music
 
 **Serene Project**
 

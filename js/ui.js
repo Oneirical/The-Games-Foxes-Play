@@ -660,10 +660,10 @@ class Modules{
 class Inventory{
     constructor(){
         this.active = [new Vile(),new Feral(),new Unhinged(),new Artistic(),new Ordered(),new Saintly()];
-        this.storage = [new Sugcha(),new Empty(),new Empty(),new Empty()];
+        this.storage = [new Sugcha(),new Serene(),new Empty(),new Empty()];
         this.actcoords = [[148, 76],[366, 76],[76, 257],[438, 257],[148, 438],[366, 438]];
         this.actcoords.reverse();//don't feel like re-writing these in the correct order lmao
-        this.castes = ["VILE","FERAL","UNHINGED","ARTISTIC","ORDERED","SAINTLY"];
+        this.castes = ["VILE","FERAL","UNHINGED","ARTISTIC","ORDERED","SAINTLY","SERENE"];
         this.castesclass = [new Vile(),new Feral(),new Unhinged(),new Artistic(),new Ordered(),new Saintly()];
         this.storecoords = [[257, 154],[257, 154+68],[257, 154+138],[257, 154+138+68]];   
     }
@@ -689,8 +689,15 @@ class Inventory{
         let soul = this.storage[slot];
         if (soul instanceof Empty) return;
         if (soul instanceof Ezezza && exitspawn == 0) return;
-        let caste = this.castes.indexOf(this.storage[slot].caste);
+        let caste;
+        caste = this.castes.indexOf(this.storage[slot].caste);
         this.storage[slot] = new Empty();
+        if (caste == 6){
+            while (true){ //this will cause an infinite loop when all 6 slots are filled, rework serenes
+                caste = randomRange(0,5);
+                if (basic.includes(this.active[caste].id)) break;
+            }
+        }
         this.storeSoul(caste, this.active[caste]);
         this.active[caste] = soul;
         if (soul instanceof Kashia){
