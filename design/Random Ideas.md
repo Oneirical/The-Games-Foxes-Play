@@ -3,14 +3,14 @@
 **Current Project**
 * Release 0.2.
 
-* Review dialogue and Negentropy nerdiness being too weird.
 * Add hotkeys to the inventory screen and block casting/moving in inventory.
-* Description for Epsilon spawners, harmony platforms and ladders
-
-bugs:
-* Fix mouse movement with falling and para. Or anything else that's buggy.
 * Shizapis, aster, Serene, borerora, aube.
 * Fix the music
+
+**Bugs**
+
+* Falling in the Serene Spire can be ignored with mouse movement.
+* Descriptions for harmony platforms and ladders
 
 **Low priority nitpicks**
 

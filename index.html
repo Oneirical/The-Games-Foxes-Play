@@ -105,7 +105,11 @@
             startGame();                
         }else if(gameState == "dead"){                             
             showTitle();                                      
-        }else if(gameState == "running"){       
+        }else if(gameState == "running"){
+            if (e.key == "l"){
+                inInventory = !inInventory;
+            }
+            if (inInventory || inModules) return;
             if(e.key=="c") {
                 cursormode = !cursormode;
                 invmode = false;
@@ -124,9 +128,6 @@
                         //log.addLog("Empty");
                     }
                 }
-            }
-            if (e.key == "l"){
-                inInventory = !inInventory;
             }
             if (e.key == "o"){ //debug
                 legendaries.activateSoul(0,legendaries.storage[0]);
