@@ -441,7 +441,7 @@ spells = {
     },
     SHIZAPIS: function(caster){
         if (caster.inventory.length > 2){
-            discarded = 1;
+            player.discarded = 1;
             stack = 0;
             gameState = "vision";
             player.viewSpell();
@@ -507,7 +507,7 @@ spells = {
     },
     ASPHA: function(){
         gameState = "discard";
-        discarded = 0;
+        player.discarded = 0;
         log.addLog("Discard");
     },
     ASPHAF: function(power){
@@ -520,11 +520,12 @@ spells = {
                 }
             });
         }
+        log.addLog("ASPHA");
     },
     NAIA: function(){
         gameState = "discard";
-        discarded = 0;
-        log.addLog("Discard");
+        player.discarded = 0;
+        log.addLog("NaiaTime");
         naiamode = true;
     },
     LASHOL: function(){

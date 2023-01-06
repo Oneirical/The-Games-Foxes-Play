@@ -67,13 +67,11 @@ function setupCanvas(){
                     }
                 }
                 if(gameState == "vision"){
-                    if(discarded > 0){
+                    if(player.discarded > 0){
                         player.discardSpell(mousdes);
-                        discarded--;
+                        player.discarded--;
                     } 
-                    else if(discarded == 0) player.stackSpell(mousdes);
-                }if (gameState == "discard"){
-                    player.discardPawSpell(mousdes);
+                    else if(player.discarded == 0) player.stackSpell(mousdes);
                 }
             }
         }
@@ -207,49 +205,23 @@ function draw(){
             if (viewedTiles.includes(monsters[i].tile) || monsters[i].charmed)monsters[i].draw();
         }
         if (!inInventory && !cursormode && !wheel.hide) drawText(world.getRoom().name, 30, false, 40, "violet");
-        //if (level == 0) drawText("World Seed", 30, false, 40, "violet");
-        //else if (level % 5 == 1 && level > 5 && area == "Faith") drawText("Test of Unity", 30, false, 40, "violet");
-        //else if (level % 5 == 1 && level > 5 && area == "Spire") drawText("Fluffian Workshop", 30, false, 40, "violet");
-        //else if (area == "Spire") drawText("Serene Spire: floor "+level, 30, false, 40, "violet");
-        //else if (area == "Circus") drawText("Roseic Circus", 30, false, 40, "violet");
-        //else if (level == 17 && area == "Faith") drawText("Industrial Apex", 30, false, 40, "violet");
-        //else drawText("Faith's End - Reality "+(100-level)+"%", 30, false, 40, "violet");
-        //drawText("Ipseity: "+truehp, 30, false, 70, "cyan");
-        //if (gameState == "running"){
-        //    drawText("Resolve: "+player.resolve+"/"+(3+Math.floor(resolvebonus/2)), 30, false, 100, "orange");
-        //    if (player.rosetox > 0) drawText("Glamour: "+player.rosetox+"/10", 30, false, 440, "lightpink");
-        //}
-        //if (gameState == "contemplation") drawText("Agony: "+agony, 30, false, 100, "red");
+
         //if (gameState == "dead" && !victory) drawText("SOUL SHATTERED", 20, false, 100, "red");
         //else if (gameState == "dead" && victory) drawText("VICTORY", 30, false, 100, "lime");
-        let basicc = player.inventory.filter(soul => basic.includes(soul)).length + player.inhand.filter(soul => basic.includes(soul)).length + player.discard.filter(soul => basic.includes(soul)).length + player.saved.filter(soul => basic.includes(soul)).length;
-        let serc = player.inventory.filter(soul => soul == "SERENE").length + player.inhand.filter(soul => soul == "SERENE").length + player.discard.filter(soul => soul == "SERENE").length + player.saved.filter(soul => soul == "SERENE").length;
-        let advc = player.inventory.length + player.inhand.length + player.discard.length + player.saved.length - basicc -serc;
-        //printAtSidebar("Common Souls: "+basicc, 18, 590, 475, "white", 20, 350);
-        //printAtSidebar("Legendary Souls: "+advc, 18, 590, 500, "yellow", 20, 350);
-        //printAtSidebar("Serene Souls: "+serc, 18, 590, 525, "cyan", 20, 350);
         let modulecol = "cyan";
         if (selectation == 21 || selectation == 22) modulecol = "white";
         //printAtSidebar("f) Harmonic Modulator: "+modulename[player.activemodule], 18, 590, 550, modulecol, 20, 350);
-        if ((gameState == "vision" && discarded > 0) || (gameState == "discard" && !naiamode)) drawText("Which soul to discard?", 20, false, 100, "deepskyblue");
-        if (gameState == "discard" && naiamode) drawText("Which soul to cast?", 20, false, 100, "fuchsia");
-        if (gameState == "vision" && discarded == 0) drawText("Which soul to stack?", 20, false, 100, "deepskyblue");
+        //if ((gameState == "vision" && player.discarded > 0) || (gameState == "discard" && !naiamode)) drawText("Which soul to discard?", 20, false, 100, "deepskyblue");
+        //if (gameState == "discard" && naiamode) drawText("Which soul to cast?", 20, false, 100, "fuchsia");
+        //if (gameState == "vision" && player.discarded == 0) drawText("Which soul to stack?", 20, false, 100, "deepskyblue");
 
         world.getRoom().draw();
 
-        if (sacrifice == 6 && !cursormode) printAtSidebar("Your Fluffian Arithmetic Elegance Score is "+sacritotal+".", 18, 590, 130, "cyan", 20, 350);
-        if (sacrifice == 6 && !cursormode) printAtSidebar("Press \"f\" to reroll unclaimed caged souls. Warning: The Harmony will sow a seed within your psyche should you take this action!", 18, 590, 200, "cyan", 20, 350);
-        //if (level == 0 && !cursormode) printAtSidebar("Use WASD to move around, interact, and attack.", 18, 590, 130, "lime", 20, 350);
-        //if (level == 1 && !cursormode&& gameState == "running") printAtSidebar("Press \"q\" in combat to summon Souls. Summoning costs Resolve, or Ipseity if you have no more Resolve. If you reach zero Ipseity, you lose.", 18, 590, 270, "lime", 20, 350);
-        //if (level == 1 && !cursormode&& gameState == "running") printAtSidebar("Press the number keys 1-9 to unleash Souls.", 18, 590, 370, "lime", 20, 350);
         if (!cursormode && gameState == "contemplation" && !contemhint){
             //printAtSidebar("Death in this world is only the beginning of another cycle. Press the number keys 1-9 to permanently forget Souls you do not wish to keep. You can only forget the Souls you summoned in this room.", 18, 590, 350, "lime", 20, 350);
             //printAtSidebar("Dying costs Ipseity. If your Ipseity reaches zero, you die a true death.", 18, 590, 500, "lime", 20, 350);
             contemhint = false;
         }
-        //if (level == 1 && !cursormode&& gameState == "running") printAtSidebar("Slay enemies to collect their Soul.", 18, 590, 210, "lime", 20, 350);
-        //if (level == 0 && !cursormode) printAtSidebar("Press \"c\" to toggle Examine mode.", 18, 590, 210, "lime", 20, 350);
-        //if (level == 0 && !invmode) printAtSidebar("Press \"i\" to toggle Soul View mode.", 18, 590, 275, "lime", 20, 350);
         if (cursormode && !invmode){
             cursor.draw();
             cursor.info();
@@ -282,8 +254,6 @@ function draw(){
                     if (selectation == i) colour = "cyan";     
                     drawText(spellText, 20, false, 130+i*20, colour);
                 }
-                if (gameState == "discard" && !naiamode) log.addLog("Discard");
-                else if (gameState == "discard" && naiamode) log.addLog("NaiaTime");
             }
             else if (gameState == "vision"  && !fufflore){
                 for(let i=0; i<player.vision.length; i++){

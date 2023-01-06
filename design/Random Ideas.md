@@ -3,9 +3,10 @@
 **Current Project**
 * Release 0.2.
 
-* Add tile abilties. Like "opens on room clear". Maybe make returnExits different too.
 * Review dialogue and Negentropy nerdiness being too weird.
 * Add hotkeys to the inventory screen.
+* Add a way to revive with mouse (Q)
+* Naia is too OP vs Epsilon. Make Epsilon knockback the player and gain invulnerability if he loses more than 33% of his HP in a single turn.
 
 bugs:
 * Fix mouse movement with falling and para. Or anything else that's buggy.
@@ -20,6 +21,8 @@ bugs:
 
 **UI**
 
+* Add tile abilties. Like "opens on room clear". Maybe make returnExits different too.
+* Bring back the glamour counter. Make the filter scale with glamour level too.
 * Make mouse movement follow Terminal.
 * A confirm prompt if you draw after 0 resolve. Also make the resolve counter red at 0.
 * numeric system based on basic castes.
@@ -30,6 +33,7 @@ bugs:
 * a gardener room that is completely peaceful but gets ridiculously hectic if the player dares step on a flower.
 * A peaceful lake that becomes sinister while using roseic toxin.
 * A massive enemy over 9 tiles, composed of combined textures. Maybe in the Spire.
+* A joke room where a Harmonizer insists on the purity and the Sameness of the roguelike genre. Mention that all roguelikes are theoretically real-time due to the player having a limited mortal lifespawn, which the Harmony is exempt from. Only the Harmony can play true roguelikes.
 
 **Lore**
 
@@ -62,6 +66,7 @@ bugs:
 * Also look into a possible internet component to this encounter.
 * If a trailer is ever made it should not be a trailer, but rather pure boss battle footage with Zaint who criticizes the concept of trailers. After all, if an image is worth a thousand words, surely a video must be worth a million.
 * Bringing Sugcha all the way to the end of the game should result in something funny.
+* A Zaint-themed room that makes you forgo ever getting achievements to cleanse your mind of external motivation.
 
 **To use later**
 

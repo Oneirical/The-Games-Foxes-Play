@@ -100,7 +100,6 @@ class Monster{
         this.permacharm = false;
         this.enraged = false;
         this.inhand = [];
-        this.discard = [];
         this.falsehp = 0;
         this.deathdelay = 0;
         this.shield = 0;
@@ -571,7 +570,7 @@ class Player extends Monster{
         this.teleportCounter = 0;
         this.inventory = [];
         this.inhand = [];
-        this.discard = [];
+        this.discarded = 0;
         this.saved = [];
         this.resolve = 0;
         this.name = "Terminal, the Reality Anchor";
@@ -787,60 +786,6 @@ class Player extends Monster{
         return true;
     }
 
-    addSpell(skey){
-        if (smod.includes(skey)) modules.push(skey);
-        else{
-            this.discard.push(skey);
-            if (doublecounter!=0) spells[skey](this);
-        }                                             
-    }
-
-    drawSpell(){
-        if (this.discard.length <= 0 && this.inventory.length <= 0){
-            log.addLog("NoSouls");
-        }
-        else if (this.inhand.length > 8){
-            log.addLog("Oversoul");
-        }
-        else{
-            //log.addLog("Empty");
-            if (this.inventory.length <= 0){
-                //this.discard.push("TAINTED") //remplacer avec curse, dash est un placeholder
-    
-                shuffle(this.discard)
-                for(let i=0;i<this.discard.length;i++){
-                    this.inventory.push(this.discard[i]);
-                }
-                this.discard = [];
-            }
-            this.inhand.push(this.inventory[0]);
-            if(this.inventory[0] == "EZEZZA"){
-                this.para = 2;
-                log.addLog("EZEZZA");
-            }
-            this.inventory.shift();
-            if (this.resolve > 0){
-                this.resolve--
-            }
-            else{
-                truehp--
-                if (truehp <= 0){
-                    gameState = "dead"
-                    pauseAllMusic();
-                    playSound("falsity");
-                    log.addLog("DrawDeath");
-                }
-            }
-            if (this.activemodule != "Alacrity") tick();
-            else if (!this.consumeCommon(1,false)){
-                log.addLog("FluffyInsufficientPower");
-                playSound("off");
-                tick();
-                this.activemodule = "NONE";
-            } 
-        }
-    }
-
     viewSpell(){
         if (this.inventory.length <= 2){
             //this.discard.push("TAINTED") //remplacer avec curse, dash est un placeholder
@@ -918,31 +863,6 @@ class Player extends Monster{
         }
     }
 
-    discardPawSpell(index){
-        let discardName = this.inhand[index];
-        if (discardName){
-            this.discard.push(discardName);
-            this.inhand.splice(index, 1);
-            discarded++;
-            if (naiamode){
-                spells[discardName](this);
-            }
-        }
-    }
-
-    undiscard(){
-        gameState = "running";
-        if (!naiamode){
-            log.addLog("ASPHA");
-            spells["ASPHAF"](discarded);
-        }
-        else if (naiamode){
-            log.addLog("NAIA");
-            naiamode = false;
-        }
-        discarded = 0;
-    }
-
     stackSpell(index){
         let stackName = this.vision[index];
         if (stackName && stack < 2){
@@ -952,7 +872,7 @@ class Player extends Monster{
             spells[stackName](this);
             if (stack == 2){
                 stack = 0;
-                discarded = 0;
+                this.discarded = 0;
                 gameState = "running";
                 log.addLog("SHIZAPIS");
             }
@@ -1080,10 +1000,6 @@ class Player extends Monster{
         level++;
         let areas = ["Faith","Circus","Spire","Edge"]; // add Edge when it's not bugged "Spire"
         area = areas[randomRange(0,0)]
-        for(let i=0;i<this.inhand.length;i++) this.discard.push(this.inhand[i]);
-        for(let i=0;i<player.saved.length;i++) player.discard.push(this.saved[i]);
-        invsave = this.inventory;
-        dissave = this.discard;
         if (level % 5 == 1 && level > 5){
             if (area == "Faith"){
                 log.addLog("FluffyWelcome");

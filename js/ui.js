@@ -65,7 +65,7 @@ class DrawWheel{
         this.hotkeycoords = [[center[0], center[1]-dist],[center[0]+Math.cos(pi/4)*dist, center[1]-Math.sin(pi/4)*dist],[center[0]+dist, center[1]],[center[0]+Math.cos(pi/4)*dist, center[1]+Math.sin(pi/4)*dist],[center[0], center[1]+dist],[center[0]-Math.cos(pi/4)*dist, center[1]+Math.sin(pi/4)*dist],[center[0]-dist, center[1]],[center[0]-Math.cos(pi/4)*dist, center[1]-Math.sin(pi/4)*dist]];
 
         this.pile = [];
-        this.discard = [new Artistic(), new Feral()]; //
+        this.discard = [new Ordered(), new Ordered(),new Ordered(), new Ordered()]; //
         this.saved = [new Empty(),new Empty(),new Empty(),new Empty(),new Empty(),new Empty(),new Empty(),new Empty()];
         this.resolve = 3; //update this later with the bonus
         this.castes = [new Saintly(),new Ordered(),new Artistic(),new Unhinged(),new Feral(),new Vile()];
@@ -206,6 +206,35 @@ class DrawWheel{
         }  
     }
 
+    discardSoul(index){
+        let soul = this.wheel[index];
+        if (soul instanceof Empty){
+            shakeAmount = 5;
+            log.addLog("EmptyCast");
+            return;
+        }
+        else{
+            this.discard.push(soul);
+            if (naiamode){
+                this.castSoulFree(index)
+            }
+            this.wheel[index] = new Empty();
+            player.discarded++;
+        }
+    }
+
+    endDiscard(){ // if more discardmode stuff gets added review the if statements
+        gameState = "running";
+        if (!naiamode){
+            spells["ASPHAF"](player.discarded);
+        }
+        else if (naiamode){
+            log.addLog("NAIA");
+            naiamode = false;
+        }
+        player.discarded = 0;
+    }
+
     breatheSoul(){
         if (player.tile instanceof BetAltar){
             let commoncheck = false;
@@ -313,6 +342,10 @@ class DrawWheel{
     drawSoul(){
         if (player.infested > 0){
             this.breatheSoul();
+            return;
+        }
+        if (gameState == "discard"){
+            wheel.endDiscard();
             return;
         }
         if (this.discard.length <= 0 && this.pile.length <= 0){
@@ -453,6 +486,51 @@ class DrawWheel{
         }
     }
 
+    castSoulFree(slot){
+        let soul = this.wheel[slot];
+        if (soul instanceof Empty){
+            shakeAmount = 5;
+            log.addLog("EmptyCast");
+            return;
+        }                
+        else{
+            //if (soul.id == "SERENE") TODO make this
+            let num = legendaries.castes.indexOf(soul.id);
+            let spellName = soul.id;
+            if (legendaries.active[num].influence == "C" || legendaries.active[num].influence == "A"){
+                spellName = legendaries.active[num].id;
+            }
+            if (player.fuffified > 0) spellName = "SERENE";
+            if (spellName){
+                if (basic.includes(spellName) && area == "Spire") spellName = spellName+"S";
+                spells[spellName](player, legendaries.active[num]);
+                if (legendaries.active[num].influence == "C") spells[legendaries.active[num].caste](player);
+                if (!fail && player.activemodule != "Focus"){
+                    let lookingfor = 0;
+                    for (let k of this.saved){
+                        if (k instanceof Empty){
+                            this.saved[this.saved.indexOf(k)] = this.wheel[slot];
+                            break;
+                        } 
+                        else lookingfor++;
+                    }
+                    if (lookingfor == 8){
+                        let exile = shuffle(this.saved)[0];
+                        this.saved[this.saved.indexOf(exile)] = new Empty();
+                        this.discard.push(exile);
+                        for (let k of this.saved){
+                            if (k instanceof Empty){
+                                this.saved[this.saved.indexOf(k)] = this.wheel[slot];
+                                break;
+                            } 
+                        }
+                    }
+                    this.wheel[slot] = new Empty();
+                }
+            }
+        }
+    }
+
     castSoul(slot){
         if (player.infested > 1){
             this.sacrificeSoul(slot);
@@ -460,6 +538,10 @@ class DrawWheel{
         }
         else if (gameState == "contemplation"){
             this.removeSoul(slot);
+            return;
+        }
+        else if (gameState == "discard"){
+            this.discardSoul(slot);
             return;
         }
         let soul = this.wheel[slot];
@@ -575,7 +657,7 @@ class Modules{
 class Inventory{
     constructor(){
         this.active = [new Vile(),new Feral(),new Unhinged(),new Artistic(),new Ordered(),new Saintly()];
-        this.storage = [new Sugcha(),new Ezezza(),new Empty(),new Empty()];
+        this.storage = [new Sugcha(),new Aspha(),new Empty(),new Empty()];
         this.actcoords = [[148, 76],[366, 76],[76, 257],[438, 257],[148, 438],[366, 438]];
         this.actcoords.reverse();//don't feel like re-writing these in the correct order lmao
         this.castes = ["VILE","FERAL","UNHINGED","ARTISTIC","ORDERED","SAINTLY"];
@@ -833,6 +915,7 @@ class Aspha extends LegendarySoul{
         this.icon = 18;
         this.caste = "ORDERED";
     }
+    talk(){}
 }
 
 class Kilami extends LegendarySoul{
