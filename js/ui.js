@@ -346,10 +346,14 @@ class DrawWheel{
                     break;
                 } 
             }
-            //if(this.inventory[0] == "EZEZZA"){
-            //    this.para = 2;
-            //    log.addLog("EZEZZA";
-            //}
+            if(this.pile[0] instanceof Feral){
+                for (let j of legendaries.active){
+                    if (j instanceof Ezezza){
+                        player.para++;
+                        log.addLog("EZEZZA");
+                    }
+                }
+            }
             this.pile.shift();
             if (this.resolve > 0){
                 this.resolve--
@@ -571,7 +575,7 @@ class Modules{
 class Inventory{
     constructor(){
         this.active = [new Vile(),new Feral(),new Unhinged(),new Artistic(),new Ordered(),new Saintly()];
-        this.storage = [new Sugcha(),new Empty(),new Empty(),new Empty()];
+        this.storage = [new Sugcha(),new Ezezza(),new Empty(),new Empty()];
         this.actcoords = [[148, 76],[366, 76],[76, 257],[438, 257],[148, 438],[366, 438]];
         this.actcoords.reverse();//don't feel like re-writing these in the correct order lmao
         this.castes = ["VILE","FERAL","UNHINGED","ARTISTIC","ORDERED","SAINTLY"];
@@ -599,6 +603,7 @@ class Inventory{
     activateSoul(slot){
         let soul = this.storage[slot];
         if (soul instanceof Empty) return;
+        if (soul instanceof Ezezza && exitspawn == 0) return;
         let caste = this.castes.indexOf(this.storage[slot].caste);
         this.storage[slot] = new Empty();
         this.storeSoul(caste, this.active[caste]);
@@ -619,6 +624,7 @@ class Inventory{
 
     storeSoul(slot){
         let soul = this.active[slot];
+        if (soul instanceof Ezezza && exitspawn == 0) return;
         if (basic.includes(this.active[slot].id)) return;
         else{
             let noroom = 0;
@@ -907,6 +913,7 @@ class Ezezza extends LegendarySoul{
         super("EZEZZA");
         this.icon = 30;
         this.caste = "FERAL";
+        this.influence = "I";
     }
 }
 

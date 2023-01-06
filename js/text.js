@@ -28,6 +28,7 @@ inventorytext = {
 messages = {
     // Various out-of-character messages
     "Empty" : "",
+    "Bug" : "If you are seeing this, you have caused spacetime to explode and have violated the elemental laws of reality. Please message u/oneirical on Reddit, Onirim#2777 on the Roguelikes Discord or raise an issue on TGFP's GitHub explaining what happened.",
     "WIP" : "This feature is not completed yet.",
     "AgonyWarning" : "You do not have enough Agony to forget this soul!",
     "Shiza" : "Select one soul to discard, then two to stack on top of your deck. The last selected card goes on top of the deck.",
@@ -526,8 +527,8 @@ soulabi = {
     "RASEL" : "EXTENSION OF WILL - Overrides the Vile caste. When activated, become empowered with Reaping until a new room is revealed, reviving all slain targets as friendly 1 HP Husks.",
     "BORERORA" : "THUNDEROUS APPLAUSE - Overrides the Artistic caste. When activated, unleash a 2-damage sonic beam, which passes through walls and bounces an amount of times equal to double the number of souls in your wheel.",
     "ASPHA" : "SECURE THE PERIMETER - Overrides the Ordered caste. When activated, discard as many souls as you desire. For each discarded soul, teleport to a random location, and slash all adjacent and diagonal tiles for 2 damage.",
-    "NAIA" : "TO THINK IS TO DO - Complements the Ordered caste. When activated, stop time and gain infinite turns. Moving away from your currently occupied square instantly breaks the trance.",
-    "EZEZZA" : "MIND LOCK - Passive: does not affect the Feral caste. Gain double Negentropy on room clear. When a Feral soul is drawn, become paralyzed for 1 turn. ",
+    "NAIA" : "TO THINK IS TO DO - Complements the Ordered caste. When activated, stop time and gain infinite turns. Moving away from your currently occupied square or bump-attacking instantly breaks the trance.",
+    "EZEZZA" : "MIND LOCK - Passive: does not affect the Feral caste. Gain double Negentropy on room clear. When a Feral soul is drawn, become paralyzed for 1 turn. Can only be incarnated or inactivated when out of combat.",
     "ASTER" : "CACOPHONIC RAGE - Overrides the Saintly caste. When activated, forget all Serene souls in your wheel, and strike all enemies for 0 damage. +1 bonus damage for each enemy of the same type in the room as the one hit. One additional secret effect...", // to add the secret effect
     "GYVJI" : "DIAMOND STRIKE - Overrides the Artistic caste. When activated, punch the adjacent enemy in the direction of your last move. The target flies until it meets a wall or another enemy, at which point it causes a 1-range blast that destroys walls and inflicts 3 damage. The target must fly at least 1 tile for the blast to take effect.",
     "KASHIA" : "REALITY DELAY - Overrides the Unhinged caste. When activated, freeze your current HP, preventing all changes. 5 turns later, apply all damage and healing that occurred during the delay period. Applied healing is doubled.",

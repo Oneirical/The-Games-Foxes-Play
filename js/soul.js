@@ -529,9 +529,11 @@ spells = {
     },
     LASHOL: function(){
         //cannot be evoked
+        log.addLog("Bug");
     },
     EZEZZA: function(){
         //cannot be evoked
+        log.addLog("Bug");
     },
     ASTER: function(){
         removeItemAll(player.inhand, "SERENE");

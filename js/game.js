@@ -338,14 +338,10 @@ function draw(){
 }
 function manageExit(){
     truehp++;
-    for (let elem of player.discard){
-        if(elem == "EZEZZA") truehp++;
-    }
-    for (let elem of player.inhand){
-        if(elem == "EZEZZA") truehp++;
-    }
-    for (let elem of player.inventory){
-        if(elem == "EZEZZA") truehp++;
+    for (let j of legendaries.active){
+        if (j instanceof Ezezza){
+            truehp++;
+        }
     }
     exitspawn = 1;
 }

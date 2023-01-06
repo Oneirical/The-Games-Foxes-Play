@@ -64,6 +64,7 @@ class World{
         this.roomlist.push(room);
         room.buildRoom(connector);
         wheel.resolve = 3+ Math.floor(resolvebonus/2);
+        exitspawn = 0;
         return room;
     }
 
@@ -79,6 +80,7 @@ class World{
     }
 
     reloadRoom(id, coordinates){
+        exitspawn = 1;
         let room = this.roomlist[id];
         monsters = this.roomlist[id].monsters;
         tiles = this.roomlist[id].tiles;
@@ -139,7 +141,6 @@ class Room{
     }
 
     initializeRoom(){
-        exitspawn = 0;
         if (this.music && this.music != currenttrack) {
             pauseAllMusic();
             playSound(this.music);
