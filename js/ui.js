@@ -790,7 +790,7 @@ class LegendarySoul{
         printAtSidebar(this.subdescript, 18, 590, 110, "white", 20, 6*64-35);
         drawSymbol(this.icon, 890, 20, 64);
         drawSymbol(34, 590, 500, 64);
-        printAtSidebar("Breathe this Soul (Q) to choose it and exit the Relay.", 18, 660, 528, "white", 20, 6*64-105);
+        printAtSidebar("Inhale this Soul (Q) to choose it and exit the Relay.", 18, 660, 528, "white", 20, 6*64-105);
     }
 
     talk(){
