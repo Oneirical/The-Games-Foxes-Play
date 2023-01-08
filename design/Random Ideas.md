@@ -2,7 +2,6 @@
 
 **Current Tasks**
 
-* Add hotkeys to the inventory screen.
 * Shizapis, aster, Serene, borerora, aube.
 
 **Serene Project**
@@ -15,6 +14,7 @@
 **Bugs**
 
 * Aube has no texture.
+* Description of invisible walls is based on abazon.
 * Falling in the Serene Spire can be ignored with mouse movement.
 * Descriptions for harmony platforms and ladders
 
@@ -35,6 +35,11 @@
 * Make mouse movement follow Terminal.
 * A confirm prompt if you draw after 0 resolve. Also make the resolve counter red at 0.
 * numeric system based on basic castes.
+
+*Map*
+
+* An image of a huge twisting maze, like brain coral. Coloured dots can be clicked to enlarge portions of Faith's End, corresponding to saved World objects.
+* Actually, could the most interesting landmarks on the map be marked, and could the player control their respawning to approach them?
 
 **Rooms & Creatures**
 

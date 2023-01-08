@@ -132,10 +132,10 @@ class Tile{
         this.effectCounter = time;
     }
     checkDirection(){
-        if (this.y == 0) this.direction = "N";
-        else if (this.x == 0) this.direction = "W";
-        else if (this.x == numTiles-1) this.direction = "E";
-        else if (this.y == numTiles-1) this.direction = "S";
+        if (this.y == world.getRoom().extreme["N"]) this.direction = "N";
+        else if (this.x == world.getRoom().extreme["W"]) this.direction = "W";
+        else if (this.x == world.getRoom().extreme["E"]) this.direction = "E";
+        else if (this.y == world.getRoom().extreme["S"]) this.direction = "S";
     }
 }
 

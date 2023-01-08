@@ -38,6 +38,25 @@ function generateTiles(){
     return passableTiles;
 }
 
+function locateExits(id){
+    
+}
+
+function generateVault(id){
+    tiles = [];
+    world.getRoom().possibleexits = [];
+    let vault = rooms[id];
+    for(let i=0;i<numTiles;i++){
+        tiles[i] = [];
+        for(let j=0;j<numTiles;j++){
+            let tile = key[vault[j][i]];
+            tiles[i][j] = new tile(i,j);
+            if (tiles[i][j] instanceof BExit) world.getRoom().possibleexits.push([i,j]);
+        }
+    }
+    if (vault["tags"].includes("randomgen")) generateMonsters();
+}
+
 function generateUnityTest(){
     tiles = [];
     for(let i=0;i<numTiles;i++){

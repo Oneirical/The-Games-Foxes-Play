@@ -12,7 +12,7 @@ class World{
     }
     selectRooms(){
         if (this.serene) this.roompool = [StandardSpire];
-        else this.roompool = [StandardFaith];
+        else this.roompool = [StandardFaith, TriangleFaith, NarrowFaith];
     }
 
     addRoom(coordinates, connector){
@@ -130,10 +130,12 @@ class Room{
         this.fourway = false;
         this.violatereality = false;
         this.filler = Wall;
-    }
-
-    buildRoom(){
-        //it does nothing lol
+        this.extreme = {
+            "N" : 0,
+            "W" : 0,
+            "E" : numTiles-1,
+            "S" : numTiles-1,
+        }
     }
 
     draw(){
@@ -177,7 +179,7 @@ class WorldSeed extends Room{
     }
 
     buildRoom(){
-        super.buildRoom();
+        
         generateLevel();
         generateMonsters();
     }
@@ -201,7 +203,7 @@ class StandardFaith extends Room{
     }
 
     buildRoom(connector){
-        super.buildRoom();
+        
         generateLevel();
         blockedExits(connector);
         generateMonsters();
@@ -210,6 +212,32 @@ class StandardFaith extends Room{
     initializeRoom(){
         //this.playerspawn = getTileButNotCursed(Math.floor((numTiles-1)/2),1);
         super.initializeRoom();
+    }
+}
+
+class TriangleFaith extends StandardFaith{
+    constructor(index){
+        super(index);
+    }
+
+    buildRoom(){
+        generateVault("Triangle");
+    }
+}
+
+class NarrowFaith extends StandardFaith{
+    constructor(index){
+        super(index);
+        this.extreme = {
+            "N" : 0,
+            "W" : 2,
+            "E" : 6,
+            "S" : numTiles-1,
+        }
+    }
+
+    buildRoom(){
+        generateVault("Narrow");
     }
 }
 
@@ -226,7 +254,7 @@ class HarmonyRelay extends Room{
     }
     
     buildRoom(connector){
-        super.buildRoom();
+        
         generateUnityTest();
         blockedExits(connector);
         generateMonsters();
@@ -311,7 +339,7 @@ class StandardSpire extends Room{
     }
 
     buildRoom(){
-        super.buildRoom();
+        
         generateSpire();
         generateMonsters();
     }
@@ -331,7 +359,7 @@ class RoseicCogArena extends Room{
     }
 
     buildRoom(){
-        super.buildRoom();
+        
         generateCircus();
     }
 
@@ -355,7 +383,7 @@ class EpsilonArena extends Room{
     }
 
     buildRoom(connector){
-        super.buildRoom();
+        
         generateEpsilon();
         showboss = true;
         blockedExits(connector);
@@ -377,7 +405,7 @@ class FluffianWorkshop extends Room{
     }
 
     buildRoom(){
-        super.buildRoom();
+        
         generateModule();
         generateMonsters();
     }
