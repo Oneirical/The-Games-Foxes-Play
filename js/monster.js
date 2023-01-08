@@ -523,7 +523,7 @@ class Monster{
     die(){
         this.dead = true;
         this.tile.monster = null;
-        if (player.reaping && !this.charmed && !this.tile.siphon){
+        if (player.reaping && !this.charmed && !this.tile.siphon && !this.respawned){
             let husk = new Husk(this.tile);
             monsters.push(husk);
         }

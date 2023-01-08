@@ -520,7 +520,7 @@ soulabi = {
     "ABAZON" : "TERRACUTTER - Overrides the Ordered caste. When activated, transform a nearby (non-outer) wall into an immobile, invincible Sentry who will attack nearby enemies.",
     "LASHOL" : "RAMPING SURGE - Passive: does not affect the Feral caste. Build up electric charge at each step, powering your next attack with 1 bonus damage per 3 tiles travelled.",
     "ZAINT" : "ORIGIN OF ALL - Overrides the Saintly caste. When activated, incite surrender from all enemies in the room, then permanently forget Zaint.",
-    "RASEL" : "EXTENSION OF WILL - Overrides the Vile caste. When activated, become empowered with Reaping until a new room is revealed, reviving all slain targets as friendly 1 HP Husks.",
+    "RASEL" : "EXTENSION OF WILL - Overrides the Vile caste. When activated, become empowered with Reaping until a new room is revealed, reviving all slain targets as friendly 1 HP Husks. Resurrecting enemies must die a true death to trigger this effect.",
     "BORERORA" : "THUNDEROUS APPLAUSE - Overrides the Artistic caste. When activated, unleash a 2-damage sonic beam, which passes through walls and bounces an amount of times equal to double the number of souls in your wheel.",
     "ASPHA" : "SECURE THE PERIMETER - Overrides the Ordered caste. When activated, discard as many souls as you desire. For each discarded soul, teleport to a random location, and slash all adjacent and diagonal tiles for 2 damage.",
     "NAIA" : "TO THINK IS TO DO - Overrides the Ordered caste. When activated, stop time and gain infinite turns. Ordered Souls cast during this period trigger their Common effect. Moving normally or inhaling instantly breaks the trance.",

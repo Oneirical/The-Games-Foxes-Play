@@ -1,8 +1,8 @@
 ## This is a chaotic canvas on which I launch all the random things I come up with while going about my day and bugs I notice throughout playtesting. It is not meant to be comprehensible.
 
-**Current Project**
-* Release 0.2.
+**Current Tasks**
 
+* Fix rasel + ragemaw.
 * Add hotkeys to the inventory screen.
 * Shizapis, aster, Serene, borerora, aube.
 
@@ -47,6 +47,8 @@
 * A peaceful lake that becomes sinister while using roseic toxin.
 * A massive enemy over 9 tiles, composed of combined textures. Maybe in the Spire.
 * A joke room where a Harmonizer insists on the purity and the Sameness of the roguelike genre. Mention that all roguelikes are theoretically real-time due to the player having a limited mortal lifespawn, which the Harmony is exempt from. Only the Harmony can play true roguelikes.
+* Sugcha statues, that cause psychic damage when broken.
+* Pressurized glamorous toxin behind breakable glass that spreads through the room.
 
 **Lore**
 
