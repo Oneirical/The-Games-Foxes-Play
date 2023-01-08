@@ -10,6 +10,8 @@
 
 * Change back the "bonus trinket" dialogue line when modulators are implemented.
 * DrawSoul + Alacrity needs to be fixed.
+* Serene Souls should change their name with each added Serene Soul into increasingly positive titles.
+* Make Harmonic Relays less easy.
 
 **Bugs**
 
@@ -38,6 +40,7 @@
 **Rooms & Creatures**
 
 * Make rooms more random.
+* Roseic gas should interact more directly with inhaling, and give a lower glamour score if only standing in it.
 * Add more Epsilon cores to vary the runs. Massive tongue-whip with interesting pathfinding, shockwave that causes kerosene explosions.
 * lotus incense. sacrifice a legendary to mark the room with a respawn/recall point.
 * a gardener room that is completely peaceful but gets ridiculously hectic if the player dares step on a flower.
@@ -75,12 +78,14 @@
 **Insane/overly ambitious stuff**
 
 * Inhalable Glamorous Toxin that transforms the current room into a hallucinatory version. Maybe Rose's soul does this.
+* Rose himself should be found at the very bottom of hallucinations within hallucinations.
 * The final boss being inspired by M. Industries. Inside Ronin's spaceship (built out of negentropic force), farm tokens on 4 plates while being assailed by the Harmony, and buy upgrades in the form of pushable boxes to give more firepower to Ronin's squad.
 * Ronin's weapon should be a big-ass war vacuum.
 * Also look into a possible internet component to this encounter.
 * If a trailer is ever made it should not be a trailer, but rather pure boss battle footage with Zaint who criticizes the concept of trailers. After all, if an image is worth a thousand words, surely a video must be worth a million.
 * Bringing Sugcha all the way to the end of the game should result in something funny.
 * A Zaint-themed room that makes you forgo ever getting achievements to cleanse your mind of external motivation.
+* Zaint should open a joke metaprogression shop that does something ridiculously insignificant, like 1/1 million chance of gaining 1 bonus damage per hit or changing the colour of something in the GUI.
 
 **To use later**
 

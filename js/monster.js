@@ -349,6 +349,7 @@ class Monster{
                 for (let x of legendaries.active){
                     if (x instanceof Lashol) player.bonusAttack += (1/3);
                 }
+                if (this instanceof Oracle) this.bonusAttack += (1/3);
                 if (this.bonusAttack == 3 && this.isPlayer){
                     log.addLog("LASHOL");
                 }
@@ -1274,7 +1275,6 @@ class Oracle extends Monster{
         this.soul = "Animated by an Unhinged (3) soul.";
         this.name = "Anisychic Oracle";
         this.ability = monabi["Oracle"];
-        this.inhand = ["LASHOL"];
     }
 }
 
