@@ -109,6 +109,11 @@
             if (e.key == "l"){
                 inInventory = !inInventory;
             }
+            if (inInventory){
+                if (e.key >= 1 && e.key <= 6) legendaries.storeSoul(e.key-1);
+                if (e.key >= 7 && e.key <= 9) legendaries.activateSoul(e.key-7);
+                if (e.key == 0) legendaries.activateSoul(3);
+            }
             if (inInventory || inModules) return;
             if(e.key=="c") {
                 cursormode = !cursormode;

@@ -65,7 +65,7 @@ class DrawWheel{
         this.hotkeycoords = [[center[0], center[1]-dist],[center[0]+Math.cos(pi/4)*dist, center[1]-Math.sin(pi/4)*dist],[center[0]+dist, center[1]],[center[0]+Math.cos(pi/4)*dist, center[1]+Math.sin(pi/4)*dist],[center[0], center[1]+dist],[center[0]-Math.cos(pi/4)*dist, center[1]+Math.sin(pi/4)*dist],[center[0]-dist, center[1]],[center[0]-Math.cos(pi/4)*dist, center[1]-Math.sin(pi/4)*dist]];
 
         this.pile = [];
-        this.discard = [new Vile()]; //
+        this.discard = []; //
         this.saved = [new Empty(),new Empty(),new Empty(),new Empty(),new Empty(),new Empty(),new Empty(),new Empty()];
         this.resolve = 3; //update this later with the bonus
         this.castes = [new Saintly(),new Ordered(),new Artistic(),new Unhinged(),new Feral(),new Vile()];
@@ -660,7 +660,7 @@ class Modules{
 class Inventory{
     constructor(){
         this.active = [new Vile(),new Feral(),new Unhinged(),new Artistic(),new Ordered(),new Saintly()];
-        this.storage = [new Sugcha(),new Rasel(),new Empty(),new Empty()];
+        this.storage = [new Sugcha(),new Empty(),new Empty(),new Empty()];
         this.actcoords = [[148, 76],[366, 76],[76, 257],[438, 257],[148, 438],[366, 438]];
         this.actcoords.reverse();//don't feel like re-writing these in the correct order lmao
         this.castes = ["VILE","FERAL","UNHINGED","ARTISTIC","ORDERED","SAINTLY","SERENE"];
@@ -683,7 +683,17 @@ class Inventory{
             ctx.globalAlpha = k.alpha;
             drawSymbol(k.icon, this.storecoords[this.storage.indexOf(k)][0], this.storecoords[this.storage.indexOf(k)][1], 64);
         }
-        //message = "InvTutorial"; TODO
+        printAtWordWrap("1",22, 482, 478, "white",20,350);
+        printAtWordWrap("2",22, 80, 478, "white",20,350);
+        printAtWordWrap("3",22, 554, 297, "white",20,350);
+        printAtWordWrap("4",22, 10, 297, "white",20,350);
+        printAtWordWrap("5",22, 482, 116, "white",20,350);
+        printAtWordWrap("6",22, 80, 116, "white",20,350);
+        printAtWordWrap("7",22, 229, 194, "black",20,350);
+        printAtWordWrap("8",22, 229, 194+68, "black",20,350);
+        printAtWordWrap("9",22, 229, 194+138, "black",20,350);
+        printAtWordWrap("0",22, 229, 194+138+68, "black",20,350);
+        
     }
     activateSoul(slot){
         let soul = this.storage[slot];

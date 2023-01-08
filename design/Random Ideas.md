@@ -2,7 +2,6 @@
 
 **Current Tasks**
 
-* Fix rasel + ragemaw.
 * Add hotkeys to the inventory screen.
 * Shizapis, aster, Serene, borerora, aube.
 
