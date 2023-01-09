@@ -5,6 +5,8 @@ var key = {
     "A" : AbazonWall
 }
 
+//spawns: N - W - E - S
+
 var rooms = {
     "Triangle" : {
         0 : "WEWWWWWWW",
@@ -17,17 +19,19 @@ var rooms = {
         7 : "WFFWWWWWW",
         8 : "WEWWWWWWW",
         "tags": ["randomgen"],
+        "exits" : [[1,0],[0,4],[8,4],[1,8]],
     },
     "Narrow" : {
         0 : "AAWWEWWAA",
         1 : "AAWFFFWAA",
         2 : "AAWFFFWAA",
         3 : "AAWFFFWAA",
-        4 : "AAWFFFWAA",
+        4 : "AAEFFFEAA",
         5 : "AAWFFFWAA",
         6 : "AAWFFFWAA",
         7 : "AAWFFFWAA",
         8 : "AAWWEWWAA",
         "tags": ["randomgen"],
+        "exits" : [[4,1],[3,4],[5,4],[4,7]],
     }
 }

@@ -2,21 +2,46 @@
 
 **Current Tasks**
 
-* Shizapis, aster, Serene, borerora, aube.
+* Shizapis, aster, borerora, aube.
+* Fix the playerspawn in special rooms.
+
+* Stop enemies from spawning on top of you when entering a vault room.
+* Stop invisible walls from appearing in ReturnExits. Something to do with getTile/inBounds.
 
 **Serene Project**
 
+* Buying Modulators costs your least populated Castes, in order. Unequipping them (only possible at a cyberneticist) instantly triggers their conversion effect. Not being able to pay means one must spread the Serene Soul.
+* Maybe a Senet room can offer a loan.
+* Combined Modulators: find an "If" piece and a "Then" piece. For example:
+- When moving right... (harmonize towards 3 Ordered per activation)
+- Lay down a landmine. (harmonize towards 2 Artistic per activation)
+The final modulator has a 3 O + 2 A conversion cost.
+If both pieces are the same Caste, gain a Concordance bonus that lets your Serene summons share the effect.
+Unlock an extra slot per Serene Soul incarnated. Also get discounts on Modulator usage if more are equipped at the same time.
+Offer premade Modulators, like "when moving, dash without doing damage" with reduced costs.
+Make modulators composed of a prefix and a suffix, for example, "Hyper-Kinetic" for "when moving..." and "Collectivist Thrusters" for "dash without doing damage".
+Serene Souls, when used, convert 1 Soul towards the most common caste.
+Harmonic Cyberneticists spawn when the player has no Souls left, and offers to explode your extremely populated caste into varied Castes in exchange for spreading the Serene Soul.
+If fully Harmonized, Modulators are always Concordant and have no cost. All damage dealt is converted to Influence.
+
 * Change back the "bonus trinket" dialogue line when modulators are implemented.
-* DrawSoul + Alacrity needs to be fixed.
 * Serene Souls should change their name with each added Serene Soul into increasingly positive titles.
 * Make Harmonic Relays less easy.
+
+- When moving up... (3 Saintly)
+- When moving down... (3 Vile)
+- When moving left... (3 Unhinged)
+- When moving... (5 Feral)
+- When moving in a circle... (1 Artistic)
+- When breathing a Soul... (3 Saintly)
+- After using all six Castes (without repeats)... (1 Random)
 
 **Bugs**
 
 * Aube has no texture.
 * Description of invisible walls is based on abazon.
 * Falling in the Serene Spire can be ignored with mouse movement.
-* Descriptions for harmony platforms and ladders
+* No descriptions for harmony platforms and ladders
 
 **Low priority nitpicks**
 

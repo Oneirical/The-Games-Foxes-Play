@@ -201,7 +201,7 @@ function draw(){
         for(let i=posgenx;i<maxx;i++){
             for(let j=posgeny;j<maxy;j++){
                 getTileButNotCursed(i,j).draw();
-                viewedTiles.push(getTile(i,j));
+                viewedTiles.push(getTileButNotCursed(i,j));
             }
         }
         player.draw();

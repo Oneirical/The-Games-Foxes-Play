@@ -5,14 +5,18 @@ class World{
         this.currentroom = -1;
         this.serene = serene;
         this.fighting = false;
+        this.fabrication;
     }
 
     getRoom(){
         return (this.roomlist[this.currentroom]);
     }
+    getBuildingRoom(){
+        return this.fabrication;
+    }
     selectRooms(){
         if (this.serene) this.roompool = [StandardSpire];
-        else this.roompool = [StandardFaith, TriangleFaith, NarrowFaith];
+        else this.roompool = [TriangleFaith]; //NarrowFaith,StandardFaith, 
     }
 
     addRoom(coordinates, connector){
@@ -33,35 +37,37 @@ class World{
         this.currentroom = this.roomlist.length;
         let numtest = numTiles;
         numTiles = room.size;
-        if (level == 17) room.possibleexits = [[1,0], [0,numTiles-2],[numTiles-1,1],[numTiles-2,numTiles-1]];
+        if (level == 17) room.possibleexits = [[1,0], [0,numTiles-2],[numTiles-1,1],[numTiles-2,numTiles-1]]; // must replace with vault system
         tileSize = (numtest/numTiles)*64;
+        let list = [3,2,1,0];
         if (coordinates == "firstroom"){
         }
         else if (coordinates == "N"){
             //room.playerspawn = room.entrancepoints[3];
-            room.returnpoint = room.possibleexits[3];
-            room.possibleexits.splice(3,1);
+            room.returnpoint = room.possibleexits[list[0]];
+            if (!room.vault) room.possibleexits.splice(list[0],1);
             room.playerlastmove = [0,-1];
         }
         else if (coordinates == "W"){ 
             //room.playerspawn = room.entrancepoints[2];
-            room.returnpoint = room.possibleexits[2];
-            room.possibleexits.splice(2,1);
+            room.returnpoint = room.possibleexits[list[1]];
+            if (!room.vault) room.possibleexits.splice(list[1],1);
             room.playerlastmove = [-1,0];
         }
         else if (coordinates == "E"){ 
             //room.playerspawn = room.entrancepoints[1];
-            room.returnpoint = room.possibleexits[1];
-            room.possibleexits.splice(1,1);
+            room.returnpoint = room.possibleexits[list[2]];
+            if (!room.vault) room.possibleexits.splice(list[2],1);
             room.playerlastmove = [1,0];
         }
         else if (coordinates == "S"){ 
             //room.playerspawn = room.entrancepoints[0];
-            room.returnpoint = room.possibleexits[0];
-            room.possibleexits.splice(0,1);
+            room.returnpoint = room.possibleexits[list[3]];
+            if (!room.vault) room.possibleexits.splice(list[3],1);
             room.playerlastmove = [0,1];
         }
         this.roomlist.push(room);
+        this.fabrication = room;
         room.buildRoom(connector);
         wheel.resolve = 3+ Math.floor(resolvebonus/2);
         exitspawn = 0;
@@ -130,6 +136,7 @@ class Room{
         this.fourway = false;
         this.violatereality = false;
         this.filler = Wall;
+        this.vault = false;
         this.extreme = {
             "N" : 0,
             "W" : 0,
@@ -215,29 +222,42 @@ class StandardFaith extends Room{
     }
 }
 
-class TriangleFaith extends StandardFaith{
+class DefaultVaultRoom extends StandardFaith{
     constructor(index){
         super(index);
+        this.vault = true;
+        this.id = "Triangle";
+        this.possibleexits = rooms[this.id]["exits"];
     }
+    buildRoom(connector){
+        generateVault(this.id);
+        let returnpoint = world.getRoom().returnpoint;
+        if (connector != null){
+            tiles[returnpoint[0]][returnpoint[1]].replace(BReturnExit);
+            tiles[returnpoint[0]][returnpoint[1]].id = connector;
+        }
 
-    buildRoom(){
-        generateVault("Triangle");
     }
 }
 
-class NarrowFaith extends StandardFaith{
+class TriangleFaith extends DefaultVaultRoom{
     constructor(index){
         super(index);
+        this.id = "Triangle";
+    }
+}
+
+class NarrowFaith extends DefaultVaultRoom{
+    constructor(index){
+        super(index);
+        this.vault = true;
+        this.id = "Narrow";
         this.extreme = {
             "N" : 0,
             "W" : 2,
             "E" : 6,
             "S" : numTiles-1,
         }
-    }
-
-    buildRoom(){
-        generateVault("Narrow");
     }
 }
 
