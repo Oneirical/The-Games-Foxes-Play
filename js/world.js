@@ -228,6 +228,7 @@ class DefaultVaultRoom extends StandardFaith{
         this.vault = true;
         this.id = "Triangle";
         this.possibleexits = rooms[this.id]["exits"];
+        this.entrancepoints = [getTileButNotCursed(this.possibleexits[0][0],this.possibleexits[0][1]+1),getTileButNotCursed(this.possibleexits[1][0]+1,this.possibleexits[1][1]),getTileButNotCursed(this.possibleexits[2][0]-1,this.possibleexits[2][1]),getTileButNotCursed(this.possibleexits[3][0],this.possibleexits[3][1]-1)];
     }
     buildRoom(connector){
         generateVault(this.id);

@@ -420,7 +420,14 @@ class ReturnExit extends Exit {
         this.lore = description["OpenSeal"];
         this.name = "Unraveled Seal";
         this.id = -1;
-        this.sprite = 12;
+        this.textures = {
+            "N" : 89+5,
+            "S" : 86+5,
+            "W" : 87+5,
+            "E" : 88+5
+        }
+        this.sprite = this.textures[this.direction];
+        //this.sprite = 12;
         
     }
     stepOn(monster){

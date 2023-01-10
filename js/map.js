@@ -266,12 +266,13 @@ function generateEpsilon(){
 }
 
 function inBounds(x,y){
-    let array = [x,y];
+    for (let g of world.getRoom().possibleexits){
+        if (g[0] == x && g[1] == y) return true;
+    }
     if((x == (Math.floor((numTiles-1)/2)) && (y == (numTiles-1)||y==0)) || (x == (numTiles-1)||x==0) && y == (Math.floor((numTiles-1)/2))){
         if (world.getRoom() instanceof WorldSeed && y != numTiles-1) return false;
         else return true;
     }
-    else if (world.getRoom().possibleexits.includes(array)) return true;
     else{
     if (area != "Spire" && area != "Circus"){
         if (player){
