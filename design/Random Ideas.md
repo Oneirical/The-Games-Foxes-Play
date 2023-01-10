@@ -38,8 +38,9 @@ If fully Harmonized, Modulators are always Concordant and have no cost. All dama
 - When breathing a Soul... (3 Saintly)
 - After using all six Castes (without repeats)... (1 Random)
 
-**Bugs**
+**Minor Bugs**
 
+* Epsilon bossbar does not fully reflect its actual HP.
 * Aube has no texture.
 * Description of invisible walls is based on abazon.
 * Falling in the Serene Spire can be ignored with mouse movement.
@@ -48,6 +49,7 @@ If fully Harmonized, Modulators are always Concordant and have no cost. All dama
 **Low priority nitpicks**
 
 * Naia is too OP vs Epsilon. Make Epsilon knockback the player and gain invulnerability if he loses more than 33% of his HP in a single turn.
+* In fact, Epsilon needs buffs in general: make the dash leave behind flames, make the lasers do damage.
 * When the player respawns, their lastMove is right by default, which is kind of weird.
 * Double speed enemies still seem to occasionally return to their previous tile.
 * Psychodrones risk being grindy if they let you farm Ordered souls. Find a way to avoid this.

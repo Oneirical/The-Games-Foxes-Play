@@ -286,7 +286,7 @@ function draw(){
             for (let x of monsters) {
                 if (x instanceof Epsilon) hpdraw = x.hp;
             }
-            drawBossHp(1, Math.floor((hpdraw/33)*36)) //the 6 is the maxhp, replace as needed
+            drawBossHp(1, Math.ceil((hpdraw/33)*36)) //the 6 is the maxhp, replace as needed
         }
         ctx.strokeStyle = 'white';
         ctx.lineWidth = 1.5;

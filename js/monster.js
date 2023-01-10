@@ -81,6 +81,7 @@ class Monster{
         this.fp = 0; //it stands for fluffy points
         this.dmg = 1;
         this.loot = loot;
+        this.step = false;
         this.nostun = false;
         this.loveless = false;
         this.teleportCounter = 3;
@@ -135,8 +136,12 @@ class Monster{
                 } 
             }
         }
-        if(this.stunned|| this.teleportCounter > 0){ 
+        if(this.stunned|| this.step ||this.teleportCounter > 0){ 
             this.stunned = false;
+            if (this.step){
+                this.step = false;
+                return;
+            }
             if (!this.nostun) return;
         }
         if(this.paralyzed) return;
@@ -509,6 +514,7 @@ class Monster{
                 if (x instanceof Epsilon) x.hp -= damage;
             }
         }
+        //if (this.isPlayer) this.hp += damage; //godmode
         if(this.hp <= 0){
             this.die();
             if (!this.noloot) wheel.addSoul(this.loot);
@@ -1544,6 +1550,7 @@ class Epsilon extends Monster{
         this.antidash = 0;
         this.nospell = false;
         this.hastalavista = false;
+        this.step = true;
     }
     doStuff(){
         this.abitimer++;
@@ -1672,10 +1679,10 @@ class Epsilon extends Monster{
         if (!beepbeepbeep) super.doStuff();
     }
     update(){
-        let startedStunned = this.stunned;
+        let startedStunned = this.step;
         super.update();
         if(!startedStunned){
-            this.stunned = true;
+            this.step = true;
         }
         else if (this.corelist.length > 0){
             if (this.antidash > 0 || (this.corelist.includes("Red") && (this.tile.x < 2 || this.tile.x > 15 || this.tile.y < 2 || this.tile.y > 15))){
@@ -1714,6 +1721,7 @@ class Tail extends Monster{
         this.loveless = true;
         this.beepbeepbeep = false;
         this.triggered = false;
+        this.step = true;
     }
     doStuff(){
         this.turbo = false;
@@ -1748,10 +1756,10 @@ class Tail extends Monster{
         if (this.beepbeepbeep) this.beepbeepbeep = false;
     }
     update(){
-        let startedStunned = this.stunned;
+        let startedStunned = this.step;
         super.update();
         if(!startedStunned){
-            this.stunned = true;
+            this.step = true;
         }
     }
 }
