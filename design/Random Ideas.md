@@ -2,14 +2,10 @@
 
 **Current Tasks**
 
-* Also flip room.extreme
-* Check about walls blocking exits again
-
 **Map Variety Project**
 
-* Rework exits to be a chance to spawn.
 * Replace AbazonWall with something cooler. DeathPit.
-* Add a random flip chance to flippable rooms.
+* Make corridors have no side exits, and only accessible from corresponding exits.
 * An image of a huge twisting maze, like brain coral. Coloured dots can be clicked to enlarge portions of Faith's End, corresponding to saved World objects.
 * Actually, could the most interesting landmarks on the map be marked, and could the player control their respawning to approach them?
 * The souls you sacrifice on death determine your respawn direction.
@@ -85,7 +81,7 @@ If fully Harmonized, Modulators are always Concordant and have no cost. All dama
 * Make InvTutorial sound less like a marketing pitch.
 * Rename Ipseity to Complexity/Value.
 * Harmonizers are invincible and ethereal outside the spire, because they can only harm their own. In the Spire you have a bit more power over them, as the influence of the environment makes you a little bit more like them.
-* Make it clearer why enemies attack the player - they are desperate for a ride and are also testing to see if Terminal is their true saviour. Maybe add dialogue upon entering random rooms that highlights this
+* Make it clearer why enemies attack the player - they are desperate for a ride and are also testing to see if Terminal is their true saviour. Maybe add dialogue upon entering random rooms that highlights this. Clarify that the reason enemies are weak and never back down is because they *want* to die to Terminal to board the train to the Next World.
 * The reason the game is in glyphs is because it must be "censored" as some creatures are cognitohazardous. The Harmonizers/Roseic Servants in particular.
 * Zaint's philosophy is apathy and detatchment. This makes sense, because altruism has no place in a world where literally everyone is a god with unlimited resources.
 * Also his name is just zaint because he started with a Z, but never finished out of laziness and just kept calling himself "saint" after his noble title.

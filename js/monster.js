@@ -81,6 +81,7 @@ class Monster{
         this.fp = 0; //it stands for fluffy points
         this.dmg = 1;
         this.loot = loot;
+        this.nostun = false;
         this.loveless = false;
         this.teleportCounter = 3;
         this.offsetX = 0;                                                   
@@ -136,7 +137,7 @@ class Monster{
         }
         if(this.stunned|| this.teleportCounter > 0){ 
             this.stunned = false;
-            return;
+            if (!this.nostun) return;
         }
         if(this.paralyzed) return;
         if(this.charmed && monsters.length < 2 && !this.permacharm) this.charmed = false;
@@ -1536,6 +1537,7 @@ class Epsilon extends Monster{
         this.cores = 0;
         this.corelist = [];
         this.turbo = false;
+        this.nostun = true;
         this.loveless = true;
         this.abitimer = 0;
         this.vulnerability = 0;
@@ -1708,6 +1710,7 @@ class Tail extends Monster{
         this.bosscard = 0;
         this.turbo = false;
         this.installed = false;
+        this.nostun = true;
         this.loveless = true;
         this.beepbeepbeep = false;
         this.triggered = false;
