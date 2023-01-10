@@ -16,7 +16,7 @@ class World{
     }
     selectRooms(){
         if (this.serene) this.roompool = [StandardSpire];
-        else this.roompool = [TriangleFaith]; //NarrowFaith,StandardFaith, 
+        else this.roompool = [StandardFaith, NarrowFaith,TriangleFaith, EmptyFaith]; //
     }
 
     addRoom(coordinates, connector){
@@ -28,6 +28,7 @@ class World{
         else if (level % 5 == 1 && level > 5 && !this.serene) roomType = HarmonyRelay;
         else roomType = shuffle(this.roompool)[0];
         let room = new roomType(this.roomlist.length);
+        if (room.vault) room.setUp();
         if (coordinates != "firstroom"){
             if (this.getRoom().music){
                 if (this.getRoom().music == room.music) room.music = false;
@@ -132,6 +133,7 @@ class Room{
         this.index = index;
         this.tiles = []; //it will also need to stock the contents of course
         this.monsters = [];
+        this.vault = true;
         this.name = "Bugtopia";
         this.fourway = false;
         this.violatereality = false;
@@ -197,39 +199,23 @@ class WorldSeed extends Room{
     }
 }
 
-class StandardFaith extends Room{
+class DefaultVaultRoom extends Room{
     constructor(index){
         super(index);
-        //this.playerspawn = getTileButNotCursed(Math.floor((numTiles-1)/2),1);
+        this.vault = true;
+        this.possibleexits;
+        this.entrancepoints;
         this.name = "Faith's End";
         this.music = "malform";
         if (level > 5) this.music = "max";
         else if (level > 10) this.music = "quarry";
-        this.entrancepoints = [getTileButNotCursed(Math.floor((numTiles-1)/2),1), getTileButNotCursed(1,Math.floor((numTiles-1)/2)),getTileButNotCursed((numTiles-2),Math.floor((numTiles-1)/2)),getTileButNotCursed(Math.floor((numTiles-1)/2),(numTiles-2))];
-        this.possibleexits = [[Math.floor((numTiles-1)/2),0], [0,Math.floor((numTiles-1)/2)],[(numTiles-1),Math.floor((numTiles-1)/2)],[Math.floor((numTiles-1)/2),numTiles-1]];
     }
 
-    buildRoom(connector){
-        
-        generateLevel();
-        blockedExits(connector);
-        generateMonsters();
-    }
-
-    initializeRoom(){
-        //this.playerspawn = getTileButNotCursed(Math.floor((numTiles-1)/2),1);
-        super.initializeRoom();
-    }
-}
-
-class DefaultVaultRoom extends StandardFaith{
-    constructor(index){
-        super(index);
-        this.vault = true;
-        this.id = "Triangle";
+    setUp(){
         this.possibleexits = rooms[this.id]["exits"];
         this.entrancepoints = [getTileButNotCursed(this.possibleexits[0][0],this.possibleexits[0][1]+1),getTileButNotCursed(this.possibleexits[1][0]+1,this.possibleexits[1][1]),getTileButNotCursed(this.possibleexits[2][0]-1,this.possibleexits[2][1]),getTileButNotCursed(this.possibleexits[3][0],this.possibleexits[3][1]-1)];
     }
+
     buildRoom(connector){
         generateVault(this.id);
         let returnpoint = world.getRoom().returnpoint;
@@ -238,6 +224,13 @@ class DefaultVaultRoom extends StandardFaith{
             tiles[returnpoint[0]][returnpoint[1]].id = connector;
         }
 
+    }
+}
+
+class StandardFaith extends DefaultVaultRoom{
+    constructor(index){
+        super(index);
+        this.id = "Standard";
     }
 }
 
@@ -259,6 +252,13 @@ class NarrowFaith extends DefaultVaultRoom{
             "E" : 6,
             "S" : numTiles-1,
         }
+    }
+}
+
+class EmptyFaith extends DefaultVaultRoom{
+    constructor(index){
+        super(index);
+        this.id = "Empty";
     }
 }
 

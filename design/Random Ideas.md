@@ -2,11 +2,13 @@
 
 **Current Tasks**
 
-* Shizapis, aster, borerora, aube.
-* Fix the playerspawn in special rooms.
+**Map Variety Project**
 
-* Stop enemies from spawning on top of you when entering a vault room.
-* Stop invisible walls from appearing in ReturnExits. Something to do with getTile/inBounds.
+* Replace AbazonWall with something cooler. DeathPit.
+* Add a random flip chance to flippable rooms.
+* An image of a huge twisting maze, like brain coral. Coloured dots can be clicked to enlarge portions of Faith's End, corresponding to saved World objects.
+* Actually, could the most interesting landmarks on the map be marked, and could the player control their respawning to approach them?
+* The souls you sacrifice on death determine your respawn direction.
 
 **Serene Project**
 
@@ -61,11 +63,6 @@ If fully Harmonized, Modulators are always Concordant and have no cost. All dama
 * A confirm prompt if you draw after 0 resolve. Also make the resolve counter red at 0.
 * numeric system based on basic castes.
 
-*Map*
-
-* An image of a huge twisting maze, like brain coral. Coloured dots can be clicked to enlarge portions of Faith's End, corresponding to saved World objects.
-* Actually, could the most interesting landmarks on the map be marked, and could the player control their respawning to approach them?
-
 **Rooms & Creatures**
 
 * Make rooms more random.
@@ -92,6 +89,7 @@ If fully Harmonized, Modulators are always Concordant and have no cost. All dama
 
 **Souls**
 
+* Shizapis, aster, borerora, aube.
 * Ordered Harmony Soul.
 * A passive Soul that does something cool when the deck is reshuffled. Maybe something to do with Serenes to make them less of a chore... Good synergy with purpizug.
 * A soul that places a recall point when equipped, and teleports you back there when unequipped.

@@ -260,6 +260,18 @@ class Wall extends Tile{
     }
 }
 
+class NoBreakWall extends Tile{
+    constructor(x, y){
+        super(x, y, 3, false);
+        this.lore = description["Barrier"];
+        this.name = "Apocalypse Barrier";
+        this.eat = false;
+    };
+
+    stepOn(monster){
+    }
+}
+
 class AbazonWall extends Tile{
     constructor(x,y){
         super(x, y, 2, false);

@@ -4,11 +4,37 @@ function generateLevel(){
     });                                    
 }
 
+function generateATonOfWalls(){
+    tryTo('generate map', function(){
+        return generateWalls() == randomPassableTile().getConnectedTiles().length;
+    });                                    
+}
+
 function generateEdgeLevel(){
     tryTo('generate map', function(){
         return generateEdge() == randomPassableTile().getConnectedTiles().length;
         
     });
+}
+
+function generateWalls(){
+    let passableTiles=0;
+    for(let i=1;i<numTiles-1;i++){
+        for(let j=1;j<numTiles-1;j++){
+            if((j==(numTiles-2)&&i==Math.floor((numTiles-1)/2))||(j==1&&i==Math.floor((numTiles-1)/2)) || (j==Math.floor((numTiles-1)/2)&&i==numTiles-2) || (j==Math.floor((numTiles-1)/2)&&i==1)){
+                tiles[i][j].replace(Floor);
+                passableTiles++;
+            }
+            else if(Math.random() < 0.3){
+                tiles[i][j].replace(Wall);
+            }
+            else{
+                tiles[i][j].replace(Floor);
+                passableTiles++;
+            }
+        }
+    }
+    return passableTiles;
 }
 
 function generateTiles(){
@@ -48,6 +74,7 @@ function generateVault(id){
             tiles[i][j] = new tile(i,j);
         }
     }
+    if (vault["tags"].includes("randomwall")) generateATonOfWalls();
     if (vault["tags"].includes("randomgen")) generateMonsters();
 }
 
@@ -269,11 +296,10 @@ function inBounds(x,y){
     for (let g of world.getRoom().possibleexits){
         if (g[0] == x && g[1] == y) return true;
     }
-    if((x == (Math.floor((numTiles-1)/2)) && (y == (numTiles-1)||y==0)) || (x == (numTiles-1)||x==0) && y == (Math.floor((numTiles-1)/2))){
-        if (world.getRoom() instanceof WorldSeed && y != numTiles-1) return false;
-        else return true;
-    }
-    else{
+    //if((x == (Math.floor((numTiles-1)/2)) && (y == (numTiles-1)||y==0)) || (x == (numTiles-1)||x==0) && y == (Math.floor((numTiles-1)/2))){
+    //    if (world.getRoom() instanceof WorldSeed && y != numTiles-1) return false;
+    //    else return true;
+    //}
     if (area != "Spire" && area != "Circus"){
         if (player){
             if (player.infested > 0) return x>-1 && y>-1 && x<numTiles && y<numTiles;
@@ -282,7 +308,6 @@ function inBounds(x,y){
         else return x>0 && y>0 && x<numTiles-1 && y<numTiles-1;
     }
     else return x>-1 && y>-1 && x<numTiles && y<numTiles
-    }
 }
 
 function getTileButNotCursed(x, y){
