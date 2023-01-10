@@ -2,6 +2,9 @@
 
 **Current Tasks**
 
+* Also flip room.extreme
+* Check about walls blocking exits again
+
 **Map Variety Project**
 
 * Rework exits to be a chance to spawn.

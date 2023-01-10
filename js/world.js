@@ -16,7 +16,7 @@ class World{
     }
     selectRooms(){
         if (this.serene) this.roompool = [StandardSpire];
-        else this.roompool = [TriangleFaith,StandardFaith, NarrowFaith,EmptyFaith]; //
+        else this.roompool = [StandardFaith,TriangleFaith,NarrowFaith,EmptyFaith]; //
     }
 
     addRoom(coordinates, connector){
@@ -213,6 +213,12 @@ class DefaultVaultRoom extends Room{
 
     setUp(){
         this.possibleexits = locateExits(this.id);
+        this.extreme = {
+        "N" : this.possibleexits[0][1],
+        "W" : this.possibleexits[1][0],
+        "E" : this.possibleexits[2][0],
+        "S" : this.possibleexits[3][1],
+        }
         this.entrancepoints = [getTileButNotCursed(this.possibleexits[0][0],this.possibleexits[0][1]+1),getTileButNotCursed(this.possibleexits[1][0]+1,this.possibleexits[1][1]),getTileButNotCursed(this.possibleexits[2][0]-1,this.possibleexits[2][1]),getTileButNotCursed(this.possibleexits[3][0],this.possibleexits[3][1]-1)];
     }
 
@@ -241,12 +247,6 @@ class NarrowFaith extends DefaultVaultRoom{
     constructor(index){
         super(index);
         this.id = "Narrow";
-        this.extreme = {
-            "N" : 0,
-            "W" : 2,
-            "E" : 6,
-            "S" : numTiles-1,
-        }
     }
 }
 

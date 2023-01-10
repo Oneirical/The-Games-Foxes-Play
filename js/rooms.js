@@ -6,7 +6,7 @@ var key = {
     "A" : AbazonWall,
     "T" : TermiWall,
     "t" : TermiExit,
-    "-" : TrueFloor,
+    "," : TrueFloor,
 }
 
 //spawns: N - W - E - S
@@ -26,13 +26,13 @@ var rooms = {
     },
     "Standard" : {
         0 : "####E####",
-        1 : "#...-...#",
+        1 : "#...,...#",
         2 : "#.......#",
         3 : "#.......#",
-        4 : "E-.....-E",
+        4 : "E,.....,E",
         5 : "#.......#",
         6 : "#.......#",
-        7 : "#...-...#",
+        7 : "#...,...#",
         8 : "####E####",
         "tags": ["randomgen","randomwall"],
     },
@@ -62,13 +62,13 @@ var rooms = {
     },
     "Narrow" : {
         0 : "AA##EW#AA",
-        1 : "AA#.-.#AA",
+        1 : "AA#.,.#AA",
         2 : "AA#...#AA",
         3 : "AA#...#AA",
-        4 : "AAE-.-EAA",
+        4 : "AAE,.,EAA",
         5 : "AA#...#AA",
         6 : "AA#...#AA",
-        7 : "AA#.-.#AA",
+        7 : "AA#.,.#AA",
         8 : "AA##E##AA",
         "tags": ["randomgen","sometimeswall","randomflip"],
     },

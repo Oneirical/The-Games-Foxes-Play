@@ -25,7 +25,8 @@ function generateWalls(){
                 tiles[i][j].replace(Wall);
             }
             else{
-                tiles[i][j].replace(Floor);
+                if (!tiles[i][j].mutable) tiles[i][j].replace(TrueFloor); //this could bug out if more immutable stuff gets added
+                else tiles[i][j].replace(Floor);
                 passableTiles++;
             }
         }
