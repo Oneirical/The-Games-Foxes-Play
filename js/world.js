@@ -16,7 +16,7 @@ class World{
     }
     selectRooms(){
         if (this.serene) this.roompool = [StandardSpire];
-        else this.roompool = [StandardFaith, NarrowFaith,TriangleFaith, EmptyFaith]; //
+        else this.roompool = [TriangleFaith,StandardFaith, NarrowFaith,EmptyFaith]; //
     }
 
     addRoom(coordinates, connector){
@@ -212,17 +212,13 @@ class DefaultVaultRoom extends Room{
     }
 
     setUp(){
-        this.possibleexits = rooms[this.id]["exits"];
+        this.possibleexits = locateExits(this.id);
         this.entrancepoints = [getTileButNotCursed(this.possibleexits[0][0],this.possibleexits[0][1]+1),getTileButNotCursed(this.possibleexits[1][0]+1,this.possibleexits[1][1]),getTileButNotCursed(this.possibleexits[2][0]-1,this.possibleexits[2][1]),getTileButNotCursed(this.possibleexits[3][0],this.possibleexits[3][1]-1)];
     }
 
     buildRoom(connector){
         generateVault(this.id);
-        let returnpoint = world.getRoom().returnpoint;
-        if (connector != null){
-            tiles[returnpoint[0]][returnpoint[1]].replace(BReturnExit);
-            tiles[returnpoint[0]][returnpoint[1]].id = connector;
-        }
+        blockedExits(connector)
 
     }
 }
@@ -244,7 +240,6 @@ class TriangleFaith extends DefaultVaultRoom{
 class NarrowFaith extends DefaultVaultRoom{
     constructor(index){
         super(index);
-        this.vault = true;
         this.id = "Narrow";
         this.extreme = {
             "N" : 0,
@@ -262,7 +257,7 @@ class EmptyFaith extends DefaultVaultRoom{
     }
 }
 
-class HarmonyRelay extends Room{
+class HarmonyRelay extends DefaultVaultRoom{
     constructor(index){
         super(index);
         this.entrymessage = "FluffyWelcome";
@@ -270,15 +265,7 @@ class HarmonyRelay extends Room{
         this.music = "harmony2";
         this.fuffspawn = null;
         //this.filler = AbazonWall;
-        this.entrancepoints = [getTileButNotCursed(Math.floor((numTiles-1)/2),1), getTileButNotCursed(1,Math.floor((numTiles-1)/2)),getTileButNotCursed((numTiles-2),Math.floor(numTiles-1)/2),getTileButNotCursed(Math.floor((numTiles-1)/2),(numTiles-2))];
-        this.possibleexits = [[Math.floor((numTiles-1)/2),0], [0,Math.floor((numTiles-1)/2)],[(numTiles-1),Math.floor((numTiles-1)/2)],[Math.floor((numTiles-1)/2),numTiles-1]];
-    }
-    
-    buildRoom(connector){
-        
-        generateUnityTest();
-        blockedExits(connector);
-        generateMonsters();
+        this.id = "Empty";
     }
 
     initializeRoom(){

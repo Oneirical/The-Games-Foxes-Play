@@ -126,3 +126,7 @@ function inTriangle(pt, v1, v2, v3){
     b3 = sign(pt, v3, v1) < 0.0;
     return ((b1 == b2) && (b2 == b3));
 }
+
+function reverseString(str) {
+    return str.split( '' ).reverse( ).join( '' );
+}

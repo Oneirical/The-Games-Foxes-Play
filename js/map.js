@@ -19,13 +19,9 @@ function generateEdgeLevel(){
 
 function generateWalls(){
     let passableTiles=0;
-    for(let i=1;i<numTiles-1;i++){
-        for(let j=1;j<numTiles-1;j++){
-            if((j==(numTiles-2)&&i==Math.floor((numTiles-1)/2))||(j==1&&i==Math.floor((numTiles-1)/2)) || (j==Math.floor((numTiles-1)/2)&&i==numTiles-2) || (j==Math.floor((numTiles-1)/2)&&i==1)){
-                tiles[i][j].replace(Floor);
-                passableTiles++;
-            }
-            else if(Math.random() < 0.3){
+    for(let i=world.getRoom().extreme["W"]+1;i<world.getRoom().extreme["E"];i++){
+        for(let j=world.getRoom().extreme["N"]+1;j<world.getRoom().extreme["S"];j++){
+            if(Math.random() < 0.3 && tiles[i][j].mutable){
                 tiles[i][j].replace(Wall);
             }
             else{
@@ -64,6 +60,39 @@ function generateTiles(){
     return passableTiles;
 }
 
+function flipRoom(id){
+    for (let x = 0; x<numTiles;x++){
+        rooms[id][x] = reverseString(rooms[id][x]);
+    }
+    let flippedroom = {};
+    for (let i = 0; i<numTiles;i++){
+        flippedroom[i] = "";
+    }
+    for (let i = 0; i<numTiles;i++){
+        for (let g = 0; g<numTiles;g++){
+            flippedroom[i] += rooms[id][g][i];
+        }
+    }
+    for (let i = 0; i<numTiles;i++){
+        rooms[id][i] = flippedroom[i];
+    }
+    
+}
+
+function locateExits(id){
+    let exits = [];
+    if (rooms[id]["tags"].includes("randomflip")) flipRoom(id);
+    let vault = rooms[id];
+    for(let i=0;i<numTiles;i++){
+        for(let j=0;j<numTiles;j++){
+            let tile = vault[j][i];
+            if (tile == "E") exits.push([i,j]);
+        }
+    }
+    exits = [exits[1],exits[0],exits[3],exits[2]];
+    return exits;
+}
+
 function generateVault(id){
     tiles = [];
     let vault = rooms[id];
@@ -75,6 +104,7 @@ function generateVault(id){
         }
     }
     if (vault["tags"].includes("randomwall")) generateATonOfWalls();
+    if (vault["tags"].includes("sometimeswall") && Math.random() < 0.5) generateATonOfWalls();
     if (vault["tags"].includes("randomgen")) generateMonsters();
 }
 
@@ -124,24 +154,28 @@ function generateRelay(){
 }
 
 function blockedExits(connector){
-    let exitnumber = shuffle([1,2,2,3])[0];
-    if (world.getRoom().fourway) exitnumber = 3;
+    let exitnumber = shuffle([2,3,3,4])[0];
+    if (world.getRoom().fourway) exitnumber = 4;
     let exitlocations = world.getRoom().possibleexits;
     let returnpoint = world.getRoom().returnpoint;
+    let walls = [];
     for (let i = 0;i<exitnumber;i++){
         let exitdirection = shuffle(exitlocations)[0];
         tiles[exitdirection[0]][exitdirection[1]].replace(BExit);
-        removeItemOnce(exitlocations,exitdirection);
+        walls.push(exitdirection);
     }
-    if (returnpoint) {
+    for (let i = 0;i<6-exitnumber;i++){
+        let exitdirection = exitlocations[i];
+        if (!walls.includes(exitdirection)){
+            tiles[exitdirection[0]][exitdirection[1]].replace(world.getRoom().filler);
+            tiles[exitdirection[0]][exitdirection[1]].eat = false;
+        }
+    }
+    if (returnpoint != null) {
         tiles[returnpoint[0]][returnpoint[1]].replace(BReturnExit);
         tiles[returnpoint[0]][returnpoint[1]].id = connector;
     }
-    for (let i = 0;i<exitlocations.length;i++){
-        let exitdirection = exitlocations[i];
-        tiles[exitdirection[0]][exitdirection[1]].replace(world.getRoom().filler);
-        tiles[exitdirection[0]][exitdirection[1]].eat = false;
-    }
+
 }
 
 function generateEdge(section){

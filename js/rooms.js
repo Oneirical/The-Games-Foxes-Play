@@ -5,7 +5,8 @@ var key = {
     "#" : NoBreakWall,
     "A" : AbazonWall,
     "T" : TermiWall,
-    "t" : TermiExit
+    "t" : TermiExit,
+    "-" : TrueFloor,
 }
 
 //spawns: N - W - E - S
@@ -22,20 +23,18 @@ var rooms = {
         7 : "T.......T",
         8 : "TTTTtTTTT",
         "tags": [],
-        "exits" : [[4,0],[0,4],[8,4],[4,8]],
     },
     "Standard" : {
         0 : "####E####",
-        1 : "#.......#",
+        1 : "#...-...#",
         2 : "#.......#",
         3 : "#.......#",
-        4 : "E.......E",
+        4 : "E-.....-E",
         5 : "#.......#",
         6 : "#.......#",
-        7 : "#.......#",
+        7 : "#...-...#",
         8 : "####E####",
         "tags": ["randomgen","randomwall"],
-        "exits" : [[4,0],[0,4],[8,4],[4,8]],
     },
     "Empty" : {
         0 : "####E####",
@@ -48,7 +47,6 @@ var rooms = {
         7 : "#.......#",
         8 : "####E####",
         "tags": ["randomgen"],
-        "exits" : [[4,0],[0,4],[8,4],[4,8]],
     },
     "Triangle" : {
         0 : "#E#######",
@@ -60,20 +58,18 @@ var rooms = {
         6 : "#....WWW#",
         7 : "#..WWWWW#",
         8 : "#E#######",
-        "tags": ["randomgen"],
-        "exits" : [[1,0],[0,4],[8,4],[1,8]],
+        "tags": ["randomgen","randomflip"],
     },
     "Narrow" : {
         0 : "AA##EW#AA",
-        1 : "AA#...#AA",
+        1 : "AA#.-.#AA",
         2 : "AA#...#AA",
         3 : "AA#...#AA",
-        4 : "AAE...EAA",
+        4 : "AAE-.-EAA",
         5 : "AA#...#AA",
         6 : "AA#...#AA",
-        7 : "AA#...#AA",
+        7 : "AA#.-.#AA",
         8 : "AA##E##AA",
-        "tags": ["randomgen"],
-        "exits" : [[4,0],[2,4],[6,4],[4,8]],
-    }
+        "tags": ["randomgen","sometimeswall","randomflip"],
+    },
 }

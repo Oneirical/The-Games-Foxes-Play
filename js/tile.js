@@ -142,6 +142,7 @@ class Tile{
 class Floor extends Tile{
     constructor(x,y){
         super(x, y, 2, true);
+        this.mutable = true;
         this.lore = description["Floor"];
         this.name = "Eroded Floortiles";
     };
@@ -191,6 +192,13 @@ class Floor extends Tile{
             }
             this.pin = false;
         }
+    }
+}
+
+class TrueFloor extends Floor{
+    constructor(x,y){
+        super(x,y,2,true);
+        this.mutable = false;
     }
 }
 
@@ -254,6 +262,7 @@ class Wall extends Tile{
         super(x, y, 3, false);
         this.lore = description["Barrier"];
         this.name = "Apocalypse Barrier";
+        this.mutable = false;
     };
 
     stepOn(monster){

@@ -4,6 +4,7 @@
 
 **Map Variety Project**
 
+* Rework exits to be a chance to spawn.
 * Replace AbazonWall with something cooler. DeathPit.
 * Add a random flip chance to flippable rooms.
 * An image of a huge twisting maze, like brain coral. Coloured dots can be clicked to enlarge portions of Faith's End, corresponding to saved World objects.
