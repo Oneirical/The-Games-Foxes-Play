@@ -2,8 +2,6 @@
 
 **Current Tasks**
 
-* Fix the music when returning to a room
-
 **Map Variety Project**
 
 * Replace AbazonWall with something cooler. DeathPit.
