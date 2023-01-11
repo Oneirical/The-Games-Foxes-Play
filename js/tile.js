@@ -426,9 +426,15 @@ class ExpandExit extends Exit{
         if(monster.isPlayer){
             world.fighting = true;
             let newexit = this.replace(ReturnExit);
-            newexit.id = world.roomlist.length;
+            let shift = 0;
+            if (this.direction == "N") shift = -10;
+            else if (this.direction == "W") shift = -1;
+            else if (this.direction == "E") shift = 1;
+            else if (this.direction == "S") shift = 10;
+            newexit.id = world.currentroom+shift;
             world.saveRoom(tiles, monsters);
             let entering = world.addRoom(this.direction,world.currentroom);
+            if (entering == "goback") return;
             player.hp = Math.min(maxHp, player.hp+1);
             world.playRoom(entering, player.hp);
         }

@@ -156,7 +156,7 @@ function generateRelay(){
 
 function blockedExits(connector){
     let exitnumber = shuffle([2,3,3,4])[0];
-    if (world.getRoom().fourway) exitnumber = 4;
+    exitnumber = 4; //if (world.getRoom().fourway) 
     let exitlocations = world.getRoom().possibleexits;
     let returnpoint = world.getRoom().returnpoint;
     let walls = [];

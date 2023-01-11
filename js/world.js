@@ -1,11 +1,35 @@
 class World{
     constructor(serene){
         this.roompool = [];
-        this.roomlist = [];
-        this.currentroom = -1;
+        this.roomlist = {};
+        this.currentroom = parseInt((randomRange(0,8).toString()+randomRange(0,8).toString()));
         this.serene = serene;
         this.fighting = false;
         this.fabrication;
+    }
+
+    checkPixel(tile){
+        if (tile.passable || tile instanceof BExit || tile instanceof BReturnExit || tile instanceof AbazonWall) return 1;
+        else return 0;
+    }
+
+    display(){
+        for(let i = 0; i<numTiles;i++){
+            for (let j = 0; j<numTiles; j++){
+                drawPixel(this.checkPixel(tiles[i][j]),i*7+lastDigit(this.currentroom)*64,j*7+firstDigit(this.currentroom)*64);
+            }
+        }
+        for(let y = 0; y<numTiles;y++){
+            for(let x = 0; x<numTiles;x++){
+                if (this.roomlist[y*10+x] && y*10+x != this.currentroom){
+                    for(let i = 0; i<numTiles;i++){
+                        for (let j = 0; j<numTiles; j++){
+                            drawPixel(this.checkPixel(this.roomlist[y*10+x].tiles[i][j]),i*7+lastDigit(y*10+x)*64,j*7+firstDigit(y*10+x)*64);
+                        }
+                    }
+                }
+            }
+        }
     }
 
     getRoom(){
@@ -27,7 +51,16 @@ class World{
         else if (level % 5 == 1 && level > 5 && this.serene) roomType = FluffianWorkshop;
         else if (level % 5 == 1 && level > 5 && !this.serene) roomType = HarmonyRelay;
         else roomType = shuffle(this.roompool)[0];
-        let room = new roomType(this.roomlist.length);
+        let shift = 0;
+        if (coordinates == "N") shift = -10;
+        else if (coordinates == "W") shift = -1;
+        else if (coordinates == "E") shift = 1;
+        else if (coordinates == "S") shift = 10;
+        if (this.roomlist[this.currentroom+shift]){
+            this.reloadRoom(this.currentroom+shift,coordinates);
+            return "goback";
+        }
+        let room = new roomType(this.currentroom+shift);
         if (room.vault) room.setUp();
         if (coordinates != "firstroom"){
             if (this.getRoom().music){
@@ -35,7 +68,7 @@ class World{
                 currenttrack = this.getRoom().music;
             }
         }
-        this.currentroom = this.roomlist.length;
+        this.currentroom = this.currentroom+shift;
         let numtest = numTiles;
         numTiles = room.size;
         if (level == 17) room.possibleexits = [[1,0], [0,numTiles-2],[numTiles-1,1],[numTiles-2,numTiles-1]]; // must replace with vault system
@@ -67,7 +100,7 @@ class World{
             if (!room.vault) room.possibleexits.splice(list[3],1);
             room.playerlastmove = [0,1];
         }
-        this.roomlist.push(room);
+        this.roomlist[this.currentroom] = room;
         this.fabrication = room;
         room.buildRoom(connector);
         wheel.resolve = 3+ Math.floor(resolvebonus/2);

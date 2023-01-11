@@ -8,7 +8,7 @@
 * Make corridors have no side exits, and only accessible from corresponding exits.
 * An image of a huge twisting maze, like brain coral. Coloured dots can be clicked to enlarge portions of Faith's End, corresponding to saved World objects.
 * Actually, could the most interesting landmarks on the map be marked, and could the player control their respawning to approach them?
-* The souls you sacrifice on death determine your respawn direction.
+* The souls you sacrifice on death determine your respawn direction - towards an "Ideology pole" that contains an exit point, one for each caste.
 
 **Serene Project**
 
@@ -40,7 +40,6 @@ If fully Harmonized, Modulators are always Concordant and have no cost. All dama
 
 **Minor Bugs**
 
-* Epsilon bossbar does not fully reflect its actual HP.
 * Aube has no texture.
 * Description of invisible walls is based on abazon.
 * Falling in the Serene Spire can be ignored with mouse movement.

@@ -130,3 +130,15 @@ function inTriangle(pt, v1, v2, v3){
 function reverseString(str) {
     return str.split( '' ).reverse( ).join( '' );
 }
+
+
+function firstDigit(n)
+	{
+		while (n >= 10)
+			n /= 10;
+		return Math.floor(n);
+	}
+function lastDigit(n)
+	{
+		return Math.floor(n % 10);
+	}

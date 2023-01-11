@@ -130,6 +130,20 @@ function drawSymbol(sprite, x, y, size){
     );
 }
 
+function drawPixel(sprite, x, y){
+    ctx.drawImage(
+        mapsheet,
+        sprite,
+        0,
+        1,
+        1,
+        x,
+        y,
+        7.5,
+        7.5
+    );
+}
+
 function draw(){
     if(gameState == "running" || gameState == "dead" || gameState == "contemplation" || gameState == "vision" || gameState == "discard"){
         ctx.clearRect(0,0,canvas.width,canvas.height);
@@ -298,6 +312,7 @@ function draw(){
         ctx.moveTo(577, 577);
         ctx.lineTo(577, 0);
         ctx.stroke();
+        world.display();
 
         //mouseclick lines
         //ctx.beginPath();
