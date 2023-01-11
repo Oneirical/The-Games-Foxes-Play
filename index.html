@@ -95,6 +95,7 @@
 
     naiamode = false;
     contemhint = false;
+    inMap = false;
     rosetoxin = 0;
 
     resolvebonus = 0;
@@ -112,6 +113,9 @@
         }else if(gameState == "running"){
             if (e.key == "l"){
                 inInventory = !inInventory;
+            }
+            if (e.key == "m"){
+                inMap = !inMap;
             }
             if (inInventory){
                 if (e.key >= 1 && e.key <= 6) legendaries.storeSoul(e.key-1);

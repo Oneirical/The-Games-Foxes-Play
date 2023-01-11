@@ -77,7 +77,7 @@ function flipRoom(id){
     for (let i = 0; i<numTiles;i++){
         rooms[id][i] = flippedroom[i];
     }
-    
+    if (rooms[id]["vertical"] != null) rooms[id]["vertical"] = !rooms[id]["vertical"];
 }
 
 function locateExits(id){
@@ -90,7 +90,7 @@ function locateExits(id){
             if (tile == "E") exits.push([i,j]);
         }
     }
-    exits = [exits[1],exits[0],exits[3],exits[2]];
+    if (exits.length == 4) exits = [exits[1],exits[0],exits[3],exits[2]];
     return exits;
 }
 

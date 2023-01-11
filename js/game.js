@@ -312,7 +312,7 @@ function draw(){
         ctx.moveTo(577, 577);
         ctx.lineTo(577, 0);
         ctx.stroke();
-        world.display();
+        if (inMap) world.display();
 
         //mouseclick lines
         //ctx.beginPath();
@@ -744,7 +744,7 @@ function initSounds(){
         on: new Audio('sounds/moduleon.wav'),
         off: new Audio('sounds/moduleoff.wav'),
         roseic: new Audio('music/A_Roseic_Problem.mp3'),
-        toxic: new Audio('music/ROSEROSEROSEROSE.wav'),
+        toxic: new Audio('music/ROSEROSEROSE.wav'),
         toxicdeath : new Audio('sounds/toxicdeath.wav'),
         spire : new Audio('music/Fly_on_The_Wall.wav'),
         spireloop : new Audio('music/Buzzard.wav'),

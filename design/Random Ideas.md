@@ -2,6 +2,9 @@
 
 **Current Tasks**
 
+* Make "vertical" less anchored in stone, and varying before the connect check.
+* Fix the player spawn in 2-exit rooms.
+
 **Map Variety Project**
 
 * Replace AbazonWall with something cooler. DeathPit.
