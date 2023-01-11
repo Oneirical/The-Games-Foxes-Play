@@ -792,15 +792,17 @@ class LegendarySoul{
     }
 
     describeAbridged(){
-        let bump = 0;
-        if ((5*64-32-ctx.measureText(this.name).width) < 0) bump = 20; 
-        printAtSidebar(toTitleCase(this.caste) + " Caste", 18, 590, 50 + bump, colours[this.caste], 20, 6*64-35);
-        if (basic.includes(this.id)) printAtSidebar("Empty Slot", 18, 590, 30, "white", 20, 6*64-35);
-        else printAtSidebar(this.name, 18, 590, 30, colours[this.id], 20, 6*64-100);
-        printAtSidebar(this.subdescript, 18, 590, 110, "white", 20, 6*64-35);
-        drawSymbol(this.icon, 890, 20, 64);
-        drawSymbol(34, 590, 500, 64);
-        printAtSidebar("Inhale this Soul (Q) to choose it and exit the Relay.", 18, 660, 528, "white", 20, 6*64-105);
+        if (!cursormode){
+            let bump = 0;
+            if ((5*64-32-ctx.measureText(this.name).width) < 0) bump = 20; 
+            printAtSidebar(toTitleCase(this.caste) + " Caste", 18, 590, 50 + bump, colours[this.caste], 20, 6*64-35);
+            if (basic.includes(this.id)) printAtSidebar("Empty Slot", 18, 590, 30, "white", 20, 6*64-35);
+            else printAtSidebar(this.name, 18, 590, 30, colours[this.id], 20, 6*64-100);
+            printAtSidebar(this.subdescript, 18, 590, 110, "white", 20, 6*64-35);
+            drawSymbol(this.icon, 890, 20, 64);
+            drawSymbol(34, 590, 500, 64);
+            printAtSidebar("Inhale this Soul (Q) to choose it and exit the Relay.", 18, 660, 528, "white", 20, 6*64-105);
+        }
     }
 
     talk(){

@@ -4,7 +4,6 @@
 
 * Fix the music when returning to a room
 * Specify that drones don't drop loot. And other creatures too.
-* fix filters not disappearing on death
 
 **Map Variety Project**
 
