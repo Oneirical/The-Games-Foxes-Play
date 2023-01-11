@@ -2,6 +2,10 @@
 
 **Current Tasks**
 
+* Fix the music when returning to a room
+* Specify that drones don't drop loot. And other creatures too.
+* fix filters not disappearing on death
+
 **Map Variety Project**
 
 * Replace AbazonWall with something cooler. DeathPit.
@@ -37,6 +41,7 @@ If fully Harmonized, Modulators are always Concordant and have no cost. All dama
 - When moving in a circle... (1 Artistic)
 - When breathing a Soul... (3 Saintly)
 - After using all six Castes (without repeats)... (1 Random)
+- When a turn passes while having 5 or less Value remaining... (1 Unhinged)
 
 **Minor Bugs**
 

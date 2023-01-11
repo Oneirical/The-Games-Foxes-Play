@@ -124,20 +124,6 @@
                 invmode = false;
                 currentspelldesc = "nan";
             } 
-            if(e.key=="i"){
-                cursormode = true;
-                cursor = new Cursor(playerTile(), 18);
-                if (currentspelldesc != "nan"){
-                    currentspelldesc = "nan";
-                }
-                else{
-                    invmode = !invmode;
-                    if (!invmode){
-                        cursormode = false;
-                        //log.addLog("Empty");
-                    }
-                }
-            }
             if (e.key == "o"){ //debug
                 legendaries.activateSoul(0,legendaries.storage[0]);
             }
@@ -145,7 +131,7 @@
                 legendaries.storeSoul(0, legendaries.active[0]);
             }
             if(e.key=="c"&&cursormode) cursor = new Cursor(playerTile());
-            if((e.key=="c"&&!cursormode) || (e.key=="i"&&!cursormode)) cursor.die();
+            if(e.key=="c"&&!cursormode) cursor.die();
             if(e.key=="w"&&!cursormode && player.para == 0 && player.fall <= 1 && !player.constrict) player.tryMove(0, -1);
             else if(e.key=="s"&&!cursormode && player.para == 0&& player.fall <= 1 && !player.constrict) player.tryMove(0, 1);
             else if(e.key=="a"&&!cursormode && player.para == 0&& player.fall <= 1 && !player.constrict) player.tryMove(-1, 0);

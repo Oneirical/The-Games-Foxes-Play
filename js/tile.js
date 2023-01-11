@@ -481,7 +481,7 @@ class TermiExit extends ExpandExit{
     stepOn(monster){
         pauseAllMusic();
         super.stepOn(monster);
-        //level+=15; //debug
+        //level+=9; //debug
     }
 
 }
