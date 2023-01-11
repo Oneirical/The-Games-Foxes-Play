@@ -64,8 +64,7 @@ class World{
         if (room.vault) room.setUp();
         if (coordinates != "firstroom"){
             if (this.getRoom().music){
-                if (this.getRoom().music == room.music) room.music = false;
-                currenttrack = this.getRoom().music;
+        //        if (this.getRoom().music == room.music) room.music = false;
             }
         }
         this.currentroom = this.currentroom+shift;
@@ -188,6 +187,7 @@ class Room{
         if (this.music && this.music != currenttrack) {
             pauseAllMusic();
             playSound(this.music);
+            currenttrack = this.music;
         }
         let randomtile = randomPassableTile();
         if (this.entrymessage) log.addLog(this.entrymessage);
@@ -216,7 +216,7 @@ class WorldSeed extends Room{
     constructor(index){
         super(index);
         this.name = "World Seed";
-        this.music = "cage"
+        this.music = "cage";
         this.possibleexits = [[4,8]];
     }
 

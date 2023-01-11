@@ -3,7 +3,6 @@
 **Current Tasks**
 
 * Fix the music when returning to a room
-* Specify that drones don't drop loot. And other creatures too.
 
 **Map Variety Project**
 
@@ -44,6 +43,8 @@ If fully Harmonized, Modulators are always Concordant and have no cost. All dama
 
 **Minor Bugs**
 
+* Gyvji kills things multiple times over.
+* Lashol has some weird thing going on with its bonus damage.
 * Aube has no texture.
 * Description of invisible walls is based on abazon.
 * Falling in the Serene Spire can be ignored with mouse movement.
