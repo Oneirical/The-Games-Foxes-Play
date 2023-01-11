@@ -517,6 +517,7 @@ function startGame(){
     playSound("cage");                         
     level = 0;
     resolvebonus = 0;
+    rosetoxin = 0;
     truehp = 8;
     score = 0;
     numSpells = 0;
