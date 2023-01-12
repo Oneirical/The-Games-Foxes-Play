@@ -677,6 +677,7 @@ class Player extends Monster{
     }
 
     tryMove(dx, dy){
+        if (gameState != "running") return;
         let neighbours = player.tile.getAdjacentNeighbors();
         let check = true;
         let constrictatk = false;

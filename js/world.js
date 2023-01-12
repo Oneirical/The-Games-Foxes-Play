@@ -44,7 +44,7 @@ class World{
     }
     selectRooms(){
         if (this.serene) this.roompool = [StandardSpire];
-        else this.roompool = [NarrowFaith,GrandHallFaith]; //,StandardFaith,TriangleFaith,,GrandHallFaith,EmptyFaith
+        else this.roompool = [StandardFaith,TriangleFaith,NarrowFaith,GrandHallFaith,EmptyFaith,BloxFaith,BridgeFaith,HideFaith,PipesFaith]; //,,GrandHallFaith,
     }
 
     addRoom(coordinates, connector){
@@ -74,12 +74,18 @@ class World{
         else if (coordinates == "W") shift = -1*(testRoom.size/9);
         else if (coordinates == "E") shift = 1;
         else if (coordinates == "S") shift = 10;
+        //let bigroomtests = [1,10,11];
+        //for (let i of bigroomtests){
+        //    if (this.roomlist[this.currentroom+shift+i] && this.roomlist[this.currentroom+shift+i].size > 9){
+        //        shift+=i;
+        //    }
+        //}
+        //if (testRoom.size > 9 && this.roomlist[this.currentroom+shift+11]){ // check this more
+        //    shift-=1;
+        //}
         if (this.roomlist[this.currentroom+shift]){
             this.reloadRoom(this.currentroom+shift,coordinates);
             return "goback";
-        }
-        if (testRoom.size > 9 && this.roomlist[this.currentroom+shift+11]){ // check this more
-            shift-=1;
         }
         let room = new roomType(this.currentroom+shift);
         this.fabrication = room;
@@ -176,7 +182,7 @@ class Room{
         this.music = false;
         this.entrymessage = false;
         this.playerlastmove = [0,-1];
-        this.playerspawn = [4,4];
+        this.playerspawn = [];
         this.effects = [];
         this.previousRoom = -1; //Maybe secretly divide arrow tiles into return/generator tiles?
         this.index = index;
@@ -207,8 +213,8 @@ class Room{
         }
         let randomtile = randomPassableTile();
         if (this.entrymessage) log.addLog(this.entrymessage);
-        if (world.roomlist.length == 1 && level == 0) this.playerspawn = [Math.floor((numTiles-1)/2),Math.floor((numTiles-1)/2)];
-        else if (this.playerspawn == null){
+        if (world.getRoom() instanceof WorldSeed) this.playerspawn = [Math.floor((numTiles-1)/2),Math.floor((numTiles-1)/2)];
+        else if (this.playerspawn.length == 0){
             this.playerspawn[0] = randomtile.x;
             this.playerspawn[1] = randomtile.y;
         }
@@ -340,6 +346,34 @@ class EmptyFaith extends DefaultVaultRoom{
     constructor(index){
         super(index);
         this.id = "Empty";
+    }
+}
+
+class HideFaith extends DefaultVaultRoom{
+    constructor(index){
+        super(index);
+        this.id = "Hide";
+    }
+}
+
+class BloxFaith extends DefaultVaultRoom{
+    constructor(index){
+        super(index);
+        this.id = "Blox";
+    }
+}
+
+class BridgeFaith extends DefaultVaultRoom{
+    constructor(index){
+        super(index);
+        this.id = "Bridge";
+    }
+}
+
+class PipesFaith extends DefaultVaultRoom{
+    constructor(index){
+        super(index);
+        this.id = "Pipes";
     }
 }
 
