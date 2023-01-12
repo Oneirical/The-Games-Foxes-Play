@@ -139,8 +139,8 @@ function drawPixel(sprite, x, y){
         1,
         x,
         y,
-        7.55,
-        7.55
+        8,
+        8
     );
 }
 

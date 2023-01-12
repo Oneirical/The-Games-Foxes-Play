@@ -19,8 +19,8 @@ class World{
             for (let j = 0; j<numTiles; j++){
                 //if (world.getRoom().extreme["W"] == i || world.getRoom().extreme["E"] == i || world.getRoom().extreme["S"] == j || world.getRoom().extreme["N"] == j )drawPixel(4,i*7//+lastDigit(this.currentroom)*64,j*7+firstDigit(this.currentroom)*64);
                 //else
-                drawPixel(this.checkPixel(tiles[i][j]),i*7+lastDigit(this.currentroom)*64,j*7+firstDigit(this.currentroom)*64);
-                if (tiles[i][j].monster && tiles[i][j].monster.isPlayer) drawPixel(3,i*7+lastDigit(this.currentroom)*64,j*7+firstDigit(this.currentroom)*64);
+                drawPixel(this.checkPixel(tiles[i][j]),i*8+lastDigit(this.currentroom)*64,j*8+firstDigit(this.currentroom)*64);
+                if (tiles[i][j].monster && tiles[i][j].monster.isPlayer) drawPixel(3,i*8+lastDigit(this.currentroom)*64,j*8+firstDigit(this.currentroom)*64);
             }
         }
         for(let y = 0; y<9;y++){
@@ -28,7 +28,7 @@ class World{
                 if (this.roomlist[y*10+x] && y*10+x != this.currentroom){
                     for(let i = 0; i<this.roomlist[y*10+x].size;i++){
                         for (let j = 0; j<this.roomlist[y*10+x].size; j++){
-                            drawPixel(this.checkPixel(this.roomlist[y*10+x].tiles[i][j]),i*7+lastDigit(y*10+x)*64,j*7+firstDigit(y*10+x)*64);
+                            drawPixel(this.checkPixel(this.roomlist[y*10+x].tiles[i][j]),i*8+lastDigit(y*10+x)*64,j*8+firstDigit(y*10+x)*64);
                         }
                     }
                 }
