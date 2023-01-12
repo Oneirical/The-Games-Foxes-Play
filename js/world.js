@@ -17,14 +17,17 @@ class World{
         drawFilter(blackfilter);
         for(let i = 0; i<numTiles;i++){
             for (let j = 0; j<numTiles; j++){
+                //if (world.getRoom().extreme["W"] == i || world.getRoom().extreme["E"] == i || world.getRoom().extreme["S"] == j || world.getRoom().extreme["N"] == j )drawPixel(4,i*7//+lastDigit(this.currentroom)*64,j*7+firstDigit(this.currentroom)*64);
+                //else
                 drawPixel(this.checkPixel(tiles[i][j]),i*7+lastDigit(this.currentroom)*64,j*7+firstDigit(this.currentroom)*64);
+                if (tiles[i][j].monster && tiles[i][j].monster.isPlayer) drawPixel(3,i*7+lastDigit(this.currentroom)*64,j*7+firstDigit(this.currentroom)*64);
             }
         }
-        for(let y = 0; y<numTiles;y++){
-            for(let x = 0; x<numTiles;x++){
+        for(let y = 0; y<9;y++){
+            for(let x = 0; x<9;x++){
                 if (this.roomlist[y*10+x] && y*10+x != this.currentroom){
-                    for(let i = 0; i<numTiles;i++){
-                        for (let j = 0; j<numTiles; j++){
+                    for(let i = 0; i<this.roomlist[y*10+x].size;i++){
+                        for (let j = 0; j<this.roomlist[y*10+x].size; j++){
                             drawPixel(this.checkPixel(this.roomlist[y*10+x].tiles[i][j]),i*7+lastDigit(y*10+x)*64,j*7+firstDigit(y*10+x)*64);
                         }
                     }
@@ -41,7 +44,7 @@ class World{
     }
     selectRooms(){
         if (this.serene) this.roompool = [StandardSpire];
-        else this.roompool = [NarrowFaith,EmptyFaith]; //StandardFaith,TriangleFaith,
+        else this.roompool = [NarrowFaith,GrandHallFaith]; //,StandardFaith,TriangleFaith,,GrandHallFaith,EmptyFaith
     }
 
     addRoom(coordinates, connector){
@@ -64,15 +67,22 @@ class World{
             });
         }
         let shift = 0;
-        if (coordinates == "N") shift = -10;
-        else if (coordinates == "W") shift = -1;
+        let testRoom = new roomType(99);
+        numTiles = testRoom.size;
+        tileSize = (9/numTiles)*64;
+        if (coordinates == "N") shift = -10*(testRoom.size/9);
+        else if (coordinates == "W") shift = -1*(testRoom.size/9);
         else if (coordinates == "E") shift = 1;
         else if (coordinates == "S") shift = 10;
         if (this.roomlist[this.currentroom+shift]){
             this.reloadRoom(this.currentroom+shift,coordinates);
             return "goback";
         }
+        if (testRoom.size > 9 && this.roomlist[this.currentroom+shift+11]){ // check this more
+            shift-=1;
+        }
         let room = new roomType(this.currentroom+shift);
+        this.fabrication = room;
         if (room.vault) room.setUp();
         if (coordinates != "firstroom"){
             if (this.getRoom().music){
@@ -80,39 +90,28 @@ class World{
             }
         }
         this.currentroom = this.currentroom+shift;
-        let numtest = numTiles;
-        numTiles = room.size;
-        if (level == 17) room.possibleexits = [[1,0], [0,numTiles-2],[numTiles-1,1],[numTiles-2,numTiles-1]]; // must replace with vault system
-        tileSize = (numtest/numTiles)*64;
         let list = [3,2,1,0];
+        if (room.possibleexits.length == 2) list = [1,1,0,0];
+        if (room.possibleexits.length == 8) list = [6,4,2,0];
         if (coordinates == "firstroom"){
         }
         else if (coordinates == "N"){
-            //room.playerspawn = room.entrancepoints[3];
             room.returnpoint = room.possibleexits[list[0]];
-            if (!room.vault) room.possibleexits.splice(list[0],1);
             room.playerlastmove = [0,-1];
         }
         else if (coordinates == "W"){ 
-            //room.playerspawn = room.entrancepoints[2];
             room.returnpoint = room.possibleexits[list[1]];
-            if (!room.vault) room.possibleexits.splice(list[1],1);
             room.playerlastmove = [-1,0];
         }
         else if (coordinates == "E"){ 
-            //room.playerspawn = room.entrancepoints[1];
             room.returnpoint = room.possibleexits[list[2]];
-            if (!room.vault) room.possibleexits.splice(list[2],1);
             room.playerlastmove = [1,0];
         }
         else if (coordinates == "S"){ 
-            //room.playerspawn = room.entrancepoints[0];
             room.returnpoint = room.possibleexits[list[3]];
-            if (!room.vault) room.possibleexits.splice(list[3],1);
             room.playerlastmove = [0,1];
         }
         this.roomlist[this.currentroom] = room;
-        this.fabrication = room;
         room.buildRoom(connector);
         wheel.resolve = 3+ Math.floor(resolvebonus/2);
         exitspawn = 0;
@@ -132,6 +131,8 @@ class World{
 
     reloadRoom(id, coordinates){
         exitspawn = 1;
+        numTiles = this.roomlist[id].size;
+        tileSize = (9/numTiles)*64;
         let room = this.roomlist[id];
         monsters = this.roomlist[id].monsters;
         tiles = this.roomlist[id].tiles;
@@ -158,7 +159,7 @@ class World{
             spawnlocation = room.entrancepoints[list[3]];
             room.playerlastmove = [0,1];
         }
-        this.roomlist[id].playerspawn = [spawnlocation.x,spawnlocation.y];
+        this.roomlist[id].playerspawn = [spawnlocation[0],spawnlocation[1]];
         this.playRoom(this.roomlist[id], player.hp);
     }
 }
@@ -184,7 +185,6 @@ class Room{
         this.vault = true;
         this.name = "Bugtopia";
         this.fourway = false;
-        this.violatereality = false;
         this.filler = Wall;
         this.vault = false;
         this.extreme = {
@@ -208,7 +208,7 @@ class Room{
         let randomtile = randomPassableTile();
         if (this.entrymessage) log.addLog(this.entrymessage);
         if (world.roomlist.length == 1 && level == 0) this.playerspawn = [Math.floor((numTiles-1)/2),Math.floor((numTiles-1)/2)];
-        else if (world.roomlist.length == 1){
+        else if (this.playerspawn == null){
             this.playerspawn[0] = randomtile.x;
             this.playerspawn[1] = randomtile.y;
         }
@@ -243,7 +243,7 @@ class WorldSeed extends Room{
     }
 
     initializeRoom(){
-        this.entrancepoints = [getTileButNotCursed(Math.floor((numTiles-1)/2),1), getTileButNotCursed(1,Math.floor((numTiles-1)/2)),getTileButNotCursed((numTiles-2),Math.floor((numTiles-1)/2)),getTileButNotCursed(Math.floor((numTiles-1)/2),(numTiles-2))];
+        this.entrancepoints = [[Math.floor((numTiles-1)/2),1], [1,Math.floor((numTiles-1)/2)],[(numTiles-2),Math.floor((numTiles-1)/2)],[Math.floor((numTiles-1)/2),(numTiles-2)]];
         super.initializeRoom();
     }
 }
@@ -268,7 +268,7 @@ class DefaultVaultRoom extends Room{
                     "N" : this.possibleexits[0][1],
                     "S" : this.possibleexits[1][1],
                 }
-                this.entrancepoints = [getTileButNotCursed(this.possibleexits[0][0],this.possibleexits[0][1]+1),getTileButNotCursed(this.possibleexits[1][0],this.possibleexits[1][1]-1)];
+                this.entrancepoints = [[this.possibleexits[0][0],this.possibleexits[0][1]+1],[this.possibleexits[1][0],this.possibleexits[1][1]-1]];
 
             }
             else{
@@ -276,17 +276,28 @@ class DefaultVaultRoom extends Room{
                     "W" : this.possibleexits[0][0],
                     "E" : this.possibleexits[1][0],
                 }
-                this.entrancepoints = [getTileButNotCursed(this.possibleexits[0][0]+1,this.possibleexits[0][1]),getTileButNotCursed(this.possibleexits[1][0]-1,this.possibleexits[1][1])];
+                this.entrancepoints = [[this.possibleexits[0][0]+1,this.possibleexits[0][1]],[this.possibleexits[1][0]-1,this.possibleexits[1][1]]];
             }
         }
         else{
-            this.extreme = {
-                "N" : this.possibleexits[0][1],
-                "W" : this.possibleexits[1][0],
-                "E" : this.possibleexits[2][0],
-                "S" : this.possibleexits[3][1],
+            if (this.possibleexits.length == 4){
+                this.extreme = {
+                    "N" : this.possibleexits[0][1],
+                    "W" : this.possibleexits[1][0],
+                    "E" : this.possibleexits[2][0],
+                    "S" : this.possibleexits[3][1],
+                }
+                this.entrancepoints = [[this.possibleexits[0][0],this.possibleexits[0][1]+1],[this.possibleexits[1][0]+1,this.possibleexits[1][1]],[this.possibleexits[2][0]-1,this.possibleexits[2][1]],[this.possibleexits[3][0],this.possibleexits[3][1]-1]];
             }
-            this.entrancepoints = [getTileButNotCursed(this.possibleexits[0][0],this.possibleexits[0][1]+1),getTileButNotCursed(this.possibleexits[1][0]+1,this.possibleexits[1][1]),getTileButNotCursed(this.possibleexits[2][0]-1,this.possibleexits[2][1]),getTileButNotCursed(this.possibleexits[3][0],this.possibleexits[3][1]-1)];
+            else if (this.possibleexits.length == 8){
+                this.extreme = {
+                    "N" : this.possibleexits[0][1],
+                    "W" : this.possibleexits[2][0],
+                    "E" : this.possibleexits[4][0],
+                    "S" : this.possibleexits[6][1],
+                }
+                this.entrancepoints = [[this.possibleexits[0][0],this.possibleexits[0][1]+1],[this.possibleexits[2][0]+1,this.possibleexits[2][1]],[this.possibleexits[4][0]-1,this.possibleexits[4][1]],[this.possibleexits[6][0],this.possibleexits[6][1]-1]];
+            }
         }
     }
 
@@ -315,6 +326,13 @@ class NarrowFaith extends DefaultVaultRoom{
     constructor(index){
         super(index);
         this.id = "Narrow";
+    }
+}
+class GrandHallFaith extends DefaultVaultRoom{
+    constructor(index){
+        super(index);
+        this.id = "GrandHall";
+        this.size = 18;
     }
 }
 
@@ -445,26 +463,20 @@ class RoseicCogArena extends Room{
     }
 }
 
-class EpsilonArena extends Room{
+class EpsilonArena extends DefaultVaultRoom{
     constructor(index){
         super(index);
         this.size = 18;
         this.entrymessage = "EpsilonWelcome1";
         this.name = "Industrial Apex";
         this.music = "epsilon";
+        this.id = "Epsilon";
         this.fourway = true;
-        this.possibleexits = [[1,0], [0,numTiles-2],[numTiles-1,1],[numTiles-2,numTiles-1]];
-        this.entrancepoints = [getTileButNotCursed(1,1), getTileButNotCursed(1,numTiles-2),getTileButNotCursed(numTiles-2,1),getTileButNotCursed(numTiles-2,numTiles-2)];
-        this.violatereality = true;
     }
 
     buildRoom(connector){
-        
-        generateEpsilon();
+        super.buildRoom(connector);
         showboss = true;
-        blockedExits(connector);
-        this.violatereality = false;
-        generateMonsters();
     }
 
     initializeRoom(){

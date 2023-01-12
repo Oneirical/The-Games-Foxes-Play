@@ -84,13 +84,14 @@ function locateExits(id){
     let exits = [];
     if (rooms[id]["tags"].includes("randomflip")) flipRoom(id);
     let vault = rooms[id];
-    for(let i=0;i<numTiles;i++){
-        for(let j=0;j<numTiles;j++){
+    for(let i=0;i<world.getBuildingRoom().size;i++){
+        for(let j=0;j<world.getBuildingRoom().size;j++){
             let tile = vault[j][i];
             if (tile == "E") exits.push([i,j]);
         }
     }
     if (exits.length == 4) exits = [exits[1],exits[0],exits[3],exits[2]];
+    else if (exits.length == 8) exits = [exits[2],exits[4],exits[0],exits[1],exits[6],exits[7],exits[3],exits[5]];
     return exits;
 }
 
@@ -155,9 +156,8 @@ function generateRelay(){
 }
 
 function blockedExits(connector){
-    let exitnumber = shuffle([2,3,3,4])[0];
-    exitnumber = 4; //if (world.getRoom().fourway) 
     let exitlocations = world.getRoom().possibleexits;
+    let exitnumber = exitlocations.length;
     let returnpoint = world.getRoom().returnpoint;
     let walls = [];
     for (let i = 0;i<exitnumber;i++){
@@ -165,13 +165,13 @@ function blockedExits(connector){
         tiles[exitdirection[0]][exitdirection[1]].replace(BExit);
         walls.push(exitdirection);
     }
-    for (let i = 0;i<6-exitnumber;i++){
-        let exitdirection = exitlocations[i];
-        if (!walls.includes(exitdirection)){
-            tiles[exitdirection[0]][exitdirection[1]].replace(world.getRoom().filler);
-            tiles[exitdirection[0]][exitdirection[1]].eat = false;
-        }
-    }
+    //for (let i = 0;i<6-exitnumber;i++){
+    //    let exitdirection = exitlocations[i];
+    //    if (!walls.includes(exitdirection)){
+    //        tiles[exitdirection[0]][exitdirection[1]].replace(world.getRoom().filler);
+    //        tiles[exitdirection[0]][exitdirection[1]].eat = false;
+    //    }
+    //}
     if (returnpoint != null) {
         tiles[returnpoint[0]][returnpoint[1]].replace(BReturnExit);
         tiles[returnpoint[0]][returnpoint[1]].id = connector;

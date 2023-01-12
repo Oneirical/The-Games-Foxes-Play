@@ -3,7 +3,8 @@
 **Current Tasks**
 
 * Make "vertical" less anchored in stone, and varying before the connect check.
-* Fix the player spawn in 2-exit rooms.
+* Epsilon's boss card is glitched.
+* Make exits prevent going through walls in other rooms.
 
 **Map Variety Project**
 
