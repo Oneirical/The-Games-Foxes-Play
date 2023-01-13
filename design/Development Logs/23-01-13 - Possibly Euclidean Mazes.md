@@ -13,7 +13,7 @@ To this end, I had to implement a mechanic which many other aspiring roguelike d
 
 ## Designed for Maximum Violence
 
-Is it not [sumptuous](https://cdn.discordapp.com/attachments/504088568084561930/1063554864157839520/Capture_decran_le_2023-01-13_a_15.26.58.png)? With this new mechanic (which took surprisingly little time to develop), making new rooms has never been easier. There are now 10 different configurations which the player can find themselves challenged by on their way to face Epsilon, from the very cramped FaithBridge (and its associated Nullspace abyss) to the expansive GrandHall (and its zoomed out view). I could - and will - make many more, but I had something else taking up all my development time.
+Is it not [sumptuous](https://cdn.discordapp.com/attachments/504088568084561930/1063554864157839520/Capture_decran_le_2023-01-13_a_15.26.58.png)? With this new mechanic (which took surprisingly little time to develop), making new rooms has never been easier. There are now 10 different configurations which the player can find themselves challenged by on their way to face Epsilon, from the very cramped FaithBridge (and its associated Nullspace abyss) to the expansive GrandHall (and its zoomed out view). Some of these, with the "randomflip" tag, will even receive random rotations to vary things up! I could - and will - make many more, but I had something else taking up all my development time.
 
 Making an *actual* room matrix, and an associated minimap. I know I had this whole cool thing going on about non-euclidean spaces, but at some point, one has to accept that no, it's not a feature - it's a *bug*.
 
