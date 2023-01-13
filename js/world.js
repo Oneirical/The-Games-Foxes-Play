@@ -44,7 +44,7 @@ class World{
     }
     selectRooms(){
         if (this.serene) this.roompool = [StandardSpire];
-        else this.roompool = [StandardFaith,TriangleFaith,NarrowFaith,GrandHallFaith,EmptyFaith,BloxFaith,BridgeFaith,HideFaith,PipesFaith]; //,,GrandHallFaith,
+        else this.roompool = [BloxFaith,BridgeFaith,HideFaith,PipesFaith]; //,,GrandHallFaith,StandardFaith,TriangleFaith,NarrowFaith,GrandHallFaith,EmptyFaith,
     }
 
     addRoom(coordinates, connector){
@@ -62,6 +62,9 @@ class World{
                     if (!rooms[testRoom.id]["vertical"] && (coordinates == "N" || coordinates == "S")) return true;
                     else if (rooms[testRoom.id]["vertical"] && (coordinates == "W" || coordinates == "E")) return true;
                     else return false;
+                }
+                if (testRoom.size > 9){
+                    return true; // test if big room can be included and where
                 }
                 else return true;
             });
@@ -269,7 +272,7 @@ class DefaultVaultRoom extends Room{
     setUp(){
         this.possibleexits = locateExits(this.id);
         if (rooms[this.id]["vertical"] != null){
-            if (rooms[this.id]["vertical"]){
+            if (rooms[this.id]["vertical"] && this.possibleexits.length == 2){
                 this.extreme = {
                     "N" : this.possibleexits[0][1],
                     "S" : this.possibleexits[1][1],
@@ -277,7 +280,7 @@ class DefaultVaultRoom extends Room{
                 this.entrancepoints = [[this.possibleexits[0][0],this.possibleexits[0][1]+1],[this.possibleexits[1][0],this.possibleexits[1][1]-1]];
 
             }
-            else{
+            else if (this.possibleexits.length == 2){
                 this.extreme = {
                     "W" : this.possibleexits[0][0],
                     "E" : this.possibleexits[1][0],

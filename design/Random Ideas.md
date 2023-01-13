@@ -4,15 +4,18 @@
 
 * Make "vertical" less anchored in stone, and varying before the connect check.
 * Epsilon's boss card is glitched.
-* Make exits prevent going through walls in other rooms.
+* Make exits prevent going through walls in other rooms. Store actual exits of rooms. Transform exits that lead to previous rooms into ReturnExits.
+* Check for space before including a big room.
+- if 33% chance, try to include big room - select random exit and check for space
 
 **Map Variety Project**
 
 * Replace AbazonWall with something cooler. DeathPit.
-* Make corridors have no side exits, and only accessible from corresponding exits.
 * An image of a huge twisting maze, like brain coral. Coloured dots can be clicked to enlarge portions of Faith's End, corresponding to saved World objects.
 * Actually, could the most interesting landmarks on the map be marked, and could the player control their respawning to approach them?
 * The souls you sacrifice on death determine your respawn direction - towards an "Ideology pole" that contains an exit point, one for each caste.
+* Maze of 9x9 inside a gigamaze where black is one caste and white is the other. This is in itself a pixel inside a circle gigamaze with all 6 poles. Add a tooltip that says "contains X rooms".
+* Add a "Rogue" room with a layout like the OG.
 
 **Serene Project**
 
