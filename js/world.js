@@ -44,7 +44,7 @@ class World{
     }
     selectRooms(){
         if (this.serene) this.roompool = [StandardSpire];
-        else this.roompool = [BloxFaith,BridgeFaith,HideFaith,PipesFaith]; //,,GrandHallFaith,StandardFaith,TriangleFaith,NarrowFaith,GrandHallFaith,EmptyFaith,
+        else this.roompool = [BloxFaith,BridgeFaith,HideFaith,PipesFaith,GrandHallFaith,StandardFaith,TriangleFaith,NarrowFaith,EmptyFaith]; //
     }
 
     addRoom(coordinates, connector){
@@ -127,6 +127,10 @@ class World{
         return room;
     }
 
+    checkCompatibility(){
+
+    }
+
     playRoom(room,playerHp){
         this.currentroom = room.index;
         room.startingplayerHP = playerHp;
@@ -184,6 +188,7 @@ class Room{
         //up left right down
         this.music = false;
         this.entrymessage = false;
+        this.generatedexits = [];
         this.playerlastmove = [0,-1];
         this.playerspawn = [];
         this.effects = [];
@@ -216,7 +221,7 @@ class Room{
         }
         let randomtile = randomPassableTile();
         if (this.entrymessage) log.addLog(this.entrymessage);
-        if (world.getRoom() instanceof WorldSeed) this.playerspawn = [Math.floor((numTiles-1)/2),Math.floor((numTiles-1)/2)];
+        if (world.getRoom() instanceof WorldSeed && world.getRoom().generatedexits.length == 0) this.playerspawn = [Math.floor((numTiles-1)/2),Math.floor((numTiles-1)/2)];
         else if (this.playerspawn.length == 0){
             this.playerspawn[0] = randomtile.x;
             this.playerspawn[1] = randomtile.y;
@@ -254,6 +259,7 @@ class WorldSeed extends Room{
     initializeRoom(){
         this.entrancepoints = [[Math.floor((numTiles-1)/2),1], [1,Math.floor((numTiles-1)/2)],[(numTiles-2),Math.floor((numTiles-1)/2)],[Math.floor((numTiles-1)/2),(numTiles-2)]];
         super.initializeRoom();
+        this.generatedexits = ["S"];
     }
 }
 
@@ -312,8 +318,35 @@ class DefaultVaultRoom extends Room{
 
     buildRoom(connector){
         generateVault(this.id);
-        blockedExits(connector)
-
+        blockedExits(connector);
+        let returns = {
+            "N" : "S",
+            "S" : "N",
+            "W" : "E",
+            "E" : "W"
+        }
+        let equiva = {
+            "N" : -10,
+            "S" : 10,
+            "W" : -1,
+            "E" : 1
+        }
+        for (let i of tiles){
+            for (let j of i){
+                if (j instanceof BExit || j instanceof BReturnExit) this.generatedexits.push(j.direction);
+                let connect = this.index + equiva[j.direction];
+                if (world.roomlist[connect]){
+                    if (world.roomlist[connect].generatedexits.includes(returns[j.direction])){
+                        tiles[j.x][j.y].replace(BReturnExit);
+                        tiles[j.x][j.y].id = connect;
+                    }
+                    else{
+                        tiles[j.x][j.y].replace(world.getRoom().filler);
+                        tiles[j.x][j.y].eat = false;
+                    }
+                }
+            }
+        }
     }
 }
 

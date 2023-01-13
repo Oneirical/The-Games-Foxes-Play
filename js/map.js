@@ -157,13 +157,10 @@ function generateRelay(){
 
 function blockedExits(connector){
     let exitlocations = world.getRoom().possibleexits;
-    let exitnumber = exitlocations.length;
     let returnpoint = world.getRoom().returnpoint;
-    let walls = [];
-    for (let i = 0;i<exitnumber;i++){
+    for (let i = 0;i<exitlocations.length;i++){
         let exitdirection = shuffle(exitlocations)[0];
         tiles[exitdirection[0]][exitdirection[1]].replace(BExit);
-        walls.push(exitdirection);
     }
     //for (let i = 0;i<6-exitnumber;i++){
     //    let exitdirection = exitlocations[i];
