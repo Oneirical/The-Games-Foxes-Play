@@ -156,3 +156,23 @@ The dungeon branch that is currently known as the "Roseic Circus" will be *merge
 I'm really excited about this plan and the progress done this week, and I look forward to deepening this concept!
 
 **NOTE: If a wanderer of the Internet stumbles upon this log, the features mentioned in it are not finished yet (I am working on them this week) and the text below may change. The reason I write these in advance is because pretending that I made great progress inspires me to actually make great progress. Fake it til' you make it. Everything I post in Sharing Saturday - that means, all previous devlog entries in this folder - are completed, of course.**
+
+I am awed by Caves of Qud's overworld map. Every single tile is itself composed of 9 full screens, and each of those screens contains hundreds of tiles. Qud is *massive*, and it is that sense of scale that makes the player feel like Qud is a living, breathing world.
+
+So, naturally, when I was sitting in front of my "random ideas" document at the start of this week, the first thought that sprung to mind was:
+
+*"What if we went even BIGGER"?*
+
+## Giga-Mega-Ultra-Superstructures
+
+ It's... fairly big as a result.
+
+*Very* big.
+
+I naturally had to reflect this through the gameplay. Enter [my new map UI](). Each of these square icons reflect in real time the contents of each room, and are updated should their terrain change for any reason. This UI can fit 9x9 rooms, for a total of 81.
+
+Zooming back, this suite of 81 rooms fits in a single [pixel]() of this world map, which itself fits as a single pixel in [this]() map of the entire universe. My game's total capacity thus reaches precisely 531441 rooms.
+
+Naturally, there is some illusion and artifice going on here. The glorified calculator that serves as my computer would not be very happy at the thought of generating each and every single dust speck of Faith's End. In fact, at the start of the game, a single room is generated - the World Seed - and as the player explores and uncovers new rooms, these are saved and added to the map. Still, I amuse myself to imagine a new player zooming out the map and realizing in horror that it simply *doesn't stop*.
+
+There is a purpose to this madness beyond simple atmosphere. Some [interesting waypoints]() are marked on Faith's End, but are technically unreachable through walking as they are located literal thousands of rooms away. This is where the protagonist's signature ability comes in - limited, but controlled reincarnation. The location where the game will continue following a non-final death can be *directed* according to which Souls the player chooses to sacrifice upon meeting their demise, and thus skip across megakilometres of concrete in the goal of exploring these mysterious landmarks. This furthens my game's design goal of "turning mistakes into tools for success".

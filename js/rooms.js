@@ -3,7 +3,7 @@ var key = {
     "." : Floor,
     "E" : BExit,
     "#" : NoBreakWall,
-    "A" : AbazonWall,
+    "A" : RealityWall,
     "T" : TermiWall,
     "t" : TermiExit,
     "," : TrueFloor,

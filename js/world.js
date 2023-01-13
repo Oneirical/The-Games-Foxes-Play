@@ -64,7 +64,12 @@ class World{
                     else return false;
                 }
                 if (testRoom.size > 9){
-                    return true; // test if big room can be included and where
+                    if (coordinates == "N" && world.roomlist[world.currentroom-20] == null && world.roomlist[world.currentroom-19] == null && world.roomlist[world.currentroom-9] == null) return true;
+                    else if (coordinates == "W" && world.roomlist[world.currentroom-2] == null && world.roomlist[world.currentroom+9] == null && world.roomlist[world.currentroom+8] == null) return true;
+                    else if (coordinates == "E" && world.roomlist[world.currentroom+2] == null && world.roomlist[world.currentroom+11] == null && world.roomlist[world.currentroom+12] == null) return true;
+                    else if (coordinates == "S" && world.roomlist[world.currentroom+20] == null && world.roomlist[world.currentroom+21] == null && world.roomlist[world.currentroom+11] == null) return true;
+                    else return false;
+                     // test if big room can be included and where
                 }
                 else return true;
             });

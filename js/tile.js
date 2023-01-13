@@ -358,10 +358,10 @@ class TermiWall extends Wall{
 
 class RealityWall extends Wall{
     constructor(x, y){
-        super(x, y, 56, false);
+        super(x, y, 2, false);
         this.lore = description["Reality"];
         this.name = "Nonexistent Nullspace";
-        this.sprite = 56;
+        this.sprite = 2;
     }
 }
 
