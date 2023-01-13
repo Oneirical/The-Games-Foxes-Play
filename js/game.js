@@ -552,7 +552,7 @@ function startWorld(playerHp){
 
 function drawText(text, size, centered, textY, color){
     ctx.fillStyle = color;
-    ctx.font = size + "px rockwell";
+    ctx.font = size + "px Play";
     let textX;
     if(centered){
         textX = (canvas.width-ctx.measureText(text).width)/2;
@@ -565,14 +565,14 @@ function drawText(text, size, centered, textY, color){
 
 function drawChar(text, size, textX, textY, color){
     ctx.fillStyle = color;
-    ctx.font = size + "px rockwell";
+    ctx.font = size + "px Play";
     ctx.fillText(text, textX, textY);
 }
 
 function drawMessage(text, size, textX, textY, color){
     var str = text;
     ctx.fillStyle = color;
-    ctx.font = size + "px rockwell";
+    ctx.font = size + "px Play";
     var a = textX;
     var b = textY;
     var lineheight = 10;
@@ -588,7 +588,7 @@ function printAtWordWrap(text, size, x, y, color, lineHeight, fitWidth)
     let sy = (jy + (canvas.height-uiHeight*64+25));
     fitWidth = fitWidth || 0;
     ctx.fillStyle = color;
-    ctx.font = size + "px rockwell";
+    ctx.font = size + "px Play";
     if (fitWidth <= 0)
     {
         ctx.fillText( text, x, sy );
@@ -624,7 +624,7 @@ function printAtSidebar(text, size, x, y, color, lineHeight, fitWidth)
     let sx = x || canvas.width-uiWidth*64+25;
     fitWidth = fitWidth || 0;
     ctx.fillStyle = color;
-    ctx.font = size + "px rockwell";
+    ctx.font = size + "px Play";
     if (fitWidth <= 0)
     {
         ctx.fillText( text, x, y );
