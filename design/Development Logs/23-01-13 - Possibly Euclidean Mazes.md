@@ -19,9 +19,9 @@ Making an *actual* room matrix, and an associated minimap. I know I had this who
 
 After paying the considerably high price of reducing all my neurons into a formless grey sludge, I finally achieved [this buggy mess](https://cdn.discordapp.com/attachments/504088568084561930/1063556294285471825/Capture_decran_le_2023-01-13_a_15.08.54.png) that can be brought up by pressing "M". The little purple dot is me. While it certainly works, there are some significant flaws:
 
-* At the very right of the map, one of the rooms spawned *on top* of a 2x2 room. EDIT: Now fixed!
+* At the very right of the map, one of the rooms spawned *on top* of a 2x2 room.
 
-* 2x2 rooms never fail to overlap on top of adjacent rooms for one extra pixel column/row, as is seen with the top left room.
+* 2x2 rooms never fail to overlap on top of adjacent rooms for one extra pixel column/row, as is seen with the top left room. EDIT: Just fixed this! Turns out the drawing size was incorrect the whole time. Only had to change a single number.
 
 Honestly, I'm very confused. I thought 18x18 was just the double of a 9x9 square, but maybe I am completely clueless.
 
