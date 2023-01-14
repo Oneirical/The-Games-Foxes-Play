@@ -12,8 +12,7 @@
 
 * An image of a huge twisting maze, like brain coral. Coloured dots can be clicked to enlarge portions of Faith's End, corresponding to saved World objects.
 * Actually, could the most interesting landmarks on the map be marked, and could the player control their respawning to approach them?
-* The souls you sacrifice on death determine your respawn direction - towards an "Ideology pole" that contains an exit point, one for each caste. The multipliers are multiplicative - move 1 for the first soul, 10 for the second, 100 for the third...
-* Maze of 9x9 inside a gigamaze where black is one caste and white is the other. This is in itself a pixel inside a circle gigamaze with all 6 poles. Add a tooltip that says "contains X rooms".
+* The souls you sacrifice on death determine your respawn direction - towards an "Ideology pole" that contains an exit point, one for each caste. Should these "poles" expand as the game progresses, and cause a cataclysm if they ever touch the centre? This could be a nice replacement for "hunger clock" type mechanics.
 * Add a "Rogue" room with a layout like the OG.
 
 **Serene Project**

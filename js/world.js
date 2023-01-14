@@ -1,3 +1,46 @@
+class Universe{
+    constructor(){
+        this.worlds = [];
+        this.currentworld = [4,4];
+        this.maze;
+        this.initiate();
+    }
+
+    initiate(){
+        for (let i = 0; i<81;i++){
+            this.worlds[i] = [];
+            for (let j = 0; j<81;j++){
+                this.worlds[i][j] = new EmptyWorld(i,j);
+            }
+        }
+        this.maze = new MazeBuilder(40, 40).maze;
+    }
+
+    display(){
+        drawFilter(blackfilter);
+        for (let i = 0; i<81;i++){
+            for (let j = 0; j<81;j++){
+                let colour = 5;
+                if (this.maze[i][j][0] != "wall") colour = 0;
+                if (i > 28 && i < 36 && j > 28 && j < 36 && this.maze[i][j][0] != "wall") colour = 6;
+                else if (i > 28 && i < 36 && j > 28 && j < 36) colour = 7;
+                this.worlds[i][j].represent(colour);
+            }
+        }
+    }
+}
+
+class EmptyWorld{
+    constructor(x,y){
+        this.x = x;
+        this.y = y;
+    }
+
+    represent(colour){
+        drawPixel(colour,this.x*7.11,this.y*7.11);
+    }
+}
+
 class World{
     constructor(serene){
         this.roompool = [];
@@ -45,7 +88,7 @@ class World{
     }
     selectRooms(){
         if (this.serene) this.roompool = [StandardSpire];
-        else this.roompool = [GrandHallFaith]; //BloxFaith,BridgeFaith,HideFaith,PipesFaith,GrandHallFaith,StandardFaith,TriangleFaith,NarrowFaith,EmptyFaith
+        else this.roompool = [GrandHallFaith,BloxFaith,BridgeFaith,HideFaith,PipesFaith,GrandHallFaith,StandardFaith,TriangleFaith,NarrowFaith,EmptyFaith]; //
     }
 
     addRoom(coordinates, connector,id){
@@ -64,7 +107,7 @@ class World{
                     else if (rooms[testRoom.id]["vertical"] && (coordinates == "W" || coordinates == "E")) return true;
                     else return false;
                 }
-                if (testRoom.size > 9){
+                if (testRoom.size > 99){
                     if (coordinates == "N" && world.roomlist[world.currentroom-20] == null && world.roomlist[world.currentroom-19] == null && world.roomlist[world.currentroom-9] == null) return true;
                     else if (coordinates == "W" && world.roomlist[world.currentroom-2] == null && world.roomlist[world.currentroom+9] == null && world.roomlist[world.currentroom+8] == null) return true;
                     else if (coordinates == "E" && world.roomlist[world.currentroom+2] == null && world.roomlist[world.currentroom+11] == null && world.roomlist[world.currentroom+12] == null) return true;
@@ -79,10 +122,15 @@ class World{
         let testRoom = new roomType(99);
         numTiles = testRoom.size;
         tileSize = (9/numTiles)*64;
-        if (coordinates == "N") shift = -10*(testRoom.size/9);
+        if (id) shift = id;
+        else if (coordinates == "N") shift = -10*(testRoom.size/9);
         else if (coordinates == "W") shift = -1*(testRoom.size/9);
         else if (coordinates == "E") shift = 1;
         else if (coordinates == "S") shift = 10;
+        if (id){
+            if (coordinates == "W") shift+= -1*(testRoom.size/9-1);
+            else if (coordinates == "N") shift+= -10*(testRoom.size/9-1);
+        }
         //let bigroomtests = [1,10,11];
         //for (let i of bigroomtests){
         //    if (this.roomlist[this.currentroom+shift+i] && this.roomlist[this.currentroom+shift+i].size > 9){
@@ -93,7 +141,7 @@ class World{
         //    shift-=1;
         //}
         if (this.roomlist[this.currentroom+shift]){
-            this.reloadRoom(this.currentroom+shift,coordinates);
+            this.reloadRoom(shift,coordinates);
             return "goback";
         }
         let room = new roomType(this.currentroom+shift);
@@ -145,6 +193,7 @@ class World{
         }
         this.roomlist[this.currentroom] = room;
         if (room.size > 9){
+            room.core = this.currentroom;
             this.roomlist[this.currentroom+10] = room;
             this.roomlist[this.currentroom+1] = room;
             this.roomlist[this.currentroom+11] = room;
@@ -181,6 +230,21 @@ class World{
         monsters = this.roomlist[id+this.currentroom].monsters;
         tiles = this.roomlist[id+this.currentroom].tiles;
         let spawnlocation;
+
+        let quadrant; // code gods, forgive me for what is to come
+        let exitnum;
+        if (room.core){
+            quadrant = id+this.currentroom-room.core;
+            if (quadrant == 0 && coordinates == "S") exitnum = 1;
+            else if (quadrant == 0 && coordinates == "E") exitnum = 3;
+            else if (quadrant == 1 && coordinates == "S") exitnum = 2;
+            else if (quadrant == 1 && coordinates == "W") exitnum = 5;
+            else if (quadrant == 10 && coordinates == "E") exitnum = 4;
+            else if (quadrant == 10 && coordinates == "N") exitnum = 7;
+            else if (quadrant == 11 && coordinates == "N") exitnum = 8;
+            else if (quadrant == 11 && coordinates == "W") exitnum = 6;
+        }
+
         let list = [10,1,-1,-10];
         let motion = [[0,1],[1,0],[-1,0],[0,-1]];
         if (room.possibleexits.length == 2 && rooms[world.getRoom().id+this.currentroom].vertical){
@@ -196,6 +260,10 @@ class World{
             motion = [[0,1],[0,1],[1,0],[1,0],[-1,0],[-1,0],[0,-1],[0,-1]];
         }
         if (coordinates == "firstroom"){
+        }
+        else if (exitnum){
+            spawnlocation = room.entrancepoints[exitnum-1];
+            room.playerlastmove = motion[exitnum-1];
         }
         else if (id) {
             spawnlocation = room.entrancepoints[list.indexOf(id)];
@@ -218,6 +286,7 @@ class World{
             room.playerlastmove = [0,1];
         }
         this.roomlist[id+this.currentroom].playerspawn = [spawnlocation[0],spawnlocation[1]];
+        if (!(room instanceof WorldSeed)) room.recheckExits();
         this.playRoom(this.roomlist[id+this.currentroom], player.hp);
     }
 }
@@ -235,6 +304,7 @@ class Room{
         this.entrymessage = false;
         this.generatedexits = [];
         this.playerlastmove = [0,-1];
+        this.core;
         this.playerspawn = [];
         this.effects = [];
         this.previousRoom = -1; //Maybe secretly divide arrow tiles into return/generator tiles?
@@ -361,6 +431,42 @@ class DefaultVaultRoom extends Room{
         }
     }
 
+    recheckExits(){
+        let returns = {
+            "N" : "S",
+            "S" : "N",
+            "W" : "E",
+            "E" : "W"
+        }
+        let equiva = {
+            "N" : -10,
+            "S" : 10,
+            "W" : -1,
+            "E" : 1
+        }
+        for (let i of tiles){
+            for (let j of i){
+                if (j instanceof BExit){
+                    this.generatedexits.push(j.direction);
+                    let connect;
+                    let id = j.id;
+                    if (j.id) connect = this.index+j.id;
+                    else connect = this.index + equiva[j.direction];
+                    if (world.roomlist[connect]){
+                        if (world.roomlist[connect].generatedexits.includes(returns[j.direction])){
+                            tiles[j.x][j.y].replace(BReturnExit);
+                            tiles[j.x][j.y].id = id;
+                        }
+                        else{
+                            tiles[j.x][j.y].replace(world.getRoom().filler);
+                            tiles[j.x][j.y].eat = false;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
     buildRoom(connector){
         generateVault(this.id);
         blockedExits(connector);
@@ -381,12 +487,13 @@ class DefaultVaultRoom extends Room{
                 if (j instanceof BExit){
                     this.generatedexits.push(j.direction);
                     let connect;
+                    let id = j.id;
                     if (j.id) connect = this.index+j.id;
                     else connect = this.index + equiva[j.direction];
                     if (world.roomlist[connect]){
                         if (world.roomlist[connect].generatedexits.includes(returns[j.direction])){
                             tiles[j.x][j.y].replace(BReturnExit);
-                            tiles[j.x][j.y].id = equiva[j.direction];
+                            tiles[j.x][j.y].id = id;
                         }
                         else{
                             tiles[j.x][j.y].replace(world.getRoom().filler);

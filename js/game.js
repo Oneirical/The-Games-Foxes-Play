@@ -313,6 +313,7 @@ function draw(){
         ctx.lineTo(577, 0);
         ctx.stroke();
         if (inMap) world.display();
+        universe.display();
 
         //mouseclick lines
         //ctx.beginPath();
@@ -543,6 +544,7 @@ function startGame(){
     cybernetics = new Modules();
     wheel = new DrawWheel();
     log = new MessageLog();
+    universe = new Universe();
     startWorld(startingHp);
     gameState = "running";
 }

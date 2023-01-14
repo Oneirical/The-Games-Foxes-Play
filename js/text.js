@@ -617,7 +617,7 @@ soulname = {
     "SERENE" : "Serene Soul",
     "JOLTZAZON" : "Joltzazon, Husband of the Scarved River",
     "PURPIZUG" : "Purpizug, Painter of Blank Canvasses",
-    "ROSE" : "Rose Sylvie, Last of the Saints",
+    "ROSE" : "Rose, Last of the Saints",
     "SENET" : "Senet, the Felidol Tycoon",
     "KILAMI" : "Kilami, the Echo at the Outskirts of the World",
     "AUBE" : "Aube, Grain of Rice",
