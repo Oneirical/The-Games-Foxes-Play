@@ -42,6 +42,7 @@ function generateTiles(){
         for(let j=0;j<numTiles;j++){
             if ((j==(numTiles-1)&&i==Math.floor((numTiles-1)/2)) && world.getRoom() instanceof WorldSeed){
                 tiles[i][j] = new TermiExit(i,j);
+                tiles[i][j].id = 10;
                 passableTiles++;
             }
             else if((j==(numTiles-2)&&i==Math.floor((numTiles-1)/2))||(j==1&&i==Math.floor((numTiles-1)/2)) || (j==Math.floor((numTiles-1)/2)&&i==numTiles-2) || (j==Math.floor((numTiles-1)/2)&&i==1)){
@@ -158,9 +159,19 @@ function generateRelay(){
 function blockedExits(connector){
     let exitlocations = world.getRoom().possibleexits;
     let returnpoint = world.getRoom().returnpoint;
+    let shifts;
+    if (exitlocations.length == 8) shifts = [-10,-9,-1,-11,2,12,20,21];
+    else shifts = {
+        "N" : -10,
+        "W" : -1,
+        "E" : 1,
+        "S" : 10
+    }
     for (let i = 0;i<exitlocations.length;i++){
-        let exitdirection = shuffle(exitlocations)[0];
+        let exitdirection = exitlocations[i];
         tiles[exitdirection[0]][exitdirection[1]].replace(BExit);
+        if (exitlocations.length == 8) tiles[exitdirection[0]][exitdirection[1]].id = shifts[i];
+        else tiles[exitdirection[0]][exitdirection[1]].id = shifts[tiles[exitdirection[0]][exitdirection[1]].direction];
     }
     //for (let i = 0;i<6-exitnumber;i++){
     //    let exitdirection = exitlocations[i];
@@ -172,6 +183,8 @@ function blockedExits(connector){
     if (returnpoint != null) {
         tiles[returnpoint[0]][returnpoint[1]].replace(BReturnExit);
         tiles[returnpoint[0]][returnpoint[1]].id = connector;
+        let playerspawner = tiles[returnpoint[0]][returnpoint[1]];
+        world.getRoom().playerspawn = [playerspawner.x+playerspawner.textures[playerspawner.direction + "W"][0], playerspawner.y+playerspawner.textures[playerspawner.direction + "W"][1]];
     }
 
 }

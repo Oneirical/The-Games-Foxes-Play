@@ -67,7 +67,7 @@ class Cursor{
 
     }
     debug(){
-        console.log(this.tile instanceof ReturnExit);
+        console.log(this.tile.id);
     }
 }
 

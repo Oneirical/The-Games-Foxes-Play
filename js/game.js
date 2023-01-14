@@ -338,7 +338,13 @@ function manageExit(){
 function summonExits(){
     for (let x of tiles){
         for (let y of x){
-            if (y instanceof BExit) y.replace(ExpandExit)
+            if (y instanceof BExit){
+                let id = y.id;
+                let px = y.x;
+                let py = y.y;
+                y.replace(ExpandExit)
+                tiles[px][py].id = id;
+            }
             else if (y instanceof BReturnExit){
                 let id = y.id;
                 let px = y.x;

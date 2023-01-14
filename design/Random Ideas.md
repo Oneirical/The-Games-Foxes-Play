@@ -10,7 +10,6 @@
 
 **Map Variety Project**
 
-* Replace AbazonWall with something cooler. DeathPit.
 * An image of a huge twisting maze, like brain coral. Coloured dots can be clicked to enlarge portions of Faith's End, corresponding to saved World objects.
 * Actually, could the most interesting landmarks on the map be marked, and could the player control their respawning to approach them?
 * The souls you sacrifice on death determine your respawn direction - towards an "Ideology pole" that contains an exit point, one for each caste. The multipliers are multiplicative - move 1 for the first soul, 10 for the second, 100 for the third...
@@ -19,6 +18,7 @@
 
 **Serene Project**
 
+* Make Relays more difficult by making sacrificial souls fight you.
 * Buying Modulators costs your least populated Castes, in order. Unequipping them (only possible at a cyberneticist) instantly triggers their conversion effect. Not being able to pay means one must spread the Serene Soul.
 * Maybe a Senet room can offer a loan.
 * Combined Modulators: find an "If" piece and a "Then" piece. For example:

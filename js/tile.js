@@ -312,6 +312,7 @@ class BExit extends Tile{
         this.lore = description["Seal"];
         this.name = "Soulsteel Seal";
         this.eat = false;
+        this.id;
         this.checkDirection();
         this.textures = {
             "N" : 84,
@@ -343,7 +344,6 @@ class BReturnExit extends Tile{
             "EW" : [-1,0],
         }
         this.sprite = this.textures[this.direction];
-        world.getRoom().playerspawn = [this.x+this.textures[this.direction + "W"][0], this.y+this.textures[this.direction + "W"][1]];
     }
 }
 
@@ -419,6 +419,7 @@ class ExpandExit extends Exit{
         super(x, y, 11, true);
         this.lore = description["OpenSeal"];
         this.name = "Unraveled Seal";
+        this.id;
         this.checkDirection();
     }
     stepOn(monster){
@@ -427,13 +428,14 @@ class ExpandExit extends Exit{
             world.fighting = true;
             let newexit = this.replace(ReturnExit);
             let shift = 0;
-            if (this.direction == "N") shift = -10;
+            if (this.id) shift = this.id;
+            else if (this.direction == "N") shift = -10;
             else if (this.direction == "W") shift = -1;
             else if (this.direction == "E") shift = 1;
             else if (this.direction == "S") shift = 10;
             newexit.id = world.currentroom+shift;
             world.saveRoom(tiles, monsters);
-            let entering = world.addRoom(this.direction,world.currentroom);
+            let entering = world.addRoom(this.direction,world.currentroom,this.id);
             if (entering == "goback") return;
             player.hp = Math.min(maxHp, player.hp+1);
             world.playRoom(entering, player.hp);
