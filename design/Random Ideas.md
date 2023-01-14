@@ -2,11 +2,11 @@
 
 **Current Tasks**
 
+* Link ReturnExits to another Exit using a global variable.
+* fix TryTo big room spawning.
+
 * Make "vertical" less anchored in stone, and varying before the connect check.
 * Epsilon's boss card is glitched.
-* Make exits prevent going through walls in other rooms. Store actual exits of rooms. Transform exits that lead to previous rooms into ReturnExits.
-* Check for space before including a big room.
-- if 33% chance, try to include big room - select random exit and check for space
 
 **Map Variety Project**
 

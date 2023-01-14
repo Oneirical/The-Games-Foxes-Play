@@ -433,7 +433,7 @@ class ExpandExit extends Exit{
             else if (this.direction == "W") shift = -1;
             else if (this.direction == "E") shift = 1;
             else if (this.direction == "S") shift = 10;
-            newexit.id = world.currentroom+shift;
+            newexit.id = shift;
             world.saveRoom(tiles, monsters);
             let entering = world.addRoom(this.direction,world.currentroom,this.id);
             if (entering == "goback") return;

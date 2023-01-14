@@ -175,17 +175,31 @@ class World{
 
     reloadRoom(id, coordinates){
         exitspawn = 1;
-        numTiles = this.roomlist[id].size;
+        numTiles = this.roomlist[id+this.currentroom].size;
         tileSize = (9/numTiles)*64;
-        let room = this.roomlist[id];
-        monsters = this.roomlist[id].monsters;
-        tiles = this.roomlist[id].tiles;
+        let room = this.roomlist[id+this.currentroom];
+        monsters = this.roomlist[id+this.currentroom].monsters;
+        tiles = this.roomlist[id+this.currentroom].tiles;
         let spawnlocation;
-        let list = [3,2,1,0];
-        if (room.entrancepoints.length == 2){
-            list = [1,1,0,0];
+        let list = [10,1,-1,-10];
+        let motion = [[0,1],[1,0],[-1,0],[0,-1]];
+        if (room.possibleexits.length == 2 && rooms[world.getRoom().id+this.currentroom].vertical){
+            list = [-10,10];
+            motion = [[0,1],[0,-1]];
+        }
+        else if (room.possibleexits.length == 2 && !rooms[world.getRoom().id+this.currentroom].vertical){
+            list = [-1,1];
+            motion = [[1,0],[-1,0]];
+        }
+        else if (room.possibleexits.length == 8){
+            list = [20,21,2,12,-1,-11,-10,-9];
+            motion = [[0,1],[0,1],[1,0],[1,0],[-1,0],[-1,0],[0,-1],[0,-1]];
         }
         if (coordinates == "firstroom"){
+        }
+        else if (id) {
+            spawnlocation = room.entrancepoints[list.indexOf(id)];
+            room.playerlastmove = motion[list.indexOf(id)];
         }
         else if (coordinates == "N"){
             spawnlocation = room.entrancepoints[list[0]];
@@ -203,8 +217,8 @@ class World{
             spawnlocation = room.entrancepoints[list[3]];
             room.playerlastmove = [0,1];
         }
-        this.roomlist[id].playerspawn = [spawnlocation[0],spawnlocation[1]];
-        this.playRoom(this.roomlist[id], player.hp);
+        this.roomlist[id+this.currentroom].playerspawn = [spawnlocation[0],spawnlocation[1]];
+        this.playRoom(this.roomlist[id+this.currentroom], player.hp);
     }
 }
 
@@ -342,7 +356,7 @@ class DefaultVaultRoom extends Room{
                     "E" : this.possibleexits[4][0],
                     "S" : this.possibleexits[6][1],
                 }
-                this.entrancepoints = [[this.possibleexits[0][0],this.possibleexits[0][1]+1],[this.possibleexits[2][0]+1,this.possibleexits[2][1]],[this.possibleexits[4][0]-1,this.possibleexits[4][1]],[this.possibleexits[6][0],this.possibleexits[6][1]-1]];
+                this.entrancepoints = [[this.possibleexits[0][0],this.possibleexits[0][1]+1],[this.possibleexits[1][0],this.possibleexits[1][1]+1],[this.possibleexits[2][0]+1,this.possibleexits[2][1]],[this.possibleexits[3][0]+1,this.possibleexits[3][1]],[this.possibleexits[4][0]-1,this.possibleexits[4][1]],[this.possibleexits[5][0]-1,this.possibleexits[5][1]],[this.possibleexits[6][0],this.possibleexits[6][1]-1],[this.possibleexits[7][0],this.possibleexits[7][1]-1]];
             }
         }
     }
@@ -372,7 +386,7 @@ class DefaultVaultRoom extends Room{
                     if (world.roomlist[connect]){
                         if (world.roomlist[connect].generatedexits.includes(returns[j.direction])){
                             tiles[j.x][j.y].replace(BReturnExit);
-                            tiles[j.x][j.y].id = connect;
+                            tiles[j.x][j.y].id = equiva[j.direction];
                         }
                         else{
                             tiles[j.x][j.y].replace(world.getRoom().filler);

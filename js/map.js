@@ -182,7 +182,8 @@ function blockedExits(connector){
     //}
     if (returnpoint != null) {
         tiles[returnpoint[0]][returnpoint[1]].replace(BReturnExit);
-        tiles[returnpoint[0]][returnpoint[1]].id = connector;
+        if (exitlocations.length == 8) tiles[returnpoint[0]][returnpoint[1]].id = shifts[exitlocations.indexOf(returnpoint)];
+        else tiles[returnpoint[0]][returnpoint[1]].id = shifts[tiles[returnpoint[0]][returnpoint[1]].direction];
         let playerspawner = tiles[returnpoint[0]][returnpoint[1]];
         world.getRoom().playerspawn = [playerspawner.x+playerspawner.textures[playerspawner.direction + "W"][0], playerspawner.y+playerspawner.textures[playerspawner.direction + "W"][1]];
     }
