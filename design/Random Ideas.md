@@ -4,7 +4,6 @@
 
 * Link ReturnExits to another Exit using a global variable.
 * fix TryTo big room spawning.
-* Fix the minimap overlapping.
 
 * Make "vertical" less anchored in stone, and varying before the connect check.
 * Epsilon's boss card is glitched.
