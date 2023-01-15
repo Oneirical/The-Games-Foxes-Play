@@ -25,6 +25,18 @@ var rooms = {
         8 : "TTTTETTTT",
         "tags": [],
     },
+    "Void" : {
+        0 : "AAAAAAAAA",
+        1 : "AAAAAAAAA",
+        2 : "AAAAAAAAA",
+        3 : "AAAAAAAAA",
+        4 : "AAAAAAAAA",
+        5 : "AAAAAAAAA",
+        6 : "AAAAAAAAA",
+        7 : "AAAAAAAAA",
+        8 : "AAAAAAAAA",
+        "tags": [],
+    },
     "Standard" : {
         0 : "####E####",
         1 : "#...,...#",

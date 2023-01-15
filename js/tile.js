@@ -163,12 +163,25 @@ class Tile{
         this.effectCounter = time;
     }
     checkDirection(room){
-        if (this.y == 0) this.direction = "N";
-        else if (this.x == 0) this.direction = "W";
-        else if (this.x == room.size-1) this.direction = "E";
-        else if (this.y == room.size-1) this.direction = "S";
+        if (room.size == 9){
+            if (this.y == 0) this.direction = "N";
+            else if (this.x == 0) this.direction = "W";
+            else if (this.x == room.size-1) this.direction = "E";
+            else if (this.y == room.size-1) this.direction = "S";
+        }
+        else{
+            if (this.y == 0 && this.x < 9) this.direction = "N";
+            else if (this.x == 0 && this.y < 9) this.direction = "W";
+            else if (this.y == 0 && this.x > 9) this.direction = "N2";
+            else if (this.x == 0 && this.y > 9) this.direction = "W2";
+            else if (this.x == room.size-1 && this.y < 9) this.direction = "EE";
+            else if (this.x == room.size-1 && this.y > 9) this.direction = "E2";
+            else if (this.y == room.size-1 && this.x > 9) this.direction = "S2";
+            else if (this.y == room.size-1 && this.x < 9) this.direction = "SS";
+        }
     }
 }
+
 
 class Floor extends Tile{
     constructor(x,y){
@@ -351,7 +364,7 @@ class BExit extends Tile{
             "W" : 83,
             "E" : 85
         }
-        this.sprite = this.textures[this.direction];
+        this.sprite = this.textures[this.direction[0]];
     }
 }
 

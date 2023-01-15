@@ -63,7 +63,7 @@ class World{
         drawFilter(blackfilter);
         for(let y = 0; y<9;y++){
             for(let x = 0; x<9;x++){
-                if (this.rooms[x][y] != "nan"){
+                if (this.rooms[x][y].tangible){
                     for(let i = 0; i<this.rooms[x][y].size;i++){
                         for (let j = 0; j<this.rooms[x][y].size; j++){
                             drawPixel(this.checkPixel(this.rooms[x][y].tiles[i][j]),i*7.11+x*64,j*7.11+y*64);
@@ -118,7 +118,8 @@ class World{
         for(let i=0;i<9;i++){
             this.rooms[i] = [];
             for(let j=0;j<9;j++){
-                if (worldgen[i][j].passable){
+                if (worldgen[i][j] instanceof RealityWall) this.rooms[i][j] = new BigRoomVoid(44);
+                else if (worldgen[i][j].passable){
                     let roomType;
                     let flip = false;
                     let bannedsquares = [[4,8],[8,4],[0,4],[4,0],[4,4]];
@@ -126,9 +127,9 @@ class World{
                     else if (j == 4 && i == 4) roomType = WorldSeed;
                     else if (Math.random() < 0.65 && j < 8 && i < 8 && worldgen[i+1][j].passable && worldgen[i][j+1].passable && worldgen[i+1][j+1].passable && !isArrayInArray(bannedsquares,[i+1,j]) && !isArrayInArray(bannedsquares,[i+1,j+1]) && !isArrayInArray(bannedsquares,[i,j+1])){
                         roomType = GrandHallFaith;
-                        worldgen[i+1][j] = new Wall(i+1,j);
-                        worldgen[i][j+1] = new Wall(i,j+1);
-                        worldgen[i+1][j+1] = new Wall(i+1,j+1);
+                        worldgen[i+1][j] = new RealityWall(i+1,j);
+                        worldgen[i][j+1] = new RealityWall(i,j+1);
+                        worldgen[i+1][j+1] = new RealityWall(i+1,j+1);
                     }
                     else if (j < 8 && j > 0 && worldgen[i][j+1].passable && worldgen[i][j-1].passable){
                         if ((i == 8 || !worldgen[i+1][j].passable) && (i == 0 || !worldgen[i-1][j].passable)) roomType = shuffle([NarrowFaith,BridgeFaith])[0];
@@ -147,12 +148,12 @@ class World{
                     this.rooms[i][j].insertRoom();
                     if (flip) flipRoom(this.rooms[i][j].id);
                 }
-                else this.rooms[i][j] = "nan";
+                else this.rooms[i][j] = new VoidRoom(44);
             }
         }
         for(let i=0;i<9;i++){
             for(let j=0;j<9;j++){
-                if (this.rooms[i][j] != "nan") this.spreadExits(i,j);
+                if (this.rooms[i][j].tangible) this.spreadExits(i,j);
             }
         }
     }
@@ -160,10 +161,16 @@ class World{
     spreadExits(i,j){
         for (let l of this.rooms[i][j].possibleexits){
             let exit = this.rooms[i][j].tiles[l[0]][l[1]];
-            if (exit.direction == "N" && (j==0 || this.rooms[i][j-1] == "nan")) this.rooms[i][j].tiles[l[0]][l[1]] = new this.rooms[i][j].filler(l[0],l[1]);
-            else if (exit.direction == "S" && (j==8 || this.rooms[i][j+1] == "nan")) this.rooms[i][j].tiles[l[0]][l[1]] = new this.rooms[i][j].filler(l[0],l[1]);
-            else if (exit.direction == "W" && (i==0 || this.rooms[i-1][j]== "nan")) this.rooms[i][j].tiles[l[0]][l[1]] = new this.rooms[i][j].filler(l[0],l[1]);
-            else if (exit.direction == "E" && (i==8 || this.rooms[i+1][j]== "nan")) this.rooms[i][j].tiles[l[0]][l[1]] = new this.rooms[i][j].filler(l[0],l[1]);
+            if (exit.direction == "N" && (j==0 || this.rooms[i][j-1] instanceof VoidRoom)) this.rooms[i][j].tiles[l[0]][l[1]] = new this.rooms[i][j].filler(l[0],l[1]);
+            else if (exit.direction == "S" && (j==8 || this.rooms[i][j+1] instanceof VoidRoom)) this.rooms[i][j].tiles[l[0]][l[1]] = new this.rooms[i][j].filler(l[0],l[1]);
+            else if (exit.direction == "W" && (i==0 || this.rooms[i-1][j] instanceof VoidRoom)) this.rooms[i][j].tiles[l[0]][l[1]] = new this.rooms[i][j].filler(l[0],l[1]);
+            else if (exit.direction == "E" && (i==8 || this.rooms[i+1][j] instanceof VoidRoom)) this.rooms[i][j].tiles[l[0]][l[1]] = new this.rooms[i][j].filler(l[0],l[1]);
+            else if (exit.direction == "N2" && (j==0 || this.rooms[i+1][j-1] instanceof VoidRoom)) this.rooms[i][j].tiles[l[0]][l[1]] = new this.rooms[i][j].filler(l[0],l[1]);
+            else if (exit.direction == "W2" && (i==0 || this.rooms[i-1][j+1] instanceof VoidRoom)) this.rooms[i][j].tiles[l[0]][l[1]] = new this.rooms[i][j].filler(l[0],l[1]);
+            else if (exit.direction == "SS" && (j==7 || this.rooms[i][j+2] instanceof VoidRoom)) this.rooms[i][j].tiles[l[0]][l[1]] = new this.rooms[i][j].filler(l[0],l[1]);
+            else if (exit.direction == "S2" && (j==7 || this.rooms[i+1][j+2] instanceof VoidRoom)) this.rooms[i][j].tiles[l[0]][l[1]] = new this.rooms[i][j].filler(l[0],l[1]);
+            else if (exit.direction == "EE" && (i==7 || this.rooms[i+2][j] instanceof VoidRoom)) this.rooms[i][j].tiles[l[0]][l[1]] = new this.rooms[i][j].filler(l[0],l[1]);
+            else if (exit.direction == "E2" && (i==7 || this.rooms[i+2][j+1] instanceof VoidRoom)) this.rooms[i][j].tiles[l[0]][l[1]] = new this.rooms[i][j].filler(l[0],l[1]);
         }
     }
 
@@ -405,6 +412,7 @@ class Room{
         this.playerlastmove = [0,-1];
         this.core;
         this.playerspawn = [];
+        this.tangible = true;
         this.effects = [];
         this.previousRoom = -1; //Maybe secretly divide arrow tiles into return/generator tiles?
         this.index = index;
@@ -685,6 +693,22 @@ class PipesFaith extends DefaultVaultRoom{
     constructor(index){
         super(index);
         this.id = "Pipes";
+    }
+}
+
+class VoidRoom extends DefaultVaultRoom{
+    constructor(index){
+        super(index);
+        this.id = "Void";
+        this.tangible = false;
+    }
+}
+
+class BigRoomVoid extends DefaultVaultRoom{
+    constructor(index){
+        super(index);
+        this.id = "Void";
+        this.tangible = false;
     }
 }
 
