@@ -120,17 +120,21 @@ class World{
                 if (worldgen[i][j].passable){
                     let roomType;
                     let flip = false;
-                    if (Math.random() < 0.6 && j < 8 && i < 8 && worldgen[i+1][j].passable && worldgen[i][j+1].passable && worldgen[i+1][j+1].passable){
+                    if ((j == 8 && i == 4) || (j == 4 && i == 8) || (j == 0 && i == 4) || (j == 4 && i == 0)) roomType = EmptyFaith;
+                    else if (Math.random() < 0.6 && j < 8 && i < 8 && worldgen[i+1][j].passable && worldgen[i][j+1].passable && worldgen[i+1][j+1].passable){
                         roomType = GrandHallFaith;
                         worldgen[i+1][j] = new Wall(i+1,j);
                         worldgen[i][j+1] = new Wall(i,j+1);
                         worldgen[i+1][j+1] = new Wall(i+1,j+1);
                     }
-                    else if (j < 8 && j > 0 && i < 8 && i > 0 && worldgen[i][j+1].passable && worldgen[i][j-1].passable && !worldgen[i+1][j].passable && !worldgen[i-1][j].passable){
-                        roomType = shuffle([NarrowFaith,BridgeFaith])[0]; // find a way to place these on the edge of the map too without exploding everything?
+                    else if (j < 8 && j > 0 && worldgen[i][j+1].passable && worldgen[i][j-1].passable){
+                        if ((i == 8 || !worldgen[i+1][j].passable) && (i == 0 || !worldgen[i-1][j].passable)) roomType = shuffle([NarrowFaith,BridgeFaith])[0];
+                        else roomType = shuffle(this.roompool)[0];
+                         // find a way to place these on the edge of the map too without exploding everything?
                     }
-                    else if (j < 8 && j > 0 && i < 8 && i > 0 && worldgen[i+1][j].passable && worldgen[i-1][j].passable && !worldgen[i][j+1].passable && !worldgen[i][j-1].passable){
-                        roomType = shuffle([NarrowFaith,BridgeFaith])[0];
+                    else if (i < 8 && i > 0 && worldgen[i+1][j].passable && worldgen[i-1][j].passable){
+                        if ((j == 8 || !worldgen[i][j+1].passable) && (j == 0 || !worldgen[i][j-1].passable)) roomType = shuffle([NarrowFaith,BridgeFaith])[0];
+                        else roomType = shuffle(this.roompool)[0];
                         flip = true;
                     }
                     else roomType = shuffle(this.roompool)[0];
