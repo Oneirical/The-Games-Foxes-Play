@@ -1,7 +1,7 @@
 var key = {
     "W" : Wall,
     "." : Floor,
-    "E" : BExit,
+    "E" : Floor,
     "#" : NoBreakWall,
     "A" : RealityWall,
     "T" : TermiWall,

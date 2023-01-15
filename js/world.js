@@ -49,12 +49,28 @@ class World{
         this.serene = serene;
         this.fighting = false;
         this.fabrication;
+        this.rooms;
         this.avoiddraw = [];
     }
 
     checkPixel(tile){
         if (tile.passable || tile instanceof BExit || tile instanceof BReturnExit || tile instanceof RealityWall) return 1;
         else return 0;
+    }
+
+    displayTrue(){
+        drawFilter(blackfilter);
+        for(let y = 0; y<9;y++){
+            for(let x = 0; x<9;x++){
+                if (this.rooms[x][y] != "nan"){
+                    for(let i = 0; i<this.rooms[x][y].size;i++){
+                        for (let j = 0; j<this.rooms[x][y].size; j++){
+                            drawPixel(this.checkPixel(this.rooms[x][y].tiles[i][j]),i*7.11+x*64,j*7.11+y*64);
+                        }
+                    }
+                }
+            }
+        }
     }
 
     display(){
@@ -88,13 +104,34 @@ class World{
     }
     selectRooms(){
         if (this.serene) this.roompool = [StandardSpire];
-        else this.roompool = [StandardFaith]; //GrandHallFaith,BloxFaith,BridgeFaith,HideFaith,PipesFaith,GrandHallFaith,,TriangleFaith,NarrowFaith,EmptyFaith
+        else this.roompool = [StandardFaith,BloxFaith,EmptyFaith,HideFaith,PipesFaith,TriangleFaith]; //GrandHallFaith,BridgeFaith,HideFaith,PipesFaith,GrandHallFaith,,TriangleFaith,NarrowFaith
     }
 
     confirmWorld(){
         tryTo('generate a world', function(){
             return world.generateWorld() == randomPassableRoom().getConnectedRooms().length;
-        });      
+        });
+
+        this.rooms = [];
+        this.selectRooms();
+        for(let i=0;i<9;i++){
+            this.rooms[i] = [];
+            for(let j=0;j<9;j++){
+                if (worldgen[i][j].passable){
+                    let roomType;
+                    if (Math.random() < 0.6 && j < 8 && i < 8 && worldgen[i+1][j].passable && worldgen[i][j+1].passable && worldgen[i+1][j+1].passable){
+                        roomType = GrandHallFaith;
+                        worldgen[i+1][j] = new Wall(i+1,j);
+                        worldgen[i][j+1] = new Wall(i,j+1);
+                        worldgen[i+1][j+1] = new Wall(i+1,j+1);
+                    }
+                    else roomType = shuffle(this.roompool)[0];
+                    this.rooms[i][j] = new roomType(44); //44 index is temporary
+                    this.rooms[i][j].insertRoom();
+                }
+                else this.rooms[i][j] = "nan";
+            }
+        }
     }
 
     generateWorld(){
@@ -107,7 +144,7 @@ class World{
                     worldgen[i][j] = new Floor(i,j); // ridiculous, but ingenious!
                     passableRooms++;
                 }
-                else if(Math.random() < 0.3){
+                else if(Math.random() < 0.4){
                     worldgen[i][j] = new Wall(i,j);
                 }
                 else{
@@ -491,6 +528,18 @@ class DefaultVaultRoom extends Room{
                         }
                     }
                 }
+            }
+        }
+    }
+
+    insertRoom(){
+        this.tiles = [];
+        let vault = rooms[this.id];
+        for(let i=0;i<this.size;i++){
+            this.tiles[i] = [];
+            for(let j=0;j<this.size;j++){
+                let tile = key[vault[j][i]];
+                this.tiles[i][j] = new tile(i,j);
             }
         }
     }
