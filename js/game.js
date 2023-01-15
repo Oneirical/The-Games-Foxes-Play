@@ -555,8 +555,8 @@ function startWorld(playerHp){
     if (area == "Spire") inSpire = true;
     world = new World(inSpire);
     world.confirmWorld();
-    world.selectRooms();
-    world.playRoom(world.addRoom("firstroom"), playerHp);
+    world.playRoom(world.rooms[4][4],playerHp);
+    //world.playRoom(world.addRoom("firstroom"), playerHp);
 }
 
 function drawText(text, size, centered, textY, color){

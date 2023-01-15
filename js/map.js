@@ -83,10 +83,10 @@ function flipRoom(id){
 
 function locateExits(id){
     let exits = [];
-    if (rooms[id]["tags"].includes("randomflip")) flipRoom(id);
+    //if (rooms[id]["tags"].includes("randomflip")) flipRoom(id);
     let vault = rooms[id];
-    for(let i=0;i<world.getBuildingRoom().size;i++){
-        for(let j=0;j<world.getBuildingRoom().size;j++){
+    for(let i=0;i<rooms[id][0].length;i++){
+        for(let j=0;j<rooms[id][0].length;j++){
             let tile = vault[j][i];
             if (tile == "E") exits.push([i,j]);
         }
@@ -96,14 +96,14 @@ function locateExits(id){
     return exits;
 }
 
-function generateVault(id){
+function generateVault(id,room){
     tiles = [];
     let vault = rooms[id];
     for(let i=0;i<numTiles;i++){
         tiles[i] = [];
         for(let j=0;j<numTiles;j++){
             let tile = key[vault[j][i]];
-            tiles[i][j] = new tile(i,j);
+            tiles[i][j] = new tile(i,j,room);
         }
     }
     if (vault["tags"].includes("randomwall")) generateATonOfWalls();

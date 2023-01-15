@@ -54,7 +54,8 @@ class World{
     }
 
     checkPixel(tile){
-        if (tile.passable || tile instanceof BExit || tile instanceof BReturnExit || tile instanceof RealityWall) return 1;
+        if (tile instanceof BExit) return 6;
+        else if (tile.passable || tile instanceof BReturnExit || tile instanceof RealityWall) return 1;
         else return 0;
     }
 
@@ -97,7 +98,7 @@ class World{
     }
 
     getRoom(){
-        return (this.roomlist[this.currentroom]);
+        return this.rooms[4][4];
     }
     getBuildingRoom(){
         return this.fabrication;
@@ -120,8 +121,10 @@ class World{
                 if (worldgen[i][j].passable){
                     let roomType;
                     let flip = false;
+                    let bannedsquares = [[4,8],[8,4],[0,4],[4,0],[4,4]];
                     if ((j == 8 && i == 4) || (j == 4 && i == 8) || (j == 0 && i == 4) || (j == 4 && i == 0)) roomType = EmptyFaith;
-                    else if (Math.random() < 0.6 && j < 8 && i < 8 && worldgen[i+1][j].passable && worldgen[i][j+1].passable && worldgen[i+1][j+1].passable){
+                    else if (j == 4 && i == 4) roomType = WorldSeed;
+                    else if (Math.random() < 0.65 && j < 8 && i < 8 && worldgen[i+1][j].passable && worldgen[i][j+1].passable && worldgen[i+1][j+1].passable && !isArrayInArray(bannedsquares,[i+1,j]) && !isArrayInArray(bannedsquares,[i+1,j+1]) && !isArrayInArray(bannedsquares,[i,j+1])){
                         roomType = GrandHallFaith;
                         worldgen[i+1][j] = new Wall(i+1,j);
                         worldgen[i][j+1] = new Wall(i,j+1);
@@ -140,11 +143,27 @@ class World{
                     else roomType = shuffle(this.roompool)[0];
                     this.rooms[i][j] = new roomType(44); //44 index is temporary
                     if (flip) flipRoom(this.rooms[i][j].id);
+                    this.rooms[i][j].setUp();
                     this.rooms[i][j].insertRoom();
                     if (flip) flipRoom(this.rooms[i][j].id);
                 }
                 else this.rooms[i][j] = "nan";
             }
+        }
+        for(let i=0;i<9;i++){
+            for(let j=0;j<9;j++){
+                if (this.rooms[i][j] != "nan") this.spreadExits(i,j);
+            }
+        }
+    }
+
+    spreadExits(i,j){
+        for (let l of this.rooms[i][j].possibleexits){
+            let exit = this.rooms[i][j].tiles[l[0]][l[1]];
+            if (exit.direction == "N" && (j==0 || this.rooms[i][j-1] == "nan")) this.rooms[i][j].tiles[l[0]][l[1]] = new this.rooms[i][j].filler(l[0],l[1]);
+            else if (exit.direction == "S" && (j==8 || this.rooms[i][j+1] == "nan")) this.rooms[i][j].tiles[l[0]][l[1]] = new this.rooms[i][j].filler(l[0],l[1]);
+            else if (exit.direction == "W" && (i==0 || this.rooms[i-1][j]== "nan")) this.rooms[i][j].tiles[l[0]][l[1]] = new this.rooms[i][j].filler(l[0],l[1]);
+            else if (exit.direction == "E" && (i==8 || this.rooms[i+1][j]== "nan")) this.rooms[i][j].tiles[l[0]][l[1]] = new this.rooms[i][j].filler(l[0],l[1]);
         }
     }
 
@@ -154,7 +173,7 @@ class World{
         for(let i=0;i<9;i++){
             worldgen[i] = [];
             for(let j=0;j<9;j++){
-                if((j==8&&i==4)||(j==0&&i==4) || (j==4&&i==8) || (j==4&&i==0)){
+                if((j==8&&i==4)||(j==0&&i==4) || (j==4&&i==8) || (j==4&&i==0) || (j==4&&i==4)){
                     worldgen[i][j] = new Floor(i,j); // ridiculous, but ingenious!
                     passableRooms++;
                 }
@@ -293,6 +312,7 @@ class World{
     playRoom(room,playerHp){
         this.currentroom = room.index;
         room.startingplayerHP = playerHp;
+        tiles = room.tiles;
         room.initializeRoom();
     }
 
@@ -436,7 +456,7 @@ class Room{
     }
 }
 
-class WorldSeed extends Room{
+class WorldSeedUnused extends Room{
     constructor(index){
         super(index);
         this.name = "World Seed";
@@ -553,13 +573,13 @@ class DefaultVaultRoom extends Room{
             this.tiles[i] = [];
             for(let j=0;j<this.size;j++){
                 let tile = key[vault[j][i]];
-                this.tiles[i][j] = new tile(i,j);
+                this.tiles[i][j] = new tile(i,j,this);
             }
         }
     }
 
     buildRoom(connector){
-        generateVault(this.id);
+        generateVault(this.id,this);
         blockedExits(connector);
         let returns = {
             "N" : "S",
@@ -622,6 +642,14 @@ class GrandHallFaith extends DefaultVaultRoom{
         super(index);
         this.id = "GrandHall";
         this.size = 18;
+    }
+}
+
+class WorldSeed extends DefaultVaultRoom{
+    constructor(index){
+        super(index);
+        this.id = "Seed";
+        this.filler = TermiWall;
     }
 }
 

@@ -162,11 +162,11 @@ class Tile{
         this.effect = effectSprite;
         this.effectCounter = time;
     }
-    checkDirection(){
-        if (this.y == world.getBuildingRoom().extreme["N"]) this.direction = "N";
-        else if (this.x == world.getBuildingRoom().extreme["W"]) this.direction = "W";
-        else if (this.x == world.getBuildingRoom().extreme["E"]) this.direction = "E";
-        else if (this.y == world.getBuildingRoom().extreme["S"]) this.direction = "S";
+    checkDirection(room){
+        if (this.y == 0) this.direction = "N";
+        else if (this.x == 0) this.direction = "W";
+        else if (this.x == room.size-1) this.direction = "E";
+        else if (this.y == room.size-1) this.direction = "S";
     }
 }
 
@@ -338,13 +338,13 @@ class RoseWall extends Wall{
 }
 
 class BExit extends Tile{
-    constructor(x,y){
+    constructor(x,y,room){
         super(x, y, 17, false);
         this.lore = description["Seal"];
         this.name = "Soulsteel Seal";
         this.eat = false;
         this.id;
-        this.checkDirection();
+        this.checkDirection(room);
         this.textures = {
             "N" : 84,
             "S" : 17,

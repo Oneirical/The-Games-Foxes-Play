@@ -100,6 +100,15 @@ function findCommonElement(array1, array2) {
     return false;
 }
 
+function isArrayInArray(arr, item){
+    var item_as_string = JSON.stringify(item);
+  
+    var contains = arr.some(function(ele){
+      return JSON.stringify(ele) === item_as_string;
+    });
+    return contains;
+  }
+
 function removeItemAll(arr, value) {
     let i = 0;
     while (i < arr.length) {

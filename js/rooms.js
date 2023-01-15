@@ -1,7 +1,7 @@
 var key = {
     "W" : Wall,
     "." : Floor,
-    "E" : Floor,
+    "E" : BExit,
     "#" : NoBreakWall,
     "A" : RealityWall,
     "T" : TermiWall,
@@ -14,15 +14,15 @@ var key = {
 
 var rooms = {
     "Seed" : { //currently unused because it explodes everything
-        0 : "TTTTTTTTT",
+        0 : "TTTTETTTT",
         1 : "T.......T",
         2 : "T.......T",
         3 : "T.......T",
-        4 : "T.......T",
+        4 : "E.......E",
         5 : "T.......T",
         6 : "T.......T",
         7 : "T.......T",
-        8 : "TTTTtTTTT",
+        8 : "TTTTETTTT",
         "tags": [],
     },
     "Standard" : {
