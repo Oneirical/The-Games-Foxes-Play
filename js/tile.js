@@ -81,6 +81,37 @@ class Tile{
         return connectedTiles;
     }
 
+    getConnectedRooms(){
+        let connectedTiles = [this];
+        let frontier = [this];
+        while(frontier.length){
+            let neighbors = frontier.pop()
+                                .getAdjacentPassableRooms()
+                                .filter(t => !connectedTiles.includes(t));
+            connectedTiles = connectedTiles.concat(neighbors);
+            frontier = frontier.concat(neighbors);
+        }
+        return connectedTiles; 
+    }
+
+    getAdjacentPassableRooms(){
+        return this.getAdjacentRooms().filter(t => t != "OOB" && t.passable);
+    }
+
+    getAdjacentRooms(){
+        return shuffle([
+            this.getRoom(0, -1),
+            this.getRoom(0, 1),
+            this.getRoom(-1, 0),
+            this.getRoom(1, 0)
+        ]);
+    }
+
+    getRoom(dx, dy){
+        if (this.x + dx > 8 || this.x + dx < 0 || this.y + dy < 0 || this.y + dy > 8) return "OOB";
+        else return worldgen[this.x + dx][this.y + dy];
+    }
+
     draw(){
         drawSprite(this.sprite, this.x, this.y);
 

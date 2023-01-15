@@ -389,6 +389,16 @@ function randomPassableTile(){
     });
     return tile;
 }
+function randomPassableRoom(){
+    let tile;
+    tryTo('get random passable tile', function(){
+        let x = randomRange(0,8);
+        let y = randomRange(0,8);
+        tile = worldgen[x][y];
+        return (tile instanceof Floor);
+    });
+    return tile;
+}
 function randomPushableTile(){
     let tile;
     tryTo('get random passable tile', function(){

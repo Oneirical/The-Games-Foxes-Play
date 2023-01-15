@@ -313,7 +313,7 @@ function draw(){
         ctx.lineTo(577, 0);
         ctx.stroke();
         if (inMap) world.display();
-        universe.display();
+        //universe.display(); // break in case of sanity
 
         //mouseclick lines
         //ctx.beginPath();
@@ -554,6 +554,7 @@ function startWorld(playerHp){
     let inSpire = false;
     if (area == "Spire") inSpire = true;
     world = new World(inSpire);
+    world.confirmWorld();
     world.selectRooms();
     world.playRoom(world.addRoom("firstroom"), playerHp);
 }

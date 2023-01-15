@@ -88,7 +88,35 @@ class World{
     }
     selectRooms(){
         if (this.serene) this.roompool = [StandardSpire];
-        else this.roompool = [GrandHallFaith,BloxFaith,BridgeFaith,HideFaith,PipesFaith,GrandHallFaith,StandardFaith,TriangleFaith,NarrowFaith,EmptyFaith]; //
+        else this.roompool = [StandardFaith]; //GrandHallFaith,BloxFaith,BridgeFaith,HideFaith,PipesFaith,GrandHallFaith,,TriangleFaith,NarrowFaith,EmptyFaith
+    }
+
+    confirmWorld(){
+        tryTo('generate a world', function(){
+            return world.generateWorld() == randomPassableRoom().getConnectedRooms().length;
+        });      
+    }
+
+    generateWorld(){
+        let passableRooms=0;
+        worldgen = [];
+        for(let i=0;i<9;i++){
+            worldgen[i] = [];
+            for(let j=0;j<9;j++){
+                if((j==8&&i==4)||(j==0&&i==4) || (j==4&&i==8) || (j==4&&i==0)){
+                    worldgen[i][j] = new Floor(i,j); // ridiculous, but ingenious!
+                    passableRooms++;
+                }
+                else if(Math.random() < 0.3){
+                    worldgen[i][j] = new Wall(i,j);
+                }
+                else{
+                    worldgen[i][j] = new Floor(i,j);
+                    passableRooms++;
+                }
+            }
+        }
+        return passableRooms;
     }
 
     addRoom(coordinates, connector,id){
