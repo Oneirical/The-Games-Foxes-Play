@@ -2,10 +2,9 @@
 
 **Current Tasks**
 
-* Link ReturnExits to another Exit using a global variable.
-* fix TryTo big room spawning.
+* Rewrite Warpwisp lore about Terminal seeing the world in glyphs as a ward against mind control.
+* Fix Frontiers not getting exits.
 
-* Make "vertical" less anchored in stone, and varying before the connect check.
 * Epsilon's boss card is glitched.
 
 **Map Variety Project**

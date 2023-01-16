@@ -122,24 +122,32 @@ class World{
                 else if (worldgen[i][j].passable){
                     let roomType;
                     let flip = false;
+                    let corridor = false;
                     let bannedsquares = [[4,8],[8,4],[0,4],[4,0],[4,4]];
                     if ((j == 8 && i == 4) || (j == 4 && i == 8) || (j == 0 && i == 4) || (j == 4 && i == 0)) roomType = EmptyFaith;
                     else if (j == 4 && i == 4) roomType = WorldSeed;
-                    else if (Math.random() < 0.65 && j < 8 && i < 8 && worldgen[i+1][j].passable && worldgen[i][j+1].passable && worldgen[i+1][j+1].passable && !isArrayInArray(bannedsquares,[i+1,j]) && !isArrayInArray(bannedsquares,[i+1,j+1]) && !isArrayInArray(bannedsquares,[i,j+1])){
+                    else if (Math.random() < 0.9 && j < 8 && i < 8 && worldgen[i+1][j].passable && worldgen[i][j+1].passable && worldgen[i+1][j+1].passable && !isArrayInArray(bannedsquares,[i+1,j]) && !isArrayInArray(bannedsquares,[i+1,j+1]) && !isArrayInArray(bannedsquares,[i,j+1])){
                         roomType = GrandHallFaith;
                         worldgen[i+1][j] = new RealityWall(i+1,j);
                         worldgen[i][j+1] = new RealityWall(i,j+1);
                         worldgen[i+1][j+1] = new RealityWall(i+1,j+1);
                     }
                     else if (j < 8 && j > 0 && worldgen[i][j+1].passable && worldgen[i][j-1].passable){
-                        if ((i == 8 || !worldgen[i+1][j].passable) && (i == 0 || !worldgen[i-1][j].passable)) roomType = shuffle([NarrowFaith,BridgeFaith])[0];
+                        if ((i == 8 || !worldgen[i+1][j].passable) && (i == 0 || !worldgen[i-1][j].passable)){
+                            roomType = shuffle([NarrowFaith,BridgeFaith])[0];
+                            corridor = true;
+                        }
                         else roomType = shuffle(this.roompool)[0];
-                         // find a way to place these on the edge of the map too without exploding everything?
+                        
                     }
                     else if (i < 8 && i > 0 && worldgen[i+1][j].passable && worldgen[i-1][j].passable){
-                        if ((j == 8 || !worldgen[i][j+1].passable) && (j == 0 || !worldgen[i][j-1].passable)) roomType = shuffle([NarrowFaith,BridgeFaith])[0];
+                        if ((j == 8 || !worldgen[i][j+1].passable) && (j == 0 || !worldgen[i][j-1].passable)){
+                            roomType = shuffle([NarrowFaith,BridgeFaith])[0];
+                            corridor = true;
+                        }
                         else roomType = shuffle(this.roompool)[0];
                         flip = true;
+                        
                     }
                     else roomType = shuffle(this.roompool)[0];
                     this.rooms[i][j] = new roomType(44); //44 index is temporary
@@ -147,6 +155,8 @@ class World{
                     this.rooms[i][j].setUp();
                     this.rooms[i][j].insertRoom();
                     if (flip) flipRoom(this.rooms[i][j].id);
+                    if (corridor && flip) this.rooms[i][j].verticality = "side";
+                    else if (corridor) this.rooms[i][j].verticality = "up";
                 }
                 else this.rooms[i][j] = new VoidRoom(44);
             }
@@ -165,12 +175,12 @@ class World{
             else if (exit.direction == "S" && (j==8 || this.rooms[i][j+1] instanceof VoidRoom)) this.rooms[i][j].tiles[l[0]][l[1]] = new this.rooms[i][j].filler(l[0],l[1]);
             else if (exit.direction == "W" && (i==0 || this.rooms[i-1][j] instanceof VoidRoom)) this.rooms[i][j].tiles[l[0]][l[1]] = new this.rooms[i][j].filler(l[0],l[1]);
             else if (exit.direction == "E" && (i==8 || this.rooms[i+1][j] instanceof VoidRoom)) this.rooms[i][j].tiles[l[0]][l[1]] = new this.rooms[i][j].filler(l[0],l[1]);
-            else if (exit.direction == "N2" && (j==0 || this.rooms[i+1][j-1] instanceof VoidRoom)) this.rooms[i][j].tiles[l[0]][l[1]] = new this.rooms[i][j].filler(l[0],l[1]);
-            else if (exit.direction == "W2" && (i==0 || this.rooms[i-1][j+1] instanceof VoidRoom)) this.rooms[i][j].tiles[l[0]][l[1]] = new this.rooms[i][j].filler(l[0],l[1]);
-            else if (exit.direction == "SS" && (j==7 || this.rooms[i][j+2] instanceof VoidRoom)) this.rooms[i][j].tiles[l[0]][l[1]] = new this.rooms[i][j].filler(l[0],l[1]);
-            else if (exit.direction == "S2" && (j==7 || this.rooms[i+1][j+2] instanceof VoidRoom)) this.rooms[i][j].tiles[l[0]][l[1]] = new this.rooms[i][j].filler(l[0],l[1]);
-            else if (exit.direction == "EE" && (i==7 || this.rooms[i+2][j] instanceof VoidRoom)) this.rooms[i][j].tiles[l[0]][l[1]] = new this.rooms[i][j].filler(l[0],l[1]);
-            else if (exit.direction == "E2" && (i==7 || this.rooms[i+2][j+1] instanceof VoidRoom)) this.rooms[i][j].tiles[l[0]][l[1]] = new this.rooms[i][j].filler(l[0],l[1]);
+            else if (exit.direction == "N2" && (j==0 || this.rooms[i+1][j-1] instanceof VoidRoom|| this.rooms[i+1][j-1].verticality == "side")) this.rooms[i][j].tiles[l[0]][l[1]] = new this.rooms[i][j].filler(l[0],l[1]);
+            else if (exit.direction == "W2" && (i==0 || this.rooms[i-1][j+1] instanceof VoidRoom|| this.rooms[i-1][j+1].verticality == "up")) this.rooms[i][j].tiles[l[0]][l[1]] = new this.rooms[i][j].filler(l[0],l[1]);
+            else if (exit.direction == "SS" && (j==7 || this.rooms[i][j+2] instanceof VoidRoom|| this.rooms[i][j+2].verticality == "side")) this.rooms[i][j].tiles[l[0]][l[1]] = new this.rooms[i][j].filler(l[0],l[1]);
+            else if (exit.direction == "S2" && (j==7 || this.rooms[i+1][j+2] instanceof VoidRoom|| this.rooms[i+1][j+2].verticality == "side")) this.rooms[i][j].tiles[l[0]][l[1]] = new this.rooms[i][j].filler(l[0],l[1]);
+            else if (exit.direction == "EE" && (i==7 || this.rooms[i+2][j] instanceof VoidRoom|| this.rooms[i+2][j].verticality == "up")) this.rooms[i][j].tiles[l[0]][l[1]] = new this.rooms[i][j].filler(l[0],l[1]);
+            else if (exit.direction == "E2" && (i==7 || this.rooms[i+2][j+1] instanceof VoidRoom|| this.rooms[i+2][j+1].verticality == "up")) this.rooms[i][j].tiles[l[0]][l[1]] = new this.rooms[i][j].filler(l[0],l[1]);
         }
     }
 
@@ -405,6 +415,7 @@ class Room{
         this.size = 9;
         this.entrancepoints;
         this.returnpoint;
+        this.verticality = "none";
         //up left right down
         this.music = false;
         this.entrymessage = false;

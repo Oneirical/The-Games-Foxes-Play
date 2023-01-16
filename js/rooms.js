@@ -159,7 +159,7 @@ var rooms = {
         "tags" : ["randomgen"],
     },
     "GrandHall" : {
-        0:  "AA##E########E##AA",
+        0:  "AA##E##AAAA##E##AA",
         1:  "AA#...#AAAA#...#AA",
         2:  "###...#AAAA#...###",
         3:  "#.....#AAAA#.....#",
@@ -176,7 +176,7 @@ var rooms = {
         14: "#.....#AAAA#.....#",
         15: "###...#AAAA#...###",
         16: "AA#...#AAAA#...#AA",
-        17: "AA##E########E##AA",
+        17: "AA##E##AAAA##E##AA",
         "tags" : ["randomgen"],
     },
 }
