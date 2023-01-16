@@ -105,7 +105,7 @@ class World{
     }
     selectRooms(){
         if (this.serene) this.roompool = [StandardSpire];
-        else this.roompool = [StandardFaith,BloxFaith,EmptyFaith,HideFaith,PipesFaith,TriangleFaith]; //GrandHallFaith,BridgeFaith,HideFaith,PipesFaith,GrandHallFaith,,TriangleFaith,NarrowFaith
+        else this.roompool = [StandardFaith,BloxFaith,EmptyFaith,HideFaith,PipesFaith,TriangleFaith,StarFaith]; //GrandHallFaith,BridgeFaith,HideFaith,PipesFaith,GrandHallFaith,,TriangleFaith,NarrowFaith
     }
 
     confirmWorld(){
@@ -704,6 +704,20 @@ class HideFaith extends DefaultVaultRoom{
     constructor(index){
         super(index);
         this.id = "Hide";
+    }
+}
+
+class StarFaith extends DefaultVaultRoom{
+    constructor(index){
+        super(index);
+        this.id = "Star";
+    }
+}
+
+class RogueFaith extends DefaultVaultRoom{
+    constructor(index){
+        super(index);
+        this.id = "Rogue";
     }
 }
 
