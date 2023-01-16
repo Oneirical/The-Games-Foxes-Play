@@ -45,7 +45,7 @@ class World{
     constructor(serene){
         this.roompool = [];
         this.roomlist = {};
-        this.currentroom = 44; //parseInt((randomRange(0,8).toString()+randomRange(0,8).toString()));
+        this.currentroom = [4,4]; //parseInt((randomRange(0,8).toString()+randomRange(0,8).toString()));
         this.serene = serene;
         this.fighting = false;
         this.fabrication;
@@ -54,7 +54,7 @@ class World{
     }
 
     checkPixel(tile){
-        if (tile instanceof BExit) return 6;
+        if (tile instanceof MapExit) return 6;
         else if (tile.passable || tile instanceof BReturnExit || tile instanceof RealityWall) return 1;
         else return 0;
     }
@@ -118,7 +118,7 @@ class World{
         for(let i=0;i<9;i++){
             this.rooms[i] = [];
             for(let j=0;j<9;j++){
-                if (worldgen[i][j] instanceof RealityWall) this.rooms[i][j] = new BigRoomVoid(44);
+                if (worldgen[i][j] instanceof RealityWall) this.rooms[i][j] = new BigRoomVoid(i,j);
                 else if (worldgen[i][j].passable){
                     let roomType;
                     let flip = false;
@@ -150,7 +150,7 @@ class World{
                         
                     }
                     else roomType = shuffle(this.roompool)[0];
-                    this.rooms[i][j] = new roomType(44); //44 index is temporary
+                    this.rooms[i][j] = new roomType([i,j]);
                     if (flip) flipRoom(this.rooms[i][j].id);
                     this.rooms[i][j].setUp();
                     this.rooms[i][j].insertRoom();
@@ -158,7 +158,7 @@ class World{
                     if (corridor && flip) this.rooms[i][j].verticality = "side";
                     else if (corridor) this.rooms[i][j].verticality = "up";
                 }
-                else this.rooms[i][j] = new VoidRoom(44);
+                else this.rooms[i][j] = new VoidRoom([i,j]);
             }
         }
         for(let i=0;i<9;i++){
@@ -327,15 +327,39 @@ class World{
     }
 
     playRoom(room,playerHp){
-        this.currentroom = room.index;
         room.startingplayerHP = playerHp;
         tiles = room.tiles;
         room.initializeRoom();
     }
 
     saveRoom(tiles, monsters){
-        this.roomlist[this.currentroom].monsters = monsters;
-        this.roomlist[this.currentroom].tiles = tiles;
+        this.rooms[this.currentroom[0]][this.currentroom[1]].monsters = monsters;
+        this.rooms[this.currentroom[0]][this.currentroom[1]].tiles = tiles;
+    }
+
+    enterRoom(direction){
+        let shifts = {
+            "N" : [0,-1],
+            "W" : [-1,0],
+            "E" : [1,0],
+            "S" : [0,1],
+            "N2" : [1,-1],
+            "W2" : [-1,1],
+            "EE" : [2,0],
+            "SS" : [0,2],
+            "E2" : [2,1],
+            "S2" : [1,2],
+        }
+        let shift = shifts[direction];
+        this.currentroom = [this.currentroom[0] + shift[0],this.currentroom[1] + shift[1]];
+        let room = this.rooms[this.currentroom[0]][this.currentroom[1]];
+        numTiles = room.size;
+        tileSize = (9/numTiles)*64;
+        tiles = room.tiles;
+        monsters = room.monsters;
+        room.playerlastmove = shifts[direction[0]];
+        room.playerspawn = [4,4]; //change this
+        this.playRoom(room, player.hp);
     }
 
     reloadRoom(id, coordinates){
@@ -422,11 +446,11 @@ class Room{
         this.generatedexits = [];
         this.playerlastmove = [0,-1];
         this.core;
-        this.playerspawn = [];
+        this.playerspawn = [4,4];
         this.tangible = true;
         this.effects = [];
         this.previousRoom = -1; //Maybe secretly divide arrow tiles into return/generator tiles?
-        this.index = index;
+        this.index = [index[0],index[1]];
         this.tiles = []; //it will also need to stock the contents of course
         this.monsters = [];
         this.vault = true;
@@ -452,13 +476,13 @@ class Room{
             playSound(this.music);
             currenttrack = this.music;
         }
-        let randomtile = randomPassableTile();
+        //let randomtile = randomPassableTile();
         if (this.entrymessage) log.addLog(this.entrymessage);
-        if (world.getRoom() instanceof WorldSeed && world.getRoom().generatedexits.length == 0) this.playerspawn = [Math.floor((numTiles-1)/2),Math.floor((numTiles-1)/2)];
-        else if (this.playerspawn.length == 0){
-            this.playerspawn[0] = randomtile.x;
-            this.playerspawn[1] = randomtile.y;
-        }
+        //if (world.getRoom() instanceof WorldSeed && world.getRoom().generatedexits.length == 0) this.playerspawn = [Math.floor((numTiles-1)/2),Math.floor((numTiles-1)/2)];
+        //else if (this.playerspawn.length == 0){
+        //    this.playerspawn[0] = randomtile.x;
+        //    this.playerspawn[1] = randomtile.y;
+        //}
         //if (world.getRoom() instanceof EpsilonArena) this.playerspawn = [1,1];
         player = new Player(getTileButNotCursed(this.playerspawn[0], this.playerspawn[1]));
         if (this.effects.includes("Darkness")) player.fov = 2;
@@ -468,9 +492,6 @@ class Room{
         wheel.saved = [new Empty(),new Empty(),new Empty(),new Empty(),new Empty(),new Empty(),new Empty(),new Empty()];
         player.hp = this.startingplayerHP;
         player.lastMove = this.playerlastmove;
-        sacritotal = "nan";
-        sacrifice = 0;
-        rolled = 0;
         gameState = "running";
     }
 }

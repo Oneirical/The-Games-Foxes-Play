@@ -34,7 +34,7 @@
     mousepos = [0,0];
     spritesheet = new Image();
     spritesheet.src = 'textures/spritesheet.png';
-    spritesheet.onload = showTitle;
+    spritesheet.onload = startGame;
 
     invsheet = new Image();
     invsheet.src = 'textures/inventorysheet.png';
@@ -51,7 +51,7 @@
     blackfilter = new Image();
     blackfilter.src = 'textures/blackfilter.png';
                              
-    gameState = "loading";  
+    gameState = "running";  
 
     startingHp = 6;
     maxHp = 6;
@@ -86,9 +86,6 @@
     shakeAmount = 0;       
     shakeX = 0;                 
     shakeY = 0;
-    rolled = 0;
-    sacrifice = 0;
-    sacritotal = "nan";
     currentspelldesc = "nan";
     falseagony = false;
     rerolled = false;

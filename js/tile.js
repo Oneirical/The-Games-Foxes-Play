@@ -368,6 +368,32 @@ class BExit extends Tile{
     }
 }
 
+class MapExit extends Tile{
+    constructor(x,y,room){
+        super(x, y, 17, true);
+        this.lore = description["OpenSeal"];
+        this.name = "Unraveled Seal";
+        this.eat = false;
+        this.checkDirection(room);
+        this.textures = {
+            "N" : 89,
+            "S" : 86,
+            "W" : 87,
+            "E" : 88
+        }
+        this.sprite = this.textures[this.direction[0]];
+    }
+    stepOn(monster){
+        if(monster.isPlayer){
+            playSound("newLevel");
+            this.monster = null;
+            world.saveRoom(tiles, monsters);
+            world.enterRoom(this.direction);
+        }
+    }
+
+}
+
 class BReturnExit extends Tile{
     constructor(x,y){
         super(x, y, 17, false);
@@ -434,21 +460,10 @@ class Exit extends Tile{
                 showTitle();
             }else{
                 level++;
-                for(let i=0;i<player.inhand.length;i++){
-                    player.discard.push(player.inhand[i]);
-                }
-                for(let i=0;i<player.saved.length;i++){
-                    player.discard.push(player.saved[i]);
-                }
-                invsave = player.inventory;
-                dissave = player.discard;
-                pauseSound("harmony2");
                 //startLevel(Math.min(maxHp, player.hp+2));
                 sacritotal = "nan";
                 rerolled = false;
                 gameState = "running";
-                sacrifice = 0;
-                rolled = 0;
                 rosetoxin = 0;
                 //if (level == 17 && area == "Faith"){
                 //    log.addLog("EpsilonWelcome1");

@@ -4,6 +4,8 @@
 
 * Rewrite Warpwisp lore about Terminal seeing the world in glyphs as a ward against mind control.
 * Fix Frontiers not getting exits.
+* Harmonize "BigRoomVoid" to also contain save data. Or find a different way.
+* inBounds(x,y) is being a bitch again.
 
 * Epsilon's boss card is glitched.
 
@@ -74,19 +76,19 @@ If fully Harmonized, Modulators are always Concordant and have no cost. All dama
 
 **Rooms & Creatures**
 
-* Make rooms more random.
 * Roseic gas should interact more directly with inhaling, and give a lower glamour score if only standing in it.
 * Add more Epsilon cores to vary the runs. Massive tongue-whip with interesting pathfinding, shockwave that causes kerosene explosions.
 * lotus incense. sacrifice a legendary to mark the room with a respawn/recall point.
 * a gardener room that is completely peaceful but gets ridiculously hectic if the player dares step on a flower.
 * A peaceful lake that becomes sinister while using roseic toxin.
-* A massive enemy over 9 tiles, composed of combined textures. Maybe in the Spire.
-* A joke room where a Harmonizer insists on the purity and the Sameness of the roguelike genre. Mention that all roguelikes are theoretically real-time due to the player having a limited mortal lifespawn, which the Harmony is exempt from. Only the Harmony can play true roguelikes.
+* A massive enemy over 9 tiles, composed of combined textures. Maybe in the Spire. Alpha, Ordered champion?
+* A joke room where a Harmonizer insists on the purity and the Sameness of the roguelike genre. Mention that all roguelikes are theoretically real-time due to the player having a limited mortal lifespan, which the Harmony is exempt from. Only the Harmony can play true roguelikes.
 * Sugcha statues, that cause psychic damage when broken.
 * Pressurized glamorous toxin behind breakable glass that spreads through the room.
 
-**Lore**
+**Lore & Writing**
 
+* "Enemies" might not be the correct term to describe the world's entities...
 * Make InvTutorial sound less like a marketing pitch.
 * Rename Ipseity to Complexity/Value.
 * Harmonizers are invincible and ethereal outside the spire, because they can only harm their own. In the Spire you have a bit more power over them, as the influence of the environment makes you a little bit more like them.
@@ -99,10 +101,11 @@ If fully Harmonized, Modulators are always Concordant and have no cost. All dama
 **Souls**
 
 * Shizapis, aster, borerora, aube.
+* Buff purpizug.
 * Ordered Harmony Soul.
 * A passive Soul that does something cool when the deck is reshuffled. Maybe something to do with Serenes to make them less of a chore... Good synergy with purpizug.
 * A soul that places a recall point when equipped, and teleports you back there when unequipped.
-* A weird soul that induces a positive effect if your room path causes two rooms to superpose upon each other?
+* A weird soul that induces a positive effect if your room path is executed in a certain way? This used to be rooms superposing each other...
 * Non-serenes with effects on modulators.
 * Cool soul that lets you swap the effects of two castes that sandwich the legendary in question.
 * A soul that occasionally gives difficult "Simon Says" rules to follow. The player is rewarded for not transgressing.

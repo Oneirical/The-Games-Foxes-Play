@@ -555,7 +555,8 @@ function startWorld(playerHp){
     if (area == "Spire") inSpire = true;
     world = new World(inSpire);
     world.confirmWorld();
-    world.playRoom(world.rooms[4][4],playerHp);
+    let spawn = world.rooms[4][4];
+    world.playRoom(spawn,playerHp);
     //world.playRoom(world.addRoom("firstroom"), playerHp);
 }
 
