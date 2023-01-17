@@ -55,7 +55,8 @@ class World{
 
     checkPixel(tile){
         if (tile instanceof MapExit) return 6;
-        else if (tile.passable || tile instanceof BReturnExit || tile instanceof RealityWall) return 1;
+        else if (tile.passable) return 5;
+        else if (tile instanceof RealityWall) return 1;
         else return 0;
     }
 
@@ -70,6 +71,11 @@ class World{
                         }
                     }
                 }
+            }
+        }
+        for(let i = 0; i<numTiles;i++){
+            for (let j = 0; j<numTiles; j++){
+                if (tiles[i][j].monster && tiles[i][j].monster.isPlayer) drawPixel(3,i*7.11+this.currentroom[0]*64,j*7.11+this.currentroom[1]*64);
             }
         }
     }
@@ -127,7 +133,7 @@ class World{
                     if ((j == 8 && i == 4) || (j == 4 && i == 8) || (j == 0 && i == 4) || (j == 4 && i == 0)) roomType = EmptyFaith;
                     else if (j == 4 && i == 4) roomType = WorldSeed;
                     else if (Math.random() < 0.9 && j < 8 && i < 8 && worldgen[i+1][j].passable && worldgen[i][j+1].passable && worldgen[i+1][j+1].passable && !isArrayInArray(bannedsquares,[i+1,j]) && !isArrayInArray(bannedsquares,[i+1,j+1]) && !isArrayInArray(bannedsquares,[i,j+1])){
-                        roomType = GrandHallFaith;
+                        roomType = shuffle([RogueFaith,GrandHallFaith])[0];;
                         worldgen[i+1][j] = new RealityWall(i+1,j);
                         worldgen[i][j+1] = new RealityWall(i,j+1);
                         worldgen[i+1][j+1] = new RealityWall(i+1,j+1);
@@ -151,10 +157,13 @@ class World{
                     }
                     else roomType = shuffle(this.roompool)[0];
                     this.rooms[i][j] = new roomType([i,j]);
-                    if (flip) flipRoom(this.rooms[i][j].id);
+                    let times = shuffle([-1,0,1])[0];
+                    if (corridor) times = 0;
+                    if (rooms[this.rooms[i][j].id]["tags"].includes("randomflip") && !corridor) flip = true;
+                    if (flip) flipRoom(this.rooms[i][j].id,this.rooms[i][j].size,times);
                     this.rooms[i][j].setUp();
                     this.rooms[i][j].insertRoom();
-                    if (flip) flipRoom(this.rooms[i][j].id);
+                    if (flip) flipRoom(this.rooms[i][j].id,this.rooms[i][j].size,times);
                     if (corridor && flip) this.rooms[i][j].verticality = "side";
                     else if (corridor) this.rooms[i][j].verticality = "up";
                 }
@@ -718,6 +727,7 @@ class RogueFaith extends DefaultVaultRoom{
     constructor(index){
         super(index);
         this.id = "Rogue";
+        this.size = 18;
     }
 }
 

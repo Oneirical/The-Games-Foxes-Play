@@ -77,7 +77,7 @@ function setupCanvas(){
         }
         else if (cursormode){
             let cread = getTile(Math.floor((clickpos[0]-shakeX)/tileSize),Math.floor((clickpos[1]-shakeY)/tileSize));
-            cursor = new Cursor(cread);
+            if (cread) cursor = new Cursor(cread);
             invmode = !invmode;
             
         }
@@ -197,7 +197,7 @@ function draw(){
         }
         else{
             let cread = getTile(Math.floor((mousepos[0]-shakeX)/tileSize),Math.floor((mousepos[1]-shakeY)/tileSize));
-            if (cread.x <numTiles && cread.y < numTiles) cursor = new Cursor(cread);
+            if (cread) cursor = new Cursor(cread);
         }
         screenshake();
         let posgenx = 0;

@@ -62,23 +62,27 @@ function generateTiles(){
     return passableTiles;
 }
 
-function flipRoom(id){
-    for (let x = 0; x<numTiles;x++){
-        rooms[id][x] = reverseString(rooms[id][x]);
-    }
-    let flippedroom = {};
-    for (let i = 0; i<numTiles;i++){
-        flippedroom[i] = "";
-    }
-    for (let i = 0; i<numTiles;i++){
-        for (let g = 0; g<numTiles;g++){
-            flippedroom[i] += rooms[id][g][i];
+function flipRoom(id,size,times){
+    if (times >= 0){
+        for (let x = 0; x<size;x++){
+            rooms[id][x] = reverseString(rooms[id][x]);
         }
     }
-    for (let i = 0; i<numTiles;i++){
-        rooms[id][i] = flippedroom[i];
+    if (times <= 0){
+        let flippedroom = {};
+        for (let i = 0; i<size;i++){
+            flippedroom[i] = "";
+        }
+        for (let i = 0; i<size;i++){
+            for (let g = 0; g<size;g++){
+                flippedroom[i] += rooms[id][g][i];
+            }
+        }
+        for (let i = 0; i<size;i++){
+            rooms[id][i] = flippedroom[i];
+        }
+        if (rooms[id]["vertical"] != null) rooms[id]["vertical"] = !rooms[id]["vertical"];
     }
-    if (rooms[id]["vertical"] != null) rooms[id]["vertical"] = !rooms[id]["vertical"];
 }
 
 function locateExits(id){
@@ -361,15 +365,10 @@ function getTileButNotCursed(x, y){
 }
 
 function getTile(x, y){
-    if(inBounds(x,y)){
-        return tiles[x][y];
-    }else{
-        if (world.getRoom() instanceof WorldSeed) return new TermiWall(x,y);
-        else if (area == "Edge") return new RealityWall(x,y);
-        else if (area == "Spire") return new AbazonWall(x,y);
-        else return new Wall(x,y);
-    }
+    if (x > numTiles-1 || x < 0 || y < 0 || y > numTiles-1) return new RoseWall(x,y);
+    else return tiles[x][y];
 }
+
 function randomExcluded(min, max, excluded) {
     var n = Math.floor(Math.random() * (max-min) + min);
     if (n >= excluded) n++;
