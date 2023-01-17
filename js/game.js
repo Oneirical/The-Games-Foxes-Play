@@ -228,18 +228,6 @@ function draw(){
         //else if (gameState == "dead" && victory) drawText("VICTORY", 30, false, 100, "lime");
         let modulecol = "cyan";
         if (selectation == 21 || selectation == 22) modulecol = "white";
-        //printAtSidebar("f) Harmonic Modulator: "+modulename[player.activemodule], 18, 590, 550, modulecol, 20, 350);
-        //if ((gameState == "vision" && player.discarded > 0) || (gameState == "discard" && !naiamode)) drawText("Which soul to discard?", 20, false, 100, "deepskyblue");
-        //if (gameState == "discard" && naiamode) drawText("Which soul to cast?", 20, false, 100, "fuchsia");
-        //if (gameState == "vision" && player.discarded == 0) drawText("Which soul to stack?", 20, false, 100, "deepskyblue");
-
-        world.getRoom().draw();
-
-        if (!cursormode && gameState == "contemplation" && !contemhint){
-            //printAtSidebar("Death in this world is only the beginning of another cycle. Press the number keys 1-9 to permanently forget Souls you do not wish to keep. You can only forget the Souls you summoned in this room.", 18, 590, 350, "lime", 20, 350);
-            //printAtSidebar("Dying costs Ipseity. If your Ipseity reaches zero, you die a true death.", 18, 590, 500, "lime", 20, 350);
-            contemhint = false;
-        }
         if (cursormode && !invmode){
             cursor.draw();
             cursor.info();

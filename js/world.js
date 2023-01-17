@@ -44,13 +44,10 @@ class EmptyWorld{
 class World{
     constructor(serene){
         this.roompool = [];
-        this.roomlist = {};
         this.currentroom = [4,4]; //parseInt((randomRange(0,8).toString()+randomRange(0,8).toString()));
         this.serene = serene;
         this.fighting = false;
-        this.fabrication;
         this.rooms;
-        this.avoiddraw = [];
     }
 
     checkPixel(tile){
@@ -81,11 +78,9 @@ class World{
     }
 
     getRoom(){
-        return this.rooms[4][4];
+        return this.rooms[this.currentroom[0],this.currentroom[1]];
     }
-    getBuildingRoom(){
-        return this.fabrication;
-    }
+
     selectRooms(){
         if (this.serene) this.roompool = [StandardSpire];
         else this.roompool = [StandardFaith,BloxFaith,EmptyFaith,HideFaith,PipesFaith,TriangleFaith,StarFaith]; //GrandHallFaith,BridgeFaith,HideFaith,PipesFaith,GrandHallFaith,,TriangleFaith,NarrowFaith
@@ -156,8 +151,12 @@ class World{
 
     spreadExits(i,j){
         for (let l of this.rooms[i][j].possibleexits){
-            let exit = this.rooms[i][j].tiles[l[0]][l[1]];
-            if (exit.direction == "N" && (j==0 || this.rooms[i][j-1] instanceof VoidRoom)) this.rooms[i][j].tiles[l[0]][l[1]] = new this.rooms[i][j].filler(l[0],l[1]);
+            const exit = this.rooms[i][j].tiles[l[0]][l[1]];
+            if (i == 4 && j == 8 && l[1] == 8) return;
+            else if (i == 4 && j == 0 && l[1] == 0) return;
+            else if (i == 8 && j == 4 && l[0] == 8) return;
+            else if (i == 0 && j == 4 && l[0] == 0) return;
+            else if (exit.direction == "N" && (j==0 || this.rooms[i][j-1] instanceof VoidRoom)) this.rooms[i][j].tiles[l[0]][l[1]] = new this.rooms[i][j].filler(l[0],l[1]);
             else if (exit.direction == "S" && (j==8 || this.rooms[i][j+1] instanceof VoidRoom)) this.rooms[i][j].tiles[l[0]][l[1]] = new this.rooms[i][j].filler(l[0],l[1]);
             else if (exit.direction == "W" && (i==0 || this.rooms[i-1][j] instanceof VoidRoom)) this.rooms[i][j].tiles[l[0]][l[1]] = new this.rooms[i][j].filler(l[0],l[1]);
             else if (exit.direction == "E" && (i==8 || this.rooms[i+1][j] instanceof VoidRoom)) this.rooms[i][j].tiles[l[0]][l[1]] = new this.rooms[i][j].filler(l[0],l[1]);
@@ -190,122 +189,6 @@ class World{
             }
         }
         return passableRooms;
-    }
-
-    addRoom(coordinates, connector,id){
-        log.allgrey = true;
-        let roomType;
-        if (level == 0) roomType = WorldSeed;
-        else if (level == 17 && !this.serene) roomType = EpsilonArena;
-        else if (level % 5 == 1 && level > 5 && this.serene) roomType = FluffianWorkshop;
-        else if (level % 5 == 1 && level > 5 && !this.serene) roomType = HarmonyRelay;
-        else{
-            tryTo("find a suitable room",function(){
-                roomType = shuffle(world.roompool)[0];
-                let testRoom = new roomType(99);
-                if (rooms[testRoom.id]["vertical"] != null){
-                    if (!rooms[testRoom.id]["vertical"] && (coordinates == "N" || coordinates == "S")) return true;
-                    else if (rooms[testRoom.id]["vertical"] && (coordinates == "W" || coordinates == "E")) return true;
-                    else return false;
-                }
-                if (testRoom.size > 99){
-                    if (coordinates == "N" && world.roomlist[world.currentroom-20] == null && world.roomlist[world.currentroom-19] == null && world.roomlist[world.currentroom-9] == null) return true;
-                    else if (coordinates == "W" && world.roomlist[world.currentroom-2] == null && world.roomlist[world.currentroom+9] == null && world.roomlist[world.currentroom+8] == null) return true;
-                    else if (coordinates == "E" && world.roomlist[world.currentroom+2] == null && world.roomlist[world.currentroom+11] == null && world.roomlist[world.currentroom+12] == null) return true;
-                    else if (coordinates == "S" && world.roomlist[world.currentroom+20] == null && world.roomlist[world.currentroom+21] == null && world.roomlist[world.currentroom+11] == null) return true;
-                    else return false;
-                     // test if big room can be included and where
-                }
-                else return true;
-            });
-        }
-        let shift = 0;
-        let testRoom = new roomType(99);
-        numTiles = testRoom.size;
-        tileSize = (9/numTiles)*64;
-        if (id) shift = id;
-        else if (coordinates == "N") shift = -10*(testRoom.size/9);
-        else if (coordinates == "W") shift = -1*(testRoom.size/9);
-        else if (coordinates == "E") shift = 1;
-        else if (coordinates == "S") shift = 10;
-        if (id){
-            if (coordinates == "W") shift+= -1*(testRoom.size/9-1);
-            else if (coordinates == "N") shift+= -10*(testRoom.size/9-1);
-        }
-        //let bigroomtests = [1,10,11];
-        //for (let i of bigroomtests){
-        //    if (this.roomlist[this.currentroom+shift+i] && this.roomlist[this.currentroom+shift+i].size > 9){
-        //        shift+=i;
-        //    }
-        //}
-        //if (testRoom.size > 9 && this.roomlist[this.currentroom+shift+11]){ // check this more
-        //    shift-=1;
-        //}
-        if (this.roomlist[this.currentroom+shift]){
-            this.reloadRoom(shift,coordinates);
-            return "goback";
-        }
-        let room = new roomType(this.currentroom+shift);
-        this.fabrication = room;
-        if (room.vault) room.setUp();
-        if (coordinates != "firstroom"){
-            if (this.getRoom().music){
-        //        if (this.getRoom().music == room.music) room.music = false;
-            }
-        }
-        let list = [10,1,-1,-10];
-        let motion = [[0,1],[1,0],[-1,0],[0,-1]];
-        if (coordinates != "firstroom"){
-            if (world.getRoom().possibleexits.length == 2 && rooms[world.getRoom().id].vertical){
-                list = [-10,10];
-                motion = [[0,1],[0,-1]];
-            }
-            else if (world.getRoom().possibleexits.length == 2 && !rooms[world.getRoom().id].vertical){
-                list = [-1,1];
-                motion = [[1,0],[-1,0]];
-            }
-            else if (world.getRoom().possibleexits.length == 8){
-                list = [20,21,2,12,-1,-11,-10,-9];
-                motion = [[0,1],[0,1],[1,0],[1,0],[-1,0],[-1,0],[0,-1],[0,-1]];
-            }
-        }
-        this.currentroom = this.currentroom+shift;
-        if (coordinates == "firstroom"){
-        }
-        else if (id) {
-            room.returnpoint = room.possibleexits[list.indexOf(id)];
-            room.playerlastmove = motion[list.indexOf(id)];
-        }
-        else if (coordinates == "N"){
-            room.returnpoint = room.possibleexits[list[0]];
-            room.playerlastmove = [0,-1];
-        }
-        else if (coordinates == "W"){ 
-            room.returnpoint = room.possibleexits[list[1]];
-            room.playerlastmove = [-1,0];
-        }
-        else if (coordinates == "E"){ 
-            room.returnpoint = room.possibleexits[list[2]];
-            room.playerlastmove = [1,0];
-        }
-        else if (coordinates == "S"){ 
-            room.returnpoint = room.possibleexits[list[3]];
-            room.playerlastmove = [0,1];
-        }
-        this.roomlist[this.currentroom] = room;
-        if (room.size > 9){
-            room.core = this.currentroom;
-            this.roomlist[this.currentroom+10] = room;
-            this.roomlist[this.currentroom+1] = room;
-            this.roomlist[this.currentroom+11] = room;
-            this.avoiddraw.push(this.currentroom+10);
-            this.avoiddraw.push(this.currentroom+1);
-            this.avoiddraw.push(this.currentroom+11);
-        }
-        room.buildRoom(connector);
-        wheel.resolve = 3+ Math.floor(resolvebonus/2);
-        exitspawn = 0;
-        return room;
     }
 
     playRoom(room,playerHp){
