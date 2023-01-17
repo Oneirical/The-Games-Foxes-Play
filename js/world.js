@@ -80,29 +80,6 @@ class World{
         }
     }
 
-    display(){
-        drawFilter(blackfilter);
-        for(let i = 0; i<numTiles;i++){
-            for (let j = 0; j<numTiles; j++){
-                //if (world.getRoom().extreme["W"] == i || world.getRoom().extreme["E"] == i || world.getRoom().extreme["S"] == j || world.getRoom().extreme["N"] == j )drawPixel(4,i*7//+lastDigit(this.currentroom)*64,j*7+firstDigit(this.currentroom)*64);
-                //else
-                drawPixel(this.checkPixel(tiles[i][j]),i*7.11+lastDigit(this.currentroom)*64,j*7.11+firstDigit(this.currentroom)*64);
-                if (tiles[i][j].monster && tiles[i][j].monster.isPlayer) drawPixel(3,i*7.11+lastDigit(this.currentroom)*64,j*7.11+firstDigit(this.currentroom)*64);
-            }
-        }
-        for(let y = 0; y<9;y++){
-            for(let x = 0; x<9;x++){
-                if (this.roomlist[y*10+x] && !this.avoiddraw.includes(y*10+x) && y*10+x != this.currentroom){
-                    for(let i = 0; i<this.roomlist[y*10+x].size;i++){
-                        for (let j = 0; j<this.roomlist[y*10+x].size; j++){
-                            drawPixel(this.checkPixel(this.roomlist[y*10+x].tiles[i][j]),i*7.11+lastDigit(y*10+x)*64,j*7.11+firstDigit(y*10+x)*64);
-                        }
-                    }
-                }
-            }
-        }
-    }
-
     getRoom(){
         return this.rooms[4][4];
     }
@@ -331,23 +308,21 @@ class World{
         return room;
     }
 
-    checkCompatibility(){
-
-    }
-
     playRoom(room,playerHp){
         room.startingplayerHP = playerHp;
+        if (!room.playerspawn) room.playerspawn = [4,4];
         tiles = room.tiles;
         room.initializeRoom();
     }
 
     saveRoom(tiles, monsters){
+        this.rooms[this.currentroom[0]][this.currentroom[1]].playerspawn = null;
         this.rooms[this.currentroom[0]][this.currentroom[1]].monsters = monsters;
         this.rooms[this.currentroom[0]][this.currentroom[1]].tiles = tiles;
     }
 
     enterRoom(direction){
-        let shifts = {
+        const shifts = {
             "N" : [0,-1],
             "W" : [-1,0],
             "E" : [1,0],
@@ -362,101 +337,49 @@ class World{
         let shift = shifts[direction];
         this.currentroom = [this.currentroom[0] + shift[0],this.currentroom[1] + shift[1]];
         let room = this.rooms[this.currentroom[0]][this.currentroom[1]];
-        if (room instanceof BigRoomVoid) room = this.handleBigRoom(room);
+        if (room instanceof BigRoomVoid) room = this.handleBigRoom(room,direction[0]);
         numTiles = room.size;
         tileSize = (9/numTiles)*64;
         tiles = room.tiles;
         monsters = room.monsters;
         room.playerlastmove = shifts[direction[0]];
-        room.playerspawn = [4,4]; //change this
+        if (!room.playerspawn) room.playerspawn = this.selectPlayerExit(direction[0]);
         this.playRoom(room, player.hp);
     }
 
-    handleBigRoom(room){
+    handleBigRoom(room,direction){
         let correctroom;
         if (room.quadrant == "E"){
             correctroom = this.rooms[this.currentroom[0]-1][this.currentroom[1]];
+            if (direction == "W") correctroom.playerspawn = [16,4];
+            else if (direction == "S") correctroom.playerspawn = [13,1];
             this.currentroom[0] -= 1;
         }
         else if (room.quadrant == "ES"){
             correctroom = this.rooms[this.currentroom[0]-1][this.currentroom[1]-1];
+            if (direction == "W") correctroom.playerspawn = [16,13];
+            else if (direction == "N") correctroom.playerspawn = [13,16];
             this.currentroom[0] -= 1;
             this.currentroom[1] -= 1;
         }
         else if (room.quadrant == "S"){
             correctroom = this.rooms[this.currentroom[0]][this.currentroom[1]-1];
+            if (direction == "N") correctroom.playerspawn = [4,16];
+            else if (direction == "E") correctroom.playerspawn = [1,13];
             this.currentroom[1] -= 1;
         }
         else throw new Error('This big room transcends time and space!');
         return correctroom;
     }
 
-    reloadRoom(id, coordinates){
-        exitspawn = 1;
-        numTiles = this.roomlist[id+this.currentroom].size;
-        tileSize = (9/numTiles)*64;
-        let room = this.roomlist[id+this.currentroom];
-        monsters = this.roomlist[id+this.currentroom].monsters;
-        tiles = this.roomlist[id+this.currentroom].tiles;
-        let spawnlocation;
-
-        let quadrant; // code gods, forgive me for what is to come
-        let exitnum;
-        if (room.core){
-            quadrant = id+this.currentroom-room.core;
-            if (quadrant == 0 && coordinates == "S") exitnum = 1;
-            else if (quadrant == 0 && coordinates == "E") exitnum = 3;
-            else if (quadrant == 1 && coordinates == "S") exitnum = 2;
-            else if (quadrant == 1 && coordinates == "W") exitnum = 5;
-            else if (quadrant == 10 && coordinates == "E") exitnum = 4;
-            else if (quadrant == 10 && coordinates == "N") exitnum = 7;
-            else if (quadrant == 11 && coordinates == "N") exitnum = 8;
-            else if (quadrant == 11 && coordinates == "W") exitnum = 6;
+    selectPlayerExit(direction){
+        const exits = {
+            "N" : [4,7],
+            "W" : [7,4],
+            "E" : [1,4],
+            "S" : [4,1],
         }
-
-        let list = [10,1,-1,-10];
-        let motion = [[0,1],[1,0],[-1,0],[0,-1]];
-        if (room.possibleexits.length == 2 && rooms[world.getRoom().id+this.currentroom].vertical){
-            list = [-10,10];
-            motion = [[0,1],[0,-1]];
-        }
-        else if (room.possibleexits.length == 2 && !rooms[world.getRoom().id+this.currentroom].vertical){
-            list = [-1,1];
-            motion = [[1,0],[-1,0]];
-        }
-        else if (room.possibleexits.length == 8){
-            list = [20,21,2,12,-1,-11,-10,-9];
-            motion = [[0,1],[0,1],[1,0],[1,0],[-1,0],[-1,0],[0,-1],[0,-1]];
-        }
-        if (coordinates == "firstroom"){
-        }
-        else if (exitnum){
-            spawnlocation = room.entrancepoints[exitnum-1];
-            room.playerlastmove = motion[exitnum-1];
-        }
-        else if (id) {
-            spawnlocation = room.entrancepoints[list.indexOf(id)];
-            room.playerlastmove = motion[list.indexOf(id)];
-        }
-        else if (coordinates == "N"){
-            spawnlocation = room.entrancepoints[list[0]];
-            room.playerlastmove = [0,-1];
-        }
-        else if (coordinates == "W"){ 
-            spawnlocation = room.entrancepoints[list[1]];
-            room.playerlastmove = [-1,0];
-        }
-        else if (coordinates == "E"){ 
-            spawnlocation = room.entrancepoints[list[2]];
-            room.playerlastmove = [1,0];
-        }
-        else if (coordinates == "S"){ 
-            spawnlocation = room.entrancepoints[list[3]];
-            room.playerlastmove = [0,1];
-        }
-        this.roomlist[id+this.currentroom].playerspawn = [spawnlocation[0],spawnlocation[1]];
-        if (!(room instanceof WorldSeed)) room.recheckExits();
-        this.playRoom(this.roomlist[id+this.currentroom], player.hp);
+        return exits[direction];
     }
 }
 
@@ -475,7 +398,7 @@ class Room{
         this.generatedexits = [];
         this.playerlastmove = [0,-1];
         this.core;
-        this.playerspawn = [4,4];
+        this.playerspawn;
         this.tangible = true;
         this.effects = [];
         this.previousRoom = -1; //Maybe secretly divide arrow tiles into return/generator tiles?

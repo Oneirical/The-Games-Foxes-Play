@@ -4,8 +4,6 @@
 
 * Rewrite Warpwisp lore about Terminal seeing the world in glyphs as a ward against mind control.
 * Fix Frontiers not getting exits.
-* Harmonize "BigRoomVoid" to also contain save data. Or find a different way.
-* inBounds(x,y) is being a bitch again.
 
 * Epsilon's boss card is glitched.
 
