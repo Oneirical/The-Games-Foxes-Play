@@ -533,7 +533,7 @@ function startGame(){
     wheel = new DrawWheel();
     log = new MessageLog();
     universe = new Universe();
-    startWorld(startingHp);
+    universe.start(startingHp);
     gameState = "running";
 }
 

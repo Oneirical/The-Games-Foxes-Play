@@ -10,7 +10,7 @@ class Universe{
         for (let i = 0; i<81;i++){
             this.worlds[i] = [];
             for (let j = 0; j<81;j++){
-                this.worlds[i][j] = new EmptyWorld(i,j);
+                this.worlds[i][j] = new World(i,j);
             }
         }
         this.maze = new MazeBuilder(40, 40).maze;
@@ -22,11 +22,48 @@ class Universe{
             for (let j = 0; j<81;j++){
                 let colour = 5;
                 if (this.maze[i][j][0] != "wall") colour = 0;
-                if (i > 28 && i < 36 && j > 28 && j < 36 && this.maze[i][j][0] != "wall") colour = 6;
-                else if (i > 28 && i < 36 && j > 28 && j < 36) colour = 7;
+                if (i > 28 && i < 36 && j > 28 && j < 36 && this.maze[i][j][0] != "wall") colour = 4;
+                else if (i > 28 && i < 36 && j > 28 && j < 36) colour = 5;
                 this.worlds[i][j].represent(colour);
             }
         }
+    }
+
+    start(startingHp){
+        world = this.worlds[4][4];
+        world.confirmWorld();
+        world.currentroom = [4,8];
+        world.playRoom(world.rooms[4][8],startingHp);
+    }
+
+    shuntWorld(oldWorld,direction){
+        this.worlds[world.x][world.y].rooms = oldWorld.rooms;
+        const shifts = {
+            "N" : [0,-1],
+            "W" : [-1,0],
+            "E" : [1,0],
+            "S" : [0,1],
+        }
+        const spawns = {
+            "N" : [4,8],
+            "W" : [8,4],
+            "E" : [0,4],
+            "S" : [4,0], 
+        }
+        this.currentworld[0] += shifts[direction][0]; // this won't work on the edges
+        this.currentworld[1] += shifts[direction][1];
+        world = this.worlds[this.currentworld[0]][this.currentworld[1]];
+        if (!world.generated) world.confirmWorld();
+        world.currentroom = spawns[direction];
+        let room = world.rooms[world.currentroom[0]][world.currentroom[1]];
+        if (room instanceof BigRoomVoid) room = world.handleBigRoom(room,direction[0]);
+        numTiles = room.size;
+        tileSize = (9/numTiles)*64;
+        tiles = room.tiles;
+        monsters = room.monsters;
+        room.playerlastmove = shifts[direction[0]];
+        if (!room.playerspawn) room.playerspawn = world.selectPlayerExit(direction[0]);
+        world.playRoom(room, player.hp);
     }
 }
 
@@ -36,16 +73,17 @@ class EmptyWorld{
         this.y = y;
     }
 
-    represent(colour){
-        drawPixel(colour,this.x*7.11,this.y*7.11);
-    }
+
 }
 
 class World{
-    constructor(serene){
+    constructor(x,y){
+        this.x = x;
+        this.y = y;
         this.roompool = [];
+        this.generated = false;
         this.currentroom = [4,4]; //parseInt((randomRange(0,8).toString()+randomRange(0,8).toString()));
-        this.serene = serene;
+        this.serene = false;
         this.fighting = false;
         this.rooms;
     }
@@ -55,6 +93,10 @@ class World{
         else if (tile.passable) return 5;
         else if (tile instanceof RealityWall) return 1;
         else return 0;
+    }
+
+    represent(colour){
+        drawPixel(colour,this.x*7.11,this.y*7.11);
     }
 
     displayTrue(){
@@ -78,7 +120,7 @@ class World{
     }
 
     getRoom(){
-        return this.rooms[this.currentroom[0],this.currentroom[1]];
+        return this.rooms[this.currentroom[0]][this.currentroom[1]];
     }
 
     selectRooms(){
@@ -147,6 +189,7 @@ class World{
                 if (this.rooms[i][j].tangible) this.spreadExits(i,j);
             }
         }
+        this.generated = true;
     }
 
     spreadExits(i,j){
@@ -219,6 +262,10 @@ class World{
         }
         let shift = shifts[direction];
         this.currentroom = [this.currentroom[0] + shift[0],this.currentroom[1] + shift[1]];
+        if (this.currentroom[0] > 8 || this.currentroom[0] < 0 ||this.currentroom[1] > 8 || this.currentroom[1] < 0){
+            universe.shuntWorld(this,direction);
+            return;
+        }
         let room = this.rooms[this.currentroom[0]][this.currentroom[1]];
         if (room instanceof BigRoomVoid) room = this.handleBigRoom(room,direction[0]);
         numTiles = room.size;

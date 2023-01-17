@@ -70,6 +70,7 @@
     numTiles = 9;
     var tiles = [];
     var monsters = [];
+    var world;
     area = "Faith";
  
     cursormode = false;
@@ -102,7 +103,7 @@
     currenttrack = "none";
 
     var spirespawner;
-    var worldgen;   
+    var worldgen; 
 
     document.querySelector("html").onkeypress = function(e){
         if(gameState == "title"){                              

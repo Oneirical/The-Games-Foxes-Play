@@ -474,65 +474,7 @@ class Exit extends Tile{
     }
 }
 
-class ExpandExit extends Exit{
-    constructor(x, y){
-        super(x, y, 11, true);
-        this.lore = description["OpenSeal"];
-        this.name = "Unraveled Seal";
-        this.id;
-        this.checkDirection();
-    }
-    stepOn(monster){
-        super.stepOn(monster);
-        if(monster.isPlayer){
-            world.fighting = true;
-            let newexit = this.replace(ReturnExit);
-            let shift = 0;
-            if (this.id) shift = this.id;
-            else if (this.direction == "N") shift = -10;
-            else if (this.direction == "W") shift = -1;
-            else if (this.direction == "E") shift = 1;
-            else if (this.direction == "S") shift = 10;
-            newexit.id = shift;
-            world.saveRoom(tiles, monsters);
-            let entering = world.addRoom(this.direction,world.currentroom,this.id);
-            if (entering == "goback") return;
-            player.hp = Math.min(maxHp, player.hp+1);
-            world.playRoom(entering, player.hp);
-        }
-    }
-}
-
-class ReturnExit extends Exit {
-    constructor(x, y){
-        super(x, y, 12, true);
-        this.lore = description["OpenSeal"];
-        this.name = "Unraveled Seal";
-        this.id = -1;
-        this.textures = {
-            "N" : 89+5,
-            "S" : 86+5,
-            "W" : 87+5,
-            "E" : 88+5
-        }
-        this.sprite = this.textures[this.direction];
-        //this.sprite = 12;
-        
-    }
-    stepOn(monster){
-        super.stepOn(monster);
-        if(monster.isPlayer){
-            //world.saveRoom(tiles, monsters);
-            world.fighting = false;
-            level--;
-            this.monster = null;
-            world.saveRoom(tiles, monsters);
-            world.reloadRoom(this.id, this.direction);
-        }
-    }
-}
-
-class TermiExit extends ExpandExit{
+class TermiExit extends Exit{
     constructor(x, y){
         super(x, y, 38, true);
         this.lore = description["TermiSeal"];
