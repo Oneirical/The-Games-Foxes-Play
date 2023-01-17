@@ -24,8 +24,6 @@ class Universe{
             for (let j = 0; j<81;j++){
                 let colour = 5;
                 if (this.worlds[i][j].isAccessible) colour = 0;
-                if (i > 28 && i < 36 && j > 28 && j < 36 && this.maze[i][j][0] != "wall") colour = 4;
-                else if (i > 28 && i < 36 && j > 28 && j < 36) colour = 5;
                 this.worlds[i][j].represent(colour);
             }
         }
@@ -38,8 +36,46 @@ class Universe{
         this.currentworld = position;
         world = this.worlds[position[0]][position[1]];
         world.confirmWorld();
+        this.infestRandom();
         world.currentroom = [4,8];
         world.playRoom(world.rooms[4][8],startingHp);
+    }
+
+    infestRandom(){
+        const debut = this.randomAvailableWorld();
+        const position = [debut.x,debut.y];
+        this.worlds[position[0]][position[1]].serene = true;
+    }
+
+    spreadHarmony(){
+        for (let i = 0; i<80;i++){
+            for (let j = 0; j<80;j++){
+                if (this.worlds[i][j].serene && !this.worlds[i][j].finishedspread){
+                    this.worlds[i][j].finishedspread = true;
+                    if (this.worlds[i+1][j].isAccessible && !this.worlds[i+1][j].serene){
+                        this.worlds[i+1][j].serene = true;
+                        this.worlds[i+1][j].finishedspread = true;
+                    }
+                    if (this.worlds[i-1][j].isAccessible && !this.worlds[i-1][j].serene){
+                    this.worlds[i-1][j].serene = true;
+                    this.worlds[i-1][j].finishedspread = true;
+                    }
+                    if (this.worlds[i][j+1].isAccessible && !this.worlds[i][j+1].serene){
+                    this.worlds[i][j+1].serene = true;
+                    this.worlds[i][j+1].finishedspread = true;
+                    }
+                    if (this.worlds[i][j-1].isAccessible && !this.worlds[i][j-1].serene){
+                    this.worlds[i][j-1].serene = true;
+                    this.worlds[i][j-1].finishedspread = true;
+                    }
+                }
+            }
+        }
+        for (let i = 0; i<80;i++){
+            for (let j = 0; j<80;j++){
+                this.worlds[i][j].finishedspread = false;
+            }
+        }
     }
 
     randomAvailableWorld(){
@@ -99,6 +135,7 @@ class World{
         this.y = y;
         this.roompool = [];
         this.isAccessible = false;
+        this.finishedspread = false;
         this.generated = false;
         this.currentroom = [4,4]; //parseInt((randomRange(0,8).toString()+randomRange(0,8).toString()));
         this.serene = false;
@@ -114,6 +151,7 @@ class World{
     }
 
     represent(colour){
+        if (this.serene && this.isAccessible) colour = 4;
         drawPixel(colour,this.x*7.11,this.y*7.11);
     }
 

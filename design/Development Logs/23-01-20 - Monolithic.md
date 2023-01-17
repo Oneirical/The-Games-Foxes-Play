@@ -19,7 +19,7 @@ But it *works*.
 
 ## Rooms Within Rooms Within Rooms
 
-Naturally, after completing this atrocity, I had the thought any sane man should have in my place: ["Why stop there?"]() Each and every single white pixel of this twisted maze contains *one entire* dungeon. Considering that the average dungeon map is composed of 9x9 rooms and that the maze is composed of 72x72 pixels, that makes for a grand total of 648x648 rooms, or approximately 420 000 rooms. The universe is therefore a room, made out of rooms, which are also made out of rooms. The glorified calculator that serves as my computer would not be very happy at the thought of generating each and every single dust speck of this complex, so dungeons are only generated if the player visits them.
+Naturally, after completing this atrocity, I had the thought any sane man should have in my place: ["Why stop there?"]() Each and every single white pixel of this twisted maze contains *one entire* dungeon. Considering that the average dungeon map is composed of 9x9 rooms and that the maze is composed of 72x72 pixels, that makes for a grand total of 648x648 rooms' worth of space, or approximately 420 000 rooms. The universe is therefore a room, made out of rooms, which are also made out of rooms. The glorified calculator that serves as my computer would not be very happy at the thought of generating each and every single dust speck of this complex, so dungeons are only generated if the player visits them by exiting from the extremity of a previous white pixel.
 
 Yes, the maze is procedurally generated. No, I didn't make the algorithm for it. I checked the license, don't worry.
 

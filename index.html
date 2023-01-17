@@ -121,6 +121,9 @@
             if (e.key == "k"){
                 inBigMap = !inBigMap;
             }
+            if (e.key == "o"){
+                universe.spreadHarmony(); //debug
+            }
             if (inInventory){
                 if (e.key >= 1 && e.key <= 6) legendaries.storeSoul(e.key-1);
                 if (e.key >= 7 && e.key <= 9) legendaries.activateSoul(e.key-7);
@@ -131,12 +134,6 @@
                 cursormode = !cursormode;
                 invmode = false;
                 currentspelldesc = "nan";
-            } 
-            if (e.key == "o"){ //debug
-                legendaries.activateSoul(0,legendaries.storage[0]);
-            }
-            if (e.key == "t"){ //debug
-                legendaries.storeSoul(0, legendaries.active[0]);
             }
             if(e.key=="c"&&cursormode) cursor = new Cursor(playerTile());
             if(e.key=="c"&&!cursormode) cursor.die();
