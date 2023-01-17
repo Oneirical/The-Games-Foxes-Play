@@ -7,13 +7,15 @@ class Universe{
     }
 
     initiate(){
+        this.maze = new MazeBuilder(40, 40).maze;
         for (let i = 0; i<81;i++){
             this.worlds[i] = [];
             for (let j = 0; j<81;j++){
                 this.worlds[i][j] = new World(i,j);
+                if (this.maze[i][j][0] != "wall") this.worlds[i][j].isAccessible = true;
+                else this.worlds[i][j].isAccessible = false;
             }
         }
-        this.maze = new MazeBuilder(40, 40).maze;
     }
 
     display(){
@@ -21,19 +23,34 @@ class Universe{
         for (let i = 0; i<81;i++){
             for (let j = 0; j<81;j++){
                 let colour = 5;
-                if (this.maze[i][j][0] != "wall") colour = 0;
+                if (this.worlds[i][j].isAccessible) colour = 0;
                 if (i > 28 && i < 36 && j > 28 && j < 36 && this.maze[i][j][0] != "wall") colour = 4;
                 else if (i > 28 && i < 36 && j > 28 && j < 36) colour = 5;
                 this.worlds[i][j].represent(colour);
             }
         }
+        drawPixel(6,this.currentworld[0]*7.11,this.currentworld[1]*7.11);
     }
 
     start(startingHp){
-        world = this.worlds[4][4];
+        const debut = this.randomAvailableWorld();
+        const position = [debut.x,debut.y];
+        this.currentworld = position;
+        world = this.worlds[position[0]][position[1]];
         world.confirmWorld();
         world.currentroom = [4,8];
         world.playRoom(world.rooms[4][8],startingHp);
+    }
+
+    randomAvailableWorld(){
+        let world;
+        tryTo('get random passable world', function(){
+            let x = randomRange(0,80);
+            let y = randomRange(0,80);
+            world = universe.worlds[x][y];
+            return (world.isAccessible);
+        });
+        return world;
     }
 
     shuntWorld(oldWorld,direction){
@@ -81,6 +98,7 @@ class World{
         this.x = x;
         this.y = y;
         this.roompool = [];
+        this.isAccessible = false;
         this.generated = false;
         this.currentroom = [4,4]; //parseInt((randomRange(0,8).toString()+randomRange(0,8).toString()));
         this.serene = false;
@@ -195,10 +213,16 @@ class World{
     spreadExits(i,j){
         for (let l of this.rooms[i][j].possibleexits){
             const exit = this.rooms[i][j].tiles[l[0]][l[1]];
-            if (i == 4 && j == 8 && l[1] == 8) return;
-            else if (i == 4 && j == 0 && l[1] == 0) return;
-            else if (i == 8 && j == 4 && l[0] == 8) return;
-            else if (i == 0 && j == 4 && l[0] == 0) return;
+            const spreads = {
+                "N" : universe.worlds[this.x][this.y-1] && universe.worlds[this.x][this.y-1].isAccessible,
+                "W" : universe.worlds[this.x-1][this.y] && universe.worlds[this.x-1][this.y].isAccessible,
+                "E" : universe.worlds[this.x+1][this.y] && universe.worlds[this.x+1][this.y].isAccessible,
+                "S" : universe.worlds[this.x][this.y+1] && universe.worlds[this.x][this.y+1].isAccessible,
+            };
+            if (i == 4 && j == 8 && l[1] == 8 && spreads["S"]) return;
+            else if (i == 4 && j == 0 && l[1] == 0 && spreads["N"]) return;
+            else if (i == 8 && j == 4 && l[0] == 8 && spreads["E"]) return;
+            else if (i == 0 && j == 4 && l[0] == 0 && spreads["W"]) return;
             else if (exit.direction == "N" && (j==0 || this.rooms[i][j-1] instanceof VoidRoom)) this.rooms[i][j].tiles[l[0]][l[1]] = new this.rooms[i][j].filler(l[0],l[1]);
             else if (exit.direction == "S" && (j==8 || this.rooms[i][j+1] instanceof VoidRoom)) this.rooms[i][j].tiles[l[0]][l[1]] = new this.rooms[i][j].filler(l[0],l[1]);
             else if (exit.direction == "W" && (i==0 || this.rooms[i-1][j] instanceof VoidRoom)) this.rooms[i][j].tiles[l[0]][l[1]] = new this.rooms[i][j].filler(l[0],l[1]);
