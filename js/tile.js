@@ -427,11 +427,12 @@ class TermiWall extends Wall{
 }
 
 class RealityWall extends Wall{
-    constructor(x, y){
+    constructor(x, y, quadrant){ //I hope this doesn't break anything
         super(x, y, 2, false);
         this.lore = description["Reality"];
         this.name = "Nonexistent Nullspace";
         this.sprite = 2;
+        this.quadrant = quadrant;
     }
 }
 

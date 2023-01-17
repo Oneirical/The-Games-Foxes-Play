@@ -124,7 +124,7 @@ class World{
         for(let i=0;i<9;i++){
             this.rooms[i] = [];
             for(let j=0;j<9;j++){
-                if (worldgen[i][j] instanceof RealityWall) this.rooms[i][j] = new BigRoomVoid(i,j);
+                if (worldgen[i][j] instanceof RealityWall) this.rooms[i][j] = new BigRoomVoid([i,j],worldgen[i][j].quadrant);
                 else if (worldgen[i][j].passable){
                     let roomType;
                     let flip = false;
@@ -134,9 +134,9 @@ class World{
                     else if (j == 4 && i == 4) roomType = WorldSeed;
                     else if (Math.random() < 0.9 && j < 8 && i < 8 && worldgen[i+1][j].passable && worldgen[i][j+1].passable && worldgen[i+1][j+1].passable && !isArrayInArray(bannedsquares,[i+1,j]) && !isArrayInArray(bannedsquares,[i+1,j+1]) && !isArrayInArray(bannedsquares,[i,j+1])){
                         roomType = shuffle([RogueFaith,GrandHallFaith])[0];;
-                        worldgen[i+1][j] = new RealityWall(i+1,j);
-                        worldgen[i][j+1] = new RealityWall(i,j+1);
-                        worldgen[i+1][j+1] = new RealityWall(i+1,j+1);
+                        worldgen[i+1][j] = new RealityWall(i+1,j,"E");
+                        worldgen[i][j+1] = new RealityWall(i,j+1,"S");
+                        worldgen[i+1][j+1] = new RealityWall(i+1,j+1,"ES");
                     }
                     else if (j < 8 && j > 0 && worldgen[i][j+1].passable && worldgen[i][j-1].passable){
                         if ((i == 8 || !worldgen[i+1][j].passable) && (i == 0 || !worldgen[i-1][j].passable)){
@@ -362,6 +362,7 @@ class World{
         let shift = shifts[direction];
         this.currentroom = [this.currentroom[0] + shift[0],this.currentroom[1] + shift[1]];
         let room = this.rooms[this.currentroom[0]][this.currentroom[1]];
+        if (room instanceof BigRoomVoid) room = this.handleBigRoom(room);
         numTiles = room.size;
         tileSize = (9/numTiles)*64;
         tiles = room.tiles;
@@ -369,6 +370,25 @@ class World{
         room.playerlastmove = shifts[direction[0]];
         room.playerspawn = [4,4]; //change this
         this.playRoom(room, player.hp);
+    }
+
+    handleBigRoom(room){
+        let correctroom;
+        if (room.quadrant == "E"){
+            correctroom = this.rooms[this.currentroom[0]-1][this.currentroom[1]];
+            this.currentroom[0] -= 1;
+        }
+        else if (room.quadrant == "ES"){
+            correctroom = this.rooms[this.currentroom[0]-1][this.currentroom[1]-1];
+            this.currentroom[0] -= 1;
+            this.currentroom[1] -= 1;
+        }
+        else if (room.quadrant == "S"){
+            correctroom = this.rooms[this.currentroom[0]][this.currentroom[1]-1];
+            this.currentroom[1] -= 1;
+        }
+        else throw new Error('This big room transcends time and space!');
+        return correctroom;
     }
 
     reloadRoom(id, coordinates){
@@ -493,7 +513,7 @@ class Room{
         //    this.playerspawn[1] = randomtile.y;
         //}
         //if (world.getRoom() instanceof EpsilonArena) this.playerspawn = [1,1];
-        player = new Player(getTileButNotCursed(this.playerspawn[0], this.playerspawn[1]));
+        player = new Player(getTile(this.playerspawn[0], this.playerspawn[1]));
         if (this.effects.includes("Darkness")) player.fov = 2;
         for (let k of wheel.saved){
             if (!(k instanceof Empty))wheel.discard.push(k);
@@ -761,10 +781,11 @@ class VoidRoom extends DefaultVaultRoom{
 }
 
 class BigRoomVoid extends DefaultVaultRoom{
-    constructor(index){
+    constructor(index,quadrant){
         super(index);
         this.id = "Void";
         this.tangible = false;
+        this.quadrant = quadrant;
     }
 }
 
@@ -883,7 +904,7 @@ class RoseicCogArena extends Room{
     }
 
     initializeRoom(){
-        this.playerspawn = getTileButNotCursed(8,8);
+        this.playerspawn = getTile(8,8);
         super.initializeRoom();
     }
 }
@@ -905,7 +926,7 @@ class EpsilonArena extends DefaultVaultRoom{
     }
 
     initializeRoom(){
-        //this.entrancepoints = [getTileButNotCursed(1,1), getTileButNotCursed(1,numTiles-2),getTileButNotCursed(numTiles-2,1),getTileButNotCursed(numTiles-2,numTiles-2)];
+        //this.entrancepoints = [getTile(1,1), getTile(1,numTiles-2),getTile(numTiles-2,1),getTile(numTiles-2,numTiles-2)];
         super.initializeRoom();
     }
 }
@@ -925,7 +946,7 @@ class FluffianWorkshop extends Room{
 
     initializeRoom(){
         dialoguecount = 0;
-        this.playerspawn = getTileButNotCursed(1,8);
+        this.playerspawn = getTile(1,8);
         super.initializeRoom();
     }
 }

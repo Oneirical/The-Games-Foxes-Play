@@ -360,10 +360,6 @@ function inBounds(x,y){
     else return x>-1 && y>-1 && x<numTiles && y<numTiles
 }
 
-function getTileButNotCursed(x, y){
-    return tiles[x][y];
-}
-
 function getTile(x, y){
     if (x > numTiles-1 || x < 0 || y < 0 || y > numTiles-1) return new RoseWall(x,y);
     else return tiles[x][y];
