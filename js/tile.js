@@ -386,7 +386,6 @@ class MapExit extends Tile{
     stepOn(monster){
         if(monster.isPlayer){
             playSound("newLevel");
-            level++;
             this.monster = null;
             world.saveRoom(world.getRoom());
             universe.spreadHarmony();

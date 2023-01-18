@@ -38,6 +38,7 @@ class Universe{
         world.confirmWorld();
         this.infestRandom();
         world.currentroom = [4,8];
+        world.rooms[4][8].visited = true;
         world.playRoom(world.rooms[4][8],startingHp);
     }
 
@@ -257,10 +258,10 @@ class World{
                 "E" : universe.worlds[this.x+1][this.y] && universe.worlds[this.x+1][this.y].isAccessible,
                 "S" : universe.worlds[this.x][this.y+1] && universe.worlds[this.x][this.y+1].isAccessible,
             };
-            if (i == 4 && j == 8 && l[1] == 8 && spreads["S"]) return;
-            else if (i == 4 && j == 0 && l[1] == 0 && spreads["N"]) return;
-            else if (i == 8 && j == 4 && l[0] == 8 && spreads["E"]) return;
-            else if (i == 0 && j == 4 && l[0] == 0 && spreads["W"]) return;
+            if (i == 4 && j == 8 && l[1] == 8 && spreads["S"]) continue;
+            else if (i == 4 && j == 0 && l[1] == 0 && spreads["N"]) continue;
+            else if (i == 8 && j == 4 && l[0] == 8 && spreads["E"]) continue;
+            else if (i == 0 && j == 4 && l[0] == 0 && spreads["W"]) continue;
             else if (exit.direction == "N" && (j==0 || this.rooms[i][j-1] instanceof VoidRoom)) this.rooms[i][j].tiles[l[0]][l[1]] = new this.rooms[i][j].filler(l[0],l[1]);
             else if (exit.direction == "S" && (j==8 || this.rooms[i][j+1] instanceof VoidRoom)) this.rooms[i][j].tiles[l[0]][l[1]] = new this.rooms[i][j].filler(l[0],l[1]);
             else if (exit.direction == "W" && (i==0 || this.rooms[i-1][j] instanceof VoidRoom)) this.rooms[i][j].tiles[l[0]][l[1]] = new this.rooms[i][j].filler(l[0],l[1]);
@@ -336,6 +337,7 @@ class World{
         tileSize = (9/numTiles)*64;
         tiles = room.tiles;
         if (!room.visited){
+            level++;
             room.populateRoom();
             room.visited = true;
         }
