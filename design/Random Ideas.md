@@ -4,6 +4,8 @@
 
 * Rewrite Warpwisp lore about Terminal seeing the world in glyphs as a ward against mind control.
 * Dynamic updating of the current room of the map.
+* Exit filler walls can be eaten.
+* Stuff can step on exits.
 
 * Epsilon's boss card is glitched.
 

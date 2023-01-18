@@ -37,9 +37,9 @@ class Universe{
         world = this.worlds[position[0]][position[1]];
         world.confirmWorld();
         this.infestRandom();
-        world.currentroom = [4,8];
+        world.currentroom = [4,4];
         world.rooms[4][8].visited = true;
-        world.playRoom(world.rooms[4][8],startingHp);
+        world.playRoom(world.rooms[4][4],startingHp);
     }
 
     infestRandom(){
@@ -166,6 +166,7 @@ class World{
                             drawPixel(this.checkPixel(this.rooms[x][y].tiles[i][j]),i*7.11+x*64,j*7.11+y*64);
                         }
                     }
+                    if (this.rooms[x][y] instanceof HarmonyRelay) drawPixel(4,4*7.11+x*64,4*7.11+y*64);
                 }
             }
         }
@@ -225,6 +226,9 @@ class World{
                         else roomType = shuffle(this.roompool)[0];
                         flip = true;
                         
+                    }
+                    else if (Math.random() < 0.3 && (i+1 == 9 || !worldgen[i+1][j].passable) + (i-1 == -1 || !worldgen[i-1][j].passable) + (j+1 == 9 || !worldgen[i][j+1].passable) + (j-1 == -1 || !worldgen[i][j-1].passable == 3)){
+                        roomType = HarmonyRelay;
                     }
                     else roomType = shuffle(this.roompool)[0];
                     this.rooms[i][j] = new roomType([i,j]);
@@ -668,6 +672,8 @@ class WorldSeed extends DefaultVaultRoom{
     constructor(index){
         super(index);
         this.id = "Seed";
+        this.name = "World Seed";
+        this.music = "cage";
         this.filler = TermiWall;
         this.visited = true;
     }
@@ -749,6 +755,14 @@ class HarmonyRelay extends DefaultVaultRoom{
         this.fuffspawn = null;
         //this.filler = AbazonWall;
         this.id = "Empty";
+    }
+
+    populateRoom(){
+        let monsterType = shuffle([Harmonizer])[0];
+        let tile = getTile(4,4);
+        world.getRoom().fuffspawn = tile;
+        let monster = new monsterType(tile);
+        monsters.push(monster);
     }
 
     initializeRoom(){
