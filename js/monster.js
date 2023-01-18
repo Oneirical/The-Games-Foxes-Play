@@ -514,7 +514,7 @@ class Monster{
                 if (x instanceof Epsilon) x.hp -= damage;
             }
         }
-        if (this.isPlayer) this.hp += damage; //godmode
+        //if (this.isPlayer) this.hp += damage; //godmode
         if(this.hp <= 0){
             this.die();
             if (!this.noloot) wheel.addSoul(this.loot);

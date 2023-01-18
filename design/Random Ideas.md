@@ -7,6 +7,7 @@
 * Exit filler walls can be eaten.
 * Stuff can step on exits.
 * Creatures can overflow in small rooms.
+* Make the resolve counter actually work.
 
 * Epsilon's boss card is glitched.
 
