@@ -510,7 +510,7 @@ function drawBossHp(currentboss, hp){
 function startGame(){
     pauseSound("title");            
     playSound("cage");                         
-    level = 0;
+    level = 1;
     resolvebonus = 0;
     rosetoxin = 0;
     truehp = 8;

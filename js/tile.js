@@ -386,13 +386,13 @@ class MapExit extends Tile{
     stepOn(monster){
         if(monster.isPlayer){
             playSound("newLevel");
+            level++;
             this.monster = null;
-            world.saveRoom(tiles, monsters);
+            world.saveRoom(world.getRoom());
             universe.spreadHarmony();
             world.enterRoom(this.direction);
         }
     }
-
 }
 
 class BReturnExit extends Tile{

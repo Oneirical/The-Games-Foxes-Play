@@ -303,10 +303,12 @@ class World{
         room.initializeRoom();
     }
 
-    saveRoom(tiles, monsters){
+    saveRoom(room){
         this.rooms[this.currentroom[0]][this.currentroom[1]].playerspawn = null;
         this.rooms[this.currentroom[0]][this.currentroom[1]].monsters = monsters;
         this.rooms[this.currentroom[0]][this.currentroom[1]].tiles = tiles;
+        this.rooms[this.currentroom[0]][this.currentroom[1]].visited = room.visited;
+        monsters = [];
     }
 
     enterRoom(direction){
@@ -333,7 +335,13 @@ class World{
         numTiles = room.size;
         tileSize = (9/numTiles)*64;
         tiles = room.tiles;
-        monsters = room.monsters;
+        if (!room.visited){
+            room.populateRoom();
+            room.visited = true;
+        }
+        else{
+            monsters = room.monsters;
+        }
         room.playerlastmove = shifts[direction[0]];
         if (!room.playerspawn) room.playerspawn = this.selectPlayerExit(direction[0]);
         this.playRoom(room, player.hp);
@@ -408,10 +416,35 @@ class Room{
             "E" : numTiles-1,
             "S" : numTiles-1,
         }
+        this.visited = false;
     }
 
     draw(){
 
+    }
+
+    populateRoom(){
+        const squadskey = Object.keys(squads);
+        const classeskey = Object.keys(classes);
+        const difficulty = Math.ceil(level/3);
+        for (let i = 0; i<difficulty; i++){
+            
+            let origin = randomRange(0,1);
+            if (origin){
+                let team = squads[squadskey[randomRange(0,squadskey.length-1)]];
+                for (let l of team){
+                    let creature = new l(randomPassableTile());
+                    monsters.push(creature);
+                }
+            }
+            else{
+                for (let j = 0; j<3; j++){
+                    let pool = classes[classeskey[randomRange(0,classeskey.length-1)]]
+                    let creature = new pool[randomRange(0,pool.length-1)](randomPassableTile());
+                    monsters.push(creature);
+                }
+            }
+        }
     }
 
     initializeRoom(){
@@ -634,6 +667,7 @@ class WorldSeed extends DefaultVaultRoom{
         super(index);
         this.id = "Seed";
         this.filler = TermiWall;
+        this.visited = true;
     }
 }
 

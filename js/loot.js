@@ -41,6 +41,26 @@ commoneq = {
 // Scion - Embalmer
 
 //excludes aube && zaint
+
+squads = {
+    "Gastropods" : [Slug,Slug,Snail,Snail],
+    "Shrikes" : [Shrike,Shrike,Shrike],
+    "Ribbons" : [Brute,Brute,Brute,Embalmer],
+    "Makers" : [Tinker,Slug,Slug,Weaver],
+    "Void" : [Monk,Monk,Felidol],
+    "Agony" : [Ragemaw,Ragemaw,Snail,Snail],
+    "Stop" : [Slug,Apis,Apis],
+    "Slash" : [Oracle,Scion,Scion],
+    "Bots" : [Apiarist,Slug,Snail,Apiarist],
+    "Try" : [Felidol,Felidol,Shrike,Shrike],
+};
+
+classes = {
+    "OG" : [Apiarist,Scion,Apis,Slug,Shrike,Second,Tinker],
+    "Next" : [Felidol,Ragemaw,Oracle,Snail,Weaver],
+    "Wardens" : [Monk,Brute,Embalmer],
+}
+
 relayPool = {
     "VILE" : [new Senet(),new Rasel()],
     "FERAL" : [new Kilami(), new Lashol(), new Ezezza()],

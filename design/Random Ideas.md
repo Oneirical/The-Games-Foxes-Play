@@ -59,6 +59,7 @@ If fully Harmonized, Modulators are always Concordant and have no cost. All dama
 * In fact, Epsilon needs buffs in general: make the dash leave behind flames, make the lasers do damage.
 * When the player respawns, their lastMove is right by default, which is kind of weird.
 * Double speed enemies still seem to occasionally return to their previous tile.
+* Snails are too slow with their thruster animation.
 * Psychodrones risk being grindy if they let you farm Ordered souls. Find a way to avoid this.
 * Lag on low-end devices. Slow down draw calls for the HUD.
 
