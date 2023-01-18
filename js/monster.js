@@ -623,7 +623,8 @@ class Player extends Monster{
         this.shield--;
         this.fuffified--;
         if (this.fuffified < 1 && this.infested < 1 && !this.dead) this.sprite = 0;
-        if (this.rosetox > 0){
+        if (this.rosetox <= 0) rosetoxin = 0;
+        else if (this.rosetox > 0){
             if (this.rosetox < 11)sounds["roseic"].volume = (1-(0.1*this.rosetox));
             if (sounds["toxic"].currentTime == 0) playSound("toxic");
             if (this.rosetox < 11) sounds["toxic"].volume = 0.1 * this.rosetox;
@@ -1036,7 +1037,7 @@ class Player extends Monster{
                 log.addLog("FluffyWorkshop");
                 dialoguecount = 0;
             }
-            else if (area == "Faith" && level == 17){
+            else if (area == "Faith" && world.getRoom() instanceof EpsilonArena){
                 log.addLog("EpsilonWelcome1");
             }
         }
@@ -1726,7 +1727,7 @@ class Tail extends Monster{
     }
     doStuff(){
         this.turbo = false;
-        this.bosscard++
+        this.bosscard++;
         this.lastpos = [this.tile.x,this.tile.y];
         if (this.bosscard == 2) showboss = false;
         let move;

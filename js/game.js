@@ -283,7 +283,7 @@ function draw(){
         if (showboss){
             showBoss(1);
         }
-        else if (level == 17){
+        else if (world.getRoom() instanceof EpsilonArena){
             let hpdraw;
             for (let x of monsters) {
                 if (x instanceof Epsilon) hpdraw = x.hp;
@@ -354,14 +354,14 @@ function summonExits(){
 function tick(){
     player.update();
     deadcheck = 0;
-    if (level == 17 && !monsters[0].dead){
+    if (world.getRoom() instanceof EpsilonArena && !monsters[0].dead){
         monsters[0].update();
         monsters[1].update();
         monsters[2].update();
         monsters[3].update();
         monsters[4].update();
     }
-    else if (level == 17 && monsters[0].dead){
+    else if (world.getRoom() instanceof EpsilonArena && monsters[0].dead){
         for (let x of monsters){
             if (x.order >= 0){
                 x.tile.getAllNeighbors().forEach(function(t){
@@ -406,7 +406,7 @@ function tick(){
             playSound("falsity");
         }
         else{
-            if (level != 17) {
+            if (!(world.getRoom() instanceof EpsilonArena)) {
                 gameState = "contemplation";
                 for (let x of player.saved) player.inhand.push(x);
                 player.saved.length = 0;
@@ -432,10 +432,6 @@ function tick(){
                 }
             }
             else{
-                for (let x of player.saved) player.discard.push(x);
-                for (let x of player.inhand) player.discard.push(x);
-                player.inhand.length = 0;
-                player.saved.length = 0;
                 truehp -= 1;
                 if(truehp < 1){
                     gameState = "dead";
@@ -805,7 +801,7 @@ function playMusic(){
         pauseAllMusic();
         playSound("quarry");
     }
-    else if (level == 17&& area == "Faith"){
+    else if (world.getRoom() instanceof EpsilonArena && area == "Faith"){
         pauseAllMusic();
         playSound("epsilon");
     }

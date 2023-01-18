@@ -6,8 +6,11 @@
 * Dynamic updating of the current room of the map.
 * Exit filler walls can be eaten.
 * Stuff can step on exits.
+* Creatures can overflow in small rooms.
 
 * Epsilon's boss card is glitched.
+
+* Make it so dying is not bugged. Maybe implement the actual mechanic.
 
 **Map Variety Project**
 

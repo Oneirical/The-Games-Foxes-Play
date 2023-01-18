@@ -193,6 +193,7 @@ class World{
 
         this.rooms = [];
         this.selectRooms();
+        let placedboss = false;
         for(let i=0;i<9;i++){
             this.rooms[i] = [];
             for(let j=0;j<9;j++){
@@ -205,7 +206,11 @@ class World{
                     if ((j == 8 && i == 4) || (j == 4 && i == 8) || (j == 0 && i == 4) || (j == 4 && i == 0)) roomType = EmptyFaith;
                     else if (j == 4 && i == 4) roomType = WorldSeed;
                     else if (Math.random() < 0.9 && j < 8 && i < 8 && worldgen[i+1][j].passable && worldgen[i][j+1].passable && worldgen[i+1][j+1].passable && !isArrayInArray(bannedsquares,[i+1,j]) && !isArrayInArray(bannedsquares,[i+1,j+1]) && !isArrayInArray(bannedsquares,[i,j+1])){
-                        roomType = shuffle([RogueFaith,GrandHallFaith])[0];;
+                        if (!placedboss){
+                            roomType = EpsilonArena;
+                            placedboss = true; // temporary
+                        }
+                        else roomType = shuffle([RogueFaith,GrandHallFaith])[0];
                         worldgen[i+1][j] = new RealityWall(i+1,j,"E");
                         worldgen[i][j+1] = new RealityWall(i,j+1,"S");
                         worldgen[i+1][j+1] = new RealityWall(i+1,j+1,"ES");
@@ -883,6 +888,24 @@ class EpsilonArena extends DefaultVaultRoom{
         this.music = "epsilon";
         this.id = "Epsilon";
         this.fourway = true;
+    }
+
+    populateRoom(){
+        showboss = true;
+        let monsterType = shuffle([Epsilon])[0];
+        let monster = new monsterType(getTile(9,8));
+        monsters.push(monster);
+        for (let i = 1; i < 5; i++){
+            let tail = new Tail(getTile(9,i+8),i);
+            monsters.push(tail);
+        }
+        let corelist = ["Red","Pink","Cyan","White"];
+        for (let i = 0;i<4;i++){
+            let corecolour = shuffle(corelist)[0];
+            removeItemOnce(corelist,corecolour);
+            let box = new Box(randomPushableTile(), corecolour);
+            monsters.push(box);
+        }
     }
 
     buildRoom(connector){
