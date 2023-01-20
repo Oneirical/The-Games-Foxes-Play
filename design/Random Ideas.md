@@ -4,13 +4,12 @@
 
 * Rewrite Warpwisp lore about Terminal seeing the world in glyphs as a ward against mind control.
 * Dynamic updating of the current room of the map.
-* Exit filler walls can be eaten.
 * Stuff can step on exits.
 * Creatures can overflow in small rooms.
-* Make the resolve counter actually work.
 
 * Epsilon's boss card is glitched.
 
+* Make the resolve counter actually work.
 * Make it so dying is not bugged. Maybe implement the actual mechanic.
 
 **Map Variety Project**
@@ -122,6 +121,16 @@ If fully Harmonized, Modulators are always Concordant and have no cost. All dama
 * Should extra inventory slots be unlockable throughout a run to scale player power?
 
 **Insane/overly ambitious stuff**
+
+*absolute madness below*
+
+* The "Next World" is the world above, and all the Old World data is Higher Terminal's dream.
+* The very first run of the game, you play as the first Terminal to ever encounter Fluffy, who spawns from Glamorous Toxin. She is not directly with you and spawns all the way in the Roseic Circus after a while, so you have time to learn the game.
+* After you fail and the world is Harmonized, the Terminal in the world above wakes up from a terrible dream of Harmony, turning him into a carrier.
+* Fluffy continues to harmonize infinite recursive worlds one by one, until the player finally stops it.
+* This causes the world to go back to the "first run" model. At this point, you must rush the Roseic Circus before Fluffy ever becomes a thing to cut off the cycle once and for all.
+* Then, you must remain behind and let yourself be consumed by the Old World's downfall to avoid the idea of Fluffy being transmitted to the upper realms, to truly end the spread.
+* Possibly offer an alternative to forcepush Fluffy across all higher levels and also end the spread... by having nothing left to spread to.
 
 * Inhalable Glamorous Toxin that transforms the current room into a hallucinatory version. Maybe Rose's soul does this.
 * Rose himself should be found at the very bottom of hallucinations within hallucinations.
