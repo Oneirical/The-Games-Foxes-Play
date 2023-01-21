@@ -698,7 +698,7 @@ class Inventory{
     activateSoul(slot){
         let soul = this.storage[slot];
         if (soul instanceof Empty) return;
-        if (soul instanceof Ezezza && exitspawn == 0) return;
+        if (soul instanceof Ezezza && world.fighting) return;
         let caste;
         caste = this.castes.indexOf(this.storage[slot].caste);
         this.storage[slot] = new Empty();
@@ -737,7 +737,7 @@ class Inventory{
 
     storeSoul(slot){
         let soul = this.active[slot];
-        if (soul instanceof Ezezza && exitspawn == 0) return;
+        if (soul instanceof Ezezza && world.fighting) return;
         if (basic.includes(this.active[slot].id)) return;
         else{
             if (soul instanceof Kashia){

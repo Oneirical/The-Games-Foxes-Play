@@ -378,7 +378,7 @@ function randomPassableTile(){
         tile = getTile(x, y);
         let surround = tile.getAdjacentNeighbors();
         for (i of surround){
-            if (i instanceof MapExit) return false;
+            if (i instanceof BExit) return false;
         }
         return tile.passable && !tile.monster;
     });

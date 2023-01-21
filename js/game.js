@@ -314,15 +314,6 @@ function draw(){
         //ctx.stroke();
     }
 }
-function manageExit(){
-    truehp++;
-    for (let j of legendaries.active){
-        if (j instanceof Ezezza){
-            truehp++;
-        }
-    }
-    exitspawn = 1;
-}
 
 function summonExits(){
     for (let x of tiles){
@@ -331,19 +322,20 @@ function summonExits(){
                 let id = y.id;
                 let px = y.x;
                 let py = y.y;
-                y.replace(ExpandExit)
+                tiles[px][py] = new MapExit(px,py,world.getRoom());
                 tiles[px][py].id = id;
             }
-            else if (y instanceof BReturnExit){
-                let id = y.id;
-                let px = y.x;
-                let py = y.y;
-                y.replace(ReturnExit);
-                tiles[px][py].id = id;
-            } 
         }
     }
-    manageExit();
+    if (world.fighting){
+        truehp++;
+        for (let j of legendaries.active){
+            if (j instanceof Ezezza){
+                truehp++;
+            }
+        }
+    }
+    world.fighting = false;
     if (player.activemodule == "Hover"){
         player.activemodule = "NONE";
         log.addLog("FluffyModuleFarewell");
@@ -388,7 +380,7 @@ function tick(){
     }
     if (deadcheck == 0 && level != 0&& area == "Faith"){
         //gener8 sortie si every1 est ded
-        if (exitspawn == 0 && world.fighting){
+        if (world.fighting){
             summonExits();
             if (player.falsehp < 1 && legendaries.hasSoul(Kashia)){
                 player.falsehp = 1;

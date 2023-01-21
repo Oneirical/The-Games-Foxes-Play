@@ -145,7 +145,7 @@ class World{
     }
 
     checkPixel(tile){
-        if (tile instanceof MapExit) return 6;
+        if (tile instanceof BExit || tile instanceof MapExit) return 6;
         else if (tile.passable) return 5;
         else if (tile instanceof RealityWall) return 1;
         else return 0;
@@ -348,8 +348,10 @@ class World{
         tiles = room.tiles;
         if (!room.visited){
             level++;
+            world.fighting = true;
             room.populateRoom();
             room.visited = true;
+            player.hp = Math.min(maxHp, player.hp+1);
         }
         else{
             monsters = room.monsters;
@@ -682,6 +684,12 @@ class WorldSeed extends DefaultVaultRoom{
         this.music = "cage";
         this.filler = TermiWall;
         this.visited = true;
+    }
+
+    initializeRoom(){
+        world.fighting = false;
+        super.initializeRoom();
+        summonExits();
     }
 }
 
