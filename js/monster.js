@@ -225,8 +225,10 @@ class Monster{
             spells["ARTTRIGGERS"](this);
             return;
         }
+        let soulSpawn = this.tile;
         let newTile = this.tile;
         let testTile = newTile;
+        let collision = false;
         while(power > 0){
             testTile = newTile.getNeighbor(direction[0],direction[1]);
             if(testTile.passable && !testTile.monster){
@@ -234,6 +236,7 @@ class Monster{
                 newTile = testTile;
                 power--;
             }else{
+                if (!testTile.passable) collision = true;
                 break;
             }
         }
@@ -244,6 +247,9 @@ class Monster{
                 this.sprite = 83;
             }
             else this.move(newTile);
+            if (collision){
+                shakeAmount = 10;
+            }
         }
     }
 
@@ -364,10 +370,10 @@ class Monster{
                     this.attackedThisTurn = true;
                     let bonusAttack = this.bonusAttack;
                     this.bonusAttack = 0;
-                    if (area != "Spire") newTile.monster.hit(this.dmg + Math.floor(bonusAttack));
+                    if (area == "Spire") newTile.monster.hit(this.dmg + Math.floor(bonusAttack));
                     else newTile.monster.fp++;
                     if (newTile.monster){
-                        if (newTile.monster.fp > 0 && world.serene) newTile.monster.knockback(newTile.monster.fp, [dx, dy]);
+                        if (newTile.monster.fp > 0) newTile.monster.knockback(newTile.monster.fp, [dx, dy]);
                     }
                     if (this.specialAttack == "Charm" && newTile.monster){
                         newTile.monster.charmed = !newTile.monster.charmed;
