@@ -4,13 +4,7 @@
 
 * Rewrite Warpwisp lore about Terminal seeing the world in glyphs as a ward against mind control.
 * Dynamic updating of the current room of the map.
-* Stuff can step on exits.
 * Creatures can overflow in small rooms.
-
-* Epsilon's boss card is glitched.
-
-* Make the resolve counter actually work.
-* Make it so dying is not bugged. Maybe implement the actual mechanic.
 
 **Map Variety Project**
 

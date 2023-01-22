@@ -1042,12 +1042,9 @@ class Player extends Monster{
             }
         }
         if (area == "Spire") spirevisited = true;
-        this.hp = 0;
         areachange = false;
         rosetoxin = 0;
-        startWorld(Math.min(maxHp, player.hp+6));
-        world.fighting = true;
-        contemhint = true;
+        universe.playRandomWorld(world)
     }
 }
 

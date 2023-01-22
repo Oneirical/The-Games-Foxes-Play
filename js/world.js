@@ -31,6 +31,8 @@ class Universe{
     }
 
     start(startingHp){
+        tiles = [];
+        monsters = [];
         const debut = this.randomAvailableWorld();
         const position = [debut.x,debut.y];
         this.currentworld = position;
@@ -40,6 +42,7 @@ class Universe{
         world.currentroom = [4,4];
         world.rooms[4][8].visited = true;
         world.playRoom(world.rooms[4][4],startingHp);
+        log.addLog("MapDebug");
     }
 
     infestRandom(){
@@ -88,6 +91,24 @@ class Universe{
             return (world.isAccessible);
         });
         return world;
+    }
+
+    playRandomWorld(oldWorld){
+        this.worlds[world.x][world.y].rooms = oldWorld.rooms;
+        world = this.randomAvailableWorld();
+        this.currentworld = [world.x,world.y];
+        if (!world.generated) world.confirmWorld();
+        world.currentroom = [4,4];
+        let room = world.rooms[world.currentroom[0]][world.currentroom[1]];
+        if (room instanceof BigRoomVoid) room = world.handleBigRoom(room,direction[0]);
+        numTiles = room.size;
+        tileSize = (9/numTiles)*64;
+        tiles = room.tiles;
+        monsters = room.monsters;
+        room.playerlastmove = [0,-1];
+        let spawn = randomPassableTile();
+        if (!room.playerspawn) room.playerspawn = [spawn.x,spawn.y];
+        world.playRoom(room, 6);
     }
 
     shuntWorld(oldWorld,direction){
@@ -311,6 +332,7 @@ class World{
         room.startingplayerHP = playerHp;
         if (!room.playerspawn) room.playerspawn = [4,4];
         tiles = room.tiles;
+        if (room instanceof WorldSeed && level == 1) room.populateRoom();
         room.initializeRoom();
     }
 
@@ -351,6 +373,7 @@ class World{
             world.fighting = true;
             room.populateRoom();
             room.visited = true;
+            wheel.resolve = 3+Math.floor(resolvebonus/2);
             player.hp = Math.min(maxHp, player.hp+1);
         }
         else{
@@ -440,7 +463,7 @@ class Room{
     populateRoom(){
         const squadskey = Object.keys(squads);
         const classeskey = Object.keys(classes);
-        const difficulty = Math.ceil(level/3);
+        const difficulty = Math.ceil(level/5);
         for (let i = 0; i<difficulty; i++){
             
             let origin = randomRange(0,1);
@@ -680,16 +703,23 @@ class WorldSeed extends DefaultVaultRoom{
     constructor(index){
         super(index);
         this.id = "Seed";
+        this.visited = true;
         this.name = "World Seed";
         this.music = "cage";
         this.filler = TermiWall;
-        this.visited = true;
     }
 
     initializeRoom(){
         world.fighting = false;
         super.initializeRoom();
         summonExits();
+    }
+
+    populateRoom(){
+        let monsterType = shuffle([Hologram])[0];
+        let tile = getTile(4,6);
+        let monster = new monsterType(tile);
+        monsters.push(monster);
     }
 }
 

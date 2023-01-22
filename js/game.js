@@ -479,9 +479,9 @@ function showBoss(currentboss){
     let bosscolour = ["pink","red","purple","cyan"];
     let scale = [0,-100,-50,-75];
     ctx.fillStyle = 'rgba(0,0,0,.75)';
-    ctx.fillRect(canvas.width/2-200+scale[currentboss],canvas.height/2 - 120,canvas.width/4+160, canvas.height/5);
-    drawText(bossname[currentboss], 70, true, canvas.height/2 - 50, bosscolour[currentboss]);
-    drawText(bosstitle[currentboss], 40, true, canvas.height/2, "white");
+    ctx.fillRect(canvas.width/3-200+scale[currentboss],canvas.height/2 - 200,canvas.width/4+300, canvas.height/5);
+    drawChar(bossname[currentboss], 70, 168, canvas.height/2-75 - 50, bosscolour[currentboss]);
+    drawChar(bosstitle[currentboss], 40, 43, canvas.height/2-75, "white");
 }
 
 function drawBossHp(currentboss, hp){
