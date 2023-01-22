@@ -414,6 +414,8 @@ description = {
     "FluffTrap" : "A vibrating crystal prism, ready to shatter at a moment's notice. Within is contained a recording of the Harmonic Song, sped up and amplified thousandfold. Any foe stepping on this delicate piece of technology will find their psyche immediately Harmonized by an overpowering choir.",
     "RecallPoint" : "An unnatural pocket of vacuum, providing shelter from the Harmony's song. After being struck by a Collectivist's sonic attack, your mind will seek refuge in this space, and your body will soon follow, collapsing the vacuum and unleashing a cross-shaped shockwave.",
     "Mobilizer" : "A plaque of immaculate, shining steel, vibrating as Epsilon's titanic body shakes the Industrial Apex. Each one ceaselessly ferries out fresh robotic bodies for the General's Ordered army to inhabit, forged from the reserves of Value hoarded by the mechanical military of Faith's End.",
+    "Platform" : "An oddly solid slate of dancing smoke, exerting perfectly harmonious pressure against your paws as they press upon the Spire's platforms.",
+    "Ladder" : "A stream of cold air originating from nothing, rushing to meet the Spire's glorious summit despite its low temperature.",
 }
 
 monabi = {

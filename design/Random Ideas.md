@@ -48,9 +48,7 @@ If fully Harmonized, Modulators are always Concordant and have no cost. All dama
 * Gyvji kills things multiple times over.
 * Lashol has some weird thing going on with its bonus damage.
 * Aube has no texture.
-* Description of invisible walls is based on abazon.
 * Falling in the Serene Spire can be ignored with mouse movement.
-* No descriptions for harmony platforms and ladders
 
 **Low priority nitpicks**
 
