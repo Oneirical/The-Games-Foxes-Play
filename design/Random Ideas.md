@@ -85,6 +85,7 @@ If fully Harmonized, Modulators are always Concordant and have no cost. All dama
 
 **Lore & Writing**
 
+* Fluffy should be warm instead of cold, because she is a being of infinite complexity.
 * "Enemies" might not be the correct term to describe the world's entities...
 * Make InvTutorial sound less like a marketing pitch.
 * Rename Ipseity to Complexity/Value.
