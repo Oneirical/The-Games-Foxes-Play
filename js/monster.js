@@ -141,7 +141,7 @@ class Monster{
         this.fp = 0; //it stands for fluffy points
         this.dmg = 1;
         this.loot = loot;
-        this.speed = 1/8;
+        this.anispeed = 1/8;
         this.step = false;
         this.nostun = false;
         this.loveless = false;
@@ -167,6 +167,7 @@ class Monster{
         this.falsehp = 0;
         this.deathdelay = 0;
         this.shield = 0;
+        this.soulless = false;
         this.order = -1;
         this.infested = 0;
         this.soulstun = 0;
@@ -199,6 +200,7 @@ class Monster{
                 } 
             }
         }
+        if (this.soulless) return;
         if (this.soulstun > 2){
             this.soulstun--;
             return;
@@ -342,8 +344,8 @@ class Monster{
         //let speed = 1/8;
         //if (this.isPlayer && (this.activemodule == "Thrusters" || this.entranced)) speed = 1;
         //if (this.turbo) speed = 1;
-        this.offsetX -= Math.sign(this.offsetX)*(this.speed);     
-        this.offsetY -= Math.sign(this.offsetY)*(this.speed);
+        this.offsetX -= Math.sign(this.offsetX)*(this.anispeed);     
+        this.offsetY -= Math.sign(this.offsetY)*(this.anispeed);
     }
 
     drawHp(){
@@ -429,7 +431,7 @@ class Monster{
             this.lastMove = [dx,dy];
             if(!newTile.monster || (newTile.monster && newTile.monster instanceof Harmonizer)){ //||(newTile.monster.charmed&&(this.isPlayer||this.charmed))||newTile.monster.isPassive
                 let boxpull = false;
-                if ((this.tile.getNeighbor(-dx,-dy).monster instanceof Box) && this.isPlayer) boxpull = this.tile;
+                if (this.tile.getNeighbor(-dx,-dy).monster && this.tile.getNeighbor(-dx,-dy).monster.pushable && this.isPlayer) boxpull = this.tile;
                 if (this.canmove) this.move(newTile);
                 if (boxpull) boxpull.getNeighbor(-dx,-dy).monster.move(boxpull);
                 for (let x of legendaries.active){
@@ -644,7 +646,7 @@ class Monster{
             this.tile.monster = null;
             this.offsetX = this.tile.x - tile.x;    
             this.offsetY = this.tile.y - tile.y;
-            this.speed = 1/8*(Math.abs(this.offsetX)+Math.abs(this.offsetY));
+            this.anispeed = 1/8*(Math.abs(this.offsetX)+Math.abs(this.offsetY));
         }
         this.tile = tile;
         tile.monster = this;                             
@@ -671,6 +673,7 @@ class Player extends Monster{
         this.noloot = true;
         this.betted = false;
         this.fov = 0;
+        this.souldropped = true;
 
         //status effects
         this.constrict = false;

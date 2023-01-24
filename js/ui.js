@@ -87,6 +87,7 @@ class DrawWheel{
         printAtWordWrap("L",18, 906, 400, "white",20,350);
         let icon = 33;
         if (player.infested > 0) icon = 34;
+        else if (player.tile.souls.length > 0) icon = 48;
         drawSymbol(icon,590,320,64);
         if (gameState == "contemplation"){
             drawSymbol(13, 880, 50, 64);
@@ -195,15 +196,40 @@ class DrawWheel{
         return counts;
     }
 
+    getWheelSpace(){
+        let space = 0;
+        for (let i of this.wheel){
+            if (i instanceof Empty) space++;
+        }
+        return space;
+    }
+
     addSoul(skey){
-        let loot = new skey();
-        if (smod.includes(skey)) modules.push(loot);
-        else{
+        const drops = {
+            "Vile" : Vile,
+            "Feral" : Feral,
+            "Unhinged" : Unhinged,
+            "Artistic" : Artistic,
+            "Ordered" : Ordered,
+            "Saintly" : Saintly,
+        }
+        let loot = new drops[skey.type]();
+        if (this.getWheelSpace() == 0){
             this.discard.push(loot);
-            for (let x of legendaries.active){
-                if (x instanceof Kilami) spells[loot.id](player);
+        }
+        else {
+            for (let i = 0; i < 8; i++){
+                if (this.wheel[i] instanceof Empty) this.wheel[i] = loot;
+                break;
             }
-        }  
+        }
+        for (let x of legendaries.active){
+            if (x instanceof Kilami) spells[loot.id](player);
+        }
+        removeItemOnce(player.tile.souls,skey);
+        removeItemOnce(droppedsouls,skey);
+        skey.attach.soulless = true;
+        skey.attach.pushable = true;
     }
 
     discardSoul(index){
@@ -342,6 +368,12 @@ class DrawWheel{
     drawSoul(){
         if (player.infested > 0){
             this.breatheSoul();
+            return;
+        }
+        if (player.tile.souls.length > 0){
+            for (let i of player.tile.souls){
+                this.addSoul(i);
+            }
             return;
         }
         if (gameState == "discard"){
