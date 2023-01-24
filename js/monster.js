@@ -71,6 +71,66 @@ class Cursor{
     }
 }
 
+class DroppedSoul{
+    constructor(tile, type, attach){
+        this.move(tile);
+        const sprites = {
+            "Saintly" : 0,
+            "Ordered" : 1,
+            "Artistic" : 2,
+            "Unhinged" : 3,
+            "Feral" : 4,
+            "Vile" : 5, 
+        }
+        this.type = type;
+        this.sprite = sprites[type];
+        this.offsetX = 0;                                                   
+        this.offsetY = 0;
+        this.attach = attach;
+        this.speed = 1/8;
+    }
+
+    getDisplayX(){                     
+        return this.tile.x + this.offsetX;
+    }
+
+    getDisplayY(){                                                                  
+        return this.tile.y + this.offsetY;
+    }
+
+    move(tile){
+        if(this.tile){
+            removeItemOnce(this.tile.souls,this);
+            this.offsetX = this.tile.x - tile.x;    
+            this.offsetY = this.tile.y - tile.y;
+            this.speed = 1/8*(Math.abs(this.offsetX)+Math.abs(this.offsetY));
+        }
+        this.tile = tile;
+        this.tile.souls.push(this);                       
+    }
+
+    draw(){
+        if (this.tile == this.attach.tile && this.offsetX == 0 && this.offsetY == 0) return;
+        ctx.globalAlpha = 0.5;
+        drawSymbol(this.sprite, this.getDisplayX()*tileSize + shakeX,  this.getDisplayY()*tileSize + shakeY,tileSize);
+        ctx.globalAlpha = 1;
+        if (false) speed = 1; // ???
+        this.offsetX -= Math.sign(this.offsetX)*(this.speed);     
+        this.offsetY -= Math.sign(this.offsetY)*(this.speed);
+    }
+
+    update(){
+        if (this.attach.soulstun <= 3){
+            this.move(this.attach.tile);
+        }
+        if (this.attach.soulstun < 1){
+            removeItemOnce(this.tile.souls,this);
+            removeItemOnce(droppedsouls,this);
+            this.attach.souldropped = false;
+        }
+    }
+}
+
 class Monster{
     constructor(tile, sprite, hp, loot, lore){
         this.move(tile);
@@ -81,12 +141,14 @@ class Monster{
         this.fp = 0; //it stands for fluffy points
         this.dmg = 1;
         this.loot = loot;
+        this.speed = 1/8;
         this.step = false;
         this.nostun = false;
         this.loveless = false;
         this.teleportCounter = 3;
         this.offsetX = 0;                                                   
-        this.offsetY = 0;      
+        this.offsetY = 0;
+        this.souldropped = false; 
         this.lastMove = [-1,0];
         this.targeted = false;   
         this.bonusAttack = 0;
@@ -107,6 +169,7 @@ class Monster{
         this.shield = 0;
         this.order = -1;
         this.infested = 0;
+        this.soulstun = 0;
         this.previousdir;
         this.lootid = this.loot;
         if (legendaries.castes.includes(this.loot)) this.loot = commoneq[this.loot];
@@ -136,7 +199,11 @@ class Monster{
                 } 
             }
         }
-        if(this.stunned|| this.step ||this.teleportCounter > 0){ 
+        if (this.soulstun > 2){
+            this.soulstun--;
+            return;
+        }
+        if(this.stunned|| this.step ||this.teleportCounter > 0){
             this.stunned = false;
             if (this.step){
                 this.step = false;
@@ -229,16 +296,21 @@ class Monster{
         let newTile = this.tile;
         let testTile = newTile;
         let collision = false;
+        this.soulstun += 3;
         while(power > 0){
             testTile = newTile.getNeighbor(direction[0],direction[1]);
             if(testTile.passable && !testTile.monster){
-                newTile.setEffect(this.sprite,30);
                 newTile = testTile;
                 power--;
             }else{
                 if (!testTile.passable) collision = true;
                 break;
             }
+        }
+        if (!this.souldropped){
+            let testSoul = new DroppedSoul(soulSpawn,this.loot.name,this);
+            droppedsouls.push(testSoul);
+            this.souldropped = true;
         }
         if(true){
             if (!(testTile instanceof AbazonWall)) this.move(newTile);
@@ -248,9 +320,11 @@ class Monster{
             }
             else this.move(newTile);
             if (collision){
-                shakeAmount = 10;
+                this.soulstun += power*2;
+                return true;
             }
         }
+        return false;
     }
 
     draw(){
@@ -265,11 +339,11 @@ class Monster{
             if (this.triggered) chassis = 80;
             if (this.installed && this.sprite != 61) drawSprite(chassis, this.getDisplayX(),  this.getDisplayY());
         }
-        let speed = 1/8;
-        if (this.isPlayer && (this.activemodule == "Thrusters" || this.entranced)) speed = 1;
-        if (this.turbo) speed = 1;
-        this.offsetX -= Math.sign(this.offsetX)*(speed);     
-        this.offsetY -= Math.sign(this.offsetY)*(speed);
+        //let speed = 1/8;
+        //if (this.isPlayer && (this.activemodule == "Thrusters" || this.entranced)) speed = 1;
+        //if (this.turbo) speed = 1;
+        this.offsetX -= Math.sign(this.offsetX)*(this.speed);     
+        this.offsetY -= Math.sign(this.offsetY)*(this.speed);
     }
 
     drawHp(){
@@ -366,6 +440,7 @@ class Monster{
                     log.addLog("LASHOL");
                 }
             }else{
+                let crit;
                 if(((this.isPlayer != newTile.monster.isPlayer)||newTile.monster.marked||(this.charmed && !newTile.monster.isPlayer && !newTile.monster.charmed))&&!this.isPassive && !newTile.monster.isGuide &&!newTile.monster.pushable && !(this.charmed&&newTile.monster.isPlayer)){
                     this.attackedThisTurn = true;
                     let bonusAttack = this.bonusAttack;
@@ -373,7 +448,7 @@ class Monster{
                     if (area == "Spire") newTile.monster.hit(this.dmg + Math.floor(bonusAttack));
                     else newTile.monster.fp++;
                     if (newTile.monster){
-                        if (newTile.monster.fp > 0) newTile.monster.knockback(newTile.monster.fp, [dx, dy]);
+                        if (newTile.monster.fp > 0) crit = newTile.monster.knockback(newTile.monster.fp, [dx, dy]);
                     }
                     if (this.specialAttack == "Charm" && newTile.monster){
                         newTile.monster.charmed = !newTile.monster.charmed;
@@ -423,6 +498,7 @@ class Monster{
                     //this.bonusAttack = 0; //if (this.isPlayer) this.bonusAttack = 99; //godmode
 
                     shakeAmount = 5;
+                    if (crit) shakeAmount = 15;
 
                     this.offsetX = (newTile.x - this.tile.x)/2;         
                     this.offsetY = (newTile.y - this.tile.y)/2;   
@@ -568,6 +644,7 @@ class Monster{
             this.tile.monster = null;
             this.offsetX = this.tile.x - tile.x;    
             this.offsetY = this.tile.y - tile.y;
+            this.speed = 1/8*(Math.abs(this.offsetX)+Math.abs(this.offsetY));
         }
         this.tile = tile;
         tile.monster = this;                             

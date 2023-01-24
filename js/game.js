@@ -218,6 +218,9 @@ function draw(){
                 viewedTiles.push(getTile(i,j));
             }
         }
+        for(let i=0;i<droppedsouls.length;i++){
+            droppedsouls[i].draw();
+        }
         player.draw();
         for(let i=0;i<monsters.length;i++){
             if (viewedTiles.includes(monsters[i].tile) || monsters[i].charmed)monsters[i].draw();
@@ -377,6 +380,9 @@ function tick(){
         }else if (monsters[k].order < 0){
             monsters.splice(k,1);
         }
+    }
+    for(let k=droppedsouls.length-1;k>=0;k--){
+        droppedsouls[k].update();
     }
     if (deadcheck == 0 && level != 0&& area == "Faith"){
         //gener8 sortie si every1 est ded

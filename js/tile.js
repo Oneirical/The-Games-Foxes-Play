@@ -11,6 +11,7 @@ class Tile{
         this.siphon = false;
         this.pin = false;
         this.recallpoint = false;
+        this.souls = [];
     }
 
     replace(newTileType){

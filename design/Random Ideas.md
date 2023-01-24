@@ -2,9 +2,7 @@
 
 **Current Tasks**
 
-* Rewrite Warpwisp lore about Terminal seeing the world in glyphs as a ward against mind control.
-* Dynamic updating of the current room of the map.
-* Creatures can overflow in small rooms.
+* Apis should bring you alongside him when knockbacking.
 
 **Map Variety Project**
 
@@ -44,6 +42,7 @@ If fully Harmonized, Modulators are always Concordant and have no cost. All dama
 
 **Minor Bugs**
 
+* Creatures can overflow in small rooms.
 * Gyvji kills things multiple times over.
 * Lashol has some weird thing going on with its bonus damage.
 * Aube has no texture.
@@ -51,6 +50,8 @@ If fully Harmonized, Modulators are always Concordant and have no cost. All dama
 
 **Low priority nitpicks**
 
+* Rewrite Warpwisp lore about Terminal seeing the world in glyphs as a ward against mind control.
+* Dynamic updating of the current room of the map.
 * Shizapis speaks when she is used, which is not faithful to the lore.
 * Naia is too OP vs Epsilon. Make Epsilon knockback the player and gain invulnerability if he loses more than 33% of his HP in a single turn.
 * In fact, Epsilon needs buffs in general: make the dash leave behind flames, make the lasers do damage.

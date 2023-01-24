@@ -69,6 +69,7 @@
     numTiles = 9;
     var tiles = [];
     var monsters = [];
+    var droppedsouls = [];
     var world;
     area = "Faith";
  
@@ -121,7 +122,8 @@
                 inBigMap = !inBigMap;
             }
             if (e.key == "o"){
-                universe.spreadHarmony(); //debug
+                let testSoul = new DroppedSoul(player.tile,"Vile");
+                player.tile.souls.push(testSoul);
             }
             if (inInventory){
                 if (e.key >= 1 && e.key <= 6) legendaries.storeSoul(e.key-1);

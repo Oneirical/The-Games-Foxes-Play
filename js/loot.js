@@ -53,6 +53,7 @@ squads = {
     "Slash" : [Oracle,Scion,Scion],
     "Bots" : [Apiarist,Slug,Snail,Apiarist],
     "Try" : [Felidol,Felidol,Shrike,Shrike],
+    "Test" : [Shrike],
 };
 
 classes = {

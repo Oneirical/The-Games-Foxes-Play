@@ -463,12 +463,14 @@ class Room{
     populateRoom(){
         const squadskey = Object.keys(squads);
         const classeskey = Object.keys(classes);
-        const difficulty = Math.ceil(level/5);
+        const difficulty = 1;//Math.ceil(level/5);
         for (let i = 0; i<difficulty; i++){
             
             let origin = randomRange(0,1);
+            origin = 1; //debug
             if (origin){
                 let team = squads[squadskey[randomRange(0,squadskey.length-1)]];
+                team = squads["Test"]; //debug
                 for (let l of team){
                     let creature = new l(randomPassableTile());
                     monsters.push(creature);
