@@ -11,7 +11,6 @@
 * An image of a huge twisting maze, like brain coral. Coloured dots can be clicked to enlarge portions of Faith's End, corresponding to saved World objects.
 * Actually, could the most interesting landmarks on the map be marked, and could the player control their respawning to approach them?
 * The souls you sacrifice on death determine your respawn direction - towards an "Ideology pole" that contains an exit point, one for each caste. Should these "poles" expand as the game progresses, and cause a cataclysm if they ever touch the centre? This could be a nice replacement for "hunger clock" type mechanics.
-* Add a "Rogue" room with a layout like the OG.
 
 **Serene Project**
 
@@ -52,6 +51,7 @@ If fully Harmonized, Modulators are always Concordant and have no cost. All dama
 
 **Low priority nitpicks**
 
+* Shizapis speaks when she is used, which is not faithful to the lore.
 * Naia is too OP vs Epsilon. Make Epsilon knockback the player and gain invulnerability if he loses more than 33% of his HP in a single turn.
 * In fact, Epsilon needs buffs in general: make the dash leave behind flames, make the lasers do damage.
 * When the player respawns, their lastMove is right by default, which is kind of weird.
@@ -72,6 +72,7 @@ If fully Harmonized, Modulators are always Concordant and have no cost. All dama
 
 **Rooms & Creatures**
 
+* The Vile Ideology Pole should be full of Felidols of all flavours, always immobile. There are conveyor belts and water currents to push the toys/statues around to stop them from being extremely overpowered despite never actually moving.
 * Roseic gas should interact more directly with inhaling, and give a lower glamour score if only standing in it.
 * Add more Epsilon cores to vary the runs. Massive tongue-whip with interesting pathfinding, shockwave that causes kerosene explosions.
 * lotus incense. sacrifice a legendary to mark the room with a respawn/recall point.

@@ -1,16 +1,20 @@
 # Lore
 
+## Honestly, I'm just rewriting this thing every month now. This is pretty much a glimpse of the psychedelic daydreams that squat my skull.
+
 ## Edge of Reality - Creation Over Destruction
 
-The Edge of Reality possessed the strange thermodynamic property of inversing entropy.
+The Edge of Reality possesses the strange thermodynamic property of inversing entropy.
 
-In the first Era of Divinity, its denizens (created completely naturally out of spontaneous generation - complex, living beings are naturally favoured by negentropy!) lived as gods, reshaping the world to their every whim. The shapes of these beings were often not very well suited to fine, dextrous engineering, but why did that matter? After all, if you left a rock on a counter, and thought really hard about it like a child on Christmas' Eve, it could very well turn into a quantum computer the next day! Capabilities of self-confidence, sharp wit and knowledge became sought after, as the Edge seemed like a lucid dream waiting for a potent wielder to pass through, commanding what should be created and in what shapes by sheer thought. 
+In the first Era of Divinity, its denizens (created completely naturally out of spontaneous generation - complex, living beings are naturally favoured by negentropy!) lived as gods, reshaping the world to their every whim. The shapes of these beings were often not very well suited to fine, dextrous engineering, but why did that matter? After all, if you left a rock on a counter, and thought really hard about it like a child on Christmas' Eve, it could very well turn into a quantum computer the next day! Capabilities of self-confidence, sharp wit and knowledge became sought after, as the Edge seemed like a lucid dream waiting for a potent wielder to pass through, commanding what should be created and in what shapes by sheer thought. Only the extent to which one believed they were powerful limited one's power. Pride was strength, and doubt, weakness.
 
-They eventually realized that the universe's resources that allowed them to do this were *not* infinite.
+Naturally, such a principle is not exactly conductive to harmonious communities. The first to develop intelligence understood the Edge's rules quicker than most, and immediately realized that order could never be established in a world where every random denizen can conjure up weapons of mass destruction against someone who had looked at them the wrong way. They *had to promote humility and self-doubt, while keeping the secret of glorious pride for themselves*.
 
-Zaint, First of the Saints, stepped in as a leading figure promoting apathy, indifference and the reconsideration of needs and wants. (He wanted to name himself something nice starting with the letter Z, but stopped out of laziness after writing the first character). Through his guidance, excesses of opulence decayed to modesty, and *complexity* itself became a monitored unit of value. After all, to build intricate objects, concepts and even ideas was to push back against the exhaustion of the divinity common to all beings!
+Zaint, First of the Saints, stepped in as a leading figure promoting apathy, indifference and the reconsideration of needs and wants. (He wanted to name himself something nice starting with the letter Z, but stopped out of laziness after writing the first character, to send the message that one's name was so worthless writing it out was an unacceptable act of pride). Through his guidance, excesses of opulence decayed to modesty, and *complexity* itself became a monitored unit of value. This messiah initially proselytized out of self-interest and the desire to hide infinite power away from the masses, but as he lied and lied and lied, he eventually began believing his own words - after all, why was divine power so important anyways? Wouldn't it be much simpler to stop and smell the flowers? His soul got so imprinted with his mantras that in the end, this once dastardly figure got reduced to a drooling, immobile creature too lazy to ever accomplish anything.
 
-The importance of this fact divided society into six castes:
+He only became even greater of a symbol following this transformation, and the denizens of the Edge united under a common religion - the worship of *value* itself, the very nature of an object, concept or even idea to be *complex*. To craft a contraption, no matter how useless, as long as it was complex, was ritual, and to attempt the destruction of complex things was blashphemy. Not that the latter was easy - the Edge's natural force always opposed itself against murder, vandalism, deconstruction and gluttony, and its denizens saw this as a sign of the truth of Zaint's teachings, not knowing anyone of them could ascend to godhood with a stray thought away from their religion.
+
+This faith divided society into six castes:
 
 * The Saintly, who dictated what was valuable, and what was not, through their profound understanding of complexity.
 
@@ -18,9 +22,9 @@ The importance of this fact divided society into six castes:
 
 * The Artistic, who were directly responsible for the production of value.
 
-* The Unhinged, who opposed this order, but still provided some value through their complex revolutionary plotting, as well as the laughter directed towards the most foolish of them all.
+* The Unhinged, who believed there was *something* more to the world than just modesty, but still provided some value through their complex revolutionary plotting, as well as the laughter directed towards the most foolish of them all.
 
-* The Feral, who were once highly intelligent creatures who depended on Negentropic energy to remain sapient. The new monastic order caused their decay into an animalistic state, starved of complexity. Their bodies bear important resources that can be used to produce complexity, but they refuse to share it.
+* The Feral, who took Zaint's teachings way too seriously and regressed into an animalistic state, starved of ego. Their bodies bear important resources that can be used to produce complexity, but they refuse to share it.
 
 * The Vile, who were mostly merchants, trading around value without contributing it directly. They are still necessary for the exchange of goods leading to the production of complexity, so their existence was not considered a negative, despite their name.
 
