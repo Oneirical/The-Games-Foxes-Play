@@ -24,6 +24,8 @@ It is inspired from the Serene Spire mechanic I showed off exactly a month ago, 
 * The player can take this opportunity to slurp up the Soul, and permanently disable the enemy it is attached to. The newly acquired Soul can immediately be used to cast spells.
 * The soulless husk left behind becomes a simple obstacle, and can be pushed and pulled around.
 
-Of course, a [demonstration]() is worth much more than a mere bullet point explanation.
+Of course, a [demonstration](https://youtu.be/52Dhgk8Rky4) is worth much more than a mere bullet point explanation.
 
 As there is so much more to take into account, even slaying 3 basic enemies in one room is now much harder. This is exactly what I wanted - I don't have to spam enemy spawns absolutely everywhere to challenge the player anymore, and the power growth curve can afford to be stretched out for much longer.
+
+Not the most productive week ever, but it is temporary. Those who know where my Reddit/Github profile picture is from will understand.
