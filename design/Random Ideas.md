@@ -3,6 +3,8 @@
 **Current Tasks**
 
 * Apis should bring you alongside him when knockbacking.
+* Progressive map reveal.
+* Wandering creatures that progressively get more OP as they collect Souls.
 
 **Map Variety Project**
 

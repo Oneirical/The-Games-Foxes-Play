@@ -65,7 +65,7 @@ class DrawWheel{
         this.hotkeycoords = [[center[0], center[1]-dist],[center[0]+Math.cos(pi/4)*dist, center[1]-Math.sin(pi/4)*dist],[center[0]+dist, center[1]],[center[0]+Math.cos(pi/4)*dist, center[1]+Math.sin(pi/4)*dist],[center[0], center[1]+dist],[center[0]-Math.cos(pi/4)*dist, center[1]+Math.sin(pi/4)*dist],[center[0]-dist, center[1]],[center[0]-Math.cos(pi/4)*dist, center[1]-Math.sin(pi/4)*dist]];
 
         this.pile = [];
-        this.discard = []; //
+        this.discard = [new Feral(),new Feral(),new Feral()]; //
         this.saved = [new Empty(),new Empty(),new Empty(),new Empty(),new Empty(),new Empty(),new Empty(),new Empty()];
         this.resolve = 3; //update this later with the bonus
         this.castes = [new Saintly(),new Ordered(),new Artistic(),new Unhinged(),new Feral(),new Vile()];
@@ -126,7 +126,9 @@ class DrawWheel{
         }
         else{
             drawSymbol(12, 880, 50, 64);
-            printAtSidebar(wheel.resolve+"/"+(3+Math.floor(resolvebonus/2))+" ", 23, 835, 90, "lightskyblue", 20, 350);
+            let colour = "lightskyblue";
+            if (this.resolve < 1) colour = "red";
+            printAtSidebar(this.resolve+"/"+(3+Math.floor(resolvebonus/2))+" ", 23, 835, 90, colour, 20, 350);
         }
         printAtSidebar(" "+truehp, 23, 660, 90, "plum", 20, 350);
 
