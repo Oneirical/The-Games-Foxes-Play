@@ -40,7 +40,6 @@ class Universe{
         world.confirmWorld();
         this.infestRandom();
         world.currentroom = [4,4];
-        world.rooms[4][8].visited = true;
         world.playRoom(world.rooms[4][4],startingHp);
         log.addLog("MapDebug");
     }
@@ -181,7 +180,7 @@ class World{
         drawFilter(blackfilter);
         for(let y = 0; y<9;y++){
             for(let x = 0; x<9;x++){
-                if (this.rooms[x][y].tangible){
+                if (this.rooms[x][y].tangible && this.rooms[x][y].visited){
                     for(let i = 0; i<this.rooms[x][y].size;i++){
                         for (let j = 0; j<this.rooms[x][y].size; j++){
                             drawPixel(this.checkPixel(this.rooms[x][y].tiles[i][j]),i*7.11+x*64,j*7.11+y*64);
