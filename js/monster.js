@@ -1215,7 +1215,6 @@ class Tinker extends Monster{
 }
 
 class Harmonizer extends Monster{
-    
     constructor(tile){
         super(tile, 26, 1, "SERENE", description["Harmonizer"]);
         this.teleportCounter = 0;

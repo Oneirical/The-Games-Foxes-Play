@@ -1,5 +1,7 @@
 ## This is a chaotic canvas on which I launch all the random things I come up with while going about my day and bugs I notice throughout playtesting. It is not meant to be comprehensible.
 
+Terminal > Universe > World > Room > Terminal
+
 **Current Tasks**
 
 * Apis should bring you alongside him when knockbacking.
@@ -52,7 +54,7 @@ If fully Harmonized, Modulators are always Concordant and have no cost. All dama
 
 **Low priority nitpicks**
 
-* Rewrite Warpwisp lore about Terminal seeing the world in glyphs as a ward against mind control.
+* Epsilon's vulnerability markings cause confusion.
 * Dynamic updating of the current room of the map.
 * Shizapis speaks when she is used, which is not faithful to the lore.
 * Naia is too OP vs Epsilon. Make Epsilon knockback the player and gain invulnerability if he loses more than 33% of his HP in a single turn.
@@ -70,7 +72,7 @@ If fully Harmonized, Modulators are always Concordant and have no cost. All dama
 * Cool sliding animation in Inventory/Modules.
 * Bring back the glamour counter. Make the filter scale with glamour level too.
 * Make mouse movement follow Terminal.
-* A confirm prompt if you draw after 0 resolve. Also make the resolve counter red at 0.
+* A confirm prompt if you draw after 0 resolve.
 * numeric system based on basic castes.
 
 **Rooms & Creatures**
@@ -99,6 +101,7 @@ If fully Harmonized, Modulators are always Concordant and have no cost. All dama
 * Also his name is just zaint because he started with a Z, but never finished out of laziness and just kept calling himself "saint" after his noble title.
 * He should be placed in the title screen and talk to new players. And also go blehh a lot. While the player is slightly translucent.
 * If Fluffy is Pride incarnate, Terminal is Envy incarnate - gnawing, coveting value. It is only right that it would be put against a being of infinite value...
+* Rewrite Warpwisp lore about Terminal seeing the world in glyphs as a ward against mind control.
 
 **Souls**
 

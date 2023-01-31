@@ -38,37 +38,54 @@ class Universe{
         this.currentworld = position;
         world = this.worlds[position[0]][position[1]];
         world.confirmWorld();
-        this.infestRandom();
+        for (let i = 1; i<7;i++){
+            this.infestRandom(i);
+        }
+        let i = 0;
+        while(i < 300){
+            if (this.spreadHarmony()) break;
+            i++;
+        }
         world.currentroom = [4,4];
         world.playRoom(world.rooms[4][4],startingHp);
         log.addLog("MapDebug");
     }
 
-    infestRandom(){
+    infestRandom(faction){
         const debut = this.randomAvailableWorld();
-        const position = [debut.x,debut.y];
-        this.worlds[position[0]][position[1]].serene = true;
+        let position = [debut.x,debut.y];
+        const positions = {
+            1: [41,41],
+            2: [1,1],
+            3: [79,1],
+            4: [1,79],
+            5: position,
+            6: [79,79]
+        }
+        position = positions[faction];
+        this.worlds[position[0]][position[1]].faction = faction;
     }
 
     spreadHarmony(){
+        let finished = true;
         for (let i = 0; i<80;i++){
             for (let j = 0; j<80;j++){
-                if (this.worlds[i][j].serene && !this.worlds[i][j].finishedspread){
+                if (this.worlds[i][j].faction > 0 && !this.worlds[i][j].finishedspread){
                     this.worlds[i][j].finishedspread = true;
-                    if (this.worlds[i+1][j].isAccessible && !this.worlds[i+1][j].serene){
-                        this.worlds[i+1][j].serene = true;
+                    if (this.worlds[i+1][j].isAccessible && this.worlds[i+1][j].faction == 0){
+                        this.worlds[i+1][j].faction = this.worlds[i][j].faction;
                         this.worlds[i+1][j].finishedspread = true;
                     }
-                    if (this.worlds[i-1][j].isAccessible && !this.worlds[i-1][j].serene){
-                    this.worlds[i-1][j].serene = true;
+                    if (this.worlds[i-1][j].isAccessible && this.worlds[i-1][j].faction == 0){
+                    this.worlds[i-1][j].faction = this.worlds[i][j].faction;
                     this.worlds[i-1][j].finishedspread = true;
                     }
-                    if (this.worlds[i][j+1].isAccessible && !this.worlds[i][j+1].serene){
-                    this.worlds[i][j+1].serene = true;
+                    if (this.worlds[i][j+1].isAccessible && this.worlds[i][j+1].faction == 0){
+                    this.worlds[i][j+1].faction = this.worlds[i][j].faction;
                     this.worlds[i][j+1].finishedspread = true;
                     }
-                    if (this.worlds[i][j-1].isAccessible && !this.worlds[i][j-1].serene){
-                    this.worlds[i][j-1].serene = true;
+                    if (this.worlds[i][j-1].isAccessible && this.worlds[i][j-1].faction == 0){
+                    this.worlds[i][j-1].faction = this.worlds[i][j].faction;
                     this.worlds[i][j-1].finishedspread = true;
                     }
                 }
@@ -77,17 +94,19 @@ class Universe{
         for (let i = 0; i<80;i++){
             for (let j = 0; j<80;j++){
                 this.worlds[i][j].finishedspread = false;
+                if (this.worlds[i][j].faction == 0) finished = false;
             }
         }
+        return finished;
     }
 
     randomAvailableWorld(){
         let world;
         tryTo('get random passable world', function(){
-            let x = randomRange(0,80);
-            let y = randomRange(0,80);
+            let x = randomRange(50,70);
+            let y = randomRange(50,70);
             world = universe.worlds[x][y];
-            return (world.isAccessible);
+            return (world.isAccessible && world.faction == 0);
         });
         return world;
     }
@@ -160,6 +179,7 @@ class World{
         this.generated = false;
         this.currentroom = [4,4]; //parseInt((randomRange(0,8).toString()+randomRange(0,8).toString()));
         this.serene = false;
+        this.faction = 0;
         this.fighting = false;
         this.rooms;
     }
@@ -172,6 +192,16 @@ class World{
     }
 
     represent(colour){
+        const factionc = {
+            0: 0,
+            1: 8,
+            2: 9,
+            3: 10,
+            4: 11,
+            5: 12,
+            6: 13
+        }
+        if (this.isAccessible) colour = factionc[this.faction];
         if (this.serene && this.isAccessible) colour = 4;
         drawPixel(colour,this.x*7.11,this.y*7.11);
     }
