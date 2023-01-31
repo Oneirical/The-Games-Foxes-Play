@@ -98,6 +98,7 @@ If fully Harmonized, Modulators are always Concordant and have no cost. All dama
 * Zaint's philosophy is apathy and detatchment. This makes sense, because altruism has no place in a world where literally everyone is a god with unlimited resources.
 * Also his name is just zaint because he started with a Z, but never finished out of laziness and just kept calling himself "saint" after his noble title.
 * He should be placed in the title screen and talk to new players. And also go blehh a lot. While the player is slightly translucent.
+* If Fluffy is Pride incarnate, Terminal is Envy incarnate - gnawing, coveting value. It is only right that it would be put against a being of infinite value...
 
 **Souls**
 
@@ -134,7 +135,7 @@ If fully Harmonized, Modulators are always Concordant and have no cost. All dama
 * The final boss being inspired by M. Industries. Inside Ronin's spaceship (built out of negentropic force), farm tokens on 4 plates while being assailed by the Harmony, and buy upgrades in the form of pushable boxes to give more firepower to Ronin's squad.
 * Ronin's weapon should be a big-ass war vacuum.
 * Also look into a possible internet component to this encounter.
-* If a trailer is ever made it should not be a trailer, but rather pure boss battle footage with Zaint who criticizes the concept of trailers. After all, if an image is worth a thousand words, surely a video must be worth a million.
+* If a trailer is ever made it should not be a trailer, but rather pure boss battle footage with Zaint who criticizes the concept of trailers. After all, if an image is worth a thousand words, surely a video must be worth a million. Maybe put regular game footage in generic trailer format, with the Harmony subtly replacing elements here and there, or even pausing the music and showing off one of their rooms before the video switches to something else like nothing happened. Have them take over the footage progressively.
 * Bringing Sugcha all the way to the end of the game should result in something funny.
 * A Zaint-themed room that makes you forgo ever getting achievements to cleanse your mind of external motivation.
 * Zaint should open a joke metaprogression shop that does something ridiculously insignificant, like 1/1 million chance of gaining 1 bonus damage per hit or changing the colour of something in the GUI.

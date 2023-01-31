@@ -10,13 +10,6 @@ function generateATonOfWalls(){
     });                                    
 }
 
-function generateEdgeLevel(){
-    tryTo('generate map', function(){
-        return generateEdge() == randomPassableTile().getConnectedTiles().length;
-        
-    });
-}
-
 function generateWalls(){
     let passableTiles=0;
     for(let i=world.getRoom().extreme["W"]+1;i<world.getRoom().extreme["E"];i++){
@@ -160,7 +153,7 @@ function generateRelay(){
     }
 }
 
-function blockedExits(connector){
+function blockedExits(){
     let exitlocations = world.getRoom().possibleexits;
     let returnpoint = world.getRoom().returnpoint;
     let shifts;
@@ -192,24 +185,6 @@ function blockedExits(connector){
         world.getRoom().playerspawn = [playerspawner.x+playerspawner.textures[playerspawner.direction + "W"][0], playerspawner.y+playerspawner.textures[playerspawner.direction + "W"][1]];
     }
 
-}
-
-function generateEdge(section){
-    let passableTiles=0;
-    tiles = [];
-    for(let i=0;i<numTiles;i++){
-        tiles[i] = [];
-        for(let j=0;j<numTiles;j++){
-            if(Math.random() < 0.3){
-                tiles[i][j] = new RealityWall(i,j);
-            }
-            else{
-                tiles[i][j] = new Floor(i,j);
-                passableTiles++;
-            }
-        }
-    }
-    return passableTiles;
 }
 
 function generateSpire(){
@@ -300,37 +275,6 @@ function generateCircus(){
         15: [RoseWall,RoseServant,RoseWall,RoseWall,RoseWall,RoseWall,RoseWall,Goop,Goop,Goop,Goop,RoseWall,RoseWall,RoseWall,RoseWall,RoseWall,RoseServant,RoseWall],
         16: [RoseWall,AbazonWall,RoseServant,AbazonWall,RoseServant,AbazonWall,RoseWall , Goop,Goop,Goop,Goop, RoseWall, AbazonWall,RoseServant,AbazonWall,RoseServant,AbazonWall, RoseWall],
         17: [RoseWall,RoseWall,RoseWall,RoseWall,RoseWall,RoseWall,RoseWall,RoseWall,RoseWall,RoseWall,RoseWall,RoseWall,RoseWall,RoseWall,RoseWall,RoseWall,RoseWall,RoseWall]
-    }
-    tiles = [];
-    for(let i=0;i<numTiles;i++){
-        tiles[i] = [];
-        for(let j=0;j<numTiles;j++){
-            let tile = vault[j][i];
-            tiles[i][j] = new tile(i,j);
-        }
-    }
-}
-
-function generateEpsilon(){
-    let vault = {
-        0: [Wall,BExit,Wall,Wall,Wall,Wall,Wall,Wall,Wall,Wall,Wall,Wall,Wall,Wall,Wall,Wall,Wall,Wall],
-        1: [Wall,Floor,Wall,Floor,Wall,Floor,Floor,Floor,Floor,Floor,Wall,Floor,Wall,Floor,Floor,Floor,Floor,BExit],
-        2: [Wall,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Wall,Wall],
-        3: [Wall,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Wall],
-        4: [Wall,Floor,Floor,Floor,Wall,Wall,Floor,Floor,Floor,Floor,Floor,Floor,Wall,Wall,Floor,Floor,Wall,Wall],
-        5: [Wall,Wall,Floor,Floor,Wall,Mobilizer,Floor,Floor,Floor,Floor,Floor,Floor,Mobilizer,Wall,Floor,Floor,Floor,Wall],
-        6: [Wall,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Wall],
-        7: [Wall,Wall,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Wall],
-        8: [Wall,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Wall],
-        9: [Wall,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Wall],
-        10: [Wall,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Wall,Wall],
-        11: [Wall,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Wall],
-        12: [Wall,Floor,Floor,Floor,Wall,Mobilizer,Floor,Floor,Floor,Floor,Floor,Floor,Mobilizer,Wall,Floor,Floor,Wall,Wall],
-        13: [Wall,Wall,Floor,Floor,Wall,Wall,Floor,Floor,Floor,Floor,Floor,Floor,Wall,Wall,Floor,Floor,Floor,Wall],
-        14: [Wall,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Wall],
-        15: [Wall,Wall,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Wall],
-        16: [BExit,Floor,Floor,Floor,Floor,Wall,Floor,Wall,Floor,Floor,Floor,Floor,Floor,Wall,Floor,Wall,Floor,Wall],
-        17: [Wall,Wall,Wall,Wall,Wall,Wall,Wall,Wall,Wall,Wall,Wall,Wall,Wall,Wall,Wall,Wall,BExit,Wall]
     }
     tiles = [];
     for(let i=0;i<numTiles;i++){
