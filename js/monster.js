@@ -344,12 +344,14 @@ class Monster{
         //let speed = 1/8;
         //if (this.isPlayer && (this.activemodule == "Thrusters" || this.entranced)) speed = 1;
         //if (this.turbo) speed = 1;
-        this.offsetX -= Math.sign(this.offsetX)*(this.anispeed);     
-        this.offsetY -= Math.sign(this.offsetY)*(this.anispeed);
+        if (this.offsetX >= 0) this.offsetX = Math.max(this.offsetX - Math.sign(this.offsetX)*(this.anispeed),0);
+        else this.offsetX = Math.min(this.offsetX - Math.sign(this.offsetX)*(this.anispeed),0);
+        if (this.offsetY >= 0) this.offsetY = Math.max(this.offsetY - Math.sign(this.offsetY)*(this.anispeed),0);
+        else this.offsetY = Math.min(this.offsetY - Math.sign(this.offsetY)*(this.anispeed),0);
     }
 
     drawHp(){
-        if (!this.isInvincible && this.order < 0){
+        if (!this.isInvincible && this.order < 0 && false){
             for(let i=0; i<this.hp; i++){
                 drawSprite(
                     9,
@@ -1254,8 +1256,19 @@ class Blehh extends Monster{
         this.soul = "Animated by a Saintly (6) soul.";
         this.name = "Zaint, First of the Saints";
         this.teleportCounter = 0;
-        this.paralyzed = true;
         this.ability = "";
+        this.stage = 0;
+    }
+
+    update(){
+        if (this.stage == 1){
+            let startedStunned = this.stunned;
+            super.update();
+            if(!startedStunned){
+                this.stunned = true;
+            }
+        }
+        else super.update();
     }
 }
 

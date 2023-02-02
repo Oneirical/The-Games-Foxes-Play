@@ -738,6 +738,7 @@ class WorldSeed extends DefaultVaultRoom{
         this.name = "World Seed";
         this.music = "cage";
         this.filler = TermiWall;
+        this.stage = 0;
     }
 
     initializeRoom(){
@@ -752,7 +753,49 @@ class WorldSeed extends DefaultVaultRoom{
         world.getRoom().monsters = monsters;
         generateVault("Tutorial",this);
         let monster = new Blehh(getTile(4,2));
-        this.monsters.push(monster);
+        monster.paralyzed = true;
+        monsters.push(monster);
+    }
+
+    progressTutorial(stage){
+        for (let i of tiles){
+            for (let j of i){
+                if (j.monster && j.monster instanceof Blehh) j.monster = null;
+            }
+        }
+        player.move(getTile(4,4));
+        monsters = [];
+        let source;
+        let monster = new Blehh(getTile(4,2));
+        monster.stage = stage;
+        switch(stage){
+            case 1:
+                break;
+            case 2:
+                break;
+            case 3:
+                source = new Apiarist(getTile(4,6));
+                monsters.push(source);
+                monster.canmove = false;
+                break;
+            case 4:
+                source = new Tinker(getTile(4,6));
+                monsters.push(source);
+                break;
+            case 5:
+                source = new Apis(getTile(4,6));
+                monsters.push(source);
+                break;
+            case 6:
+                source = new Shrike(getTile(4,6));
+                monsters.push(source);
+                break;
+            case 7:
+                source = new Second(getTile(4,6));
+                monsters.push(source);
+                break;
+        }
+        monsters.push(monster);
     }
 
     populateRoom(){

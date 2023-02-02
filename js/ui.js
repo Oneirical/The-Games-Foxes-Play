@@ -221,8 +221,10 @@ class DrawWheel{
         }
         else {
             for (let i = 0; i < 8; i++){
-                if (this.wheel[i] instanceof Empty) this.wheel[i] = loot;
-                break;
+                if (this.wheel[i] instanceof Empty){
+                    this.wheel[i] = loot;
+                    break;
+                }
             }
         }
         for (let x of legendaries.active){
@@ -232,6 +234,10 @@ class DrawWheel{
         removeItemOnce(droppedsouls,skey);
         skey.attach.soulless = true;
         skey.attach.pushable = true;
+        if (world.getRoom() instanceof WorldSeed){
+            world.getRoom().stage++;
+            world.getRoom().progressTutorial(world.getRoom().stage);
+        }
     }
 
     discardSoul(index){
