@@ -1248,6 +1248,17 @@ class Cage extends Monster{
     }
 }
 
+class Blehh extends Monster{
+    constructor(tile){
+        super(tile, 95, 1, "SAINTLY", description["Cage"]);
+        this.soul = "Animated by a Saintly (6) soul.";
+        this.name = "Zaint, First of the Saints";
+        this.teleportCounter = 0;
+        this.paralyzed = true;
+        this.ability = "";
+    }
+}
+
 class BattleFluffy extends Monster{
     constructor(tile){
         super(tile, 26, 5, "SERENE", description["Peacemaker"]);

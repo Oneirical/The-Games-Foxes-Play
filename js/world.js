@@ -744,6 +744,15 @@ class WorldSeed extends DefaultVaultRoom{
         world.fighting = false;
         super.initializeRoom();
         summonExits();
+        this.startTutorial();
+    }
+
+    startTutorial(){
+        world.getRoom().tiles = tiles;
+        world.getRoom().monsters = monsters;
+        generateVault("Tutorial",this);
+        let monster = new Blehh(getTile(4,2));
+        this.monsters.push(monster);
     }
 
     populateRoom(){

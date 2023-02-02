@@ -15,7 +15,19 @@ var key = {
 //spawns: N - W - E - S
 
 var rooms = {
-    "Seed" : { //currently unused because it explodes everything
+    "Tutorial" : {
+        0 : "TTTTTTTTT",
+        1 : "T.......T",
+        2 : "T.......T",
+        3 : "T.......T",
+        4 : "T.......T",
+        5 : "T.......T",
+        6 : "T.......T",
+        7 : "T.......T",
+        8 : "TTTTTTTTT",
+        "tags": [],
+    },
+    "Seed" : {
         0 : "TTTTETTTT",
         1 : "T.......T",
         2 : "T.......T",
