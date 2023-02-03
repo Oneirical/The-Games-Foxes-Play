@@ -166,6 +166,10 @@ messages = {
     "RoseEdge4" : "\"And now, the Next World, under the iron paw of the Harmony, will have this primordial force exploited anew, this time by organized, intelligent minds with a passion for growth.\"",
     "RoseEdgeBoss" : "\"A shame we won't be around to witness it, beloved Terminal. We can only stay here and dream. And to think you wanted to prevent this!\"",
 
+    // Zaint, First of the Saints
+
+    "Blehh" : "blehh :3",
+
     // Epsilon, Supreme Ordered General
 
     "EpsilonWelcome1" : "\"Orders given: While Vessel lives, overwhelm lesser Vessel organic sensors with stimuli of 100 lumens/W and 300 dB. For each Soul in Vessel, swap data-type to Ordered type.\"",
