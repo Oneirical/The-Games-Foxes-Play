@@ -120,9 +120,8 @@
             if (e.key == "k"){
                 inBigMap = !inBigMap;
             }
-            if (e.key == "o"){
-                let testSoul = new DroppedSoul(player.tile,"Vile");
-                player.tile.souls.push(testSoul);
+            if (e.key == "o"){ // debug
+                player.tile.replace(Wall);
             }
             if (inInventory){
                 if (e.key >= 1 && e.key <= 6) legendaries.storeSoul(e.key-1);

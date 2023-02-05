@@ -222,6 +222,7 @@ class World{
         }
         for(let i = 0; i<numTiles;i++){
             for (let j = 0; j<numTiles; j++){
+                drawPixel(this.checkPixel(tiles[i][j]),i*7.11+this.currentroom[0]*64,j*7.11+this.currentroom[1]*64);
                 if (tiles[i][j].monster && tiles[i][j].monster.isPlayer) drawPixel(3,i*7.11+this.currentroom[0]*64,j*7.11+this.currentroom[1]*64);
             }
         }
