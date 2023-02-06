@@ -8,6 +8,8 @@ Terminal > Universe > World > Room > Terminal
 * Progressive map reveal.
 * Wandering creatures that progressively get more OP as they collect Souls.
 
+* Narrow down the scope and refactor the soul-slurping. Stay inside a single world, and defend it with Rose's assistance.
+
 **Map Variety Project**
 
 * An image of a huge twisting maze, like brain coral. Coloured dots can be clicked to enlarge portions of Faith's End, corresponding to saved World objects.
