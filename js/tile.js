@@ -395,29 +395,6 @@ class MapExit extends Tile{
     }
 }
 
-class BReturnExit extends Tile{
-    constructor(x,y){
-        super(x, y, 17, false);
-        this.lore = description["Seal"];
-        this.name = "Soulsteel Seal";
-        this.eat = false;
-        //this.tile = 56;
-        this.id = -1;
-        this.checkDirection();
-        this.textures = {
-            "N" : 84,
-            "S" : 17,
-            "W" : 83,
-            "E" : 85,
-            "NW" : [0,1],
-            "SW" : [0,-1],
-            "WW" : [1,0],
-            "EW" : [-1,0],
-        }
-        this.sprite = this.textures[this.direction];
-    }
-}
-
 class TermiWall extends Wall{
     constructor(x, y){
         super(x, y, 37, false);

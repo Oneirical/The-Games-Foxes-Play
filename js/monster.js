@@ -946,30 +946,6 @@ class Player extends Monster{
             fail = false;
         }
     }
-    
-    removeSpell(index){
-        let removeName = this.inhand[index];
-        if (removeName){
-            if (agony > 0){
-                if (removeName == "SERENE" && agony < 3){
-                    log.addLog("FluffyNoRemoveTaunt");
-                }
-                else{
-                    if (removeName == "SERENE") agony -= 3;
-                    else agony--;
-                    this.inhand.splice(index, 1);
-                    resolvebonus++;
-                    if (falseagony){
-                        gameState = "running";
-                        falseagony = false;
-                    }
-                }
-            }
-            else{
-                log.addLog("AgonyWarning");
-            }
-        }
-    }
 
     discardSpell(index){
         let discardName = this.vision[index];
