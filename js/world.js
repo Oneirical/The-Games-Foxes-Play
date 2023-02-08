@@ -206,7 +206,7 @@ class World{
         drawPixel(colour,this.x*7.11,this.y*7.11);
     }
 
-    displayTrue(){
+    display(){
         drawFilter(blackfilter);
         for(let y = 0; y<9;y++){
             for(let x = 0; x<9;x++){

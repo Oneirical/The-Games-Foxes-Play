@@ -303,7 +303,7 @@ function draw(){
         ctx.moveTo(577, 577);
         ctx.lineTo(577, 0);
         ctx.stroke();
-        if (inMap) world.displayTrue();
+        if (inMap) world.display();
         if (inBigMap) universe.display(); // break in case of sanity
 
         //mouseclick lines
