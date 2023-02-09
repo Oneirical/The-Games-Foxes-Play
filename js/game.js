@@ -650,9 +650,16 @@ function printAtSidebar(text, size, x, y, color, lineHeight, fitWidth)
 function reloadGame(){
     let saveData = JSON.parse(localStorage["saves"]);
     let reloadData = {1 : monsters, 2 : tiles, 3 : player, 4 : world, 5 : wheel, 6 : log};
+    let reloader = function(player){
+        Object.keys(player).forEach(function(key){
+            player[key] = saveData[key] 
+        });
+        return player;
+    }
+    player = reloader(player);
     //monsters = saveData[1];
-    tiles = saveData[2];
-    player = saveData[3];
+    //tiles = saveData[2];
+    //player = saveData[3];
      
 }
 
@@ -671,7 +678,7 @@ function saveGame(){
           return value;
         };
       };
-    localStorage["saves"] = JSON.stringify(saveFile, getCircularReplacer());
+    localStorage["saves"] = JSON.stringify(player, getCircularReplacer());
 }
 
 function drawScores(){
