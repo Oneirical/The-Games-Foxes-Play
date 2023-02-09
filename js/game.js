@@ -647,31 +647,31 @@ function printAtSidebar(text, size, x, y, color, lineHeight, fitWidth)
         ctx.fillText( words.join(' '), sx, y + (lineHeight*currentLine) );
 }
 
-function getScores(){
-    if(localStorage["scores"]){
-        return JSON.parse(localStorage["scores"]);
-    }else{
-        return [];
-    }
+function reloadGame(){
+    let saveData = JSON.parse(localStorage["saves"]);
+    let reloadData = {1 : monsters, 2 : tiles, 3 : player, 4 : world, 5 : wheel, 6 : log};
+    //monsters = saveData[1];
+    tiles = saveData[2];
+    player = saveData[3];
+     
 }
 
-function addScore(score, won){
-    localStorage.clear()
-    let scores = getScores();
-    let scoreObject = {score: score, run: 1, totalScore: score, active: won};
-    let lastScore = scores.pop();
-
-    if(lastScore){
-        if(lastScore.active){
-            scoreObject.run = lastScore.run+1;
-            scoreObject.totalScore += lastScore.totalScore;
-        }else{
-            scores.push(lastScore);
-        }
-    }
-    scores.push(scoreObject);
-
-    localStorage["scores"] = JSON.stringify(scores);
+function saveGame(){
+    localStorage.clear();
+    let saveFile = {1 : monsters, 2 : tiles, 3 : player, 4 : world, 5 : wheel, 6 : log};
+    const getCircularReplacer = () => {
+        const seen = new WeakSet();
+        return (key, value) => {
+          if (typeof value === "object" && value !== null) {
+            if (seen.has(value)) {
+              return;
+            }
+            seen.add(value);
+          }
+          return value;
+        };
+      };
+    localStorage["saves"] = JSON.stringify(saveFile, getCircularReplacer());
 }
 
 function drawScores(){
