@@ -357,7 +357,7 @@ class BExit extends Tile{
         this.lore = description["Seal"];
         this.name = "Soulsteel Seal";
         this.eat = false;
-        this.id;
+        this.id = 0;
         this.checkDirection(room);
         this.textures = {
             "N" : 84,
@@ -387,7 +387,7 @@ class MapExit extends Tile{
     stepOn(monster){
         if(monster.isPlayer){
             playSound("newLevel");
-            this.monster = null;
+            this.monster = 0;
             world.saveRoom(world.getRoom());
             universe.spreadHarmony();
             world.enterRoom(this.direction);

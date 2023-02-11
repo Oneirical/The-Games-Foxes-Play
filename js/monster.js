@@ -615,7 +615,7 @@ class Monster{
 
     die(){
         this.dead = true;
-        this.tile.monster = null;
+        this.tile.monster = 0;
         if (player.reaping && !this.charmed && !this.tile.siphon && !this.respawned){
             let husk = new Husk(this.tile);
             monsters.push(husk);
@@ -645,7 +645,7 @@ class Monster{
 
     move(tile){
         if(this.tile){
-            this.tile.monster = null;
+            this.tile.monster = 0;
             this.offsetX = this.tile.x - tile.x;    
             this.offsetY = this.tile.y - tile.y;
             this.anispeed = 1/8*(Math.abs(this.offsetX)+Math.abs(this.offsetY));

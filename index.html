@@ -121,7 +121,11 @@
                 inBigMap = !inBigMap;
             }
             if (e.key == "o"){ // debug
-                player.tile.replace(Wall);
+                saveGame();
+            }
+            if (e.key == "p"){ // debug
+                reloadGame();
+                return;
             }
             if (inInventory){
                 if (e.key >= 1 && e.key <= 6) legendaries.storeSoul(e.key-1);

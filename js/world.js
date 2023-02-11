@@ -658,7 +658,7 @@ class DefaultVaultRoom extends Room{
         for(let i=0;i<this.size;i++){
             this.tiles[i] = [];
             for(let j=0;j<this.size;j++){
-                let tile = key[vault[j][i]];
+                let tile = keytile[vault[j][i]];
                 this.tiles[i][j] = new tile(i,j,this);
             }
         }
@@ -761,7 +761,7 @@ class WorldSeed extends DefaultVaultRoom{
     progressTutorial(stage){
         for (let i of tiles){
             for (let j of i){
-                if (j.monster && j.monster instanceof Blehh) j.monster = null;
+                if (j.monster && j.monster instanceof Blehh) j.monster = 0;
             }
         }
         player.move(getTile(4,4));
@@ -880,7 +880,7 @@ class HarmonyRelay extends DefaultVaultRoom{
         this.entrymessage = "FluffyWelcome";
         this.name = "Test of Unity";
         this.music = "harmony2";
-        this.fuffspawn = null;
+        this.fuffspawn = 0;
         //this.filler = AbazonWall;
         this.id = "Empty";
     }

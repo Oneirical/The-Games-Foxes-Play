@@ -99,7 +99,7 @@ function generateVault(id,room){
     for(let i=0;i<numTiles;i++){
         tiles[i] = [];
         for(let j=0;j<numTiles;j++){
-            let tile = key[vault[j][i]];
+            let tile = keytile[vault[j][i]];
             tiles[i][j] = new tile(i,j,room);
         }
     }

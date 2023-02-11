@@ -1,4 +1,4 @@
-var key = {
+var keytile = {
     "W" : Wall,
     "." : Floor,
     "E" : BExit,

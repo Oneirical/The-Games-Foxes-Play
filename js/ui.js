@@ -303,7 +303,7 @@ class DrawWheel{
                 }
             });
             player.infested++;
-            world.getRoom().fuffspawn = null;
+            world.getRoom().fuffspawn = 0;
             for (let x of this.wheel){
                 if (!(x instanceof Empty)) this.discard.push(x);
             }

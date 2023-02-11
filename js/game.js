@@ -647,22 +647,37 @@ function printAtSidebar(text, size, x, y, color, lineHeight, fitWidth)
         ctx.fillText( words.join(' '), sx, y + (lineHeight*currentLine) );
 }
 
-function reloadGame(){
-    let saveData = JSON.parse(localStorage["saves"]);
-    //let reloadData = {1 : monsters, 2 : tiles, 3 : player, 4 : world, 5 : wheel, 6 : log};
-    let reloader = function(player){
-        Object.keys(player).forEach(function(key){
-            player[key] = saveData[key] 
-        });
-        return player;
+function reviver(_, value) {
+    if(value instanceof Object && Object.prototype.hasOwnProperty.call(value, '__type')) {
+        clazz = eval(`${value.__type}`);
+        if(clazz) {
+            let {__type:_, ...valueWithoutClassName} = value;
+            return Object.assign(new clazz([1,1]), valueWithoutClassName)
+        }
     }
-    player = reloader(player);
+    return value;
+}
+
+function reloadGame(){
+    //let saveData = JSON.parse(localStorage["saves"],reviver);
+    //let reloadData = {1 : monsters, 2 : tiles, 3 : player, 4 : world, 5 : wheel, 6 : log};
+    //let reloader = function(player){
+    //    Object.keys(player).forEach(function(key){
+    //        player[key] = saveData[key] 
+    //    });
+    //    return player;
+    //}
+    wheel = JSON.parse(localStorage["wheel"],reviver);
+    log = JSON.parse(localStorage["log"],reviver);
+    world = JSON.parse(localStorage["world"],reviver);
      
 }
 
 function saveGame(){
     localStorage.clear();
-    //let saveFile = {1 : monsters, 2 : tiles, 3 : player, 4 : world, 5 : wheel, 6 : log};
+
+    //1 : monsters, 2 : tiles, 3 : player, 
+    //let saveFile = {4 : world, 5 : wheel, 6 : log};
     const getCircularReplacer = () => {
         const seen = new WeakSet();
         return (key, value) => {
@@ -672,10 +687,13 @@ function saveGame(){
             }
             seen.add(value);
           }
+          value.__type = value.constructor.name
           return value;
         };
       };
-    localStorage["saves"] = JSON.stringify(player, getCircularReplacer());
+    localStorage["wheel"] = JSON.stringify(wheel, getCircularReplacer());
+    localStorage["log"] = JSON.stringify(log, getCircularReplacer());
+    localStorage["world"] = JSON.stringify(world, getCircularReplacer());
 }
 
 function drawScores(){
