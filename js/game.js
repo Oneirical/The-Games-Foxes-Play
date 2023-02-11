@@ -647,8 +647,17 @@ function printAtSidebar(text, size, x, y, color, lineHeight, fitWidth)
         ctx.fillText( words.join(' '), sx, y + (lineHeight*currentLine) );
 }
 
+function reviveJson(){
+    let reloader = function(player){
+        Object.keys(player).forEach(function(key){
+            player[key] = saveData[key] 
+        });
+        return player;
+    }
+}
+
 function reloadGame(){
-    let saveData = JSON.parse(localStorage["saves"]);
+    let saveData = JSON.parse(localStorage["saves"], reviveJson());
     let reloadData = {1 : monsters, 2 : tiles, 3 : player, 4 : world, 5 : wheel, 6 : log};
     let reloader = function(player){
         Object.keys(player).forEach(function(key){

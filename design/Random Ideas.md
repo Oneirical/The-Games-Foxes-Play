@@ -4,6 +4,8 @@ Terminal > Universe > World > Room > Terminal
 
 **Current Tasks**
 
+* Inspect using "reviver" functions to save player and its tile.
+
 * Apis should bring you alongside him when knockbacking.
 * Progressive map reveal.
 * Wandering creatures that progressively get more OP as they collect Souls.
