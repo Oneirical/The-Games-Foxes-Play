@@ -210,7 +210,7 @@ class World{
         drawFilter(blackfilter);
         for(let y = 0; y<9;y++){
             for(let x = 0; x<9;x++){
-                if (this.rooms[x][y].tangible && this.rooms[x][y].visited){
+                if (this.rooms[x][y].tangible){
                     for(let i = 0; i<this.rooms[x][y].size;i++){
                         for (let j = 0; j<this.rooms[x][y].size; j++){
                             drawPixel(this.checkPixel(this.rooms[x][y].tiles[i][j]),i*7.11+x*64,j*7.11+y*64);
@@ -746,7 +746,7 @@ class WorldSeed extends DefaultVaultRoom{
         world.fighting = false;
         super.initializeRoom();
         summonExits();
-        this.startTutorial();
+        //this.startTutorial();
     }
 
     startTutorial(){

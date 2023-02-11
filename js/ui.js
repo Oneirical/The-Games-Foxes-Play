@@ -215,7 +215,7 @@ class DrawWheel{
             "Ordered" : Ordered,
             "Saintly" : Saintly,
         }
-        let loot = new drops[skey.type]();
+        let loot = new drops[skey.name]();
         if (this.getWheelSpace() == 0){
             this.discard.push(loot);
         }
@@ -230,10 +230,11 @@ class DrawWheel{
         for (let x of legendaries.active){
             if (x instanceof Kilami) spells[loot.id](player);
         }
-        removeItemOnce(player.tile.souls,skey);
-        removeItemOnce(droppedsouls,skey);
-        skey.attach.soulless = true;
-        skey.attach.pushable = true;
+        //smash combat stuff
+        //removeItemOnce(player.tile.souls,skey);
+        //removeItemOnce(droppedsouls,skey);
+        //skey.attach.soulless = true;
+        //skey.attach.pushable = true;
         if (world.getRoom() instanceof WorldSeed){
             world.getRoom().stage++;
             world.getRoom().progressTutorial(world.getRoom().stage);

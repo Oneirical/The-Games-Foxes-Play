@@ -2,15 +2,31 @@
 
 Terminal > Universe > World > Room > Terminal
 
+**Re-thinking the Scope**
+
+* Start off in World Seed. Do the tutorial.
+* Generate Souls by "dancing" with Zaint while the Harmony tries to get inside.
+* Build your dungeon from Souls forced to dream about the Old World's past. It has to be easy enough for you to win, but hard enough to stop the Harmony from chasing you too fast.
+* Escape into the dungeon and beat the boss to prove your worth. From the boss chamber, trade with the boss and rebuild to escape into another layer.
+* Entering contact with the Harmony may cause them to start infecting created worlds from the inside... allowing options to trade for forbidden tech.
+
+* Upon becoming OP enough, ascend back through the Serene Spire all the way to the topmost level and destroy the infection at the root to win.
+
+* A possible structure could be
+
+World Seed
+
+Epsilon / Senet
+
+Purpizug / Ronin
+
+Rose / Zenith
+
+* If the player gets infected, the Harmony rejoices as they believe all traces of ruffians have been assimilated. However, ascending back reveals that Rose is high on Glamorous Toxin and is trying to trap the Harmony down the column of worlds.
+
 **Current Tasks**
 
-* Inspect using "reviver" functions to save player and its tile.
-
 * Apis should bring you alongside him when knockbacking.
-* Progressive map reveal.
-* Wandering creatures that progressively get more OP as they collect Souls.
-
-* Narrow down the scope and refactor the soul-slurping. Stay inside a single world, and defend it with Rose's assistance.
 
 **Map Variety Project**
 

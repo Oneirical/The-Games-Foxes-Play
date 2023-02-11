@@ -351,7 +351,7 @@ class Monster{
     }
 
     drawHp(){
-        if (!this.isInvincible && this.order < 0 && false){
+        if (!this.isInvincible && this.order < 0){
             for(let i=0; i<this.hp; i++){
                 drawSprite(
                     9,
@@ -449,7 +449,7 @@ class Monster{
                     this.attackedThisTurn = true;
                     let bonusAttack = this.bonusAttack;
                     this.bonusAttack = 0;
-                    if (area == "Spire") newTile.monster.hit(this.dmg + Math.floor(bonusAttack));
+                    if (area != "Spire") newTile.monster.hit(this.dmg + Math.floor(bonusAttack));
                     else newTile.monster.fp++;
                     if (newTile.monster){
                         if (newTile.monster.fp > 0) crit = newTile.monster.knockback(newTile.monster.fp, [dx, dy]);
