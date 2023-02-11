@@ -647,18 +647,9 @@ function printAtSidebar(text, size, x, y, color, lineHeight, fitWidth)
         ctx.fillText( words.join(' '), sx, y + (lineHeight*currentLine) );
 }
 
-function reviveJson(){
-    let reloader = function(player){
-        Object.keys(player).forEach(function(key){
-            player[key] = saveData[key] 
-        });
-        return player;
-    }
-}
-
 function reloadGame(){
-    let saveData = JSON.parse(localStorage["saves"], reviveJson());
-    let reloadData = {1 : monsters, 2 : tiles, 3 : player, 4 : world, 5 : wheel, 6 : log};
+    let saveData = JSON.parse(localStorage["saves"]);
+    //let reloadData = {1 : monsters, 2 : tiles, 3 : player, 4 : world, 5 : wheel, 6 : log};
     let reloader = function(player){
         Object.keys(player).forEach(function(key){
             player[key] = saveData[key] 
@@ -666,15 +657,12 @@ function reloadGame(){
         return player;
     }
     player = reloader(player);
-    //monsters = saveData[1];
-    //tiles = saveData[2];
-    //player = saveData[3];
      
 }
 
 function saveGame(){
     localStorage.clear();
-    let saveFile = {1 : monsters, 2 : tiles, 3 : player, 4 : world, 5 : wheel, 6 : log};
+    //let saveFile = {1 : monsters, 2 : tiles, 3 : player, 4 : world, 5 : wheel, 6 : log};
     const getCircularReplacer = () => {
         const seen = new WeakSet();
         return (key, value) => {
