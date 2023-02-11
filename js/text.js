@@ -117,6 +117,7 @@ messages = {
     "FluffyDoubleBetTaunt" : "\"Are you trying to place multiple souls in the same Soulscribe?! I won't let you do such thing. Many works of fiction demonstrate that it is generally bad practice to shove more than one individual in the same ominous glowing science machine.\"",
     "FluffyDoubleDrawTaunt" : "\"You clutch a soul in your paws, and yet are already looking to draw out another? This will completely disrupt the Soulscribing process! How rash can you be? I suppose I should not believe such foolishness is beyond your capabilities, for you are not Fluffy.\"",
     "FluffyDoubleDrawTaunt2" : "\"You clutch two souls in your paws, and yet are already looking to draw out more? This will completely disrupt the Soulscribing process! How rash can you be? I suppose I should not believe such foolishness is beyond your capabilities, for you are not Fluffy.\"",
+    "FluffyRoguelike" : "\"For a game to be a true roguelike, one must be granted infinite time to ponder, and finally execute each decision. Any form of time limit implies a demand for a kind of reflex or twitch-based reaction, which is a staple of impure roguelites. As your lifespan is finite - unlike Fluffy's - I am sorry to inform you that true roguelikes will forever be out of your repertoire.\"",
 
     // Saints' Voice
     "Saint1" : "\"Vessel. Your rest has come to its end.\"",
