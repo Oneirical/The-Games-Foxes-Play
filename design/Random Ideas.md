@@ -24,9 +24,11 @@ Rose / Zenith
 
 * If the player gets infected, the Harmony rejoices as they believe all traces of ruffians have been assimilated. However, ascending back reveals that Rose is high on Glamorous Toxin and is trying to trap the Harmony down the column of worlds.
 
-**Current Tasks**
+**Current Tasks - Tutorial**
 
-* Apis should bring you alongside him when knockbacking.
+* Description for Zaint
+* Mouseover descriptions on sidebar
+* Stage 8 Zaint boss
 
 **Map Variety Project**
 

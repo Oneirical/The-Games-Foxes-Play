@@ -169,7 +169,15 @@ messages = {
 
     // Zaint, First of the Saints
 
-    "Blehh" : "blehh :3",
+    "Blehh1" : "blehh?",
+    "Blehh2" : "blehh.",
+    "Blehh3" : "blehh...",
+    "Blehh4" : "blehh!",
+    "Blehh5" : "blehh!!",
+    "Blehh6" : "bleehhh!",
+    "Blehh7" : "blehh blehh.",
+    "Blehh8" : "BLEEHHHH!!!",
+    "BlehhFail" : "blehh :3",
 
     // Epsilon, Supreme Ordered General
 
@@ -282,6 +290,7 @@ colours = {
     "G" : "lightpink",
     "I" : "white",
     "A" : "red",
+    "Blehh" : "lime",
 
     "InvTutorial" : "white",
     
@@ -440,6 +449,8 @@ monabi = {
     "Rendfly" : "PAIN-HACK INJECTION - Cannot attack. Double speed. Occasionally blinks around the room. Bites enemies, inducing a short-duration Damage Delay effect.",
     "Third" : "WANDERFRIEND - Teleports randomly every 12 turns.",
     "Ashsoul" : "HORRORBLAZE - Teleports randomly every 12 turns. Can occasionally use a powerful knockback punch.",
+    "KnockbackBot" : "HORRORBLAZE - Invincible. Strikes for massive knockback in addition to damage.",
+    "WalkBot" : "WANDERFRIEND - Invincible. Walks around harmlessly at a slow pace.",
     "Apis" : "RIBCRUSH HUG - Will hug you on contact, locking out all normal movement.",
     "Brute" : "ROSEBOUND - 2-damage attacks but only moves every other turn. When a Bioembalmer is slain, triple the movement speed of all Brutes, unless your Glamour is at 5 or more.",
     "Embalmer" : "ROSEBINDER - Deals no damage. Inflicts 1 point of Glamour when it attacks. 10 Glamour is lethal. When slain, triple the movement speed of all Brutes, unless your Glamour is at 5 or more.",

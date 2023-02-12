@@ -376,6 +376,7 @@ function tick(){
     for(let k=monsters.length-1;k>=0;k--){
         if(!monsters[k].dead && monsters[k].order < 0){
             monsters[k].update();
+            if (k >= monsters.length) break;
             if (!monsters[k].permacharm || monsters[k].name.includes("Vermin")) deadcheck++
         }else if (monsters[k].order < 0){
             monsters.splice(k,1);
@@ -404,7 +405,7 @@ function tick(){
             playSound("falsity");
         }
         else{
-            if (!(world.getRoom() instanceof EpsilonArena)) {
+            if (!(world.getRoom() instanceof EpsilonArena) && !(world.getRoom() instanceof WorldSeed)) {
                 gameState = "contemplation";
                 for (let x of player.saved) player.inhand.push(x);
                 player.saved.length = 0;
@@ -428,6 +429,15 @@ function tick(){
                     if (player.rosetox < 10) log.addLog("RoomDeath");
                     else  log.addLog("RoseDeath");
                 }
+            }
+            else if (world.getRoom() instanceof WorldSeed){
+                player.hp = maxHp;
+                player.dead = false;
+                player.tile.setEffect(1, 30);
+                wheel.resolve = 3+Math.floor(resolvebonus/2);
+                world.getRoom().progressTutorial(world.getRoom().stage);
+                player.sprite = 0;
+                log.addLog("BlehhFail");
             }
             else{
                 truehp -= 1;

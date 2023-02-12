@@ -746,7 +746,7 @@ class WorldSeed extends DefaultVaultRoom{
         world.fighting = false;
         super.initializeRoom();
         summonExits();
-        //this.startTutorial();
+        this.startTutorial();
     }
 
     startTutorial(){
@@ -761,40 +761,84 @@ class WorldSeed extends DefaultVaultRoom{
     progressTutorial(stage){
         for (let i of tiles){
             for (let j of i){
-                if (j.monster && j.monster instanceof Blehh) j.monster = 0;
+                if (j.monster) j.monster = 0;
             }
         }
-        player.move(getTile(4,4));
+        player.move(getTile(4,6));
         monsters = [];
         let source;
+        player.hp = 6;
         let monster = new Blehh(getTile(4,2));
         monster.stage = stage;
+        wheel.wheel = [new Empty(),new Empty(),new Empty(),new Empty(),new Empty(),new Empty(),new Empty(),new Empty()];
         switch(stage){
             case 1:
-                break;
-            case 2:
-                break;
-            case 3:
-                source = new Apiarist(getTile(4,6));
-                monsters.push(source);
+                log.addLog("Blehh1");
                 monster.canmove = false;
                 break;
-            case 4:
-                source = new Tinker(getTile(4,6));
+            case 2:
+                log.addLog("Blehh2");
+                source = new Scion(getTile(4,4));
+                source.hp = 1;
+                source.paralyzed = true;
+                monsters.push(source);
+                monster.canmove = false;
+                player.hp = 1;
+                break;
+                //both of you have 1 hp, heal then hit
+            case 3:
+                log.addLog("Blehh3");
+                source = new Apiarist(getTile(4,4));
+                monsters.push(source);
+                monster.canmove = false;
+                monster.bonusAttack = 10;
+                break;
+                //guard then strike
+            case 5:
+                log.addLog("Blehh5");
+                source = new Tinker(getTile(3,4));
+                monsters.push(source);
+                source = new KnockbackBot(getTile(5,1));
+                monsters.push(source);
+                source = new KnockbackBot(getTile(3,3));
+                monsters.push(source);
+                source = new WalkBot(getTile(5,4));
+                source.isInvincible = true;
+                monster.canmove = false;
                 monsters.push(source);
                 break;
-            case 5:
-                source = new Apis(getTile(4,6));
+                //guarded by knockback drones, get the beam to hit zaint
+            case 4:
+                log.addLog("Blehh4");
+                source = new Apis(getTile(4,4));
                 monsters.push(source);
+                source = new KnockbackBot(getTile(5,1));
+                monsters.push(source);
+                source = new KnockbackBot(getTile(3,3));
+                monsters.push(source);
+                monster.canmove = false;
+                //shoot through the diagonal gap
                 break;
             case 6:
-                source = new Shrike(getTile(4,6));
+                log.addLog("Blehh6");
+                monster.canmove = false;
+                player.hp = 5;
+                source = new Shrike(getTile(4,4));
                 monsters.push(source);
+                //perma X and + beams, dash on the side to succeed
                 break;
             case 7:
-                source = new Second(getTile(4,6));
+                log.addLog("Blehh7");
+                monster.canmove = false;
+                source = new Second(getTile(6,4));
                 monsters.push(source);
+                monster.hp = 5;
+                player.hp = 3;
+                //tons of felidols weakening you, buff up to 1hit zaint
                 break;
+            case 8:
+                //do epic zhit
+                log.addLog("Blehh8");
         }
         monsters.push(monster);
     }

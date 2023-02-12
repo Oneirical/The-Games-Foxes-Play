@@ -132,9 +132,16 @@ spells = {
                         t.setEffect(14,30);
                         t.monster.stunned = true;
                         t.monster.hit(1);
+                        if (t.monster instanceof Blehh){
+                            player.move(getTile(4,6));
+                            world.getRoom().stage = 7;
+                            world.getRoom().progressTutorial(7);
+                            return;
+                        }
                     }
                     else if (t.monster && !friendly && (t.monster.isPlayer || t.monster.charmed)){
                         t.setEffect(14,30);
+                        t.monster.stunned = true;
                         t.monster.hit(1);
                     }
                 });
@@ -144,8 +151,20 @@ spells = {
         }
         if(caster.tile != newTile){
             caster.move(newTile);
+            if (world.getRoom().stage == 7) caster.move (getTile(4,6));
             newTile.getAdjacentNeighbors().forEach(t => {
-                if(t.monster){
+                if(t.monster && friendly && !t.monster.isPlayer && !t.monster.charmed){
+                    t.setEffect(14,30);
+                    t.monster.stunned = true;
+                    t.monster.hit(1);
+                    if (t.monster instanceof Blehh){
+                        player.move(getTile(4,6));
+                        world.getRoom().stage = 7;
+                        world.getRoom().progressTutorial(7);
+                        return;
+                    }
+                }
+                else if (t.monster && !friendly && (t.monster.isPlayer || t.monster.charmed)){
                     t.setEffect(14,30);
                     t.monster.stunned = true;
                     t.monster.hit(1);
@@ -256,7 +275,22 @@ spells = {
         for(let k=0;k<directions.length;k++){
             boltTravel(directions[k], 15 + Math.abs(directions[k][1]), 2, caster, friendly);
         }
-        caster.monster.hit(3);
+        if (caster.monster) caster.monster.hit(3);
+    },
+    QUADBOLT: function(caster){
+        let directions = [
+            [0, -1],
+            [0, 1],
+            [-1, 0],
+            [1, 0]
+        ];
+        let friendly = false;
+        caster.trap = false;
+        caster.eviltrap = false;
+        
+        for(let k=0;k<directions.length;k++){
+            boltTravel(directions[k], 15 + Math.abs(directions[k][1]), 2, caster, friendly);
+        }
     },
     ARTTRIGGERS: function(caster){
         let directions = [

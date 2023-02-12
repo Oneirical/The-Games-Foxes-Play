@@ -138,6 +138,7 @@ class Monster{
         this.spritesave = sprite;
         this.hp = hp;
         this.speed = 1;
+        this.fphit = 0;
         this.fp = 0; //it stands for fluffy points
         this.dmg = 1;
         this.loot = loot;
@@ -360,7 +361,7 @@ class Monster{
                 );
             }
         }
-        if (!this.isInvincible && this.order < 0 && !this.dead){
+        if (!this.isInvincible && this.order < 0 && !this.dead && !(world.getRoom() instanceof WorldSeed)){
             for(let i=0; i<Math.min(this.fp,6); i++){
                 drawSprite(
                     82,
@@ -449,10 +450,16 @@ class Monster{
                     this.attackedThisTurn = true;
                     let bonusAttack = this.bonusAttack;
                     this.bonusAttack = 0;
-                    if (area != "Spire") newTile.monster.hit(this.dmg + Math.floor(bonusAttack));
-                    else newTile.monster.fp++;
+                    if (!this.fphit) newTile.monster.hit(this.dmg + Math.floor(bonusAttack));
+                    else newTile.monster.fp+=this.fphit;
                     if (newTile.monster){
-                        if (newTile.monster.fp > 0) crit = newTile.monster.knockback(newTile.monster.fp, [dx, dy]);
+                        if (newTile.monster.fp > 0) {
+                            crit = newTile.monster.knockback(newTile.monster.fp, [dx, dy]);
+                            if (world.getRoom() instanceof WorldSeed){
+                                player.fp = 0;
+                                player.hit(1);
+                            }
+                        }
                     }
                     if (this.specialAttack == "Charm" && newTile.monster){
                         newTile.monster.charmed = !newTile.monster.charmed;
@@ -1234,17 +1241,31 @@ class Blehh extends Monster{
         this.teleportCounter = 0;
         this.ability = "";
         this.stage = 0;
+        this.noloot = true;
     }
 
     update(){
-        if (this.stage == 1){
+        if (this.stage == 99){
             let startedStunned = this.stunned;
             super.update();
             if(!startedStunned){
                 this.stunned = true;
             }
         }
+        else if (this.stage == 6){
+            spells["QUADBOLT"](this.tile);
+            spells["UNHINGED"](this);
+            super.update();
+        }
         else super.update();
+    }
+
+    die(){
+        super.die();
+        if (world.getRoom() instanceof WorldSeed){
+            world.getRoom().stage++;
+            world.getRoom().progressTutorial(world.getRoom().stage);
+        }
     }
 }
 
@@ -1590,6 +1611,26 @@ class Third extends Monster{
     }
 }
 
+class WalkBot extends Monster{
+    constructor(tile){
+        super(tile, 65, 2, "VILE", description["Third"]);
+        this.soul = "Animated by a Vile (1) soul.";
+        this.name = "Third Emblem of Sin";
+        this.ability = monabi["WalkBot"];
+        this.abitimer = 0;
+        this.isInvincible = true;
+        this.isPassive = true;
+    }
+
+    update(){
+        let startedStunned = this.stunned;
+        super.update();
+        if(!startedStunned){
+            this.stunned = true;
+        }
+    }
+}
+
 class Ashsoul extends Monster{
     constructor(tile){
         super(tile, 66, 1, "UNHINGED", description["Ashsoul"]);
@@ -1610,6 +1651,19 @@ class Ashsoul extends Monster{
         else{
             super.doStuff();
         }
+    }
+}
+
+class KnockbackBot extends Monster{
+    constructor(tile){
+        super(tile, 66, 1, "UNHINGED", description["Ashsoul"]);
+        this.soul = "Animated by an Unhiged (3) soul.";
+        this.name = "Ashsoul Screecher";
+        this.ability = monabi["KnockbackBot"];
+        this.canmove = false;
+        this.isInvincible = true;
+        this.fphit = 10;
+        this.teleportCounter = 0;
     }
 }
 
