@@ -1235,7 +1235,7 @@ class Cage extends Monster{
 
 class Blehh extends Monster{
     constructor(tile){
-        super(tile, 95, 1, "SAINTLY", description["Cage"]);
+        super(tile, 95, 1, "SAINTLY", description["Zaint"]);
         this.soul = "Animated by a Saintly (6) soul.";
         this.name = "Zaint, First of the Saints";
         this.teleportCounter = 0;

@@ -26,7 +26,7 @@ Rose / Zenith
 
 **Current Tasks - Tutorial**
 
-* Description for Zaint
+* Make it so Zaint doesn't actually move or attack.
 * Mouseover descriptions on sidebar
 * Stage 8 Zaint boss
 

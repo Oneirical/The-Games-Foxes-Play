@@ -401,6 +401,7 @@ description = {
     "Titanic" : "A hulking mass of various scrap, under which glistens the glowing red eyes of a beetle-shaped drone. Its strength augmented hundredfold by whirring actuators, it sees your intrusion as no reason to stop sorting the Ordered army's garbage.",
     "Psydrone" : "A recent construction devised by Epsilon's new assimilationist doctrine, passively radiating a hypnotic aura inspiring military discipline and the respect of hierarchies. For the uneasily swayed, this chrome mantis's claws help strengthen its arguments.",
     "Exploder" : "Even after some unfortunate Unhinged denizens fell to the Spire's influence, their assimilation caused these globs of compressed spite to float up into the skies, where they bursted in a glorious fireworks show celebrating the Old World's downfall.",
+    "Zaint" : "Piles upon piles of offerings were spread around the First Saint in gratitude for his wise teachings of combined apathy and empathy. As Zaint remained utterly motionless, his ridiculously long tongue idly swaying in the wind, various molds and insects of the earth found these pastries to be most delicious.",
     // Tiles
     "Floor" : "A perfectly smooth surface of black stone, its maddeningly complex glyphs encrusted with decades of accumulated dust. Only a fool would dare try to decipher their meaning, for they have been carved by a force older than Soul and Mind, constantly forcing order where there is chaos, and creation where there is destruction.",
     "PalaceFloor" : "A long time ago, legions of monks carved holy symbols on each floortile of the palaces, so they may be worthy of being treaded by the Saints' steps. Rose's reign of debauchery has undone the tireless work of these artists.",
@@ -466,6 +467,7 @@ monabi = {
     "Titanic" : "HULKING STIKE - Does not yield its Soul on death. Moves every other turn. When it attacks, its target is trampled back one tile.",
     "Psydrone" : "THE MIND ENCODED - Does not yield its Soul on death. Every 2 turns, radiates a 3x3 aura that permanently converts a random soul in your wheel into an Ordered soul.",
     "Exploder" : "HIGH-PRESSURE WRATH - Moves in the same direction every turn. When it hits a creature or the level's edge, it unleashes a cross-shaped knockback shockwave and teleports you to the burst location.",
+    "Zaint" : "WORLD GENESIS - Does absolutely nothing and literally just stands there.",
 }
 
 souldesc = {
