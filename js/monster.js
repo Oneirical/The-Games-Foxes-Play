@@ -1239,7 +1239,7 @@ class Blehh extends Monster{
         this.soul = "Animated by a Saintly (6) soul.";
         this.name = "Zaint, First of the Saints";
         this.teleportCounter = 0;
-        this.ability = "";
+        this.ability = monabi["Zaint"];
         this.stage = 0;
         this.noloot = true;
     }
