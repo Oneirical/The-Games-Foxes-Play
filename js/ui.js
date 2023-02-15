@@ -66,7 +66,7 @@ class DrawWheel{
         this.hotkeycoords = [[center[0], center[1]-dist],[center[0]+Math.cos(pi/4)*dist, center[1]-Math.sin(pi/4)*dist],[center[0]+dist, center[1]],[center[0]+Math.cos(pi/4)*dist, center[1]+Math.sin(pi/4)*dist],[center[0], center[1]+dist],[center[0]-Math.cos(pi/4)*dist, center[1]+Math.sin(pi/4)*dist],[center[0]-dist, center[1]],[center[0]-Math.cos(pi/4)*dist, center[1]-Math.sin(pi/4)*dist]];
 
         this.pile = [];
-        this.discard = [new Feral(),new Feral(),new Feral()]; //
+        this.discard = [new Saintly(),new Feral(),new Feral()]; //
         this.saved = [new Empty(),new Empty(),new Empty(),new Empty(),new Empty(),new Empty(),new Empty(),new Empty()];
         this.resolve = 3; //update this later with the bonus
         this.castes = [new Saintly(),new Ordered(),new Artistic(),new Unhinged(),new Feral(),new Vile()];
@@ -827,6 +827,29 @@ class LegendarySoul{
         printAtSidebar(this.subdescript, 18, 590, 110, "white", 20, 6*64-35);
         printAtWordWrap(this.lore, 18, 10, 600, colours[this.id], 20, 940);
         drawSymbol(this.icon, 890, 20, 64);
+    }
+
+    describeWheel(){
+        const hijack = {
+            "VILE" : 0,
+            "FERAL" : 1,
+            "UNHINGED" : 2,
+            "ARTISTIC" : 3,
+            "ORDERED" : 4,
+            "SAINTLY" : 5
+        }
+        const index = hijack[this.caste];
+        printAtWordWrap(toTitleCase(this.caste) + " Soul", 18, 10, 600, colours[this.id], 20, 940);
+        if (this instanceof Empty) printAtWordWrap(soulabi["EMPTY"], 18, 10, 640, "white", 20, 940);
+        else {
+            let command = legendaries.active[index].id;
+            if (basic.includes(command)) command = "Commanded by its own whims";
+            else command = "Commanded by " + toTitleCase(command);
+            printAtWordWrap(command, 18, 10, 620, "lightgrey", 20, 940);
+            if (!basic.includes(legendaries.active[index].id) && legendaries.active[index].influence != "I") printAtWordWrap(legendaries.active[index].subdescript, 18, 10, 660, "white", 20, 940);
+            else printAtWordWrap(this.subdescript, 18, 10, 660, "white", 20, 940);
+        }
+        
     }
 
     describeAbridged(){

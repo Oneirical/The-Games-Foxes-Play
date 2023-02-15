@@ -147,9 +147,8 @@ function drawPixel(sprite, x, y){
 function draw(){
     if(gameState == "running" || gameState == "dead" || gameState == "contemplation" || gameState == "vision" || gameState == "discard"){
         ctx.clearRect(0,0,canvas.width,canvas.height);
-        let wtfx = mousepos[0];
-        let wtfy = mousepos[1];
         let fufflore = false;
+        let loghide = false;
         let selectation = 99;
         if(inInventory){
             let nohover = true;
@@ -167,37 +166,17 @@ function draw(){
             }
             if (nohover) printAtWordWrap(messages["InvTutorial"], 18, 10, 600, "white", 20, 940);
         }
-        if(wtfx>603&&wtfy>115){
-            let mousdes = Math.ceil((wtfy - 130)/20);
-            if (mousdes+1 <= player.inhand.length || mousdes == 21 || mousdes == 22){
-                //log.addLog("Empty");
-                let spellName;
-                if (mousdes != 21 && mousdes != 22) spellName = player.inhand[mousdes];
-                else spellName = player.activemodule;
-                selectation = mousdes;
-                if (basic.includes(spellName) && area == "Spire") spellName = spellName+"S";
-                if (rosetoxin > 1){
-                    printAtWordWrap(souldesc["ROSEILLUSION"], 18, 10, 600, "pink", 20, 940);
-                    printAtWordWrap(soulabi["ROSEILLUSION"], 18, 10, 725, "pink", 20, 940);
-                }
-                else if (player.fuffified > 0){
-                    printAtWordWrap(souldesc["SERENE"], 18, 10, 600, "cyan", 20, 940);
-                    printAtWordWrap(soulabi["SERENE"], 18, 10, 725, "white", 20, 940);
-                }
-                else{
-                    printAtWordWrap(souldesc[spellName], 18, 10, 600, colours[spellName], 20, 940);
-                    printAtWordWrap(soulabi[spellName], 18, 10, 600+(Math.ceil(souldesc[spellName].length/100)*25), "white", 20, 940);
-                    if (spellName == player.activemodule){
-                        //printAtSidebar(soulval[spellName], 18, 590, 195, "cyan", 20, 350);
-                        //printAtSidebar(soulname[spellName], 18, 590, 130, colours[spellName], 20, 350);
-                        fufflore = true;
-                    }
-                }
-            }
-        }
-        else{
+        else if (cursormode){
             let cread = getTile(Math.floor((mousepos[0]-shakeX)/tileSize),Math.floor((mousepos[1]-shakeY)/tileSize));
             if (cread) cursor = new Cursor(cread);
+        }
+        else{
+            for (let i of wheel.wheelcoords){
+                if (mousepos[0] > i[0] && mousepos[0] < (i[0]+64) && mousepos[1] > i[1] && mousepos[1] < (i[1]+64)){
+                    wheel.wheel[wheel.wheelcoords.indexOf(i)].describeWheel();
+                    loghide = true;
+                }
+            }
         }
         screenshake();
         let posgenx = 0;
@@ -239,20 +218,6 @@ function draw(){
         else if (inInventory) legendaries.display();
         else if (inModules) cybernetics.display();
         else {
-            if (invmode == true  && wtfx<603){
-                cursor.draw();
-                if (currentspelldesc == "nan"){
-                    log.addLog("InvPrompt");
-                }
-                else if (currentspelldesc != "nan" && Number.isInteger(currentspelldesc)){
-                    //log.addLog("Empty");
-                    player.loreSpell(currentspelldesc);
-                }
-                else{
-                    //log.addLog("Empty");
-                    player.loreSpellMonster(currentspelldesc);
-                }
-            }
             if (!wheel.hide) wheel.display();
             if (currentspelldesc == "nan" && gameState != "vision" && !fufflore){
                 for(let i=0; i<player.inhand.length; i++){
@@ -271,7 +236,7 @@ function draw(){
                 }
                 log.addLog("Shiza");
             }
-            if ((!cursormode && !invmode) || (cursormode && invmode)) log.display();//printAtWordWrap(messages[message], 18, 10, 600, coloring, 20, 940);
+            if (!loghide && (!cursormode && !invmode) || (cursormode && invmode)) log.display();//printAtWordWrap(messages[message], 18, 10, 600, coloring, 20, 940);
             if (rosetoxin > 1){
                 ctx.globalAlpha = 0.5;
                 drawFilter(rosefilter);

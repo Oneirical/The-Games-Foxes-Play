@@ -551,6 +551,7 @@ soulabi = {
     "GYVJI" : "DIAMOND STRIKE - Overrides the Artistic caste. When activated, punch the adjacent enemy in the direction of your last move. The target flies until it meets a wall or another enemy, at which point it causes a 1-range blast that destroys walls and inflicts 3 damage. The target must fly at least 1 tile for the blast to take effect.",
     "KASHIA" : "REALITY DELAY - Passive: does not affect the Unhinged caste. All damage and healing received is only applied every 5 turns. Applied healing is doubled. If suffering from imminent lethal damage, clearing a room allows survival with 1 HP.",
     "SUGCHA" : "ELITES' LASSITUDE - Overrides the Saintly caste. When activated, steal one Life point from up to 8 adjacent creatures. With each usage, reduce the maximum number of affected creatures by 1. After 8 casts, this Soul does nothing.",
+    "EMPTY" : "There is only the void of a silent mind here. Inhale deeply (Q) to fill this wheel with Souls.",
 
     "ROSEILLUSION" : "ROSE - There is beauty. There is grace. You are beauty, you are grace. You are Rose. All is Rose.",
     "SAINTLYS" : "DELAYING THE INEVITABLE - When activated, knock back all adjacent creatures one tile away, then remove 2 Influence points from each one affected. Remove 2 Influence points from yourself.",
