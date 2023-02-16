@@ -600,7 +600,6 @@ spells = {
         log.addLog("Bug");
     },
     ASTER: function(){
-        removeItemAll(player.inhand, "SERENE");
         let ragemawcount = 0;
         for (let mon of monsters){
             if (!mon.name.includes("Ragemaw")){

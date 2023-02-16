@@ -668,10 +668,7 @@ class Player extends Monster{
         super(tile, 0, 3, "SOULLESS", description["Terminal"]);
         this.isPlayer = true;
         this.teleportCounter = 0;
-        this.inventory = [];
-        this.inhand = [];
         this.discarded = 0;
-        this.saved = [];
         this.resolve = 0;
         this.name = "Terminal, the Reality Anchor";
         this.soul = "Does not have a soul of its own -- is merely the combination of its many passengers.";
@@ -925,34 +922,14 @@ class Player extends Monster{
         this.inventory.shift();
         this.inventory.shift();
     }
-
-    castSpell(index){                                 
-        let spellName = this.inhand[index];
-        if (this.fuffified > 0) spellName = "SERENE";
-        if (basic.includes(spellName) && area == "Spire") spellName = spellName+"S";
-        if(spellName && !soulabi[spellName].includes("Cannot be activated")){
-            log.addLog(spellName);
-            spells[spellName](this);
-            if (basicspire.includes(spellName)) spellName = spellName.slice(0, -1);
-            if (!fail && this.activemodule != "Focus"){
-                this.saved.push(spellName);
-                this.inhand.splice(index, 1); 
-            } //
-            else if (this.activemodule == "Focus"){
-                if(!this.consumeCommon(3,false)){
-                    log.addLog("FluffyInsufficientPower");
-                    this.inhand.splice(index, 1);
-                    player.activemodule = "NONE";
-                    playSound("off");
-                    this.saved.push(spellName);
-                }
-            }
-            if (!fail) playSound("spell");
-            if (!fail) tick();
-            if (fail && spellName != "SERENE") log.addLog("CastError");
-            fail = false;
-        }
-    }
+            //legacy modulator code in castSpell()
+            //else if (this.activemodule == "Focus"){
+                //if(!this.consumeCommon(3,false)){
+                    //log.addLog("FluffyInsufficientPower");
+                    //this.inhand.splice(index, 1);
+                    //player.activemodule = "NONE";
+                    //playSound("off");
+                    //this.saved.push(spellName);
 
     discardSpell(index){
         let discardName = this.vision[index];
@@ -1050,46 +1027,6 @@ class Player extends Monster{
                 }
             });
             this.discard.push("SERENE");
-        }
-    }
-
-    loreSpell(index){
-        let spellName = this.inhand[index];
-        if (basic.includes(spellName) && area == "Spire") spellName = spellName+"S";
-        if(spellName){
-            if (rosetoxin > 1){
-                printAtWordWrap(souldesc["ROSEILLUSION"], 18, 10, 600, "pink", 20, 940);
-                printAtWordWrap(soulabi["ROSEILLUSION"], 18, 10, 725, "pink", 20, 940);
-                printAtSidebar(soulval["ROSE"], 18, 590, 195, "cyan", 20, 350);
-                printAtSidebar(soulname["ROSE"], 18, 590, 130, "pink", 20, 350);
-            }
-            else{
-                if (this.fuffified > 0) spellName = "SERENE";
-                printAtWordWrap(souldesc[spellName], 18, 10, 600, colours[spellName], 20, 940);
-                printAtWordWrap(soulabi[spellName], 18, 10, 600+(Math.ceil(souldesc[spellName].length/100)*25), "white", 20, 940);
-                printAtSidebar(soulval[spellName], 18, 590, 195, "cyan", 20, 350);
-                printAtSidebar(soulname[spellName], 18, 590, 130, colours[spellName], 20, 350);
-            }
-        }
-    }
-
-    loreSpellMonster(spellName){
-        if(spellName && spellName != "NOTHING"){
-            if (rosetoxin > 0){
-                printAtWordWrap(souldesc["ROSEILLUSION"], 18, 10, 600, "pink", 20, 940);
-                printAtWordWrap(soulabi["ROSEILLUSION"], 18, 10, 725, "pink", 20, 940);
-                printAtSidebar(soulval["ROSE"], 18, 590, 195, "cyan", 20, 350);
-                printAtSidebar(soulname["ROSE"], 18, 590, 130, "pink", 20, 350);
-            }
-            else{
-                printAtWordWrap(souldesc[spellName], 18, 10, 600, colours[spellName], 20, 940);
-                printAtWordWrap(soulabi[spellName], 18, 10, 600+(Math.ceil(souldesc[spellName].length/100)*25), "white", 20, 940);
-                printAtSidebar(soulval[spellName], 18, 590, 195, "cyan", 20, 350);
-                printAtSidebar(soulname[spellName], 18, 590, 130, colours[spellName], 20, 350);
-            }
-        }
-        else{
-            log.addLog("InvPrompt");
         }
     }
 

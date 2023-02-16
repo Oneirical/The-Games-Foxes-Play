@@ -219,16 +219,8 @@ function draw(){
         else if (inModules) cybernetics.display();
         else {
             if (!wheel.hide) wheel.display();
-            if (currentspelldesc == "nan" && gameState != "vision" && !fufflore){
-                for(let i=0; i<player.inhand.length; i++){
-                    let spellText = (i+1) + ") " + (player.inhand[i] || "");
-                    if (rosetoxin > 1) spellText = (i+1) + ") " + ("ROSE" || "");
-                    if (player.fuffified > 0) spellText = (i+1) + ") " + ("SERENE" || "");
-                    let colour = "lightskyblue";
-                    if (selectation == i) colour = "cyan";     
-                    drawText(spellText, 20, false, 130+i*20, colour);
-                }
-            }
+                    //if (rosetoxin > 1) spellText = (i+1) + ") " + ("ROSE" || "");
+                    //if (player.fuffified > 0) spellText = (i+1) + ") " + ("SERENE" || "");
             else if (gameState == "vision"  && !fufflore){
                 for(let i=0; i<player.vision.length; i++){
                     let spellText = (i+1) + ") " + (player.vision[i] || "");                        
@@ -372,8 +364,6 @@ function tick(){
         else{
             if (!(world.getRoom() instanceof EpsilonArena) && !(world.getRoom() instanceof WorldSeed)) {
                 gameState = "contemplation";
-                for (let x of player.saved) player.inhand.push(x);
-                player.saved.length = 0;
                 truehp -= deadcheck;
                 agony = deadcheck;
                 if (area == "Faith" && player.rosetox < 10) log.addLog("Agony");
