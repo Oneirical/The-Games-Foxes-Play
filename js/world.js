@@ -41,11 +41,11 @@ class Universe{
         for (let i = 1; i<7;i++){
             this.infestRandom(i);
         }
-        let i = 0;
-        while(i < 300){
-            if (this.spreadHarmony()) break;
-            i++;
-        }
+        //let i = 0;
+        //while(i < 300){
+        //    if (this.spreadHarmony()) break;
+        //    i++;
+        //}
         world.currentroom = [4,4];
         world.playRoom(world.rooms[4][4],startingHp);
         log.addLog("MapDebug");
