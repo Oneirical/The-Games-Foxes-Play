@@ -108,6 +108,7 @@ If fully Harmonized, Modulators are always Concordant and have no cost. All dama
 * A joke room where a Harmonizer insists on the purity and the Sameness of the roguelike genre. Mention that all roguelikes are theoretically real-time due to the player having a limited mortal lifespan, which the Harmony is exempt from. Only the Harmony can play true roguelikes.
 * Sugcha statues, that cause psychic damage when broken.
 * Pressurized glamorous toxin behind breakable glass that spreads through the room.
+* Turn anisychia into an anxiety-flavoured encounter, reflavour Oracles.
 
 **Lore & Writing**
 
