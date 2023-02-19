@@ -253,38 +253,7 @@ function generateModule(){
             tiles[i][j] = new tile(i,j);
         }
     }
-}
-
-function generateCircus(){
-    let vault = {
-        0: [RoseWall,RoseWall,RoseWall,RoseWall,RoseWall,RoseWall,RoseWall,RoseWall,AbazonWall,AbazonWall,RoseWall,RoseWall,RoseWall,RoseWall,RoseWall,RoseWall,RoseWall,RoseWall],
-        1: [RoseWall,AbazonWall,RoseServant,AbazonWall,RoseServant,AbazonWall,RoseWall , AbazonWall,RoseThrone,SereneThrone,AbazonWall, RoseWall, AbazonWall,RoseServant,AbazonWall,RoseServant,Floor, RoseWall],
-        2: [RoseWall,RoseServant,RoseWall,RoseWall,RoseWall,RoseWall,RoseWall,RoseWall,RoseWall,RoseWall,RoseWall,RoseWall,RoseWall,RoseWall,RoseWall,RoseWall,RoseServant,RoseWall],
-        3: [RoseWall,AbazonWall,RoseWall,Goop,Goop,Goop,Goop,Goop,Goop,Goop,Goop,Goop,Goop,Goop,Goop,RoseWall,AbazonWall,RoseWall,],
-        4: [RoseWall,RoseServant,RoseWall,Goop,Goop,Goop,Goop,Goop,Floor,Floor,Goop,Goop,Goop,Goop,Goop,RoseWall,RoseServant,RoseWall,],
-        5: [RoseWall,AbazonWall,RoseWall,Goop,Goop,Floor,Floor,Goop,Floor,Floor,Goop,Floor,Floor,Goop,Goop,RoseWall,AbazonWall,RoseWall,],
-        6: [RoseWall,RoseServant,RoseWall,Goop,Goop,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Goop,Goop,RoseWall,RoseServant,RoseWall,],
-        7: [RoseWall,AbazonWall,RoseWall,Goop,Goop,Goop,Floor,Floor,Floor,Floor,Floor,Floor,Goop,Goop,Goop,RoseWall,AbazonWall,RoseWall,],
-        8: [AbazonWall,AbazonWall,RoseWall,Goop,Floor,Floor,Floor,Floor,RoseSpawner,RoseSpawner,Floor,Floor,Floor,Floor,Goop,RoseWall,AbazonWall,AbazonWall,],
-        9: [AbazonWall,AbazonWall,RoseWall,Goop,Floor,Floor,Floor,Floor,RoseSpawner,RoseSpawner,Floor,Floor,Floor,Floor,Goop,RoseWall,AbazonWall,AbazonWall,],
-        10: [RoseWall,AbazonWall,RoseWall,Goop,Goop,Goop,Floor,Floor,Floor,Floor,Floor,Floor,Goop,Goop,Goop,RoseWall,AbazonWall,RoseWall,],
-        11: [RoseWall,RoseServant,RoseWall,Goop,Goop,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Floor,Goop,Goop,RoseWall,RoseServant,RoseWall,],
-        12: [RoseWall,AbazonWall,RoseWall,Goop,Goop,Floor,Floor,Goop,Floor,Floor,Goop,Floor,Floor,Goop,Goop,RoseWall,AbazonWall,RoseWall,],
-        13: [RoseWall,RoseServant,RoseWall,Goop,Goop,Goop,Goop,Goop,Floor,Floor,Goop,Goop,Goop,Goop,Goop,RoseWall,RoseServant,RoseWall,],
-        14: [RoseWall,AbazonWall,RoseWall,Goop,Goop,Goop,Goop,Goop,Goop,Goop,Goop,Goop,Goop,Goop,Goop,RoseWall,AbazonWall,RoseWall,],
-        15: [RoseWall,RoseServant,RoseWall,RoseWall,RoseWall,RoseWall,RoseWall,Goop,Goop,Goop,Goop,RoseWall,RoseWall,RoseWall,RoseWall,RoseWall,RoseServant,RoseWall],
-        16: [RoseWall,AbazonWall,RoseServant,AbazonWall,RoseServant,AbazonWall,RoseWall , Goop,Goop,Goop,Goop, RoseWall, AbazonWall,RoseServant,AbazonWall,RoseServant,AbazonWall, RoseWall],
-        17: [RoseWall,RoseWall,RoseWall,RoseWall,RoseWall,RoseWall,RoseWall,RoseWall,RoseWall,RoseWall,RoseWall,RoseWall,RoseWall,RoseWall,RoseWall,RoseWall,RoseWall,RoseWall]
-    }
-    tiles = [];
-    for(let i=0;i<numTiles;i++){
-        tiles[i] = [];
-        for(let j=0;j<numTiles;j++){
-            let tile = vault[j][i];
-            tiles[i][j] = new tile(i,j);
-        }
-    }
-}
+}æ
 
 function inBounds(x,y){
     for (let g of world.getRoom().possibleexits){
