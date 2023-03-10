@@ -498,6 +498,15 @@ class Booster extends Exit{
     }
 }
 
+class Plate extends Floor{
+    constructor(x, y){
+        super(x, y, 75, true);
+        this.lore = description["Mobilizer"];
+        this.name = "Automaton Mobilizer";
+        this.sprite = 75;
+    }
+}
+
 class Altar extends Floor{
     constructor(x,y){
         super(x, y, 30, true); //30

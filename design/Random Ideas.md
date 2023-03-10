@@ -1,5 +1,25 @@
 ## This is a chaotic canvas on which I launch all the random things I come up with while going about my day and bugs I notice throughout playtesting. It is not meant to be comprehensible.
 
+**Re-re-imagining**
+
+I think this might finally be the thing I needed.
+
+* Terminal knows very little about the world due to being locked up. They need the assistance of souls from the Old World to see it better.
+1. Make the plates in the room give Complexity.
+2. Connect that room with the Security room and the World Seed.
+3. Offer to buy Sugcha from Complexity, the ability to view the map and the Soul wheel.
+4. Start connecting initial Faith's End boxes, not very complex because Sugcha is basically a basement dwelling noble.
+
+
+* Actually set up a complex of sorts. Some rooms include:
+- The room where you can accumulate Complexity (the rhythm of dance is what generates it)
+- A security room where you can have a view of the whole facility and close down doors
+- A meditation room where you can access the inside of produced room-visions. Upon death, the souls in the vision seep out into the complex.
+- Gate rooms leading to the exterior
+- Complexity is very dangerous to stockpile as it eventually reveals the Harmony inside the dream materializers (they are the pinnacle of complexity)
+- The laws of thermodynamics, reversed.
+- Motion sensors. Entity trackers. Glamour injectors to safely view the Collective without being infected.
+
 Terminal > Universe > World > Room > Terminal
 
 **Re-thinking the Scope**

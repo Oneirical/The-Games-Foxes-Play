@@ -253,7 +253,7 @@ function generateModule(){
             tiles[i][j] = new tile(i,j);
         }
     }
-}æ
+}
 
 function inBounds(x,y){
     for (let g of world.getRoom().possibleexits){
