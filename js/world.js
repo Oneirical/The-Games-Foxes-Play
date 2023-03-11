@@ -512,6 +512,7 @@ class Room{
     }
 
     populateRoom(){
+        return; //for now
         const squadskey = Object.keys(squads);
         const classeskey = Object.keys(classes);
         const difficulty = 1;//Math.ceil(level/5);
