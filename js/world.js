@@ -37,7 +37,7 @@ class Universe{
         const position = [debut.x,debut.y];
         this.currentworld = position;
         world = this.worlds[position[0]][position[1]];
-        world.confirmWorld();
+        world.confirmWorldFromVault();
         for (let i = 1; i<7;i++){
             this.infestRandom(i);
         }
@@ -115,7 +115,7 @@ class Universe{
         this.worlds[world.x][world.y].rooms = oldWorld.rooms;
         world = this.randomAvailableWorld();
         this.currentworld = [world.x,world.y];
-        if (!world.generated) world.confirmWorld();
+        if (!world.generated) world.confirmWorldFromVault();
         world.currentroom = [4,4];
         let room = world.rooms[world.currentroom[0]][world.currentroom[1]];
         if (room instanceof BigRoomVoid) room = world.handleBigRoom(room,direction[0]);
@@ -146,7 +146,7 @@ class Universe{
         this.currentworld[0] += shifts[direction][0]; // this won't work on the edges
         this.currentworld[1] += shifts[direction][1];
         world = this.worlds[this.currentworld[0]][this.currentworld[1]];
-        if (!world.generated) world.confirmWorld();
+        if (!world.generated) world.confirmWorldFromVault();
         world.currentroom = spawns[direction];
         let room = world.rooms[world.currentroom[0]][world.currentroom[1]];
         if (room instanceof BigRoomVoid) room = world.handleBigRoom(room,direction[0]);
@@ -234,6 +234,28 @@ class World{
     selectRooms(){
         if (this.serene) this.roompool = [StandardSpire];
         else this.roompool = [StandardFaith,BloxFaith,EmptyFaith,HideFaith,PipesFaith,TriangleFaith,StarFaith]; //GrandHallFaith,BridgeFaith,HideFaith,PipesFaith,GrandHallFaith,,TriangleFaith,NarrowFaith
+    }
+
+    confirmWorldFromVault(){
+        this.rooms = [];
+        for(let i=0;i<9;i++){
+            this.rooms[i] = [];
+            for(let j=0;j<9;j++){
+                let flip = false;
+                let roomType = keyroom[genstruct["Facility"][j][i]];
+                if (genstruct["Facility"][j][i] == "H") flip = true;
+                this.rooms[i][j] = new roomType([i,j]);
+                if (flip) flipRoom(this.rooms[i][j].id,this.rooms[i][j].size,0);
+                this.rooms[i][j].setUp();
+                this.rooms[i][j].insertRoom();
+                if (flip) flipRoom(this.rooms[i][j].id,this.rooms[i][j].size,0);
+            }
+        }
+        for(let i=0;i<9;i++){
+            for(let j=0;j<9;j++){
+                if (this.rooms[i][j].tangible) this.spreadExits(i,j);
+            }
+        }
     }
 
     confirmWorld(){
@@ -745,7 +767,7 @@ class WorldSeed extends DefaultVaultRoom{
         world.fighting = false;
         super.initializeRoom();
         summonExits();
-        this.startTutorial();
+        //this.startTutorial();
     }
 
     startTutorial(){

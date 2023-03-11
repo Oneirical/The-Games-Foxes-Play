@@ -505,6 +505,10 @@ class Plate extends Floor{
         this.name = "Automaton Mobilizer";
         this.sprite = 75;
     }
+    stepOn(monster){
+        wheel.complexity++;
+        super.stepOn(monster);
+    }
 }
 
 class Altar extends Floor{

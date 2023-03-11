@@ -13,7 +13,32 @@ var keytile = {
     "P" : Plate,
 }
 
+var keyroom = {
+    "G" : EmptyFaith,
+    "P" : PlateGenerator,
+    "B" : EmptyFaith,
+    "W" : WorldSeed,
+    "." : VoidRoom,
+    "H" : NarrowFaith,
+    "V" : NarrowFaith,
+    "S" : EmptyFaith,
+}
+
 //spawns: N - W - E - S
+
+var genstruct = {
+    "Facility" : {
+        0 : "GHHHGHHHG",
+        1 : "V...V...V",
+        2 : "V...V...V",
+        3 : "V...V...V",
+        4 : "V.BHWHS.V",
+        5 : "V...V...V",
+        6 : "V...P...V",
+        7 : "V.......V",
+        8 : "GHHHHHHHG",
+    }
+}
 
 var rooms = {
     "Tutorial" : {

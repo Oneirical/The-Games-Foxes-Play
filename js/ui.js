@@ -69,6 +69,7 @@ class DrawWheel{
         this.discard = [new Saintly(),new Feral(),new Feral()]; //
         this.saved = [new Empty(),new Empty(),new Empty(),new Empty(),new Empty(),new Empty(),new Empty(),new Empty()];
         this.resolve = 3; //update this later with the bonus
+        this.complexity = 0;
         this.castes = [new Saintly(),new Ordered(),new Artistic(),new Unhinged(),new Feral(),new Vile()];
         this.hide = false;
         let first = [587, 420];
@@ -131,7 +132,7 @@ class DrawWheel{
             if (this.resolve < 1) colour = "red";
             printAtSidebar(this.resolve+"/"+(3+Math.floor(resolvebonus/2))+" ", 23, 835, 90, colour, 20, 350);
         }
-        printAtSidebar(" "+truehp, 23, 660, 90, "plum", 20, 350);
+        printAtSidebar(" "+this.complexity, 23, 660, 90, "plum", 20, 350);
 
         let display;
         for (let k = 0;k<8;k++){
