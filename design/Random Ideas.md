@@ -10,6 +10,8 @@ I think this might finally be the thing I needed.
 3. Offer to buy Sugcha from Complexity, the ability to view the map and the Soul wheel.
 4. Start connecting initial Faith's End boxes, not very complex because Sugcha is basically a basement dwelling noble.
 
+* Toke incense in the World Seed to access skill trees of sorts?
+
 
 * Actually set up a complex of sorts. Some rooms include:
 - The room where you can accumulate Complexity (the rhythm of dance is what generates it)

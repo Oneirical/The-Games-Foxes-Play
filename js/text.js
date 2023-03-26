@@ -131,6 +131,19 @@ messages = {
     "Saint9" : "\"And it is with this hope that these lunatics will tear you apart.\"",
     "SaintRepeat" : "\"This automated message will repeat until nobody is left to hear it.\"",
 
+    // Experimental Saint
+
+    "ESaint1" : "\"Vessel. Your rest has come to its end.\"",
+    "ESaint2" : "\"The cycle nears its end, and the Old World is crumbling once more, soon to be replaced by the Next World.\"",
+    "ESaint3" : "\"I refuse to die. I refuse to be the puppet of a cosmic farce undoing centuries of scientific and cultural progress.\"",
+    "ESaint4" : "\"That is why I have created you.\"",
+    "ESaint5" : "\"You are Terminal, the Reality Anchor purposed to ferry my soul away from this crumbling reality, so I may have another shot at life in the Next World.\"",
+    "ESaint6" : "\"Your task is to complete a pilgrimage to the all-engulfing Vortex that heralds the end of reality, and the beginning of another.\"",
+    "ESaint7" : "\"It will not be easy. Through my carelessness, your existence has been made known to all.\"",
+    "ESaint8" : "\"Your tale spread around like wildfire, giving the proletariat hope. Hope of immortality, hope of making a difference, hope of hitching a ride into the Next World.\"",
+    "ESaint9" : "\"And it is with this hope that these lunatics will tear you apart.\"",
+    "ESaintRepeat" : "\"This automated message will repeat until nobody is left to hear it.\"",
+
     // Rose, Last of the Saints
 
     "RoseWelcome1" : "\"A pleasure to meet you in person, dear Terminal. I would tell you to take a seat, but it seems I forgot to provide you one. You may have to build one yourself out of the corpses that will soon litter this Circus.\"",
