@@ -666,3 +666,16 @@ class Mobilizer extends Tile{
         }
     }
 }
+
+class CageWall extends Tile{
+    constructor(x,y){
+        super(x, y, 107, true);
+        this.lore = description["Floor"];
+        this.name = "Eroded Floortiles";
+        this.sprite = 107;
+        if (this.x == 2) this.sprite += 2;
+        else if (this.x == 6) this.sprite += 0;
+        else if (this.y == 2) this.sprite += 1;
+        else if (this.y == 6) this.sprite -= 1;
+    };
+}

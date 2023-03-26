@@ -11,12 +11,13 @@ var keytile = {
     "~" : Goop,
     "R" : RoseWall,
     "P" : Plate,
+    "p" : CageWall,
 }
 
 var keyroom = {
     "G" : EmptyFaith,
     "P" : PlateGenerator,
-    "B" : EmptyFaith,
+    "B" : SoulCage,
     "W" : WorldSeed,
     "." : VoidRoom,
     "H" : NarrowFaith,
@@ -97,6 +98,18 @@ var rooms = {
         4 : "E.......E",
         5 : "#.......#",
         6 : "#.......#",
+        7 : "#.......#",
+        8 : "####E####",
+        "tags": ["randomgen"],
+    },
+    "Cage" : {
+        0 : "####E####",
+        1 : "#.......#",
+        2 : "#.WpppW.#",
+        3 : "#.p...p.#",
+        4 : "E.p...p.E",
+        5 : "#.p...p.#",
+        6 : "#.WpppW.#",
         7 : "#.......#",
         8 : "####E####",
         "tags": ["randomgen"],

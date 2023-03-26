@@ -930,6 +930,13 @@ class PlateGenerator extends DefaultVaultRoom{
     }
 }
 
+class SoulCage extends DefaultVaultRoom{
+    constructor(index){
+        super(index);
+        this.id = "Cage";
+    }
+}
+
 class VoidRoom extends DefaultVaultRoom{
     constructor(index){
         super(index);
