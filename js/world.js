@@ -681,7 +681,12 @@ class DefaultVaultRoom extends Room{
             this.tiles[i] = [];
             for(let j=0;j<this.size;j++){
                 let tile = keytile[vault[j][i]];
-                this.tiles[i][j] = new tile(i,j,this);
+                if ("nswe".includes(vault[j][i])){
+                    let dir;
+                    dir = vault[j][i];
+                    this.tiles[i][j] = new tile(i,j,dir);
+                }
+                else this.tiles[i][j] = new tile(i,j,this);
             }
         }
     }
@@ -933,7 +938,7 @@ class PlateGenerator extends DefaultVaultRoom{
 class SoulCage extends DefaultVaultRoom{
     constructor(index){
         super(index);
-        this.id = "Cage";
+        this.id = "Cage1";
     }
 }
 

@@ -667,15 +667,61 @@ class Mobilizer extends Tile{
     }
 }
 
-class CageWall extends Tile{
-    constructor(x,y){
+class CageWall extends Floor{
+    constructor(x,y, dir){
         super(x, y, 107, true);
         this.lore = description["Floor"];
         this.name = "Eroded Floortiles";
+        this.direction = dir;
         this.sprite = 107;
-        if (this.x == 2) this.sprite += 2;
-        else if (this.x == 6) this.sprite += 0;
-        else if (this.y == 2) this.sprite += 1;
-        else if (this.y == 6) this.sprite -= 1;
+        if (this.direction == "w") this.sprite += 2;
+        else if (this.direction == "e") this.sprite += 0;
+        else if (this.direction == "n") this.sprite += 1;
+        else if (this.direction == "s") this.sprite -= 1;
     };
+}
+
+class FloorSoul extends Floor{
+    constructor(x, y, type){
+        super(x,y,100, true);
+        const sprites = {
+            "Saintly" : 0,
+            "Ordered" : 1,
+            "Artistic" : 2,
+            "Unhinged" : 3,
+            "Feral" : 4,
+            "Vile" : 5, 
+        }
+        this.type = type;
+        this.sprite = sprites[type];
+        this.offsetX = 0;                                                   
+        this.offsetY = 0;
+        this.speed = 0.05;
+        this.thrashcounter = 0;
+    }
+
+    getDisplayX(){                     
+        return this.x + this.offsetX;
+    }
+
+    getDisplayY(){                                                                  
+        return this.y + this.offsetY;
+    }
+
+    draw(){
+        this.thrashcounter++;
+        if (this.thrashcounter > 10 && this.offsetX == 0 && this.offsetY == 0){
+            let rt = randomRange(1,4);
+            if (rt == 1) this.offsetX+= 0.1;
+            else if (rt == 2) this.offsetX-= 0.1;
+            else if (rt == 3)this.offsetY+= 0.1;
+            else if (rt == 4)this.offsetY-= 0.1;
+            this.thrashcounter = 0;
+        }
+        ctx.globalAlpha = 0.5;
+        drawSymbol(this.sprite, this.getDisplayX()*tileSize + shakeX,  this.getDisplayY()*tileSize + shakeY,tileSize);
+        ctx.globalAlpha = 1;
+        this.offsetX -= Math.sign(this.offsetX)*(this.speed);     
+        this.offsetY -= Math.sign(this.offsetY)*(this.speed);
+    }
 }
