@@ -1,42 +1,22 @@
 ## This is a chaotic canvas on which I launch all the random things I come up with while going about my day and bugs I notice throughout playtesting. It is not meant to be comprehensible.
 
-**Re-re-imagining**
-
-A fully neutralized soul cage will generate a World Seed at the centre.
-
-I think this might finally be the thing I needed.
+**"Soul Cage" design**
 
 * Terminal knows very little about the world due to being locked up. They need the assistance of souls from the Old World to see it better.
-1. Make the plates in the room give Complexity.
-2. Connect that room with the Security room and the World Seed.
-3. Offer to buy Sugcha from Complexity, the ability to view the map and the Soul wheel.
-4. Start connecting initial Faith's End boxes, not very complex because Sugcha is basically a basement dwelling noble.
 
-* Toke incense in the World Seed to access skill trees of sorts?
+* Build a dungeon out of Turbulent Souls in the Soul Cage. Explore it, get more Turbulent Souls, the initial Turbulents get turned into Disciplined Souls.
 
+* A fully Disciplined soul cage will generate a World Seed at the centre, allowing the cycle to perpetuate.
 
-* Actually set up a complex of sorts. Some rooms include:
-- The room where you can accumulate Complexity (the rhythm of dance is what generates it)
-- A security room where you can have a view of the whole facility and close down doors
-- A meditation room where you can access the inside of produced room-visions. Upon death, the souls in the vision seep out into the complex.
-- Gate rooms leading to the exterior
-- Complexity is very dangerous to stockpile as it eventually reveals the Harmony inside the dream materializers (they are the pinnacle of complexity)
-- The laws of thermodynamics, reversed.
+* Research Souls and upgrades. Make patterns of Souls in the Cage to generate special rooms and get Legendary Souls.
 - Motion sensors. Entity trackers. Glamour injectors to safely view the Collective without being infected.
 
-Terminal > Universe > World > Room > Terminal
+* Watch over the facility with a security room monitoring possible Harmonic infiltration.
 
-**Re-thinking the Scope**
 
-* Start off in World Seed. Do the tutorial.
-* Generate Souls by "dancing" with Zaint while the Harmony tries to get inside.
-* Build your dungeon from Souls forced to dream about the Old World's past. It has to be easy enough for you to win, but hard enough to stop the Harmony from chasing you too fast.
-* Escape into the dungeon and beat the boss to prove your worth. From the boss chamber, trade with the boss and rebuild to escape into another layer.
-* Entering contact with the Harmony may cause them to start infecting created worlds from the inside... allowing options to trade for forbidden tech.
 
-* Upon becoming OP enough, ascend back through the Serene Spire all the way to the topmost level and destroy the infection at the root to win.
 
-* A possible structure could be
+**Names of things**
 
 World Seed
 
@@ -44,21 +24,7 @@ Epsilon / Senet
 
 Purpizug / Ronin
 
-Rose / Zenith
-
-* If the player gets infected, the Harmony rejoices as they believe all traces of ruffians have been assimilated. However, ascending back reveals that Rose is high on Glamorous Toxin and is trying to trap the Harmony down the column of worlds.
-
-**Current Tasks - Tutorial**
-
-* Make it so Zaint doesn't actually move or attack.
-* Mouseover descriptions on sidebar
-* Stage 8 Zaint boss
-
-**Map Variety Project**
-
-* An image of a huge twisting maze, like brain coral. Coloured dots can be clicked to enlarge portions of Faith's End, corresponding to saved World objects.
-* Actually, could the most interesting landmarks on the map be marked, and could the player control their respawning to approach them?
-* The souls you sacrifice on death determine your respawn direction - towards an "Ideology pole" that contains an exit point, one for each caste. Should these "poles" expand as the game progresses, and cause a cataclysm if they ever touch the centre? This could be a nice replacement for "hunger clock" type mechanics.
+Rose / Anisychia
 
 **Serene Project**
 
@@ -220,3 +186,20 @@ The dungeon branch that is currently known as the "Roseic Circus" will be *merge
 I'm really excited about this plan and the progress done this week, and I look forward to deepening this concept!
 
 There is a purpose to this madness beyond simple atmosphere. Some [interesting waypoints]() are marked on Faith's End, but are technically unreachable through walking as they are located literal thousands of rooms away. This is where the protagonist's signature ability comes in - limited, but controlled reincarnation. The location where the game will continue following a non-final death can be *directed* according to which Souls the player chooses to sacrifice upon meeting their demise, and thus skip across megakilometres of concrete in the goal of exploring these mysterious landmarks. This furthens my game's design goal of "turning mistakes into tools for success".
+
+**Banishment Zone (unused/dropped, but fun to look at)**
+
+**Initial "build your dungeon" idea**
+
+* Start off in World Seed. Do the tutorial.
+* Generate Souls by "dancing" with Zaint while the Harmony tries to get inside.
+* Build your dungeon from Souls forced to dream about the Old World's past. It has to be easy enough for you to win, but hard enough to stop the Harmony from chasing you too fast.
+* Escape into the dungeon and beat the boss to prove your worth. From the boss chamber, trade with the boss and rebuild to escape into another layer.
+* Entering contact with the Harmony may cause them to start infecting created worlds from the inside... allowing options to trade for forbidden tech.
+* Upon becoming OP enough, ascend back through the Serene Spire all the way to the topmost level and destroy the infection at the root to win.
+
+**Map Variety Project**
+
+* An image of a huge twisting maze, like brain coral. Coloured dots can be clicked to enlarge portions of Faith's End, corresponding to saved World objects.
+* Actually, could the most interesting landmarks on the map be marked, and could the player control their respawning to approach them?
+* The souls you sacrifice on death determine your respawn direction - towards an "Ideology pole" that contains an exit point, one for each caste. Should these "poles" expand as the game progresses, and cause a cataclysm if they ever touch the centre? This could be a nice replacement for "hunger clock" type mechanics.

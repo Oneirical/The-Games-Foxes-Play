@@ -977,6 +977,7 @@ class SoulCage extends DefaultVaultRoom{
     constructor(index){
         super(index);
         this.id = "Cage2";
+        this.name = "Soul Cage";
     }
 }
 
