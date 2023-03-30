@@ -517,11 +517,38 @@ class Altar extends Floor{
         this.value = new Empty();
         this.name = "Positive Harmonic Relay";
         this.lore = description["PosRelay"];
+        this.offsetX = 0;                                                   
+        this.offsetY = 0;
+        this.speed = 0.05;
+        this.thrashcounter = 0;
+    }
+
+    getDisplayX(){                     
+        return this.x + this.offsetX;
+    }
+
+    getDisplayY(){                                                                  
+        return this.y + this.offsetY;
     }
 
     draw(){
         super.draw();
-        drawSymbol(this.value.icon, this.x*tileSize+8, this.y*tileSize+8,48);
+        if (!this.value.turbulent) drawSymbol(this.value.icon, this.x*tileSize+8, this.y*tileSize+8,48);
+        else{
+            this.thrashcounter++;
+            if (this.thrashcounter > 10 && this.offsetX == 0 && this.offsetY == 0){
+                let rt = randomRange(1,4);
+                if (rt == 1) this.offsetX+= 0.1;
+                else if (rt == 2) this.offsetX-= 0.1;
+                else if (rt == 3)this.offsetY+= 0.1;
+                else if (rt == 4)this.offsetY-= 0.1;
+                this.thrashcounter = 0;
+            }
+            drawSymbol(this.value.icon, this.getDisplayX()*tileSize + shakeX+8,  this.getDisplayY()*tileSize + shakeY+8,48);
+            ctx.globalAlpha = 1;
+            this.offsetX -= Math.sign(this.offsetX)*(this.speed);     
+            this.offsetY -= Math.sign(this.offsetY)*(this.speed);
+        }
     }
 
     getValue(){
@@ -718,10 +745,19 @@ class FloorSoul extends Floor{
             else if (rt == 4)this.offsetY-= 0.1;
             this.thrashcounter = 0;
         }
-        ctx.globalAlpha = 0.5;
         drawSymbol(this.sprite, this.getDisplayX()*tileSize + shakeX,  this.getDisplayY()*tileSize + shakeY,tileSize);
         ctx.globalAlpha = 1;
         this.offsetX -= Math.sign(this.offsetX)*(this.speed);     
         this.offsetY -= Math.sign(this.offsetY)*(this.speed);
+    }
+}
+
+class CageContainer extends Altar{
+    constructor(x, y){
+        super(x,y,110, true);
+        this.sprite = 110;
+        this.lore = description["Floor"];
+        this.name = "Eroded Floortiles";
+        this.value = new Empty();
     }
 }

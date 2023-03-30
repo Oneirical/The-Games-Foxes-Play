@@ -140,7 +140,22 @@ class DrawWheel{
             else if (player.infested > 1 && !this.wheel[k].chosen) display = this.wheel[k].gicon;
             else if (gameState == "contemplation") display = this.saved[k].icon;
             else  display = this.wheel[k].icon;
-            drawSymbol(display, this.wheelcoords[k][0], this.wheelcoords[k][1], 64);
+            if (!this.wheel[k].turbulent) drawSymbol(display, this.wheelcoords[k][0], this.wheelcoords[k][1], 64);
+            else{
+                this.wheel[k].thrashcounter++;
+                if (this.wheel[k].thrashcounter > 10){ // is this effect too annoying? the alternative is setting all offsets to 2/3 and removing the *64 below
+                    let rt = randomRange(1,4);
+                    if (rt == 1) this.wheel[k].offsetX+= 0.1;
+                    else if (rt == 2) this.wheel[k].offsetX-= 0.1;
+                    else if (rt == 3)this.wheel[k].offsetY+= 0.1;
+                    else if (rt == 4)this.wheel[k].offsetY-= 0.1;
+                    this.wheel[k].thrashcounter = 0;
+                }
+                drawSymbol(display, (this.wheelcoords[k][0] + this.wheel[k].offsetX*64),  (this.wheelcoords[k][1] + this.wheel[k].offsetY*64),64);
+                ctx.globalAlpha = 1;
+                this.wheel[k].offsetX -= Math.sign(this.wheel[k].offsetX)*(0.05);     
+                this.wheel[k].offsetY -= Math.sign(this.wheel[k].offsetY)*(0.05);
+            }
             printAtWordWrap(k+1+"",18, this.hotkeycoords[k][0], this.hotkeycoords[k][1], "white",20,350);
         }
         for (let k of this.castes){
@@ -372,9 +387,32 @@ class DrawWheel{
         }
     }
 
+    retrieveSoul(){
+        let space = 8;
+        for (let k of this.wheel){
+            if (!(k instanceof Empty)) space--;
+        }
+        if (space == 0){
+            log.addLog("Oversoul");
+            shakeAmount = 5; 
+            return;
+        }
+        for (let k of this.wheel){
+            if (k instanceof Empty){
+                this.wheel[this.wheel.indexOf(k)] = player.tile.value;
+                player.tile.value = new Empty();
+                break;
+            } 
+        }
+    }
+
     drawSoul(){
         if (player.infested > 0){
             this.breatheSoul();
+            return;
+        }
+        else if (player.tile instanceof CageContainer){
+            this.retrieveSoul();
             return;
         }
         if (player.tile.souls.length > 0){
@@ -574,9 +612,31 @@ class DrawWheel{
         }
     }
 
+    cageSoul(slot){
+        let soul = this.wheel[slot];
+        if (soul instanceof Empty){
+            shakeAmount = 5;
+            log.addLog("FluffyNoSoulTaunt");
+            return;
+        }
+        else if (!(player.tile.value instanceof Empty)){
+            shakeAmount = 5;
+            log.addLog("FluffyDoubleSacTaunt");
+            return;
+        }
+        else {
+            this.wheel[slot] = new Empty();
+            player.tile.value = soul;
+        }
+    }
+
     castSoul(slot){
         if (player.infested > 1){
             this.sacrificeSoul(slot);
+            return;
+        }
+        else if (player.tile instanceof CageContainer){
+            this.cageSoul(slot);
             return;
         }
         else if (gameState == "contemplation"){
@@ -813,8 +873,13 @@ class LegendarySoul{
         this.glamdescript;
         this.hardescript;
         this.alpha = 1;
+        this.turbulent = false;
         this.index = 0;
         this.chosen = false;
+        this.offsetX = 0;                                                   
+        this.offsetY = 0;
+        this.speed = 0.05;
+        this.thrashcounter = 0;
         if (basic.includes(name)) this.alpha = 0.55;
     }
 

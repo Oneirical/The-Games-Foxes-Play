@@ -2,6 +2,8 @@
 
 **Re-re-imagining**
 
+A fully neutralized soul cage will generate a World Seed at the centre.
+
 I think this might finally be the thing I needed.
 
 * Terminal knows very little about the world due to being locked up. They need the assistance of souls from the Old World to see it better.

@@ -1,3 +1,19 @@
+class CageTemplate{
+    constructor(){
+        this.slots = [];
+        this.build();
+    }
+
+    build(){
+        for(let i=0;i<9;i++){
+            this.slots[i] = [];
+            for(let j=0;j<9;j++){
+                this.slots[i][j] = new Empty();
+            }
+        }
+    }
+}
+
 class Universe{
     constructor(){
         this.worlds = [];
@@ -354,6 +370,18 @@ class World{
             else if (exit.direction == "EE" && (i==7 || this.rooms[i+2][j] instanceof VoidRoom|| this.rooms[i+2][j].verticality == "up")) this.rooms[i][j].tiles[l[0]][l[1]] = new this.rooms[i][j].filler(l[0],l[1]);
             else if (exit.direction == "E2" && (i==7 || this.rooms[i+2][j+1] instanceof VoidRoom|| this.rooms[i+2][j+1].verticality == "up")) this.rooms[i][j].tiles[l[0]][l[1]] = new this.rooms[i][j].filler(l[0],l[1]);
             this.rooms[i][j].tiles[l[0]][l[1]].eat = false;
+        }
+    }
+
+    generateCage(){
+        let passableRooms=0;
+        worldgen = [];
+        for(let i=0;i<9;i++){
+            worldgen[i] = [];
+            for(let j=0;j<9;j++){
+                if (cage[i][j] instanceof Empty) worldgen[i][j] = new Wall(i,j);
+                else worldgen[i][j] = new Floor(i,j);
+            }
         }
     }
 
@@ -938,7 +966,7 @@ class PlateGenerator extends DefaultVaultRoom{
 class SoulCage extends DefaultVaultRoom{
     constructor(index){
         super(index);
-        this.id = "Cage1";
+        this.id = "Cage2";
     }
 }
 
