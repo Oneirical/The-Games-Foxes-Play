@@ -401,6 +401,7 @@ class DrawWheel{
             if (k instanceof Empty){
                 this.wheel[this.wheel.indexOf(k)] = player.tile.value;
                 player.tile.value = new Empty();
+                world.cage.slots[player.tile.x][player.tile.y] = new Empty;
                 break;
             } 
         }
@@ -627,6 +628,7 @@ class DrawWheel{
         else {
             this.wheel[slot] = new Empty();
             player.tile.value = soul;
+            world.cage.slots[player.tile.x][player.tile.y] = soul;
         }
     }
 

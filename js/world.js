@@ -198,6 +198,7 @@ class World{
         this.faction = 0;
         this.fighting = false;
         this.rooms;
+        this.cage = new CageTemplate();
     }
 
     checkPixel(tile){
@@ -275,9 +276,14 @@ class World{
     }
 
     confirmWorld(){
-        tryTo('generate a world', function(){
-            return world.generateWorld() == randomPassableRoom().getConnectedRooms().length;
-        });
+        //tryTo('generate a world', function(){
+            //return world.generateWorld() == randomPassableRoom().getConnectedRooms().length;
+        //});
+
+        if (world.generateCage() != randomPassableRoom().getConnectedRooms().length){
+            log.addLog("WrongCageError");
+            return;
+        }
 
         this.rooms = [];
         this.selectRooms();
@@ -379,10 +385,14 @@ class World{
         for(let i=0;i<9;i++){
             worldgen[i] = [];
             for(let j=0;j<9;j++){
-                if (cage[i][j] instanceof Empty) worldgen[i][j] = new Wall(i,j);
-                else worldgen[i][j] = new Floor(i,j);
+                if (this.cage.slots[i][j] instanceof Empty) worldgen[i][j] = new Wall(i,j);
+                else{
+                    worldgen[i][j] = new Floor(i,j);
+                    passableRooms++;
+                } 
             }
         }
+        return passableRooms;
     }
 
     generateWorld(){

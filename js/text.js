@@ -18,6 +18,7 @@ inventorytext = {
 messages = {
     // Various out-of-character messages
     "Empty" : "",
+    "WrongCageError" : "the cage is weird idk",
     "Bug" : "If you are seeing this, you have caused spacetime to explode and have violated the elemental laws of reality. Please message u/oneirical on Reddit, Onirim#2777 on the Roguelikes Discord or raise an issue on TGFP's GitHub explaining what happened.",
     "WIP" : "This feature is not completed yet.",
     "MapDebug": "Press 'm' to view the map.",
