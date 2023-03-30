@@ -697,8 +697,8 @@ class Mobilizer extends Tile{
 class CageWall extends Floor{
     constructor(x,y, dir){
         super(x, y, 107, true);
-        this.lore = description["Floor"];
-        this.name = "Eroded Floortiles";
+        this.lore = description["IvoryCage"];
+        this.name = "Ivory Bars";
         this.direction = dir;
         this.sprite = 107;
         if (this.direction == "w") this.sprite += 2;
@@ -708,7 +708,7 @@ class CageWall extends Floor{
     };
 }
 
-class FloorSoul extends Floor{
+class FloorSoul extends Floor{ //unused
     constructor(x, y, type){
         super(x,y,100, true);
         const sprites = {

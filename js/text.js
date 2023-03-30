@@ -445,6 +445,7 @@ description = {
     "Mobilizer" : "A plaque of immaculate, shining steel, vibrating as Epsilon's titanic body shakes the Industrial Apex. Each one ceaselessly ferries out fresh robotic bodies for the General's Ordered army to inhabit, forged from the reserves of Value hoarded by the mechanical military of Faith's End.",
     "Platform" : "An oddly solid slate of dancing smoke, exerting perfectly harmonious pressure against your paws as they press upon the Spire's platforms.",
     "Ladder" : "A stream of cold air originating from nothing, rushing to meet the Spire's glorious summit despite its low temperature.",
+    "IvoryCage" : "There was a time where the legislators of the Old World would have smitten any users of this sinister device with the most harrowing punishments they could conceive. It turns out these primitive rules are hard to enforce when one lacks a physical form.",
 }
 
 monabi = {
