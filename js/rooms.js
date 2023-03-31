@@ -16,6 +16,7 @@ var keytile = {
     "e" : CageWall,
     "w" : CageWall,
     "o" : CageContainer,
+    "H" : HypnoticProjector,
 }
 
 var keyroom = {
@@ -63,7 +64,7 @@ var rooms = {
         1 : "T.......T",
         2 : "T.......T",
         3 : "T.......T",
-        4 : "E.......E",
+        4 : "E...H...E",
         5 : "T.......T",
         6 : "T.......T",
         7 : "T.......T",

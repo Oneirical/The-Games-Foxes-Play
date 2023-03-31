@@ -761,3 +761,13 @@ class CageContainer extends Altar{
         this.value = new Empty();
     }
 }
+
+class HypnoticProjector extends Floor{
+    constructor(x, y){
+        super(x,y,110, true);
+        this.sprite = 110;
+        this.lore = description["Floor"];
+        this.name = "Hypnotic Projector";
+        this.value = new Empty();
+    }
+}
