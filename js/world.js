@@ -223,23 +223,23 @@ class World{
     }
 
     display(){
-        drawFilter(blackfilter);
+        //drawFilter(blackfilter);
         for(let y = 0; y<9;y++){
             for(let x = 0; x<9;x++){
                 if (this.rooms[x][y].tangible){
                     for(let i = 0; i<this.rooms[x][y].size;i++){
                         for (let j = 0; j<this.rooms[x][y].size; j++){
-                            if (!(this.rooms[x][y].tiles[i][j] instanceof RealityWall)) drawPixel(this.checkPixel(this.rooms[x][y].tiles[i][j]),i*7.11+x*64,j*7.11+y*64);
+                            if (!(this.rooms[x][y].tiles[i][j] instanceof RealityWall)) drawPixel(this.checkPixel(this.rooms[x][y].tiles[i][j]),i*7+x*64,j*7+y*64);
                         }
                     }
-                    if (this.rooms[x][y] instanceof HarmonyRelay) drawPixel(4,4*7.11+x*64,4*7.11+y*64);
+                    if (this.rooms[x][y] instanceof HarmonyRelay) drawPixel(4,4*7+x*64,4*7+y*64);
                 }
             }
         }
         for(let i = 0; i<numTiles;i++){
             for (let j = 0; j<numTiles; j++){
-                if (!(tiles[i][j] instanceof RealityWall)) drawPixel(this.checkPixel(tiles[i][j]),i*7.11+this.currentroom[0]*64,j*7.11+this.currentroom[1]*64);
-                if (tiles[i][j].monster && tiles[i][j].monster.isPlayer) drawPixel(3,i*7.11+this.currentroom[0]*64,j*7.11+this.currentroom[1]*64);
+                if (!(tiles[i][j] instanceof RealityWall)) drawPixel(this.checkPixel(tiles[i][j]),i*7+this.currentroom[0]*64,j*7+this.currentroom[1]*64);
+                if (tiles[i][j].monster && tiles[i][j].monster.isPlayer) drawPixel(3,i*7+this.currentroom[0]*64,j*7+this.currentroom[1]*64);
             }
         }
     }

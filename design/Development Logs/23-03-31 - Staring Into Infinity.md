@@ -3,7 +3,7 @@
 - flavour text of Ivory Bars
 
 ## The Games Foxes Play
-*([github](https://github.com/Oneirical/The-Games-Foxes-Play) | [view all previous posts](https://github.com/Oneirical/The-Games-Foxes-Play/tree/main/design/Development%20Logs) | [play 0.2 online in browser on itch.io!](https://oneirical.itch.io/tgfp))*
+*([complete source code on github](https://github.com/Oneirical/The-Games-Foxes-Play) | [view all previous posts](https://github.com/Oneirical/The-Games-Foxes-Play/tree/main/design/Development%20Logs) | [play 0.2 online in browser on itch.io!](https://oneirical.itch.io/tgfp))*
 
 *Unfortunately, I have chosen to downgrade my browser build to the old 0.2 from January. 0.3 is bloated with unfun features and is way too confusing, giving people a bad first impression of my game - as cool as the map generation algorithm may be.*
 
