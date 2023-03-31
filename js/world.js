@@ -2,6 +2,8 @@ class CageTemplate{
     constructor(){
         this.slots = [];
         this.build();
+        this.pocketworld;
+        this.displayon = false;
     }
 
     build(){
@@ -11,6 +13,15 @@ class CageTemplate{
                 this.slots[i][j] = new Empty();
             }
         }
+    }
+
+    equateWorld(){
+        this.pocketworld = universe.worlds[1][1];
+    }
+
+    generateWorld(){
+        this.displayon = true;
+        this.pocketworld.confirmWorld();
     }
 }
 

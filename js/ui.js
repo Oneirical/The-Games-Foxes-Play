@@ -402,6 +402,7 @@ class DrawWheel{
                 this.wheel[this.wheel.indexOf(k)] = player.tile.value;
                 player.tile.value = new Empty();
                 world.cage.slots[player.tile.x][player.tile.y] = new Empty;
+                world.cage.generateWorld();
                 break;
             } 
         }
@@ -629,6 +630,7 @@ class DrawWheel{
             this.wheel[slot] = new Empty();
             player.tile.value = soul;
             world.cage.slots[player.tile.x][player.tile.y] = soul;
+            world.cage.generateWorld();
         }
     }
 

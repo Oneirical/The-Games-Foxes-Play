@@ -200,6 +200,7 @@ function draw(){
         for(let i=0;i<droppedsouls.length;i++){
             droppedsouls[i].draw();
         }
+        if (world.getRoom() instanceof WorldSeed && world.cage.displayon) world.cage.pocketworld.display();
         player.draw();
         for(let i=0;i<monsters.length;i++){
             if (viewedTiles.includes(monsters[i].tile) || monsters[i].charmed)monsters[i].draw();
@@ -493,6 +494,7 @@ function startGame(){
     log = new MessageLog();
     universe = new Universe();
     universe.start(startingHp);
+    world.cage.equateWorld();
     gameState = "running";
 }
 
