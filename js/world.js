@@ -51,6 +51,7 @@ class Universe{
     }
 
     passDown(layer, spawnx, spawny){
+        level = 0;
         player.tile.monster = null;
         world.saveRoom(world.getRoom());
         this.currentworld = layer;
@@ -201,10 +202,10 @@ class World{
                 if (this.rooms[x][y].tangible){
                     for(let i = 0; i<this.rooms[x][y].size;i++){
                         for (let j = 0; j<this.rooms[x][y].size; j++){
-                            drawPixel(this.checkPixel(this.rooms[x][y].tiles[i][j]),i*7+x*64,j*7+y*64);
+                            drawPixel(this.checkPixel(this.rooms[x][y].tiles[i][j]),i*(64/9)+x*64,j*(64/9)+y*64);
                         }
                     }
-                    if (this.rooms[x][y] instanceof HarmonyRelay) drawPixel(4,4*7+x*64,4*7+y*64);
+                    if (this.rooms[x][y] instanceof HarmonyRelay) drawPixel(4,4*(64/9)+x*64,4*(64/9)+y*64);
                 }
             }
         }
@@ -299,6 +300,7 @@ class World{
                     }
                     else roomType = shuffle(this.roompool)[0];
                     this.rooms[i][j] = new roomType([i,j]);
+                    if (universe.worlds[universe.currentworld].cage.slots[i][j].turbulent) this.rooms[i][j].hostile = true;
                     let times = shuffle([-1,0,1])[0];
                     if (corridor) times = 0;
                     if (rooms[this.rooms[i][j].id]["tags"].includes("randomflip") && !corridor) flip = true;
@@ -514,6 +516,7 @@ class Room{
         this.core;
         this.playerspawn;
         this.tangible = true;
+        this.hostile = false;
         this.effects = [];
         this.previousRoom = -1; //Maybe secretly divide arrow tiles into return/generator tiles?
         this.index = [index[0],index[1]];
@@ -538,6 +541,7 @@ class Room{
     }
 
     populateRoom(){
+        if (this.hostile) generateMonsters();
         return; //for now
         const squadskey = Object.keys(squads);
         const classeskey = Object.keys(classes);

@@ -339,7 +339,7 @@ function generateMonsters(){
     let numMonsters;
     if (level < 6 && area != "Spire") numMonsters = level+1;
     else if (area == "Spire") numMonsters = Math.ceil(level/2);
-    else if (level > 6 && level != 17 && !(world.getRoom() instanceof HarmonyRelay)) numMonsters = level;
+    else if (level >= 6 && level != 17 && !(world.getRoom() instanceof HarmonyRelay)) numMonsters = level;
     else if ((world.getRoom() instanceof HarmonyRelay) || (world.getRoom() instanceof EpsilonArena)) numMonsters = 1;
     if (numMonsters > randomPassableTile().getConnectedTiles().length) numMonsters = randomPassableTile().getConnectedTiles().length-2;
     for(let i=0;i<numMonsters;i++){
@@ -387,7 +387,7 @@ function spawnMonster(){
             monsters.push(box);
         }
     }
-    else if ((level % 5 != 1 || level == 1)&& level != 0){
+    else if (level != 0){
         let monsterType;
         if (level < 6 && level > 0) monsterType = shuffle([Apis, Second, Tinker, Slug,Scion, Shrike, Apiarist])[0]; //Rendfly     //
         else if (level < 11 && level > 5)  monsterType = shuffle([Apis,Weaver, Second, Tinker,Oracle, Snail,Slug,Ragemaw, Felidol,Scion, Shrike, Apiarist])[0];
@@ -396,7 +396,7 @@ function spawnMonster(){
         monsters.push(monster);
         if (monsterType == Embalmer) return "Embalm";
     }
-    else if (level != 0){
+    else if (false){
         let monsterType = shuffle([Harmonizer])[0];
         let tile = getTile(4,4);
         world.getRoom().fuffspawn = tile;

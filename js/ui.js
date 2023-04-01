@@ -233,6 +233,7 @@ class DrawWheel{
             "Saintly" : Saintly,
         }
         let loot = new drops[skey.name]();
+        loot.turbulent = true;
         if (this.getWheelSpace() == 0){
             this.discard.push(loot);
         }
@@ -388,6 +389,7 @@ class DrawWheel{
     }
 
     retrieveSoul(){
+        if (player.tile.value instanceof Empty) return;
         let space = 8;
         for (let k of this.wheel){
             if (!(k instanceof Empty)) space--;

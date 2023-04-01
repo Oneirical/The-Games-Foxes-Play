@@ -14,7 +14,7 @@
 * Watch over the facility with a security room monitoring possible Harmonic infiltration.
 
 
-
+* Soul Press - convert 10 turbulent into 1 disciplined & 9 waste "pick off the bits and pieces that are primed for submission from the lot"
 
 **Names of things**
 
