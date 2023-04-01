@@ -3,7 +3,7 @@ class CageTemplate{
         this.slots = [];
         this.build();
         this.pocketworld;
-        this.displayon = false;
+        this.size = 0;
     }
 
     build(){
@@ -13,6 +13,7 @@ class CageTemplate{
                 this.slots[i][j] = new Empty();
             }
         }
+        this.displayon = false;
     }
 
     equateWorld(){
@@ -47,6 +48,34 @@ class Universe{
         world.currentroom = [4,4];
         world.playRoom(world.rooms[4][4],startingHp);
         log.addLog("MapDebug");
+    }
+
+    passDown(layer, spawnx, spawny){
+        player.tile.monster = null;
+        world.saveRoom(world.getRoom());
+        this.currentworld = layer;
+        this.worlds[layer-1] = world;
+        world = this.worlds[layer];
+        world.currentroom = [spawnx, spawny];
+        let locspawn;
+        if (player.lastMove[0] == -1) locspawn = [7,4];
+        else if (player.lastMove[0] == 1) locspawn = [1,4];
+        else if (player.lastMove[1] == 1) locspawn = [4,1];
+        else locspawn = [4,7];
+        world.appearRoom(locspawn);
+        summonExits();
+    }
+
+    passUp(layer){
+        player.tile.monster = null;
+        world.saveRoom(world.getRoom());
+        let locspawn = world.currentroom;
+        this.currentworld = layer;
+        this.worlds[layer+1] = world;
+        world = this.worlds[layer];
+        world.currentroom = [4, 4];
+        world.cage.displayon = false;
+        world.appearRoom(locspawn);
     }
 
     playRandomWorld(oldWorld){
@@ -370,6 +399,26 @@ class World{
         this.rooms[this.currentroom[0]][this.currentroom[1]].tiles = tiles;
         this.rooms[this.currentroom[0]][this.currentroom[1]].visited = room.visited;
         monsters = [];
+    }
+
+    appearRoom(spawnl){
+        let room = this.rooms[this.currentroom[0]][this.currentroom[1]];
+        numTiles = room.size;
+        tileSize = (9/numTiles)*64;
+        tiles = room.tiles;
+        if (!room.visited){
+            level++;
+            world.fighting = true;
+            room.populateRoom();
+            room.visited = true;
+            wheel.resolve = 3+Math.floor(resolvebonus/2);
+            player.hp = Math.min(maxHp, player.hp+1);
+        }
+        else{
+            monsters = room.monsters;
+        }
+        room.playerspawn = spawnl;
+        this.playRoom(room, player.hp);
     }
 
     enterRoom(direction){
@@ -849,7 +898,7 @@ class WorldSeed extends DefaultVaultRoom{
 
     populateRoom(){
         let monsterType = shuffle([Hologram])[0];
-        let tile = getTile(4,6);
+        let tile = getTile(3,1);
         let monster = new monsterType(tile);
         monsters.push(monster);
     }

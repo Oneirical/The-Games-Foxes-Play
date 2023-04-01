@@ -769,4 +769,11 @@ class HypnoticProjector extends Floor{
         this.name = "Hypnotic Projector";
         this.value = new Empty();
     }
+
+    stepOn(monster){
+        super.stepOn(monster);
+        if(monster.isPlayer){
+            if (world.cage.slots[this.x][this.y].id != "EMPTY" && world.cage.displayon) universe.passDown(world.depth+1, this.x, this.y);
+        }
+    }
 }

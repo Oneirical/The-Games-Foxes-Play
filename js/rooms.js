@@ -38,15 +38,15 @@ var keyroom = {
 
 var genstruct = {
     "Facility" : {
-        0 : "GHHHHHHHG",
-        1 : "V.......V",
-        2 : "V.......V",
-        3 : "V..S....V",
-        4 : "GHHBW.GHG",
-        5 : "V..P....V",
-        6 : "V.......V",
-        7 : "6e......V",
-        8 : "wsHHHHHHG",
+        0 : "GHHHGHHHG",
+        1 : "V...V...V",
+        2 : "V...V...V",
+        3 : "V..PBS..V",
+        4 : "V...W...V",
+        5 : "V.......V",
+        6 : "V...G...V",
+        7 : "6e..V...V",
+        8 : "wsHHGHHHG",
     }
 }
 
