@@ -389,7 +389,6 @@ class MapExit extends Tile{
             playSound("newLevel");
             this.monster = 0;
             world.saveRoom(world.getRoom());
-            universe.spreadHarmony();
             world.enterRoom(this.direction);
         }
     }

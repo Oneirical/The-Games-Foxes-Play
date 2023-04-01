@@ -28,21 +28,25 @@ var keyroom = {
     "H" : NarrowFaith,
     "V" : NarrowFaith,
     "S" : EmptyFaith,
+    "s" : BigRoomVoid,
+    "e" : BigRoomVoid,
+    "w" : BigRoomVoid,
+    "6" : SixfoldStand,
 }
 
 //spawns: N - W - E - S
 
 var genstruct = {
     "Facility" : {
-        0 : "GHHHGHHHG",
-        1 : "V...V...V",
-        2 : "V...V...V",
-        3 : "V...V...V",
-        4 : "V.BHWHS.V",
-        5 : "V...V...V",
-        6 : "V...P...V",
-        7 : "V.......V",
-        8 : "GHHHHHHHG",
+        0 : "GHHHHHHHG",
+        1 : "V.......V",
+        2 : "V.......V",
+        3 : "V..S....V",
+        4 : "GHHBW.GHG",
+        5 : "V..P....V",
+        6 : "V.......V",
+        7 : "6e......V",
+        8 : "wsHHHHHHG",
     }
 }
 
@@ -63,9 +67,9 @@ var rooms = {
         0 : "TTTTETTTT",
         1 : "T.......T",
         2 : "T.......T",
-        3 : "T.......T",
-        4 : "E...H...E",
-        5 : "T.......T",
+        3 : "T..HHH..T",
+        4 : "E..HHH..E",
+        5 : "T..HHH..T",
         6 : "T.......T",
         7 : "T.......T",
         8 : "TTTTETTTT",

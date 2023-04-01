@@ -16,7 +16,8 @@ class CageTemplate{
     }
 
     equateWorld(){
-        this.pocketworld = universe.worlds[1][1];
+        universe.worlds[1] = new World(1);
+        this.pocketworld = universe.worlds[1];
     }
 
     generateWorld(){
@@ -28,114 +29,24 @@ class CageTemplate{
 class Universe{
     constructor(){
         this.worlds = [];
-        this.currentworld = [4,4];
-        this.maze;
-        this.initiate();
-    }
-
-    initiate(){
-        this.maze = new MazeBuilder(40, 40).maze;
-        for (let i = 0; i<81;i++){
-            this.worlds[i] = [];
-            for (let j = 0; j<81;j++){
-                this.worlds[i][j] = new World(i,j);
-                if (this.maze[i][j][0] != "wall") this.worlds[i][j].isAccessible = true;
-                else this.worlds[i][j].isAccessible = false;
-            }
-        }
+        this.currentworld = 0;
     }
 
     display(){
         drawFilter(blackfilter);
-        for (let i = 0; i<81;i++){
-            for (let j = 0; j<81;j++){
-                let colour = 5;
-                if (this.worlds[i][j].isAccessible) colour = 0;
-                this.worlds[i][j].represent(colour);
-            }
-        }
-        drawPixel(6,this.currentworld[0]*7.11,this.currentworld[1]*7.11);
+        //change between layers...
     }
 
     start(startingHp){
         tiles = [];
         monsters = [];
-        const debut = this.randomAvailableWorld();
-        const position = [debut.x,debut.y];
-        this.currentworld = position;
-        world = this.worlds[position[0]][position[1]];
+        this.worlds[0] = new World(0);
+        this.currentworld = 0;
+        world = this.worlds[this.currentworld];
         world.confirmWorldFromVault();
-        for (let i = 1; i<7;i++){
-            this.infestRandom(i);
-        }
-        //let i = 0;
-        //while(i < 300){
-        //    if (this.spreadHarmony()) break;
-        //    i++;
-        //}
         world.currentroom = [4,4];
         world.playRoom(world.rooms[4][4],startingHp);
         log.addLog("MapDebug");
-    }
-
-    infestRandom(faction){
-        const debut = this.randomAvailableWorld();
-        let position = [debut.x,debut.y];
-        const positions = {
-            1: [41,41],
-            2: [1,1],
-            3: [79,1],
-            4: [1,79],
-            5: position,
-            6: [79,79]
-        }
-        position = positions[faction];
-        this.worlds[position[0]][position[1]].faction = faction;
-    }
-
-    spreadHarmony(){
-        let finished = true;
-        for (let i = 0; i<80;i++){
-            for (let j = 0; j<80;j++){
-                if (this.worlds[i][j].faction > 0 && !this.worlds[i][j].finishedspread){
-                    this.worlds[i][j].finishedspread = true;
-                    if (this.worlds[i+1][j].isAccessible && this.worlds[i+1][j].faction == 0){
-                        this.worlds[i+1][j].faction = this.worlds[i][j].faction;
-                        this.worlds[i+1][j].finishedspread = true;
-                    }
-                    if (this.worlds[i-1][j].isAccessible && this.worlds[i-1][j].faction == 0){
-                    this.worlds[i-1][j].faction = this.worlds[i][j].faction;
-                    this.worlds[i-1][j].finishedspread = true;
-                    }
-                    if (this.worlds[i][j+1].isAccessible && this.worlds[i][j+1].faction == 0){
-                    this.worlds[i][j+1].faction = this.worlds[i][j].faction;
-                    this.worlds[i][j+1].finishedspread = true;
-                    }
-                    if (this.worlds[i][j-1].isAccessible && this.worlds[i][j-1].faction == 0){
-                    this.worlds[i][j-1].faction = this.worlds[i][j].faction;
-                    this.worlds[i][j-1].finishedspread = true;
-                    }
-                }
-            }
-        }
-        for (let i = 0; i<80;i++){
-            for (let j = 0; j<80;j++){
-                this.worlds[i][j].finishedspread = false;
-                if (this.worlds[i][j].faction == 0) finished = false;
-            }
-        }
-        return finished;
-    }
-
-    randomAvailableWorld(){
-        let world;
-        tryTo('get random passable world', function(){
-            let x = randomRange(50,70);
-            let y = randomRange(50,70);
-            world = universe.worlds[x][y];
-            return (world.isAccessible && world.faction == 0);
-        });
-        return world;
     }
 
     playRandomWorld(oldWorld){
@@ -197,9 +108,8 @@ class EmptyWorld{
 }
 
 class World{
-    constructor(x,y){
-        this.x = x;
-        this.y = y;
+    constructor(depth){
+        this.depth = depth;
         this.roompool = [];
         this.isAccessible = false;
         this.finishedspread = false;
@@ -214,7 +124,7 @@ class World{
 
     checkPixel(tile){
         if (tile instanceof BExit || tile instanceof MapExit) return 6;
-        else if (tile.passable) return 5;
+        else if (tile.passable || tile instanceof RealityWall) return 5;
         else return 0;
     }
 
@@ -234,13 +144,14 @@ class World{
     }
 
     display(){
-        //drawFilter(blackfilter);
+        let brush = (64/9);
+        drawFilter(blackfilter);
         for(let y = 0; y<9;y++){
             for(let x = 0; x<9;x++){
                 if (this.rooms[x][y].tangible){
                     for(let i = 0; i<this.rooms[x][y].size;i++){
                         for (let j = 0; j<this.rooms[x][y].size; j++){
-                            if (!(this.rooms[x][y].tiles[i][j] instanceof RealityWall)) drawPixel(this.checkPixel(this.rooms[x][y].tiles[i][j]),i*7+x*64,j*7+y*64);
+                            if (!(this.rooms[x][y].tiles[i][j] instanceof RealityWall)) drawPixel(this.checkPixel(this.rooms[x][y].tiles[i][j]),i*brush+x*64,j*brush+y*64);
                         }
                     }
                     if (this.rooms[x][y] instanceof HarmonyRelay) drawPixel(4,4*7+x*64,4*7+y*64);
@@ -249,8 +160,23 @@ class World{
         }
         for(let i = 0; i<numTiles;i++){
             for (let j = 0; j<numTiles; j++){
-                if (!(tiles[i][j] instanceof RealityWall)) drawPixel(this.checkPixel(tiles[i][j]),i*7+this.currentroom[0]*64,j*7+this.currentroom[1]*64);
-                if (tiles[i][j].monster && tiles[i][j].monster.isPlayer) drawPixel(3,i*7+this.currentroom[0]*64,j*7+this.currentroom[1]*64);
+                if (!(tiles[i][j] instanceof RealityWall)) drawPixel(this.checkPixel(tiles[i][j]),i*brush+this.currentroom[0]*64,j*brush+this.currentroom[1]*64);
+                if (tiles[i][j].monster && tiles[i][j].monster.isPlayer) drawPixel(3,i*brush+this.currentroom[0]*64,j*brush+this.currentroom[1]*64);
+            }
+        }
+    }
+
+    hypnoDisplay(){
+        for(let y = 0; y<9;y++){
+            for(let x = 0; x<9;x++){
+                if (this.rooms[x][y].tangible){
+                    for(let i = 0; i<this.rooms[x][y].size;i++){
+                        for (let j = 0; j<this.rooms[x][y].size; j++){
+                            drawPixel(this.checkPixel(this.rooms[x][y].tiles[i][j]),i*7+x*64,j*7+y*64);
+                        }
+                    }
+                    if (this.rooms[x][y] instanceof HarmonyRelay) drawPixel(4,4*7+x*64,4*7+y*64);
+                }
             }
         }
     }
@@ -272,7 +198,8 @@ class World{
                 let flip = false;
                 let roomType = keyroom[genstruct["Facility"][j][i]];
                 if (genstruct["Facility"][j][i] == "H") flip = true;
-                this.rooms[i][j] = new roomType([i,j]);
+                if (!"wes".includes(genstruct["Facility"][j][i])) this.rooms[i][j] = new roomType([i,j]);
+                else this.rooms[i][j] = new roomType([i,j],genstruct["Facility"][j][i]);
                 if (flip) flipRoom(this.rooms[i][j].id,this.rooms[i][j].size,0);
                 this.rooms[i][j].setUp();
                 this.rooms[i][j].insertRoom();
@@ -293,6 +220,7 @@ class World{
 
         if (world.generateCage() != randomPassableRoom().getConnectedRooms().length){
             log.addLog("WrongCageError");
+            world.cage.displayon = false;
             return;
         }
 
@@ -308,17 +236,17 @@ class World{
                     let flip = false;
                     let corridor = false;
                     let bannedsquares = [[4,8],[8,4],[0,4],[4,0],[4,4]];
-                    if ((j == 8 && i == 4) || (j == 4 && i == 8) || (j == 0 && i == 4) || (j == 4 && i == 0)) roomType = EmptyFaith;
-                    else if (j == 4 && i == 4) roomType = PlateGenerator;
-                    else if (Math.random() < 0.9 && j < 8 && i < 8 && worldgen[i+1][j].passable && worldgen[i][j+1].passable && worldgen[i+1][j+1].passable && !isArrayInArray(bannedsquares,[i+1,j]) && !isArrayInArray(bannedsquares,[i+1,j+1]) && !isArrayInArray(bannedsquares,[i,j+1])){
+                    //if ((j == 8 && i == 4) || (j == 4 && i == 8) || (j == 0 && i == 4) || (j == 4 && i == 0)) roomType = EmptyFaith;
+                    //else if (j == 4 && i == 4) roomType = PlateGenerator;
+                    if (Math.random() < 0.9 && j < 8 && i < 8 && worldgen[i+1][j].passable && worldgen[i][j+1].passable && worldgen[i+1][j+1].passable && !isArrayInArray(bannedsquares,[i+1,j]) && !isArrayInArray(bannedsquares,[i+1,j+1]) && !isArrayInArray(bannedsquares,[i,j+1])){
                         if (!placedboss){
                             roomType = EpsilonArena;
                             placedboss = true; // temporary
                         }
                         else roomType = shuffle([RogueFaith,GrandHallFaith])[0];
-                        worldgen[i+1][j] = new RealityWall(i+1,j,"E");
-                        worldgen[i][j+1] = new RealityWall(i,j+1,"S");
-                        worldgen[i+1][j+1] = new RealityWall(i+1,j+1,"ES");
+                        worldgen[i+1][j] = new RealityWall(i+1,j,"e");
+                        worldgen[i][j+1] = new RealityWall(i,j+1,"w");
+                        worldgen[i+1][j+1] = new RealityWall(i+1,j+1,"s");
                     }
                     else if (j < 8 && j > 0 && worldgen[i][j+1].passable && worldgen[i][j-1].passable){
                         if ((i == 8 || !worldgen[i+1][j].passable) && (i == 0 || !worldgen[i-1][j].passable)){
@@ -366,17 +294,17 @@ class World{
     spreadExits(i,j){
         for (let l of this.rooms[i][j].possibleexits){
             const exit = this.rooms[i][j].tiles[l[0]][l[1]];
-            const spreads = {
-                "N" : universe.worlds[this.x][this.y-1] && universe.worlds[this.x][this.y-1].isAccessible,
-                "W" : universe.worlds[this.x-1][this.y] && universe.worlds[this.x-1][this.y].isAccessible,
-                "E" : universe.worlds[this.x+1][this.y] && universe.worlds[this.x+1][this.y].isAccessible,
-                "S" : universe.worlds[this.x][this.y+1] && universe.worlds[this.x][this.y+1].isAccessible,
-            };
-            if (i == 4 && j == 8 && l[1] == 8 && spreads["S"]) continue;
-            else if (i == 4 && j == 0 && l[1] == 0 && spreads["N"]) continue;
-            else if (i == 8 && j == 4 && l[0] == 8 && spreads["E"]) continue;
-            else if (i == 0 && j == 4 && l[0] == 0 && spreads["W"]) continue;
-            else if (exit.direction == "N" && (j==0 || this.rooms[i][j-1] instanceof VoidRoom)) this.rooms[i][j].tiles[l[0]][l[1]] = new this.rooms[i][j].filler(l[0],l[1]);
+            //const spreads = {
+             //   "N" : universe.worlds[this.x][this.y-1] && universe.worlds[this.x][this.y-1].isAccessible,
+            //    "W" : universe.worlds[this.x-1][this.y] && universe.worlds[this.x-1][this.y].isAccessible,
+             //   "E" : universe.worlds[this.x+1][this.y] && universe.worlds[this.x+1][this.y].isAccessible,
+             //   "S" : universe.worlds[this.x][this.y+1] && universe.worlds[this.x][this.y+1].isAccessible,
+            //};
+            //if (i == 4 && j == 8 && l[1] == 8 && spreads["S"]) continue;
+            //else if (i == 4 && j == 0 && l[1] == 0 && spreads["N"]) continue;
+            //else if (i == 8 && j == 4 && l[0] == 8 && spreads["E"]) continue;
+            //else if (i == 0 && j == 4 && l[0] == 0 && spreads["W"]) continue;
+            if (exit.direction == "N" && (j==0 || this.rooms[i][j-1] instanceof VoidRoom)) this.rooms[i][j].tiles[l[0]][l[1]] = new this.rooms[i][j].filler(l[0],l[1]);
             else if (exit.direction == "S" && (j==8 || this.rooms[i][j+1] instanceof VoidRoom)) this.rooms[i][j].tiles[l[0]][l[1]] = new this.rooms[i][j].filler(l[0],l[1]);
             else if (exit.direction == "W" && (i==0 || this.rooms[i-1][j] instanceof VoidRoom)) this.rooms[i][j].tiles[l[0]][l[1]] = new this.rooms[i][j].filler(l[0],l[1]);
             else if (exit.direction == "E" && (i==8 || this.rooms[i+1][j] instanceof VoidRoom)) this.rooms[i][j].tiles[l[0]][l[1]] = new this.rooms[i][j].filler(l[0],l[1]);
@@ -486,20 +414,20 @@ class World{
 
     handleBigRoom(room,direction){
         let correctroom;
-        if (room.quadrant == "E"){
+        if (room.quadrant == "e"){
             correctroom = this.rooms[this.currentroom[0]-1][this.currentroom[1]];
             if (direction == "W") correctroom.playerspawn = [16,4];
             else if (direction == "S") correctroom.playerspawn = [13,1];
             this.currentroom[0] -= 1;
         }
-        else if (room.quadrant == "ES"){
+        else if (room.quadrant == "s"){
             correctroom = this.rooms[this.currentroom[0]-1][this.currentroom[1]-1];
             if (direction == "W") correctroom.playerspawn = [16,13];
             else if (direction == "N") correctroom.playerspawn = [13,16];
             this.currentroom[0] -= 1;
             this.currentroom[1] -= 1;
         }
-        else if (room.quadrant == "S"){
+        else if (room.quadrant == "w"){
             correctroom = this.rooms[this.currentroom[0]][this.currentroom[1]-1];
             if (direction == "N") correctroom.playerspawn = [4,16];
             else if (direction == "E") correctroom.playerspawn = [1,13];
@@ -1134,6 +1062,15 @@ class RoseicCogArena extends Room{
     initializeRoom(){
         this.playerspawn = getTile(8,8);
         super.initializeRoom();
+    }
+}
+
+class SixfoldStand extends DefaultVaultRoom{
+    constructor(index){
+        super(index);
+        this.name = "Sixfold Node";
+        this.size = 18;
+        this.id = "Sixfold";
     }
 }
 
