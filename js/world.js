@@ -64,7 +64,7 @@ class Universe{
         else if (player.lastMove[1] == 1) locspawn = [4,1];
         else locspawn = [4,7];
         world.appearRoom(locspawn);
-        summonExits();
+        if(!world.getRoom().hostile) summonExits();
     }
 
     passUp(layer){

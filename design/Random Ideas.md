@@ -16,6 +16,20 @@
 
 * Soul Press - convert 10 turbulent into 1 disciplined & 9 waste "pick off the bits and pieces that are primed for submission from the lot"
 
+**Research Nodes**
+
+Visions of the Outside World - final failsafe for an apocalypse that never came. at least, I may learn something about the outside world
+A Choir of Minds - by combining certain Souls, I can form patterns to reveal certain nodes...
+The Bottomless Dream-Pit - making a better soul cage
+
+The Crimson Forest - Anisychia research
+
+An Enticing Song - I have heard something out of this world...
+In Unity We Flourish
+Turbulent Souls
+Subdued Souls
+(the six castes)
+
 **Names of things**
 
 World Seed

@@ -343,9 +343,10 @@ function tick(){
     for(let k=droppedsouls.length-1;k>=0;k--){
         droppedsouls[k].update();
     }
-    if (deadcheck == 0 && level != 0&& area == "Faith"){
+    if (deadcheck == 0 && area == "Faith"){
         //gener8 sortie si every1 est ded
         if (world.fighting){
+            if(world.getRoom().hostile) universe.worlds[universe.currentworld-1].cage.slots[world.getRoom().index[0]][world.getRoom().index[1]].turbulent = false;
             summonExits();
             if (player.falsehp < 1 && legendaries.hasSoul(Kashia)){
                 player.falsehp = 1;
