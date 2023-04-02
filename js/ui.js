@@ -94,7 +94,7 @@ class DrawWheel{
         this.hotkeycoords = [[center[0], center[1]-dist],[center[0]+Math.cos(pi/4)*dist, center[1]-Math.sin(pi/4)*dist],[center[0]+dist, center[1]],[center[0]+Math.cos(pi/4)*dist, center[1]+Math.sin(pi/4)*dist],[center[0], center[1]+dist],[center[0]-Math.cos(pi/4)*dist, center[1]+Math.sin(pi/4)*dist],[center[0]-dist, center[1]],[center[0]-Math.cos(pi/4)*dist, center[1]-Math.sin(pi/4)*dist]];
 
         this.pile = [];
-        this.discard = [new Saintly(),new Feral(),new Feral()]; //
+        this.discard = [new Saintly(),new Feral(),new Feral(),new Saintly(),new Feral(),new Feral()]; //
         this.saved = [new Empty(),new Empty(),new Empty(),new Empty(),new Empty(),new Empty(),new Empty(),new Empty()];
         this.resolve = 3; //update this later with the bonus
         this.complexity = 0;

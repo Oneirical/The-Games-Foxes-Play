@@ -68,10 +68,22 @@ class Universe{
         if(!world.getRoom().hostile) summonExits();
     }
 
-    passUp(layer){
+    passUp(layer,origin){
         player.tile.monster = null;
         world.saveRoom(world.getRoom());
-        let locspawn = [world.currentroom[0] + player.lastMove[0], world.currentroom[1] + player.lastMove[1]];
+        const scale = {
+            "N" : [0,0],
+            "S" : [0,0],
+            "E" : [0,0],
+            "W" : [0,0],
+            "N2" : [1,0],
+            "W2" : [0,1],
+            "EE" : [1,0],
+            "SS" : [0,1],
+            "E2" : [1,1],
+            "S2" : [1,1],
+        }
+        let locspawn = [world.currentroom[0] + player.lastMove[0] + scale[origin][0], world.currentroom[1] + player.lastMove[1] + scale[origin][1]];
         let motionsave = player.lastMove;
         this.currentworld = layer;
         this.worlds[layer+1] = world;
@@ -279,7 +291,7 @@ class World{
                     let bannedsquares = [[4,8],[8,4],[0,4],[4,0],[4,4]];
                     //if ((j == 8 && i == 4) || (j == 4 && i == 8) || (j == 0 && i == 4) || (j == 4 && i == 0)) roomType = EmptyFaith;
                     //else if (j == 4 && i == 4) roomType = PlateGenerator;
-                    if (Math.random() < 0.9 && j < 8 && i < 8 && worldgen[i+1][j].passable && worldgen[i][j+1].passable && worldgen[i+1][j+1].passable && !isArrayInArray(bannedsquares,[i+1,j]) && !isArrayInArray(bannedsquares,[i+1,j+1]) && !isArrayInArray(bannedsquares,[i,j+1])){
+                    if (Math.random() < 1 && j < 8 && i < 8 && worldgen[i+1][j].passable && worldgen[i][j+1].passable && worldgen[i+1][j+1].passable && !isArrayInArray(bannedsquares,[i+1,j]) && !isArrayInArray(bannedsquares,[i+1,j+1]) && !isArrayInArray(bannedsquares,[i,j+1])){
                         if (!placedboss){
                             roomType = EpsilonArena;
                             placedboss = true; // temporary
@@ -417,6 +429,16 @@ class World{
 
     appearRoom(spawnl){
         let room = this.rooms[this.currentroom[0]][this.currentroom[1]];
+        let spawnhandledflag = false;
+        if (room instanceof BigRoomVoid){
+            let direction;
+            if (spawnl[0] == 7) direction = "W";
+            else if (spawnl[0] == 1) direction = "E";
+            else if (spawnl[1] == 1) direction = "S";
+            else direction = "N";;
+            room = this.handleBigRoom(room,direction);
+            spawnhandledflag = true;
+        }
         numTiles = room.size;
         tileSize = (9/numTiles)*64;
         tiles = room.tiles;
@@ -431,7 +453,7 @@ class World{
         else{
             monsters = room.monsters;
         }
-        room.playerspawn = spawnl;
+        if (!spawnhandledflag) room.playerspawn = spawnl;
         this.playRoom(room, player.hp);
     }
 
@@ -526,6 +548,7 @@ class Room{
         this.generatedexits = [];
         this.playerlastmove = [0,-1];
         this.core;
+        this.corridor = false;
         this.playerspawn;
         this.tangible = true;
         this.hostile = false;
@@ -791,6 +814,7 @@ class NarrowFaith extends DefaultVaultRoom{
     constructor(index){
         super(index);
         this.id = "Narrow";
+        this.corridor = true;
     }
 }
 class GrandHallFaith extends DefaultVaultRoom{
@@ -961,6 +985,7 @@ class BridgeFaith extends DefaultVaultRoom{
     constructor(index){
         super(index);
         this.id = "Bridge";
+        this.corridor = true;
     }
 }
 

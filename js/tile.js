@@ -414,7 +414,7 @@ class AscendExit extends Tile{
             playSound("newLevel");
             this.monster = 0;
             world.saveRoom(world.getRoom());
-            universe.passUp(universe.currentworld-1);
+            universe.passUp(universe.currentworld-1,this.direction);
         }
     }
 }
@@ -797,8 +797,13 @@ class HypnoticProjector extends Floor{
 
     stepOn(monster){
         super.stepOn(monster);
-        if(monster.isPlayer){
-            if (world.cage.slots[this.x][this.y].id != "EMPTY" && world.cage.displayon) universe.passDown(world.depth+1, this.x, this.y);
+        if(monster.isPlayer && world.cage.displayon){
+            if (world.cage.pocketworld.rooms[this.x][this.y].corridor){
+                player.move(getTile(player.tile.x - player.lastMove[0],player.tile.y - player.lastMove[1]));
+                player.offsetX = 0;
+                player.offsetY = 0;
+            } 
+            else if (world.cage.slots[this.x][this.y].id != "EMPTY") universe.passDown(world.depth+1, this.x, this.y);
         }
     }
 }
