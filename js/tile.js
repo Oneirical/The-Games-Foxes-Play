@@ -369,6 +369,24 @@ class BExit extends Tile{
     }
 }
 
+class BAscendExit extends Tile{
+    constructor(x,y,room){
+        super(x, y, 17, false);
+        this.lore = description["Seal"];
+        this.name = "Soulsteel Seal";
+        this.eat = false;
+        this.id = 0;
+        this.checkDirection(room);
+        this.textures = {
+            "N" : 84,
+            "S" : 17,
+            "W" : 83,
+            "E" : 85
+        }
+        this.sprite = this.textures[this.direction[0]];
+    }
+}
+
 class MapExit extends Tile{
     constructor(x,y,room){
         super(x, y, 17, true);

@@ -171,7 +171,7 @@ class World{
 
     checkPixel(tile){
         if (tile instanceof BExit || tile instanceof MapExit) return 6;
-        else if (tile instanceof AscendExit) return 2; //tile instanceof BAscendExit || 
+        else if (tile instanceof BAscendExit || tile instanceof AscendExit) return 2; //
         else if (tile.passable || tile instanceof RealityWall) return 5;
         else return 0;
     }
@@ -560,7 +560,7 @@ class Room{
         this.vault = true;
         this.name = "Bugtopia";
         this.fourway = false;
-        this.filler = AscendExit;
+        this.filler = BAscendExit;
         this.vault = false;
         this.extreme = {
             "N" : 0,

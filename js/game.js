@@ -279,11 +279,12 @@ function draw(){
 function summonExits(){
     for (let x of tiles){
         for (let y of x){
-            if (y instanceof BExit){
+            if (y instanceof BExit || y instanceof BAscendExit){
                 let id = y.id;
                 let px = y.x;
                 let py = y.y;
-                tiles[px][py] = new MapExit(px,py,world.getRoom());
+                if (y instanceof BExit) tiles[px][py] = new MapExit(px,py,world.getRoom());
+                if (y instanceof BAscendExit) tiles[px][py] = new AscendExit(px,py,world.getRoom());
                 tiles[px][py].id = id;
             }
         }
