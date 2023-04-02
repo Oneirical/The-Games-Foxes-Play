@@ -394,6 +394,31 @@ class MapExit extends Tile{
     }
 }
 
+class AscendExit extends Tile{
+    constructor(x,y,room){
+        super(x, y, 17, true);
+        this.lore = description["OpenSeal"];
+        this.name = "Unraveled Seal";
+        this.eat = false;
+        this.checkDirection(room);
+        this.textures = {
+            "N" : 94,
+            "S" : 91,
+            "W" : 92,
+            "E" : 93
+        }
+        this.sprite = this.textures[this.direction[0]];
+    }
+    stepOn(monster){
+        if(monster.isPlayer){
+            playSound("newLevel");
+            this.monster = 0;
+            world.saveRoom(world.getRoom());
+            universe.passUp(universe.currentworld-1);
+        }
+    }
+}
+
 class TermiWall extends Wall{
     constructor(x, y){
         super(x, y, 37, false);

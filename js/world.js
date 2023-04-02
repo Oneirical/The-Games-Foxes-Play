@@ -44,6 +44,7 @@ class Universe{
         this.worlds[0] = new World(0);
         this.currentworld = 0;
         world = this.worlds[this.currentworld];
+        world.layer = 0;
         world.confirmWorldFromVault();
         world.currentroom = [4,4];
         world.playRoom(world.rooms[4][4],startingHp);
@@ -70,13 +71,16 @@ class Universe{
     passUp(layer){
         player.tile.monster = null;
         world.saveRoom(world.getRoom());
-        let locspawn = world.currentroom;
+        let locspawn = [world.currentroom[0] + player.lastMove[0], world.currentroom[1] + player.lastMove[1]];
+        let motionsave = player.lastMove;
         this.currentworld = layer;
         this.worlds[layer+1] = world;
         world = this.worlds[layer];
         world.currentroom = [4, 4];
-        world.cage.displayon = false;
+        //world.cage.displayon = false;
         world.appearRoom(locspawn);
+        player.offsetX = -motionsave[0];
+        player.offsetY = -motionsave[1];
     }
 
     playRandomWorld(oldWorld){
@@ -150,10 +154,12 @@ class World{
         this.fighting = false;
         this.rooms;
         this.cage = new CageTemplate();
+        this.layer;
     }
 
     checkPixel(tile){
         if (tile instanceof BExit || tile instanceof MapExit) return 6;
+        else if (tile instanceof AscendExit) return 2; //tile instanceof BAscendExit || 
         else if (tile.passable || tile instanceof RealityWall) return 5;
         else return 0;
     }
@@ -238,7 +244,12 @@ class World{
         }
         for(let i=0;i<9;i++){
             for(let j=0;j<9;j++){
+                if ("Facility" == "Facility"){//replace this if more vaults get added
+                    if (this.rooms[i][j] instanceof WorldSeed) this.rooms[i][j].filler = TermiWall;
+                    else this.rooms[i][j].filler = Wall;
+                }
                 if (this.rooms[i][j].tangible) this.spreadExits(i,j);
+                this.rooms[i][j].layer = this.layer;
             }
         }
     }
@@ -317,6 +328,7 @@ class World{
         for(let i=0;i<9;i++){
             for(let j=0;j<9;j++){
                 if (this.rooms[i][j].tangible) this.spreadExits(i,j);
+                this.rooms[i][j].layer = this.layer;
             }
         }
         this.generated = true;
@@ -335,16 +347,16 @@ class World{
             //else if (i == 4 && j == 0 && l[1] == 0 && spreads["N"]) continue;
             //else if (i == 8 && j == 4 && l[0] == 8 && spreads["E"]) continue;
             //else if (i == 0 && j == 4 && l[0] == 0 && spreads["W"]) continue;
-            if (exit.direction == "N" && (j==0 || this.rooms[i][j-1] instanceof VoidRoom)) this.rooms[i][j].tiles[l[0]][l[1]] = new this.rooms[i][j].filler(l[0],l[1]);
-            else if (exit.direction == "S" && (j==8 || this.rooms[i][j+1] instanceof VoidRoom)) this.rooms[i][j].tiles[l[0]][l[1]] = new this.rooms[i][j].filler(l[0],l[1]);
-            else if (exit.direction == "W" && (i==0 || this.rooms[i-1][j] instanceof VoidRoom)) this.rooms[i][j].tiles[l[0]][l[1]] = new this.rooms[i][j].filler(l[0],l[1]);
-            else if (exit.direction == "E" && (i==8 || this.rooms[i+1][j] instanceof VoidRoom)) this.rooms[i][j].tiles[l[0]][l[1]] = new this.rooms[i][j].filler(l[0],l[1]);
-            else if (exit.direction == "N2" && (j==0 || this.rooms[i+1][j-1] instanceof VoidRoom|| this.rooms[i+1][j-1].verticality == "side")) this.rooms[i][j].tiles[l[0]][l[1]] = new this.rooms[i][j].filler(l[0],l[1]);
-            else if (exit.direction == "W2" && (i==0 || this.rooms[i-1][j+1] instanceof VoidRoom|| this.rooms[i-1][j+1].verticality == "up")) this.rooms[i][j].tiles[l[0]][l[1]] = new this.rooms[i][j].filler(l[0],l[1]);
-            else if (exit.direction == "SS" && (j==7 || this.rooms[i][j+2] instanceof VoidRoom|| this.rooms[i][j+2].verticality == "side")) this.rooms[i][j].tiles[l[0]][l[1]] = new this.rooms[i][j].filler(l[0],l[1]);
-            else if (exit.direction == "S2" && (j==7 || this.rooms[i+1][j+2] instanceof VoidRoom|| this.rooms[i+1][j+2].verticality == "side")) this.rooms[i][j].tiles[l[0]][l[1]] = new this.rooms[i][j].filler(l[0],l[1]);
-            else if (exit.direction == "EE" && (i==7 || this.rooms[i+2][j] instanceof VoidRoom|| this.rooms[i+2][j].verticality == "up")) this.rooms[i][j].tiles[l[0]][l[1]] = new this.rooms[i][j].filler(l[0],l[1]);
-            else if (exit.direction == "E2" && (i==7 || this.rooms[i+2][j+1] instanceof VoidRoom|| this.rooms[i+2][j+1].verticality == "up")) this.rooms[i][j].tiles[l[0]][l[1]] = new this.rooms[i][j].filler(l[0],l[1]);
+            if (exit.direction == "N" && (j==0 || this.rooms[i][j-1] instanceof VoidRoom)) this.rooms[i][j].tiles[l[0]][l[1]] = new this.rooms[i][j].filler(l[0],l[1],this.rooms[i][j]);
+            else if (exit.direction == "S" && (j==8 || this.rooms[i][j+1] instanceof VoidRoom)) this.rooms[i][j].tiles[l[0]][l[1]] = new this.rooms[i][j].filler(l[0],l[1],this.rooms[i][j]);
+            else if (exit.direction == "W" && (i==0 || this.rooms[i-1][j] instanceof VoidRoom)) this.rooms[i][j].tiles[l[0]][l[1]] = new this.rooms[i][j].filler(l[0],l[1],this.rooms[i][j]);
+            else if (exit.direction == "E" && (i==8 || this.rooms[i+1][j] instanceof VoidRoom)) this.rooms[i][j].tiles[l[0]][l[1]] = new this.rooms[i][j].filler(l[0],l[1],this.rooms[i][j]);
+            else if (exit.direction == "N2" && (j==0 || this.rooms[i+1][j-1] instanceof VoidRoom|| this.rooms[i+1][j-1].verticality == "side")) this.rooms[i][j].tiles[l[0]][l[1]] = new this.rooms[i][j].filler(l[0],l[1],this.rooms[i][j]);
+            else if (exit.direction == "W2" && (i==0 || this.rooms[i-1][j+1] instanceof VoidRoom|| this.rooms[i-1][j+1].verticality == "up")) this.rooms[i][j].tiles[l[0]][l[1]] = new this.rooms[i][j].filler(l[0],l[1],this.rooms[i][j]);
+            else if (exit.direction == "SS" && (j==7 || this.rooms[i][j+2] instanceof VoidRoom|| this.rooms[i][j+2].verticality == "side")) this.rooms[i][j].tiles[l[0]][l[1]] = new this.rooms[i][j].filler(l[0],l[1],this.rooms[i][j]);
+            else if (exit.direction == "S2" && (j==7 || this.rooms[i+1][j+2] instanceof VoidRoom|| this.rooms[i+1][j+2].verticality == "side")) this.rooms[i][j].tiles[l[0]][l[1]] = new this.rooms[i][j].filler(l[0],l[1],this.rooms[i][j]);
+            else if (exit.direction == "EE" && (i==7 || this.rooms[i+2][j] instanceof VoidRoom|| this.rooms[i+2][j].verticality == "up")) this.rooms[i][j].tiles[l[0]][l[1]] = new this.rooms[i][j].filler(l[0],l[1],this.rooms[i][j]);
+            else if (exit.direction == "E2" && (i==7 || this.rooms[i+2][j+1] instanceof VoidRoom|| this.rooms[i+2][j+1].verticality == "up")) this.rooms[i][j].tiles[l[0]][l[1]] = new this.rooms[i][j].filler(l[0],l[1],this.rooms[i][j]);
             this.rooms[i][j].tiles[l[0]][l[1]].eat = false;
         }
     }
@@ -525,7 +537,7 @@ class Room{
         this.vault = true;
         this.name = "Bugtopia";
         this.fourway = false;
-        this.filler = Wall;
+        this.filler = AscendExit;
         this.vault = false;
         this.extreme = {
             "N" : 0,
@@ -534,6 +546,7 @@ class Room{
             "S" : numTiles-1,
         }
         this.visited = false;
+        this.layer;
     }
 
     draw(){
