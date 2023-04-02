@@ -1,3 +1,31 @@
+class Research{
+    constructor(){
+        this.page = [];
+        this.buildTabs();
+    }
+
+    buildTabs(){
+        for(let i=0;i<9;i++){
+            this.page[i] = [];
+            for(let j=0;j<9;j++){
+                let nodeType = keyresearch[research["Basic"][j][i]];
+                if ("TL)><I-".includes(research["Basic"][j][i])) this.page[i][j] = new ResearchConnector(i,j,nodeType);
+                else if (nodeType == ".") this.page[i][j] = new Floor(i,j);
+                else this.page[i][j] = new ResearchNode(i,j,research["Basic"][j][i]);
+            }
+        }
+    }
+
+    display(){
+        drawFilter(blackfilter);
+        for(let i=0;i<9;i++){
+            for(let j=0;j<9;j++){
+                this.page[i][j].draw();
+            }
+        }
+    }
+}
+
 class MessageLog{
     constructor(){
         this.history = [];

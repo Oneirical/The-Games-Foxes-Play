@@ -777,3 +777,36 @@ class HypnoticProjector extends Floor{
         }
     }
 }
+
+class ResearchConnector extends Floor{
+    constructor(x,y,type){
+        super(x,y,110, true);
+        const conn = {
+            "ur" : 116,
+            "ul" : 117,
+            "dr" : 115,
+            "dl" : 114,
+            "u" : 112,
+            "t" : 118,
+            "s" : 113,    
+        }
+        this.sprite = conn[type];
+        this.lore = description["Floor"];
+        this.name = "Hypnotic Projector";
+    }
+}
+
+class ResearchNode extends Floor{
+    constructor(x,y,type){
+        super(x,y,110, true);
+        this.sprite = 111;
+        this.contents = "abcdefghijklmnopqrstuvwxyz".indexOf(type);
+        this.lore = description["Floor"];
+        this.name = "Hypnotic Projector";
+    }
+
+    draw(){
+        super.draw();
+        drawSymbol(this.contents, this.x*tileSize+8, this.y*tileSize+8,48);
+    }
+}

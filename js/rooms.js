@@ -34,6 +34,31 @@ var keyroom = {
     "6" : SixfoldStand,
 }
 
+var keyresearch = {
+    "<" : "ur",
+    ">" : "ul",
+    ")" : "dr",
+    "L" : "dl",
+    "I" : "u",
+    "T" : "t",
+    "-" : "s",
+    "." : ".",
+}
+
+var research = {
+    "Basic" : {
+        0 : ".........",
+        1 : ".i<...>j.",
+        2 : "..LgTh)..",
+        3 : "....I....",
+        4 : ".d--f--e.",
+        5 : ".I.....I.",
+        6 : ".Lb-T-c).",
+        7 : "....a....",
+        8 : ".........",
+    }
+}
+
 //spawns: N - W - E - S
 
 var genstruct = {

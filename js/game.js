@@ -52,7 +52,7 @@ function setupCanvas(){
                 else cursor.die();
             }
             else if (clickpos[0] >= 880 && clickpos[0] <= 880+64 && clickpos[1] >= 490 && clickpos[1] <= 490+64 && inInventory) inInventory = false;
-            else if (cursormode || inInventory || inModules) return;
+            else if (cursormode || inInventory || inResearch) return;
             else if (clickpos[0] >= 880 && clickpos[0] <= 880+64 && clickpos[1] >= 320 && clickpos[1] <= 320+64 && !inInventory) inInventory = true;
             else if (clickpos[0] >= 880 && clickpos[0] <= 880+64 && clickpos[1] >= 130 && clickpos[1] <= 130+64 && !inInventory) log.addLog("WIP");//inModules = !inModules;
             else if (clickpos[0] >= 590 && clickpos[0] <= 590+64 && clickpos[1] >= 320 && clickpos[1] <= 320+64 && !inInventory) wheel.drawSoul();
@@ -217,7 +217,7 @@ function draw(){
             drawSymbol(9, 590, 500, 64);
         }
         else if (inInventory) legendaries.display();
-        else if (inModules) cybernetics.display();
+        else if (inResearch) research.display();
         else {
             if (!wheel.hide) wheel.display();
                     //if (rosetoxin > 1) spellText = (i+1) + ") " + ("ROSE" || "");
@@ -490,7 +490,7 @@ function startGame(){
     naiamode = false;
     dissave = [];
     legendaries = new Inventory();
-    cybernetics = new Modules();
+    research = new Research();
     wheel = new DrawWheel();
     log = new MessageLog();
     universe = new Universe();

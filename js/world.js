@@ -1029,7 +1029,7 @@ class HarmonyRelay extends DefaultVaultRoom{
             for (let x of commons){
                 if (player.tile.value instanceof x) commoncheck = true;
             }
-            if (!commoncheck && !inInventory && !inModules){
+            if (!commoncheck && !inInventory && !inResearch){
                 player.tile.value.describeAbridged();
                 wheel.hide = true;
             }
