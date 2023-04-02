@@ -337,7 +337,7 @@ function playerTile(){
 function generateMonsters(){
     monsters = [];
     let numMonsters;
-    if (level < 6 && area != "Spire") numMonsters = level+1;
+    if (level < 6 && area != "Spire") numMonsters = level+2;
     else if (area == "Spire") numMonsters = Math.ceil(level/2);
     else if (level >= 6 && level != 17 && !(world.getRoom() instanceof HarmonyRelay)) numMonsters = level;
     else if ((world.getRoom() instanceof HarmonyRelay) || (world.getRoom() instanceof EpsilonArena)) numMonsters = 1;
@@ -387,9 +387,9 @@ function spawnMonster(){
             monsters.push(box);
         }
     }
-    else if (level != 0){
+    else if (level >= 0){
         let monsterType;
-        if (level < 6 && level > 0) monsterType = shuffle([Apis, Second, Tinker, Slug,Scion, Shrike, Apiarist])[0]; //Rendfly     //
+        if (level < 6 && level >= 0) monsterType = shuffle([Apis, Second, Tinker, Slug,Scion, Shrike, Apiarist])[0]; //Rendfly     //
         else if (level < 11 && level > 5)  monsterType = shuffle([Apis,Weaver, Second, Tinker,Oracle, Snail,Slug,Ragemaw, Felidol,Scion, Shrike, Apiarist])[0];
         else if (level < 17 && level > 10) monsterType = shuffle([Embalmer,Apis,Weaver, Second, Tinker,Oracle, Snail,Slug,Ragemaw, Felidol,Monk,Scion, Shrike, Apiarist])[0];
         let monster = new monsterType(randomPassableTile());

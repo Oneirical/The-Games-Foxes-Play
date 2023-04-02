@@ -442,10 +442,11 @@ class World{
         numTiles = room.size;
         tileSize = (9/numTiles)*64;
         tiles = room.tiles;
+        if (!spawnhandledflag) room.playerspawn = spawnl;
+        room.populateRoom();
         if (!room.visited){
             level++;
             world.fighting = true;
-            room.populateRoom();
             room.visited = true;
             wheel.resolve = 3+Math.floor(resolvebonus/2);
             player.hp = Math.min(maxHp, player.hp+1);
@@ -453,7 +454,6 @@ class World{
         else{
             monsters = room.monsters;
         }
-        if (!spawnhandledflag) room.playerspawn = spawnl;
         this.playRoom(room, player.hp);
     }
 
@@ -481,10 +481,12 @@ class World{
         numTiles = room.size;
         tileSize = (9/numTiles)*64;
         tiles = room.tiles;
+        room.playerlastmove = shifts[direction[0]];
+        if (!room.playerspawn) room.playerspawn = this.selectPlayerExit(direction[0]);
+        room.populateRoom();
         if (!room.visited){
             level++;
             world.fighting = true;
-            room.populateRoom();
             room.visited = true;
             wheel.resolve = 3+Math.floor(resolvebonus/2);
             player.hp = Math.min(maxHp, player.hp+1);
@@ -492,8 +494,6 @@ class World{
         else{
             monsters = room.monsters;
         }
-        room.playerlastmove = shifts[direction[0]];
-        if (!room.playerspawn) room.playerspawn = this.selectPlayerExit(direction[0]);
         this.playRoom(room, player.hp);
     }
 
@@ -577,7 +577,8 @@ class Room{
     }
 
     populateRoom(){
-        if (this.hostile) generateMonsters();
+        player = new Player(getTile(this.playerspawn[0], this.playerspawn[1]));
+        if (this.hostile && !this.visited) generateMonsters();
         return; //for now
         const squadskey = Object.keys(squads);
         const classeskey = Object.keys(classes);
@@ -618,7 +619,6 @@ class Room{
         //    this.playerspawn[1] = randomtile.y;
         //}
         //if (world.getRoom() instanceof EpsilonArena) this.playerspawn = [1,1];
-        player = new Player(getTile(this.playerspawn[0], this.playerspawn[1]));
         if (this.effects.includes("Darkness")) player.fov = 2;
         for (let k of wheel.saved){
             if (!(k instanceof Empty))wheel.discard.push(k);
@@ -627,27 +627,6 @@ class Room{
         player.hp = this.startingplayerHP;
         player.lastMove = this.playerlastmove;
         gameState = "running";
-    }
-}
-
-class WorldSeedUnused extends Room{
-    constructor(index){
-        super(index);
-        this.name = "World Seed";
-        this.music = "cage";
-        this.possibleexits = [[4,8]];
-    }
-
-    buildRoom(){
-        
-        generateLevel();
-        generateMonsters();
-    }
-
-    initializeRoom(){
-        this.entrancepoints = [[Math.floor((numTiles-1)/2),1], [1,Math.floor((numTiles-1)/2)],[(numTiles-2),Math.floor((numTiles-1)/2)],[Math.floor((numTiles-1)/2),(numTiles-2)]];
-        super.initializeRoom();
-        this.generatedexits = ["S"];
     }
 }
 
@@ -838,6 +817,7 @@ class WorldSeed extends DefaultVaultRoom{
 
     initializeRoom(){
         world.fighting = false;
+        super.populateRoom();
         super.initializeRoom();
         summonExits();
         //this.startTutorial();
@@ -1035,11 +1015,13 @@ class HarmonyRelay extends DefaultVaultRoom{
         this.name = "Test of Unity";
         this.music = "harmony2";
         this.fuffspawn = 0;
+        this.hostile = false;
         //this.filler = AbazonWall;
         this.id = "Empty";
     }
 
     populateRoom(){
+        super.populateRoom();
         let monsterType = shuffle([Harmonizer])[0];
         let tile = getTile(4,4);
         world.getRoom().fuffspawn = tile;
@@ -1177,6 +1159,7 @@ class EpsilonArena extends DefaultVaultRoom{
     }
 
     populateRoom(){
+        player = new Player(getTile(this.playerspawn[0], this.playerspawn[1]));
         showboss = true;
         let monsterType = shuffle([Epsilon])[0];
         let monster = new monsterType(getTile(9,8));

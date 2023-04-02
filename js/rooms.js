@@ -45,7 +45,7 @@ var keyresearch = {
     "." : ".",
 }
 
-var research = {
+var researchpage = {
     "Basic" : {
         0 : ".........",
         1 : ".i<...>j.",
