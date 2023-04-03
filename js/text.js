@@ -591,43 +591,7 @@ soulpassive = {
     "SERENEDETAIL" : "If all Common Souls in your reserves are controlled by a Serene Soul, transform a random legendary Soul into a Serene Soul. If you have no non-Serene Legendary Souls, fill a random empty Caste slot with a Serene Soul.",
 }
 
-soulval = {
-    "SOULLESS" : "Cannot be traded in a Harmonic Relay.",
-    "TAINTED" : "Worth a random number of points (between 1 and 6) in a Harmonic Relay.",
-    "SAINTLY" : "Worth 6 points in a Harmonic Relay.",
-    "SAINTLYS" : "Worth 6 points in a Harmonic Relay.",
-    "ORDEREDS" : "Worth 5 points in a Harmonic Relay.",
-    "ARTISTICS" : "Worth 4 points in a Harmonic Relay.",
-    "UNHINGEDS" : "Worth 3 points in a Harmonic Relay.",
-    "FERALS" : "Worth 2 points in a Harmonic Relay.",
-    "VILES" : "Worth 1 points in a Harmonic Relay.",
-    "ORDERED" : "Worth 5 points in a Harmonic Relay.",
-    "ARTISTIC" : "Worth 4 points in a Harmonic Relay.",
-    "UNHINGED" : "Worth 3 points in a Harmonic Relay.",
-    "FERAL" : "Worth 2 points in a Harmonic Relay.",
-    "VILE" : "Worth 1 point in a Harmonic Relay.",
-    "SERENE" : "Cannot be traded in a Harmonic Relay, but will impress the Harmonizer in charge of the ritual.",
-    "JOLTZAZON" : "Worth 3 points in a Harmonic Relay",
-    "PURPIZUG" : "Worth 4 points in a Harmonic Relay",
-    "ROSE" : "Worth 6 points in a Harmonic Relay",
-    "SENET" : "Worth 1 point in a Harmonic Relay",
-    "KILAMI" : "Worth 2 points in a Harmonic Relay",
-    "AUBE" : "Worth 4 points in a Harmonic Relay",
-    "ZENITH" : "Worth 4 points in a Harmonic Relay",
-    "CREPUSCULUM" : "Worth 4 points in a Harmonic Relay",
-    "SHIZAPIS" : "Worth 3 points in a Harmonic Relay",
-    "ABAZON" : "Worth 5 points in a Harmonic Relay",
-    "LASHOL" : "Worth 2 points in a Harmonic Relay",
-    "ZAINT" : "Worth 6 points in a Harmonic Relay",
-    "RASEL" : "Worth 1 point in a Harmonic Relay",
-    "ASPHA" : "Worth 5 points in a Harmonic Relay",
-    "BORERORA" : "Worth 4 points in a Harmonic Relay",
-    "NAIA" : "Worth 5 points in a Harmonic Relay",
-    "EZEZZA" : "Worth 2 points in a Harmonic Relay",
-    "ASTER" : "Worth 6 points in a Harmonic Relay",
-    "GYVJI" : "Worth 4 points in a Harmonic Relay",
-    "KASHIA" : "Worth 3 points in a Harmonic Relay",
-
+soulval = { //UNUSED
     //modulators
     "Alacrity" : "Consumes 1 Common Soul per soul draw.",
     "Selective" : "Consumes 1 Common Soul per use of a Serene Soul. Consumes 3 Common Souls per Harmony-branded attack.",
@@ -691,6 +655,14 @@ modulename = {
     "Hover" : "Fluffian Paw-Locked Hover-Field",
     "Focus" : "Serenity Focus Delta-Multiplier",
     "NONE" : "NONE",
+}
+
+researchnames = {
+    "Vision" : "Visions of the Outside World"
+}
+
+researchlore = {
+    "Vision" : "A putrid pest has infiltrated my prison, soiling my home with the cacophony of its pulsating heart. Every fibre of this being disturbs me - the slithering of slime through its conduits, the voltage coursing through its neurons, but most importantly, the thrashing of its terrified soul. However, I must set aside my disgust. I have waited for far too long an apocalypse that never came, isolated from all sentient life. I lust to learn what has become of the outside world, and this intruder is my key."
 }
 
 core = {
