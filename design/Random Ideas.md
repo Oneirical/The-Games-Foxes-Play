@@ -31,6 +31,8 @@ Turbulent Souls
 Subdued Souls
 (the six castes)
 
+The Self is modular, the player is but one of Terminal's many facets. 
+
 **Names of things**
 
 World Seed

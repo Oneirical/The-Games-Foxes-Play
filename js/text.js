@@ -658,7 +658,11 @@ modulename = {
 }
 
 researchnames = {
-    "Vision" : "Visions of the Outside World"
+    "Vision" : "Visions of the Outside World",
+    "Turbulent" : "Turbulent Souls",
+    "Cage" : "Soul Cage",
+    "Subdued" : "Subdued Souls",
+    "Shattered" : "Shattered Souls"
 }
 
 researchlore = {
