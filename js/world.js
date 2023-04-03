@@ -272,7 +272,7 @@ class World{
         //});
 
         if (world.generateCage() != randomPassableRoom().getConnectedRooms().length){
-            log.addLog("WrongCageError");
+            //log.addLog("WrongCageError");
             world.cage.displayon = false;
             return;
         }

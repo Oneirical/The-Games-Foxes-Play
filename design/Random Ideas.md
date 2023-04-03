@@ -17,6 +17,7 @@
 * Soul Press - convert 10 turbulent into 1 disciplined & 9 waste "pick off the bits and pieces that are primed for submission from the lot"
 
 **Research Nodes**
+Terminal is made out of shattered souls, that is why he can shapelessly assume the shape of others?
 
 Visions of the Outside World - final failsafe for an apocalypse that never came. at least, I may learn something about the outside world
 A Choir of Minds - by combining certain Souls, I can form patterns to reveal certain nodes...

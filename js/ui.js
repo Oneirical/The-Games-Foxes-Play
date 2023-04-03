@@ -23,7 +23,24 @@ class Research{
                 this.page[i][j].draw();
             }
         }
+        drawSymbol(49, 590, 130, 64);
+        drawSymbol(0, 590, 230, 64);
+        drawSymbol(1, 590, 330, 64);
+        drawSymbol(2, 590, 430, 64);
+        drawSymbol(3, 880, 130, 64);
+        drawSymbol(4, 880, 230, 64);
+        drawSymbol(5, 880, 330, 64);
+        drawSymbol(21, 880, 430, 64);
+        printAtWordWrap("Ordered",18, 664, 368, "red",20,350);
+        printAtWordWrap("Shattered",18, 664, 168, "cornflowerblue",20,350);
+        printAtWordWrap("Saintly",18, 664, 268, "lime",20,350);
+        printAtWordWrap("Artistic",18, 664, 468, "orange",20,350);
+        printAtWordWrap("Serene",18, 810, 468, "cyan",20,350);
+        printAtWordWrap("Vile",18, 835, 368, "plum",20,350);
+        printAtWordWrap("Feral",18, 825, 268, "yellowgreen",20,350);
+        printAtWordWrap("Unhinged",18, 790, 168, "yellow",20,350);
     }
+    
 }
 
 class MessageLog{
