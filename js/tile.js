@@ -844,7 +844,7 @@ class ResearchConnector extends Floor{
         }
         this.sprite = conn[type];
         this.lore = description["Floor"];
-        this.name = "Hypnotic Projector";
+        this.name = "hai";
     }
 }
 
@@ -854,7 +854,7 @@ class ResearchNode extends Floor{
         this.sprite = 111;
         this.contents = "abcdefghijklmnopqrstuvwxyz".indexOf(type);
         this.lore = description["Floor"];
-        this.name = "Hypnotic Projector";
+        this.name = "wao";
     }
 
     draw(){

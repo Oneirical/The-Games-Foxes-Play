@@ -19,8 +19,7 @@ class Cursor{
         this.offsetX -= Math.sign(this.offsetX)*(1/8);     
         this.offsetY -= Math.sign(this.offsetY)*(1/8); 
     }
-    tryMove(dx, dy){
-        let newTile = this.tile.getNeighbor(dx,dy);
+    tryMove(newTile){
         if (newTile.x < numTiles && newTile.y < numTiles && newTile.x >= 0 && newTile.y >= 0){
             this.move(newTile);
         }
@@ -39,6 +38,14 @@ class Cursor{
         this.sprite = 99999;
     }
     info(){
+        if (inResearch){
+            let cx = this.tile.x;
+            let cy = this.tile.y;
+            let colour = "lightgray";
+            printAtWordWrap(research.page[cx][cy].lore, 18, 10, 600, colour, 20, 950);
+            printAtSidebar(research.page[cx][cy].name, 18, 590, 30, colour, 20, 350);
+            return;
+        }
         if (this.tile.monster){
             if (rosetoxin > 0){
                 printAtWordWrap(description["Rose"], 18, 10, 600, "pink", 20, 940);

@@ -118,6 +118,18 @@
                 inMap = !inMap;
             }
             if (e.key == "f"){
+                if (world.getRoom().size == 18){
+                    if (inResearch){
+                        tileSize = 32;
+                        numTiles = 18;
+                    }
+                    else {
+                        tileSize = 64;
+                        numTiles = 9;
+                    }
+                }
+                cursor = new Cursor(playerTile());
+                cursormode = !cursormode;
                 inResearch = !inResearch;
             }
             if (e.key == "k"){

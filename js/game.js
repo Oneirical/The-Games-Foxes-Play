@@ -168,7 +168,7 @@ function draw(){
         }
         else if (cursormode){
             let cread = getTile(Math.floor((mousepos[0]-shakeX)/tileSize),Math.floor((mousepos[1]-shakeY)/tileSize));
-            if (cread) cursor = new Cursor(cread);
+            if (cread) cursor.tryMove(cread);
         }
         else{
             for (let i of wheel.wheelcoords){
@@ -212,12 +212,12 @@ function draw(){
         let modulecol = "cyan";
         if (selectation == 21 || selectation == 22) modulecol = "white";
         if (cursormode && !invmode){
+            if (inResearch) research.display();
             cursor.draw();
             cursor.info();
-            drawSymbol(9, 590, 500, 64);
+            if (!inResearch) drawSymbol(9, 590, 500, 64);
         }
         else if (inInventory) legendaries.display();
-        else if (inResearch) research.display();
         else {
             if (!wheel.hide) wheel.display();
                     //if (rosetoxin > 1) spellText = (i+1) + ") " + ("ROSE" || "");
