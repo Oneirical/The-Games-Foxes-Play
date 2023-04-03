@@ -574,6 +574,10 @@ class Altar extends Floor{
     }
 
     draw(){
+        if (this.value.shattered){
+            this.value = new Shattered();
+            return;
+        }
         super.draw();
         if (!this.value.turbulent) drawSymbol(this.value.icon, this.x*tileSize+8, this.y*tileSize+8,48);
         else{

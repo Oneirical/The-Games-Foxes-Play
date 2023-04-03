@@ -914,7 +914,8 @@ class LegendarySoul{
         this.turbulent = false;
         this.index = 0;
         this.chosen = false;
-        this.offsetX = 0;                                                   
+        this.offsetX = 0;      
+        this.shattered = false;                                             
         this.offsetY = 0;
         this.speed = 0.05;
         this.thrashcounter = 0;
@@ -985,6 +986,14 @@ class Empty extends LegendarySoul{
         this.lore = "The Annihilationists seared their flesh, insulted each other for hours on end while sitting in a circle, and refused all companionship all in the name of expunging their own soul. The most radical of them all would even try their luck with a home-made lobotomy. For Terminal, these cultists' reason to be is simply the natural state of things.";
         this.subdescript = "This central chamber can store up to four inactive Legendary Souls for future use.";
         this.name = "Empty Slot";
+    }
+}
+
+class Shattered extends LegendarySoul{
+    constructor(){
+        super("SHATTERED");
+        this.icon = 49;
+        this.caste = "SHATTERED";
     }
 }
 

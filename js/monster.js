@@ -1052,7 +1052,14 @@ class Player extends Monster{
         if (area == "Spire") spirevisited = true;
         areachange = false;
         rosetoxin = 0;
-        universe.playRandomWorld(world)
+        player.lastMove = [0,0];
+        for(let i=0;i<9;i++){
+            for(let j=0;j<9;j++){
+                if (universe.worlds[universe.currentworld-1].cage.slots[i][j].id != "EMPTY") universe.worlds[universe.currentworld-1].cage.slots[i][j].shattered = true;
+            }
+        }
+        universe.passUp(universe.currentworld-1,"N");
+        world.cage.displayon = false;
     }
 }
 
