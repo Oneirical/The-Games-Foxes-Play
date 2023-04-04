@@ -200,7 +200,7 @@ function draw(){
         for(let i=0;i<droppedsouls.length;i++){
             droppedsouls[i].draw();
         }
-        player.draw();
+        if(!inResearch) player.draw();
         if (world.getRoom() instanceof WorldSeed && world.cage.displayon) world.cage.pocketworld.hypnoDisplay();
         for(let i=0;i<monsters.length;i++){
             if (viewedTiles.includes(monsters[i].tile) || monsters[i].charmed)monsters[i].draw();
@@ -263,7 +263,8 @@ function draw(){
         ctx.stroke();
         if (inMap) world.display();
         if (inBigMap) universe.display(); // break in case of sanity
-
+        //drawSymbol(5, 300, 400, 16);
+        //drawSymbol(7, 292, 392, 32);
         //mouseclick lines
         //ctx.beginPath();
         //ctx.moveTo(0, 0);

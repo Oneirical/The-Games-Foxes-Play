@@ -75,6 +75,7 @@ If fully Harmonized, Modulators are always Concordant and have no cost. All dama
 
 **Minor Bugs**
 
+* Pressing c and f simultaneously causes the player to disappear.
 * Creatures can overflow in small rooms.
 * Gyvji kills things multiple times over.
 * Lashol has some weird thing going on with its bonus damage.

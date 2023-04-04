@@ -657,6 +657,12 @@ modulename = {
     "NONE" : "NONE",
 }
 
+researchequivalences = {
+    "a" : "Vision",
+    "b" : "Turbulent",
+    "c" : "Cage",
+}
+
 researchnames = {
     "Vision" : "Visions of the Outside World",
     "Turbulent" : "Turbulent Souls",
@@ -667,6 +673,18 @@ researchnames = {
 
 researchlore = {
     "Vision" : "A putrid pest has infiltrated my prison, soiling my home with the cacophony of its pulsating heart. Every fibre of this being disturbs me - the slithering of slime through its conduits, the voltage coursing through its neurons, but most importantly, the thrashing of its terrified soul. However, I must set aside my disgust. I have waited for far too long an apocalypse that never came, isolated from all sentient life. I lust to learn what has become of the outside world, and this intruder is my key.",
+}
+
+researchflags = {
+    "Vision" : ["Data", "Modifier", "Forbidden"],
+}
+
+researchflagcolour = {
+    "Data" : "lightblue",
+    "Modifier" : "lightpink",
+    "Trigger" : "gold",
+    "Effect" : "darkorange",
+    "Forbidden" : "red",
 }
 
 core = {

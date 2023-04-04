@@ -853,8 +853,10 @@ class ResearchNode extends Floor{
         super(x,y,110, true);
         this.sprite = 111;
         this.contents = "abcdefghijklmnopqrstuvwxyz".indexOf(type);
-        this.lore = description["Floor"];
-        this.name = "wao";
+        let lore = researchequivalences[type];
+        this.lore = researchlore[lore];
+        this.name = researchnames[lore];
+        this.flags = researchflags[lore];
     }
 
     draw(){
