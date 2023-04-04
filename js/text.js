@@ -673,10 +673,14 @@ researchnames = {
 
 researchlore = {
     "Vision" : "A putrid pest has infiltrated my prison, soiling my home with the cacophony of its pulsating heart. Every fibre of this being disturbs me - the slithering of slime through its conduits, the voltage coursing through its neurons, but most importantly, the thrashing of its terrified soul. However, I must set aside my disgust. I have waited for far too long an apocalypse that never came, isolated from all sentient life. I lust to learn what has become of the outside world, and this intruder is my key.",
+    "Turbulent" : "Freed from its flesh prison, my new acolyte refuses to show thankfulness. It prefers to fruitlessly squirm in the depths of my soul, searching for an escape that does not exist. To snuff out this insolence, I must unchain its mind - and expunge the individuality responsible for such pitiful struggle. Through this re-education, I may also learn something of the memories this creature forged in life.",
+    "Cage" : "A two-part workshop of soul manipulation, bestowed upon me by my accursed jailers. They spoke of its ability to forge a fruitful, wonderful world... My task is that of a god, but following its completion, I would at last receive the annihilation I crave so much. Such promises feel so distant now.",
+    "Shattered" : "It appears this soul favoured annihilation over holy servitude. While I am disappointed at my inability to straighten out this unruly specimen, I must acknowledge that the raw fragments it left behind are not unwelcome. As I am forged out of spiritual sewage, the assimilation of such a substance effectively increases the extent to which my identity may be moulded and reshaped to fit my needs. Perhaps failure isn't so terrible after all...",
+    "Subdued" : "Silence. Purity. Efficiency. Now here is a soul worthy of incarnation! Following this enlightenment ritual, I may be able to allow the identity of this acolyte to flow through me, and unleash the primordial essence of its Caste upon the filthy flesh-encased. Even placed back in the Soul Cage, the still mind of the faithful dream of places so clean and pure I may be just willing to call them home."
 }
 
 researchflags = {
-    "Vision" : ["Data", "Modifier", "Forbidden"],
+    "Vision" : ["Data"],
 }
 
 researchflagcolour = {
@@ -685,6 +689,7 @@ researchflagcolour = {
     "Trigger" : "gold",
     "Effect" : "darkorange",
     "Forbidden" : "red",
+    "Passive Trigger" : "navajowhite"
 }
 
 core = {
