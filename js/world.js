@@ -577,7 +577,10 @@ class Room{
     }
 
     populateRoom(){
+        let hp;
+        if(player) hp = player.hp;
         player = new Player(getTile(this.playerspawn[0], this.playerspawn[1]));
+        player.hp = hp;
         if (this.hostile && !this.visited) generateMonsters();
         return; //for now
         const squadskey = Object.keys(squads);
