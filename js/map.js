@@ -371,7 +371,7 @@ function spawnMonster(){
         let monster = new monsterType(randomPassableTile());
         monsters.push(monster);
     }
-    else if (level == 17 && area == "Faith"){
+    else if (world.getRoom() instanceof EpsilonArena){
         let monsterType = shuffle([Epsilon])[0];
         let monster = new monsterType(getTile(9,8));
         monsters.push(monster);

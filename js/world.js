@@ -1156,25 +1156,7 @@ class EpsilonArena extends DefaultVaultRoom{
         this.music = "epsilon";
         this.id = "Epsilon";
         this.fourway = true;
-    }
-
-    populateRoom(){
-        player = new Player(getTile(this.playerspawn[0], this.playerspawn[1]));
-        showboss = true;
-        let monsterType = shuffle([Epsilon])[0];
-        let monster = new monsterType(getTile(9,8));
-        monsters.push(monster);
-        for (let i = 1; i < 5; i++){
-            let tail = new Tail(getTile(9,i+8),i);
-            monsters.push(tail);
-        }
-        let corelist = ["Red","Pink","Cyan","White"];
-        for (let i = 0;i<4;i++){
-            let corecolour = shuffle(corelist)[0];
-            removeItemOnce(corelist,corecolour);
-            let box = new Box(randomPushableTile(), corecolour);
-            monsters.push(box);
-        }
+        this.hostile = true;
     }
 
     buildRoom(connector){

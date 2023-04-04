@@ -214,10 +214,10 @@ class DrawWheel{
             }
             printAtWordWrap(k+1+"",18, this.hotkeycoords[k][0], this.hotkeycoords[k][1], "white",20,350);
         }
-        for (let k of this.castes){
+        if (false){
             drawSymbol(k.icon, this.castecoords[this.castes.indexOf(k)][0], this.castecoords[this.castes.indexOf(k)][1], 48);
         }
-        for (let k of this.castes){
+        if (false){
             if (this.castes.indexOf(k) % 2 == 0){
                 printAtSidebar(" - " + this.countPileSouls()[this.castes.indexOf(k)], 18, this.castecoords[5-this.castes.indexOf(k)][0]-265, this.castecoords[this.castes.indexOf(k)][1]+32, "white", 20, 350);
                 printAtSidebar("(" + this.countDiscardSouls()[(this.castes.indexOf(k))] + ")", 18, this.castecoords[5-this.castes.indexOf(k)][0]-265+ctx.measureText(" - " + this.countPileSouls()[this.castes.indexOf(k)]).width+10, this.castecoords[this.castes.indexOf(k)][1]+32, "pink", 20, 350);
@@ -231,9 +231,23 @@ class DrawWheel{
                 else printAtSidebar("(" + this.countSavedSouls()[(this.castes.indexOf(k))] + ")", 18, this.castecoords[5-this.castes.indexOf(k)][0]+285-ctx.measureText(" - " + this.countPileSouls()[this.castes.indexOf(k)]).width-60, this.castecoords[this.castes.indexOf(k)][1]+32, "yellow", 20, 350);
             }
         }
+        let j = 0;
+        let k = 0;
+        let length = 21;
+        //84 is max capacity for each box
+        for (let i = 0; i<84; i++){
+            if(i < this.pile.length) this.pile[i].thrash(581  + i*18 - (length*18*Math.floor(j/length)),420 + Math.floor(j/length)*18,16);
+            else this.saved[0].thrash(581  + i*18 - (length*18*Math.floor(j/length)),420 + Math.floor(j/length)*18,16);
+            j++;
+        }
+        for (let i = 0; i<84; i++){
+            if(i < this.discard.length) this.discard[i].thrash(581  + i*18 - (length*18*Math.floor(k/length)),501 + Math.floor(k/length)*18,16);
+            else this.saved[0].thrash(581  + i*18 - (length*18*Math.floor(k/length)),501 + Math.floor(k/length)*18,16);
+            k++;
+        }
         ctx.beginPath();
-        ctx.moveTo(768, 577);
-        ctx.lineTo(768, 415);
+        ctx.moveTo(577, 496);
+        ctx.lineTo(960, 496);
         ctx.stroke();
         ctx.beginPath();
         ctx.moveTo(577, 415);
@@ -290,20 +304,22 @@ class DrawWheel{
         }
         let loot = new drops[skey.name]();
         loot.turbulent = true;
-        if (this.getWheelSpace() == 0){
-            this.discard.push(loot);
-        }
-        else {
-            for (let i = 0; i < 8; i++){
-                if (this.wheel[i] instanceof Empty){
-                    this.wheel[i] = loot;
-                    break;
-                }
-            }
-        }
-        for (let x of legendaries.active){
-            if (x instanceof Kilami) spells[loot.id](player);
-        }
+        this.discard.push(loot);
+        //for (let x of legendaries.active){
+        //    if (x instanceof Kilami) spells[loot.id](player);
+        //}
+        //if (this.getWheelSpace() == 0){
+        
+       // }
+        //else {
+          //  for (let i = 0; i < 8; i++){
+         //       if (this.wheel[i] instanceof Empty){
+        //            this.wheel[i] = loot;
+        //            break;
+        //        }
+        //    }
+        //}
+ 
         //smash combat stuff
         //removeItemOnce(player.tile.souls,skey);
         //removeItemOnce(droppedsouls,skey);
@@ -649,25 +665,7 @@ class DrawWheel{
                 spells[spellName](player, legendaries.active[num]);
                 if (legendaries.active[num].influence == "C") spells[legendaries.active[num].caste](player);
                 if (!fail && player.activemodule != "Focus"){
-                    let lookingfor = 0;
-                    for (let k of this.saved){
-                        if (k instanceof Empty){
-                            this.saved[this.saved.indexOf(k)] = this.wheel[slot];
-                            break;
-                        } 
-                        else lookingfor++;
-                    }
-                    if (lookingfor == 8){
-                        let exile = shuffle(this.saved)[0];
-                        this.saved[this.saved.indexOf(exile)] = new Empty();
-                        this.discard.push(exile);
-                        for (let k of this.saved){
-                            if (k instanceof Empty){
-                                this.saved[this.saved.indexOf(k)] = this.wheel[slot];
-                                break;
-                            } 
-                        }
-                    }
+                    this.discard.push(this.wheel[slot]);
                     this.wheel[slot] = new Empty();
                 }
             }
@@ -733,25 +731,7 @@ class DrawWheel{
                 spells[spellName](player, legendaries.active[num]);
                 if (legendaries.active[num].influence == "C") spells[legendaries.active[num].caste](player);
                 if (!fail && player.activemodule != "Focus"){
-                    let lookingfor = 0;
-                    for (let k of this.saved){
-                        if (k instanceof Empty){
-                            this.saved[this.saved.indexOf(k)] = this.wheel[slot];
-                            break;
-                        } 
-                        else lookingfor++;
-                    }
-                    if (lookingfor == 8){
-                        let exile = shuffle(this.saved)[0];
-                        this.saved[this.saved.indexOf(exile)] = new Empty();
-                        this.discard.push(exile);
-                        for (let k of this.saved){
-                            if (k instanceof Empty){
-                                this.saved[this.saved.indexOf(k)] = this.wheel[slot];
-                                break;
-                            } 
-                        }
-                    }
+                    this.discard.push(this.wheel[slot]);
                     this.wheel[slot] = new Empty();
                 }
                 else if (this.activemodule == "Focus"){
@@ -959,6 +939,24 @@ class LegendarySoul{
         printAtSidebar(this.subdescript, 18, 590, 110, "white", 20, 6*64-35);
         printAtWordWrap(this.lore, 18, 10, 600, colours[this.id], 20, 940);
         drawSymbol(this.icon, 890, 20, 64);
+    }
+
+    thrash(x, y, size){
+        if (!this.turbulent) drawSymbol(this.icon, x, y,size);
+        else{
+            this.thrashcounter++;
+            if (this.thrashcounter > 10 && this.offsetX == 0 && this.offsetY == 0){
+                let rt = randomRange(1,4);
+                if (rt == 1) this.offsetX+= 0.05;
+                else if (rt == 2) this.offsetX-= 0.05;
+                else if (rt == 3)this.offsetY+= 0.05;
+                else if (rt == 4)this.offsetY-= 0.05;
+                this.thrashcounter = 0;
+            }
+            drawSymbol(this.icon, (x/64+this.offsetX)*64,  (y/64 + this.offsetY)*64,size);
+            this.offsetX -= Math.sign(this.offsetX)*(this.speed);     
+            this.offsetY -= Math.sign(this.offsetY)*(this.speed);
+        }
     }
 
     describeWheel(){
