@@ -109,6 +109,16 @@ class MessageLog{
     }
 }
 
+class SpinningSoul{
+    constructor(icon,startangle){
+        this.icon = icon;
+        this.x = 0;
+        this.y = 0;
+        this.speed = 0.01;
+        this.angle = startangle;
+    }
+}
+
 class DrawWheel{
     constructor(){
         this.wheel = [new Empty(),new Empty(),new Empty(),new Empty(),new Empty(),new Empty(),new Empty(),new Empty()];
@@ -122,19 +132,27 @@ class DrawWheel{
 
         this.pile = [];
         this.discard = []; //
-        this.saved = [new Empty(),new Empty(),new Empty(),new Empty(),new Empty(),new Empty(),new Empty(),new Empty()];
+        this.saved = [];
         this.resolve = 3; //update this later with the bonus
-        this.complexity = 0;
         this.castes = [new Saintly(),new Ordered(),new Artistic(),new Unhinged(),new Feral(),new Vile()];
         this.hide = false;
+        this.ipseity = 0;
         let first = [587, 420];
         let vert = 52;
         let hori = 64*5-5;
+        this.circlemotion = {centerX:762, centerY:245, radius:20};
+        this.spinningsouls = [new SpinningSoul(47,0)];
         this.castecoords = [first,[first[0]+hori,first[1]],[first[0],first[1]+vert],[first[0]+hori,first[1]+vert],[first[0],first[1]+vert*2],[first[0]+hori,first[1]+vert*2]]
-        this.addSoul(Saintly);
     }
 
     display(){
+        for (let i = 0; i<this.spinningsouls.length;i++){
+            this.spinningsouls[i].x = this.circlemotion.centerX + Math.cos(this.spinningsouls[i].angle) * this.circlemotion.radius;
+            this.spinningsouls[i].y = this.circlemotion.centerY + Math.sin(this.spinningsouls[i].angle) * this.circlemotion.radius;
+            this.spinningsouls[i].angle += this.spinningsouls[i].speed;
+            drawSymbol(this.spinningsouls[i].icon, this.spinningsouls[i].x, this.spinningsouls[i].y, 16);
+        }
+
         drawSymbol(6, 880, 320, 64);
         drawSymbol(9, 590, 130, 64);
         drawSymbol(10, 880, 130, 64);
@@ -188,7 +206,7 @@ class DrawWheel{
             if (this.resolve < 1) colour = "red";
             printAtSidebar(this.resolve+"/"+(3+Math.floor(resolvebonus/2))+" ", 23, 835, 90, colour, 20, 350);
         }
-        printAtSidebar(" "+this.complexity, 23, 660, 90, "plum", 20, 350);
+        printAtSidebar(" "+this.ipseity+"/"+(30)+" ", 23, 660, 90, "plum", 20, 350);
 
         let display;
         for (let k = 0;k<8;k++){
@@ -462,6 +480,19 @@ class DrawWheel{
 
     retrieveSoul(){
         if (player.tile.value instanceof Empty) return;
+        if (player.tile.value instanceof Shattered){
+            this.ipseity+= 10;
+            if (this.ipseity >= 30){
+                this.ipseity -= 30
+                resolvebonus+=2;
+            }
+            player.tile.value = new Empty();
+            world.cage.slots[player.tile.x][player.tile.y] = new Empty;
+            world.cage.size--;
+            if(world.cage.size > 0) world.cage.generateWorld();
+            else world.cage.displayon = false;
+            return;
+        }
         let space = 8;
         for (let k of this.wheel){
             if (!(k instanceof Empty)) space--;
@@ -525,14 +556,14 @@ class DrawWheel{
             //log.addLog("Empty");
             if (this.pile.length <= 0){
                 //this.discard.push("TAINTED") //remplacer avec curse, dash est un placeholder
-    
-                this.discard = shuffle(this.discard);
                 for(let i=0;i<this.discard.length;i++){
                     if(!this.discard[i].turbulent || world.tranquil){
                         this.pile.push(this.discard[i]);
-                        this.discard.splice(i,1);
+                        this.discard[i] = "deleted";
                     }
                 }
+                this.pile = shuffle(this.pile);
+                removeItemAll(this.discard,"deleted");
                 //this.discard = [];
             }
             if (this.pile.length < 1){
@@ -739,7 +770,8 @@ class DrawWheel{
                 spells[spellName](player, legendaries.active[num]);
                 if (legendaries.active[num].influence == "C") spells[legendaries.active[num].caste](player);
                 if (!fail && player.activemodule != "Focus"){
-                    this.discard.push(this.wheel[slot]);
+                    this.saved.push(this.wheel[slot]);
+                    wheel.spinningsouls.push(new SpinningSoul(this.wheel[slot].icon,wheel.spinningsouls[wheel.spinningsouls.length-1].angle-1));
                     this.wheel[slot] = new Empty();
                 }
                 else if (this.activemodule == "Focus"){
@@ -751,8 +783,10 @@ class DrawWheel{
                         playSound("off");
                     }
                 }
-                if (!fail) playSound("spell");
-                if (!fail) tick();
+                if (!fail){
+                    playSound("spell");
+                    tick();
+                }
                 if (fail && spellName != "SERENE") log.addLog("CastError");
                 fail = false;
             }

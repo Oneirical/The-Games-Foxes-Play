@@ -540,7 +540,7 @@ class Booster extends Exit{
     }
 }
 
-class Plate extends Floor{
+class Plate extends Floor{ //delete later
     constructor(x, y){
         super(x, y, 75, true);
         this.lore = description["Mobilizer"];
@@ -548,7 +548,6 @@ class Plate extends Floor{
         this.sprite = 75;
     }
     stepOn(monster){
-        wheel.complexity++;
         super.stepOn(monster);
     }
 }

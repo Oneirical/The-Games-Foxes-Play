@@ -67,6 +67,24 @@ class Universe{
         else locspawn = [4,7];
         world.appearRoom(locspawn);
         if(!world.getRoom().hostile) summonExits();
+        for(let i=0;i<wheel.wheel.length;i++){
+            if (wheel.wheel[i].turbulent){
+                wheel.discard.push(wheel.wheel[i]);
+                wheel.wheel[i] = new Empty();
+            }
+        }
+        if (wheel.pile.length > 0){
+            //this.discard.push("TAINTED") //remplacer avec curse, dash est un placeholder
+            for(let i=0;i<wheel.pile.length;i++){
+                if(wheel.pile[i].turbulent){
+                    wheel.discard.push(wheel.pile[i]);
+                    wheel.pile[i] = "deleted";
+                }
+            }
+            removeItemAll(wheel.pile,"deleted");
+
+            //this.discard = [];
+        }
     }
 
     passUp(layer,origin){
@@ -627,6 +645,7 @@ class Room{
         if (this.effects.includes("Darkness")) player.fov = 2;
         for (let k of wheel.saved){
             if (!(k instanceof Empty))wheel.discard.push(k);
+            wheel.spinningsouls = [new SpinningSoul(47,0)];
         }
         wheel.saved = [new Empty(),new Empty(),new Empty(),new Empty(),new Empty(),new Empty(),new Empty(),new Empty()];
         player.hp = this.startingplayerHP;
