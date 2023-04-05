@@ -47,6 +47,7 @@ class Universe{
         world.layer = 0;
         world.confirmWorldFromVault();
         world.currentroom = [4,4];
+        world.tranquil = true;
         world.playRoom(world.rooms[4][4],startingHp);
         log.addLog("MapDebug");
     }
@@ -162,6 +163,7 @@ class World{
         this.generated = false;
         this.currentroom = [4,4]; //parseInt((randomRange(0,8).toString()+randomRange(0,8).toString()));
         this.serene = false;
+        this.tranquil = false;
         this.faction = 0;
         this.fighting = false;
         this.rooms;

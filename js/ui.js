@@ -424,7 +424,7 @@ class DrawWheel{
         }
     }
 
-    drawSoulFree(){
+    drawSoulFree(){ //possibly not up to date
         if (this.discard.length <= 0 && this.pile.length <= 0){
             log.addLog("NoSouls");
             shakeAmount = 5;
@@ -489,7 +489,7 @@ class DrawWheel{
             this.breatheSoul();
             return;
         }
-        else if (player.tile instanceof CageContainer){
+        else if (player.tile instanceof CageContainer && player.tile.value.id != "EMPTY"){
             this.retrieveSoul();
             return;
         }
@@ -528,9 +528,17 @@ class DrawWheel{
     
                 this.discard = shuffle(this.discard);
                 for(let i=0;i<this.discard.length;i++){
-                    this.pile.push(this.discard[i]);
+                    if(!this.discard[i].turbulent || world.tranquil){
+                        this.pile.push(this.discard[i]);
+                        this.discard.splice(i,1);
+                    }
                 }
-                this.discard = [];
+                //this.discard = [];
+            }
+            if (this.pile.length < 1){
+                log.addLog("UnrulySouls");
+                shakeAmount = 5;
+                return;
             }
             for (let k of this.wheel){
                 if (k instanceof Empty){

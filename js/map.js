@@ -337,10 +337,10 @@ function playerTile(){
 function generateMonsters(){
     monsters = [];
     let numMonsters;
-    if (level < 6 && area != "Spire") numMonsters = level+2;
+    if ((world.getRoom() instanceof HarmonyRelay) || (world.getRoom() instanceof EpsilonArena)) numMonsters = 1;
+    else if (level < 6 && area != "Spire") numMonsters = level+2;
     else if (area == "Spire") numMonsters = Math.ceil(level/2);
-    else if (level >= 6 && level != 17 && !(world.getRoom() instanceof HarmonyRelay)) numMonsters = level;
-    else if ((world.getRoom() instanceof HarmonyRelay) || (world.getRoom() instanceof EpsilonArena)) numMonsters = 1;
+    else if (level >= 6 && level != 17 && !(world.getRoom() instanceof HarmonyRelay)) numMonsters = level; 
     if (numMonsters > randomPassableTile().getConnectedTiles().length) numMonsters = randomPassableTile().getConnectedTiles().length-2;
     for(let i=0;i<numMonsters;i++){
         if (spawnMonster() == "Embalm"){
