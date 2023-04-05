@@ -1,5 +1,10 @@
 ## This is a chaotic canvas on which I launch all the random things I come up with while going about my day and bugs I notice throughout playtesting. It is not meant to be comprehensible.
 
+TODO for release
+
+lore: remove the serene debug messages with illegal soul cage placements
+research: make the first few nodes
+
 **"Soul Cage" design**
 
 * Terminal knows very little about the world due to being locked up. They need the assistance of souls from the Old World to see it better.
@@ -32,6 +37,10 @@ Subdued Souls
 (the six castes)
 
 The Self is modular, the player is but one of Terminal's many facets. 
+
+Serene node that lets you "assign" resolve points to get some cool stuff like no turn draw
+
+Put the default power on Targeter blocks. Modifier: create a landmine with this effect.
 
 **Names of things**
 
@@ -117,6 +126,7 @@ If fully Harmonized, Modulators are always Concordant and have no cost. All dama
 * Sugcha statues, that cause psychic damage when broken.
 * Pressurized glamorous toxin behind breakable glass that spreads through the room.
 * Turn anisychia into an anxiety-flavoured encounter, reflavour Oracles.
+* A rooftop level with walking on walls.
 
 **Lore & Writing**
 
@@ -132,6 +142,8 @@ If fully Harmonized, Modulators are always Concordant and have no cost. All dama
 * He should be placed in the title screen and talk to new players. And also go blehh a lot. While the player is slightly translucent.
 * If Fluffy is Pride incarnate, Terminal is Envy incarnate - gnawing, coveting value. It is only right that it would be put against a being of infinite value...
 * Rewrite Warpwisp lore about Terminal seeing the world in glyphs as a ward against mind control.
+* Fluffy is an empty shell, if defeated she may be replaced and duplicate you.
+* The Harmony contains "ultimate lifeforms", as they have reached maximum complexity.
 
 **Souls**
 

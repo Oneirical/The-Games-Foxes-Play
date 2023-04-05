@@ -38,6 +38,11 @@ class Universe{
         //change between layers...
     }
 
+    getDepth(){
+        if (this.currentworld == 0) return "Faith's End";
+        else return ("Vision " + this.currentworld);
+    }
+
     start(startingHp){
         tiles = [];
         monsters = [];
@@ -338,9 +343,9 @@ class World{
                         flip = true;
                         
                     }
-                    else if (Math.random() < 0.3 && (i+1 == 9 || !worldgen[i+1][j].passable) + (i-1 == -1 || !worldgen[i-1][j].passable) + (j+1 == 9 || !worldgen[i][j+1].passable) + (j-1 == -1 || !worldgen[i][j-1].passable == 3)){
-                        roomType = HarmonyRelay;
-                    }
+                    //else if (Math.random() < 0.3 && (i+1 == 9 || !worldgen[i+1][j].passable) + (i-1 == -1 || !worldgen[i-1][j].passable) + (j+1 == 9 || !worldgen[i][j+1].passable) + (j-1 == -1 || !worldgen[i][j-1].passable == 3)){
+                    //    roomType = HarmonyRelay;
+                    //}
                     else roomType = shuffle(this.roompool)[0];
                     this.rooms[i][j] = new roomType([i,j]);
                     if (universe.worlds[universe.currentworld].cage.slots[i][j].turbulent) this.rooms[i][j].hostile = true;

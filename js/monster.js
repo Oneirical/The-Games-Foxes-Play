@@ -66,7 +66,7 @@ class Cursor{
         else{
             let colour = "lightgray";
             if (this.tile.sprite == 61 || this.tile.sprite == 62) colour = "white";
-            printAtWordWrap(this.tile.lore, 18, 10, 600, colour, 20, 950);
+            printAtWordWrap(this.tile.lore, 18, 10, 600, colour, 20, 945);
             printAtSidebar(this.tile.name, 18, 590, 30, colour, 20, 350);
         }
         

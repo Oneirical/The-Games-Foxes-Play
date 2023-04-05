@@ -205,7 +205,10 @@ function draw(){
         for(let i=0;i<monsters.length;i++){
             if (viewedTiles.includes(monsters[i].tile) || monsters[i].charmed)monsters[i].draw();
         }
-        if (!inInventory && !cursormode && !wheel.hide) drawText(world.getRoom().name, 30, false, 40, "violet");
+        //if (!inInventory && !cursormode && !wheel.hide) drawText(world.getRoom().name, 30, false, 40, "violet");
+        if (!inInventory && !cursormode && !wheel.hide) printAtSidebar(universe.getDepth(), 30, 880 - ctx.measureText(universe.getDepth()).width, 40, "lightblue");
+        if (!inInventory && !cursormode && !wheel.hide) printAtSidebar(world.getRoom().name, 30, 595, 40, "violet");
+        printAtSidebar()
 
         //if (gameState == "dead" && !victory) drawText("SOUL SHATTERED", 20, false, 100, "red");
         //else if (gameState == "dead" && victory) drawText("VICTORY", 30, false, 100, "lime");
