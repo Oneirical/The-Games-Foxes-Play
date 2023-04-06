@@ -1,6 +1,7 @@
 class Research{
     constructor(){
         this.page = [];
+        this.knownnodes = ["SENET","SELF"];
         this.buildTabs();
     }
 

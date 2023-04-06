@@ -383,7 +383,7 @@ class Monster{
                 this.getDisplayY()
             );
         }
-        if (this.charmed && !this.name.includes("Rendfly")){
+        if (this.specialAttack == "Charm" ||this.charmed && !this.name.includes("Rendfly")){
             drawSprite(
                 36,
                 this.getDisplayX(),

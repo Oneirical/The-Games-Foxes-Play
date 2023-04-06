@@ -34,6 +34,15 @@ var keyroom = {
     "6" : SixfoldStand,
 }
 
+var keyspells = {
+    "S" : Saintly,
+    "O" : Ordered,
+    "A" : Artistic,
+    "U" : Unhinged,
+    "F" : Feral,
+    "V" : Vile,
+}
+
 var keyresearch = {
     "<" : "ur",
     ">" : "ul",
@@ -43,6 +52,18 @@ var keyresearch = {
     "T" : "t",
     "-" : "s",
     "." : ".",
+}
+
+var spellpatterns = {
+    "SELF" : {
+        0: "S.",
+        1: "S.",
+    },
+
+    "SENET" : {
+        0: "VV",
+        1: ".V",
+    }
 }
 
 var researchpage = {

@@ -1,4 +1,34 @@
-//ils ne sont pas tous utilisés, donc retravailler ceux qui utilisent les vieux trésors
+class LegendSpell{
+    constructor(targeter,modifier,effect){
+        this.targeter = targeter;
+        this.modifier = modifier;
+        this.effect = effect;
+    }
+}
+
+function legendCast(spell){
+    let targets = targeters[spell.targeter]();
+    effects[spell.effect](targets);
+}
+
+powerratings = {
+    "SELF" : 3,
+}
+
+targeters = {
+    SELF: function(){
+        return [player.tile];
+    }
+}
+
+effects = {
+    SENET: function(targets, power){
+        for (let i of targets){
+            i.monster.specialAttack = "Charm";
+        }
+    },
+}
+
 spells = {
     WOOP: function(caster){
         caster.move(randomPassableTile());

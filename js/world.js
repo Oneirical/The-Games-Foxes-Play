@@ -24,6 +24,31 @@ class CageTemplate{
     generateWorld(){
         this.displayon = true;
         this.pocketworld.confirmWorld();
+        this.legendCheck();
+    }
+
+    legendCheck(){
+        for(let j=0;j<9;j++){
+            for(let i=0;i<9;i++){
+                if (!(this.slots[i][j] instanceof Empty)){
+                    for (let k of research.knownnodes){
+                        if (this.slots[i][j] instanceof keyspells[spellpatterns[k][0][0]]){
+                            let nothere = false;
+                            for (let o =0; o<spellpatterns[k][0].length;o++){
+                                for (let p =0; p<spellpatterns[k][0].length;p++){
+                                    if (spellpatterns[k][o][p] != "." && !(this.slots[i+p][j+o] instanceof keyspells[spellpatterns[k][o][p]])){
+                                        nothere = true;
+                                        break;
+                                    }
+                                }
+                                if (nothere) break;
+                            }
+                            if (!nothere) console.log("pattern detected:"+k);
+                        }
+                    }
+                }
+            }
+        }
     }
 }
 
