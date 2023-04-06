@@ -3,6 +3,8 @@ class Research{
         this.page = [];
         this.knownnodes = ["SENET","SELF"];
         this.buildTabs();
+
+        this.exppage = new TutorialDisplay("EPSILON");
     }
 
     buildTabs(){
@@ -24,6 +26,7 @@ class Research{
                 this.page[i][j].draw();
             }
         }
+        this.exppage.display();
         //drawSymbol(49, 590, 130, 64);
         //drawSymbol(0, 590, 230, 64);
         //drawSymbol(1, 590, 330, 64);
@@ -44,7 +47,7 @@ class Research{
 
     displayNode(cx, cy){
         //let colour = "lightgray";
-        printAtWordWrap(research.page[cx][cy].lore, 18, 10, 600, "#cda4f2", 20, 950);
+        printAtWordWrap(research.page[cx][cy].lore, 18, 10, 600, "#cda4f2", 20, 560);
         printAtSidebar(research.page[cx][cy].name, 18, 590, 30, "white", 20, 350);
         drawSymbol((research.page[cx][cy].contents), 890, 20, 64);
         for (let i = 0; i<research.page[cx][cy].flags.length; i++){
@@ -52,6 +55,42 @@ class Research{
         }   
     }
     
+}
+
+class TutorialDisplay{
+    constructor(type){
+        //this.timer = 0;
+        this.type = type;
+        this.cage = [];
+        this.build();
+    }
+
+    build(){
+        for(let i=0;i<spellpatterns[this.type][0].length+2;i++){
+            this.cage[i] = [];
+            for(let j=0;j<spellpatterns[this.type][0].length+2;j++){
+                if((i == 0 && j == 0) || (i == spellpatterns[this.type][0].length+1 && j == spellpatterns[this.type][0].length+1) || (i == 0 && j == spellpatterns[this.type][0].length+1) || (j == 0 && i == spellpatterns[this.type][0].length+1)) this.cage[i][j] = new Floor(i,j);
+                else if (i == 0) this.cage[i][j] = new CageWall(i,j,"w");
+                else if (j == 0) this.cage[i][j] = new CageWall(i,j,"n");
+                else if (i == spellpatterns[this.type][0].length+1) this.cage[i][j] = new CageWall(i,j,"e");
+                else if (j == spellpatterns[this.type][0].length+1) this.cage[i][j] = new CageWall(i,j,"s");
+                else{
+                    this.cage[i][j] = new CageContainer(i,j);
+                    this.cage[i][j].value = new keyspells[spellpatterns[this.type][j-1][i-1]];
+                    if (!(this.cage[i][j].value instanceof Empty)) this.cage[i][j].value.turbulent = true;
+                }
+            }
+        }
+    }
+
+    display(){
+        for(let i=0;i<this.cage.length;i++){
+            for(let j=0;j<this.cage.length;j++){
+                let size = 64;
+                this.cage[i][j].drawFreeform(673-size/2*(this.cage.length-3),546-size/2*(this.cage.length-3),size);
+            }
+        }
+    }
 }
 
 class MessageLog{

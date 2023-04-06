@@ -113,6 +113,10 @@ class Tile{
         else return worldgen[this.x + dx][this.y + dy];
     }
 
+    drawFreeform(x, y, size){
+        drawSpriteFreeform(this.sprite, this.x, this.y, x, y, size);
+    }
+
     draw(){
         drawSprite(this.sprite, this.x, this.y);
 
@@ -570,6 +574,26 @@ class Altar extends Floor{
 
     getDisplayY(){                                                                  
         return this.y + this.offsetY;
+    }
+
+    drawFreeform(x,y,size){
+        super.drawFreeform(x,y,size);
+        if (!this.value.turbulent) drawSymbol(this.value.icon, x+this.x*size+8, y+this.y*size+8,size*3/4);
+        else{
+            this.thrashcounter++;
+            if (this.thrashcounter > 10 && this.offsetX == 0 && this.offsetY == 0){
+                let rt = randomRange(1,4);
+                if (rt == 1) this.offsetX+= 0.1;
+                else if (rt == 2) this.offsetX-= 0.1;
+                else if (rt == 3)this.offsetY+= 0.1;
+                else if (rt == 4)this.offsetY-= 0.1;
+                this.thrashcounter = 0;
+            }
+            drawSymbol(this.value.icon, x+this.getDisplayX()*size+size/8,  y+this.getDisplayY()*size+size/8,size*3/4);
+            ctx.globalAlpha = 1;
+            this.offsetX -= Math.sign(this.offsetX)*(this.speed);     
+            this.offsetY -= Math.sign(this.offsetY)*(this.speed);
+        }
     }
 
     draw(){

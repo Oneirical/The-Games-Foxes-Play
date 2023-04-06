@@ -84,6 +84,20 @@ function setupCanvas(){
     }, false);
 }
 
+function drawSpriteFreeform(sprite, x, y, offX, offY, size){
+    ctx.drawImage(
+        spritesheet,
+        sprite*16,
+        0,
+        16,
+        16,
+        x*size + offX,
+        y*size + offY,
+        size,
+        size
+    );
+}
+
 function drawSprite(sprite, x, y){
     ctx.drawImage(
         spritesheet,
@@ -256,14 +270,30 @@ function draw(){
         }
         ctx.strokeStyle = 'white';
         ctx.lineWidth = 1.5;
-        ctx.beginPath();
-        ctx.moveTo(0, 577);
-        ctx.lineTo(960, 577);
-        ctx.stroke();
-        ctx.beginPath();
-        ctx.moveTo(577, 577);
-        ctx.lineTo(577, 0);
-        ctx.stroke();
+        if (!inResearch){
+            ctx.beginPath();
+            ctx.moveTo(0, 577);
+            ctx.lineTo(960, 577);
+            ctx.stroke();
+            ctx.beginPath();
+            ctx.moveTo(577, 577);
+            ctx.lineTo(577, 0);
+            ctx.stroke();
+        }
+        else{
+            ctx.beginPath();
+            ctx.moveTo(0, 577);
+            ctx.lineTo(577, 577);
+            ctx.stroke();
+            ctx.beginPath();
+            ctx.moveTo(577, 833);
+            ctx.lineTo(577, 0);
+            ctx.stroke();
+            ctx.beginPath();
+            ctx.moveTo(960, 450);
+            ctx.lineTo(577, 450);
+            ctx.stroke();
+        }
         if (inMap) world.display();
         if (inBigMap) universe.display(); // break in case of sanity
         //drawSymbol(5, 300, 400, 16);

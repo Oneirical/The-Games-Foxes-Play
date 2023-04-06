@@ -41,6 +41,7 @@ var keyspells = {
     "U" : Unhinged,
     "F" : Feral,
     "V" : Vile,
+    "." : Empty,
 }
 
 var keyresearch = {
@@ -63,7 +64,17 @@ var spellpatterns = {
     "SENET" : {
         0: "VV",
         1: ".V",
-    }
+    },
+    "EPSILON" : {
+        0: "OOOOO",
+        1: "OOOOO",
+        2: "OOOOO",
+        3: "OOOOO",
+        4: "OOOOO",
+    },
+    "TEST" : {
+        0: "V",
+    },
 }
 
 var researchpage = {
@@ -160,11 +171,11 @@ var rooms = {
     "Cage2" : {
         0 : "####E####",
         1 : "#.......#",
-        2 : "#.WnnnW.#",
+        2 : "#..nnn..#",
         3 : "#.woooe.#",
         4 : "E.woooe.E",
         5 : "#.woooe.#",
-        6 : "#.WsssW.#",
+        6 : "#..sss..#",
         7 : "#.......#",
         8 : "####E####",
         "tags": ["randomgen"],
