@@ -1310,8 +1310,8 @@ class Hologram extends Monster{
         this.isGuide = true;
         this.ability = "";
         this.paralyzed = true;
-        this.diamax = 9;
-        this.dialogue = ["Saint1","Saint2","Saint3","Saint4","Saint5","Saint6","Saint7","Saint8","Saint9","SaintRepeat"]
+        this.diamax = 11;
+        this.dialogue = ["ESaint1","ESaint2","ESaint3","ESaint4","ESaint5","ESaint6","ESaint7","ESaint8","ESaint9","ESaint10","ESaint11","ESaintRepeat"]
         this.diareset = 0;
         this.noloot = true;
     }

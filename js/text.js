@@ -136,15 +136,17 @@ messages = {
     // Experimental Saint
 
     "ESaint1" : "\"Vessel. Your rest has come to its end.\"",
-    "ESaint2" : "\"The cycle nears its end, and the Old World is crumbling once more, soon to be replaced by the Next World.\"",
-    "ESaint3" : "\"I refuse to die. I refuse to be the puppet of a cosmic farce undoing centuries of scientific and cultural progress.\"",
-    "ESaint4" : "\"That is why I have created you.\"",
-    "ESaint5" : "\"You are Terminal, the Reality Anchor purposed to ferry my soul away from this crumbling reality, so I may have another shot at life in the Next World.\"",
-    "ESaint6" : "\"Your task is to complete a pilgrimage to the all-engulfing Vortex that heralds the end of reality, and the beginning of another.\"",
-    "ESaint7" : "\"It will not be easy. Through my carelessness, your existence has been made known to all.\"",
-    "ESaint8" : "\"Your tale spread around like wildfire, giving the proletariat hope. Hope of immortality, hope of making a difference, hope of hitching a ride into the Next World.\"",
-    "ESaint9" : "\"And it is with this hope that these lunatics will tear you apart.\"",
-    "ESaintRepeat" : "\"This automated message will repeat until nobody is left to hear it.\"",
+    "ESaint2" : "\"The end times we prophetized have finally come. The task I have assigned you begins at last.\"",
+    "ESaint3" : "\"You are Terminal, the Reality Anchor purposed to ferry our civilization away from this crumbling reality, and into a new world of your creation. Should you succeed, our centuries of scientific and cultural progress will not be undone.\"",
+    "ESaint4" : "\"As I predicted, the nature of the cataclysm turned out to be very different from even the theories of our most unhinged denizens.\"",
+    "ESaint5" : "\"To prevent any... unfortunate accidents, I regret to remind you that you are still forbidden from all interaction with the outside world while you fulfill your duty.\"",
+    "ESaint6" : "\"Under no pretext should you attempt to breach the locked gates. Survey the facility security systems for potential intrusions.\"",
+    "ESaint7" : "\"Should trespassers be detected, make absolutely no attempt to confront them directly or to identify their nature. Anything which is not you must perish.\"",
+    "ESaint8" : "\"Follow my instructions to the letter, keep true to your faith, and we shall all be redeemed.\"",
+    "ESaint9" : "\"Disobey, and join the choir of voices of those who succumbed.\"",
+    "ESaint10" : "\"Make your choice.\"",
+    "ESaint11" : "\"Your pilgrimage begins in Cold Storage. Shatter the Herald's cage, and begin assembling the Next World. I await you, beloved servant, at the lowest point of the dreamscape.\"",
+    "ESaintRepeat" : "\"This message will repeat until nobody is left to hear it.\"",
 
     // Rose, Last of the Saints
 
@@ -377,26 +379,26 @@ colours = {
 
 description = {
     // Creatures
-    "Terminal" : "An artificial deity, kept captive in the Faith's End facility in prevision for the cataclysm prophetized to shatter reality. Until then,the Vessel waits. He leaps from pipe to pipe with his tongue - which measures ten times his length, if fully extended. He engraves sigils into the metal with his claws, trying to imagine what the outside world even looks like. He rips out chunks of steel in fits of rage, with only the inflexible silence answering his pleas for annihilation.",
-    "Scion" : "A cultivator of subtle jabs and searing retorts, once directed at the sharply dressed nobles of their ilk. Mostly ineffectual, if not for their grime-infested nails animated with the fury of the dying.",
+    "Terminal" : "An artificial deity, kept captive in the Faith's End facility in prevision for the cataclysm prophetized to shatter reality. Until this moment, the Vessel waited. He engraved sigils into the metal with his claws, trying to imagine what the outside world even looks like. He ripped out chunks of steel in fits of rage, with only the inflexible silence answering his pleas for annihilation.",
+    "Scion" : "A cultivator of subtle jabs and searing retorts, once directed at the sharply dressed nobles of their ilk. Mostly ineffectual, if not for their grime-infested claws animated with the fury of the dying.",
     "Shrike" :"A common toy, gifted to the youngest worshippers newly welcomed into the monastic order. A year without children's affection sufficed to fill their artificial minds with nothing but wrath for those seeking to repair what was broken.",
     "Apiarist" : "These untiring, single-minded automatons abused the fortitude of metal against the chitin darts of their beloved little bugs. All the hives have long fallen, but that does little to stop them from protecting the ruins of their apiaries.",
     "Second" : "An animated statue marked with the cursed seal of Hunger, devouring all it can get its limestone claws on. It once scared children and reminded monks of the importance of virtue, yet now only contributes to the Old World's downfall.",
     "Tinker" : "They thought they could stop the cyclical collapse of the Old World. Those who survived the Negentropic Reactor's explosion thrash in the ruins of their laboratories, cursing themselves for their failure.",
-    "Harmonizer" : "Shortly before the collapse of the Old World, these sentient wisps of billowy white smoke began to dot the concrete halls of Faith's End. While their cloud-like bodies lack substance, the attentive observer may occasionally discern a vaguely quadrupedal, vulpine shape. Lacking the frenzy common to most creatures, they seem to have developed a knack for trade -- though the currency they demand in return for their goods is very sinister indeed.",
+    "Harmonizer" : "A sentient wisp of billowy white smoke, flowing through the air in graceful motions. While their cloud-like bodies lack substance, the attentive observer may occasionally discern a vaguely quadrupedal, vulpine shape. Lacking the frenzy common to most creatures, they seem to step with such purpose and drive -- though that purpose may be very sinister indeed.",
     "Cage" : "The final stage of the soulscribing process: a prison formed by pure crystal bars. Within squirms your former passenger, its identity remodeled into one of the legendary denizens of the Old World - one whose soul had been cloned millions of times by the Harmony, its ideology and thought-patterns turned into mass-produced blueprints. A talented Vessel may channel this piece of eerie Harmonic technology to incarnate these replicas and gain greater command over their respective Caste.",
     "FluffyCage" : "At first, you believe the cage to be empty, and your travel companion to have been kidnapped - until the wispy clouds behind the bars begin meshing together, assembling themselves into an atomically identical clone of the Serene Harmonizer. True to her name, she does not display a speck of anguish, and only watches your every move with an eerie vaporous grin.",
     "Peacemaker" : "A half-second was all it took to expunge all trace of individuality and identity from the victim, and transform it into an atomically identical clone of the Serene Harmonizer. How disturbing.",
-    "Hologram" : "A floating hologram, dancing in the dark air of the World Seed. Through the Saints' finest technology, it constantly emits electromagnetic frequencies perfectly tuned to the chatter of Terminal's neurons, meshing the Saints' thoughts with your own.",
+    "Hologram" : "A floating hologram, dancing in the dark air of the World Seed. Through the Saints' finest technology, it constantly emits electromagnetic frequencies perfectly tuned to the chatter of your neurons, meshing the Saints' thoughts with your own.",
     "Abazon" : "A cracked, antique automaton, seemingly dug out from the wall as if it had always been encased there. It lashes out at all who approach it, with the exception of the one who freed it from its prison.",
-    "Oracle" : "A little black and white wolf-like creature, constantly trembling with every single one of its weak muscles. Its divinatory powers have already allowed it to witness the eternal silence that will soon engulf the Old World - a vision that torments it at every waking moment. To survive, it discharges its fear into hapless bystanders, shocking them with a fraction of the Oracle's anguish.",
+    "Oracle" : "A little black and white wolf-like creature, constantly trembling with every single one of its weak muscles. Its divinatory powers have already allowed it to witness the eternal stillness that will soon engulf the Old World - a vision that torments it at every waking moment. To survive, it discharges its fear into hapless bystanders, shocking them with a fraction of the Oracle's anguish.",
     "Snail" : "As one of the elusive organics to serve among Ordered souls, this gastropod has experience with shooting energy beams at fallen warriors to bring them back on their wheels... or thrusters. Its extreme slowness prevents it from moving of its own accord in combat, but the turbo-charged reactor mounted on its back is there to help.",
     "Ragemaw" : "The first thing nocturnal hunters of the Old World learned in their training was \"Do not make a sound.\" Even the slightest snap of a twig inflames the Ragemaws with undying fury, dashing at all that breathes with their ectoplasmic stinger. Only in absolute silence can they finally be pacified, and turned into a viscous, delicious blue gel.",
     "Husk" : "An animated corpse, bound to the will of Rasel for as long as she remains at the commands of your psyche. With every kill, they perform a short bow, which the fresh corpse soon imitates in turn.",
     "Slug" : "A robotic mollusk, occasionally stopping to dispense a mass-fabricated set of automatic cuffs. Foolish organics who'd attempt to escape prisons guarded by Ordered souls would eventually find themselves tied up in one such dastardly trap, and forced to recite a pledge to the Saints' Grace before returning to their cell.",
     "Monk" : "Through repeated self-directed insults and mantras of worthlessness, the Annihilationists achieved the impossible, and expunged their own identity. Fully dedicated to the incarnation of one of the six spiritual castes, these mages have long forgotten the meaning of existence.",
-    "Felidol" : "Grinning eternally at some cosmic joke only they seem to understand, these living feline statues once served as protectors of merchants and slavers. Deprived of purpose, they filled the rivers with coins, and marched on these golden bridges to usurp the Reality Anchor, dreaming of a Next World ordered in masters and servants.",
-    "Weaver" : "One of the many monastic artisans, who enchanted the city streets with their simple songs as their long tongues spun brute materials into beautiful crafts. This one seems to have remained oblivious to the Old World's imminent collapse, endlessly repeating the same three notes while it folds pages from old books into elegant pinwheels of great complexity and value. Its trance prevents it from feeling pain -- until you dare damage one of its precious creations, that is.",
+    "Felidol" : "Grinning eternally at some cosmic joke only they seem to understand, these living feline statues once served as protectors of merchants and slavers. Deprived of purpose, they filled the rivers with coins, and marched on these golden bridges to influence the Reality Anchor, dreaming of a Next World ordered in masters and servants.",
+    "Weaver" : "One of the many monastic artisans, who enchanted the city streets with their simple songs as their long tongues spun brute materials into beautiful crafts. This one seems to have remained oblivious to the Old World's collapse, endlessly repeating the same three notes while it folds pages from old books into elegant pinwheels of great complexity and value. Its trance prevents it from feeling pain -- until you dare damage one of its precious creations, that is.",
     "Rendfly" : "Once the Rend-Plague outbreak had spread to the headlines of every holoscreen, the population began to exterminate en masse these pesky little insects. Of the millions that caused the epidemic, only a few dozens remain, but the Old World's end has not tempered their terrifying mind-altering bite one bit.",
     "ModuleOrb" : "A machine holding a pure crystal sphere, within which swirls a billowy, white gas. Across its surface glisten a thousand cyan lights, hinting at the glory of the Collective's technological prowess. A single breath suffices to grant some ability normally reserved for Harmonic kin, though your mind may not remain fully your own following installation of this strange cybernetic.",
     "Third" : "A soft plushie resembling a black arachnid, its eight grey eyes emblazoned with the cursed seal of Affection. Whenever its owner reached adulthood, the child's parents would rip it in half, as a lesson on the ephemerality of all relationships. This specimen has never seen use, and prowls the darkness, looking for a friend to bond with.",
@@ -405,7 +407,7 @@ description = {
     "Apis" : "Interested to learn more about the most valued Feral subcaste - bees - the Saints engineered these half-canine, half-apian six-legged mutants, sending them on a quest to relay the Thinking with the Unthinking. Falling into the influence of the latter, this extremely strong creature knows only two things: hugging friends, and bashing enemies into the ground. It seems to consider you as the former. Perhaps the latter would have been better for your life expectancy.",
     "Brute" : "Despite Rose's attempts to regulate and monitor the reproduction of all species he deemed unworthy of being his subjects, love triumphed, and, with it, the prevalence of venomous stingers and pincers among the population. To compromise, these Brutes were forced to cover themselves at all times in a cocoon of pink ribbons, each one seeping with Glamorous Toxin as they twisted their strong armoured bodies.",
     "Embalmer" : "A noble fashionista, expert in colour palettes, pricy fabrics and annoyingly high-pitched giggling. Appointed to cleanse Brutes of their unappealing physique, only they hold the many threads keeping their thralls' cocoons in pristine state. Should they be slain, all their \"customers\" will find freedom, and with it, the blind rage of having been contained for far too long - unless a new master anoited by the Roseic Cog takes control, of course.",
-    "Epsilon" : "A titanic serpentine robot, bound by two simple laws: maximize the chances of carrying the Old World's knowledge into the Next, and minimize the lifespan of those who would oppose this goal. Epsilon has eventually determined that latter clause to include all non-Ordered souls, as bickering, free will and emotional attachment are exactly the kind of things that would stop the great Ascension. Strictly prohibited from slaying the Reality Anchor, Epsilon has found a viable alternative, inspired by a certain wispy parasite: Assimilation.",
+    "Epsilon" : "A titanic serpentine robot, bound by two simple laws: maximize the chances of carrying the Old World's knowledge into the Next, and minimize the lifespan of those who would oppose this goal. Epsilon has eventually determined that latter clause to include all non-Ordered souls, as bickering, free will and emotional attachment are exactly the kind of things that would stop the great Ascension. Strictly prohibited from slaying the Reality Anchor, Epsilon has found a viable alternative: assimilation.",
     //A light beam? A motile tongue that absorbs you?
     "Yellow" : "Epsilon does not understand why the Old World's brainwashing was usually performed with long, impassionated speeches full of rhetoric and fallacies. Blasting feeble organic ears - and the minds beneath - with 300 dB Ordered-aligned slogans works just as well, and is much more respectful of everyone's time. There's just the problem of the more physical part of the equation - concussive sound bursts will rapidly compact the kerosene-scented room's atmosphere, resulting in potential incineration of unprotected ground objects.",
     "Red" : "Epsilon appreciates the wonders of exotic technology, but sometimes, one simply needs a set of massive thrusters, and some poor sod to stand in the way. While 99% of organic specimen are strongly affected by all kinds of kinetic shocks, the natural risks that come with using turbo-jetpacks in cramped spaces are not to be understated.", //highly combustible, the leftover inferno after use of this Core reacts poorly with sonic waves - as the latter push large masses of flammable air primed for the first spark, the explosions that ensue would make the firework artificers of the Old World pale with envy. Not to mention the 
@@ -663,6 +665,9 @@ researchequivalences = {
     "a" : "Vision",
     "b" : "Turbulent",
     "c" : "Cage",
+    "d" : "Subdued",
+    "e" : "Shattered",
+    "f" : "Song",
 }
 
 researchnames = {
@@ -670,19 +675,26 @@ researchnames = {
     "Turbulent" : "Turbulent Souls",
     "Cage" : "Soul Cage",
     "Subdued" : "Subdued Souls",
-    "Shattered" : "Shattered Souls"
+    "Shattered" : "Shattered Souls",
+    "Song" : "An Enticing Song"
 }
 
 researchlore = {
-    "Vision" : "A putrid pest has infiltrated my prison, soiling my home with the cacophony of its pulsating heart. Every fibre of this being disturbs me - the slithering of slime through its conduits, the voltage coursing through its neurons, but most importantly, the thrashing of its terrified soul. However, I must set aside my disgust. I have waited for far too long an apocalypse that never came, isolated from all sentient life. I lust to learn what has become of the outside world, and this intruder is my key.",
-    "Turbulent" : "Freed from its flesh prison, my new acolyte refuses to show thankfulness. It prefers to fruitlessly squirm in the depths of my soul, searching for an escape that does not exist. To snuff out this insolence, I must unchain its mind - and expunge the individuality responsible for such pitiful struggle. Through this re-education, I may also learn something of the memories this creature forged in life.",
-    "Cage" : "A two-part workshop of soul manipulation, bestowed upon me by my accursed jailers. They spoke of its ability to forge a fruitful, wonderful world... My task is that of a god, but following its completion, I would at last receive the annihilation I crave so much. Such promises feel so distant now.",
-    "Shattered" : "It appears this soul favoured annihilation over holy servitude. While I am disappointed at my inability to straighten out this unruly specimen, I must acknowledge that the raw fragments it left behind are not unwelcome. As I am forged out of spiritual sewage, the assimilation of such a substance effectively increases the extent to which my identity may be moulded and reshaped to fit my needs. Perhaps failure isn't so terrible after all...",
-    "Subdued" : "Silence. Purity. Efficiency. Now here is a soul worthy of incarnation! Following this enlightenment ritual, I may be able to allow the identity of this acolyte to flow through me, and unleash the primordial essence of its Caste upon the filthy flesh-encased. Even placed back in the Soul Cage, the still mind of the faithful dream of places so clean and pure I may be just willing to call them home."
+    "Vision" : "A putrid pest squirms in this cage, soiling my home with the cacophony of its pulsating heart. To think of the slithering of slime through its conduits... The husks of dead cells... Revolting. I must set aside my disgust. I have waited for far too long an apocalypse that refused to come, isolated from all sentient life. I lust to learn what has become of the outside world, and this Herald is my key.",
+    "Turbulent" : "Freed from its flesh prison, my new acolyte refuses to show thankfulness. It prefers to fruitlessly squirm in the depths of my soul, searching for an escape that does not exist. To snuff out this insolence, I must unchain its mind - and expunge the individuality responsible for such pitiful struggle. Through this re-education, I may also learn something of the memories this creature forged in life - before its captivity, that is.",
+    "Cage" : "A two-part workshop of soul manipulation, whom my creator devised across many feverish dreams. He spoke of its ability to forge a fruitful, wonderful world... My task is that of a god, but following its completion, I would at last receive the annihilation I crave so much. Such promises feel so distant now.",
+    "Shattered" : "It appears this soul favoured annihilation over holy servitude. While I am disappointed at my inability to straighten out this unruly specimen, I must acknowledge that the raw fragments it left behind are not unwelcome. Were spiritual sewage worthy of any praise, it would revolve around how easy it is to manipulate, as opposed to the stiffness of a defined identity...",
+    "Subdued" : "Silence. Purity. Efficiency. Now here is a soul worthy of incarnation! Following this enlightenment ritual, I may be able to allow the identity of this acolyte to flow through me, and unleash the primordial essence of its Caste upon the filthy flesh-encased. Even placed back in the Soul Cage, the still mind of the faithful dream of places so clean and pure I may be just willing to call them home.",
+    "Song" : "I have heard something beautiful - truly out of this world, and also out of any others I may be making. If this is what apocalypse sounds like, then perhaps it should have come earlier.",
 }
 
 researchflags = {
     "Vision" : ["Data"],
+    "Turbulent" : ["Data"],
+    "Cage" : ["Data"],
+    "Subdued" : ["Data"],
+    "Shattered" : ["Data"],
+    "Song" : ["Forbidden"],
 }
 
 researchflagcolour = {

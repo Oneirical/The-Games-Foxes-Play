@@ -87,7 +87,7 @@ class MessageLog{
             else if (this.history[x].includes("Fluffy")) coloring = "cyan";
             else if (this.history[x].includes("Rose")) coloring = "lightpink";
             else if (this.history[x].includes("Epsilon")) coloring = "red";
-            else if (this.history[x].includes("Blehh")) coloring = "lime";
+            else if (this.history[x].includes("Saint")) coloring = "lime";
             let print = messages[this.history[x]];
             if (this.repeats[x] > 1) print += " x"+this.repeats[x];
             printAtWordWrap(print, 18, 10, this.writeheight[x], coloring, 20, 940);
