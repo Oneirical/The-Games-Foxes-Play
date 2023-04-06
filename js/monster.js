@@ -20,8 +20,8 @@ class Cursor{
         this.offsetY -= Math.sign(this.offsetY)*(1/8); 
     }
     tryMove(newTile){
-        if (inResearch && !(research.page[newTile.x][newTile.y] instanceof ResearchNode || research.page[newTile.x][newTile.y] instanceof ResearchConnector )) return;
         if (newTile.x < numTiles && newTile.y < numTiles && newTile.x >= 0 && newTile.y >= 0){
+            if (inResearch && !(research.page[newTile.x][newTile.y] instanceof ResearchNode || research.page[newTile.x][newTile.y] instanceof ResearchConnector )) return;
             this.move(newTile);
         }
     }
@@ -39,10 +39,12 @@ class Cursor{
         this.sprite = 99999;
     }
     info(){
-        if (inResearch && research.page[this.tile.x][this.tile.y] instanceof ResearchNode){
-            let cx = this.tile.x;
-            let cy = this.tile.y;
-            research.displayNode(cx, cy);
+        if (inResearch){
+            if (research.page[this.tile.x][this.tile.y] instanceof ResearchNode){
+                let cx = this.tile.x;
+                let cy = this.tile.y;
+                research.displayNode(cx, cy);
+            }
             return;
         }
         if (this.tile.monster){
