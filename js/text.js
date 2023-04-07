@@ -450,6 +450,7 @@ description = {
     "Platform" : "An oddly solid slate of dancing smoke, exerting perfectly harmonious pressure against your paws as they press upon the Spire's platforms.",
     "Ladder" : "A stream of cold air originating from nothing, rushing to meet the Spire's glorious summit despite its low temperature.",
     "IvoryCage" : "There was a time where the legislators of the Old World would have smitten any users of this sinister device with the most harrowing punishments they could conceive. It turns out these primitive rules are hard to enforce when one lacks a physical form.",
+    "Hypno" : "A holographic dreamscape, woven from the intertwined daydreams of the Soul Cage's unfortunate denizens. A careless step into this theatre of dancing lights is all it takes to replace your world with their own.",
 }
 
 monabi = {
@@ -695,6 +696,23 @@ researchflags = {
     "Subdued" : ["Data"],
     "Shattered" : ["Data"],
     "Song" : ["Forbidden"],
+}
+
+researchcapsules = {
+    "Vision" : ["WASD"],
+    "Turbulent" : ["Turbulent"],
+    "Cage" : ["Cage"],
+    "Subdued" : ["Subdued"],
+    "Song" : ["Song"],
+}
+
+researchexpl = {
+    "WASD" : "Use WASD keys to move. Bump into foes to attack them.",
+    "Turbulent" : "Turbulent Souls thrash around in indiscipline. In a Soul Cage, they populate the Vision downwards with foes. Slaying these foes will subdue the Turbulent Soul.",
+    "Cage" : "The Soul Cage can hold Souls captive by casting them while standing on top of the cage. Each caged Soul creates one room in the World Seed. This network of rooms is a Vision.",
+    "Subdued" : "Subdued Souls have been pacified. They may be used for spellcasting, and placed inside the Soul Cage, the rooms they generate are devoid of danger.",
+    "Shattered" : "Shattered Souls are the product of Turbulent Souls who managed to kill off Terminal while inside the Vision. When collected, they contribute to your pool of Ipseity. 30 Ipseity is enough to gain 1 extra Soul inhalation per room.",
+    "Song" : "They have arrived at the gates. Be ready."
 }
 
 researchflagcolour = {

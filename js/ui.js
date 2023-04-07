@@ -4,7 +4,7 @@ class Research{
         this.knownnodes = ["SENET","SELF"];
         this.buildTabs();
 
-        this.exppage = new TutorialDisplay("EPSILON");
+        this.exppage = new TutorialDisplay("SENET");
     }
 
     buildTabs(){
@@ -52,6 +52,7 @@ class Research{
         drawSymbol((research.page[cx][cy].contents), 890, 20, 64);
         for (let i = 0; i<research.page[cx][cy].flags.length; i++){
             printAtSidebar(research.page[cx][cy].flags[i], 18, 590, 55 + i*20, researchflagcolour[research.page[cx][cy].flags[i]], 20, 6*64-35);
+            printAtSidebar(researchexpl[research.page[cx][cy].capsules[i]], 18, 590, 105 + i*60, "white", 20, 6*64-35);
         }   
     }
     

@@ -1066,6 +1066,7 @@ class Player extends Monster{
                 if (universe.worlds[universe.currentworld-1].cage.slots[i][j].id != "EMPTY") universe.worlds[universe.currentworld-1].cage.slots[i][j].shattered = true;
             }
         }
+        player.hp = maxHp;
         universe.passUp(universe.currentworld-1,"N");
         world.cage.displayon = false;
     }

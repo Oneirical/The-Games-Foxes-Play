@@ -835,7 +835,7 @@ class HypnoticProjector extends Floor{
     constructor(x, y){
         super(x,y,110, true);
         this.sprite = 110;
-        this.lore = description["Floor"];
+        this.lore = description["Hypno"];
         this.name = "Hypnotic Projector";
         this.value = new Empty();
     }
@@ -880,6 +880,7 @@ class ResearchNode extends Floor{
         this.lore = researchlore[lore];
         this.name = researchnames[lore];
         this.flags = researchflags[lore];
+        this.capsules = researchcapsules[lore];
     }
 
     draw(){
