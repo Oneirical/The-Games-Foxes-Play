@@ -719,10 +719,9 @@ researchexpl = {
 researchflagcolour = {
     "Data" : "lightblue",
     "Modifier" : "lightpink",
-    "Trigger" : "gold",
+    "Contingency" : "gold",
     "Effect" : "darkorange",
     "Forbidden" : "red",
-    "Passive Trigger" : "navajowhite"
 }
 
 core = {

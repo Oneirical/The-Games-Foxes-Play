@@ -67,6 +67,6 @@ relayPool = {
     "FERAL" : [new Kilami(), new Lashol(), new Ezezza()],
     "UNHINGED" : [new Joltzazon(), new Kashia()], //new Shizapis()
     "ARTISTIC" : [new Purpizug(), new Gyvji()], //new Borerora()
-    "ORDERED" : [new Aspha(), new Abazon, new Naia()],
+    "ORDERED" : [new Aspha(), new Abazon(), new Naia()],
     "SAINTLY" : [new Rose()], //new Aster()
 }

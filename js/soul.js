@@ -4,27 +4,63 @@ class LegendSpell{
         this.modifier = modifier;
         this.effect = effect;
     }
-}
 
-function legendCast(spell){
-    let targets = targeters[spell.targeter]();
-    effects[spell.effect](targets);
+    legendCast(){
+        let targets = targeters[this.targeter](player);
+        effects[this.effect](targets);
+    }
 }
 
 powerratings = {
     "SELF" : 3,
 }
+// In the research menu, these should have "history book" descriptions.
+// SELF - BEAM - PCROSS - XCROSS - 8ADJ - 4ADJ - RANDOM (up to power) - WALL - ALL - PAYLOAD (summon that unleashes targets on death)
 
 targeters = {
-    SELF: function(){
-        return [player.tile];
+    SELF: function(caster){
+        return [caster.tile];
+    },
+    BEAM : function(caster){
+        return targetBoltTravel(caster.lastMove, 15 + Math.abs(caster.lastMove[1]), caster.tile);
+    },
+    XCROSS : function(caster){
+        const directions = [
+            [-1, -1],
+            [-1, 1],
+            [1, -1],
+            [1, 1]
+        ];
+        for(let k=0;k<directions.length;k++){
+            return targetBoltTravel(directions[k], 14, caster.tile);
+        }
+    },
+    SMOOCH : function(caster){
+        let newTile = caster.tile;
+        newTile = newTile.getNeighbor(caster.lastMove[0],caster.lastMove[1]);
+        newTile.setEffect(14,30);
+        return [newTile];
     }
 }
 
+// ARTISTICMINE - LASTMOVE>RANDOMDIR - SACRIFICE (Dump wheel) - DAMPENER (reduce power, get something in exchange) - ALLOUT (lose all resolve, get power)
+//
+
+modifiers = {
+
+}
+
+// SENET - LASHOL (status) - KILAMI (status) - GYVJI - DASH - RASEL (status) - ASPHA (tp and hit) - SUGCHA (lifesteal)
+// ROSE (status) - JOLTZAZON (targets spread to adj) - HARBINGER (summon that will endlessly copy the first spell it is hit by)
+// ABAZON (only wall targets affected)
+
 effects = {
-    SENET: function(targets, power){
+    SENET: function(targets, power){ //if power > X, give frenzy, haste?
         for (let i of targets){
-            i.monster.specialAttack = "Charm";
+            if (i.monster){
+                if (i.monster.isPlayer) i.monster.specialAttack = "Charm";
+                else i.monster.charmed = !i.monster.charmed;
+            }
         }
     },
 }
@@ -952,6 +988,23 @@ spells = {
         }
     },
 };
+
+function targetBoltTravel(direction, effect, location){
+    let newTile = location;
+    let targets = [];
+    while(true){
+        let testTile = newTile.getNeighbor(direction[0], direction[1]);
+        targets.push(testTile);
+        if(testTile.passable){
+            newTile = testTile;
+            if(newTile.monster) break;
+            newTile.setEffect(effect,30);
+        }else{
+            break;
+        }
+    }
+    return targets;
+}
 
 function boltTravel(direction, effect, damage, location, friendly){
     let newTile = location;
