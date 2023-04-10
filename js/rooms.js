@@ -78,16 +78,47 @@ var spellpatterns = {
 }
 
 var researchpage = {
+    
     "Basic" : {
         0 : ".........",
-        1 : ".i<...>j.",
-        2 : "..LgTh)..",
-        3 : "....I....",
-        4 : ".d--f--e.",
-        5 : ".I.....I.",
-        6 : ".Lb-T-c).",
-        7 : "....a....",
+        1 : ".........",
+        2 : ".........",
+        3 : ".........",
+        4 : ".........",
+        5 : ".........",
+        6 : ".........",
+        7 : ".........",
         8 : ".........",
+    },
+    "Page0" : {
+        0 : "....I....",
+        1 : "....f-<..",
+        2 : "....I.I..",
+        3 : "....e.I..",
+        4 : "..h.I.d..",
+        5 : "..I.b.I..",
+        6 : "..g.I.c..",
+        7 : "..L-a-)..",
+        8 : ".........",
+    },
+    // a - A Tingling In The Soul (intro)
+    // b - The Herald of the Old World (cold storage)
+    // c - Containing the Intangible (soul cage)
+    // d - Synchronized Daydreaming (world seed)
+    // e - Unruly Prey (turbulents)
+    // f - Visions of the Old World (visions)
+    // g - With Prudence Comes Serenity (security)
+    // h - The Song That Stirs Souls (tier 1 harmony)
+    "Page1" : {
+        0 : ".........",
+        1 : ".........",
+        2 : ".........",
+        3 : ".........",
+        4 : ".........",
+        5 : ".........",
+        6 : ".........",
+        7 : "....Ta...",
+        8 : "....I....",
     }
 }
 

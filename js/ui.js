@@ -1,6 +1,9 @@
 class Research{
     constructor(){
-        this.page = [];
+        this.tabs = [];
+        this.pagecount = 2;
+        this.page;
+        this.currentpage = 0;
         this.knownnodes = ["SENET","SELF"];
         this.buildTabs();
 
@@ -8,22 +11,31 @@ class Research{
     }
 
     buildTabs(){
-        for(let i=0;i<9;i++){
-            this.page[i] = [];
-            for(let j=0;j<9;j++){
-                let nodeType = keyresearch[researchpage["Basic"][j][i]];
-                if ("TL)><I-".includes(researchpage["Basic"][j][i])) this.page[i][j] = new ResearchConnector(i,j,nodeType);
-                else if (nodeType == ".") this.page[i][j] = new Floor(i,j);
-                else this.page[i][j] = new ResearchNode(i,j,researchpage["Basic"][j][i]);
+        for (let k=0; k<this.pagecount;k++){
+            this.tabs[k] = [];
+            for(let i=0;i<9;i++){
+                this.tabs[k][i] = [];
+                for(let j=0;j<9;j++){
+                    let nodeType = keyresearch[researchpage["Page"+k][j][i]];
+                    if ("TL)><I-".includes(researchpage["Page"+k][j][i])) this.tabs[k][i][j] = new ResearchConnector(i,j,nodeType);
+                    else if (nodeType == ".") this.tabs[k][i][j] = new Floor(i,j);
+                    else this.tabs[k][i][j] = new ResearchNode(i,j,researchpage["Page"+k][j][i]);
+                }
             }
         }
+        this.page = this.tabs[0];
     }
 
-    display(){
+    changeTab(inc){
+        this.currentpage+= inc;
+        this.page = this.tabs[this.currentpage];
+    }
+
+    display(tab){
         drawFilter(blackfilter);
         for(let i=0;i<9;i++){
             for(let j=0;j<9;j++){
-                this.page[i][j].draw();
+                this.tabs[tab][i][j].draw();
             }
         }
         this.exppage.display();

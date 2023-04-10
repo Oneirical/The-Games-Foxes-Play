@@ -229,7 +229,7 @@ function draw(){
         let modulecol = "cyan";
         if (selectation == 21 || selectation == 22) modulecol = "white";
         if (cursormode && !invmode){
-            if (inResearch) research.display();
+            if (inResearch) research.display(research.currentpage);
             cursor.draw();
             cursor.info();
             if (!inResearch) drawSymbol(9, 590, 500, 64);

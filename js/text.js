@@ -696,7 +696,7 @@ researchflags = {
     "Cage" : ["Data"],
     "Subdued" : ["Data"],
     "Shattered" : ["Data"],
-    "Song" : ["Forbidden"],
+    "Song" : ["Hypnotic"],
 }
 
 researchcapsules = {
@@ -713,15 +713,16 @@ researchexpl = {
     "Cage" : "The Soul Cage can hold Souls captive by casting them while standing on top of the cage. Each caged Soul creates one room in the World Seed. This network of rooms is a Vision.",
     "Subdued" : "Subdued Souls have been pacified. They may be used for spellcasting, and placed inside the Soul Cage, the rooms they generate are devoid of danger.",
     "Shattered" : "Shattered Souls are the product of Turbulent Souls who managed to kill off Terminal while inside the Vision. When collected, they contribute to your pool of Ipseity. 30 Ipseity is enough to gain 1 extra Soul inhalation per room.",
-    "Song" : "They have arrived at the gates. Be ready."
+    "Song" : "The best way to render oneself vulnerable to control is to believe oneself to be inflexible. I should proceed with caution."
 }
 
 researchflagcolour = {
     "Data" : "lightblue",
-    "Modifier" : "lightpink",
+    "Mutator" : "lightpink",
     "Contingency" : "gold",
-    "Effect" : "darkorange",
-    "Forbidden" : "red",
+    "Form" : "lime",
+    "Function" : "darkorange",
+    "Hypnotic" : "cyan",
 }
 
 core = {
