@@ -1067,6 +1067,7 @@ class Player extends Monster{
             }
         }
         player.hp = maxHp;
+        world.getRoom().visited = false;
         universe.passUp(universe.currentworld-1,"N");
         world.cage.displayon = false;
     }

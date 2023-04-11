@@ -597,7 +597,7 @@ class Altar extends Floor{
     }
 
     draw(){
-        if (this.value.shattered){
+        if (world.cage.slots[this.x][this.y].shattered){
             world.cage.slots[this.x][this.y] = new Shattered();
             return;
         }
