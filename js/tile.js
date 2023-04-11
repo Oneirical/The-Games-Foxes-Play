@@ -863,7 +863,8 @@ class ResearchConnector extends Floor{
             "dl" : 114,
             "u" : 112,
             "t" : 118,
-            "s" : 113,    
+            "s" : 113,
+            "+" : 119
         }
         this.sprite = conn[type];
         this.lore = description["Floor"];

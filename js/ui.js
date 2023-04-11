@@ -1,7 +1,7 @@
 class Research{
     constructor(){
         this.tabs = [];
-        this.pagecount = 2;
+        this.pagecount = 3;
         this.page;
         this.currentpage = 0;
         this.knownnodes = ["SENET","SELF"];
@@ -17,7 +17,7 @@ class Research{
                 this.tabs[k][i] = [];
                 for(let j=0;j<9;j++){
                     let nodeType = keyresearch[researchpage["Page"+k][j][i]];
-                    if ("TL)><I-".includes(researchpage["Page"+k][j][i])) this.tabs[k][i][j] = new ResearchConnector(i,j,nodeType);
+                    if ("TL)><I-+".includes(researchpage["Page"+k][j][i])) this.tabs[k][i][j] = new ResearchConnector(i,j,nodeType);
                     else if (nodeType == ".") this.tabs[k][i][j] = new Floor(i,j);
                     else this.tabs[k][i][j] = new ResearchNode(i,j,researchpage["Page"+k][j][i]);
                 }

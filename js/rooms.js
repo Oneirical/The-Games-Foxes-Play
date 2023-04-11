@@ -53,6 +53,7 @@ var keyresearch = {
     "T" : "t",
     "-" : "s",
     "." : ".",
+    "+" : "+",
 }
 
 var spellpatterns = {
@@ -110,16 +111,35 @@ var researchpage = {
     // g - With Prudence Comes Serenity (security)
     // h - The Song That Stirs Souls (tier 1 harmony)
     "Page1" : {
+        0 : "..I.I....",
+        1 : "..iTj....",
+        2 : "...I.....",
+        3 : ".h.I..e..",
+        4 : ".LT)..I..",
+        5 : ".g+-cTd..",
+        6 : ".>)..I...",
+        7 : ".f.aTb...",
+        8 : "....I....",
+    },
+    // a - The Servitude of Still Minds (subdued souls)
+    // b - Spiritual Sewage (shattered souls)
+    // c - Wear Beings Like Costumes (spellcasting)
+    // d - Estate of Servants' Dreams (subdued souls in cage)
+    // e - The Bottomless Dream-Pit (soul cage pattern)
+    // f - 
+    // g - Reforging Legends Past (spell crafting)
+    // h - 
+    "Page2" : {
         0 : ".........",
         1 : ".........",
         2 : ".........",
         3 : ".........",
         4 : ".........",
         5 : ".........",
-        6 : ".........",
-        7 : "....Ta...",
-        8 : "....I....",
-    }
+        6 : "...a.....",
+        7 : "..>T<....",
+        8 : "..I.I....",
+    },
 }
 
 //spawns: N - W - E - S
