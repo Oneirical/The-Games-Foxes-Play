@@ -532,15 +532,14 @@ class DrawWheel{
     }
 
     retrieveSoul(){
-        if (player.tile.value instanceof Empty) return;
-        if (player.tile.value instanceof Shattered){
+        if (world.cage.slots[player.tile.x][player.tile.y] instanceof Empty) return;
+        if (world.cage.slots[player.tile.x][player.tile.y] instanceof Shattered){
             this.ipseity+= 10;
             if (this.ipseity >= 30){
                 this.ipseity -= 30
                 resolvebonus+=2;
             }
-            player.tile.value = new Empty();
-            world.cage.slots[player.tile.x][player.tile.y] = new Empty;
+            world.cage.slots[player.tile.x][player.tile.y] = new Empty();
             world.cage.size--;
             if(world.cage.size > 0) world.cage.generateWorld();
             else world.cage.displayon = false;
@@ -557,8 +556,8 @@ class DrawWheel{
         }
         for (let k of this.wheel){
             if (k instanceof Empty){
-                this.wheel[this.wheel.indexOf(k)] = player.tile.value;
-                player.tile.value = new Empty();
+                if (basic.includes(world.cage.slots[player.tile.x][player.tile.y].id)) this.wheel[this.wheel.indexOf(k)] = world.cage.slots[player.tile.x][player.tile.y];
+                else legendaries.addSoul(world.cage.slots[player.tile.x][player.tile.y]);
                 world.cage.slots[player.tile.x][player.tile.y] = new Empty;
                 world.cage.size--;
                 if(world.cage.size > 0) world.cage.generateWorld();
@@ -573,7 +572,7 @@ class DrawWheel{
             this.breatheSoul();
             return;
         }
-        else if (player.tile instanceof CageContainer && player.tile.value.id != "EMPTY"){
+        else if (player.tile instanceof CageContainer && world.cage.slots[player.tile.x][player.tile.y].id != "EMPTY"){
             this.retrieveSoul();
             return;
         }
@@ -771,14 +770,13 @@ class DrawWheel{
             log.addLog("FluffyNoSoulTaunt");
             return;
         }
-        else if (!(player.tile.value instanceof Empty)){
+        else if (!(world.cage.slots[player.tile.x][player.tile.y] instanceof Empty)){
             shakeAmount = 5;
             log.addLog("FluffyDoubleSacTaunt");
             return;
         }
         else {
             this.wheel[slot] = new Empty();
-            player.tile.value = soul;
             world.cage.slots[player.tile.x][player.tile.y] = soul;
             world.cage.size++;
             if(world.cage.size > 0) world.cage.generateWorld();
@@ -816,6 +814,19 @@ class DrawWheel{
                 spellName = legendaries.active[num].id;
             }
             if (player.fuffified > 0) spellName = "SERENE";
+            if (spellName == "FLEXIBLE"){
+                legendaries.active[num].legendCast();
+                if (!fail){
+                    this.saved.push(this.wheel[slot]);
+                    wheel.spinningsouls.push(new SpinningSoul(this.wheel[slot].icon,wheel.spinningsouls[wheel.spinningsouls.length-1].angle-1));
+                    this.wheel[slot] = new Empty();
+                    playSound("spell");
+                    tick();
+                }
+                else if (fail && spellName != "SERENE") log.addLog("CastError");
+                fail = false;
+                return;
+            }
             if (spellName){
                 if (basic.includes(spellName) && area == "Spire") spellName = spellName+"S";
                 if (legendaries.active[num].influence != "I") legendaries.active[num].talk();
@@ -1093,6 +1104,25 @@ class LegendarySoul{
 
     talk(){
         log.addLog(this.id);
+    }
+}
+
+class LegendSpell extends LegendarySoul{
+    constructor(targeter,modifier,effect){
+        super("FLEXIBLE");
+        this.targeter = targeter[0]; // the [0] must change
+        this.modifier = modifier;
+        this.effect = effect[0];
+        this.icon = 15;
+        this.caste = "SAINTLY";
+        this.lore = "lol";
+        this.subdescript = "lol";
+        this.name = "lmao";
+    }
+
+    legendCast(){
+        let targets = targeters[this.targeter](player);
+        effects[this.effect](targets);
     }
 }
 

@@ -598,11 +598,11 @@ class Altar extends Floor{
 
     draw(){
         if (this.value.shattered){
-            this.value = new Shattered();
+            world.cage.slots[this.x][this.y] = new Shattered();
             return;
         }
         super.draw();
-        if (!this.value.turbulent) drawSymbol(this.value.icon, this.x*tileSize+8, this.y*tileSize+8,48);
+        if (!world.cage.slots[this.x][this.y].turbulent) drawSymbol(world.cage.slots[this.x][this.y].icon, this.x*tileSize+8, this.y*tileSize+8,48);
         else{
             this.thrashcounter++;
             if (this.thrashcounter > 10 && this.offsetX == 0 && this.offsetY == 0){
@@ -613,7 +613,7 @@ class Altar extends Floor{
                 else if (rt == 4)this.offsetY-= 0.1;
                 this.thrashcounter = 0;
             }
-            drawSymbol(this.value.icon, this.getDisplayX()*tileSize + shakeX+8,  this.getDisplayY()*tileSize + shakeY+8,48);
+            drawSymbol(world.cage.slots[this.x][this.y].icon, this.getDisplayX()*tileSize + shakeX+8,  this.getDisplayY()*tileSize + shakeY+8,48);
             ctx.globalAlpha = 1;
             this.offsetX -= Math.sign(this.offsetX)*(this.speed);     
             this.offsetY -= Math.sign(this.offsetY)*(this.speed);

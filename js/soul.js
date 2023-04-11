@@ -1,16 +1,3 @@
-class LegendSpell{
-    constructor(targeter,modifier,effect){
-        this.targeter = targeter;
-        this.modifier = modifier;
-        this.effect = effect;
-    }
-
-    legendCast(){
-        let targets = targeters[this.targeter](player);
-        effects[this.effect](targets);
-    }
-}
-
 powerratings = {
     "SELF" : 3,
 }

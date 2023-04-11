@@ -24,10 +24,23 @@ class CageTemplate{
     generateWorld(){
         this.displayon = true;
         this.pocketworld.confirmWorld();
+        this.pocketworld.reward = {
+            "Contingency" : [],
+            "Form" : [],
+            "Mutator" : [],
+            "Function" : [],
+        }
         this.legendCheck();
+
     }
 
     legendCheck(){
+        for(let j=0;j<9;j++){
+            for(let i=0;i<9;i++){
+                this.slots[i][j].locked = false;
+            }
+        }
+
         for(let j=0;j<9;j++){
             for(let i=0;i<9;i++){
                 if (!(this.slots[i][j] instanceof Empty)){
@@ -36,14 +49,15 @@ class CageTemplate{
                             let nothere = false;
                             for (let o =0; o<spellpatterns[k][0].length;o++){
                                 for (let p =0; p<spellpatterns[k][0].length;p++){
-                                    if (spellpatterns[k][o][p] != "." && !(this.slots[i+p][j+o] instanceof keyspells[spellpatterns[k][o][p]])){
+                                    if (this.slots[i+p][j+o].locked || (spellpatterns[k][o][p] != "." && !(this.slots[i+p][j+o] instanceof keyspells[spellpatterns[k][o][p]]))){
                                         nothere = true;
                                         break;
                                     }
+                                    else if (spellpatterns[k][o][p] != ".") this.slots[i+p][j+o].locked = true;
                                 }
                                 if (nothere) break;
                             }
-                            if (!nothere) console.log("pattern detected:"+k);
+                            if (!nothere) this.pocketworld.reward[spellpatterns[k]["type"]].push(k);
                         }
                     }
                 }
@@ -134,6 +148,14 @@ class Universe{
         }
         let locspawn = [world.currentroom[0] + player.lastMove[0] + scale[origin][0], world.currentroom[1] + player.lastMove[1] + scale[origin][1]];
         let motionsave = player.lastMove;
+        let receivereward = true;
+        for(let j=0;j<9;j++){
+            for(let i=0;i<9;i++){
+                if (world.rooms[i][j].visited == false && world.rooms[i][j].id != "Void") receivereward = false;
+            }
+        }
+        let reward = false;
+        if (world.reward["Form"].length > 0 && world.reward["Function"].length > 0 && receivereward) reward = new LegendSpell(world.reward["Form"],world.reward["Mutator"],world.reward["Function"]);
         this.currentworld = layer;
         this.worlds[layer+1] = world;
         world = this.worlds[layer];
@@ -142,6 +164,16 @@ class Universe{
         world.appearRoom(locspawn);
         player.offsetX = -motionsave[0];
         player.offsetY = -motionsave[1];
+
+        if (reward){
+            for(let j=0;j<9;j++){
+                for(let i=0;i<9;i++){
+                    world.cage.slots[i][j] = new Empty();
+                }
+            }
+            world.cage.slots[4][4] = reward;
+            world.cage.size = 1;
+        }
     }
 
     playRandomWorld(oldWorld){
@@ -217,6 +249,12 @@ class World{
         this.rooms;
         this.cage = new CageTemplate();
         this.layer;
+        this.reward = {
+            "Contingency" : [],
+            "Form" : [],
+            "Mutator" : [],
+            "Function" : [],
+        };
     }
 
     checkPixel(tile){
@@ -252,7 +290,7 @@ class World{
                             if (!(this.rooms[x][y].tiles[i][j] instanceof RealityWall)) drawPixel(this.checkPixel(this.rooms[x][y].tiles[i][j]),i*brush+x*64,j*brush+y*64);
                         }
                     }
-                    if (this.rooms[x][y] instanceof HarmonyRelay) drawPixel(4,4*7+x*64,4*7+y*64);
+                    if (this.rooms[x][y].visited) drawPixel(9,4*7+x*64,4*7+y*64);
                 }
             }
         }
@@ -262,6 +300,7 @@ class World{
                 if (tiles[i][j].monster && tiles[i][j].monster.isPlayer) drawPixel(3,i*brush+this.currentroom[0]*64,j*brush+this.currentroom[1]*64);
             }
         }
+        if (this.currentroom.visited) drawPixel(9,4*7+x*64,4*7+y*64);
     }
 
     hypnoDisplay(){

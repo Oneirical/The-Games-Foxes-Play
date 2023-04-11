@@ -59,12 +59,14 @@ var keyresearch = {
 var spellpatterns = {
     "SELF" : {
         0: "S.",
-        1: "S.",
+        1: "..",
+        "type" : "Form",
     },
 
     "SENET" : {
-        0: "VV",
-        1: ".V",
+        0: "V.",
+        1: "..",
+        "type" : "Function",
     },
     "EPSILON" : {
         0: "OOOOO",
@@ -72,9 +74,11 @@ var spellpatterns = {
         2: "OOOOO",
         3: "OOOOO",
         4: "OOOOO",
+        "type" : "Function",
     },
     "TEST" : {
         0: "V",
+        "type" : "Form",
     },
 }
 
