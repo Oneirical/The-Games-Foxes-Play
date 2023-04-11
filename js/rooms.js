@@ -105,6 +105,16 @@ var researchpage = {
         6 : "..g.I.c..",
         7 : "..L-a-)..",
         8 : ".........",
+        "links" : {
+            "Intro" : ["NONE"],
+            "Security" : ["Intro"],
+            "Herald" : ["Intro"],
+            "Cage" : ["Intro"],
+            "Seed" : ["Cage"],
+            "Vision" : ["Turbulent","Seed"],
+            "Turbulent" : ["Herald"],
+            "Song" : ["Security"],
+        }
     },
     // a - A Tingling In The Soul (intro)
     // b - The Herald of the Old World (cold storage)

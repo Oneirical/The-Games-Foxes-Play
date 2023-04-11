@@ -36,6 +36,8 @@ Turbulent Souls
 Subdued Souls
 (the six castes)
 
+Form - epsilon, all 4 previous tiles you stood on are targets
+
 The Self is modular, the player is but one of Terminal's many facets. 
 
 Serene node that lets you "assign" resolve points to get some cool stuff like no turn draw

@@ -19,7 +19,7 @@ class Research{
                     let nodeType = keyresearch[researchpage["Page"+k][j][i]];
                     if ("TL)><I-+".includes(researchpage["Page"+k][j][i])) this.tabs[k][i][j] = new ResearchConnector(i,j,nodeType);
                     else if (nodeType == ".") this.tabs[k][i][j] = new Floor(i,j);
-                    else this.tabs[k][i][j] = new ResearchNode(i,j,researchpage["Page"+k][j][i]);
+                    else this.tabs[k][i][j] = new ResearchNode(i,j,researchpage["Page"+k][j][i],k);
                 }
             }
         }
@@ -29,6 +29,29 @@ class Research{
     changeTab(inc){
         this.currentpage+= inc;
         this.page = this.tabs[this.currentpage];
+    }
+
+    completeResearch(dis){
+        this.knownnodes.push(dis);
+        for (let k=0; k<this.pagecount;k++){
+            for(let i=0;i<9;i++){
+                for(let j=0;j<9;j++){
+                    if (this.tabs[k][i][j] instanceof ResearchNode && dis == this.tabs[k][i][j].id){
+                        this.tabs[k][i][j].completed = true;
+                        break;
+                    }
+                }
+            }
+        }
+        for (let k=0; k<1;k++){
+            for(let i=0;i<9;i++){
+                for(let j=0;j<9;j++){
+                    if (this.tabs[k][i][j] instanceof ResearchNode && researchpage["Page"+k]["links"][this.tabs[k][i][j].id].includes(dis)){
+                        this.tabs[k][i][j].discovered = true;
+                    }
+                }
+            }
+        }
     }
 
     display(tab){

@@ -873,19 +873,26 @@ class ResearchConnector extends Floor{
 }
 
 class ResearchNode extends Floor{
-    constructor(x,y,type){
+    constructor(x,y,type, page){
         super(x,y,110, true);
         this.sprite = 111;
         this.contents = "abcdefghijklmnopqrstuvwxyz".indexOf(type);
-        let lore = researchequivalences[type];
-        this.lore = researchlore[lore];
-        this.name = researchnames[lore];
-        this.flags = researchflags[lore];
-        this.capsules = researchcapsules[lore];
+        this.page = page;
+        this.id = researchequivalences[page][type];
+        this.lore = researchlore[this.id];
+        this.name = researchnames[this.id];
+        this.flags = researchflags[this.id];
+        this.capsules = researchcapsules[this.id];
+        this.discovered = false;
+        this.completed = false;
+        if (this.id == "Intro") this.discovered = true;
     }
 
     draw(){
+        if (!this.discovered) ctx.globalAlpha = 0.55;
         super.draw();
-        drawSymbol(this.contents, this.x*tileSize+8, this.y*tileSize+8,48);
+        if (this.discovered) drawSymbol(this.contents, this.x*tileSize+8, this.y*tileSize+8,48);
+        else drawSymbol(7, this.x*tileSize+8, this.y*tileSize+8,48);
+        if (!this.discovered) ctx.globalAlpha = 1;
     }
 }

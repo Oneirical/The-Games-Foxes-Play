@@ -45,7 +45,7 @@ messages = {
     
     // Death messages
     "Fallen" : "The Harmony's song meshes with the howling wind in your ears as you plummet to the Spire's base, unceremoniously snapping your every bone while two nearby Harmonizers release a short \"Fu!\" of contempt. You are granted the opportunity to abandon some of your passengers to the Old World's imminent oblivion. Every 2 Souls sacrificed in this way will increase Resolve by 1. Inhale (Q) to reincarnate once you have made your choices.",
-    "Agony" : "You lie motionless for hours on the cold floor, until a void bubble finally begins approaching your location. You are granted the opportunity to abandon some of your passengers to the Old World's imminent oblivion. Every 2 Souls sacrificed in this way will increase Resolve by 1. Inhale (Q) to reincarnate once you have made your choices.",
+    "Agony" : "Upon granting the finishing blow to its tormentor, this turbulent Soul crumbles into a thousand pieces, overwhelmed by the effort. Its last thought is the thrill of revenge, and its last desire is for its kin to break apart as it did. Breathe (Q) to leave this shattered Vision.",
     "Rosified" : "The enthralling floral perfume overwhelms your nostrils, stunning you on the spot. In your glamorous trance, you see your paws crowned by perfectly manucured pink claws, and stare, grinning in false pride, while the world slowly dims around you. You are granted the opportunity to abandon some of your passengers to the Old World's imminent oblivion. Every 2 Souls sacrificed in this way will increase Resolve by 1. Inhale (Q) to reincarnate once you have made your choices.",
     
     // True death messages
@@ -664,12 +664,29 @@ modulename = {
 }
 
 researchequivalences = {
-    "a" : "Vision",
-    "b" : "Turbulent",
-    "c" : "Cage",
-    "d" : "Subdued",
-    "e" : "Shattered",
-    "f" : "Song",
+    0 : {
+        "a" : "Intro",
+        "b" : "Herald",
+        "c" : "Cage",
+        "d" : "Seed",
+        "e" : "Turbulent",
+        "f" : "Vision",
+        "g" : "Security",
+        "h" : "Song"
+    },
+    1 : {
+        "a" : "Subdued",
+        "b" : "Shattered",
+        "c" : "Spellcast",
+        "d" : "Estate",
+        "e" : "PCage",
+        "f" : "SELF",
+        "g" : "Craft",
+        "h" : "SENET"
+    },
+    2 : {
+        "a" : "???",
+    },
 }
 
 researchnames = {
