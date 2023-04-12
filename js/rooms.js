@@ -134,9 +134,21 @@ var researchpage = {
         6 : ".>)..I...",
         7 : ".f.aTb...",
         8 : "....I....",
+        "links" : {
+            "Subdued" : ["Vision"],
+            "Shattered" : ["Vision"],
+            "Spellcast" : ["Subdued"],
+            "Estate" : ["Subdued"],
+            "PCage" : ["Estate"],
+            "SELF" : ["Spellcast"],
+            "Craft" : ["Spellcast"],
+            "SENET" : ["Spellcast"],
+            "TEST" : ["Spellcast"],
+            "EPSILON" : ["Spellcast"],
+        }
     },
-    // a - The Servitude of Still Minds (subdued souls)
-    // b - Spiritual Sewage (shattered souls)
+    // a - Spiritual Sewage (shattered souls)
+    // b - The Servitude of Still Minds (subdued souls)
     // c - Wear Beings Like Costumes (spellcasting)
     // d - Estate of Servants' Dreams (subdued souls in cage)
     // e - The Bottomless Dream-Pit (soul cage pattern)
@@ -150,7 +162,7 @@ var researchpage = {
         3 : ".........",
         4 : ".........",
         5 : ".........",
-        6 : "...a.....",
+        6 : ".........",
         7 : "..>T<....",
         8 : "..I.I....",
     },

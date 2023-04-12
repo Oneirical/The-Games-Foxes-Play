@@ -1,7 +1,6 @@
 class Research{
     constructor(){
         this.tabs = [];
-        this.pagecount = 3;
         this.page;
         this.currentpage = 0;
         this.knownnodes = ["SENET","SELF"];
@@ -11,7 +10,7 @@ class Research{
     }
 
     buildTabs(){
-        for (let k=0; k<this.pagecount;k++){
+        for (let k=0; k<Object.keys(researchpage).length-1;k++){
             this.tabs[k] = [];
             for(let i=0;i<9;i++){
                 this.tabs[k][i] = [];
@@ -33,7 +32,7 @@ class Research{
 
     completeResearch(dis){
         this.knownnodes.push(dis);
-        for (let k=0; k<this.pagecount;k++){
+        for (let k=0; k<this.tabs.length;k++){
             for(let i=0;i<9;i++){
                 for(let j=0;j<9;j++){
                     if (this.tabs[k][i][j] instanceof ResearchNode && dis == this.tabs[k][i][j].id){
@@ -43,10 +42,10 @@ class Research{
                 }
             }
         }
-        for (let k=0; k<1;k++){
+        for (let k=0; k<this.tabs.length;k++){ //change the 1 later to pagecount
             for(let i=0;i<9;i++){
                 for(let j=0;j<9;j++){
-                    if (this.tabs[k][i][j] instanceof ResearchNode && researchpage["Page"+k]["links"][this.tabs[k][i][j].id].includes(dis)){
+                    if (this.tabs[k][i][j] instanceof ResearchNode && allInArray(researchpage["Page"+k]["links"][this.tabs[k][i][j].id],this.knownnodes)) {
                         this.tabs[k][i][j].discovered = true;
                     }
                 }

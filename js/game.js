@@ -590,6 +590,7 @@ function printAtWordWrap(text, size, x, y, color, lineHeight, fitWidth)
         ctx.fillText( text, x, sy );
         return;
     }
+    if (!text) return;
     let words = text.split(' ');
     let currentLine = 0;
     let idx = 1;
@@ -626,6 +627,7 @@ function printAtSidebar(text, size, x, y, color, lineHeight, fitWidth)
         ctx.fillText( text, x, y );
         return;
     }
+    if (!text) return;
     let words = text.split(' ');
     let currentLine = 0;
     let idx = 1;

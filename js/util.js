@@ -100,6 +100,10 @@ function findCommonElement(array1, array2) {
     return false;
 }
 
+function allInArray(objective, test){
+    return objective.every(i => test.includes(i));
+  }
+
 function isArrayInArray(arr, item){
     var item_as_string = JSON.stringify(item);
   

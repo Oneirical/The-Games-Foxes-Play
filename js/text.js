@@ -675,14 +675,16 @@ researchequivalences = {
         "h" : "Song"
     },
     1 : {
-        "a" : "Subdued",
-        "b" : "Shattered",
+        "a" : "Shattered",
+        "b" : "Subdued",
         "c" : "Spellcast",
         "d" : "Estate",
         "e" : "PCage",
         "f" : "SELF",
         "g" : "Craft",
-        "h" : "SENET"
+        "h" : "SENET",
+        "i" : "EPSILON",
+        "j" : "TEST",
     },
     2 : {
         "a" : "???",
