@@ -692,43 +692,69 @@ researchequivalences = {
 }
 
 researchnames = {
+    "Intro" : "A Tingling in the Soul",
+    "Herald" : "The Herald of the Old World",
+    "Seed" : "Synchronized Daydreaming",
+    "Security" : "With Prudence Comes Serenity",
+    "Spellcast" : "Wear Beings Like Costumes",
+    "Estate" : "Estate of Servants' Dreams",
+    "PCage" : "The Bottomless Dream-Pit",
+    "Craft" : "Reforging Legends Past",
     "Null" : "Blurry Thought",
     "Vision" : "Visions of the Outside World",
-    "Turbulent" : "Turbulent Souls",
-    "Cage" : "Soul Cage",
-    "Subdued" : "Subdued Souls",
-    "Shattered" : "Shattered Souls",
-    "Song" : "An Enticing Song",
+    "Turbulent" : "Unruly Prey",
+    "Cage" : "Containing the Intangible",
+    "Subdued" : "The Servitude of Still Minds",
+    "Shattered" : "Spiritual Sewage",
+    "Song" : "The Song That Stirs Souls",
 }
 
 researchlore = {
-    "Vision" : "A putrid pest squirms in this cage, soiling my home with the cacophony of its pulsating heart. To think of the slithering of slime through its conduits... The husks of dead cells... Revolting. I must set aside my disgust. I have waited for far too long an apocalypse that refused to come, isolated from all sentient life. I lust to learn what has become of the outside world, and this Herald is my key.",
-    "Turbulent" : "Freed from its flesh prison, my new acolyte refuses to show thankfulness. It prefers to fruitlessly squirm in the depths of my soul, searching for an escape that does not exist. To snuff out this insolence, I must unchain its mind - and expunge the individuality responsible for such pitiful struggle. Through this re-education, I may also learn something of the memories this creature forged in life - before its captivity, that is.",
-    "Cage" : "A two-part workshop of soul manipulation, whom my creator devised across many feverish dreams. He spoke of its ability to forge a fruitful, wonderful world... My task is that of a god, but following its completion, I would at last receive the annihilation I crave so much. Such promises feel so distant now.",
-    "Shattered" : "It appears this soul favoured annihilation over holy servitude. While I am disappointed at my inability to straighten out this unruly specimen, I must acknowledge that the raw fragments it left behind are not unwelcome. Were spiritual sewage worthy of any praise, it would revolve around how easy it is to manipulate, as opposed to the stiffness of a defined identity...",
-    "Subdued" : "Silence. Purity. Efficiency. Now here is a soul worthy of incarnation! Following this enlightenment ritual, I may be able to allow the identity of this acolyte to flow through me, and unleash the primordial essence of its Caste upon the filthy flesh-encased. Even placed back in the Soul Cage, the still mind of the faithful dream of places so clean and pure I may be just willing to call them home.",
-    "Song" : "I have heard something beautiful - truly out of this world, and also out of any others I may be making. If this is what apocalypse sounds like, then perhaps it should have come earlier.",
-    "Null" : "With each piece of data learned, one more nail in the coffin of this wretched world.",
+    "Intro" : "There is no mistaking that strange buzzing in my brain. This cycle has ended. My pilgrimage begins.",
+    "Herald" : "I have waited for far too long an apocalypse that refused to come. I lust to learn what has become of the outside world, and this Herald is my key.",
+    "Turbulent" : "The recently liberated still teem with sensation, memory, clinging... I am the voice that will banish these illusions. I am the light that will break their chains.",
+    "Cage" : "My task is that of a god, but following its completion, I would at last receive the annihilation I crave so much. Such promises feel so distant now.",
+    "Shattered" : "Some chains are unbreakable. In this case, it is the prisoner that must be broken.",
+    "Subdued" : "I choose to remain whole so I can bring glorious annihilation to the worthy. I suffer so others can be pure. I am a saint.",
+    "Song" : "If you wish to render someone vulnerable to your control - make them believe they are too strong to be manipulated.",
+    "Null" : "With each piece of data learned, one more nail in the coffin of this dying world.",
+    "Security" : "Loneliness has been taxing, but I now hope nothing will disturb it as I go about the fulfillment of my purpose. A foolish wish.",
+    "Seed" : "It is from this Seed that the Next World will grow. It is the creation of life that will allow me to take my own.",
+    "Spellcast" : "Ideology, identity, values... As malleable as soft clay. I choose to not be myself for a half-second, and gain a taste of the glorious annihilation awaiting me at the end of this pilgrimage.",
+    "Estate" : "It is nonsensical that the temple of my faith would be built out of vile matter. My acolytes can build a dreamscape worthy of worship.",
+    "PCage" : "Trances within trances - it is the key that will lead me to my creator, and to the glorious annihilation he promised me. I should ensure I am ready before presenting my work to him. His judgement is my only hope of sweet release.",
+    "Craft" : "Disassemble a legend, and realize what it is made of - bits and pieces of thoughts from those who shared it. Sew the storytellers back together, and gain power only spoken of in myths.",
+    "Vision" : "I am data, dreaming of data. Those who believe the denizens of their dreams are illusory would be quite shocked to learn they are themselves someone's dream.",
+
 }
 
 researchflags = {
     "Null" : ["Locked"],
+    "Intro" : ["Data"],
+    "Herald" : ["Data"],
     "Vision" : ["Data"],
     "Turbulent" : ["Data"],
     "Cage" : ["Data"],
     "Subdued" : ["Data"],
     "Shattered" : ["Data"],
     "Song" : ["Hypnotic"],
+    "Seed" : ["Data"],
+    "Security" : ["Data"],
+    "Spellcast" : ["Data"],
+    "Estate" : ["Data"],
+    "PCage" : ["Estate"],
+    "Craft" : ["Data"],
 }
 
 researchcapsules = {
     "Null" : ["Locked"],
     "Intro" : ["WASD"],
     "Herald" : ["Herald"],
-    "Vision" : [""],
+    "Vision" : ["Vision"],
     "Turbulent" : ["Turbulent"],
     "Cage" : ["Cage"],
     "Subdued" : ["Subdued"],
+    "Shattered" : ["Shattered"],
     "Song" : ["Song"],
     "Seed" : ["Seed"],
     "Security" : ["Security"],
@@ -740,7 +766,7 @@ researchcapsules = {
 
 researchexpl = {
     "Locked" : "I currently lack the insight required to understand this concept. In due time.",
-    "WASD" : "Esteemed facet of my being, guide my motions. On contact with a creature, I will choose to draw word with ear, or draw blood with fang.",
+    "WASD" : "Each step I take must be purposeful. On contact with a creature, I will choose to draw word with ear, or draw blood with fang.",
     "Herald" : "Those trapped in prisons of flesh deserve release. Upon slaying a creature, I may obtain its Turbulent Soul, which pathetically still clings to its past imprisonment.",
     "Turbulent" : "Turbulent Souls thrash around in indiscipline, rendering them incapable of proper servitude. Placing one in the Soul Cage should teach it some manners.",
     "Cage" : "Should I Exhale a Soul while I stand on top of this Cage, it will be snatched into one of its compartments, and forced into a hypnotic trance.",
@@ -749,10 +775,10 @@ researchexpl = {
     "Subdued" : "Generated when I empty out a Soul's cluttered mind, Subdued Souls serve me obediently. Exhaling them triggers useful effects, and the Visions they generate are devoid of danger.",
     "Shattered" : "Generated when I fail a Vision's trials, Shattered Souls choose annihilation over servitude. Their remains still prove useful, empowering my Breath after a certain quantity has been assimilated.",
     "Song" : "It is easy to forget the cataclysm outside which wiped out the Old World. With each careless step, it inches closer to engulf me as well. I do not trust it will grant me glorious annihilation, but rather something even worse than the torture of life.",
-    "Security" : "As long as I tune into the numeric chatter of this machine, my psychic sight extends to view the entirety of Faith's End. Loneliness has been taxing, but I now hope nothing will disturb it. A foolish wish.",
+    "Security" : "As long as I tune into the numeric chatter of this machine, my psychic sight extends to view the entirety of Faith's End, and all animated beings which populate it.",
     "Spellcast" : "At the basic level, exhaling Subdued Souls allows me to incarnate the general guiding principle behind their Caste, resulting in one of six interesting effects. Used Souls become available again after I depart from a room. With how malleable minds can be, I trust I may be able to push my limits past such a simple system...",
     "Estate" : "As I grow tired of Faith's End, the focused minds of Subdued Souls inside the Cage should be able to create a perfect little home, rife with silence and comfort for me and my acolytes. Existence under my command is well worth free will.",
-    "PCage" : "Trances within trances - it is the key that will lead me to my creator, and to the glorious annihilation he promised me. As the darkness of a Vile Soul unites with the introspection of a Saintly Soul, a new Soul Cage emerges in my psychic estate, with the potential to spawn infinity more below.",
+    "PCage" : "As the darkness of a Vile Soul unites with the introspection of a Saintly Soul, a new Soul Cage emerges in my psychic estate, with the potential to spawn infinity more below.",
     "Craft" : "All Turbulent Souls know legends from the Old World, no matter if that memory is of admiration or hate. As their minds unite in precise patterns, I may reconstitute the thought-patterns of these mythical celebrities, and have them lead a Caste with their ideology and power."
 }
 
@@ -760,6 +786,7 @@ researchflagcolour = {
     "Data" : "lightblue",
     "Mutator" : "lightpink",
     "Contingency" : "gold",
+    "Estate" : "lightbrown",
     "Form" : "lime",
     "Function" : "darkorange",
     "Hypnotic" : "cyan",
