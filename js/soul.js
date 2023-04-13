@@ -50,6 +50,40 @@ effects = {
             }
         }
     },
+    GYVJI: function(targets,power){
+        for (let i of targets){
+            let newTile = i;
+            newTile.setEffect(14,30);
+            let testTile = newTile;
+            let target = testTile.monster;
+            while(target){
+                testTile = newTile.getNeighbor(player.lastMove[0],player.lastMove[1]);
+                if(testTile.passable && !testTile.monster){
+                    newTile.setEffect(target.sprite,30);
+                    newTile = testTile;
+                }else{
+                    break;
+                }
+            }
+            if(target && target.tile != newTile){
+                target.move(newTile);
+                playSound("explosion");
+                newTile.getAllNeighbors().forEach(t => {
+                    t.setEffect(14,30);
+                    if(t.monster){
+                        t.monster.stunned = true;
+                        if (!t.monster.isPlayer) t.monster.hit(3);
+                    }
+                    else if(t.eat && !t.passable && inBounds(t.x, t.y)){
+                        t.replace(Floor);
+                    }
+                    target.tile.setEffect(14,30);
+                    target.hit(3);
+                });
+                shakeAmount = 35;
+            }
+        }
+    }
 }
 
 spells = {
