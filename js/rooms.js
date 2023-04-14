@@ -58,6 +58,7 @@ var keyresearch = {
     "-" : "s",
     "." : ".",
     "+" : "+",
+    "K" : "K",
 }
 
 var spellpatterns = {
@@ -101,23 +102,24 @@ var researchpage = {
     },
     "Page0" : {
         0 : "....I....",
-        1 : "....f-<..",
-        2 : "....I.I..",
-        3 : "....e.I..",
-        4 : "..h.I.d..",
-        5 : "..I.b.I..",
-        6 : "..g.I.c..",
-        7 : "..L-a-)..",
+        1 : "....f--<.",
+        2 : "....I..d.",
+        3 : "..>-e-<I.",
+        4 : "..i...cK.",
+        5 : "..L-b-)I.",
+        6 : "....I..g.",
+        7 : "....a....",
         8 : ".........",
         "links" : {
             "Intro" : ["NONE"],
-            "Security" : ["Intro"],
+            "Security" : ["Cage"],
             "Herald" : ["Intro"],
-            "Cage" : ["Intro"],
+            "Cage" : ["Herald"],
             "Seed" : ["Cage"],
             "Vision" : ["Turbulent","Seed"],
-            "Turbulent" : ["Herald"],
-            "Song" : ["Security"],
+            "Turbulent" : ["Breath","Cage"],
+            //"Song" : ["Security"],
+            "Breath" : ["Herald"],
         }
     },
     // a - A Tingling In The Soul (intro)

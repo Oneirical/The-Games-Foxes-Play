@@ -117,6 +117,12 @@
                 inResearch = false;
                 cursormode = false;
             }
+            if (e.key == 1 && inResearch){
+                research.changeTab(1);
+            }
+            if (e.key == 2 && inResearch){
+                research.changeTab(-1);
+            }
             if (e.key == "m"){
                 inMap = !inMap;
                 inInventory = false;

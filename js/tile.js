@@ -412,7 +412,6 @@ class MapExit extends Tile{
             this.monster = 0;
             world.saveRoom(world.getRoom());
             world.enterRoom(this.direction);
-            research.completeResearch("Intro");
         }
     }
 }
@@ -865,7 +864,8 @@ class ResearchConnector extends Floor{
             "u" : 112,
             "t" : 118,
             "s" : 113,
-            "+" : 119
+            "+" : 119,
+            "K" : 121,
         }
         this.sprite = conn[type];
         this.lore = description["Floor"];

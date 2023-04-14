@@ -16,7 +16,7 @@ class Research{
                 this.tabs[k][i] = [];
                 for(let j=0;j<9;j++){
                     let nodeType = keyresearch[researchpage["Page"+k][j][i]];
-                    if ("TL)><I-+".includes(researchpage["Page"+k][j][i])) this.tabs[k][i][j] = new ResearchConnector(i,j,nodeType);
+                    if ("TL)><I-+K".includes(researchpage["Page"+k][j][i])) this.tabs[k][i][j] = new ResearchConnector(i,j,nodeType);
                     else if (nodeType == ".") this.tabs[k][i][j] = new Floor(i,j);
                     else this.tabs[k][i][j] = new ResearchNode(i,j,researchpage["Page"+k][j][i],k);
                 }
@@ -580,6 +580,7 @@ class DrawWheel{
             world.cage.size--;
             if(world.cage.size > 0) world.cage.generateWorld();
             else world.cage.displayon = false;
+            research.completeResearch("Shattered");
             return;
         }
         let space = 8;
@@ -593,8 +594,7 @@ class DrawWheel{
         }
         for (let k of this.wheel){
             if (k instanceof Empty){
-                if (this.wheel[this.wheel.indexOf(k)] instanceof Shattered) research.completeResearch("Shattered");
-                else if (!this.wheel[this.wheel.indexOf(k)].turbulent)research.completeResearch("Subdued");
+                if (!this.wheel[this.wheel.indexOf(k)].turbulent)research.completeResearch("Subdued");
                 if (basic.includes(world.cage.slots[player.tile.x][player.tile.y].id)) this.wheel[this.wheel.indexOf(k)] = world.cage.slots[player.tile.x][player.tile.y];
                 else legendaries.addSoul(world.cage.slots[player.tile.x][player.tile.y]);
                 world.cage.slots[player.tile.x][player.tile.y] = new Empty;
@@ -665,6 +665,7 @@ class DrawWheel{
             for (let k of this.wheel){
                 if (k instanceof Empty){
                     this.wheel[this.wheel.indexOf(k)] = this.pile[0];
+                    research.completeResearch("Breath");
                     break;
                 } 
             }

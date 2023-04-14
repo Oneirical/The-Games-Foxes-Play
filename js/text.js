@@ -674,7 +674,8 @@ researchequivalences = {
         "e" : "Turbulent",
         "f" : "Vision",
         "g" : "Security",
-        "h" : "Song"
+        "h" : "Song",
+        "i" : "Breath"
     },
     1 : {
         "a" : "Shattered",
@@ -709,6 +710,7 @@ researchnames = {
     "Subdued" : "The Servitude of Still Minds",
     "Shattered" : "Spiritual Sewage",
     "Song" : "The Song That Stirs Souls",
+    "Breath" : "Souls and Air as One"
 }
 
 researchlore = {
@@ -716,6 +718,7 @@ researchlore = {
     "Herald" : "I have waited for far too long an apocalypse that refused to come. I lust to learn what has become of the outside world, and this Herald is my key.",
     "Turbulent" : "The recently liberated still teem with sensation, memory, clinging... I am the voice that will banish these illusions. I am the light that will break their chains.",
     "Cage" : "My task is that of a god, but following its completion, I would at last receive the annihilation I crave so much. Such promises feel so distant now.",
+    "Breath" : "Each breath, a cycle - not so unlike the one that causes the beginning and ends of worlds.",
     "Shattered" : "Some chains are unbreakable. In this case, it is the prisoner that must be broken.",
     "Subdued" : "I choose to remain whole so I can bring glorious annihilation to the worthy. I suffer so others can be pure. I am a saint.",
     "Song" : "If you wish to render someone vulnerable to your control - make them believe they are too strong to be manipulated.",
@@ -746,6 +749,7 @@ researchflags = {
     "Estate" : ["Data"],
     "PCage" : ["Estate"],
     "Craft" : ["Data"],
+    "Breath" : ["Data"],
 }
 
 researchcapsules = {
@@ -764,13 +768,15 @@ researchcapsules = {
     "Estate" : ["Estate"],
     "PCage" : ["PCage"],
     "Craft" : ["Craft"],
+    "Breath" : ["Breath"],
 }
 
 researchexpl = {
     "Locked" : "I currently lack the insight required to understand this concept. In due time.",
     "WASD" : "Each step I take must be purposeful. On contact with a creature, I will choose to draw word with ear, or draw blood with fang.",
     "Herald" : "Those trapped in prisons of flesh deserve release. Upon slaying a creature, I may obtain its Turbulent Soul, which pathetically still clings to its past imprisonment.",
-    "Turbulent" : "Turbulent Souls thrash around in indiscipline, rendering them incapable of proper servitude. Placing one in the Soul Cage should teach it some manners.",
+    "Breath" : "I Inhale (Q) to draw Souls into my conscious mind, and Exhale (1-9) them to perform an action related to its nature.",
+    "Turbulent" : "Turbulent Souls thrash around in indiscipline, rendering them incapable of proper servitude. Exhaling one into the Soul Cage should teach it some manners.",
     "Cage" : "Should I Exhale a Soul while I stand on top of this Cage, it will be snatched into one of its compartments, and forced into a hypnotic trance.",
     "Seed" : "Each Soul locked in the Cage dreams vividly of the Old World, and of its varied denizens. These Hypnotic Projectors allow me to join them in trance, dispensing discipline and collecting a fresh bounty of Souls.",
     "Vision" : "Visions are hypnotic dreamscapes, teeming with fresh Souls and the dangers they present. Unfortunately, death here will not grant me the annihilation I crave, but will instead harmlessly jolt me out of trance.",

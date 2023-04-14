@@ -454,6 +454,7 @@ class Monster{
                 }
             }else{
                 let crit;
+                research.completeResearch("Intro");
                 if(((this.isPlayer != newTile.monster.isPlayer)||newTile.monster.marked||(this.charmed && !newTile.monster.isPlayer && !newTile.monster.charmed))&&!this.isPassive && !newTile.monster.isGuide &&!newTile.monster.pushable && !(this.charmed&&newTile.monster.isPlayer)){
                     this.attackedThisTurn = true;
                     let bonusAttack = this.bonusAttack;
