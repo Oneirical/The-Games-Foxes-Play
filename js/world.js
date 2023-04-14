@@ -94,9 +94,9 @@ class Universe{
         world = this.worlds[this.currentworld];
         world.layer = 0;
         world.confirmWorldFromVault();
-        world.currentroom = [4,4];
+        world.currentroom = [4,8];
         world.tranquil = true;
-        world.playRoom(world.rooms[4][4],startingHp);
+        world.playRoom(world.rooms[4][8],startingHp);
         log.addLog("MapDebug");
     }
 
@@ -903,20 +903,34 @@ class GrandHallFaith extends DefaultVaultRoom{
     }
 }
 
+class SpawnRoom extends DefaultVaultRoom{
+    constructor(index){
+        super(index);
+        this.id = "Empty";
+        this.size = 9;
+    }
+    initializeRoom(){
+        world.fighting = false;
+        super.populateRoom();
+        super.initializeRoom();
+        summonExits();
+    }
+}
+
 class WorldSeed extends DefaultVaultRoom{
     constructor(index){
         super(index);
         this.id = "Seed";
         this.visited = true;
         this.name = "World Seed";
-        this.music = "cage";
+        this.music = "malform";
         this.filler = TermiWall;
         this.stage = 0;
     }
 
     initializeRoom(){
-        world.fighting = false;
-        super.populateRoom();
+        //world.fighting = false;
+        //super.populateRoom();
         super.initializeRoom();
         summonExits();
         research.completeResearch("Seed");
@@ -1016,12 +1030,16 @@ class WorldSeed extends DefaultVaultRoom{
         }
         monsters.push(monster);
     }
+}
 
+class AnnounceCorridor extends NarrowFaith{
     populateRoom(){
         let monsterType = shuffle([Hologram])[0];
-        let tile = getTile(3,1);
+        let tile = getTile(4,4);
         let monster = new monsterType(tile);
         monsters.push(monster);
+        super.populateRoom();
+        summonExits();
     }
 }
 
@@ -1088,6 +1106,14 @@ class PlateGenerator extends DefaultVaultRoom{
         super(index);
         this.id = "Storage";
         this.name = "Last Resort";
+    }
+    populateRoom(){
+        let monsterType = shuffle([Scion])[0];
+        let tile = getTile(4,4);
+        let monster = new monsterType(tile);
+        monsters.push(monster);
+        super.populateRoom();
+        summonExits();
     }
 }
 

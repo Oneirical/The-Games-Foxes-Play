@@ -34,6 +34,8 @@ var keyroom = {
     "w" : BigRoomVoid,
     "6" : SixfoldStand,
     "T" : TCross,
+    "A" : SpawnRoom,
+    "N" : AnnounceCorridor,
 }
 
 var keyspells = {
@@ -188,12 +190,12 @@ var genstruct = {
         0 : "GHEHTHEHG",
         1 : "V.V.E.V.V",
         2 : "V.V...V.V",
-        3 : "V.G.S.G.V",
+        3 : "V.EHSHE.V",
         4 : "V...W...V",
-        5 : "EHE.B.EHE",
-        6 : "..V.V.V..",
-        7 : "..V.V.V..",
-        8 : "..EHPHE..",
+        5 : "EHG.B.GHE",
+        6 : "V...P...V",
+        7 : "G...N...G",
+        8 : "....A....",
     }
 }
 

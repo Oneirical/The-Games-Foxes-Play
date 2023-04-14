@@ -532,7 +532,6 @@ function startGame(){
     universe.start(startingHp);
     world.cage.equateWorld();
     gameState = "running";
-    wheel.addSoul(Saintly);
 }
 
 function startWorld(playerHp){

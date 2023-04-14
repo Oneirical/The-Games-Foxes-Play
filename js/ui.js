@@ -845,7 +845,12 @@ class DrawWheel{
             shakeAmount = 5;
             log.addLog("EmptyCast");
             return;
-        }                
+        }
+        if (soul.turbulent){
+            shakeAmount = 5;
+            log.addLog("TurbulentCast");
+            return;
+        }                    
         else{
             //if (soul.id == "SERENE") make this
             let num = legendaries.castes.indexOf(soul.id);
