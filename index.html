@@ -113,9 +113,15 @@
         }else if(gameState == "running"){
             if (e.key == "l"){
                 inInventory = !inInventory;
+                inMap = false;
+                inResearch = false;
+                cursormode = false;
             }
             if (e.key == "m"){
                 inMap = !inMap;
+                inInventory = false;
+                inResearch = false;
+                cursormode = false;
             }
             if (e.key == "f"){
                 if (world.getRoom().size == 18){
@@ -129,8 +135,10 @@
                     }
                 }
                 cursor = new Cursor(getTile(4,4));
-                cursormode = !cursormode;
                 inResearch = !inResearch;
+                cursormode = inResearch;
+                inInventory = false;
+                inMap = false;
             }
             if (e.key == "k"){
                 universe.passUp(0);
