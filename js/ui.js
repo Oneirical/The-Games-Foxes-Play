@@ -3,7 +3,7 @@ class Research{
         this.tabs = [];
         this.page;
         this.currentpage = 0;
-        this.knownnodes = ["SENET","SELF"];
+        this.knownnodes = [];
         this.buildTabs();
 
         this.exppage = new TutorialDisplay("SENET");
@@ -31,6 +31,8 @@ class Research{
     }
 
     completeResearch(dis){
+        if (this.knownnodes.includes(dis)) return;
+        playSound("learn");
         this.knownnodes.push(dis);
         for (let k=0; k<this.tabs.length;k++){
             for(let i=0;i<9;i++){
@@ -410,6 +412,7 @@ class DrawWheel{
         let loot = new drops[skey.name]();
         loot.turbulent = true;
         this.discard.push(loot);
+        research.completeResearch("Herald");
         //for (let x of legendaries.active){
         //    if (x instanceof Kilami) spells[loot.id](player);
         //}
@@ -590,6 +593,8 @@ class DrawWheel{
         }
         for (let k of this.wheel){
             if (k instanceof Empty){
+                if (this.wheel[this.wheel.indexOf(k)] instanceof Shattered) research.completeResearch("Shattered");
+                else if (!this.wheel[this.wheel.indexOf(k)].turbulent)research.completeResearch("Subdued");
                 if (basic.includes(world.cage.slots[player.tile.x][player.tile.y].id)) this.wheel[this.wheel.indexOf(k)] = world.cage.slots[player.tile.x][player.tile.y];
                 else legendaries.addSoul(world.cage.slots[player.tile.x][player.tile.y]);
                 world.cage.slots[player.tile.x][player.tile.y] = new Empty;
@@ -814,6 +819,7 @@ class DrawWheel{
             world.cage.slots[player.tile.x][player.tile.y] = soul;
             world.cage.size++;
             if(world.cage.size > 0) world.cage.generateWorld();
+            research.completeResearch("Turbulent");
         }
     }
 
@@ -847,6 +853,7 @@ class DrawWheel{
             if (legendaries.active[num].influence == "C" || legendaries.active[num].influence == "A"){
                 spellName = legendaries.active[num].id;
             }
+            research.completeResearch("Spellcast");
             if (player.fuffified > 0) spellName = "SERENE";
             if (spellName == "FLEXIBLE"){
                 legendaries.active[num].legendCast();

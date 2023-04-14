@@ -412,6 +412,7 @@ class MapExit extends Tile{
             this.monster = 0;
             world.saveRoom(world.getRoom());
             world.enterRoom(this.direction);
+            research.completeResearch("Intro");
         }
     }
 }
@@ -883,7 +884,7 @@ class ResearchNode extends Floor{
         this.name = researchnames[this.id];
         this.flags = researchflags[this.id];
         this.capsules = researchcapsules[this.id];
-        this.discovered = true;
+        this.discovered = false;
         this.completed = false;
         if (this.id == "Intro") this.discovered = true;
     }

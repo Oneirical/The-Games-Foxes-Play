@@ -141,11 +141,11 @@ messages = {
     "ESaint4" : "\"As I predicted, the nature of the cataclysm turned out to be very different from even the theories of our most unhinged denizens.\"",
     "ESaint5" : "\"To prevent any... unfortunate accidents, I regret to remind you that you are still forbidden from all interaction with the outside world while you fulfill your duty.\"",
     "ESaint6" : "\"Under no pretext should you attempt to breach the locked gates. Survey the facility security systems for potential intrusions.\"",
-    "ESaint7" : "\"Should trespassers be detected, make absolutely no attempt to confront them directly or to identify their nature. Anything which is not you must perish.\"",
+    "ESaint7" : "\"Should trespassers be detected, make absolutely no attempt to confront them directly or to identify their nature. Even observing them is out of the question. Use the pressurization defence system to eradicate them remotely.\"",
     "ESaint8" : "\"Follow my instructions to the letter, keep true to your faith, and we shall all be redeemed.\"",
     "ESaint9" : "\"Disobey, and join the choir of voices of those who succumbed.\"",
     "ESaint10" : "\"Make your choice.\"",
-    "ESaint11" : "\"Your pilgrimage begins in Cold Storage. Shatter the Herald's cage, and begin assembling the Next World. I await you, beloved servant, at the lowest point of the dreamscape.\"",
+    "ESaint11" : "\"Your pilgrimage begins in the room beyond this airlock. Shatter the Herald's cage, and begin assembling the Next World. I await you, beloved servant, at the lowest point of the dreamscape.\"",
     "ESaintRepeat" : "\"This message will repeat until nobody is left to hear it.\"",
 
     // Rose, Last of the Saints

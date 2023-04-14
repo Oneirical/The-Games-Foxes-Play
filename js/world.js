@@ -45,6 +45,10 @@ class CageTemplate{
             for(let i=0;i<9;i++){
                 if (!(this.slots[i][j] instanceof Empty)){
                     for (let k of research.knownnodes){
+                        if (true){
+                            console.log("there is bug here with knownnodes taking up everything")
+                            return;
+                        } //remove this later
                         if (this.slots[i][j] instanceof keyspells[spellpatterns[k][0][0]]){
                             let nothere = false;
                             for (let o =0; o<spellpatterns[k][0].length;o++){
@@ -129,6 +133,8 @@ class Universe{
 
             //this.discard = [];
         }
+        research.completeResearch("Vision");
+        if(!world.getRoom().hostile) research.completeResearch("Estate");
     }
 
     passUp(layer,origin){
@@ -913,6 +919,7 @@ class WorldSeed extends DefaultVaultRoom{
         super.populateRoom();
         super.initializeRoom();
         summonExits();
+        research.completeResearch("Seed");
         //this.startTutorial();
     }
 
@@ -1079,7 +1086,8 @@ class PipesFaith extends DefaultVaultRoom{
 class PlateGenerator extends DefaultVaultRoom{
     constructor(index){
         super(index);
-        this.id = "Corners";
+        this.id = "Storage";
+        this.name = "Last Resort";
     }
 }
 
@@ -1088,6 +1096,11 @@ class SoulCage extends DefaultVaultRoom{
         super(index);
         this.id = "Cage2";
         this.name = "Soul Cage";
+    }
+
+    initializeRoom(){
+        super.initializeRoom();
+        research.completeResearch("Cage");
     }
 }
 
