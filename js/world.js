@@ -1111,6 +1111,7 @@ class PlateGenerator extends DefaultVaultRoom{
         let monsterType = shuffle([Scion])[0];
         let tile = getTile(4,4);
         let monster = new monsterType(tile);
+        monster.paralyzed = true;
         monsters.push(monster);
         super.populateRoom();
         summonExits();

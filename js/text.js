@@ -686,7 +686,7 @@ researchequivalences = {
         "f" : "SELF",
         "g" : "Craft",
         "h" : "SENET",
-        "i" : "EPSILON",
+        "i" : "BEAM",
         "j" : "TEST",
     },
     2 : {
@@ -710,7 +710,8 @@ researchnames = {
     "Subdued" : "The Servitude of Still Minds",
     "Shattered" : "Spiritual Sewage",
     "Song" : "The Song That Stirs Souls",
-    "Breath" : "Souls and Air as One"
+    "Breath" : "Souls and Air as One",
+    "BEAM" : "Hatred and Strife, Focused",
 }
 
 researchlore = {
@@ -730,7 +731,7 @@ researchlore = {
     "PCage" : "Trances within trances - it is the key that will lead me to my creator, and to the glorious annihilation he promised me. I should ensure I am ready before presenting my work to him. His judgement is my only hope of sweet release.",
     "Craft" : "Disassemble a legend, and realize what it is made of - bits and pieces of thoughts from those who shared it. Sew the storytellers back together, and gain power only spoken of in myths.",
     "Vision" : "I am data, dreaming of data. Those who believe the denizens of their dreams are illusory would be quite shocked to learn they are themselves someone's dream.",
-
+    "BEAM" : "Imagine an ideology so inflexible it can surge out like a bullet... That is why the Unhinged are feared. That is why the Saints did everything they could to snuff out disobedience.",
 }
 
 researchflags = {
@@ -750,11 +751,12 @@ researchflags = {
     "PCage" : ["Estate"],
     "Craft" : ["Data"],
     "Breath" : ["Data"],
+    "BEAM" : ["Form"],
 }
 
 researchcapsules = {
     "Null" : ["Locked"],
-    "Intro" : ["WASD"],
+    "Intro" : ["Intro"],
     "Herald" : ["Herald"],
     "Vision" : ["Vision"],
     "Turbulent" : ["Turbulent"],
@@ -769,11 +771,13 @@ researchcapsules = {
     "PCage" : ["PCage"],
     "Craft" : ["Craft"],
     "Breath" : ["Breath"],
+    "BEAM" : ["BEAM"],
+    "SELF" : ["SELF"],
 }
 
 researchexpl = {
     "Locked" : "I currently lack the insight required to understand this concept. In due time.",
-    "WASD" : "Each step I take must be purposeful. On contact with a creature, I will choose to draw word with ear, or draw blood with fang.",
+    "Intro" : "Each step I take must be purposeful. On contact with a creature, I will choose to draw word with ear, or draw blood with fang.",
     "Herald" : "Those trapped in prisons of flesh deserve release. Upon slaying a creature, I may obtain its Turbulent Soul, which pathetically still clings to its past imprisonment.",
     "Breath" : "I Inhale (Q) to draw Souls into my conscious mind, and Exhale (1-9) them to perform an action related to its nature.",
     "Turbulent" : "Turbulent Souls thrash around in indiscipline, rendering them incapable of proper servitude. Exhaling one into the Soul Cage should teach it some manners.",
@@ -787,7 +791,9 @@ researchexpl = {
     "Spellcast" : "At the basic level, exhaling Subdued Souls allows me to incarnate the general guiding principle behind their Caste, resulting in one of six interesting effects. Used Souls become available again after I depart from a room. With how malleable minds can be, I trust I may be able to push my limits past such a simple system...",
     "Estate" : "As I grow tired of Faith's End, the focused minds of Subdued Souls inside the Cage should be able to create a perfect little home, rife with silence and comfort for me and my acolytes. Existence under my command is well worth free will.",
     "PCage" : "As the darkness of a Vile Soul unites with the introspection of a Saintly Soul, a new Soul Cage emerges in my psychic estate, with the potential to spawn infinity more below.",
-    "Craft" : "All Turbulent Souls know legends from the Old World, no matter if that memory is of admiration or hate. As their minds unite in precise patterns, I may reconstitute the thought-patterns of these mythical celebrities, and have them lead a Caste with their ideology and power."
+    "Craft" : "All Turbulent Souls know legends from the Old World, no matter if that memory is of admiration or hate. As their minds unite in precise patterns, I may reconstitute the thought-patterns of these mythical celebrities, and have them lead a Caste with their ideology and power.",
+    "SELF" : "This Form targets the tile on which I stand on.",
+    "BEAM" : "This Form surges out in the direction of my last move, targeting all tiles it passes through until an obstacle is met.",
 }
 
 researchflagcolour = {

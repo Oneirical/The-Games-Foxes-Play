@@ -64,13 +64,19 @@ var keyresearch = {
 var spellpatterns = {
     "SELF" : {
         0: "S.",
-        1: "..",
+        1: "S.",
+        "type" : "Form",
+    },
+    "BEAM" : {
+        0: "UUU",
+        1: "...",
+        2: "...",
         "type" : "Form",
     },
 
     "SENET" : {
-        0: "V.",
-        1: "..",
+        0: "VV",
+        1: "V.",
         "type" : "Function",
     },
     "EPSILON" : {
@@ -150,7 +156,7 @@ var researchpage = {
             "Craft" : ["Spellcast"],
             "SENET" : ["Spellcast"],
             "TEST" : ["Spellcast"],
-            "EPSILON" : ["Spellcast"],
+            "BEAM" : ["Spellcast"],
         }
     },
     // a - Spiritual Sewage (shattered souls)

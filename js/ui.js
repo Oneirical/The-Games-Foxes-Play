@@ -6,7 +6,7 @@ class Research{
         this.knownnodes = [];
         this.buildTabs();
 
-        this.exppage = new TutorialDisplay("SENET");
+        this.exppage = new TutorialDisplay("BEAM");
     }
 
     buildTabs(){
@@ -807,12 +807,12 @@ class DrawWheel{
         let soul = this.wheel[slot];
         if (soul instanceof Empty){
             shakeAmount = 5;
-            log.addLog("FluffyNoSoulTaunt");
+            //log.addLog("FluffyNoSoulTaunt");
             return;
         }
         else if (!(world.cage.slots[player.tile.x][player.tile.y] instanceof Empty)){
             shakeAmount = 5;
-            log.addLog("FluffyDoubleSacTaunt");
+            //log.addLog("FluffyDoubleSacTaunt");
             return;
         }
         else {
