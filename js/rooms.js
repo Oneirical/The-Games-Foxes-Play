@@ -21,6 +21,7 @@ var keytile = {
 
 var keyroom = {
     "G" : EmptyFaith,
+    "E" : EmptyFaith,
     "P" : PlateGenerator,
     "B" : SoulCage,
     "W" : WorldSeed,
@@ -32,6 +33,7 @@ var keyroom = {
     "e" : BigRoomVoid,
     "w" : BigRoomVoid,
     "6" : SixfoldStand,
+    "T" : TCross,
 }
 
 var keyspells = {
@@ -171,7 +173,7 @@ var researchpage = {
 //spawns: N - W - E - S
 
 var genstruct = {
-    "Facility" : {
+    "Facility1" : {
         0 : "GHHHGHHHG",
         1 : "V...V...V",
         2 : "V...V...V",
@@ -181,6 +183,17 @@ var genstruct = {
         6 : "V...G...V",
         7 : "6e..V...V",
         8 : "wsHHGHHHG",
+    },
+    "Facility" : {
+        0 : "GHEHTHEHG",
+        1 : "V.V.E.V.V",
+        2 : "V.V...V.V",
+        3 : "V.G.S.G.V",
+        4 : "V...W...V",
+        5 : "EHE.B.EHE",
+        6 : "..V.V.V..",
+        7 : "..V.V.V..",
+        8 : "..EHPHE..",
     }
 }
 
@@ -302,6 +315,19 @@ var rooms = {
         4 : "AA#...#AA",
         5 : "AA#...#AA",
         6 : "AA#...#AA",
+        7 : "AA#.,.#AA",
+        8 : "AA##E##AA",
+        "tags": ["randomgen","randomflip"],
+        "vertical" : true,
+    },
+    "TCross" : {
+        0 : "AAAAAAAAA",
+        1 : "AAAAAAAAA",
+        2 : "#########",
+        3 : "#.......#",
+        4 : "E.......E",
+        5 : "#.......#",
+        6 : "###...###",
         7 : "AA#.,.#AA",
         8 : "AA##E##AA",
         "tags": ["randomgen","randomflip"],

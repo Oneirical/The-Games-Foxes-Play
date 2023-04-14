@@ -1039,6 +1039,13 @@ class StarFaith extends DefaultVaultRoom{
     }
 }
 
+class TCross extends DefaultVaultRoom{
+    constructor(index){
+        super(index);
+        this.id = "TCross";
+    }
+}
+
 class RogueFaith extends DefaultVaultRoom{
     constructor(index){
         super(index);
