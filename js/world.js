@@ -134,7 +134,10 @@ class Universe{
             //this.discard = [];
         }
         research.completeResearch("Vision");
-        if(!world.getRoom().hostile) research.completeResearch("Estate");
+        if(!world.getRoom().hostile){
+            research.completeResearch("Subdued");
+            research.completeResearch("Estate");
+        }
     }
 
     passUp(layer,origin){
@@ -652,6 +655,7 @@ class Room{
         this.index = [index[0],index[1]];
         this.tiles = []; //it will also need to stock the contents of course
         this.monsters = [];
+        this.creatures = "";
         this.vault = true;
         this.name = "Bugtopia";
         this.fourway = false;
@@ -677,30 +681,17 @@ class Room{
         player = new Player(getTile(this.playerspawn[0], this.playerspawn[1]));
         player.hp = hp;
         if (this.hostile && !this.visited) generateMonsters();
-        return; //for now
-        const squadskey = Object.keys(squads);
-        const classeskey = Object.keys(classes);
-        const difficulty = 1;//Math.ceil(level/5);
-        for (let i = 0; i<difficulty; i++){
-            
-            let origin = randomRange(0,1);
-            origin = 1; //debug
-            if (origin){
-                let team = squads[squadskey[randomRange(0,squadskey.length-1)]];
-                team = squads["Test"]; //debug
-                for (let l of team){
-                    let creature = new l(randomPassableTile());
-                    monsters.push(creature);
+        if (creaturespawn[this.creatures] && !this.visited) {
+            for(let j=0;j<9;j++){
+                for(let i=0;i<9;i++){
+                    if (creaturespawn[this.creatures][i][j] != ".") {
+                        let tile = getTile(j,i);
+                        let monster = new keycreature[creaturespawn[this.creatures][i][j]](tile);
+                        monsters.push(monster);
+                    }
                 }
             }
-            else{
-                for (let j = 0; j<3; j++){
-                    let pool = classes[classeskey[randomRange(0,classeskey.length-1)]]
-                    let creature = new pool[randomRange(0,pool.length-1)](randomPassableTile());
-                    monsters.push(creature);
-                }
-            }
-        }
+        } 
     }
 
     initializeRoom(){
@@ -735,7 +726,7 @@ class DefaultVaultRoom extends Room{
         this.vault = true;
         this.possibleexits;
         this.entrancepoints;
-        this.name = "Faith's End";
+        this.name = "Bleak Corridors";
         this.music = "malform";
         if (level > 5) this.music = "max";
         else if (level > 10) this.music = "quarry";
@@ -1033,11 +1024,11 @@ class WorldSeed extends DefaultVaultRoom{
 }
 
 class AnnounceCorridor extends NarrowFaith{
+    constructor(index){
+        super(index);
+        this.creatures = "Announce";
+    }
     populateRoom(){
-        let monsterType = shuffle([Hologram])[0];
-        let tile = getTile(4,4);
-        let monster = new monsterType(tile);
-        monsters.push(monster);
         super.populateRoom();
         summonExits();
     }
@@ -1105,16 +1096,8 @@ class PlateGenerator extends DefaultVaultRoom{
     constructor(index){
         super(index);
         this.id = "Storage";
-        this.name = "Last Resort";
-    }
-    populateRoom(){
-        let monsterType = shuffle([Scion])[0];
-        let tile = getTile(4,4);
-        let monster = new monsterType(tile);
-        monster.paralyzed = true;
-        monsters.push(monster);
-        super.populateRoom();
-        summonExits();
+        this.creatures = "Storage";
+        this.name = "Sacred Offering";
     }
 }
 

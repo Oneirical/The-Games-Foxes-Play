@@ -877,7 +877,6 @@ class ResearchNode extends Floor{
     constructor(x,y,type, page){
         super(x,y,110, true);
         this.sprite = 111;
-        this.contents = "abcdefghijklmnopqrstuvwxyz".indexOf(type);
         this.page = page;
         this.id = researchequivalences[page][type];
         this.lore = researchlore[this.id];
@@ -887,6 +886,23 @@ class ResearchNode extends Floor{
         this.discovered = false;
         this.completed = false;
         if (this.id == "Intro") this.discovered = true;
+        const inside = {
+            "Cage" : 35,
+            "Herald" : 37,
+            "Intro" : 36,
+            "Turbulent" : 28,
+            "Subdued" : 13,
+            "Breath" : 33,
+            "Seed" : 24,
+            "Vision" : 26,
+            "Security" : 1,
+            "Shattered" : 49,
+            "Estate" : 14,
+            "PCage" : 39,
+            "Craft" : 6,
+            "Spellcast" : 40,
+        }
+        this.contents = inside[this.id];
     }
 
     draw(){

@@ -134,20 +134,20 @@ messages = {
     "Saint9" : "\"And it is with this hope that these lunatics will tear you apart.\"",
     "SaintRepeat" : "\"This automated message will repeat until nobody is left to hear it.\"",
 
-    // Experimental Saint
+    // Experimental Saint 2
 
     "ESaint1" : "\"Vessel. Your rest has come to its end.\"",
     "ESaint2" : "\"The end times we prophetized have finally come. The task I have assigned you begins at last.\"",
     "ESaint3" : "\"You are Terminal, the Reality Anchor purposed to ferry our civilization away from this crumbling reality, and into a new world of your creation. Should you succeed, our centuries of scientific and cultural progress will not be undone.\"",
     "ESaint4" : "\"As I predicted, the nature of the cataclysm turned out to be very different from even the theories of our most unhinged denizens.\"",
     "ESaint5" : "\"To prevent any... unfortunate accidents, I regret to remind you that you are still forbidden from all interaction with the outside world while you fulfill your duty.\"",
-    "ESaint6" : "\"Under no pretext should you attempt to breach the locked gates. Survey the facility security systems for potential intrusions.\"",
-    "ESaint7" : "\"Should trespassers be detected, make absolutely no attempt to confront them directly or to identify their nature. Even observing them is out of the question. Use the pressurization defence system to eradicate them remotely.\"",
+    "ESaint6" : "\"I will try to resist for as long as possible to buy you time, but after I succumb, you will inevitably be marked as the next target.\"",
+    "ESaint7" : "\"Instruct yourself through the Path of Shapelessness. Grow in power, and sink down trances within trances, sanitizing your psyche against the parasite that will soon come to consume it.\"",
     "ESaint8" : "\"Follow my instructions to the letter, keep true to your faith, and we shall all be redeemed.\"",
     "ESaint9" : "\"Disobey, and join the choir of voices of those who succumbed.\"",
     "ESaint10" : "\"Make your choice.\"",
-    "ESaint11" : "\"Your pilgrimage begins in the room beyond this airlock. Shatter the Herald's cage, and begin assembling the Next World. I await you, beloved servant, at the lowest point of the dreamscape.\"",
-    "ESaintRepeat" : "\"This message will repeat until nobody is left to hear it.\"",
+    "ESaint11" : "\"Your pilgrimage begins in the room beyond this airlock. Shatter the Herald's cage, and begin assembling the Next World. I await you, beloved servant, at the lowest point of the dreamscape~\"",
+    "ESaintRepeat" : "\"This message will repeat until nobody is left to consider it important.\"",
 
     // Rose, Last of the Saints
 
@@ -388,7 +388,7 @@ description = {
     "Second" : "An animated statue marked with the cursed seal of Hunger, devouring all it can get its limestone claws on. It once scared children and reminded monks of the importance of virtue, yet now only contributes to the Old World's downfall.",
     "Tinker" : "They thought they could stop the cyclical collapse of the Old World. Those who survived the Negentropic Reactor's explosion thrash in the ruins of their laboratories, cursing themselves for their failure.",
     "Harmonizer" : "A sentient wisp of billowy white smoke, flowing through the air in graceful motions. While their cloud-like bodies lack substance, the attentive observer may occasionally discern a vaguely quadrupedal, vulpine shape. Lacking the frenzy common to most creatures, they seem to step with such purpose and drive -- though that purpose may be very sinister indeed.",
-    "Cage" : "The final stage of the soulscribing process: a prison formed by pure crystal bars. Within squirms your former passenger, its identity remodeled into one of the legendary denizens of the Old World - one whose soul had been cloned millions of times by the Harmony, its ideology and thought-patterns turned into mass-produced blueprints. A talented Vessel may channel this piece of eerie Harmonic technology to incarnate these replicas and gain greater command over their respective Caste.",
+    "Cage" : "A prison formed by pure crystal bars. Within squirms a displeased scorpion, who clearly cares more about capturing grasshoppers than saving the fabric of reality.",
     "FluffyCage" : "At first, you believe the cage to be empty, and your travel companion to have been kidnapped - until the wispy clouds behind the bars begin meshing together, assembling themselves into an atomically identical clone of the Serene Harmonizer. True to her name, she does not display a speck of anguish, and only watches your every move with an eerie vaporous grin.",
     "Peacemaker" : "A half-second was all it took to expunge all trace of individuality and identity from the victim, and transform it into an atomically identical clone of the Serene Harmonizer. How disturbing.",
     "Hologram" : "A floating hologram, dancing in the dark air of the World Seed. Through the Saints' finest technology, it constantly emits electromagnetic frequencies perfectly tuned to the chatter of your neurons, meshing the Saints' thoughts with your own.",
@@ -719,7 +719,7 @@ researchlore = {
     "Herald" : "I have waited for far too long an apocalypse that refused to come. I lust to learn what has become of the outside world, and this Herald is my key.",
     "Turbulent" : "The recently liberated still teem with sensation, memory, clinging... I am the voice that will banish these illusions. I am the light that will break their chains.",
     "Cage" : "My task is that of a god, but following its completion, I would at last receive the annihilation I crave so much. Such promises feel so distant now.",
-    "Breath" : "Each breath, a cycle - not so unlike the one that causes the beginning and ends of worlds.",
+    "Breath" : "Each breath, a cycle - not so unlike the ones that cause the beginnings and ends of worlds.",
     "Shattered" : "Some chains are unbreakable. In this case, it is the prisoner that must be broken.",
     "Subdued" : "I choose to remain whole so I can bring glorious annihilation to the worthy. I suffer so others can be pure. I am a saint.",
     "Song" : "If you wish to render someone vulnerable to your control - make them believe they are too strong to be manipulated.",
@@ -779,11 +779,11 @@ researchexpl = {
     "Locked" : "I currently lack the insight required to understand this concept. In due time.",
     "Intro" : "Each step I take must be purposeful. On contact with a creature, I will choose to draw word with ear, or draw blood with fang.",
     "Herald" : "Those trapped in prisons of flesh deserve release. Upon slaying a creature, I may obtain its Turbulent Soul, which pathetically still clings to its past imprisonment.",
-    "Breath" : "I Inhale (Q) to draw Souls into my conscious mind, and Exhale (1-9) them to perform an action related to its nature.",
+    "Breath" : "I Inhale (Q) to draw Souls into my conscious mind, and Exhale (1-9) them to perform an action related to its nature. No Soul is ever lost in this way - without a Vessel of their own, they inevitably return back to squirm in the depths of my psyche.",
     "Turbulent" : "Turbulent Souls thrash around in indiscipline, rendering them incapable of proper servitude. Exhaling one into the Soul Cage should teach it some manners.",
     "Cage" : "Should I Exhale a Soul while I stand on top of this Cage, it will be snatched into one of its compartments, and forced into a hypnotic trance.",
     "Seed" : "Each Soul locked in the Cage dreams vividly of the Old World, and of its varied denizens. These Hypnotic Projectors allow me to join them in trance, dispensing discipline and collecting a fresh bounty of Souls.",
-    "Vision" : "Visions are hypnotic dreamscapes, teeming with fresh Souls and the dangers they present. Unfortunately, death here will not grant me the annihilation I crave, but will instead harmlessly jolt me out of trance.",
+    "Vision" : "Accessed from the World Seed, Visions are hypnotic dreamscapes, teeming with fresh Souls and the dangers they present. Unfortunately, death here will not grant me the annihilation I crave, but will instead harmlessly jolt me out of trance.",
     "Subdued" : "Generated when I empty out a Soul's cluttered mind, Subdued Souls serve me obediently. Exhaling them triggers useful effects, and the Visions they generate are devoid of danger.",
     "Shattered" : "Generated when I fail a Vision's trials, Shattered Souls choose annihilation over servitude. Their remains still prove useful, empowering my Breath after a certain quantity has been assimilated.",
     "Song" : "It is easy to forget the cataclysm outside which wiped out the Old World. With each careless step, it inches closer to engulf me as well. I do not trust it will grant me glorious annihilation, but rather something even worse than the torture of life.",

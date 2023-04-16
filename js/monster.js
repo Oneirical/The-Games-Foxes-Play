@@ -79,6 +79,13 @@ class Cursor{
     }
 }
 
+function summonMonster(x,y,type){
+    let tile = getTile(x,y);
+    let monster = new type(tile);
+    monster.teleportCounter = 0;
+    monsters.push(monster);
+}
+
 class DroppedSoul{
     constructor(tile, type, attach){
         this.move(tile);
@@ -1178,13 +1185,29 @@ class Harmonizer extends Monster{
 }
 
 class Cage extends Monster{
-    constructor(tile, contents){
-        super(tile, 25, 1, contents, description["Cage"]);
-        this.soul = "Contains "+soulname[contents];
-        this.name = "Harmonic Cage";
+    constructor(tile){
+        super(tile, 25, 1, "NOTHING", description["Cage"]);
+        this.soul = "Soulless."
+        this.name = "Herald's Cage";
         this.teleportCounter = 0;
         this.paralyzed = true;
         this.ability = "";
+        this.noloot = true;
+    }
+
+    die(){
+        super.die();
+        summonMonster(this.tile.x,this.tile.y,Herald);
+    }
+}
+
+class Herald extends Monster{
+    constructor(tile){
+        super(tile, 54, 1, "FERAL", description["Herald"]);
+        this.soul = "Soulless."
+        this.name = "Herald's Cage";
+        this.teleportCounter = 0;
+        this.damage = 0;
     }
 }
 

@@ -26,6 +26,7 @@ class Research{
     }
 
     changeTab(inc){
+        if (this.tabs.length == this.currentpage + inc || this.currentpage + inc < 0) return;
         this.currentpage+= inc;
         this.page = this.tabs[this.currentpage];
     }
