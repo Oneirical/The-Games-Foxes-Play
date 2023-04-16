@@ -44,11 +44,7 @@ class CageTemplate{
         for(let j=0;j<9;j++){
             for(let i=0;i<9;i++){
                 if (!(this.slots[i][j] instanceof Empty)){
-                    for (let k of research.knownnodes){
-                        if (true){
-                            console.log("there is bug here with knownnodes taking up everything")
-                            return;
-                        } //remove this later
+                    for (let k of research.knownspells){
                         if (this.slots[i][j] instanceof keyspells[spellpatterns[k][0][0]]){
                             let nothere = false;
                             for (let o =0; o<spellpatterns[k][0].length;o++){

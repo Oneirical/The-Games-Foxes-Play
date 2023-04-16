@@ -4,6 +4,7 @@ class Research{
         this.page;
         this.currentpage = 0;
         this.knownnodes = [];
+        this.knownspells = [];
         this.buildTabs();
 
         this.exppage = new TutorialDisplay("BEAM");
@@ -51,6 +52,7 @@ class Research{
                 for(let j=0;j<9;j++){
                     if (this.tabs[k][i][j] instanceof ResearchNode && allInArray(researchpage["Page"+k]["links"][this.tabs[k][i][j].id],this.knownnodes)) {
                         this.tabs[k][i][j].discovered = true;
+                        if (forms.includes(this.tabs[k][i][j].id) || functions.includes(this.tabs[k][i][j].id)) this.knownspells.push(this.tabs[k][i][j].id);
                     }
                 }
             }

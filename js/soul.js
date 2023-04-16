@@ -30,6 +30,8 @@ targeters = {
     }
 }
 
+var forms = Object.keys(targeters);
+
 // ARTISTICMINE - LASTMOVE>RANDOMDIR - SACRIFICE (Dump wheel) - DAMPENER (reduce power, get something in exchange) - ALLOUT (lose all resolve, get power)
 //
 
@@ -85,6 +87,8 @@ effects = {
         }
     }
 }
+
+var functions = Object.keys(effects);
 
 spells = {
     WOOP: function(caster){
