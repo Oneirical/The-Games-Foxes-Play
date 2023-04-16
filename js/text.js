@@ -783,7 +783,7 @@ researchcapsules = {
 
 researchexpl = {
     "Null" : "I currently lack the insight required to understand this concept. In due time.",
-    "Intro" : "Each step I take must be purposeful. \nOn contact with a creature, I will choose to draw word with ear, or draw blood with fang.",
+    "Intro" : "Each step I take must be purposeful. \nOn contact with a creature, ^°rI will ^°wchoose to draw word with ear, or draw blood with fang.",
     "Herald" : "Those trapped in prisons of flesh deserve release. Upon slaying a creature, I may obtain its Turbulent Soul, which pathetically still clings to its past imprisonment.",
     "Breath" : "I Inhale (Q) to draw Souls into my conscious mind, and Exhale (1-9) them to perform an action related to its nature. No Soul is ever lost in this way - without a Vessel of their own, they inevitably return back to squirm in the depths of my psyche.",
     "Turbulent" : "Turbulent Souls thrash around in indiscipline, rendering them incapable of proper servitude. Exhaling one into the Soul Cage should teach it some manners.",

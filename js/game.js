@@ -585,6 +585,22 @@ function printAtWordWrap(text, size, x, y, color, lineHeight, fitWidth)
         }
         return;
     }
+    let breaker2 = text.split('^');
+    if (text.includes('^')){
+        const colours = {
+            '°r' : "red",
+            '°b' : "blue",
+        }
+        ctx.save();
+        breaker2.forEach((text) => {
+            let pickcolor = colours[text.slice(0, 2)];
+            if (!pickcolor) pickcolor = "white";
+            printAtWordWrap(text, size, x, y, pickcolor, lineHeight, fitWidth);
+            x += ctx.measureText(text).width;
+        });
+        ctx.restore();
+        return;
+    }
     let jy = y - (768-3*64+25)
     let sy = (jy + (canvas.height-uiHeight*64+25));
     fitWidth = fitWidth || 0;
@@ -628,6 +644,30 @@ function printAtSidebar(text, size, x, y, color, lineHeight, fitWidth)
         for (let i = 0; i<breaker.length; i++){
             printAtSidebar(breaker[i], size,  x, y + (i*lineHeight*2),color,lineHeight,fitWidth);
         }
+        return;
+    }
+    let breaker2 = text.split('^');
+    if (text.includes('^')){
+        const colours = {
+            '°r' : "red",
+            '°b' : "blue",
+            '°w' : "white",
+        }
+        ctx.save();
+        let xsave = 0;
+        breaker2.forEach((text) => {
+            let pickcolor = colours[text.slice(0, 2)];
+            if (pickcolor) text = text.slice(2);
+            else if (!pickcolor) pickcolor = "white";
+            if (fitWidth-xsave <= 0){
+                xsave = 0;
+                y+= lineHeight;
+            }
+            printAtSidebar(text, size, x, y, pickcolor, lineHeight, fitWidth-xsave);
+            x += ctx.measureText(text).width;
+            xsave += ctx.measureText(text).width;
+        });
+        ctx.restore();
         return;
     }
     let sx = x || canvas.width-uiWidth*64+25;
