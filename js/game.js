@@ -222,7 +222,6 @@ function draw(){
         //if (!inInventory && !cursormode && !wheel.hide) drawText(world.getRoom().name, 30, false, 40, "violet");
         if (!inInventory && !cursormode && !wheel.hide) printAtSidebar(universe.getDepth(), 25, 905 - ctx.measureText(universe.getDepth()).width, 35, "lightblue");
         if (!inInventory && !cursormode && !wheel.hide) printAtSidebar(world.getRoom().name, 25, 595, 35, "violet");
-        printAtSidebar()
 
         //if (gameState == "dead" && !victory) drawText("SOUL SHATTERED", 20, false, 100, "red");
         //else if (gameState == "dead" && victory) drawText("VICTORY", 30, false, 100, "lime");
@@ -579,6 +578,13 @@ function drawMessage(text, size, textX, textY, color){
 
 function printAtWordWrap(text, size, x, y, color, lineHeight, fitWidth)
 {
+    let breaker = text.split('\n');
+    if (text.includes('\n')){
+        for (let i = 0; i<breaker.length; i++){
+            printAtWordWrap(breaker[i], size,  x, y + (i*lineHeight*2),color,lineHeight,fitWidth);
+        }
+        return;
+    }
     let jy = y - (768-3*64+25)
     let sy = (jy + (canvas.height-uiHeight*64+25));
     fitWidth = fitWidth || 0;
@@ -617,6 +623,13 @@ function printAtWordWrap(text, size, x, y, color, lineHeight, fitWidth)
 
 function printAtSidebar(text, size, x, y, color, lineHeight, fitWidth)
 {
+    let breaker = text.split('\n');
+    if (text.includes('\n')){
+        for (let i = 0; i<breaker.length; i++){
+            printAtSidebar(breaker[i], size,  x, y + (i*lineHeight*2),color,lineHeight,fitWidth);
+        }
+        return;
+    }
     let sx = x || canvas.width-uiWidth*64+25;
     fitWidth = fitWidth || 0;
     ctx.fillStyle = color;

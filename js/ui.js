@@ -52,7 +52,7 @@ class Research{
                 for(let j=0;j<9;j++){
                     if (this.tabs[k][i][j] instanceof ResearchNode && allInArray(researchpage["Page"+k]["links"][this.tabs[k][i][j].id],this.knownnodes)) {
                         this.tabs[k][i][j].discovered = true;
-                        if (forms.includes(this.tabs[k][i][j].id) || functions.includes(this.tabs[k][i][j].id)) this.knownspells.push(this.tabs[k][i][j].id);
+                        if (!this.knownspells.includes(this.tabs[k][i][j].id) && (forms.includes(this.tabs[k][i][j].id) || functions.includes(this.tabs[k][i][j].id))) this.knownspells.push(this.tabs[k][i][j].id);
                     }
                 }
             }
@@ -91,9 +91,11 @@ class Research{
             printAtWordWrap(research.page[cx][cy].lore, 18, 10, 600, "#cda4f2", 20, 560);
             printAtSidebar(research.page[cx][cy].name, 18, 590, 30, "white", 20, 350);
             drawSymbol((research.page[cx][cy].contents), 890, 20, 64);
+            printAtSidebar(research.page[cx][cy].flags[0], 18, 590, 55, researchflagcolour[research.page[cx][cy].flags[0]], 20, 6*64-35);
+            printAtSidebar(research.page[cx][cy].capsule, 18, 590, 105, "white", 20, 6*64-35);
             for (let i = 0; i<research.page[cx][cy].flags.length; i++){
-                printAtSidebar(research.page[cx][cy].flags[i], 18, 590, 55 + i*20, researchflagcolour[research.page[cx][cy].flags[i]], 20, 6*64-35);
-                printAtSidebar(researchexpl[research.page[cx][cy].capsules[i]], 18, 590, 105 + i*60, "white", 20, 6*64-35);
+                
+                
             }   
         }
         else{
@@ -102,7 +104,7 @@ class Research{
             drawSymbol(7, 890, 20, 64);
             for (let i = 0; i<1; i++){
                 printAtSidebar(researchflags["Null"][i], 18, 590, 55 + i*20, researchflagcolour[researchflags["Null"][i]], 20, 6*64-35);
-                printAtSidebar(researchexpl["Locked"], 18, 590, 105 + i*60, "white", 20, 6*64-35);
+                printAtSidebar(researchexpl["Null"], 18, 590, 105 + i*60, "white", 20, 6*64-35);
             }  
         }
     }

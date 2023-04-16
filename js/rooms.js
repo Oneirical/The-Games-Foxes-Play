@@ -84,6 +84,12 @@ var spellpatterns = {
         1: "V.",
         "type" : "Function",
     },
+    "GYVJI" : {
+        0: "AAA",
+        1: "A.A",
+        2: "...",
+        "type" : "Function",
+    },
     "EPSILON" : {
         0: "OOOOO",
         1: "OOOOO",
@@ -160,7 +166,7 @@ var researchpage = {
             "SELF" : ["Spellcast"],
             "Craft" : ["Spellcast"],
             "SENET" : ["Spellcast"],
-            "TEST" : ["Spellcast"],
+            "GYVJI" : ["Spellcast"],
             "BEAM" : ["Spellcast"],
         }
     },

@@ -687,7 +687,7 @@ researchequivalences = {
         "g" : "Craft",
         "h" : "SENET",
         "i" : "BEAM",
-        "j" : "TEST",
+        "j" : "GYVJI",
     },
     2 : {
         "a" : "???",
@@ -712,6 +712,8 @@ researchnames = {
     "Song" : "The Song That Stirs Souls",
     "Breath" : "Souls and Air as One",
     "BEAM" : "Hatred and Strife, Focused",
+    "GYVJI" : "Gyvji, Soul-Severer",
+    "SENET" : "Senet, the Felidol Tycoon",
 }
 
 researchlore = {
@@ -732,6 +734,8 @@ researchlore = {
     "Craft" : "Disassemble a legend, and realize what it is made of - bits and pieces of thoughts from those who shared it. Sew the storytellers back together, and gain power only spoken of in myths.",
     "Vision" : "I am data, dreaming of data. Those who believe the denizens of their dreams are illusory would be quite shocked to learn they are themselves someone's dream.",
     "BEAM" : "Imagine an ideology so inflexible it can surge out like a bullet... That is why the Unhinged are feared. That is why the Saints did everything they could to snuff out disobedience.",
+    "SENET" : "After guarding her trader-master for years, this feline statue eventually decided she had learned enough, and started her own business. It did not take long until her former owner was found toiling away in the mines for the glory of Senet Incorporated.",
+    "GYVJI" : "All contenders of the Saints' Arena feared Gyvji's mythical tail slap, supposedly so strong it could knock one's soul out of their body and into the crowd, leaving the body untouched. Thankfully, it wasn't long until reality caught up, causing the victim's flesh to charge into the hopefully empty seats of the stadium, where it would be rejoined with its distraught spirit.",
 }
 
 researchflags = {
@@ -752,10 +756,12 @@ researchflags = {
     "Craft" : ["Data"],
     "Breath" : ["Data"],
     "BEAM" : ["Form"],
+    "GYVJI" : ["Function"],
+    "SENET" : ["Function"],
 }
 
 researchcapsules = {
-    "Null" : ["Locked"],
+    "Null" : ["Null"],
     "Intro" : ["Intro"],
     "Herald" : ["Herald"],
     "Vision" : ["Vision"],
@@ -776,8 +782,8 @@ researchcapsules = {
 }
 
 researchexpl = {
-    "Locked" : "I currently lack the insight required to understand this concept. In due time.",
-    "Intro" : "Each step I take must be purposeful. On contact with a creature, I will choose to draw word with ear, or draw blood with fang.",
+    "Null" : "I currently lack the insight required to understand this concept. In due time.",
+    "Intro" : "Each step I take must be purposeful. \nOn contact with a creature, I will choose to draw word with ear, or draw blood with fang.",
     "Herald" : "Those trapped in prisons of flesh deserve release. Upon slaying a creature, I may obtain its Turbulent Soul, which pathetically still clings to its past imprisonment.",
     "Breath" : "I Inhale (Q) to draw Souls into my conscious mind, and Exhale (1-9) them to perform an action related to its nature. No Soul is ever lost in this way - without a Vessel of their own, they inevitably return back to squirm in the depths of my psyche.",
     "Turbulent" : "Turbulent Souls thrash around in indiscipline, rendering them incapable of proper servitude. Exhaling one into the Soul Cage should teach it some manners.",
@@ -792,15 +798,17 @@ researchexpl = {
     "Estate" : "As I grow tired of Faith's End, the focused minds of Subdued Souls inside the Cage should be able to create a perfect little home, rife with silence and comfort for me and my acolytes. Existence under my command is well worth free will.",
     "PCage" : "As the darkness of a Vile Soul unites with the introspection of a Saintly Soul, a new Soul Cage emerges in my psychic estate, with the potential to spawn infinity more below.",
     "Craft" : "All Turbulent Souls know legends from the Old World, no matter if that memory is of admiration or hate. As their minds unite in precise patterns, I may reconstitute the thought-patterns of these mythical celebrities, and have them lead a Caste with their ideology and power.",
-    "SELF" : "This Form targets the tile on which I stand on.",
-    "BEAM" : "This Form surges out in the direction of my last move, targeting all tiles it passes through until an obstacle is met.",
+    "SELF" : "Form: targets the tile on which I stand on.",
+    "BEAM" : "Form: surges out in the direction of my last move, targeting all tiles it passes through until an obstacle is met.",
+    "SENET" : "Function: all targets obtain Persuasion for infinite turns. Persuasion: Next attack inflicts Charm on target, then Persuasion is dispelled. Charm: The target attacks its former allies until no former allies remain.",
+    "GYVJI" : "Function: all targets are knocked back in the direction of my last move, until they strike an obstacle, upon which they emit a 1-tile range shockwave.",
 }
 
 researchflagcolour = {
     "Data" : "lightblue",
     "Mutator" : "lightpink",
     "Contingency" : "gold",
-    "Estate" : "lightbrown",
+    "Estate" : "lightsalmon",
     "Form" : "lime",
     "Function" : "darkorange",
     "Hypnotic" : "cyan",

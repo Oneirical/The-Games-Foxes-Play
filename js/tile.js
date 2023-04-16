@@ -882,7 +882,7 @@ class ResearchNode extends Floor{
         this.lore = researchlore[this.id];
         this.name = researchnames[this.id];
         this.flags = researchflags[this.id];
-        this.capsules = researchcapsules[this.id];
+        this.capsule = researchexpl[this.id];
         this.discovered = false;
         this.completed = false;
         if (this.id == "Intro") this.discovered = true;
@@ -901,6 +901,8 @@ class ResearchNode extends Floor{
             "PCage" : 39,
             "Craft" : 6,
             "Spellcast" : 40,
+            "GYVJI" : 27,
+            "SENET" : 8,
         }
         this.contents = inside[this.id];
     }
