@@ -26,12 +26,15 @@ class Cursor{
         }
     }
     move(tile){
+        if (tile == this.tile) return
         if(this.tile){
             this.offsetX = this.tile.x - tile.x;    
             this.offsetY = this.tile.y - tile.y;
         }
         this.tile = tile;
-        tile.cursor = this;                                             
+        tile.cursor = this;
+        research.looking = false;
+        if (!(this.tile instanceof ResearchNode)) research.exppage = new TutorialDisplay("Default");                     
     }
     die(){
         this.dead = true;

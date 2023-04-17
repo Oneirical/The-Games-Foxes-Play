@@ -6,6 +6,7 @@ class Research{
         this.knownnodes = [];
         this.knownspells = [];
         this.buildTabs();
+        this.looking = false;
 
         this.exppage = new TutorialDisplay("BEAM");
     }
@@ -93,10 +94,8 @@ class Research{
             drawSymbol((research.page[cx][cy].contents), 890, 20, 64);
             printOutText(research.page[cx][cy].flags[0], 18, 590, 55, researchflagcolour[research.page[cx][cy].flags[0]], 20, 6*64-35);
             printOutText(research.page[cx][cy].capsule, 18, 590, 105, "white", 20, 6*64-35);
-            for (let i = 0; i<research.page[cx][cy].flags.length; i++){
-                
-                
-            }   
+            if (!this.looking) this.exppage = new TutorialDisplay(research.page[cx][cy].id);
+            this.looking = true;
         }
         else{
             printOutText(researchlore["Null"], 18, 10, 600, "#cda4f2", 20, 560);
@@ -120,6 +119,7 @@ class TutorialDisplay{
     }
 
     build(){
+        if (!spellpatterns[this.type]) return;
         for(let i=0;i<spellpatterns[this.type][0].length+2;i++){
             this.cage[i] = [];
             for(let j=0;j<spellpatterns[this.type][0].length+2;j++){
@@ -162,8 +162,7 @@ class MessageLog{
             this.writeheight.push(600);
             if (this.writeheight.length > 1){
                 for (let x = this.writeheight.length-2;x >= 0; x--){
-                    let thehe = ctx.measureText(messages[this.history[this.history.length-1]]).width;
-                    if (messages[this.history[this.history.length-1]].includes("[")) thehe -= ctx.measureText("[b]]]").width
+                    let thehe = ctx.measureText(removeColorTags(messages[this.history[this.history.length-1]])).width;
                     this.writeheight[x] += 25 * Math.ceil(thehe/940);
                 }
             }

@@ -563,24 +563,44 @@ function drawChar(text, size, textX, textY, color){
     ctx.fillText(text, textX, textY);
 }
 
-function drawMessage(text, size, textX, textY, color){
-    var str = text;
-    ctx.fillStyle = color;
-    ctx.font = size + "px Play";
-    var a = textX;
-    var b = textY;
-    var lineheight = 10;
-    var lines = str.split('\n');
-    for (var j = 0; j<lines.length; j++)
-    ctx.fillText(lines[j], a, b + (j*lineheight) );
+function removeColorTags(text){
+    return text.replace(/\[[\s\S]*?\]/g, '');
+}
+
+function countLines(text, fitWidth){
+    text = removeColorTags(text);
+    let words = text.split(' ');
+    let currentLine = 1;
+    let idx = 1;
+    while (words.length > 0 && idx <= words.length)
+    {
+        let str = words.slice(0,idx).join(' ');
+        let w = ctx.measureText(str).width;
+        if ( w > fitWidth )
+        {
+            if (idx==1)
+            {
+                idx=2;
+            }
+            currentLine++;
+            words = words.splice(idx-1);
+            idx = 1;
+        }
+        else
+        {idx++;}
+    }
+    return currentLine;
 }
 
 function printOutText(text, size, x, y, color, lineHeight, fitWidth, oldx)
 {
     let breaker = text.split('\n');
     if (text.includes('\n')){
+        let yscale = y;
         for (let i = 0; i<breaker.length; i++){
-            printOutText(breaker[i], size,  x, y + (i*lineHeight*2),color,lineHeight,fitWidth);
+            let sis = "";
+            if (i != 0) sis = breaker[i-1];
+            printOutText(breaker[i], size,  x, y + i*20 + (i*lineHeight*countLines(sis,fitWidth)),color,lineHeight,fitWidth);
         }
         return;
     }

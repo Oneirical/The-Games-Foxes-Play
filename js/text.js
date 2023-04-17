@@ -24,6 +24,7 @@ const colourcodes = {
     'p]' : "plum",
     'o]' : "darkorange",
     'i]' : "pink",
+    's]' : "lightsalmon"
 }
 
 messages = {
@@ -795,23 +796,23 @@ researchcapsules = {
 researchexpl = {
     "Null" : "I currently lack the insight required to understand this concept. In due time.",
     "Intro" : "Each step I take must be purposeful. \nOn contact with a creature, I will choose to draw word with ear, or draw blood with fang.",
-    "Herald" : "Those trapped in prisons of flesh deserve release. Upon slaying a creature, I may obtain its Turbulent Soul, which pathetically still clings to its past imprisonment.",
-    "Breath" : "I Inhale (Q) to draw Souls into my conscious mind, and Exhale (1-9) them to perform an action related to its nature. No Soul is ever lost in this way - without a Vessel of their own, they inevitably return back to squirm in the depths of my psyche.",
-    "Turbulent" : "Turbulent Souls thrash around in indiscipline, rendering them incapable of proper servitude. Exhaling one into the Soul Cage should teach it some manners.",
+    "Herald" : "Those trapped in prisons of flesh deserve release. \nUpon slaying a creature, I may obtain its Turbulent Soul, which pathetically still clings to its past imprisonment.",
+    "Breath" : "I Inhale (Q) to draw Souls into my conscious mind, and Exhale (1-9) them to perform an action related to its nature. \nNo Soul is ever lost in this way - without a Vessel of their own, they inevitably return back to squirm in the depths of my psyche.",
+    "Turbulent" : "Turbulent Souls thrash around in indiscipline, rendering them incapable of proper servitude. \nExhaling one into the Soul Cage should teach it some manners.",
     "Cage" : "Should I Exhale a Soul while I stand on top of this Cage, it will be snatched into one of its compartments, and forced into a hypnotic trance.",
-    "Seed" : "Each Soul locked in the Cage dreams vividly of the Old World, and of its varied denizens. These Hypnotic Projectors allow me to join them in trance, dispensing discipline and collecting a fresh bounty of Souls.",
-    "Vision" : "Accessed from the World Seed, Visions are hypnotic dreamscapes, teeming with fresh Souls and the dangers they present. Unfortunately, death here will not grant me the annihilation I crave, but will instead harmlessly jolt me out of trance.",
-    "Subdued" : "Generated when I empty out a Soul's cluttered mind, Subdued Souls serve me obediently. Exhaling them triggers useful effects, and the Visions they generate are devoid of danger.",
-    "Shattered" : "Generated when I fail a Vision's trials, Shattered Souls choose annihilation over servitude. Their remains still prove useful, empowering my Breath after a certain quantity has been assimilated.",
-    "Song" : "It is easy to forget the cataclysm outside which wiped out the Old World. With each careless step, it inches closer to engulf me as well. I do not trust it will grant me glorious annihilation, but rather something even worse than the torture of life.",
+    "Seed" : "Each Soul locked in the Cage dreams vividly of the Old World, and of its varied denizens. \nThese Hypnotic Projectors allow me to join them in trance, dispensing discipline and collecting a fresh bounty of Souls.",
+    "Vision" : "Accessed from the World Seed, Visions are hypnotic dreamscapes, teeming with fresh Souls and the dangers they present. \nUnfortunately, death here will not grant me the annihilation I crave, but will instead harmlessly jolt me out of trance.",
+    "Subdued" : "Generated when I empty out a Soul's cluttered mind, Subdued Souls serve me obediently. \nExhaling them triggers useful effects, and the Visions they generate are devoid of danger.",
+    "Shattered" : "Generated when I fail a Vision's trials, Shattered Souls choose annihilation over servitude. \nTheir remains still prove useful, empowering my Breath after a certain quantity has been assimilated.",
+    "Song" : "It is easy to forget the cataclysm outside which wiped out the Old World. With each careless step, it inches closer to engulf me as well. \nI do not trust it will grant me glorious annihilation, but rather something even worse than the torture of life.",
     "Security" : "As long as I tune into the numeric chatter of this machine, my psychic sight extends to view the entirety of Faith's End, and all animated beings which populate it.",
-    "Spellcast" : "At the basic level, exhaling Subdued Souls allows me to incarnate the general guiding principle behind their Caste, resulting in one of six interesting effects. Used Souls become available again after I depart from a room. With how malleable minds can be, I trust I may be able to push my limits past such a simple system...",
-    "Estate" : "As I grow tired of Faith's End, the focused minds of Subdued Souls inside the Cage should be able to create a perfect little home, rife with silence and comfort for me and my acolytes. Existence under my command is well worth free will.",
-    "PCage" : "As the darkness of a Vile Soul unites with the introspection of a Saintly Soul, a new Soul Cage emerges in my psychic estate, with the potential to spawn infinity more below.",
-    "Craft" : "All Turbulent Souls know legends from the Old World, no matter if that memory is of admiration or hate. As their minds unite in precise patterns, I may reconstitute the thought-patterns of these mythical celebrities, and have them lead a Caste with their ideology and power.",
+    "Spellcast" : "At the basic level, exhaling Subdued Souls allows me to incarnate the general guiding principle behind their Caste, resulting in one of six interesting effects. Used Souls become available again after I depart from a room. \nWith how malleable minds can be, I trust I may be able to push my limits past such a simple system...",
+    "Estate" : "As I grow tired of Faith's End, the focused minds of Subdued Souls inside the Cage should be able to create a perfect little home, rife with silence and comfort for me and my acolytes. \nExistence under my command is well worth free will.",
+    "PCage" : "[s]Estate[w] - As the darkness of a Vile Soul unites with the introspection of a Saintly Soul, a new Soul Cage emerges in my psychic estate, with the potential to spawn infinity more below.",
+    "Craft" : "All Turbulent Souls know legends from the Old World, no matter if that memory is of admiration or hate. \nAs their minds unite in precise patterns, I may reconstitute the thought-patterns of these mythical celebrities, and have them lead a Caste with their ideology and power.",
     "SELF" : "[l]Form[w] - targets the tile on which I stand on.",
     "BEAM" : "[l]Form[w] - surges out in the direction of my last move, targeting all tiles it passes through until an obstacle is met.",
-    "SENET" : "[o]Function[w] - all targets obtain [p]Persuasion[w] for infinite turns.\n\n[p]Persuasion[w] - Next attack inflicts [i]Charm[w] on target, then [p]Persuasion[w] is dispelled.\n\n[i]Charm[w] - The target attacks its former allies until no former allies remain.",
+    "SENET" : "[o]Function[w] - all targets obtain [p]Persuasion[w] for infinite turns.\n[p]Persuasion[w] - Next attack inflicts [i]Charm[w] on target, then [p]Persuasion[w] is dispelled.\n[i]Charm[w] - The target attacks its former allies until no former allies remain.",
     "GYVJI" : "[o]Function[w] - all targets are knocked back in the direction of my last move, until they strike an obstacle, upon which they emit a 1-tile range shockwave.",
 }
 
