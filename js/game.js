@@ -178,7 +178,7 @@ function draw(){
                     nohover = false;
                 }
             }
-            if (nohover) printAtWordWrap(messages["InvTutorial"], 18, 10, 600, "white", 20, 940);
+            if (nohover) printOutText(messages["InvTutorial"], 18, 10, 600, "white", 20, 940);
         }
         else if (cursormode){
             let cread = getTile(Math.floor((mousepos[0]-shakeX)/tileSize),Math.floor((mousepos[1]-shakeY)/tileSize));
@@ -220,8 +220,8 @@ function draw(){
             if (viewedTiles.includes(monsters[i].tile) || monsters[i].charmed)monsters[i].draw();
         }
         //if (!inInventory && !cursormode && !wheel.hide) drawText(world.getRoom().name, 30, false, 40, "violet");
-        if (!inInventory && !cursormode && !wheel.hide) printAtSidebar(universe.getDepth(), 25, 905 - ctx.measureText(universe.getDepth()).width, 35, "lightblue");
-        if (!inInventory && !cursormode && !wheel.hide) printAtSidebar(world.getRoom().name, 25, 595, 35, "violet");
+        if (!inInventory && !cursormode && !wheel.hide) printOutText(universe.getDepth(), 25, 905 - ctx.measureText(universe.getDepth()).width, 35, "lightblue");
+        if (!inInventory && !cursormode && !wheel.hide) printOutText(world.getRoom().name, 25, 595, 35, "violet");
 
         //if (gameState == "dead" && !victory) drawText("SOUL SHATTERED", 20, false, 100, "red");
         //else if (gameState == "dead" && victory) drawText("VICTORY", 30, false, 100, "lime");
@@ -245,7 +245,7 @@ function draw(){
                 }
                 log.addLog("Shiza");
             }
-            if (!loghide && (!cursormode && !invmode) || (cursormode && invmode)) log.display();//printAtWordWrap(messages[message], 18, 10, 600, coloring, 20, 940);
+            if (!loghide && (!cursormode && !invmode) || (cursormode && invmode)) log.display();//printOutText(messages[message], 18, 10, 600, coloring, 20, 940);
             if (rosetoxin > 1){
                 ctx.globalAlpha = 0.5;
                 drawFilter(rosefilter);
@@ -497,9 +497,9 @@ function drawBossHp(currentboss, hp){
     let bar = ["⚙⚙","Σ","❄❄","♡♡"];
     ctx.fillStyle = 'rgba(0,0,0,.85)';
     ctx.fillRect(0,577-32,577,32);
-    printAtWordWrap(bossname[currentboss], 21, 10, 568, bosscolour[currentboss], 20, 940);
-    printAtWordWrap(" - ", 21, 105, 566, "white", 20, 940);
-    if (hp >= 0) printAtWordWrap(bar[currentboss].repeat(hp), 21, 125, 568, bosscolour[currentboss], 20, 940);
+    printOutText(bossname[currentboss], 21, 10, 568, bosscolour[currentboss], 20, 940);
+    printOutText(" - ", 21, 105, 566, "white", 20, 940);
+    if (hp >= 0) printOutText(bar[currentboss].repeat(hp), 21, 125, 568, bosscolour[currentboss], 20, 940);
 }
 
 function startGame(){
@@ -575,20 +575,12 @@ function drawMessage(text, size, textX, textY, color){
     ctx.fillText(lines[j], a, b + (j*lineheight) );
 }
 
-const colourcodes = {
-    'r]' : "red",
-    'b]' : "blue",
-    'w]' : "white",
-    'l]' : "lime",
-    'c]' : "cyan",
-}
-
-function printAtWordWrap(text, size, x, y, color, lineHeight, fitWidth,oldx)
+function printOutText(text, size, x, y, color, lineHeight, fitWidth, oldx)
 {
     let breaker = text.split('\n');
     if (text.includes('\n')){
         for (let i = 0; i<breaker.length; i++){
-            printAtWordWrap(breaker[i], size,  x, y + (i*lineHeight*2),color,lineHeight,fitWidth);
+            printOutText(breaker[i], size,  x, y + (i*lineHeight*2),color,lineHeight,fitWidth);
         }
         return;
     }
@@ -601,81 +593,14 @@ function printAtWordWrap(text, size, x, y, color, lineHeight, fitWidth,oldx)
             let pickcolor = colourcodes[text.slice(0, 2)];
             if (pickcolor) text = text.slice(2);
             else if (!pickcolor) pickcolor = "white";
+            if (color == "#b4b5b8") pickcolor = "#b4b5b8";
             if (fitWidth-xsave <= 0){
                 xsave = 0;
                 y+= lineHeight;
             }
-            printAtWordWrap(text, size, x, y, pickcolor, lineHeight, fitWidth-xsave, oldx);
+            printOutText(text, size, x, y, pickcolor, lineHeight, fitWidth-xsave, oldx);
             x += ctx.measureText(text).width;
-            xsave += ctx.measureText(text).width;
-        });
-        ctx.restore();
-        return;
-    }
-    let jy = y - (768-3*64+25)
-    let sy = (jy + (canvas.height-uiHeight*64+25));
-    fitWidth = fitWidth || 0;
-    ctx.fillStyle = color;
-    ctx.font = size + "px Play";
-    if (fitWidth <= 0)
-    {
-        ctx.fillText( text, x, sy );
-        return;
-    }
-    if (!text) return;
-    let words = text.split(' ');
-    let currentLine = 0;
-    let idx = 1;
-    while (words.length > 0 && idx <= words.length)
-    {
-        let str = words.slice(0,idx).join(' ');
-        let w = ctx.measureText(str).width;
-        if ( w > fitWidth )
-        {
-            if (idx==1)
-            {
-                idx=2;
-            }
-            ctx.fillText( words.slice(0,idx-1).join(' '), x, sy + (lineHeight*currentLine) );
-            currentLine++;
-            words = words.splice(idx-1);
-            idx = 1;
-            if(oldx){
-                sx = oldx[0];
-                fitWidth = oldx[1];
-            }
-        }
-        else
-        {idx++;}
-    }
-    if  (idx > 0)
-        ctx.fillText( words.join(' '), x, sy + (lineHeight*currentLine) );
-}
-
-function printAtSidebar(text, size, x, y, color, lineHeight, fitWidth, oldx)
-{
-    let breaker = text.split('\n');
-    if (text.includes('\n')){
-        for (let i = 0; i<breaker.length; i++){
-            printAtSidebar(breaker[i], size,  x, y + (i*lineHeight*2),color,lineHeight,fitWidth);
-        }
-        return;
-    }
-    let breaker2 = text.split('[');
-    if (text.includes('[')){
-        ctx.save();
-        let xsave = 0;
-        let oldx = [x,fitWidth];
-        breaker2.forEach((text) => {
-            let pickcolor = colourcodes[text.slice(0, 2)];
-            if (pickcolor) text = text.slice(2);
-            else if (!pickcolor) pickcolor = "white";
-            if (fitWidth-xsave <= 0){
-                xsave = 0;
-                y+= lineHeight;
-            }
-            printAtSidebar(text, size, x, y, pickcolor, lineHeight, fitWidth-xsave, oldx);
-            x += ctx.measureText(text).width;
+            if (x >= (oldx[0] + oldx[1])) x = oldx[0] + nextlinesave;
             xsave += ctx.measureText(text).width;
         });
         ctx.restore();
@@ -716,9 +641,14 @@ function printAtSidebar(text, size, x, y, color, lineHeight, fitWidth, oldx)
         else
         {idx++;}
     }
-    if  (idx > 0)
+    if (idx > 0){
         ctx.fillText( words.join(' '), sx, y + (lineHeight*currentLine) );
+        nextlinesave = ctx.measureText(words.join(' ')).width;
+    }
+        
 }
+
+var nextlinesave = 0;
 
 function reviver(_, value) {
     if(value instanceof Object && Object.prototype.hasOwnProperty.call(value, '__type')) {

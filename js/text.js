@@ -15,6 +15,17 @@ inventorytext = {
     "AgoMechanic" : "Each Agony point lets you sacrifice one Common or Legendary Soul. For each 3 Common Souls or each Legendary Soul sacrificed in this way, gain 1 maximum Resolve point.",
 }
 
+const colourcodes = {
+    'r]' : "red",
+    'b]' : "blue",
+    'w]' : "white",
+    'l]' : "lime",
+    'c]' : "cyan",
+    'p]' : "plum",
+    'o]' : "darkorange",
+    'i]' : "pink",
+}
+
 messages = {
     // Various out-of-character messages
     "Empty" : "",
@@ -138,7 +149,7 @@ messages = {
 
     "ESaint1" : "\"Vessel. Your rest has come to its end.\"",
     "ESaint2" : "\"The end times we prophetized have finally come. The task I have assigned you begins at last.\"",
-    "ESaint3" : "\"[l]You are Terminal, the [b]Reality Anchor [l]purposed to ferry our civilization away from this crumbling reality, and into a new world of your creation. Should you succeed, our centuries of scientific and cultural progress will not be undone.\"",
+    "ESaint3" : "[l]\"You are [p]Terminal[l], the Reality Anchor purposed to ferry our civilization away from this crumbling reality, and into a new world of your creation. Should you succeed, our centuries of scientific and cultural progress will not be undone.\"",
     "ESaint4" : "\"As I predicted, the nature of the cataclysm turned out to be very different from even the theories of our most unhinged denizens.\"",
     "ESaint5" : "\"To prevent any... unfortunate accidents, I regret to remind you that you are still forbidden from all interaction with the outside world while you fulfill your duty.\"",
     "ESaint6" : "\"I will try to resist for as long as possible to buy you time, but after I succumb, you will inevitably be marked as the next target.\"",
@@ -783,7 +794,7 @@ researchcapsules = {
 
 researchexpl = {
     "Null" : "I currently lack the insight required to understand this concept. In due time.",
-    "Intro" : "Each step I take must be purposeful. \nOn contact with a creature, [r]I will [w]choose to draw word with ear, or draw blood with fang.",
+    "Intro" : "Each step I take must be purposeful. \nOn contact with a creature, I will choose to draw word with ear, or draw blood with fang.",
     "Herald" : "Those trapped in prisons of flesh deserve release. Upon slaying a creature, I may obtain its Turbulent Soul, which pathetically still clings to its past imprisonment.",
     "Breath" : "I Inhale (Q) to draw Souls into my conscious mind, and Exhale (1-9) them to perform an action related to its nature. No Soul is ever lost in this way - without a Vessel of their own, they inevitably return back to squirm in the depths of my psyche.",
     "Turbulent" : "Turbulent Souls thrash around in indiscipline, rendering them incapable of proper servitude. Exhaling one into the Soul Cage should teach it some manners.",
@@ -798,10 +809,10 @@ researchexpl = {
     "Estate" : "As I grow tired of Faith's End, the focused minds of Subdued Souls inside the Cage should be able to create a perfect little home, rife with silence and comfort for me and my acolytes. Existence under my command is well worth free will.",
     "PCage" : "As the darkness of a Vile Soul unites with the introspection of a Saintly Soul, a new Soul Cage emerges in my psychic estate, with the potential to spawn infinity more below.",
     "Craft" : "All Turbulent Souls know legends from the Old World, no matter if that memory is of admiration or hate. As their minds unite in precise patterns, I may reconstitute the thought-patterns of these mythical celebrities, and have them lead a Caste with their ideology and power.",
-    "SELF" : "Form: targets the tile on which I stand on.",
-    "BEAM" : "Form: surges out in the direction of my last move, targeting all tiles it passes through until an obstacle is met.",
-    "SENET" : "Function: all targets obtain Persuasion for infinite turns. Persuasion: Next attack inflicts Charm on target, then Persuasion is dispelled. Charm: The target attacks its former allies until no former allies remain.",
-    "GYVJI" : "Function: all targets are knocked back in the direction of my last move, until they strike an obstacle, upon which they emit a 1-tile range shockwave.",
+    "SELF" : "[l]Form[w] - targets the tile on which I stand on.",
+    "BEAM" : "[l]Form[w] - surges out in the direction of my last move, targeting all tiles it passes through until an obstacle is met.",
+    "SENET" : "[o]Function[w] - all targets obtain [p]Persuasion[w] for infinite turns.\n\n[p]Persuasion[w] - Next attack inflicts [i]Charm[w] on target, then [p]Persuasion[w] is dispelled.\n\n[i]Charm[w] - The target attacks its former allies until no former allies remain.",
+    "GYVJI" : "[o]Function[w] - all targets are knocked back in the direction of my last move, until they strike an obstacle, upon which they emit a 1-tile range shockwave.",
 }
 
 researchflagcolour = {

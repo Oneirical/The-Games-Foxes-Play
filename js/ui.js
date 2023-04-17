@@ -75,36 +75,36 @@ class Research{
         //drawSymbol(4, 880, 230, 64);
         //drawSymbol(5, 880, 330, 64);
         //drawSymbol(21, 880, 430, 64);
-        //printAtWordWrap("Ordered",18, 664, 368, "red",20,350);
-        //printAtWordWrap("Shattered",18, 664, 168, "cornflowerblue",20,350);
-        //printAtWordWrap("Saintly",18, 664, 268, "lime",20,350);
-        //printAtWordWrap("Artistic",18, 664, 468, "orange",20,350);
-        //printAtWordWrap("Serene",18, 810, 468, "cyan",20,350);
-        //printAtWordWrap("Vile",18, 835, 368, "plum",20,350);
-        //printAtWordWrap("Feral",18, 825, 268, "yellowgreen",20,350);
-        //printAtWordWrap("Unhinged",18, 790, 168, "yellow",20,350);
+        //printOutText("Ordered",18, 664, 368, "red",20,350);
+        //printOutText("Shattered",18, 664, 168, "cornflowerblue",20,350);
+        //printOutText("Saintly",18, 664, 268, "lime",20,350);
+        //printOutText("Artistic",18, 664, 468, "orange",20,350);
+        //printOutText("Serene",18, 810, 468, "cyan",20,350);
+        //printOutText("Vile",18, 835, 368, "plum",20,350);
+        //printOutText("Feral",18, 825, 268, "yellowgreen",20,350);
+        //printOutText("Unhinged",18, 790, 168, "yellow",20,350);
     }
 
     displayNode(cx, cy){
         //let colour = "lightgray";
         if (research.page[cx][cy].discovered){
-            printAtWordWrap(research.page[cx][cy].lore, 18, 10, 600, "#cda4f2", 20, 560);
-            printAtSidebar(research.page[cx][cy].name, 18, 590, 30, "white", 20, 350);
+            printOutText(research.page[cx][cy].lore, 18, 10, 600, "#cda4f2", 20, 560);
+            printOutText(research.page[cx][cy].name, 18, 590, 30, "white", 20, 350);
             drawSymbol((research.page[cx][cy].contents), 890, 20, 64);
-            printAtSidebar(research.page[cx][cy].flags[0], 18, 590, 55, researchflagcolour[research.page[cx][cy].flags[0]], 20, 6*64-35);
-            printAtSidebar(research.page[cx][cy].capsule, 18, 590, 105, "white", 20, 6*64-35);
+            printOutText(research.page[cx][cy].flags[0], 18, 590, 55, researchflagcolour[research.page[cx][cy].flags[0]], 20, 6*64-35);
+            printOutText(research.page[cx][cy].capsule, 18, 590, 105, "white", 20, 6*64-35);
             for (let i = 0; i<research.page[cx][cy].flags.length; i++){
                 
                 
             }   
         }
         else{
-            printAtWordWrap(researchlore["Null"], 18, 10, 600, "#cda4f2", 20, 560);
-            printAtSidebar(researchnames["Null"], 18, 590, 30, "white", 20, 350);
+            printOutText(researchlore["Null"], 18, 10, 600, "#cda4f2", 20, 560);
+            printOutText(researchnames["Null"], 18, 590, 30, "white", 20, 350);
             drawSymbol(7, 890, 20, 64);
             for (let i = 0; i<1; i++){
-                printAtSidebar(researchflags["Null"][i], 18, 590, 55 + i*20, researchflagcolour[researchflags["Null"][i]], 20, 6*64-35);
-                printAtSidebar(researchexpl["Null"], 18, 590, 105 + i*60, "white", 20, 6*64-35);
+                printOutText(researchflags["Null"][i], 18, 590, 55 + i*20, researchflagcolour[researchflags["Null"][i]], 20, 6*64-35);
+                printOutText(researchexpl["Null"], 18, 590, 105 + i*60, "white", 20, 6*64-35);
             }  
         }
     }
@@ -162,10 +162,12 @@ class MessageLog{
             this.writeheight.push(600);
             if (this.writeheight.length > 1){
                 for (let x = this.writeheight.length-2;x >= 0; x--){
-                    this.writeheight[x] += 25 * Math.ceil((ctx.measureText(messages[this.history[this.history.length-1]]).width/940));
+                    let thehe = ctx.measureText(messages[this.history[this.history.length-1]]).width;
+                    if (messages[this.history[this.history.length-1]].includes("[")) thehe -= ctx.measureText("[b]]]").width
+                    this.writeheight[x] += 25 * Math.ceil(thehe/940);
                 }
             }
-            if (this.history.length > 7){
+            if (this.history.length > 8){
                 this.history.shift();
                 this.writeheight.shift();
                 this.repeats.shift();
@@ -177,14 +179,14 @@ class MessageLog{
     display(){
         for (let x = 0; x<this.history.length; x++){
             let coloring = colours[this.history[x]];
-            if (x != this.history.length-1 || this.allgrey) coloring = "lightgray";
+            if (x != this.history.length-1 || this.allgrey) coloring = "#b4b5b8";
             else if (this.history[x].includes("Fluffy")) coloring = "cyan";
             else if (this.history[x].includes("Rose")) coloring = "lightpink";
             else if (this.history[x].includes("Epsilon")) coloring = "red";
             else if (this.history[x].includes("Saint")) coloring = "lime";
             let print = messages[this.history[x]];
             if (this.repeats[x] > 1) print += " x"+this.repeats[x];
-            printAtWordWrap(print, 18, 10, this.writeheight[x], coloring, 20, 940);
+            printOutText(print, 18, 10, this.writeheight[x], coloring, 20, 940);
             //for (let y = 0; y < this.writeheight.length-1; y++){
                 //let margin = 26;
                 //let wtf = Math.ceil(ctx.measureText(messages[this.history[y+1]]+"x00").width/940);
@@ -251,17 +253,17 @@ class DrawWheel{
         drawSymbol(9, 590, 130, 64);
         drawSymbol(10, 880, 130, 64);
         drawSymbol(11, 590, 50, 64);
-        printAtWordWrap("Q",18, 616, 398, "white",20,350);
-        printAtWordWrap("C",18, 616, 208, "white",20,350);
-        printAtWordWrap("F",18, 906, 208, "white",20,350);
-        printAtWordWrap("L",18, 906, 400, "white",20,350);
+        printOutText("Q",18, 616, 398, "white",20,350);
+        printOutText("C",18, 616, 208, "white",20,350);
+        printOutText("F",18, 906, 208, "white",20,350);
+        printOutText("L",18, 906, 400, "white",20,350);
         let icon = 33;
         if (player.infested > 0) icon = 34;
         else if (player.tile.souls.length > 0) icon = 48;
         drawSymbol(icon,590,320,64);
         if (gameState == "contemplation"){
             drawSymbol(13, 880, 50, 64);
-            printAtSidebar(agony+" ", 23, 835, 90, "red", 20, 350);
+            printOutText(agony+" ", 23, 835, 90, "red", 20, 350);
         }
 
         else if (player.infested > 1){
@@ -274,10 +276,10 @@ class DrawWheel{
                     else if (y instanceof NegAltar) naltars.push(y.getValue());
                 }
             }
-            printAtSidebar(paltars[0]+paltars[1]+paltars[2], 23, 780, 75, "cyan", 20, 350);
-            printAtSidebar("-", 23, 825, 75, "white", 20, 350);
-            printAtSidebar(naltars[0]+naltars[1]+naltars[2], 23, 839, 75, "red", 20, 350);
-            printAtSidebar("=", 23, 805, 105, "white", 20, 350);
+            printOutText(paltars[0]+paltars[1]+paltars[2], 23, 780, 75, "cyan", 20, 350);
+            printOutText("-", 23, 825, 75, "white", 20, 350);
+            printOutText(naltars[0]+naltars[1]+naltars[2], 23, 839, 75, "red", 20, 350);
+            printOutText("=", 23, 805, 105, "white", 20, 350);
             for (let k = 0; k < 3; k++){
                 paltars[k] = parseInt(paltars[k])
             }
@@ -292,15 +294,15 @@ class DrawWheel{
             }
             if (results.includes("?")) results = "???";
             else results = results[0]*100+results[1]*10+results[2];
-            printAtSidebar(results.toString(), 23, 825, 102, "white", 20, 350);
+            printOutText(results.toString(), 23, 825, 102, "white", 20, 350);
         }
         else{
             drawSymbol(12, 880, 50, 64);
             let colour = "lightskyblue";
             if (this.resolve < 1) colour = "red";
-            printAtSidebar(this.resolve+"/"+(3+Math.floor(resolvebonus/2))+" ", 23, 835, 90, colour, 20, 350);
+            printOutText(this.resolve+"/"+(3+Math.floor(resolvebonus/2))+" ", 23, 835, 90, colour, 20, 350);
         }
-        printAtSidebar(" "+this.ipseity+"/"+(30)+" ", 23, 660, 90, "plum", 20, 350);
+        printOutText(" "+this.ipseity+"/"+(30)+" ", 23, 660, 90, "plum", 20, 350);
 
         let display;
         for (let k = 0;k<8;k++){
@@ -324,23 +326,23 @@ class DrawWheel{
                 this.wheel[k].offsetX -= Math.sign(this.wheel[k].offsetX)*(0.05);     
                 this.wheel[k].offsetY -= Math.sign(this.wheel[k].offsetY)*(0.05);
             }
-            printAtWordWrap(k+1+"",18, this.hotkeycoords[k][0], this.hotkeycoords[k][1], "white",20,350);
+            printOutText(k+1+"",18, this.hotkeycoords[k][0], this.hotkeycoords[k][1], "white",20,350);
         }
         if (false){
             drawSymbol(k.icon, this.castecoords[this.castes.indexOf(k)][0], this.castecoords[this.castes.indexOf(k)][1], 48);
         }
         if (false){
             if (this.castes.indexOf(k) % 2 == 0){
-                printAtSidebar(" - " + this.countPileSouls()[this.castes.indexOf(k)], 18, this.castecoords[5-this.castes.indexOf(k)][0]-265, this.castecoords[this.castes.indexOf(k)][1]+32, "white", 20, 350);
-                printAtSidebar("(" + this.countDiscardSouls()[(this.castes.indexOf(k))] + ")", 18, this.castecoords[5-this.castes.indexOf(k)][0]-265+ctx.measureText(" - " + this.countPileSouls()[this.castes.indexOf(k)]).width+10, this.castecoords[this.castes.indexOf(k)][1]+32, "pink", 20, 350);
-                if (player.infested > 1) printAtSidebar("= " + (6-this.castes.indexOf(k)), 18, 720, this.castecoords[this.castes.indexOf(k)][1]+32, "cyan", 20, 350);
-                else printAtSidebar("(" + this.countSavedSouls()[(this.castes.indexOf(k))] + ")", 18, 720, this.castecoords[this.castes.indexOf(k)][1]+32, "yellow", 20, 350); 
+                printOutText(" - " + this.countPileSouls()[this.castes.indexOf(k)], 18, this.castecoords[5-this.castes.indexOf(k)][0]-265, this.castecoords[this.castes.indexOf(k)][1]+32, "white", 20, 350);
+                printOutText("(" + this.countDiscardSouls()[(this.castes.indexOf(k))] + ")", 18, this.castecoords[5-this.castes.indexOf(k)][0]-265+ctx.measureText(" - " + this.countPileSouls()[this.castes.indexOf(k)]).width+10, this.castecoords[this.castes.indexOf(k)][1]+32, "pink", 20, 350);
+                if (player.infested > 1) printOutText("= " + (6-this.castes.indexOf(k)), 18, 720, this.castecoords[this.castes.indexOf(k)][1]+32, "cyan", 20, 350);
+                else printOutText("(" + this.countSavedSouls()[(this.castes.indexOf(k))] + ")", 18, 720, this.castecoords[this.castes.indexOf(k)][1]+32, "yellow", 20, 350); 
             }
             else if (this.castes.indexOf(k) % 2 == 1){
-                printAtSidebar(this.countPileSouls()[this.castes.indexOf(k)] + " - ", 18, this.castecoords[5-this.castes.indexOf(k)][0]+285, this.castecoords[this.castes.indexOf(k)][1]+32, "white", 20, 350);
-                printAtSidebar("(" + this.countDiscardSouls()[(this.castes.indexOf(k))] + ")", 18, this.castecoords[5-this.castes.indexOf(k)][0]+285-ctx.measureText(" - " + this.countPileSouls()[this.castes.indexOf(k)]).width-10, this.castecoords[this.castes.indexOf(k)][1]+32, "pink", 20, 350);
-                if (player.infested > 1) printAtSidebar((6-this.castes.indexOf(k))+ " =", 18, this.castecoords[5-this.castes.indexOf(k)][0]+285-ctx.measureText(" - " + this.countPileSouls()[this.castes.indexOf(k)]).width-60, this.castecoords[this.castes.indexOf(k)][1]+32, "cyan", 20, 350);
-                else printAtSidebar("(" + this.countSavedSouls()[(this.castes.indexOf(k))] + ")", 18, this.castecoords[5-this.castes.indexOf(k)][0]+285-ctx.measureText(" - " + this.countPileSouls()[this.castes.indexOf(k)]).width-60, this.castecoords[this.castes.indexOf(k)][1]+32, "yellow", 20, 350);
+                printOutText(this.countPileSouls()[this.castes.indexOf(k)] + " - ", 18, this.castecoords[5-this.castes.indexOf(k)][0]+285, this.castecoords[this.castes.indexOf(k)][1]+32, "white", 20, 350);
+                printOutText("(" + this.countDiscardSouls()[(this.castes.indexOf(k))] + ")", 18, this.castecoords[5-this.castes.indexOf(k)][0]+285-ctx.measureText(" - " + this.countPileSouls()[this.castes.indexOf(k)]).width-10, this.castecoords[this.castes.indexOf(k)][1]+32, "pink", 20, 350);
+                if (player.infested > 1) printOutText((6-this.castes.indexOf(k))+ " =", 18, this.castecoords[5-this.castes.indexOf(k)][0]+285-ctx.measureText(" - " + this.countPileSouls()[this.castes.indexOf(k)]).width-60, this.castecoords[this.castes.indexOf(k)][1]+32, "cyan", 20, 350);
+                else printOutText("(" + this.countSavedSouls()[(this.castes.indexOf(k))] + ")", 18, this.castecoords[5-this.castes.indexOf(k)][0]+285-ctx.measureText(" - " + this.countPileSouls()[this.castes.indexOf(k)]).width-60, this.castecoords[this.castes.indexOf(k)][1]+32, "yellow", 20, 350);
             }
         }
         let j = 0;
@@ -985,16 +987,16 @@ class Inventory{
             ctx.globalAlpha = k.alpha;
             drawSymbol(k.icon, this.storecoords[this.storage.indexOf(k)][0], this.storecoords[this.storage.indexOf(k)][1], 64);
         }
-        printAtWordWrap("1",22, 482, 478, "white",20,350);
-        printAtWordWrap("2",22, 80, 478, "white",20,350);
-        printAtWordWrap("3",22, 554, 297, "white",20,350);
-        printAtWordWrap("4",22, 10, 297, "white",20,350);
-        printAtWordWrap("5",22, 482, 116, "white",20,350);
-        printAtWordWrap("6",22, 80, 116, "white",20,350);
-        printAtWordWrap("7",22, 229, 194, "black",20,350);
-        printAtWordWrap("8",22, 229, 194+68, "black",20,350);
-        printAtWordWrap("9",22, 229, 194+138, "black",20,350);
-        printAtWordWrap("0",22, 229, 194+138+68, "black",20,350);
+        printOutText("1",22, 482, 478, "white",20,350);
+        printOutText("2",22, 80, 478, "white",20,350);
+        printOutText("3",22, 554, 297, "white",20,350);
+        printOutText("4",22, 10, 297, "white",20,350);
+        printOutText("5",22, 482, 116, "white",20,350);
+        printOutText("6",22, 80, 116, "white",20,350);
+        printOutText("7",22, 229, 194, "black",20,350);
+        printOutText("8",22, 229, 194+68, "black",20,350);
+        printOutText("9",22, 229, 194+138, "black",20,350);
+        printOutText("0",22, 229, 194+138+68, "black",20,350);
         
     }
     activateSoul(slot){
@@ -1090,12 +1092,12 @@ class LegendarySoul{
     describe(){
         let bump = 0;
         if ((5*64-32-ctx.measureText(this.name).width) < 0) bump = 20; 
-        printAtSidebar(toTitleCase(this.caste) + " Caste", 18, 590, 50 + bump, colours[this.caste], 20, 6*64-35);
-        //printAtSidebar(inventorytext[this.command], 18, 590, 170, colours[this.command], 20, 6*64-35); for future use, or maybe just place this thing in its own screen
-        if (basic.includes(this.id)) printAtSidebar("Empty Slot", 18, 590, 30, "white", 20, 6*64-35);
-        else printAtSidebar(this.name, 18, 590, 30, colours[this.id], 20, 6*64-100);
-        printAtSidebar(this.subdescript, 18, 590, 110, "white", 20, 6*64-35);
-        printAtWordWrap(this.lore, 18, 10, 600, colours[this.id], 20, 940);
+        printOutText(toTitleCase(this.caste) + " Caste", 18, 590, 50 + bump, colours[this.caste], 20, 6*64-35);
+        //printOutText(inventorytext[this.command], 18, 590, 170, colours[this.command], 20, 6*64-35); for future use, or maybe just place this thing in its own screen
+        if (basic.includes(this.id)) printOutText("Empty Slot", 18, 590, 30, "white", 20, 6*64-35);
+        else printOutText(this.name, 18, 590, 30, colours[this.id], 20, 6*64-100);
+        printOutText(this.subdescript, 18, 590, 110, "white", 20, 6*64-35);
+        printOutText(this.lore, 18, 10, 600, colours[this.id], 20, 940);
         drawSymbol(this.icon, 890, 20, 64);
     }
 
@@ -1127,15 +1129,15 @@ class LegendarySoul{
             "SAINTLY" : 5
         }
         const index = hijack[this.caste];
-        printAtWordWrap(toTitleCase(this.caste) + " Soul", 18, 10, 600, colours[this.id], 20, 940);
-        if (this instanceof Empty) printAtWordWrap(soulabi["EMPTY"], 18, 10, 640, "white", 20, 940);
+        printOutText(toTitleCase(this.caste) + " Soul", 18, 10, 600, colours[this.id], 20, 940);
+        if (this instanceof Empty) printOutText(soulabi["EMPTY"], 18, 10, 640, "white", 20, 940);
         else {
             let command = legendaries.active[index].id;
             if (basic.includes(command)) command = "Commanded by its own whims";
             else command = "Commanded by " + toTitleCase(command);
-            printAtWordWrap(command, 18, 10, 620, "lightgrey", 20, 940);
-            if (!basic.includes(legendaries.active[index].id) && legendaries.active[index].influence != "I") printAtWordWrap(legendaries.active[index].subdescript, 18, 10, 660, "white", 20, 940);
-            else printAtWordWrap(this.subdescript, 18, 10, 660, "white", 20, 940);
+            printOutText(command, 18, 10, 620, "lightgrey", 20, 940);
+            if (!basic.includes(legendaries.active[index].id) && legendaries.active[index].influence != "I") printOutText(legendaries.active[index].subdescript, 18, 10, 660, "white", 20, 940);
+            else printOutText(this.subdescript, 18, 10, 660, "white", 20, 940);
         }
         
     }
@@ -1144,13 +1146,13 @@ class LegendarySoul{
         if (!cursormode){
             let bump = 0;
             if ((5*64-32-ctx.measureText(this.name).width) < 0) bump = 20; 
-            printAtSidebar(toTitleCase(this.caste) + " Caste", 18, 590, 50 + bump, colours[this.caste], 20, 6*64-35);
-            if (basic.includes(this.id)) printAtSidebar("Empty Slot", 18, 590, 30, "white", 20, 6*64-35);
-            else printAtSidebar(this.name, 18, 590, 30, colours[this.id], 20, 6*64-100);
-            printAtSidebar(this.subdescript, 18, 590, 110, "white", 20, 6*64-35);
+            printOutText(toTitleCase(this.caste) + " Caste", 18, 590, 50 + bump, colours[this.caste], 20, 6*64-35);
+            if (basic.includes(this.id)) printOutText("Empty Slot", 18, 590, 30, "white", 20, 6*64-35);
+            else printOutText(this.name, 18, 590, 30, colours[this.id], 20, 6*64-100);
+            printOutText(this.subdescript, 18, 590, 110, "white", 20, 6*64-35);
             drawSymbol(this.icon, 890, 20, 64);
             drawSymbol(34, 590, 500, 64);
-            printAtSidebar("Inhale this Soul (Q) to choose it and exit the Relay.", 18, 660, 528, "white", 20, 6*64-105);
+            printOutText("Inhale this Soul (Q) to choose it and exit the Relay.", 18, 660, 528, "white", 20, 6*64-105);
         }
     }
 
