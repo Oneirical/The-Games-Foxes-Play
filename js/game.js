@@ -564,6 +564,7 @@ function removeColorTags(text){
 }
 
 function countLines(text, fitWidth){
+    if (text.length == 0) return 0;
     text = removeColorTags(text);
     let words = text.split(' ');
     let currentLine = 1;
@@ -590,13 +591,15 @@ function countLines(text, fitWidth){
 
 function printOutText(text, size, x, y, color, lineHeight, fitWidth, oldx)
 {
+    ctx.font = size + "px Play";
     let breaker = text.split('\n');
     if (text.includes('\n')){
         let yscale = y;
         for (let i = 0; i<breaker.length; i++){
             let sis = "";
             if (i != 0) sis = breaker[i-1];
-            printOutText(breaker[i], size,  x, y + i*20 + (i*lineHeight*countLines(sis,fitWidth)),color,lineHeight,fitWidth);
+            printOutText(breaker[i], size,  x, yscale + Math.min(1,i)*20 + (lineHeight*countLines(sis,fitWidth)),color,lineHeight,fitWidth);
+            yscale = y + i*20 + (i*lineHeight*countLines(sis,fitWidth));
         }
         return;
     }
@@ -625,7 +628,6 @@ function printOutText(text, size, x, y, color, lineHeight, fitWidth, oldx)
     let sx = x || canvas.width-uiWidth*64+25;
     fitWidth = fitWidth || 0;
     ctx.fillStyle = color;
-    ctx.font = size + "px Play";
     if (fitWidth <= 0)
     {
         ctx.fillText( text, x, y );
