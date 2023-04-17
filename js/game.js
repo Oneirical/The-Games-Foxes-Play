@@ -178,7 +178,10 @@ function draw(){
                     nohover = false;
                 }
             }
-            if (nohover) legendaries.exppage = new ComponentsDisplay();
+            if (nohover){
+                legendaries.exppage = new ComponentsDisplay();
+                legendaries.describepage = 0;
+            }
         }
         else if (cursormode){
             let cread = getTile(Math.floor((mousepos[0]-shakeX)/tileSize),Math.floor((mousepos[1]-shakeY)/tileSize));

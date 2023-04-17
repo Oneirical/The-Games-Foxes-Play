@@ -829,6 +829,8 @@ class CageContainer extends Altar{
         this.lore = description["Floor"];
         this.name = "Eroded Floortiles";
         this.value = new Empty();
+        this.seq = 0;
+        this.spritesave = 0;
     }
 }
 

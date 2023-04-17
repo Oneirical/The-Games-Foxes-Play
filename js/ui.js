@@ -147,6 +147,8 @@ class TutorialDisplay{
     }
 }
 
+var maxseq = 0;
+
 class ComponentsDisplay{
     constructor(forms,functions){
         //this.timer = 0;
@@ -160,6 +162,7 @@ class ComponentsDisplay{
 
     build(){
         //if (!spellpatterns[this.type]) return;
+        let seq = 1;
         for(let i=0;i<5+2;i++){
             this.cage[i] = [];
             for(let j=0;j<4+2;j++){
@@ -171,24 +174,43 @@ class ComponentsDisplay{
                 else{
                     this.cage[i][j] = new CageContainer(i,j);
                     this.cage[i][j].sprite = 121+j;
-                    for (let k=0;k<this.forms.length;k++){
-                        if (j == 2 && i-1 == k) this.cage[i][j].value = new Component(inside[this.forms[k]]);
-                    }
-                    for (let k=0;k<this.functions.length;k++){
-                        if(j == 4&& i-1 == k) this.cage[i][j].value = new Component(inside[this.functions[k]]);
-                    }
-                    if(!this.cage[i][j].value) this.cage[i][j].value = new Empty();
+                    this.cage[i][j].spritesave = 121+j;
                     //this.cage[i][j].value = new keyspells[spellpatterns[this.type][j-1][i-1]];
                     //if (!(this.cage[i][j].value instanceof Empty)) this.cage[i][j].value.turbulent = true;
                 }
             }
         }
+
+        for(let j=0;j<4+2;j++){
+            for(let i=0;i<5+2;i++){
+                if (this.cage[i][j] instanceof CageContainer){
+                    for (let k=0;k<this.forms.length;k++){
+                        if (j == 2 && i-1 == k){
+                            this.cage[i][j].value = new Component(inside[this.forms[k]]);
+                            this.cage[i][j].seq = seq;
+                            seq++;
+                        }
+                    }
+                    for (let k=0;k<this.functions.length;k++){
+                        if(j == 4&& i-1 == k){
+                            this.cage[i][j].value = new Component(inside[this.functions[k]]);
+                            this.cage[i][j].seq = seq;
+                            seq++;
+                        }
+                    }
+                    if(!this.cage[i][j].value) this.cage[i][j].value = new Empty();
+                }
+            }
+        }
+        maxseq = seq-1;
     }
 
     display(){
         for(let i=0;i<this.cage.length;i++){
             for(let j=0;j<this.cage.length-1;j++){
                 let size = 64;
+                if (this.cage[i][j].seq && this.cage[i][j].seq == legendaries.describepage+1) this.cage[i][j].sprite = 126;
+                else if (this.cage[i][j].seq != null) this.cage[i][j].sprite = this.cage[i][j].spritesave;
                 this.cage[i][j].drawFreeform(673-size/2*(this.cage.length-3),64+546-size/2*(this.cage.length-3),size);
                 drawSymbol(12, 673-size/2*(this.cage.length-3)+40, 46+546-size/2*(this.cage.length-3), 64);
                 drawSymbol(49, 673-size/2*(this.cage.length-3)+89+64*4, 46+546-size/2*(this.cage.length-3), 64);
@@ -1020,6 +1042,7 @@ class Inventory{
         this.castesclass = [new Vile(),new Feral(),new Unhinged(),new Artistic(),new Ordered(),new Saintly()];
         this.storecoords = [[257, 154],[257, 154+68],[257, 154+138],[257, 154+138+68]];   
         this.exppage = new ComponentsDisplay();
+        this.describepage = 0;
     }
 
     display(){
@@ -1148,7 +1171,7 @@ class LegendarySoul{
         if (basic.includes(this.id)) printOutText("Empty Slot", 18, 590, 30, "white", 20, 6*64-35);
         else printOutText(this.name, 18, 590, 30, colours[this.id], 20, 6*64-100);
         printOutText(this.subdescript, 18, 590, 110, "white", 20, 6*64-35);
-        printOutText(this.lore, 18, 10, 600, colours[this.id], 20, 940);
+        //printOutText(this.lore, 18, 10, 600, colours[this.id], 20, 940);
         drawSymbol(this.icon, 890, 20, 64);
     }
 
@@ -1220,9 +1243,7 @@ class LegendSpell extends LegendarySoul{
         this.effect = effect;
         this.icon = 15;
         this.caste = "SAINTLY";
-        this.lore = "lol";
-        this.subdescript = "lol";
-        this.name = "lmao";
+        this.alllore = this.targeter.concat(this.effect);
     }
 
     legendCast(){
@@ -1238,18 +1259,7 @@ class LegendSpell extends LegendarySoul{
     }
 
     describe(){
-        let texts = [];
-        for (let i of this.targeter){
-            texts.push(i);
-        }
-        for (let i of this.effect){
-            texts.push(i);
-        }
-        for (let i = 0; i<texts.length; i++){
-            texts[i] = researchexpl[texts[i]];
-        }
-        texts = texts.join('\n');
-        printOutText(texts, 18, 590, 110, "white", 20, 6*64-35);
+        printOutText(researchexpl[this.alllore[legendaries.describepage]], 18, 590, 105, "white", 20, 6*64-35);
         printOutText(toTitleCase(this.caste) + " Caste", 18, 590, 50, colours[this.caste], 20, 6*64-35);
         drawSymbol(this.icon, 890, 20, 64);
         printOutText("Legendary Soul", 18, 590, 30, "white", 20, 6*64-100);

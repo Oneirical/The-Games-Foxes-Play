@@ -117,6 +117,8 @@
                 inResearch = false;
                 cursormode = false;
             }
+            if(e.key=="a"&&inInventory) if (legendaries.describepage > 0) legendaries.describepage--;
+            if(e.key=="d"&&inInventory) if (legendaries.describepage < maxseq-1) legendaries.describepage++;
             if (e.key == 1 && inResearch){
                 research.changeTab(1);
             }
