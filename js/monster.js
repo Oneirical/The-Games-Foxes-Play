@@ -627,7 +627,7 @@ class Monster{
             }
         }
         //if (this.isPlayer) this.hp += damage; //godmode
-        if(this.hp <= 0){
+        if(this.hp <= 0 && !this.dead){
             this.die();
             if (!this.noloot) wheel.addSoul(this.loot);
         }

@@ -904,6 +904,8 @@ class ResearchNode extends Floor{
             "Spellcast" : 40,
             "GYVJI" : 27,
             "SENET" : 8,
+            "EGO" : 38,
+            "BEAM" : 19,
         }
         this.contents = inside[this.id];
     }

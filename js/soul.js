@@ -1,11 +1,11 @@
 powerratings = {
-    "SELF" : 3,
+    "EGO" : 3,
 }
 // In the research menu, these should have "history book" descriptions.
-// SELF - BEAM - PCROSS - XCROSS - 8ADJ - 4ADJ - RANDOM (up to power) - WALL - ALL - PAYLOAD (summon that unleashes targets on death)
+// EGO - BEAM - PCROSS - XCROSS - 8ADJ - 4ADJ - RANDOM (up to power) - WALL - ALL - PAYLOAD (summon that unleashes targets on death)
 
 targeters = {
-    SELF: function(caster){
+    EGO: function(caster){
         return [caster.tile];
     },
     BEAM : function(caster){
@@ -47,8 +47,16 @@ effects = {
     SENET: function(targets, power){ //if power > X, give frenzy, haste?
         for (let i of targets){
             if (i.monster){
-                if (i.monster.isPlayer) i.monster.specialAttack = "Charm";
-                else i.monster.charmed = !i.monster.charmed;
+                i.monster.specialAttack = "Charm";
+                //if (i.monster.isPlayer) i.monster.specialAttack = "Charm";
+                //else i.monster.charmed = !i.monster.charmed;
+            }
+        }
+    },
+    SHIELD: function(targets, power){
+        for (let i of targets){
+            if (i.monster){
+                i.monster.shield = 3; //power scaling
             }
         }
     },

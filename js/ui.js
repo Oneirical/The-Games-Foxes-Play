@@ -1163,9 +1163,9 @@ class LegendarySoul{
 class LegendSpell extends LegendarySoul{
     constructor(targeter,modifier,effect){
         super("FLEXIBLE");
-        this.targeter = targeter[0]; // the [0] must change
+        this.targeter = targeter;
         this.modifier = modifier;
-        this.effect = effect[0];
+        this.effect = effect;
         this.icon = 15;
         this.caste = "SAINTLY";
         this.lore = "lol";
@@ -1174,8 +1174,15 @@ class LegendSpell extends LegendarySoul{
     }
 
     legendCast(){
-        let targets = targeters[this.targeter](player);
-        effects[this.effect](targets);
+        let targets = [];
+        for (let i of this.targeter){
+            targets.push(targeters[i](player));
+        }
+        for (let i of this.effect){
+            for (let y of targets){
+                effects[i](y);
+            }   
+        }
     }
 }
 

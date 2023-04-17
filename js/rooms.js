@@ -67,7 +67,7 @@ var keyresearch = {
 }
 
 var spellpatterns = {
-    "SELF" : {
+    "EGO" : {
         0: "S.",
         1: "S.",
         "type" : "Form",
@@ -163,7 +163,7 @@ var researchpage = {
             "Spellcast" : ["Subdued"],
             "Estate" : ["Subdued"],
             "PCage" : ["Estate"],
-            "SELF" : ["Spellcast"],
+            "EGO" : ["Spellcast"],
             "Craft" : ["Spellcast"],
             "SENET" : ["Spellcast"],
             "GYVJI" : ["Spellcast"],

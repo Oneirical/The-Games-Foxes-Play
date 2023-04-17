@@ -695,7 +695,7 @@ researchequivalences = {
         "c" : "Spellcast",
         "d" : "Estate",
         "e" : "PCage",
-        "f" : "SELF",
+        "f" : "EGO",
         "g" : "Craft",
         "h" : "SENET",
         "i" : "BEAM",
@@ -726,6 +726,9 @@ researchnames = {
     "BEAM" : "Hatred and Strife, Focused",
     "GYVJI" : "Gyvji, Soul-Severer",
     "SENET" : "Senet, the Felidol Tycoon",
+    "EGO" : "Haughty and Mocking, As I Should Be",
+
+    "RANDOM" : "The Erratic Pulse of Prey",
 }
 
 researchlore = {
@@ -748,6 +751,7 @@ researchlore = {
     "BEAM" : "Imagine an ideology so inflexible it can surge out like a bullet... That is why the Unhinged are feared. That is why the Saints did everything they could to snuff out disobedience.",
     "SENET" : "After guarding her trader-master for years, this feline statue eventually decided she had learned enough, and started her own business. It did not take long until her former owner was found toiling away in the mines for the glory of Senet Incorporated.",
     "GYVJI" : "All contenders of the Saints' Arena feared Gyvji's mythical tail slap, supposedly so strong it could knock one's soul out of their body and into the crowd, leaving the body untouched. Thankfully, it wasn't long until reality caught up, causing the victim's flesh to charge into the hopefully empty seats of the stadium, where it would be rejoined with its distraught spirit.",
+    "EGO" : "In a realm where sheer belief draws the line between what is and what is not, pride is omnipotence. The Saints were the first to learn this primordial truth.",
 }
 
 researchflags = {
@@ -770,6 +774,7 @@ researchflags = {
     "BEAM" : ["Form"],
     "GYVJI" : ["Function"],
     "SENET" : ["Function"],
+    "EGO" : ["Form"],
 }
 
 researchcapsules = {
@@ -790,7 +795,7 @@ researchcapsules = {
     "Craft" : ["Craft"],
     "Breath" : ["Breath"],
     "BEAM" : ["BEAM"],
-    "SELF" : ["SELF"],
+    "EGO" : ["EGO"],
 }
 
 researchexpl = {
@@ -809,8 +814,8 @@ researchexpl = {
     "Spellcast" : "At the basic level, exhaling Subdued Souls allows me to incarnate the general guiding principle behind their Caste, resulting in one of six interesting effects. Used Souls become available again after I depart from a room. \nWith how malleable minds can be, I trust I may be able to push my limits past such a simple system...",
     "Estate" : "As I grow tired of Faith's End, the focused minds of Subdued Souls inside the Cage should be able to create a perfect little home, rife with silence and comfort for me and my acolytes. \nExistence under my command is well worth free will.",
     "PCage" : "[s]Estate[w] - As the darkness of a Vile Soul unites with the introspection of a Saintly Soul, a new Soul Cage emerges in my psychic estate, with the potential to spawn infinity more below.",
-    "Craft" : "All Turbulent Souls know legends from the Old World, no matter if that memory is of admiration or hate. \nAs their minds unite in precise patterns, I may reconstitute the thought-patterns of these mythical celebrities, and have them lead a Caste with their ideology and power.",
-    "SELF" : "[l]Form[w] - targets the tile on which I stand on.",
+    "Craft" : "All Turbulent Souls know legends from the Old World, no matter if that memory is of admiration or hate. \nAs their minds unite in precise patterns in the Soul Cage, I may reconstitute the thought-processes of these mythical celebrities, and have them lead a Caste with their ideology and power. \nAll Legends require at least one [l]Form[w] and one [o]Function[w] to operate, but my creativity knows no bounds beyond this simple rule.",
+    "EGO" : "[l]Form[w] - targets the tile on which I stand on.",
     "BEAM" : "[l]Form[w] - surges out in the direction of my last move, targeting all tiles it passes through until an obstacle is met.",
     "SENET" : "[o]Function[w] - all targets obtain [p]Persuasion[w] for infinite turns.\n[p]Persuasion[w] - Next attack inflicts [i]Charm[w] on target, then [p]Persuasion[w] is dispelled.\n[i]Charm[w] - The target attacks its former allies until no former allies remain.",
     "GYVJI" : "[o]Function[w] - all targets are knocked back in the direction of my last move, until they strike an obstacle, upon which they emit a 1-tile range shockwave.",
