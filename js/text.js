@@ -138,7 +138,7 @@ messages = {
 
     "ESaint1" : "\"Vessel. Your rest has come to its end.\"",
     "ESaint2" : "\"The end times we prophetized have finally come. The task I have assigned you begins at last.\"",
-    "ESaint3" : "\"You are Terminal, the Reality Anchor purposed to ferry our civilization away from this crumbling reality, and into a new world of your creation. Should you succeed, our centuries of scientific and cultural progress will not be undone.\"",
+    "ESaint3" : "\"[l]You are Terminal, the [b]Reality Anchor [l]purposed to ferry our civilization away from this crumbling reality, and into a new world of your creation. Should you succeed, our centuries of scientific and cultural progress will not be undone.\"",
     "ESaint4" : "\"As I predicted, the nature of the cataclysm turned out to be very different from even the theories of our most unhinged denizens.\"",
     "ESaint5" : "\"To prevent any... unfortunate accidents, I regret to remind you that you are still forbidden from all interaction with the outside world while you fulfill your duty.\"",
     "ESaint6" : "\"I will try to resist for as long as possible to buy you time, but after I succumb, you will inevitably be marked as the next target.\"",
@@ -783,7 +783,7 @@ researchcapsules = {
 
 researchexpl = {
     "Null" : "I currently lack the insight required to understand this concept. In due time.",
-    "Intro" : "Each step I take must be purposeful. \nOn contact with a creature, ^°rI will ^°wchoose to draw word with ear, or draw blood with fang.",
+    "Intro" : "Each step I take must be purposeful. \nOn contact with a creature, [r]I will [w]choose to draw word with ear, or draw blood with fang.",
     "Herald" : "Those trapped in prisons of flesh deserve release. Upon slaying a creature, I may obtain its Turbulent Soul, which pathetically still clings to its past imprisonment.",
     "Breath" : "I Inhale (Q) to draw Souls into my conscious mind, and Exhale (1-9) them to perform an action related to its nature. No Soul is ever lost in this way - without a Vessel of their own, they inevitably return back to squirm in the depths of my psyche.",
     "Turbulent" : "Turbulent Souls thrash around in indiscipline, rendering them incapable of proper servitude. Exhaling one into the Soul Cage should teach it some manners.",

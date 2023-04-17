@@ -575,8 +575,15 @@ function drawMessage(text, size, textX, textY, color){
     ctx.fillText(lines[j], a, b + (j*lineheight) );
 }
 
+const colourcodes = {
+    'r]' : "red",
+    'b]' : "blue",
+    'w]' : "white",
+    'l]' : "lime",
+    'c]' : "cyan",
+}
 
-function printAtWordWrap(text, size, x, y, color, lineHeight, fitWidth)
+function printAtWordWrap(text, size, x, y, color, lineHeight, fitWidth,oldx)
 {
     let breaker = text.split('\n');
     if (text.includes('\n')){
@@ -585,18 +592,22 @@ function printAtWordWrap(text, size, x, y, color, lineHeight, fitWidth)
         }
         return;
     }
-    let breaker2 = text.split('^');
-    if (text.includes('^')){
-        const colours = {
-            '°r' : "red",
-            '°b' : "blue",
-        }
+    let breaker2 = text.split('[');
+    if (text.includes('[')){
         ctx.save();
+        let xsave = 0;
+        let oldx = [x,fitWidth];
         breaker2.forEach((text) => {
-            let pickcolor = colours[text.slice(0, 2)];
-            if (!pickcolor) pickcolor = "white";
-            printAtWordWrap(text, size, x, y, pickcolor, lineHeight, fitWidth);
+            let pickcolor = colourcodes[text.slice(0, 2)];
+            if (pickcolor) text = text.slice(2);
+            else if (!pickcolor) pickcolor = "white";
+            if (fitWidth-xsave <= 0){
+                xsave = 0;
+                y+= lineHeight;
+            }
+            printAtWordWrap(text, size, x, y, pickcolor, lineHeight, fitWidth-xsave, oldx);
             x += ctx.measureText(text).width;
+            xsave += ctx.measureText(text).width;
         });
         ctx.restore();
         return;
@@ -629,6 +640,10 @@ function printAtWordWrap(text, size, x, y, color, lineHeight, fitWidth)
             currentLine++;
             words = words.splice(idx-1);
             idx = 1;
+            if(oldx){
+                sx = oldx[0];
+                fitWidth = oldx[1];
+            }
         }
         else
         {idx++;}
@@ -637,7 +652,7 @@ function printAtWordWrap(text, size, x, y, color, lineHeight, fitWidth)
         ctx.fillText( words.join(' '), x, sy + (lineHeight*currentLine) );
 }
 
-function printAtSidebar(text, size, x, y, color, lineHeight, fitWidth)
+function printAtSidebar(text, size, x, y, color, lineHeight, fitWidth, oldx)
 {
     let breaker = text.split('\n');
     if (text.includes('\n')){
@@ -646,24 +661,20 @@ function printAtSidebar(text, size, x, y, color, lineHeight, fitWidth)
         }
         return;
     }
-    let breaker2 = text.split('^');
-    if (text.includes('^')){
-        const colours = {
-            '°r' : "red",
-            '°b' : "blue",
-            '°w' : "white",
-        }
+    let breaker2 = text.split('[');
+    if (text.includes('[')){
         ctx.save();
         let xsave = 0;
+        let oldx = [x,fitWidth];
         breaker2.forEach((text) => {
-            let pickcolor = colours[text.slice(0, 2)];
+            let pickcolor = colourcodes[text.slice(0, 2)];
             if (pickcolor) text = text.slice(2);
             else if (!pickcolor) pickcolor = "white";
             if (fitWidth-xsave <= 0){
                 xsave = 0;
                 y+= lineHeight;
             }
-            printAtSidebar(text, size, x, y, pickcolor, lineHeight, fitWidth-xsave);
+            printAtSidebar(text, size, x, y, pickcolor, lineHeight, fitWidth-xsave, oldx);
             x += ctx.measureText(text).width;
             xsave += ctx.measureText(text).width;
         });
@@ -697,6 +708,10 @@ function printAtSidebar(text, size, x, y, color, lineHeight, fitWidth)
             currentLine++;
             words = words.splice(idx-1);
             idx = 1;
+            if(oldx){
+                sx = oldx[0];
+                fitWidth = oldx[1];
+            }
         }
         else
         {idx++;}
