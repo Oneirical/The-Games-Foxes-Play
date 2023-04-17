@@ -178,7 +178,7 @@ function draw(){
                     nohover = false;
                 }
             }
-            if (nohover) printOutText(messages["InvTutorial"], 18, 10, 600, "white", 20, 940);
+            if (nohover) legendaries.exppage = new ComponentsDisplay();
         }
         else if (cursormode){
             let cread = getTile(Math.floor((mousepos[0]-shakeX)/tileSize),Math.floor((mousepos[1]-shakeY)/tileSize));
@@ -269,7 +269,7 @@ function draw(){
         }
         ctx.strokeStyle = 'white';
         ctx.lineWidth = 1.5;
-        if (!inResearch){
+        if (!inResearch && !inInventory){
             ctx.beginPath();
             ctx.moveTo(0, 577);
             ctx.lineTo(960, 577);

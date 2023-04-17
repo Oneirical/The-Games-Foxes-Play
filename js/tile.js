@@ -874,6 +874,27 @@ class ResearchConnector extends Floor{
     }
 }
 
+const inside = {
+    "Cage" : 35,
+    "Herald" : 37,
+    "Intro" : 36,
+    "Turbulent" : 28,
+    "Subdued" : 13,
+    "Breath" : 33,
+    "Seed" : 24,
+    "Vision" : 26,
+    "Security" : 1,
+    "Shattered" : 49,
+    "Estate" : 14,
+    "PCage" : 39,
+    "Craft" : 6,
+    "Spellcast" : 40,
+    "GYVJI" : 27,
+    "SENET" : 8,
+    "EGO" : 38,
+    "BEAM" : 19,
+}
+
 class ResearchNode extends Floor{
     constructor(x,y,type, page){
         super(x,y,110, true);
@@ -887,26 +908,7 @@ class ResearchNode extends Floor{
         this.discovered = true;
         this.completed = false;
         if (this.id == "Intro") this.discovered = true;
-        const inside = {
-            "Cage" : 35,
-            "Herald" : 37,
-            "Intro" : 36,
-            "Turbulent" : 28,
-            "Subdued" : 13,
-            "Breath" : 33,
-            "Seed" : 24,
-            "Vision" : 26,
-            "Security" : 1,
-            "Shattered" : 49,
-            "Estate" : 14,
-            "PCage" : 39,
-            "Craft" : 6,
-            "Spellcast" : 40,
-            "GYVJI" : 27,
-            "SENET" : 8,
-            "EGO" : 38,
-            "BEAM" : 19,
-        }
+
         this.contents = inside[this.id];
     }
 
