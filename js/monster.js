@@ -8,11 +8,11 @@ class Cursor{
         this.isPlayer = false;
     }
     getDisplayX(){                     
-        return this.tile.x + this.offsetX;
+        return this.tile.x;
     }
 
     getDisplayY(){                                                                  
-        return this.tile.y + this.offsetY;
+        return this.tile.y;
     }
     draw(){
         drawSprite(this.sprite, this.getDisplayX(),  this.getDisplayY());
