@@ -29,6 +29,7 @@ class CageTemplate{
             "Form" : [],
             "Mutator" : [],
             "Function" : [],
+            "Caste" : [],
         }
         this.legendCheck();
 
@@ -40,10 +41,11 @@ class CageTemplate{
                 this.slots[i][j].locked = false;
             }
         }
-
+        let allsouls = [];
         for(let j=0;j<9;j++){
             for(let i=0;i<9;i++){
                 if (!(this.slots[i][j] instanceof Empty)){
+                    allsouls.push(this.slots[i][j].id);
                     for (let k of research.knownspells){
                         if (this.slots[i][j] instanceof keyspells[spellpatterns[k][0][0]]){
                             let nothere = false;
@@ -63,6 +65,7 @@ class CageTemplate{
                 }
             }
         }
+        this.pocketworld.reward["Caste"] = mode(allsouls);
     }
 }
 
@@ -160,7 +163,7 @@ class Universe{
             }
         }
         let reward = false;
-        if (world.reward["Form"].length > 0 && world.reward["Function"].length > 0 && receivereward) reward = new LegendSpell(world.reward["Form"],world.reward["Mutator"],world.reward["Function"]);
+        if (world.reward["Form"].length > 0 && world.reward["Function"].length > 0 && receivereward) reward = new LegendSpell(world.reward["Form"],world.reward["Mutator"],world.reward["Function"],shuffle(world.reward["Caste"])[0]);
         this.currentworld = layer;
         this.worlds[layer+1] = world;
         world = this.worlds[layer];
@@ -1102,11 +1105,6 @@ class SoulCage extends DefaultVaultRoom{
         super(index);
         this.id = "Cage2";
         this.name = "Soul Cage";
-    }
-
-    initializeRoom(){
-        super.initializeRoom();
-        research.completeResearch("Cage");
     }
 }
 

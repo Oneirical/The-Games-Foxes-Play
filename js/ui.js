@@ -756,18 +756,6 @@ class DrawWheel{
                 }
             }
             this.pile.shift();
-            if (this.resolve > 0){
-                this.resolve--
-            }
-            else{
-                truehp--
-                if (truehp <= 0){
-                    gameState = "dead"
-                    pauseAllMusic();
-                    playSound("falsity");
-                    log.addLog("DrawDeath");
-                }
-            }
             if (this.activemodule != "Alacrity") tick();
             else if (!player.consumeCommon(1,false)){
                 log.addLog("FluffyInsufficientPower");
@@ -1236,13 +1224,13 @@ class LegendarySoul{
 }
 
 class LegendSpell extends LegendarySoul{
-    constructor(targeter,modifier,effect){
+    constructor(targeter,modifier,effect,caste){
         super("FLEXIBLE");
         this.targeter = targeter;
         this.modifier = modifier;
         this.effect = effect;
         this.icon = 15;
-        this.caste = "SAINTLY";
+        this.caste = caste;
         this.alllore = this.targeter.concat(this.effect);
     }
 

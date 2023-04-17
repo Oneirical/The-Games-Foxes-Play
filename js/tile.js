@@ -832,6 +832,11 @@ class CageContainer extends Altar{
         this.seq = 0;
         this.spritesave = 0;
     }
+
+    stepOn(monster){
+        research.completeResearch("Cage");
+        super.stepOn(monster);
+    }
 }
 
 class HypnoticProjector extends Floor{
@@ -907,7 +912,7 @@ class ResearchNode extends Floor{
         this.name = researchnames[this.id];
         this.flags = researchflags[this.id];
         this.capsule = researchexpl[this.id];
-        this.discovered = true;
+        this.discovered = false;
         this.completed = false;
         if (this.id == "Intro") this.discovered = true;
 

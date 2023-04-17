@@ -416,13 +416,6 @@ function tick(){
                 //for(let k=monsters.length-1;k>=0;k--){
                 //    monsters.splice(k,1);
                 //}
-                if (truehp <= 0){
-                    gameState = "dead";
-                    pauseAllMusic();
-                    playSound("falsity");
-                    if (player.rosetox < 10) log.addLog("RoomDeath");
-                    else  log.addLog("RoseDeath");
-                }
             }
             else if (world.getRoom() instanceof WorldSeed){
                 player.hp = maxHp;

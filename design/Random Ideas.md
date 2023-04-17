@@ -4,6 +4,8 @@
 * Forms should be named after emotions, and Functions after legends.
 * convert the bottom box of the inventory screen into storage slots
 
+* you can still craft stuff from subdued souls, fix it
+
 **"Serene Collective" design**
 
 Glamour injectors to safely view the Collective without being infected.
