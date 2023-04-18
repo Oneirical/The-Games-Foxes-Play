@@ -311,6 +311,29 @@ class World{
         if (this.currentroom.visited) drawPixel(9,4*7+x*64,4*7+y*64);
     }
 
+    miniMap(){
+        let brush = (64/9);
+        let range = 3;
+        for(let y = world.getRoom().index[1]-range; y<world.getRoom().index[1]+range+1;y++){
+            for(let x = world.getRoom().index[0]-range; x<world.getRoom().index[0]+range+1;x++){
+                if (this.rooms[x] && this.rooms[x][y] && this.rooms[x][y].tangible){
+                    for(let i = 0; i<this.rooms[x][y].size;i++){
+                        for (let j = 0; j<this.rooms[x][y].size; j++){
+                            if (!(this.rooms[x][y].tiles[i][j] instanceof RealityWall)) drawPixel(this.checkPixel(this.rooms[x][y].tiles[i][j]),i*brush+673+128+64*(x-world.getRoom().index[0]),j*brush+546+128+64*(y-world.getRoom().index[1]));
+                        }
+                    }
+                    //if (this.rooms[x][y].visited) drawPixel(9,4*7+x*64,4*7+y*64);
+                }
+            }
+        }
+        for(let i = 0; i<numTiles;i++){
+            for (let j = 0; j<numTiles; j++){
+                if (!(tiles[i][j] instanceof RealityWall)) drawPixel(this.checkPixel(tiles[i][j]),i*brush+673+128,j*brush+546+128);
+                if (tiles[i][j].monster && tiles[i][j].monster.isPlayer) drawPixel(3,i*brush+673+128,j*brush+546+128);
+            }
+        }
+    }
+
     hypnoDisplay(){
         for(let y = 0; y<9;y++){
             for(let x = 0; x<9;x++){

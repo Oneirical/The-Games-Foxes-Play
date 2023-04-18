@@ -239,7 +239,7 @@ class MessageLog{
             if (this.writeheight.length > 1){
                 for (let x = this.writeheight.length-2;x >= 0; x--){
                     let thehe = ctx.measureText(removeColorTags(messages[this.history[this.history.length-1]])).width;
-                    this.writeheight[x] += 25 * Math.ceil(thehe/940);
+                    this.writeheight[x] += 25 * Math.ceil(thehe/690);
                 }
             }
             if (this.history.length > 8){
@@ -261,7 +261,7 @@ class MessageLog{
             else if (this.history[x].includes("Saint")) coloring = "lime";
             let print = messages[this.history[x]];
             if (this.repeats[x] > 1) print += " x"+this.repeats[x];
-            printOutText(print, 18, 10, this.writeheight[x], coloring, 20, 940);
+            printOutText(print, 18, 10, this.writeheight[x], coloring, 20, 690);
             //for (let y = 0; y < this.writeheight.length-1; y++){
                 //let margin = 26;
                 //let wtf = Math.ceil(ctx.measureText(messages[this.history[y+1]]+"x00").width/940);
@@ -1195,15 +1195,15 @@ class LegendarySoul{
             "SAINTLY" : 5
         }
         const index = hijack[this.caste];
-        printOutText(toTitleCase(this.caste) + " Soul", 18, 10, 600, colours[this.id], 20, 940);
-        if (this instanceof Empty) printOutText(soulabi["EMPTY"], 18, 10, 640, "white", 20, 940);
+        printOutText(toTitleCase(this.caste) + " Soul", 18, 10, 600, colours[this.id], 20, 690);
+        if (this instanceof Empty) printOutText(soulabi["EMPTY"], 18, 10, 640, "white", 20, 690);
         else {
             let command = legendaries.active[index].id;
             if (basic.includes(command)) command = "Commanded by its own whims";
             else command = "Commanded by " + toTitleCase(command);
-            printOutText(command, 18, 10, 620, "lightgrey", 20, 940);
+            printOutText(command, 18, 10, 620, "lightgrey", 20, 690);
             if (!basic.includes(legendaries.active[index].id) && legendaries.active[index].influence != "I") printOutText(legendaries.active[index].subdescript, 18, 10, 660, "white", 20, 940);
-            else printOutText(this.subdescript, 18, 10, 660, "white", 20, 940);
+            else printOutText(this.subdescript, 18, 10, 660, "white", 20, 690);
         }
         
     }

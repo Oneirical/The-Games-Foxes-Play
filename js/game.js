@@ -164,6 +164,10 @@ function draw(){
         let fufflore = false;
         let loghide = false;
         let selectation = 99;
+        if (!inInventory && !inMap && !inResearch) world.miniMap();
+        ctx.fillStyle = 'rgba(0,0,0,1)';
+        ctx.fillRect(705-100,577-100,canvas.width/4+300, 100);
+        ctx.fillRect(705-100,577,100, canvas.width/4+300);
         if(inInventory){
             let nohover = true;
             for (let i of legendaries.storecoords){
@@ -280,6 +284,10 @@ function draw(){
             ctx.beginPath();
             ctx.moveTo(577, 577);
             ctx.lineTo(577, 0);
+            ctx.stroke();
+            ctx.beginPath();
+            ctx.moveTo(705, 577);
+            ctx.lineTo(705, 833);
             ctx.stroke();
         }
         else{
