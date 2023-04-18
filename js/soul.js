@@ -4,6 +4,9 @@ const powerratings = {
     "SMOOCH" : 5,
     "XCROSS" : 2,
 }
+
+const soulcosts = {
+}
 // In the research menu, these should have "history book" descriptions.
 // EGO - BEAM - PCROSS - XCROSS - 8ADJ - 4ADJ - RANDOM (up to power) - WALL - ALL - PAYLOAD (summon that unleashes targets on death)
 

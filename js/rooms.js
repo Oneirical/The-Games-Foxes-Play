@@ -17,6 +17,7 @@ var keytile = {
     "w" : CageWall,
     "o" : CageContainer,
     "H" : HypnoticProjector,
+    "W" : Window,
 }
 
 var keyroom = {
@@ -91,7 +92,7 @@ var spellpatterns = {
     },
 
     "SENET" : {
-        0: "V.",
+        0: "VV",
         1: "V.",
         "type" : "Function",
     },
@@ -222,11 +223,11 @@ var genstruct = {
         0 : "GHEHTHEHG",
         1 : "V.V.E.V.V",
         2 : "V.V...V.V",
-        3 : "V.EHSHE.V",
+        3 : "V.E.S.E.V",
         4 : "V...W...V",
         5 : "EHG.B.GHE",
         6 : "V...P...V",
-        7 : "G...N...G",
+        7 : "GHG.N.GHG",
         8 : "....A....",
     }
 }
@@ -319,11 +320,11 @@ var rooms = {
     "Empty" : {
         0 : "####E####",
         1 : "#.......#",
-        2 : "#.......#",
-        3 : "#.......#",
+        2 : "#.......W",
+        3 : "#.......W",
         4 : "E.......E",
-        5 : "#.......#",
-        6 : "#.......#",
+        5 : "#.......W",
+        6 : "#.......W",
         7 : "#.......#",
         8 : "####E####",
         "tags": ["randomgen"],

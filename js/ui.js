@@ -154,10 +154,11 @@ class TutorialDisplay{
 var maxseq = 0;
 
 class ComponentsDisplay{
-    constructor(forms,functions){
+    constructor(forms,functions,power){
         //this.timer = 0;
         this.forms = [];
         this.functions = [];
+        this.power = power;
         if (functions) for (let i of functions) this.functions.push(i);
         if (forms) for (let i of forms) this.forms.push(i);
         this.cage = [];
@@ -210,14 +211,19 @@ class ComponentsDisplay{
     }
 
     display(){
+        if (!this.power) return;
         for(let i=0;i<this.cage.length;i++){
             for(let j=0;j<this.cage.length-1;j++){
                 let size = 64;
-                if (this.cage[i][j].seq && this.cage[i][j].seq == legendaries.describepage+1) this.cage[i][j].sprite = 126;
+                if (this.cage[i][j].seq && this.cage[i][j].seq == legendaries.describepage+1){
+                    this.cage[i][j].sprite = 126;
+                    drawSymbol(this.cage[i][j].value.icon, 890, 20, 64);
+                }
                 else if (this.cage[i][j].seq != null) this.cage[i][j].sprite = this.cage[i][j].spritesave;
                 this.cage[i][j].drawFreeform(673-size/2*(this.cage.length-3),64+546-size/2*(this.cage.length-3),size);
                 drawSymbol(12, 673-size/2*(this.cage.length-3)+40, 46+546-size/2*(this.cage.length-3), 64);
-                drawSymbol(49, 673-size/2*(this.cage.length-3)+89+64*4, 46+546-size/2*(this.cage.length-3), 64);
+                printOutText(this.power.toString(),40, 660, 508, "lightsteelblue",20,350); //
+                //drawSymbol(49, 673-size/2*(this.cage.length-3)+89+64*4, 46+546-size/2*(this.cage.length-3), 64); //add for shattered energy
             }
         }
     }
@@ -652,10 +658,6 @@ class DrawWheel{
         if (world.cage.slots[player.tile.x][player.tile.y] instanceof Empty) return;
         if (world.cage.slots[player.tile.x][player.tile.y] instanceof Shattered){
             this.ipseity+= 10;
-            if (this.ipseity >= 30){
-                this.ipseity -= 30
-                resolvebonus+=2;
-            }
             world.cage.slots[player.tile.x][player.tile.y] = new Empty();
             world.cage.size--;
             if(world.cage.size > 0) world.cage.generateWorld();
@@ -1030,7 +1032,7 @@ class Modules{
 class Inventory{
     constructor(){
         this.active = [new Vile(),new Feral(),new Unhinged(),new Artistic(),new Ordered(),new Saintly()];
-        this.storage = [new Sugcha(),new Empty(),new Empty(),new Empty()];
+        this.storage = [new Empty(),new Empty(),new Empty(),new Empty()];
         this.actcoords = [[148, 76],[366, 76],[76, 256],[438, 256],[148, 438],[366, 438]];
         this.actcoords.reverse();//don't feel like re-writing these in the correct order lmao
         this.castes = ["VILE","FERAL","UNHINGED","ARTISTIC","ORDERED","SAINTLY","SERENE"];
@@ -1236,9 +1238,13 @@ class LegendSpell extends LegendarySoul{
         this.targeter = targeter;
         this.modifier = modifier;
         this.effect = effect;
-        this.icon = 15;
+        this.icon = inside[this.effect[0]];
         this.caste = caste;
+        this.basepower = 99;
         this.alllore = this.targeter.concat(this.effect);
+        for (let i of this.targeter){
+            this.basepower = Math.min(powerratings[i],this.basepower);
+        }
     }
 
     legendCast(){
@@ -1246,7 +1252,7 @@ class LegendSpell extends LegendarySoul{
         let power = 99;
         for (let i of this.targeter){
             targets.push(targeters[i](player));
-            power = Math.min(powerratings[targeters[i]],power)
+            power = Math.min(powerratings[i],power)
         }
         for (let i of this.effect){
             for (let y of targets){
@@ -1256,11 +1262,12 @@ class LegendSpell extends LegendarySoul{
     }
 
     describe(){
-        printOutText(researchexpl[this.alllore[legendaries.describepage]], 18, 590, 105, "white", 20, 6*64-35);
+        let description = researchexpl[this.alllore[legendaries.describepage]];
+        if (powerratings[this.alllore[legendaries.describepage]]) description += "\n[g]Gain " + powerratings[this.alllore[legendaries.describepage]] + " Potency.[w]";
+        printOutText(description, 18, 590, 105, "white", 20, 6*64-35);
         printOutText(toTitleCase(this.caste) + " Caste", 18, 590, 50, colours[this.caste], 20, 6*64-35);
-        drawSymbol(this.icon, 890, 20, 64);
         printOutText("Legendary Soul", 18, 590, 30, "white", 20, 6*64-100);
-        legendaries.exppage = new ComponentsDisplay(this.targeter,this.effect);
+        legendaries.exppage = new ComponentsDisplay(this.targeter,this.effect,this.basepower);
     }
 }
 

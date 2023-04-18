@@ -51,7 +51,7 @@ class CageTemplate{
                             let nothere = false;
                             for (let o =0; o<spellpatterns[k][0].length;o++){
                                 for (let p =0; p<spellpatterns[k][0].length;p++){
-                                    if (this.slots[i+p][j+o].locked || (spellpatterns[k][o][p] != "." && !(this.slots[i+p][j+o] instanceof keyspells[spellpatterns[k][o][p]]))){
+                                    if ((spellpatterns[k][o][p] != "." && !(this.slots[i+p][j+o] instanceof keyspells[spellpatterns[k][o][p]]))){
                                         nothere = true;
                                         break;
                                     }

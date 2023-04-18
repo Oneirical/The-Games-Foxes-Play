@@ -933,3 +933,19 @@ class ResearchNode extends Floor{
         if (!this.discovered) ctx.globalAlpha = 1;
     }
 }
+
+class Window extends Wall{
+    constructor(x, y){
+        super(x, y, 129, false);
+        this.lore = description["Barrier"];
+        this.name = "Apocalypse Barrier";
+        this.mutable = false;
+        this.sprite = 129;
+    };
+
+    draw(){
+        ctx.globalAlpha = 0.55;
+        super.draw();
+        ctx.globalAlpha = 1;
+    }
+}
