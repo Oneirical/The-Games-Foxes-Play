@@ -901,6 +901,8 @@ const inside = {
     "SENET" : 8,
     "EGO" : 38,
     "BEAM" : 19,
+    "PARACEON" : 1,
+    "SMOOCH" : 1,
 }
 
 class ResearchNode extends Floor{

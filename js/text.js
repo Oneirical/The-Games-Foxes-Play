@@ -705,7 +705,8 @@ researchequivalences = {
         "j" : "GYVJI",
     },
     2 : {
-        "a" : "???",
+        "a" : "PARACEON",
+        "b" : "SMOOCH",
     },
 }
 
@@ -729,9 +730,11 @@ researchnames = {
     "BEAM" : "Hatred and Strife, Focused",
     "GYVJI" : "Gyvji, Soul-Severer",
     "SENET" : "Senet, the Felidol Tycoon",
-    "EGO" : "Haughty and Mocking, As I Should Be",
+    "EGO" : "Haughty as the Saints Were",
+    "SMOOCH" : "False Charms and Pretend Affection",
+    "PARACEON" : "Paraceon, Forever Crystallized",
 
-    "RANDOM" : "The Erratic Pulse of Prey",
+    "RANDOM" : "Erratic Pulse of Prey's Hearts",
 }
 
 researchlore = {
@@ -755,6 +758,8 @@ researchlore = {
     "SENET" : "After guarding her trader-master for years, this feline statue eventually decided she had learned enough, and started her own business. It did not take long until her former owner was found toiling away in the mines for the glory of Senet Incorporated.",
     "GYVJI" : "All contenders of the Saints' Arena feared Gyvji's mythical tail slap, supposedly so strong it could knock one's soul out of their body and into the crowd, leaving the body untouched. Thankfully, it wasn't long until reality caught up, causing the victim's flesh to charge into the hopefully empty seats of the stadium, where it would be rejoined with its distraught spirit.",
     "EGO" : "In a realm where sheer belief draws the line between what is and what is not, pride is omnipotence. The Saints were the first to learn this primordial truth.",
+    "SMOOCH" : "As there is light and darkness, some souls give, some receive. To secure their place among the latter, the Vile waged war among themselves, not with blade and blood - but with false promises and dispassionate smooches.",
+    "PARACEON" : "Not all who enlisted among the Ordered earn the glory of a general. Some stood in crystal caves, scanning every possible pebble for a trace of the cataclysm, while the chiming of their visors unsettled travellers. Their memories have long been crushed underneath exabytes of analysis data, leaving only the inflexibility of stone.",
 }
 
 researchunlocks = {
@@ -797,6 +802,7 @@ researchflags = {
     "SENET" : "Function",
     "EGO" : "Form",
     "PARACEON" : "Function",
+    "SMOOCH" : "Form",
 }
 
 researchexpl = {
@@ -821,6 +827,7 @@ researchexpl = {
     "SENET" : "[o]Function[w]: all targets obtain [p]Persuasive[w].\nDuration of [p]Persuasive[w]: [g]Potency[w] x 3 turns.\n[p]Persuasive[w]: Next attack inflicts 25 [i]Charm[w] on target, then [p]Persuasive[w] loses 5 duration.\n[i]Charm[w]: The target attacks its former allies until no former allies remain.",
     "GYVJI" : "[o]Function[w]: all targets are knocked back in the direction of my last move, until they strike an obstacle, upon which they take damage.\n[r]Damage[w]: 1 x [g]Potency[w].\n[g]4 Potency[w]: Also emit a 1-tile range shockwave at the impact location, repeating the damage on all adjacent tiles.",
     "PARACEON" : "[o]Function[w]: all targets obtain [r]Invincible[w].\nDuration of [r]Invincible[w]: [g]Potency[w] x 1 turns.",
+    "SMOOCH" : "[l]Form[w]: targets one tile adjacent to me, in the direction of my last move.",
 }
 
 researchflagcolour = {
