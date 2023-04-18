@@ -64,6 +64,7 @@ var keyresearch = {
     "." : ".",
     "+" : "+",
     "K" : "K",
+    "Y" : "Y",
 }
 
 var spellpatterns = {
@@ -148,14 +149,14 @@ var researchpage = {
     // g - With Prudence Comes Serenity (security)
     // h - The Song That Stirs Souls (tier 1 harmony)
     "Page1" : {
-        0 : "..I.I....",
-        1 : "..iTj....",
-        2 : "...I.....",
-        3 : "..hI..e..",
-        4 : "..K)..I..",
-        5 : ".f+-cTd..",
-        6 : ".>)..I...",
-        7 : ".g.aTb...",
+        0 : ".I.I.I.I.",
+        1 : ".I.iTj.I.",
+        2 : ".K-<I..I.",
+        3 : ".f.hI.e).",
+        4 : ".LT)I.I..",
+        5 : "..L-cTd..",
+        6 : ".g--)I...",
+        7 : "...aTb...",
         8 : "....I....",
         "links" : {
             "Subdued" : ["Vision"],
@@ -184,10 +185,10 @@ var researchpage = {
         2 : ".........",
         3 : ".........",
         4 : ".........",
-        5 : ".........",
-        6 : ".........",
-        7 : "..>T<....",
-        8 : "..I.I....",
+        5 : "...a.....",
+        6 : "...I.....",
+        7 : ".>-+-<.I.",
+        8 : ".I.I.I.I.",
     },
 }
 
