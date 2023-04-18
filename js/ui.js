@@ -264,8 +264,8 @@ class MessageLog{
             printOutText(print, 18, 10, this.writeheight[x], coloring, 20, 690);
             //for (let y = 0; y < this.writeheight.length-1; y++){
                 //let margin = 26;
-                //let wtf = Math.ceil(ctx.measureText(messages[this.history[y+1]]+"x00").width/940);
-                //let wtf2 = Math.ceil(ctx.measureText(messages[this.history[y]]+"x00").width/940)
+                //let wtf = Math.ceil(ctx.measureText(messages[this.history[y+1]]+"x00").width/690);
+                //let wtf2 = Math.ceil(ctx.measureText(messages[this.history[y]]+"x00").width/690)
                 //if(wtf == 1 ||wtf2 == 1){
                 //    margin = 20;
                 //}
@@ -1163,7 +1163,7 @@ class LegendarySoul{
         if (basic.includes(this.id)) printOutText("Empty Slot", 18, 590, 30, "white", 20, 6*64-35);
         else printOutText(this.name, 18, 590, 30, colours[this.id], 20, 6*64-100);
         printOutText(this.subdescript, 18, 590, 110, "white", 20, 6*64-35);
-        //printOutText(this.lore, 18, 10, 600, colours[this.id], 20, 940);
+        //printOutText(this.lore, 18, 10, 600, colours[this.id], 20, 690);
         drawSymbol(this.icon, 890, 20, 64);
     }
 
@@ -1202,7 +1202,7 @@ class LegendarySoul{
             if (basic.includes(command)) command = "Commanded by its own whims";
             else command = "Commanded by " + toTitleCase(command);
             printOutText(command, 18, 10, 620, "lightgrey", 20, 690);
-            if (!basic.includes(legendaries.active[index].id) && legendaries.active[index].influence != "I") printOutText(legendaries.active[index].subdescript, 18, 10, 660, "white", 20, 940);
+            if (!basic.includes(legendaries.active[index].id) && legendaries.active[index].influence != "I") printOutText(legendaries.active[index].subdescript, 18, 10, 660, "white", 20, 690);
             else printOutText(this.subdescript, 18, 10, 660, "white", 20, 690);
         }
         

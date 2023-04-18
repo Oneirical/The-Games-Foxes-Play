@@ -52,26 +52,26 @@ class Cursor{
         }
         if (this.tile.monster){
             if (rosetoxin > 0){
-                printOutText(description["Rose"], 18, 10, 600, "pink", 20, 940);
+                printOutText(description["Rose"], 18, 10, 600, "pink", 20, 690);
                 printOutText("Rose Rose Rose", 18, 590, 70, "pink", 20, 350);
                 printOutText("Rose", 18, 590, 30, "pink", 20, 350);
             }
             else if (this.tile.monster.teleportCounter > 0){
-                printOutText(description["Warp"], 18, 10, 600, "white", 20, 940);
+                printOutText(description["Warp"], 18, 10, 600, "white", 20, 690);
                 printOutText("The details of this soul are not clear to you yet.", 18, 590, 70, "white", 20, 350);
                 printOutText("Warp-wisp", 18, 590, 30, "white", 20, 350);
             }
             else{
-            printOutText(this.tile.monster.lore, 18, 10, 600, "white", 20, 940);
+            printOutText(this.tile.monster.lore, 18, 10, 600, "white", 20, 690);
             printOutText(this.tile.monster.soul, 18, 590, 70, "white", 20, 350);
             printOutText(this.tile.monster.name, 18, 590, 30, "white", 20, 350);
-            printOutText(this.tile.monster.ability, 18, 10, 630+((this.tile.monster.lore.length/100)*20), "pink", 20, 940);
+            printOutText(this.tile.monster.ability, 18, 10, 630+((this.tile.monster.lore.length/100)*20), "pink", 20, 690);
             }
         }
         else{
             let colour = "lightgray";
             if (this.tile.sprite == 61 || this.tile.sprite == 62) colour = "white";
-            printOutText(this.tile.lore, 18, 10, 600, colour, 20, 945);
+            printOutText(this.tile.lore, 18, 10, 600, colour, 20, 690);
             printOutText(this.tile.name, 18, 590, 30, colour, 20, 350);
         }
         

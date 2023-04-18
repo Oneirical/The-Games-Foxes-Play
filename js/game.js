@@ -252,7 +252,7 @@ function draw(){
                 }
                 log.addLog("Shiza");
             }
-            if (!loghide && (!cursormode && !invmode) || (cursormode && invmode)) log.display();//printOutText(messages[message], 18, 10, 600, coloring, 20, 940);
+            if (!loghide && (!cursormode && !invmode) || (cursormode && invmode)) log.display();//printOutText(messages[message], 18, 10, 600, coloring, 20, 690);
             if (rosetoxin > 1){
                 ctx.globalAlpha = 0.5;
                 drawFilter(rosefilter);
@@ -505,9 +505,9 @@ function drawBossHp(currentboss, hp){
     let bar = ["⚙⚙","Σ","❄❄","♡♡"];
     ctx.fillStyle = 'rgba(0,0,0,.85)';
     ctx.fillRect(0,577-32,577,32);
-    printOutText(bossname[currentboss], 21, 10, 568, bosscolour[currentboss], 20, 940);
-    printOutText(" - ", 21, 105, 566, "white", 20, 940);
-    if (hp >= 0) printOutText(bar[currentboss].repeat(hp), 21, 125, 568, bosscolour[currentboss], 20, 940);
+    printOutText(bossname[currentboss], 21, 10, 568, bosscolour[currentboss], 20, 690);
+    printOutText(" - ", 21, 105, 566, "white", 20, 690);
+    if (hp >= 0) printOutText(bar[currentboss].repeat(hp), 21, 125, 568, bosscolour[currentboss], 20, 690);
 }
 
 function startGame(){
