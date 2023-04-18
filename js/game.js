@@ -288,6 +288,10 @@ function draw(){
             ctx.lineTo(577, 577);
             ctx.stroke();
             ctx.beginPath();
+            ctx.moveTo(0, 695);
+            ctx.lineTo(577, 695);
+            ctx.stroke();
+            ctx.beginPath();
             ctx.moveTo(577, 833);
             ctx.lineTo(577, 0);
             ctx.stroke();

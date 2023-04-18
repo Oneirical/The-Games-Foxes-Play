@@ -9,6 +9,7 @@ class Research{
         this.looking = false;
 
         this.exppage = new TutorialDisplay();
+        this.monsterpool = [Apis, Second, Tinker, Slug, Scion, Shrike, Apiarist];
     }
 
     buildTabs(){
@@ -37,6 +38,7 @@ class Research{
         if (this.knownnodes.includes(dis)) return;
         playSound("learn");
         this.knownnodes.push(dis);
+        if (researchunlockdata[dis]) this.monsterpool.push(researchunlockdata[dis]);
         for (let k=0; k<this.tabs.length;k++){
             for(let i=0;i<9;i++){
                 for(let j=0;j<9;j++){
@@ -89,8 +91,10 @@ class Research{
     displayNode(cx, cy){
         //let colour = "lightgray";
         if (research.page[cx][cy].discovered){
-            printOutText(research.page[cx][cy].lore, 18, 10, 600, "#cda4f2", 20, 560);
+            printOutText(research.page[cx][cy].lore, 18, 10, 720, "#cda4f2", 20, 560);
+            printOutText(research.page[cx][cy].unlock, 18, 10, 600, "white", 20, 390);
             printOutText(research.page[cx][cy].name, 18, 590, 30, "white", 20, 350);
+            if (research.page[cx][cy].unlockdata) drawSpriteFreeform(research.page[cx][cy].unlockdata.sprite,8,9,-10,40,64);
             drawSymbol((research.page[cx][cy].contents), 890, 20, 64);
             printOutText(research.page[cx][cy].flags[0], 18, 590, 55, researchflagcolour[research.page[cx][cy].flags[0]], 20, 6*64-35);
             printOutText(research.page[cx][cy].capsule, 18, 590, 105, "white", 20, 6*64-35);
@@ -98,7 +102,7 @@ class Research{
             this.looking = true;
         }
         else{
-            printOutText(researchlore["Null"], 18, 10, 600, "#cda4f2", 20, 560);
+            printOutText(researchlore["Null"], 18, 10, 720, "#cda4f2", 20, 560);
             printOutText(researchnames["Null"], 18, 590, 30, "white", 20, 350);
             drawSymbol(7, 890, 20, 64);
             for (let i = 0; i<1; i++){

@@ -24,7 +24,10 @@ const colourcodes = {
     'p]' : "plum",
     'o]' : "darkorange",
     'i]' : "pink",
-    's]' : "lightsalmon"
+    's]' : "lightsalmon",
+    'a]' : "orange",
+    'g]' : "lightsteelblue",
+    'y]' : "yellow",
 }
 
 messages = {
@@ -752,6 +755,24 @@ researchlore = {
     "SENET" : "After guarding her trader-master for years, this feline statue eventually decided she had learned enough, and started her own business. It did not take long until her former owner was found toiling away in the mines for the glory of Senet Incorporated.",
     "GYVJI" : "All contenders of the Saints' Arena feared Gyvji's mythical tail slap, supposedly so strong it could knock one's soul out of their body and into the crowd, leaving the body untouched. Thankfully, it wasn't long until reality caught up, causing the victim's flesh to charge into the hopefully empty seats of the stadium, where it would be rejoined with its distraught spirit.",
     "EGO" : "In a realm where sheer belief draws the line between what is and what is not, pride is omnipotence. The Saints were the first to learn this primordial truth.",
+}
+
+researchunlocks = {
+    "None" : "Completing this node will not awaken any memories of the Old World.",
+    "EGO" : "Completing this node will populate Visions with [g]Self-Erased Monks[w] - resilient casters with a single-minded devotion to one of the six Castes.",
+    "GYVJI" : "Completing this node will populate Visions with [a]Humming Paperweavers[w] - usually peaceful artisans who don't take kindly to their work being destroyed.",
+    "SENET" : "Completing this node will populate Visions with [p]Greedswept Felidols[w] - animated feline statues stopping at nothing to cling onto what they have.",
+    "BEAM" : "Completing this node will populate Visions with [y]Anisychic Oracles[w] - trembling prophets of the Crimson Forest, who traded their courage for a pre-emptive taste of the cataclysm.",
+    "SHIELD" : "Completing this node will populate Visions with [r]Shelled Electromedics[w] - a rare organic breed among the military, compensating for its disastrous slowness with the peak of Ordered technology.",
+}
+
+researchunlockdata = {
+    "None" : "",
+    "EGO" : Monk,
+    "GYVJI" : Weaver,
+    "SENET" : Felidol,
+    "BEAM" : Oracle,
+    "SHIELD" : Snail,
 }
 
 researchflags = {

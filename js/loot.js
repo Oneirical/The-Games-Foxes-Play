@@ -32,7 +32,7 @@ commoneq = {
 //Feral
 // Ragemaw - Shrike
 //Unhinged
-// Oracle - Ashoul - Apis
+// Oracle - Ashsoul - Apis
 //Artistic
 // Tinker - Weaver - Brute
 //Ordered

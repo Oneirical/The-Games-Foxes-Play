@@ -151,7 +151,6 @@ class DroppedSoul{
 
 class Monster{
     constructor(tile, sprite, hp, loot, lore){
-        this.move(tile);
         this.sprite = sprite;
         this.spritesave = sprite;
         this.hp = hp;
@@ -173,7 +172,6 @@ class Monster{
         this.bonusAttack = 0;
         this.lore = lore;
         this.specialAttack = "";
-        this.adjacentmon = this.tile.getAdjacentNeighbors().filter(t => t.monster && !t.monster.isPlayer).length;
         this.paralyzed = false;
         this.marked = false;
         this.charmed = false;
@@ -193,6 +191,9 @@ class Monster{
         this.previousdir;
         this.lootid = this.loot;
         if (legendaries.castes.includes(this.loot)) this.loot = commoneq[this.loot];
+        if (tile == "disabled") return;
+        this.move(tile);
+        this.adjacentmon = this.tile.getAdjacentNeighbors().filter(t => t.monster && !t.monster.isPlayer).length;
     }
 
     heal(damage){
