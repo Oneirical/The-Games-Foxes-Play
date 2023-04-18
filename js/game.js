@@ -224,7 +224,7 @@ function draw(){
         if(!inResearch) player.draw();
         if (world.getRoom() instanceof WorldSeed && world.cage.displayon) world.cage.pocketworld.hypnoDisplay();
         for(let i=0;i<monsters.length;i++){
-            if (viewedTiles.includes(monsters[i].tile) || monsters[i].charmed)monsters[i].draw();
+            if (viewedTiles.includes(monsters[i].tile) || monsters[i].statuseff["Charmed"] > 0)monsters[i].draw();
         }
         //if (!inInventory && !cursormode && !wheel.hide) drawText(world.getRoom().name, 30, false, 40, "violet");
         if (!inInventory && !cursormode && !wheel.hide) printOutText(universe.getDepth(), 25, 905 - ctx.measureText(universe.getDepth()).width, 35, "lightblue");
@@ -295,10 +295,12 @@ function draw(){
             ctx.moveTo(0, 577);
             ctx.lineTo(577, 577);
             ctx.stroke();
-            ctx.beginPath();
-            ctx.moveTo(0, 695);
-            ctx.lineTo(577, 695);
-            ctx.stroke();
+            if (!inInventory){
+                ctx.beginPath();
+                ctx.moveTo(0, 695);
+                ctx.lineTo(577, 695);
+                ctx.stroke();
+            }
             ctx.beginPath();
             ctx.moveTo(577, 833);
             ctx.lineTo(577, 0);

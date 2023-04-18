@@ -209,12 +209,12 @@ class Floor extends Tile{
                 trapsafe = true;
             }
         }
-        if((!monster.isPlayer&&!monster.charmed)&& this.trap){  
+        if((!monster.isPlayer&&!monster.statuseff["Charmed"] > 0)&& this.trap){  
             spells["ARTTRIGGER"](monster.tile);
             playSound("treasure");            
             this.trap = false;
         }
-        if((!monster.isPlayer&&!monster.charmed&&!monster.permacharm)&& this.flufftrap){
+        if((!monster.isPlayer&&!monster.statuseff["Charmed"] > 0&&!monster.permacharm)&& this.flufftrap){
             this.flufftrap = false;
             let fluffy = new BattleFluffy(monster.tile);
             removeItemOnce(monsters, monster);
@@ -226,7 +226,7 @@ class Floor extends Tile{
             playSound("fail");
             this.cuff = false;
         }
-        if ((monster.isPlayer||monster.charmed) && this.eviltrap && trapsafe){
+        if ((monster.isPlayer||monster.statuseff["Charmed"] > 0) && this.eviltrap && trapsafe){
             playSound("fail");
             spells["ARTTRIGGER"](monster.tile);
             this.eviltrap = false;
@@ -277,7 +277,7 @@ class Goop extends Tile{
         this.sprite = 60;
     };
     stepOn(monster){
-        if((!monster.isPlayer&&!monster.charmed)&& this.trap){  
+        if((!monster.isPlayer&&!monster.statuseff["Charmed"] > 0)&& this.trap){  
             spells["ARTTRIGGER"](monster.tile);
             playSound("treasure");            
             this.trap = false;
@@ -287,7 +287,7 @@ class Goop extends Tile{
             playSound("fail");
             this.cuff = false;
         }
-        if ((monster.isPlayer||monster.charmed) && this.eviltrap){
+        if ((monster.isPlayer||monster.statuseff["Charmed"] > 0) && this.eviltrap){
             playSound("fail");
             spells["ARTTRIGGER"](monster.tile);
             this.eviltrap = false;
@@ -700,7 +700,7 @@ class RoseSpawner extends Tile{
         this.sprite = 63;
     }
     stepOn(monster){
-        if((!monster.isPlayer&&!monster.charmed)&& this.trap){  
+        if((!monster.isPlayer&&!monster.statuseff["Charmed"] > 0)&& this.trap){  
             spells["ARTTRIGGER"](monster.tile);
             playSound("treasure");            
             this.trap = false;
@@ -710,7 +710,7 @@ class RoseSpawner extends Tile{
             playSound("fail");
             this.cuff = false;
         }
-        if ((monster.isPlayer||monster.charmed) && this.eviltrap){
+        if ((monster.isPlayer||monster.statuseff["Charmed"] > 0) && this.eviltrap){
             playSound("fail");
             spells["ARTTRIGGER"](monster.tile);
             this.eviltrap = false;
@@ -736,7 +736,7 @@ class Mobilizer extends Tile{
         this.sprite = 75;
     }
     stepOn(monster){
-        if((!monster.isPlayer&&!monster.charmed)&& this.trap){  
+        if((!monster.isPlayer&&!monster.statuseff["Charmed"] > 0)&& this.trap){  
             spells["ARTTRIGGER"](monster.tile);
             playSound("treasure");            
             this.trap = false;
@@ -746,7 +746,7 @@ class Mobilizer extends Tile{
             playSound("fail");
             this.cuff = false;
         }
-        if ((monster.isPlayer||monster.charmed) && this.eviltrap){
+        if ((monster.isPlayer||monster.statuseff["Charmed"] > 0) && this.eviltrap){
             playSound("fail");
             spells["ARTTRIGGER"](monster.tile);
             this.eviltrap = false;

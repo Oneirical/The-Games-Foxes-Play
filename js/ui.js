@@ -97,7 +97,9 @@ class Research{
             if (research.page[cx][cy].unlockdata) drawSpriteFreeform(research.page[cx][cy].unlockdata.sprite,8,9,-10,40,64);
             drawSymbol((research.page[cx][cy].contents), 890, 20, 64);
             printOutText(research.page[cx][cy].flags[0], 18, 590, 55, researchflagcolour[research.page[cx][cy].flags[0]], 20, 6*64-35);
-            printOutText(research.page[cx][cy].capsule, 18, 590, 105, "white", 20, 6*64-35);
+            let description = research.page[cx][cy].capsule;
+            if (powerratings[research.page[cx][cy].id]) description += "\n[g]Gain " + powerratings[research.page[cx][cy].id] + " Potency.[w]";
+            printOutText(description, 18, 590, 105, "white", 20, 6*64-35);
             if (!this.looking) this.exppage = new TutorialDisplay(research.page[cx][cy].id);
             this.looking = true;
         }

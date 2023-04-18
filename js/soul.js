@@ -1,5 +1,6 @@
 powerratings = {
-    "EGO" : 3,
+    "EGO" : 4,
+    "BEAM" : 2,
 }
 // In the research menu, these should have "history book" descriptions.
 // EGO - BEAM - PCROSS - XCROSS - 8ADJ - 4ADJ - RANDOM (up to power) - WALL - ALL - PAYLOAD (summon that unleashes targets on death)
@@ -47,16 +48,16 @@ effects = {
     SENET: function(targets, power){ //if power > X, give frenzy, haste?
         for (let i of targets){
             if (i.monster){
-                i.monster.specialAttack = "Charm";
+                i.monster.statuseff["Persuasive"] += power*3;
                 //if (i.monster.isPlayer) i.monster.specialAttack = "Charm";
-                //else i.monster.charmed = !i.monster.charmed;
+                //else i.monster.statuseff["Charmed"] > 0 = !i.monster.statuseff["Charmed"] > 0;
             }
         }
     },
     SHIELD: function(targets, power){
         for (let i of targets){
             if (i.monster){
-                i.monster.shield = 3; //power scaling
+                i.monster.statuseff["Invincible"] += 3; //power scaling
             }
         }
     },
@@ -219,15 +220,15 @@ spells = {
     },
         
     FERAL: function(caster){
-        caster.shield = 1;
-        let friendly = (caster.isPlayer || caster.charmed);
+        caster.statuseff["Invincible"] += 1;
+        let friendly = (caster.isPlayer || caster.statuseff["Charmed"] > 0);
         let newTile = caster.tile;
         while(true){
             let testTile = newTile.getNeighbor(caster.lastMove[0],caster.lastMove[1]);
             if(testTile.passable && !testTile.monster){
                 newTile = testTile;
                 newTile.getAdjacentNeighbors().forEach(t => {
-                    if(t.monster && friendly && !t.monster.isPlayer && !t.monster.charmed){
+                    if(t.monster && friendly && !t.monster.isPlayer && !t.monster.statuseff["Charmed"] > 0){
                         t.setEffect(14,30);
                         t.monster.stunned = true;
                         t.monster.hit(1);
@@ -238,7 +239,7 @@ spells = {
                             return;
                         }
                     }
-                    else if (t.monster && !friendly && (t.monster.isPlayer || t.monster.charmed)){
+                    else if (t.monster && !friendly && (t.monster.isPlayer || t.monster.statuseff["Charmed"] > 0)){
                         t.setEffect(14,30);
                         t.monster.stunned = true;
                         t.monster.hit(1);
@@ -252,7 +253,7 @@ spells = {
             caster.move(newTile);
             if (world.getRoom().stage == 7) caster.move (getTile(4,6));
             newTile.getAdjacentNeighbors().forEach(t => {
-                if(t.monster && friendly && !t.monster.isPlayer && !t.monster.charmed){
+                if(t.monster && friendly && !t.monster.isPlayer && !t.monster.statuseff["Charmed"] > 0){
                     t.setEffect(14,30);
                     t.monster.stunned = true;
                     t.monster.hit(1);
@@ -263,7 +264,7 @@ spells = {
                         return;
                     }
                 }
-                else if (t.monster && !friendly && (t.monster.isPlayer || t.monster.charmed)){
+                else if (t.monster && !friendly && (t.monster.isPlayer || t.monster.statuseff["Charmed"] > 0)){
                     t.setEffect(14,30);
                     t.monster.stunned = true;
                     t.monster.hit(1);
@@ -331,20 +332,20 @@ spells = {
     },
     ORDERED: function(caster){
         if (caster.isPlayer){
-            caster.shield = 3;
+            caster.statuseff["Invincible"] += 3;
             for(let i=0;i<monsters.length;i++){
                 monsters[i].stunned = true;
             }
         }
         else{
-            caster.shield = 2;
+            caster.statuseff["Invincible"] += 2;
         }
     },
     STRAIGHTLASER: function(caster){
         boltTravel(caster.lastMove, 15 + Math.abs(caster.lastMove[1]), 4, caster.tile);
     },
     SNAILLASER: function(caster){
-        if(caster.charmed) csnailTravel(caster.lastMove, 15 + Math.abs(caster.lastMove[1]), 1, caster.tile);
+        if(caster.statuseff["Charmed"] > 0) csnailTravel(caster.lastMove, 15 + Math.abs(caster.lastMove[1]), 1, caster.tile);
         else snailTravel(caster.lastMove, 15 + Math.abs(caster.lastMove[1]), 1, caster.tile);
         let newTile = caster.tile;
         while(true){
@@ -410,7 +411,7 @@ spells = {
             [1, 1]
         ];
         for(let k=0;k<directions.length;k++){
-            boltTravel(directions[k], 14, 3, caster.tile, (caster.isPlayer||caster.charmed));
+            boltTravel(directions[k], 14, 3, caster.tile, (caster.isPlayer||caster.statuseff["Charmed"] > 0));
         }
     },
     UNHINGEDSTRIGGER: function(caster){
@@ -428,7 +429,7 @@ spells = {
         shakeAmount = 20;
     },
     ARTISTIC: function(caster){
-        if (caster.isPlayer || caster.charmed) caster.tile.trap = true;
+        if (caster.isPlayer || caster.statuseff["Charmed"] > 0) caster.tile.trap = true;
         else caster.tile.eviltrap = true;
     },
 
@@ -729,7 +730,7 @@ spells = {
 
     },
     GYVJI: function(caster){
-        let friendly = (caster.isPlayer || caster.charmed);
+        let friendly = (caster.isPlayer || caster.statuseff["Charmed"] > 0);
         let newTile = caster.tile;
         newTile = newTile.getNeighbor(caster.lastMove[0],caster.lastMove[1]);
         newTile.setEffect(14,30);
@@ -906,7 +907,7 @@ spells = {
             [1, 0]
         ];
         let friendly = false;
-        if (caster.charmed) friendly = true;
+        if (caster.statuseff["Charmed"] > 0) friendly = true;
         for(let k=0;k<directions.length;k++){
             invisBoltTravel(directions[k], 15 + Math.abs(directions[k][1]), 2, caster.tile, friendly);
         }
@@ -915,10 +916,10 @@ spells = {
     PSYDRONE: function(caster){
         caster.tile.getAllNeighbors().forEach(function(t){
             t.setEffect(75, 30);
-            if(t.monster && caster.charmed && !t.monster.loveless && !t.monster.isPlayer){
-                t.monster.charmed = true;
+            if(t.monster && caster.statuseff["Charmed"] > 0 && !t.monster.loveless && !t.monster.isPlayer){
+                t.monster.statuseff["Charmed"] = 999;
             }
-            else if (t.monster && !caster.charmed && t.monster.isPlayer){
+            else if (t.monster && !caster.statuseff["Charmed"] > 0 && t.monster.isPlayer){
                 let fullempty = true;
                 for (let i of wheel.wheel){
                     if (!(i instanceof Empty)) fullempty = false;
@@ -940,7 +941,7 @@ spells = {
     FUFFYORI: function(caster){
         caster.tile.getAllNeighbors().forEach(function(t){
             t.setEffect(75, 30);
-            if(t.monster && caster.charmed && !t.monster.loveless && !t.monster.isPlayer){
+            if(t.monster && caster.statuseff["Charmed"] > 0 && !t.monster.loveless && !t.monster.isPlayer){
                 let dir = [randomRange(-1,1),randomRange(-1,1)];
                 t.monster.fp++;
                 let pow = t.monster.fp;
@@ -948,7 +949,7 @@ spells = {
                 dir = [-dir[0],-dir[1]];
                 caster.knockback(caster.fp+1,dir);
             }
-            else if (t.monster && !caster.charmed && t.monster.isPlayer){
+            else if (t.monster && !caster.statuseff["Charmed"] > 0 && t.monster.isPlayer){
                 let dir = [randomRange(-1,1),randomRange(-1,1)];
                 t.monster.fp++;
                 let pow = t.monster.fp;
@@ -971,12 +972,12 @@ spells = {
                 break;
             }
             else if(testTile.monster){
-                if ((caster.charmed || caster.isPlayer) && !testTile.monster.isPlayer){
+                if ((caster.statuseff["Charmed"] > 0 || caster.isPlayer) && !testTile.monster.isPlayer){
                     testTile.monster.fp++;
                     testTile.monster.knockback(testTile.monster.fp,[0,-1])
                     break;
                 }
-                else if (!caster.charmed && testTile.monster.isPlayer){
+                else if (!caster.statuseff["Charmed"] > 0 && testTile.monster.isPlayer){
                     testTile.monster.fp++;
                     testTile.monster.knockback(testTile.monster.fp,[0,-1])
                     break;
@@ -1045,10 +1046,10 @@ function boltTravel(direction, effect, damage, location, friendly){
         let testTile = newTile.getNeighbor(direction[0], direction[1]);
         if(testTile.passable){
             newTile = testTile;
-            if(newTile.monster && !newTile.monster.isPlayer&& !newTile.monster.charmed && friendly){
+            if(newTile.monster && !newTile.monster.isPlayer&& !newTile.monster.statuseff["Charmed"] > 0 && friendly){
                 newTile.monster.hit(damage);
             }
-            else if (newTile.monster && (newTile.monster.isPlayer || newTile.monster.charmed) && !friendly){
+            else if (newTile.monster && (newTile.monster.isPlayer || newTile.monster.statuseff["Charmed"] > 0) && !friendly){
                 newTile.monster.hit(damage);
             }
             newTile.setEffect(effect,30);
@@ -1102,10 +1103,10 @@ function invisBoltTravel(direction, effect, damage, location, friendly){
         let testTile = newTile.getNeighbor(direction[0], direction[1]);
         if(testTile.passable){
             newTile = testTile;
-            if(newTile.monster && newTile.monster instanceof Binary && !newTile.monster.charmed && !friendly){
+            if(newTile.monster && newTile.monster instanceof Binary && !newTile.monster.statuseff["Charmed"] > 0 && !friendly){
                 target = newTile;
             }
-            else if (newTile.monster && (newTile.monster.isPlayer || newTile.monster.charmed) && friendly){
+            else if (newTile.monster && (newTile.monster.isPlayer || newTile.monster.statuseff["Charmed"] > 0) && friendly){
                 target = newTile;
             }
         }else{
@@ -1123,10 +1124,10 @@ function stopBoltTravel(direction, effect, damage, target, location, friendly){
         let testTile = newTile.getNeighbor(direction[0], direction[1]);
         if(testTile.passable && testTile != target){
             newTile = testTile;
-            if(newTile.monster && !newTile.monster.isPlayer&& !newTile.monster.charmed && friendly){
+            if(newTile.monster && !newTile.monster.isPlayer&& !newTile.monster.statuseff["Charmed"] > 0 && friendly){
                 newTile.monster.hit(damage);
             }
-            else if (newTile.monster && (newTile.monster.isPlayer || newTile.monster.charmed) && !friendly){
+            else if (newTile.monster && (newTile.monster.isPlayer || newTile.monster.statuseff["Charmed"] > 0) && !friendly){
                 newTile.monster.hit(damage);
             }
             newTile.setEffect(effect,30);
@@ -1166,7 +1167,7 @@ function snailTravel(direction, effect, damage, location){
         let testTile = newTile.getNeighbor(direction[0], direction[1]);
         if(testTile.passable){
             newTile = testTile;
-            if(newTile.monster && (newTile.monster.isPlayer || newTile.monster.charmed || newTile.monster.marked)){
+            if(newTile.monster && (newTile.monster.isPlayer || newTile.monster.statuseff["Charmed"] > 0 || newTile.monster.statuseff["Marked"] > 0)){
                 newTile.monster.hit(damage);
             }
             else if (newTile.monster && !newTile.monster.isPlayer){
@@ -1185,7 +1186,7 @@ function csnailTravel(direction, effect, damage, location){
         let testTile = newTile.getNeighbor(direction[0], direction[1]);
         if(testTile.passable){
             newTile = testTile;
-            if(newTile.monster && (newTile.monster.isPlayer || newTile.monster.charmed)){
+            if(newTile.monster && (newTile.monster.isPlayer || newTile.monster.statuseff["Charmed"] > 0)){
                 newTile.monster.heal(damage);
             }
             else if (newTile.monster && !newTile.monster.isPlayer){
@@ -1240,7 +1241,7 @@ function ribbonTravel(direction, effect, location){
             newTile = testTile;
             if(newTile.monster && !newTile.monster.isPlayer){
                 newTile.monster.paralyzed = false;
-                newTile.monster.marked = true;
+                newTile.monster.statuseff["Marked"] += 25;
                 break;
             }
             newTile.setEffect(effect,30);
