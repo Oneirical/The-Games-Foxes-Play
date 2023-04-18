@@ -102,12 +102,10 @@ var spellpatterns = {
         "type" : "Function",
     },
     "EPSILON" : {
-        0: "OOOOO",
-        1: "OOOOO",
-        2: "OOOOO",
-        3: "OOOOO",
-        4: "OOOOO",
-        "type" : "Function",
+        0: "OOO",
+        1: "OOO",
+        2: "OOO",
+        "type" : "Form",
     },
     "TEST" : {
         0: "V",
@@ -191,14 +189,18 @@ var researchpage = {
     // h - 
     "Page2" : {
         0 : ".........",
-        1 : ".i.......",
+        1 : ".........",
         2 : ".K-<.....",
-        3 : ".g.h.....",
+        3 : ".........",
         4 : ".K-+-<...",
-        5 : ".d.e.f...",
+        5 : ".........",
         6 : ".K-+-<...",
-        7 : ".a.b.c.I.",
+        7 : ".a.b...I.",
         8 : ".K-+-<.I.",
+        "links" : {
+            "PARACEON" : ["SENET"],
+            "SMOOCH" : ["SENET"],
+        }
     },
 }
 

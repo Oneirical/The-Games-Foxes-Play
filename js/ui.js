@@ -372,12 +372,12 @@ class DrawWheel{
             printOutText(results.toString(), 23, 825, 102, "white", 20, 350);
         }
         else{
-            drawSymbol(12, 880, 50, 64);
-            let colour = "lightskyblue";
-            if (this.resolve < 1) colour = "red";
-            printOutText(this.resolve+"/"+(3+Math.floor(resolvebonus/2))+" ", 23, 835, 90, colour, 20, 350);
+            //drawSymbol(12, 880, 50, 64);
+            //let colour = "lightskyblue";
+            //if (this.resolve < 1) colour = "red";
+            //printOutText(this.resolve+"/"+(3+Math.floor(resolvebonus/2))+" ", 23, 835, 90, colour, 20, 350);
         }
-        printOutText(" "+this.ipseity+"/"+(30)+" ", 23, 660, 90, "plum", 20, 350);
+        printOutText(" "+this.ipseity, 23, 660, 90, "plum", 20, 350);
 
         let display;
         for (let k = 0;k<8;k++){
@@ -625,11 +625,9 @@ class DrawWheel{
             if (!(k instanceof Empty)) space--;
         }
         if (space == 0){
-            log.addLog("Oversoul");
-            shakeAmount = 5; 
-            return;
+            this.cycleSouls();
         }
-        else{
+        if(true){
             //log.addLog("Empty");
             if (this.pile.length <= 0){
                 //this.discard.push("TAINTED") //remplacer avec curse, dash est un placeholder
@@ -670,9 +668,7 @@ class DrawWheel{
             if (!(k instanceof Empty)) space--;
         }
         if (space == 0){
-            log.addLog("Oversoul");
-            shakeAmount = 5; 
-            return;
+            this.cycleSouls();
         }
         for (let k of this.wheel){
             if (k instanceof Empty){
@@ -686,6 +682,15 @@ class DrawWheel{
                 break;
             } 
         }
+    }
+
+    cycleSouls(){
+        this.discard.push(this.wheel[0]);
+        this.wheel[0] = new Empty();
+        for (let i =0; i<this.wheel.length-1;i++){
+            this.wheel[i] = this.wheel[i+1];
+        }
+        this.wheel[7] = new Empty();
     }
 
     drawSoul(){
@@ -720,12 +725,10 @@ class DrawWheel{
         for (let k of this.wheel){
             if (!(k instanceof Empty)) space--;
         }
-        if (space == 0){
-            log.addLog("Oversoul");
-            shakeAmount = 5; 
-            return;
-        }
-        else{
+        if(true){
+            if (space == 0){
+                this.cycleSouls();
+            }
             //log.addLog("Empty");
             if (this.pile.length <= 0){
                 //this.discard.push("TAINTED") //remplacer avec curse, dash est un placeholder

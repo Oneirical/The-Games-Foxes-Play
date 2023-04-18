@@ -137,6 +137,7 @@ class Universe{
             research.completeResearch("Subdued");
             research.completeResearch("Estate");
         }
+        player.hp = maxHp;
     }
 
     passUp(layer,origin){
