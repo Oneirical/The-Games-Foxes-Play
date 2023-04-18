@@ -1,6 +1,8 @@
-powerratings = {
+const powerratings = {
     "EGO" : 4,
-    "BEAM" : 2,
+    "BEAM" : 3,
+    "SMOOCH" : 5,
+    "XCROSS" : 2,
 }
 // In the research menu, these should have "history book" descriptions.
 // EGO - BEAM - PCROSS - XCROSS - 8ADJ - 4ADJ - RANDOM (up to power) - WALL - ALL - PAYLOAD (summon that unleashes targets on death)
@@ -54,10 +56,10 @@ effects = {
             }
         }
     },
-    SHIELD: function(targets, power){
+    PARACEON: function(targets, power){
         for (let i of targets){
             if (i.monster){
-                i.monster.statuseff["Invincible"] += 3; //power scaling
+                i.monster.statuseff["Invincible"] += power;
             }
         }
     },
@@ -79,19 +81,21 @@ effects = {
             if(target && target.tile != newTile){
                 target.move(newTile);
                 playSound("explosion");
-                newTile.getAllNeighbors().forEach(t => {
-                    t.setEffect(14,30);
-                    if(t.monster){
-                        t.monster.stunned = true;
-                        if (!t.monster.isPlayer) t.monster.hit(3);
-                    }
-                    else if(t.eat && !t.passable && inBounds(t.x, t.y)){
-                        t.replace(Floor);
-                    }
-                    target.tile.setEffect(14,30);
-                    target.hit(3);
-                });
-                shakeAmount = 35;
+                target.tile.setEffect(14,30);
+                target.hit(power);
+                if (power >= 4){
+                    newTile.getAllNeighbors().forEach(t => {
+                        t.setEffect(14,30);
+                        if(t.monster){
+                            t.monster.stunned = true;
+                            if (!t.monster.isPlayer) t.monster.hit(power);
+                        }
+                        else if(t.eat && !t.passable && inBounds(t.x, t.y)){
+                            t.replace(Floor);
+                        }
+                    });
+                }
+                shakeAmount = 20 + power*5;
             }
         }
     }

@@ -587,6 +587,7 @@ function countLines(text, fitWidth){
     {
         let str = words.slice(0,idx).join(' ');
         let w = ctx.measureText(str).width;
+        if (str == words.slice(0,words.length).join(' ') && w-fitWidth < 10) return currentLine;
         if ( w > fitWidth )
         {
             if (idx==1)

@@ -62,10 +62,16 @@ class Cursor{
                 printOutText("Warp-wisp", 18, 590, 30, "white", 20, 350);
             }
             else{
-            printOutText(this.tile.monster.lore, 18, 10, 600, "white", 20, 690);
-            printOutText(this.tile.monster.soul, 18, 590, 70, "white", 20, 350);
-            printOutText(this.tile.monster.name, 18, 590, 30, "white", 20, 350);
-            printOutText(this.tile.monster.ability, 18, 10, 630+((this.tile.monster.lore.length/100)*20), "pink", 20, 690);
+                printOutText(this.tile.monster.lore, 18, 10, 600, "white", 20, 690);
+                printOutText(this.tile.monster.soul, 18, 590, 70, "white", 20, 350);
+                printOutText(this.tile.monster.name, 18, 590, 30, "white", 20, 350);
+                printOutText(this.tile.monster.ability, 18, 10, 630+((this.tile.monster.lore.length/100)*20), "pink", 20, 690);
+                for (let i of Object.keys(this.tile.monster.statuseff)){
+                    if (this.tile.monster.statuseff[i] > 0){
+                        printOutText(i, 18, 590, 130+Object.keys(this.tile.monster.statuseff).indexOf(i)*10, "white", 20, 690);
+                        printOutText(this.tile.monster.statuseff[i].toString(), 18, 750, 130+Object.keys(this.tile.monster.statuseff).indexOf(i)*10, "white", 20, 690);
+                    }
+                }
             }
         }
         else{

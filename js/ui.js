@@ -96,7 +96,7 @@ class Research{
             printOutText(research.page[cx][cy].name, 18, 590, 30, "white", 20, 350);
             if (research.page[cx][cy].unlockdata) drawSpriteFreeform(research.page[cx][cy].unlockdata.sprite,8,9,-10,40,64);
             drawSymbol((research.page[cx][cy].contents), 890, 20, 64);
-            printOutText(research.page[cx][cy].flags[0], 18, 590, 55, researchflagcolour[research.page[cx][cy].flags[0]], 20, 6*64-35);
+            printOutText(research.page[cx][cy].flags, 18, 590, 55, researchflagcolour[research.page[cx][cy].flags], 20, 6*64-35);
             let description = research.page[cx][cy].capsule;
             if (powerratings[research.page[cx][cy].id]) description += "\n[g]Gain " + powerratings[research.page[cx][cy].id] + " Potency.[w]";
             printOutText(description, 18, 590, 105, "white", 20, 6*64-35);
@@ -107,10 +107,8 @@ class Research{
             printOutText(researchlore["Null"], 18, 10, 720, "#cda4f2", 20, 560);
             printOutText(researchnames["Null"], 18, 590, 30, "white", 20, 350);
             drawSymbol(7, 890, 20, 64);
-            for (let i = 0; i<1; i++){
-                printOutText(researchflags["Null"][i], 18, 590, 55 + i*20, researchflagcolour[researchflags["Null"][i]], 20, 6*64-35);
-                printOutText(researchexpl["Null"], 18, 590, 105 + i*60, "white", 20, 6*64-35);
-            }  
+            printOutText(researchflags["Null"], 18, 590, 55, researchflagcolour[researchflags["Null"]], 20, 6*64-35);
+            printOutText(researchexpl["Null"], 18, 590, 105, "white", 20, 6*64-35);
         }
     }
     
@@ -1242,12 +1240,14 @@ class LegendSpell extends LegendarySoul{
 
     legendCast(){
         let targets = [];
+        let power = 99;
         for (let i of this.targeter){
             targets.push(targeters[i](player));
+            power = Math.min(powerratings[targeters[i]],power)
         }
         for (let i of this.effect){
             for (let y of targets){
-                effects[i](y);
+                effects[i](y,power);
             }   
         }
     }
