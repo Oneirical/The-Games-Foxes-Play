@@ -9,6 +9,9 @@
 **"Serene Collective" design**
 
 Glamour injectors to safely view the Collective without being infected.
+Sell your memories (nodes) to the Collective to cleanse yourself of infection.
+The infection starts with "drawbridge unauthorized access" while you are in a Vision.
+The reason the player can't attack the intruder is because spells only work against those who believe in them.
 
 **Estate upgrades**
 
@@ -20,10 +23,19 @@ Glamour injectors to safely view the Collective without being infected.
 
 * A recall point/teleport across layers.
 * A soul that occasionally gives difficult "Simon Says" rules to follow. The player is rewarded for not transgressing.
+* Devour: all partially damaged targets are executed.
 
 **Forms**
 
-* Random targets with fat power. Feral.
+* Random target with fat power. Feral.
+
+**Mutators**
+
+* Increase power depending on depth? or too grindy?
+* Set down a landmine with this effect.
+* Get random power up or down.
+* Sacrifice your wheel contents for power.
+* Get power for damaged units (not at max hp).
 
 **Research Nodes**
 Terminal is made out of shattered souls, that is why he can shapelessly assume the shape of others?
@@ -38,9 +50,6 @@ Form - epsilon, all 4 previous tiles you stood on are targets
 The Self is modular, the player is but one of Terminal's many facets. 
 
 Serene node that lets you "assign" resolve points to get some cool stuff like no turn draw
-
-Put the default power on Targeter blocks. 
-Modifier: create a landmine with this effect.
 
 If all patterns are the same Caste, gain a Concordance bonus that lets your Serene summons share the effect.
 Offer bonuses for having more serene stuff at a time?
@@ -118,6 +127,7 @@ Anisychia - Feral champion
 * If Fluffy is Pride incarnate, Terminal is Envy incarnate - gnawing, coveting value. It is only right that it would be put against a being of infinite value...
 * Fluffy is an empty shell, if defeated she may be replaced and duplicate you.
 * The Harmony contains "ultimate lifeforms", as they have reached maximum complexity.
+* Rose's ability to "drown out in endless lives".
 
 **Insane/overly ambitious stuff**
 
