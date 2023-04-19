@@ -30,6 +30,7 @@ const colourcodes = {
     'y]' : "yellow",
     'k]' : "lightpink",
     'm]' : "magenta",
+    'z]' : "gold",
 }
 
 messages = {
@@ -742,6 +743,7 @@ researchnames = {
     "KASHIA" : "Kashia, Flesh and Mind Asunder",
     "CLICK" : "A Click, Then a Flash",
     "SACRIFICE" : "Thoughts, What Delicacies",
+    "STEP" : "Steps Shift The Mind",
 
     "RANDOM" : "Erratic Pulse of Prey's Hearts",
 }
@@ -773,6 +775,7 @@ researchlore = {
     "KASHIA" : "The first attempts to engineer the cataclysm fail-safe revolved around alteration of pre-existing subjects. After Kashia exited Faith's End's operating chambers, a little ghostly gecko arrived five seconds later to mesh with the lizard's flesh, forever cursed to remain an after-image.",
     "CLICK" : "Where the Ordered forces do not have soldiers, they have traps. A careless step, and would-be looters become the looted, their every memory sold to the highest bidder on the hivemind's network.",
     "SACRIFICE" : "A gathering of Saints cannot be taken seriously without a batch of hapless subordinates to toy with. As they recount anecdotes and plot strategies of domination, the thrashing of their servants' spirits draws eerie grins on their faces.",
+    "STEP" : "To walk and let the mind wander is a dangerous thing. A thought pulls harder than the rest, one's gait softens into the grace of a Saint, tears turn to bright smiles, and before one knows it, one is no more.",
 }
 
 researchunlocks = {
@@ -820,6 +823,7 @@ researchflags = {
     "KASHIA" : "Function",
     "CLICK" : "Mutator",
     "SACRIFICE" : "Mutator",
+    "STEP" : "Contingency",
 }
 
 researchexpl = {
@@ -848,7 +852,8 @@ researchexpl = {
     "ASPHA" : "[o]Function[w]: All targets teleport to a random empty tile, and slash all adjacent tiles for 1 damage.\nFor each point of [g]Potency[w], all creatures who teleported and slashed do so again.",
     "KASHIA" : "[o]Function[w]: all targets obtain [m]Dissociated[w].\nDuration of [m]Dissociated[w]: [g]Potency[w] x 2 turns.\n[m]Dissociated[w]: Double all healing effects. All damage and healing received is not applied, but stored for later. When this effect expires, receive all stored damage and healing. On room clear, remove all stored damage.",
     "CLICK" : "[k]Mutator[w]: Skip all remaining [k]Mutators[w] and [o]Functions[w].\nOn all targets, place down a trap.\n[w]When a creature moves onto the trap, trigger all [o]Functions[w], with only the trap tile as target and with the [g]Potency[w] accumulated when this module executed. Then, remove the trap.",
-    "SACRIFICE" : "[k]Mutator[w]: Discard all Souls on your Wheel. For every removed Soul, gain [g]1 Potency[w]."
+    "SACRIFICE" : "[k]Mutator[w]: Discard all Souls on your Wheel. For every removed Soul, gain [g]1 Potency[w].",
+    "STEP" : "[z]Contingency[w]: When you take a step, cast this spell.",
 }
 
 researchflagcolour = {

@@ -101,8 +101,8 @@ function unlockAllSpells(){
     }
 }
 
-function createSpell(form,mod,func){
-    return new LegendSpell([form],[mod],[func],"VILE");
+function createSpell(contin,form,mod,func){
+    return new LegendSpell([contin],[form],[mod],[func],"VILE");
 }
 
 class DroppedSoul{
@@ -843,6 +843,7 @@ class Player extends Monster{
             return;
         }
         if(super.tryMove(dx,dy)){
+            legendaries.castContin("STEP");
             if (world.getRoom() instanceof HarmonyRelay){
                 if (world.getRoom().fuffspawn && world.getRoom().fuffspawn.x == this.tile.x && world.getRoom().fuffspawn.y == this.tile.y) this.infested = 1;
                 else if (player.infested == 1) this.infested = 0;

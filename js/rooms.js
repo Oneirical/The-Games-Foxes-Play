@@ -76,6 +76,12 @@ var spellpatterns = {
         1: "S.",
         "type" : "Form",
     },
+    "STEP" : {
+        0: "SS.",
+        1: "..S",
+        2: "SS.",
+        "type" : "Contingency",
+    },
     "PARACEON" : {
         0: "O.",
         1: "O.",

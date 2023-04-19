@@ -98,7 +98,13 @@ class Research{
             drawSymbol((research.page[cx][cy].contents), 890, 20, 64);
             printOutText(research.page[cx][cy].flags, 18, 590, 55, researchflagcolour[research.page[cx][cy].flags], 20, 6*64-35);
             let description = research.page[cx][cy].capsule;
-            if (powerratings[research.page[cx][cy].id]) description += "\n[g]Gain " + powerratings[research.page[cx][cy].id] + " Potency.[w]";
+            if (powerratings[research.page[cx][cy].id]){
+                if (powerratings[research.page[cx][cy].id] > 0) description += "\n[g]Gain " + powerratings[research.page[cx][cy].id] + " Potency.[w]";
+                else description += "\n[r]Lose " + Math.abs(powerratings[research.page[cx][cy].id]) + " Potency.[w]";
+            }
+            if (soulcosts[research.page[cx][cy].id]){
+                description += "\n[p]This spell costs "+soulcosts[research.page[cx][cy].id]+ " more Ipseity Shards per cast.";
+            }
             printOutText(description, 18, 590, 105, "white", 20, 6*64-35);
             if (!this.looking) this.exppage = new TutorialDisplay(research.page[cx][cy].id);
             this.looking = true;
@@ -154,15 +160,19 @@ class TutorialDisplay{
 var maxseq = 0;
 
 class ComponentsDisplay{
-    constructor(forms,mutators,functions,power){
+    constructor(contin,forms,mutators,functions,power,cost,caste){
         //this.timer = 0;
         this.forms = [];
         this.functions = [];
         this.mutators = [];
+        this.contin = [];
+        this.caste = caste
         this.power = power;
+        this.cost = cost;
         if (functions) for (let i of functions) this.functions.push(i);
         if (mutators) for (let i of mutators) this.mutators.push(i);
         if (forms) for (let i of forms) this.forms.push(i);
+        if (contin) for (let i of contin) this.contin.push(i);
         this.cage = [];
         this.build();
     }
@@ -191,6 +201,13 @@ class ComponentsDisplay{
         for(let j=0;j<4+2;j++){
             for(let i=0;i<5+2;i++){
                 if (this.cage[i][j] instanceof CageContainer){
+                    for (let k=0;k<this.contin.length;k++){
+                        if(j == 1&& i-1 == k){
+                            this.cage[i][j].value = new Component(inside[this.contin[k]]);
+                            this.cage[i][j].seq = seq;
+                            seq++;
+                        }
+                    }
                     for (let k=0;k<this.forms.length;k++){
                         if (j == 2 && i-1 == k){
                             this.cage[i][j].value = new Component(inside[this.forms[k]]);
@@ -232,7 +249,18 @@ class ComponentsDisplay{
                 this.cage[i][j].drawFreeform(673-size/2*(this.cage.length-3),64+546-size/2*(this.cage.length-3),size);
                 drawSymbol(12, 673-size/2*(this.cage.length-3)+40, 46+546-size/2*(this.cage.length-3), 64);
                 printOutText(this.power.toString(),40, 660, 508, "lightsteelblue",20,350); //
-                //drawSymbol(49, 673-size/2*(this.cage.length-3)+89+64*4, 46+546-size/2*(this.cage.length-3), 64); //add for shattered energy
+                drawSymbol(49, 673-size/2*(this.cage.length-3)+89+64*4, 46+546-size/2*(this.cage.length-3), 64);
+                printOutText(this.cost.toString(),40, 855, 508, "plum",20,350); //add for shattered energy
+                const hijack = {
+                    "VILE" : 5,
+                    "FERAL" : 4,
+                    "UNHINGED" : 3,
+                    "ARTISTIC" : 2,
+                    "ORDERED" : 1,
+                    "SAINTLY" : 0
+                }
+                const index = hijack[this.caste];
+                drawSymbol(index, ((673-size/2*(this.cage.length-3)+89+64*4)+673-size/2*(this.cage.length-3)+40)/2, 46+546-size/2*(this.cage.length-3), 64);
             }
         }
     }
@@ -1079,6 +1107,15 @@ class Inventory{
         printOutText("0",22, 229, 194+138+68, "black",20,350);
         
     }
+
+    castContin(word){
+        for (let i of this.active){
+            if (i.triggers && i.triggers.includes(word)){
+                i.legendCast();
+            }
+        }
+    }
+
     activateSoul(slot){
         let soul = this.storage[slot];
         if (soul instanceof Empty) return;
@@ -1160,6 +1197,7 @@ class LegendarySoul{
         this.alpha = 1;
         this.turbulent = false;
         this.index = 0;
+        this.triggers = false;
         this.chosen = false;
         this.offsetX = 0;      
         this.shattered = false;                                             
@@ -1242,17 +1280,23 @@ class LegendarySoul{
 }
 
 class LegendSpell extends LegendarySoul{
-    constructor(targeter,modifier,effect,caste){
+    constructor(trigger,targeter,modifier,effect,caste){
         super("FLEXIBLE");
         this.targeter = targeter;
         this.modifier = modifier;
         this.effect = effect;
+        this.triggers = trigger;
         this.icon = inside[this.effect[0]];
         this.caste = caste;
         this.basepower = 99;
-        this.alllore = this.targeter.concat(this.modifier.concat(this.effect));
+        this.basecost = 0;
+        this.alllore = this.triggers.concat(this.targeter.concat(this.modifier.concat(this.effect)));
         for (let i of this.targeter){
             this.basepower = Math.min(powerratings[i],this.basepower);
+        }
+        for (let i of this.triggers){
+            if (powerratings[i]) this.basepower+=powerratings[i];
+            if (soulcosts[i]) this.basecost+=soulcosts[i];
         }
     }
 
@@ -1263,6 +1307,10 @@ class LegendSpell extends LegendarySoul{
         for (let i of this.targeter){
             targets.push(targeters[i](player));
             power = Math.min(powerratings[i],power)
+        }
+        for (let i of this.triggers){
+            if (powerratings[i]) power+=powerratings[i];
+            if (soulcosts[i]) wheel.ipseity-=soulcosts[i];
         }
         for (let i of this.modifier){
             for (let y of targets){
@@ -1280,11 +1328,17 @@ class LegendSpell extends LegendarySoul{
 
     describe(){
         let description = researchexpl[this.alllore[legendaries.describepage]];
-        if (powerratings[this.alllore[legendaries.describepage]]) description += "\n[g]Gain " + powerratings[this.alllore[legendaries.describepage]] + " Potency.[w]";
+        if (powerratings[this.alllore[legendaries.describepage]]){
+            if (powerratings[this.alllore[legendaries.describepage]] > 0) description += "\n[g]Gain " + powerratings[this.alllore[legendaries.describepage]] + " Potency.[w]";
+            else description += "\n[r]Lose " + Math.abs(powerratings[this.alllore[legendaries.describepage]]) + " Potency.[w]";
+        }
+        if (soulcosts[this.alllore[legendaries.describepage]]){
+            description += "\n[p]This spell costs "+soulcosts[this.alllore[legendaries.describepage]]+ " more Ipseity Shards per cast.";
+        }
         printOutText(description, 18, 590, 105, "white", 20, 6*64-35);
         printOutText(toTitleCase(this.caste) + " Caste", 18, 590, 30, colours[this.caste], 20, 6*64-35);
         printOutText(researchnames[this.alllore[legendaries.describepage]], 18, 590, 50, "white", 20, 6*64-100);
-        legendaries.exppage = new ComponentsDisplay(this.targeter,this.modifier,this.effect,this.basepower);
+        legendaries.exppage = new ComponentsDisplay(this.triggers,this.targeter,this.modifier,this.effect,this.basepower,this.basecost, this.caste);
     }
 }
 
