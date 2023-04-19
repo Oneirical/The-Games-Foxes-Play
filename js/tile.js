@@ -353,6 +353,12 @@ class RoseWall extends Wall{
 
     stepOn(monster){
     }
+
+    draw(){
+        ctx.globalAlpha = 0.35;
+        super.draw();
+        ctx.globalAlpha = 1;
+    }
 }
 
 class BExit extends Tile{
@@ -944,7 +950,7 @@ class Window extends Wall{
     };
 
     draw(){
-        ctx.globalAlpha = 0.55;
+        ctx.globalAlpha = 0.65;
         super.draw();
         ctx.globalAlpha = 1;
     }

@@ -768,7 +768,7 @@ researchunlocks = {
     "GYVJI" : "Completing this node will populate Visions with [a]Humming Paperweavers[w] - usually peaceful artisans who don't take kindly to their work being destroyed.",
     "SENET" : "Completing this node will populate Visions with [p]Greedswept Felidols[w] - animated feline statues stopping at nothing to cling onto what they have.",
     "BEAM" : "Completing this node will populate Visions with [y]Anisychic Oracles[w] - trembling prophets of the Crimson Forest, who traded their courage for a pre-emptive taste of the cataclysm.",
-    "SHIELD" : "Completing this node will populate Visions with [r]Shelled Electromedics[w] - a rare organic breed among the military, compensating for its disastrous slowness with the peak of Ordered technology.",
+    "PARACEON" : "Completing this node will populate Visions with [r]Shelled Electromedics[w] - a rare organic breed among the military, compensating for its disastrous slowness with the peak of Ordered technology.",
 }
 
 researchunlockdata = {

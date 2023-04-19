@@ -269,6 +269,7 @@ class World{
     checkPixel(tile){
         if (tile instanceof BExit || tile instanceof MapExit) return 6;
         else if (tile instanceof BAscendExit || tile instanceof AscendExit) return 2; //
+        else if (tile instanceof Window) return 7;
         else if (tile.passable || tile instanceof RealityWall) return 5;
         else return 0;
     }
@@ -1046,9 +1047,10 @@ class WorldSeed extends DefaultVaultRoom{
     }
 }
 
-class AnnounceCorridor extends NarrowFaith{
+class AnnounceCorridor extends DefaultVaultRoom{
     constructor(index){
         super(index);
+        this.id = "Announce";
         this.creatures = "Announce";
     }
     populateRoom(){
@@ -1061,6 +1063,20 @@ class EmptyFaith extends DefaultVaultRoom{
     constructor(index){
         super(index);
         this.id = "Empty";
+    }
+}
+
+class StareL extends DefaultVaultRoom{
+    constructor(index){
+        super(index);
+        this.id = "StareL";
+    }
+}
+
+class StareR extends DefaultVaultRoom{
+    constructor(index){
+        super(index);
+        this.id = "StareR";
     }
 }
 
