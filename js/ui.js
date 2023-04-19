@@ -1250,10 +1250,18 @@ class LegendSpell extends LegendarySoul{
     legendCast(){
         let targets = [];
         let power = 99;
+        let bonuspower = 0;
         for (let i of this.targeter){
             targets.push(targeters[i](player));
             power = Math.min(powerratings[i],power)
         }
+        for (let i of this.modifier){
+            for (let y of targets){
+                bonuspower += modifiers[i](y,this.effect,power);
+                if (i == "CLICK") return;
+            }  
+        }
+        power += bonuspower;
         for (let i of this.effect){
             for (let y of targets){
                 effects[i](y,power);

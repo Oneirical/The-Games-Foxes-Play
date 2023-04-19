@@ -41,8 +41,40 @@ var forms = Object.keys(targeters);
 // ARTISTICMINE - LASTMOVE>RANDOMDIR - SACRIFICE (Dump wheel) - DAMPENER (reduce power, get something in exchange) - ALLOUT (lose all resolve, get power)
 //
 
-modifiers = {
+class ClickTrap{
+    constructor(tile,functions,power){
+        this.functions = functions;
+        this.power = power;
+        this.tile = tile;
+    }
 
+    trigger(){
+        for (let i of this.functions){
+            effects[i]([this.tile],this.power);
+        }
+    }
+}
+
+modifiers = {
+    CLICK: function(targets,functions,power){
+        for (let i of targets){
+            if (i.passable) {
+                i.clicktrap = new ClickTrap(i,functions,power);
+            }
+        }
+        return 0;
+    },
+    SACRIFICE: function(){
+        let bonus = 0;
+        for (let i = 0; i<wheel.wheel.length;i++){
+            if (!(wheel.wheel[i] instanceof Empty)){
+                wheel.discard.push(wheel.wheel[i]);
+                wheel.wheel[i] = new Empty();
+                bonus++;
+            }
+        }
+        return bonus;
+    }
 }
 
 // SENET - LASHOL (status) - KILAMI (status) - GYVJI - DASH - RASEL (status) - ASPHA (tp and hit) - SUGCHA (lifesteal)

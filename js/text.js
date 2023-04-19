@@ -28,6 +28,8 @@ const colourcodes = {
     'a]' : "orange",
     'g]' : "lightsteelblue",
     'y]' : "yellow",
+    'k]' : "lightpink",
+    'm]' : "magenta",
 }
 
 messages = {
@@ -707,6 +709,9 @@ researchequivalences = {
     2 : {
         "a" : "PARACEON",
         "b" : "SMOOCH",
+        "c" : "ASPHA",
+        "d" : "KASHIA",
+        "e" : "CLICK",
     },
 }
 
@@ -733,8 +738,10 @@ researchnames = {
     "EGO" : "Haughty as the Saints Were",
     "SMOOCH" : "False Charms and Pretend Affection",
     "PARACEON" : "Paraceon, Forever Crystallized",
-    "ASPHA" : "Aspha Beta, Nemesis of the Unseen",
+    "ASPHA" : "Aspha, Nemesis of the Unseen",
     "KASHIA" : "Kashia, Flesh and Mind Asunder",
+    "CLICK" : "A Click, Then a Flash",
+    "SACRIFICE" : "Thoughts, What Delicacies",
 
     "RANDOM" : "Erratic Pulse of Prey's Hearts",
 }
@@ -761,9 +768,11 @@ researchlore = {
     "GYVJI" : "All contenders of the Saints' Arena feared Gyvji's mythical tail slap, supposedly so strong it could knock one's soul out of their body and into the crowd, leaving the body untouched. Thankfully, it wasn't long until reality caught up, causing the victim's flesh to charge into the hopefully empty seats of the stadium, where it would be rejoined with its distraught spirit.",
     "EGO" : "In a realm where sheer belief draws the line between what is and what is not, pride is omnipotence. The Saints were the first to learn this primordial truth.",
     "SMOOCH" : "As there is light and darkness, some souls give, some receive. To secure their place among the latter, the Vile waged war among themselves, not with blade and blood - but with false promises and dispassionate smooches.",
-    "PARACEON" : "Not all who enlisted among the Ordered earn the glory of a general. Some stood in crystal caves, scanning every possible pebble for a trace of the cataclysm, while the chiming of their visors unsettled travellers. Their memories have long been crushed underneath exabytes of analysis data, leaving only the inflexibility of stone.",
+    "PARACEON" : "Not all who enlisted among the Ordered earned the glory of a general. Some stood in crystal caves, scanning every possible pebble for a trace of the cataclysm, while the chiming of their visors unsettled travellers. Their memories have long been crushed underneath exabytes of analysis data, leaving only the inflexibility of stone.",
     "ASPHA" : "At one point in the history of Old World warfare, use of camouflage and invisibility technology became omnipresent. The solution was, of course, to build a very energy-hungry robot that considered air itself as its mortal enemy. Overkill? The stealth-bots - or, at the very least, what remains of them - would disagree.",
     "KASHIA" : "The first attempts to engineer the cataclysm fail-safe revolved around alteration of pre-existing subjects. After Kashia exited Faith's End's operating chambers, a little ghostly gecko arrived five seconds later to mesh with the lizard's flesh, forever cursed to remain an after-image.",
+    "CLICK" : "Where the Ordered forces do not have soldiers, they have traps. A careless step, and would-be looters become the looted, their every memory sold to the highest bidder on the hivemind's network.",
+    "SACRIFICE" : "A gathering of Saints cannot be taken seriously without a batch of hapless subordinates to toy with. As they recount anecdotes and plot strategies of domination, the thrashing of their servants' spirits draws eerie grins on their faces.",
 }
 
 researchunlocks = {
@@ -809,6 +818,8 @@ researchflags = {
     "SMOOCH" : "Form",
     "ASPHA" : "Function",
     "KASHIA" : "Function",
+    "CLICK" : "Mutator",
+    "SACRIFICE" : "Mutator",
 }
 
 researchexpl = {
@@ -832,10 +843,12 @@ researchexpl = {
     "BEAM" : "[l]Form[w]: surges out in the direction of my last move, targeting all tiles it passes through until an obstacle is met.",
     "SENET" : "[o]Function[w]: all targets obtain [p]Persuasive[w].\nDuration of [p]Persuasive[w]: [g]Potency[w] x 3 turns.\n[p]Persuasive[w]: Next attack inflicts 25 [i]Charm[w] on target, then [p]Persuasive[w] loses 5 duration.\n[i]Charm[w]: The target attacks its former allies until no former allies remain.",
     "GYVJI" : "[o]Function[w]: all targets are knocked back in the direction of my last move, until they strike an obstacle, upon which they take damage.\n[r]Damage[w]: 1 x [g]Potency[w].\n[g]4 Potency[w]: Also emit a 1-tile range shockwave at the impact location, repeating the damage on all adjacent tiles.",
-    "PARACEON" : "[o]Function[w]: all targets obtain [r]Invincible[w].\nDuration of [r]Invincible[w]: [g]Potency[w] x 1 turns.",
+    "PARACEON" : "[o]Function[w]: all targets obtain [r]Invincible[w].\nDuration of [r]Invincible[w]: [g]Potency[w] x 1 turns.\n[r]Invincible[w]: Negate all damage taken.",
     "SMOOCH" : "[l]Form[w]: targets one tile adjacent to me, in the direction of my last move.",
     "ASPHA" : "[o]Function[w]: All targets teleport to a random empty tile, and slash all adjacent tiles for 1 damage.\nFor each point of [g]Potency[w], all creatures who teleported and slashed do so again.",
-    "KASHIA" : "[o]Function[w]: all targets obtain [s]Dissociated[w].\nDuration of [p]Dissociated[w]: [g]Potency[w] x 2 turns.\n[s]Dissociated[w]: Double all healing effects. All damage and healing received is not applied, but stored for later. When this effect expires, receive all stored damage and healing."
+    "KASHIA" : "[o]Function[w]: all targets obtain [m]Dissociated[w].\nDuration of [m]Dissociated[w]: [g]Potency[w] x 2 turns.\n[m]Dissociated[w]: Double all healing effects. All damage and healing received is not applied, but stored for later. When this effect expires, receive all stored damage and healing. On room clear, remove all stored damage.",
+    "CLICK" : "[k]Mutator[w]: Skip all remaining [k]Mutators[w] and [o]Functions[w].\nOn all targets, place down a trap.\n[w]When a creature moves onto the trap, trigger all [o]Functions[w], with only the trap tile as target and with the [g]Potency[w] accumulated when this module executed. Then, remove the trap.",
+    "SACRIFICE" : "[k]Mutator[w]: Discard all Souls on your Wheel. For every removed Soul, gain [g]1 Potency[w]."
 }
 
 researchflagcolour = {

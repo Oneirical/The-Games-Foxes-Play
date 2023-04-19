@@ -12,6 +12,7 @@ class Tile{
         this.pin = false;
         this.recallpoint = false;
         this.souls = [];
+        this.clicktrap = false;;
     }
 
     replace(newTileType){
@@ -119,7 +120,9 @@ class Tile{
 
     draw(){
         drawSprite(this.sprite, this.x, this.y);
-
+        if (this.clicktrap){
+            drawSprite(69,this.x,this.y);
+        }
         if(this.trap){                      
             drawSprite(12, this.x, this.y);
             this.lore = description["Mine"];
@@ -198,6 +201,10 @@ class Floor extends Tile{
 
     stepOn(monster){
         let trapsafe = true;
+        if (this.clicktrap){
+            this.clicktrap.trigger();
+            this.clicktrap = false;
+        }
         if (monster.isPlayer){
             trapsafe = player.activemodule != "Hover";
         }

@@ -85,6 +85,7 @@ Anisychia - Feral champion
 
 * Lashol has some weird thing going on with its bonus damage.
 * Falling in the Serene Spire can be ignored with mouse movement.
+* There is an extra space in Senet's description.
 
 **Low priority nitpicks**
 

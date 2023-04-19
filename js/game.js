@@ -631,7 +631,7 @@ function printOutText(text, size, x, y, color, lineHeight, fitWidth, oldx)
             else if (!pickcolor) pickcolor = "white";
             if (color == "#b4b5b8") pickcolor = "#b4b5b8";
             if (fitWidth-xsave <= 0){
-                xsave = 0;
+                xsave = xsave-fitWidth;
                 y+= lineHeight;
             }
             printOutText(text, size, x, y, pickcolor, lineHeight, fitWidth-xsave, oldx);
@@ -653,6 +653,11 @@ function printOutText(text, size, x, y, color, lineHeight, fitWidth, oldx)
     if (!text) return;
     let words = text.split(' ');
     let currentLine = 0;
+    if (fitWidth < 30){
+        currentLine++;
+        if (oldx) sx = oldx[0];
+        fitWidth = oldx[1];
+    }
     let idx = 1;
     while (words.length > 0 && idx <= words.length)
     {
