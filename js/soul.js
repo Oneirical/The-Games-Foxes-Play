@@ -101,7 +101,24 @@ effects = {
                 shakeAmount = 20 + power*5;
             }
         }
-    }
+    },
+    ASPHA: function(targets,power){
+        for (let i of targets){
+            let tper;
+            if (i.monster && !i.monster.isPlayer) tper = monsters[monsters.indexOf(i.monster)];
+            else if (i.monster && i.monster.isPlayer) tper = player;
+            else continue;
+            for (let i = 0; i<power; i++){
+                tper.move(randomPassableTile());
+                tper.tile.getAllNeighbors().forEach(function(t){
+                    t.setEffect(14, 30);
+                    if(t.monster){
+                        t.monster.hit(1);
+                    }
+                });
+            }
+        }
+    },
 }
 
 var functions = Object.keys(effects);
