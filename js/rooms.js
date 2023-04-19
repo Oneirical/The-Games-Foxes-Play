@@ -81,6 +81,29 @@ var spellpatterns = {
         1: "O.",
         "type" : "Function",
     },
+    "ASPHA" : {
+        0: "OO.",
+        1: "...",
+        2: "OO.",
+        "type" : "Function",
+    },
+    "KASHIA" : {
+        0: "U.U",
+        1: ".U.",
+        2: "...",
+        "type" : "Function",
+    },
+    "CLICK" : {
+        0: "O.",
+        1: ".O",
+        "type" : "Mutator",
+    },
+    "SACRIFICE" : {
+        0: "S..",
+        1: ".S.",
+        2: "..S",
+        "type" : "Mutator",
+    },
     "SMOOCH" : {
         0: "VV",
         1: "..",

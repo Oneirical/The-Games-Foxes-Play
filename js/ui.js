@@ -154,12 +154,14 @@ class TutorialDisplay{
 var maxseq = 0;
 
 class ComponentsDisplay{
-    constructor(forms,functions,power){
+    constructor(forms,mutators,functions,power){
         //this.timer = 0;
         this.forms = [];
         this.functions = [];
+        this.mutators = [];
         this.power = power;
         if (functions) for (let i of functions) this.functions.push(i);
+        if (mutators) for (let i of mutators) this.mutators.push(i);
         if (forms) for (let i of forms) this.forms.push(i);
         this.cage = [];
         this.build();
@@ -199,6 +201,13 @@ class ComponentsDisplay{
                     for (let k=0;k<this.functions.length;k++){
                         if(j == 4&& i-1 == k){
                             this.cage[i][j].value = new Component(inside[this.functions[k]]);
+                            this.cage[i][j].seq = seq;
+                            seq++;
+                        }
+                    }
+                    for (let k=0;k<this.mutators.length;k++){
+                        if(j == 3&& i-1 == k){
+                            this.cage[i][j].value = new Component(inside[this.mutators[k]]);
                             this.cage[i][j].seq = seq;
                             seq++;
                         }
@@ -1241,7 +1250,7 @@ class LegendSpell extends LegendarySoul{
         this.icon = inside[this.effect[0]];
         this.caste = caste;
         this.basepower = 99;
-        this.alllore = this.targeter.concat(this.effect);
+        this.alllore = this.targeter.concat(this.modifier.concat(this.effect));
         for (let i of this.targeter){
             this.basepower = Math.min(powerratings[i],this.basepower);
         }
@@ -1273,9 +1282,9 @@ class LegendSpell extends LegendarySoul{
         let description = researchexpl[this.alllore[legendaries.describepage]];
         if (powerratings[this.alllore[legendaries.describepage]]) description += "\n[g]Gain " + powerratings[this.alllore[legendaries.describepage]] + " Potency.[w]";
         printOutText(description, 18, 590, 105, "white", 20, 6*64-35);
-        printOutText(toTitleCase(this.caste) + " Caste", 18, 590, 50, colours[this.caste], 20, 6*64-35);
-        printOutText("Legendary Soul", 18, 590, 30, "white", 20, 6*64-100);
-        legendaries.exppage = new ComponentsDisplay(this.targeter,this.effect,this.basepower);
+        printOutText(toTitleCase(this.caste) + " Caste", 18, 590, 30, colours[this.caste], 20, 6*64-35);
+        printOutText(researchnames[this.alllore[legendaries.describepage]], 18, 590, 50, "white", 20, 6*64-100);
+        legendaries.exppage = new ComponentsDisplay(this.targeter,this.modifier,this.effect,this.basepower);
     }
 }
 

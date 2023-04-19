@@ -95,6 +95,16 @@ function summonMonster(x,y,type){
     monsters.push(monster);
 }
 
+function unlockAllSpells(){
+    for (let i of Object.keys(spellpatterns)){
+        research.knownspells.push(i);
+    }
+}
+
+function createSpell(form,mod,func){
+    return new LegendSpell([form],[mod],[func],"VILE");
+}
+
 class DroppedSoul{
     constructor(tile, type, attach){
         this.move(tile);
