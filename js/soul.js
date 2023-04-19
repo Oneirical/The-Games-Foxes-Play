@@ -54,8 +54,14 @@ effects = {
         for (let i of targets){
             if (i.monster){
                 i.monster.statuseff["Persuasive"] += power*3;
-                //if (i.monster.isPlayer) i.monster.specialAttack = "Charm";
-                //else i.monster.statuseff["Charmed"] > 0 = !i.monster.statuseff["Charmed"] > 0;
+            }
+        }
+    },
+    KASHIA: function(targets, power){
+        for (let i of targets){
+            if (i.monster){
+                i.monster.statuseff["Dissociated"] += power*2;
+                i.monster.falsehp = i.monster.hp;
             }
         }
     },

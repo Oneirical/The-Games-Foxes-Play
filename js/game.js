@@ -383,6 +383,7 @@ function tick(){
         victory = true;
     }
     for(let k=monsters.length-1;k>=0;k--){
+        if (monsters[k].doomed && !monsters[k].isPlayer) monsters[k].hit(99);
         if(!monsters[k].dead && monsters[k].order < 0){
             monsters[k].update();
             if (k >= monsters.length) break;
@@ -399,12 +400,13 @@ function tick(){
         if (world.fighting){
             if(world.getRoom().hostile) universe.worlds[universe.currentworld-1].cage.slots[world.getRoom().index[0]][world.getRoom().index[1]].turbulent = false;
             summonExits();
-            if (player.falsehp < 1 && legendaries.hasSoul(Kashia)){
+            if (player.falsehp < 1){
                 player.falsehp = 1;
-                log.addLog("KASHIA");
+                player.doomed = false;
             }
         }
     }
+    else if (player.doomed) player.hit(99);
 
     if(player.dead){
         if (player.rosetox < 10) playSound("death");

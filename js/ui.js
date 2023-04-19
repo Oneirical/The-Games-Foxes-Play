@@ -1086,7 +1086,7 @@ class Inventory{
         this.storeSoul(caste, this.active[caste]);
         this.active[caste] = soul;
         if (soul instanceof Kashia){
-            player.deathdelay = 5;
+            player.statuseff["Dissociated"] = 5;
             player.falsehp = player.hp;
         }
     }
@@ -1116,7 +1116,7 @@ class Inventory{
         if (basic.includes(this.active[slot].id)) return;
         else{
             if (soul instanceof Kashia){
-                player.deathdelay = 0;
+                player.statuseff["Dissociated"] = 0;
                 player.hp = player.falsehp;
                 if (player.hp <= 0) player.hit(99);
             }

@@ -195,11 +195,12 @@ class Monster{
         this.enraged = false;
         this.inhand = [];
         this.falsehp = 0;
-        this.deathdelay = 0;
+        this.statuseff["Dissociated"] = 0;
         this.soulless = false;
         this.order = -1;
         this.infested = 0;
         this.soulstun = 0;
+        this.doomed = false;
         this.previousdir;
         this.lootid = this.loot;
         if (legendaries.castes.includes(this.loot)) this.loot = commoneq[this.loot];
@@ -214,25 +215,25 @@ class Monster{
                 if (x instanceof Epsilon) x.hp = Math.min(33, x.hp+damage);
             }
         }
-        else if (this.deathdelay == 0) this.hp = Math.min(maxHp, this.hp+damage);
-        else if (this.deathdelay > 0) this.falsehp = Math.min(maxHp, this.falsehp+(damage*2));
+        else if (this.statuseff["Dissociated"] == 0) this.hp = Math.min(maxHp, this.hp+damage);
+        else if (this.statuseff["Dissociated"] > 0) this.falsehp = Math.min(maxHp, this.falsehp+(damage*2));
     }
 
     update(){
+        let kashcheck = false;
+        if (this.statuseff["Dissociated"] > 0) kashcheck = true;
         for (let i of Object.keys(this.statuseff)){
             this.statuseff[i] = Math.max(0,this.statuseff[i]-1);
         }
         this.teleportCounter--;
-        if (this.deathdelay > 0){
-            this.deathdelay--;
-            if (this.deathdelay == 0){
-                if (this.falsehp <= 0){
-                    this.hit(99);
-                    //removeItemOnce(monsters,this);
-                    //if (!this.noloot) wheel.addSoul(this.loot);
-                    this.noloot = true;
-                } 
+
+        if (this.statuseff["Dissociated"] == 0 && kashcheck){
+            if (this.falsehp <= 0){
+                if (!this.isPlayer) this.hit(99);
+                else this.doomed = true;
+                this.noloot = true;
             }
+            else this.hp = this.falsehp;
         }
         if (this.soulless) return;
         if (this.soulstun > 2){
@@ -438,7 +439,7 @@ class Monster{
                 this.getDisplayY()
             )
         }
-        if (this.deathdelay > 0){
+        if (this.statuseff["Dissociated"] > 0){
             drawSprite(
                 53,
                 this.getDisplayX(),
@@ -511,8 +512,8 @@ class Monster{
                         this.specialAttack = "";
                     }
                     if (this.specialAttack == "DDelay" && newTile.monster){
-                        if (newTile.monster.deathdelay == 0) newTile.monster.falsehp = newTile.monster.hp;
-                        newTile.monster.deathdelay = 2;
+                        if (newTile.monster.statuseff["Dissociated"] == 0) newTile.monster.falsehp = newTile.monster.hp;
+                        newTile.monster.statuseff["Dissociated"] = 2;
                         
                     }
                     if (this.specialAttack == "Constrict" && newTile.monster && newTile.monster.isPlayer){
@@ -634,8 +635,8 @@ class Monster{
             playSound("epsitink");
             return;
         }
-        if (this.deathdelay > 0) this.falsehp -= damage;
-        else if (this.deathdelay == 0 && !(this instanceof Tail)) this.hp -= damage;
+        if (this.statuseff["Dissociated"] > 0) this.falsehp -= damage;
+        else if (this.statuseff["Dissociated"] == 0 && !(this instanceof Tail)) this.hp -= damage;
         else if (this instanceof Tail){
             for (let x of monsters){
                 if (x instanceof Epsilon) x.hp -= damage;
@@ -780,20 +781,19 @@ class Player extends Monster{
                 rosetoxin = 0;
             }
         }
-        if (legendaries.hasSoul(Kashia) && this.deathdelay < 1){
-            this.deathdelay = 5;
+        if (legendaries.hasSoul(Kashia) && this.statuseff["Dissociated"] < 1){
+            this.statuseff["Dissociated"] = 5;
             this.falsehp = this.hp;
         }
-        if (this.deathdelay > 0){
-            this.deathdelay--;
+        if (this.statuseff["Dissociated"] > 0){
             if (this.falsehp < 1){
                 log.addLog("KashiaLethal");
                 playSound("deathdelay");
             }
-            if (this.deathdelay == 0){
+            if (this.statuseff["Dissociated"] == 0){
                 if (this.isPlayer){
                     for (let g of legendaries.active){
-                        if (g instanceof Kashia) this.deathdelay = 5;
+                        if (g instanceof Kashia) this.statuseff["Dissociated"] = 5;
                     }
                 }
                 this.hp = this.falsehp;

@@ -733,6 +733,8 @@ researchnames = {
     "EGO" : "Haughty as the Saints Were",
     "SMOOCH" : "False Charms and Pretend Affection",
     "PARACEON" : "Paraceon, Forever Crystallized",
+    "ASPHA" : "Aspha Beta, Nemesis of the Unseen",
+    "KASHIA" : "Kashia, Flesh and Mind Asunder",
 
     "RANDOM" : "Erratic Pulse of Prey's Hearts",
 }
@@ -760,6 +762,8 @@ researchlore = {
     "EGO" : "In a realm where sheer belief draws the line between what is and what is not, pride is omnipotence. The Saints were the first to learn this primordial truth.",
     "SMOOCH" : "As there is light and darkness, some souls give, some receive. To secure their place among the latter, the Vile waged war among themselves, not with blade and blood - but with false promises and dispassionate smooches.",
     "PARACEON" : "Not all who enlisted among the Ordered earn the glory of a general. Some stood in crystal caves, scanning every possible pebble for a trace of the cataclysm, while the chiming of their visors unsettled travellers. Their memories have long been crushed underneath exabytes of analysis data, leaving only the inflexibility of stone.",
+    "ASPHA" : "At one point in the history of Old World warfare, use of camouflage and invisibility technology became omnipresent. The solution was, of course, to build a very energy-hungry robot that considered air itself as its mortal enemy. Overkill? The stealth-bots - or, at the very least, what remains of them - would disagree.",
+    "KASHIA" : "The first attempts to engineer the cataclysm fail-safe revolved around alteration of pre-existing subjects. After Kashia exited Faith's End's operating chambers, a little ghostly gecko arrived five seconds later to mesh with the lizard's flesh, forever cursed to remain an after-image.",
 }
 
 researchunlocks = {
@@ -777,7 +781,7 @@ researchunlockdata = {
     "GYVJI" : Weaver,
     "SENET" : Felidol,
     "BEAM" : Oracle,
-    "SHIELD" : Snail,
+    "PARACEON" : Snail,
 }
 
 researchflags = {
@@ -803,6 +807,8 @@ researchflags = {
     "EGO" : "Form",
     "PARACEON" : "Function",
     "SMOOCH" : "Form",
+    "ASPHA" : "Function",
+    "KASHIA" : "Function",
 }
 
 researchexpl = {
@@ -828,6 +834,8 @@ researchexpl = {
     "GYVJI" : "[o]Function[w]: all targets are knocked back in the direction of my last move, until they strike an obstacle, upon which they take damage.\n[r]Damage[w]: 1 x [g]Potency[w].\n[g]4 Potency[w]: Also emit a 1-tile range shockwave at the impact location, repeating the damage on all adjacent tiles.",
     "PARACEON" : "[o]Function[w]: all targets obtain [r]Invincible[w].\nDuration of [r]Invincible[w]: [g]Potency[w] x 1 turns.",
     "SMOOCH" : "[l]Form[w]: targets one tile adjacent to me, in the direction of my last move.",
+    "ASPHA" : "[o]Function[w]: All targets teleport to a random empty tile, and slash all adjacent tiles for 1 damage.\nFor each point of [g]Potency[w], all creatures who teleported and slashed do so again.",
+    "KASHIA" : "[o]Function[w]: all targets obtain [s]Dissociated[w].\nDuration of [p]Dissociated[w]: [g]Potency[w] x 2 turns.\n[s]Dissociated[w]: Double all healing effects. All damage and healing received is not applied, but stored for later. When this effect expires, receive all stored damage and healing."
 }
 
 researchflagcolour = {
