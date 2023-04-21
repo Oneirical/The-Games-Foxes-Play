@@ -39,7 +39,8 @@ messages = {
     "WrongCageError" : "the cage is weird idk",
     "Bug" : "If you are seeing this, you have caused spacetime to explode and have violated the elemental laws of reality. Please message u/oneirical on Reddit, Onirim#2777 on the Roguelikes Discord or raise an issue on TGFP's GitHub explaining what happened.",
     "WIP" : "This feature is not completed yet.",
-    "MapDebug": "Press 'm' to view the map.",
+    "MapDebug": "Use WASD to move.  Press 'f' to view the research tree. Press 'c' to examine tiles and creatures. Press 'm' to view the map.",
+    "AddLegend" : "Press 'l' to equip your new Legend.",
     "AgonyWarning" : "You do not have enough Agony to forget this soul!",
     "Shiza" : "Select one soul to discard, then two to stack on top of your deck. The last selected card goes on top of the deck.",
     "InvPrompt": "Press the number corresponding to the soul in your wheel you wish to inspect, or press \"v\"/mouseover on top of a creature to view the details of their soul. Press \"c\" at any time to exit.",
@@ -318,6 +319,7 @@ colours = {
     "EmptyCast" : "yellow",
     "EmptyRemove" : "yellow",
     "NoShards" : "yellow",
+    "AddLegend" : "yellow",
     "TurbulentCast" : "yellow",
     "Paralyzed" : "orange",
     "Falling" : "white",
@@ -459,7 +461,7 @@ description = {
     "Siphon" : "The fragments of a broken Felidol, still greedily tugging at imaginary wealth despite having lost their soul. Should a creature be slain on top of the shards, the Felidol will be reassembled, its iconic grin restored to a pure, shining white.",
     "Mine" : "All the haunting blueprints of unfinished projects from an Artistic soul, compressed into a devastating pellet of psychic energy. Should an enemy step on it, beams of raw regret will pierce all 4 cardinal directions, lashing at the psyche of all foes that stand in their way.",
     "HMine" : "All the haunting blueprints of unfinished projects from an Artistic soul, compressed into a devastating pellet of psychic energy. Should you or an ally step on it, beams of raw regret will pierce all 4 cardinal directions, lashing at the psyche of all friendly creatures that stand in their way.",
-    "Bundle" : "A dastardly metallic creation, constantly looking out for the thermic signature of an organic creature passing over it. Once it has spotted its victim, strands of liquid rubber shoot out to envelop the hapless passer-by's feet, and knock them prone while they struggle to undo their bindings.",
+    "Bundle" : "A dastardly metallic creation, constantly looking out for the thermic signature of an organic creature passing over it. Once it has spotted its victim, strands of sticky goop shoot out to envelop the hapless passer-by's feet, and knock them prone while they struggle to undo their bindings.",
     "Pinwheel" : "An impeccable little handicraft, gently swirling as gusts of wind sway over it. You doubt its maker would appreciate the destruction of such a delicate thing.",
     "Reality" : "A pocket of unreality, void of the concept of void itself. Your gaze fills it with your flawed preconceptions of what nonexistence must be like - to you, it is a sparkling expanse of starry lights, dancing among the nothingness. To try to step within this space would be just like trying to rewind time before the birth of time: impossible.",
     "Glamour" : "A puff of swirling pink gas, occasionally scintillating as if it were filled with metallic confetti. A single breath crushes the divide between the real and the illusory - a fraction of the power that caused Rose's many subjects to smile before the destruction of all they loved.",
@@ -867,7 +869,7 @@ researchexpl = {
     "SACRIFICE" : "[k]Mutator[w]: Discard all Souls on your Wheel. For every removed Soul, gain [g]1 Potency[w].",
     "STEP" : "[z]Contingency[w]: When you take a step, incarnate this Legend.",
     "XCROSS" : "[l]Form[w]: surges out in all four diagonal directions, targeting all tiles it passes through until an obstacle is met.",
-    "EPSILON" : "After I have proven my worth against this formidable opponent, my pilgrimage will cycle back to its beginning.\nMay the developer of this game cease succumbing to the vile cravings of companionship and grass-touching, and provide me more knowledge to feast on.",
+    "EPSILON" : "I should ensure I have a collected a few Shattered Souls before entering this vision.\nAfter I have proven my worth against this formidable opponent, my pilgrimage will cycle back to its beginning.\nMay the developer of this game cease succumbing to the vile cravings of companionship and grass-touching, and provide me more knowledge to feast on.",
 }
 
 researchflagcolour = {

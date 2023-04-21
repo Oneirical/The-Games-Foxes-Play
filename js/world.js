@@ -23,7 +23,6 @@ class CageTemplate{
 
     generateWorld(){
         this.displayon = true;
-        this.pocketworld.confirmWorld();
         this.pocketworld.reward = {
             "Contingency" : [],
             "Form" : [],
@@ -32,6 +31,7 @@ class CageTemplate{
             "Caste" : [],
         }
         this.legendCheck();
+        this.pocketworld.confirmWorld();
 
     }
 
@@ -100,6 +100,10 @@ class Universe{
     }
 
     passDown(layer, spawnx, spawny){
+        if (this.worlds[layer].rooms[spawnx][spawny].corridor){
+            shakeAmount = 5;
+            return;
+        }
         level = 0;
         player.tile.monster = null;
         world.saveRoom(world.getRoom());
@@ -418,10 +422,10 @@ class World{
                     let roomType;
                     let flip = false;
                     let corridor = false;
-                    let bannedsquares = [[4,8],[8,4],[0,4],[4,0],[4,4]];
+                    let bannedsquares = [];
                     //if ((j == 8 && i == 4) || (j == 4 && i == 8) || (j == 0 && i == 4) || (j == 4 && i == 0)) roomType = EmptyFaith;
                     //else if (j == 4 && i == 4) roomType = PlateGenerator;
-                    if (Math.random() < 1 && j < 8 && i < 8 && worldgen[i+1][j].passable && worldgen[i][j+1].passable && worldgen[i+1][j+1].passable && !isArrayInArray(bannedsquares,[i+1,j]) && !isArrayInArray(bannedsquares,[i+1,j+1]) && !isArrayInArray(bannedsquares,[i,j+1])){
+                    if (this.reward["Form"].includes("EPSILON") && j < 8 && i < 8 && worldgen[i+1][j].passable && worldgen[i][j+1].passable && worldgen[i+1][j+1].passable && !isArrayInArray(bannedsquares,[i+1,j]) && !isArrayInArray(bannedsquares,[i+1,j+1]) && !isArrayInArray(bannedsquares,[i,j+1])){
                         if (!placedboss){
                             roomType = EpsilonArena;
                             placedboss = true; // temporary
@@ -956,7 +960,7 @@ class WorldSeed extends DefaultVaultRoom{
         //super.populateRoom();
         super.initializeRoom();
         summonExits();
-        research.completeResearch("Seed");
+        if (research.knownnodes.includes("Cage")) research.completeResearch("Seed");
         //this.startTutorial();
     }
 

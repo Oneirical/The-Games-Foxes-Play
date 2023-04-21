@@ -35,6 +35,8 @@ targeters = {
         newTile = newTile.getNeighbor(caster.lastMove[0],caster.lastMove[1]);
         newTile.setEffect(14,30);
         return [newTile];
+    },
+    EPSILON: function(caster){
     }
 }
 

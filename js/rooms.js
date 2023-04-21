@@ -79,7 +79,7 @@ var spellpatterns = {
     "STEP" : {
         0: "SS.",
         1: "..S",
-        2: "SS.",
+        2: "...",
         "type" : "Contingency",
     },
     "PARACEON" : {
@@ -90,11 +90,11 @@ var spellpatterns = {
     "ASPHA" : {
         0: "OO.",
         1: "...",
-        2: "OO.",
+        2: "...",
         "type" : "Function",
     },
     "KASHIA" : {
-        0: "U.U",
+        0: "U..",
         1: ".U.",
         2: "...",
         "type" : "Function",
@@ -107,7 +107,7 @@ var spellpatterns = {
     "SACRIFICE" : {
         0: "S..",
         1: ".S.",
-        2: "..S",
+        2: "...",
         "type" : "Mutator",
     },
     "SMOOCH" : {
@@ -133,8 +133,8 @@ var spellpatterns = {
         "type" : "Function",
     },
     "GYVJI" : {
-        0: "AAA",
-        1: "A.A",
+        0: "A.A",
+        1: "...",
         2: "...",
         "type" : "Function",
     },
@@ -200,8 +200,8 @@ var researchpage = {
         0 : ".I.I.I...",
         1 : ".I.iTj...",
         2 : ".K-<I....", // extend from e at some point
-        3 : ".f.hI.e..",
-        4 : ".LT)I.I..",
+        3 : ".f.hI....", // and add e, anyhow... right above d
+        4 : ".LT)I....",
         5 : "..L-cTd..",
         6 : ".g--)I...",
         7 : "...aTb...",
@@ -211,7 +211,7 @@ var researchpage = {
             "a" : [["<f"]],
             "c" : [["b"]],
             "d" : [["b"]],
-            "e" : [["d"]],
+            //"e" : [["d"]],
             "j" : [["c"]],
             "g" : [["c"]],
             "i" : [["c"]],

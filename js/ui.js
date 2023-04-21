@@ -739,7 +739,7 @@ class DrawWheel{
         }
         for (let k of this.wheel){
             if (k instanceof Empty){
-                if (!this.wheel[this.wheel.indexOf(k)].turbulent)research.completeResearch("Subdued");
+                if (!world.cage.slots[player.tile.x][player.tile.y].turbulent)research.completeResearch("Subdued");
                 if (basic.includes(world.cage.slots[player.tile.x][player.tile.y].id)) this.wheel[this.wheel.indexOf(k)] = world.cage.slots[player.tile.x][player.tile.y];
                 else legendaries.addSoul(world.cage.slots[player.tile.x][player.tile.y]);
                 world.cage.slots[player.tile.x][player.tile.y] = new Empty;

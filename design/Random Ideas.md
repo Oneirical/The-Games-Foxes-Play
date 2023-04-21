@@ -3,6 +3,7 @@
 * convert the bottom box of the inventory screen into storage slots
 
 * estate && large rooms do not work
+* stop duplicate patterns
 
 **"Serene Collective" design**
 
