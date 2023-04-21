@@ -1,10 +1,10 @@
 ## This is a chaotic canvas on which I launch all the random things I come up with while going about my day and bugs I notice throughout playtesting. It is not meant to be comprehensible.
 
-* Remake status effects to be easy to use.
-* Forms should be named after emotions, and Functions after legends.
 * convert the bottom box of the inventory screen into storage slots
 
 * you can still craft stuff from subdued souls, fix it
+* you can go negative in shattered shards
+* Think about losing shattereds only on contingency trigger (update sharing saturday)
 
 **"Serene Collective" design**
 
