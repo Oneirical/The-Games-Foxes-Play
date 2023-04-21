@@ -927,7 +927,13 @@ class ResearchNode extends Floor{
         super(x,y,110, true);
         this.sprite = 111;
         this.page = page;
+        this.letter = type;
         this.id = researchequivalences[page][type];
+        if (Object.keys(nodeloot).includes(this.id)){
+            let source = this.id;
+            this.id = shuffle(nodeloot[this.id])[0];
+            removeItemOnce(nodeloot[source],this.id);
+        }
         this.lore = researchlore[this.id];
         this.name = researchnames[this.id];
         this.flags = researchflags[this.id];
@@ -935,7 +941,7 @@ class ResearchNode extends Floor{
         this.unlock = researchunlocks[this.id];
         if (researchunlockdata[this.id]) this.unlockdata = new researchunlockdata[this.id]("disabled");
         if (!this.unlock) this.unlock = researchunlocks["None"];
-        this.discovered = true;
+        this.discovered = false;
         this.completed = false;
         if (this.id == "Intro") this.discovered = true;
 

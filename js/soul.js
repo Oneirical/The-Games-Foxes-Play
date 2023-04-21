@@ -79,6 +79,8 @@ modifiers = {
     }
 }
 
+var mutators = Object.keys(modifiers);
+
 // SENET - LASHOL (status) - KILAMI (status) - GYVJI - DASH - RASEL (status) - ASPHA (tp and hit) - SUGCHA (lifesteal)
 // ROSE (status) - JOLTZAZON (targets spread to adj) - HARBINGER (summon that will endlessly copy the first spell it is hit by)
 // ABAZON (only wall targets affected)

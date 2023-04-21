@@ -145,6 +145,11 @@ var spellpatterns = {
     },
 }
 
+var contingencies = [];
+for (let i of Object.keys(spellpatterns)){
+    if (spellpatterns[i]["type"] == "Contingency") contingencies.push(i);
+}
+
 var researchpage = {
     
     "Basic" : {
@@ -169,15 +174,13 @@ var researchpage = {
         7 : "....a....",
         8 : ".........",
         "links" : {
-            "Intro" : ["NONE"],
-            "Security" : ["Cage"],
-            "Herald" : ["Intro"],
-            "Cage" : ["Herald"],
-            "Seed" : ["Cage"],
-            "Vision" : ["Turbulent","Seed"],
-            "Turbulent" : ["Breath","Cage"],
-            //"Song" : ["Security"],
-            "Breath" : ["Herald"],
+            "a" : [[]],
+            "b" : [["a"]],
+            "c" : [["b"]],
+            "d" : [["c"]],
+            "f" : [["e"],["d"]],
+            "e" : [["i"],["c"]],
+            "i" : [["b"]],
         }
     },
     // a - A Tingling In The Soul (intro)
@@ -189,26 +192,26 @@ var researchpage = {
     // g - With Prudence Comes Serenity (security)
     // h - The Song That Stirs Souls (tier 1 harmony)
     "Page1" : {
-        0 : ".I.I.I.I.",
-        1 : ".I.iTj.I.",
-        2 : ".K-<I..I.",
-        3 : ".f.hI.e).",
+        0 : ".I.I.I...",
+        1 : ".I.iTj...",
+        2 : ".K-<I....", // extend from e at some point
+        3 : ".f.hI.e..",
         4 : ".LT)I.I..",
         5 : "..L-cTd..",
         6 : ".g--)I...",
         7 : "...aTb...",
         8 : "....I....",
         "links" : {
-            "Subdued" : ["Vision"],
-            "Shattered" : ["Vision"],
-            "Spellcast" : ["Subdued"],
-            "Estate" : ["Subdued"],
-            "PCage" : ["Estate"],
-            "EGO" : ["Spellcast"],
-            "Craft" : ["Spellcast"],
-            "SENET" : ["Spellcast"],
-            "GYVJI" : ["Spellcast"],
-            "BEAM" : ["Spellcast"],
+            "b" : [["<f"]],
+            "a" : [["<f"]],
+            "c" : [["b"]],
+            "d" : [["b"]],
+            "e" : [["d"]],
+            "j" : [["c"]],
+            "g" : [["c"]],
+            "i" : [["c"]],
+            "f" : [["c"]],
+            "h" : [["c"]],
         }
     },
     // a - Spiritual Sewage (shattered souls)
@@ -221,17 +224,24 @@ var researchpage = {
     // h - 
     "Page2" : {
         0 : ".........",
-        1 : ".........",
-        2 : ".K-<.....",
-        3 : ".........",
-        4 : ".K-+-<...",
-        5 : ".........",
-        6 : ".K-+-<...",
-        7 : ".a.b...I.",
-        8 : ".K-+-<.I.",
+        1 : "....i....",
+        2 : "..>-+-<..",
+        3 : "..h.f.I..",
+        4 : ".>Y<I.g..",
+        5 : ".e.dLT)..",
+        6 : ".I.I.I...",
+        7 : ".a.b.c...",
+        8 : ".I.I.I...",
         "links" : {
-            "PARACEON" : ["SENET"],
-            "SMOOCH" : ["SENET"],
+            "a" : [["<f","<h"]],
+            "b" : [["<i"]],
+            "c" : [["<j"]],
+            "e" : [["a"]],
+            "h" : [["e","d"]],
+            "d" : [["b"]],
+            "g" : [["c"]],
+            "f" : [["c"]],
+            "i" : [["h","f","g"]],
         }
     },
 }

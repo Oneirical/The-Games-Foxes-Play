@@ -53,13 +53,41 @@ class Research{
         for (let k=0; k<this.tabs.length;k++){ //change the 1 later to pagecount
             for(let i=0;i<9;i++){
                 for(let j=0;j<9;j++){
-                    if (this.tabs[k][i][j] instanceof ResearchNode && allInArray(researchpage["Page"+k]["links"][this.tabs[k][i][j].id],this.knownnodes)) {
+                    if (this.tabs[k][i][j] instanceof ResearchNode && this.checkforLinks(researchpage["Page"+k]["links"][this.tabs[k][i][j].letter],k)) {
                         this.tabs[k][i][j].discovered = true;
-                        if (!this.knownspells.includes(this.tabs[k][i][j].id) && (forms.includes(this.tabs[k][i][j].id) || functions.includes(this.tabs[k][i][j].id))) this.knownspells.push(this.tabs[k][i][j].id);
+                        if (!this.knownspells.includes(this.tabs[k][i][j].id) && (contingencies.includes(this.tabs[k][i][j].id) || forms.includes(this.tabs[k][i][j].id) || mutators.includes(this.tabs[k][i][j].id) || functions.includes(this.tabs[k][i][j].id))) this.knownspells.push(this.tabs[k][i][j].id);
                     }
                 }
             }
         }
+    }
+
+    findletter(letter,k){
+        let searchpage = k;
+        if (letter[0] == "<"){
+            searchpage--;
+            letter = letter[1];
+        }
+        for(let i=0;i<9;i++){
+            for(let j=0;j<9;j++){
+                if (this.tabs[searchpage][i][j] instanceof ResearchNode && this.tabs[searchpage][i][j].letter == letter && this.tabs[searchpage][i][j].completed) return true;
+            }
+        }
+        return false;
+    }
+
+    checkforLinks(candidate,k){
+        let match = 0;
+        for (let i of candidate){
+            for (let j of i){
+                if (this.findletter(j,k)){
+                    match++;
+                    break;
+                }
+            }
+        }
+        if (match == candidate.length) return true;
+        else return false;
     }
 
     display(tab){

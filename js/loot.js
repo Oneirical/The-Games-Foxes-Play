@@ -23,6 +23,15 @@ commoneq = {
     "SAINTLY" : Saintly,
 }
 
+var nodeloot = {
+    "FORM" : forms.slice(),
+    "FUNCTION" : functions.slice(),
+    "CONTINGENCY" : contingencies.slice(),
+    "MUTATOR" : mutators.slice(),
+}
+
+removeItemOnce(nodeloot["FORM"],"XCROSS"); //temp, remove
+
 //Monsters
 
 //Typeless
