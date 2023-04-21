@@ -3,9 +3,11 @@
 - Flavour text of A Click, Then a Flash, mutator component
 
 ## The Games Foxes Play
-*([complete source code on github](https://github.com/Oneirical/The-Games-Foxes-Play) | [view all previous posts](https://github.com/Oneirical/The-Games-Foxes-Play/tree/main/design/Development%20Logs) | [play 0.2 online in browser on itch.io!](https://oneirical.itch.io/tgfp))*
+*([complete source code on github](https://github.com/Oneirical/The-Games-Foxes-Play) | [view all previous posts](https://github.com/Oneirical/The-Games-Foxes-Play/tree/main/design/Development%20Logs) | [play 0.4 online in browser on itch.io!](https://oneirical.itch.io/tgfp))*
 
 *So* many changes. It is utterly insane how I either can't think about anything else but my game or can't bring myself to write a single line of code on any given day, no in between. I'm glad I can keep up the pace now, because The Plane Where Grass Is Touched has some exciting but time-consuming advancements in store for me in the coming weeks.
+
+My itch.io page has been updated with a new demo that includes *all* of the changes in the last 3 months! Still a bit rough here and there, and potentially confusing, but I certainly had fun playing it from beginning to end.
 
 # Steps Shift The Mind
 
@@ -19,11 +21,11 @@ There are two new types of spell-crafting blocks: Mutators and Contingencies. Th
 As an example, the following spell:
 
 * **Contingency**: On taking a step...
-* **Form**: ...target the tile in front of you...
-* **Mutator**: ...set down a trap on the target with the following effect...
-* **Function**: ...teleport the target away and deal damage where it lands.
+* **Form**: ...target tiles in front of you in a beam...
+* **Mutator**: ...set down a trap on the targets with the following effect...
+* **Function**: ...launch the target forwards and damage it when it hits a wall.
 
-does [exactly what it says on the tin.]()
+does [exactly what it says on the tin.](https://youtu.be/bCe16H-43K4)
 
 Mutators and Contingencies are optional. Contingencies in particular tend to induce sacrifices and costs, as you are basically turning an active ability into a passive one - a very powerful thing.
 
@@ -35,19 +37,19 @@ Maybe this is a bit complicated, but only a fool would settle out into a traditi
 
 As the old burns to feed the new, many UI elements have been added and removed:
 
-* There is a new [minimap]() viewable in the lower right corner, which dynamically updates every turn. The way it is rendered in the backend is... a bit gory (it is actually rendering outside of its frame, so I draw black rectangles to cover the overextending bits), but it *works* and I have noticed no performance issues.
+* There is a new [minimap](https://www.youtube.com/watch?v=aBX7jaU3jt0) viewable in the lower right corner, which dynamically updates every turn. The way it is rendered in the backend is... a bit gory (it is actually rendering outside of its frame, so I draw black rectangles to cover the overextending bits), but it *works* and I have noticed no performance issues.
 
-* In the Legendary Soul menu, the minimap is replaced by a new display which contains all relevant information about your crafted spells: its Potency (blue number), its Cost (purple number), its Caste (colored symbol), its [Contingencies]() (yellow row), its [Forms]() (green row), its [Mutators]() (pink row) and its [Functions]() (orange row).
+* In the Legendary Soul menu, the minimap is replaced by a new display which contains all relevant information about your crafted spells: its Potency (blue number), its Cost (purple number), its Caste (colored symbol), its [Contingencies](https://cdn.discordapp.com/attachments/504088568084561930/1099096079183659018/Capture_decran_le_2023-04-21_a_18.14.37.png) (yellow row), its [Forms](https://cdn.discordapp.com/attachments/504088568084561930/1099096078885867561/Capture_decran_le_2023-04-21_a_18.14.51.png) (green row), its [Mutators](https://cdn.discordapp.com/attachments/504088568084561930/1099096078592262215/Capture_decran_le_2023-04-21_a_18.15.02.png) (pink row) and its [Functions](https://cdn.discordapp.com/attachments/504088568084561930/1099096139782955008/Capture_decran_le_2023-04-21_a_18.15.12.png) (orange row).
 
-* There is now support for paragraphs and colored text in all text functions. This sounds so simple, but it was easily the most nightmarish thing on this list. Yet the result is [so glorious]()! Yes, Ulfsire, I have stolen the way you describe your powers in your game (Path of Achra) because I find the systematic layout to be very apt for a synergy-based game.
+* There is now support for paragraphs and colored text in all text functions. This sounds so simple, but it was easily the most nightmarish thing on this list. Yet the result is [so glorious](https://cdn.discordapp.com/attachments/504088568084561930/1099096619154157718/Capture_decran_le_2023-04-21_a_18.17.21.png)! Yes, Ulfsire, I have stolen the way you describe your powers in your game (Path of Achra) because I find the systematic layout to be very apt for a synergy-based game.
 
 * The "Resolve", "Ipseity" and "Harmonic Relays" mechanics (and associated UI elements) have been all shown the door. A tragic thing, considering how I was really imagining the final product to include all of these as major mechanics, but as Souls shift and change, so does my game.
 
 # Unlocking Memories of the Old World
 
-There is now a "drawback" to crafting spells - each pattern used will now *permanently* [add a new feature]() used in the map generation of future Visions (dungeons). Most of the time, this is a creature. Can that charming spell component deal with the swathes of Felidols it just added to the monster pool? I say "drawback" in quotation marks, because it is basically the whole point of the game - you are adding more diversified creatures in your ultimate quest to recreate the Old World as it once was, with all its weird denizens.
+There is now a "drawback" to crafting spells - each pattern used will now *permanently* [add a new feature](https://cdn.discordapp.com/attachments/504088568084561930/1099097330571034674/Capture_decran_le_2023-04-21_a_18.20.11.png) used in the map generation of future Visions (dungeons). Most of the time, this is a creature. Can that charming spell component deal with the swathes of Felidols it just added to the monster pool? I say "drawback" in quotation marks, because it is basically the whole point of the game - you are adding more diversified creatures in your ultimate quest to recreate the Old World as it once was, with all its weird denizens.
 
-The Faith's End facility (where the player begins the game) has also received a slight [touch-up]() for thematic purposes. Your existence is confined to only 5 vertical rooms, with the Saints' Voice hologram as your sole company. [Reinforced windows]() scattered across the corridor allowed the (now-long vanished) wardens to document your every motion. At the end of your containment chamber, an access gate with a few drawbridges allow access in and out of your cell - a privilege which is naturally not yours to choose.
+The Faith's End facility (where the player begins the game) has also received a slight [touch-up](https://cdn.discordapp.com/attachments/504088568084561930/1099097518039642162/Capture_decran_le_2023-04-21_a_18.20.49.png) for thematic purposes. Your existence is confined to only 5 vertical rooms, with the Saints' Voice hologram as your sole company. Reinforced windows scattered across the corridor allowed the (now-long vanished) wardens to document your every motion. At the end of your containment chamber, an access gate with a few drawbridges allow access in and out of your cell - a privilege which is naturally not yours to choose.
 
 Spoiler alert: those drawbridges won't stay locked for long. The cataclysm still rages outside the facility, and its perpetrators know you're trapped in there - your mind teeming with memories and an identity ripe for claiming. That will be something for a future week.
 
@@ -67,4 +69,4 @@ This means:
 
 For bonus fun, add a good Contingency, like the "on Step" one I mentioned above.
 
-[Demonstration.]()
+[Demonstration.](https://youtu.be/OnkBRvsLQ90)

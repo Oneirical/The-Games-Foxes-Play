@@ -4,6 +4,7 @@
 
 * estate && large rooms do not work
 * stop duplicate patterns
+* when potency is 0 the componentsdisplay does not work
 
 **"Serene Collective" design**
 

@@ -1370,7 +1370,7 @@ class LegendSpell extends LegendarySoul{
             else description += "\n[r]Lose " + Math.abs(powerratings[this.alllore[legendaries.describepage]]) + " Potency.[w]";
         }
         if (soulcosts[this.alllore[legendaries.describepage]]){
-            description += "\n[p]Triggering this Contingency will consume "+soulcosts[this.alllore[legendaries.describepage]]+ " Ipseity Shards";
+            description += "\n[p]Triggering this Contingency will consume "+soulcosts[this.alllore[legendaries.describepage]]+ " Ipseity Shards.";
         }
         printOutText(description, 18, 590, 105, "white", 20, 6*64-35);
         printOutText(toTitleCase(this.caste) + " Caste", 18, 590, 30, colours[this.caste], 20, 6*64-35);
