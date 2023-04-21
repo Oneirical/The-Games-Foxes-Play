@@ -2,10 +2,8 @@
 
 * convert the bottom box of the inventory screen into storage slots
 
-* you can still craft stuff from subdued souls, fix it
 * black screen crash on mousing over soul with its legendary
 * estate && large rooms do not work
-* epsilon respawn mechanic
 * missing textures
 
 **"Serene Collective" design**

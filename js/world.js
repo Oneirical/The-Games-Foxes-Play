@@ -47,11 +47,11 @@ class CageTemplate{
                 if (!(this.slots[i][j] instanceof Empty)){
                     allsouls.push(this.slots[i][j].id);
                     for (let k of research.knownspells){
-                        if (this.slots[i][j] instanceof keyspells[spellpatterns[k][0][0]]){
+                        if (this.slots[i][j] instanceof keyspells[spellpatterns[k][0][0]] && this.slots[i][j].turbulent){
                             let nothere = false;
                             for (let o =0; o<spellpatterns[k][0].length;o++){
                                 for (let p =0; p<spellpatterns[k][0].length;p++){
-                                    if ((spellpatterns[k][o][p] != "." && !(this.slots[i+p][j+o] instanceof keyspells[spellpatterns[k][o][p]]))){
+                                    if (spellpatterns[k][o][p] != "." && (!(this.slots[i+p][j+o] instanceof keyspells[spellpatterns[k][o][p]]) || !this.slots[i][j].turbulent)){
                                         nothere = true;
                                         break;
                                     }

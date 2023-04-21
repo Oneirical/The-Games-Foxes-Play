@@ -443,8 +443,8 @@ function tick(){
                 log.addLog("BlehhFail");
             }
             else{
-                truehp -= 1;
-                if(truehp < 1){
+                wheel.ipseity = lose(wheel.ipseity,5);
+                if(wheel.ipseity <= 0){
                     gameState = "dead";
                     pauseAllMusic();
                     playSound("falsity");
@@ -455,14 +455,18 @@ function tick(){
                     rosetoxin = 0;
                     player.rosetox = 0;
                     for (let x of monsters) x.sprite = x.spritesave;
-                    if (truehp > 1) log.addLog("EpsilonTaunt");
+                    if (wheel.ipseity > 5) log.addLog("EpsilonTaunt");
                     else  log.addLog("EpsilonOneChance");
                     player.dead = false;
                     player.tile.setEffect(1, 30);
                     spells["WOOP"](player);
-                    wheel.resolve = 3+Math.floor(resolvebonus/2);
                     player.sprite = 0;
                     player.fuffified = 0;
+                    for (let k of wheel.saved){
+                        if (!(k instanceof Empty))wheel.discard.push(k);
+                        wheel.spinningsouls = [new SpinningSoul(47,0)];
+                    }
+                    wheel.saved = [new Empty(),new Empty(),new Empty(),new Empty(),new Empty(),new Empty(),new Empty(),new Empty()];
                 }
             }
         }

@@ -67,6 +67,7 @@ function removeItemOnce(arr, value) {
 
 function lose(val,red){
     val = Math.max(0,val-red);
+    return val;
 }
 
 function findCommonElement(array1, array2) {
