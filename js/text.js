@@ -164,7 +164,7 @@ messages = {
     "ESaint8" : "\"Follow my instructions to the letter, keep true to your faith, and we shall all be redeemed.\"",
     "ESaint9" : "\"Disobey, and join the choir of voices of those who succumbed.\"",
     "ESaint10" : "\"Make your choice.\"",
-    "ESaint11" : "\"Your pilgrimage begins in the room beyond this airlock. Shatter the Herald's cage, and begin assembling the Next World. I await you, beloved servant, at the lowest point of the dreamscape~\"",
+    "ESaint11" : "\"Your pilgrimage begins in the room beyond this airlock. Shatter the Herald's cage, and begin assembling the Next World. I await you, beloved servant, at the lowest point of the dreamscape...\"",
     "ESaintRepeat" : "\"This message will repeat until nobody is left to consider it important.\"",
 
     // Rose, Last of the Saints

@@ -5,6 +5,7 @@
 * you can still craft stuff from subdued souls, fix it
 * you can go negative in shattered shards
 * Think about losing shattereds only on contingency trigger (update sharing saturday)
+* black screen crash on mousing over soul with its legendary
 
 **"Serene Collective" design**
 

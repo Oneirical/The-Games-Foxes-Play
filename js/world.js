@@ -165,6 +165,13 @@ class Universe{
         }
         let reward = false;
         if (world.reward["Form"].length > 0 && world.reward["Function"].length > 0 && receivereward) reward = new LegendSpell(world.reward["Contingency"],world.reward["Form"],world.reward["Mutator"],world.reward["Function"],shuffle(world.reward["Caste"])[0]);
+        if (reward){
+            for (let i of Object.keys(world.reward)){
+                for (let j of world.reward[i]){
+                    research.completeResearch(j);
+                }
+            }
+        }
         this.currentworld = layer;
         this.worlds[layer+1] = world;
         world = this.worlds[layer];

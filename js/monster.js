@@ -508,7 +508,7 @@ class Monster{
                     }
                     if ((this.statuseff["Persuasive"] > 0) && newTile.monster){
                         newTile.monster.statuseff["Charmed"] += 25;
-                        this.statuseff["Persuasive"].lose(this.statuseff["Persuasive"],5);
+                        lose(this.statuseff["Persuasive"],5);
                     }
                     if (this.specialAttack == "Harmony" && newTile.monster &&!newTile.monster.isPlayer&&!newTile.monster.loveless){
                         removeItemOnce(monsters, newTile.monster);

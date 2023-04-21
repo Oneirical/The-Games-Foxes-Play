@@ -816,6 +816,12 @@ function initSounds(){
     };
 }
 
+function nukeRoom(){
+    for (let i of monsters){
+        i.hit(99);
+    } 
+}
+
 function playSound(soundName){                       
     sounds[soundName].currentTime = 0;
     sounds[soundName].play();
