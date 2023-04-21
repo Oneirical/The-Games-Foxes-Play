@@ -27,7 +27,7 @@ does [exactly what it says on the tin.]()
 
 Mutators and Contingencies are optional. Contingencies in particular tend to induce sacrifices and costs, as you are basically turning an active ability into a passive one - a very powerful thing.
 
-Additionally, all spells now have a Potency rating dependent on which components constitute it. Power up GYVJI (a Function) with 4 Potency, and unleash shockwaves on impact! Increase the duration of applied status effects from SENET or KASHIA! There is also a potential Cost, most often found on Contingency blocks. Each time the spell is cast in any way, you will lose an X amount of Shattered Souls until you can no longer power the Contingency. How to get these Shattered Souls? By failing challenges and losing encounters, of course. In my game, failure is simply a different kind of step forward.
+Additionally, all spells now have a Potency rating dependent on which components constitute it. Power up GYVJI (a Function) with 4 Potency, and unleash shockwaves on impact! Increase the duration of applied status effects from SENET or KASHIA! There is also a potential Cost, currently only found on Contingency blocks. Each time the Contingency triggers, you will lose an X amount of Shattered Souls until you can no longer power the Contingency. How to get these Shattered Souls? By failing challenges and losing encounters, of course. In my game, failure is simply a different kind of step forward.
 
 Maybe this is a bit complicated, but only a fool would settle out into a traditional roguelike journey with the goal of mass market appeal.
 

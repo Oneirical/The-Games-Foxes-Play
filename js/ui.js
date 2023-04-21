@@ -131,7 +131,7 @@ class Research{
                 else description += "\n[r]Lose " + Math.abs(powerratings[research.page[cx][cy].id]) + " Potency.[w]";
             }
             if (soulcosts[research.page[cx][cy].id]){
-                description += "\n[p]This spell costs "+soulcosts[research.page[cx][cy].id]+ " more Ipseity Shards per cast.";
+                description += "\n[p]Triggering this Contingency will consume "+soulcosts[research.page[cx][cy].id]+ " Ipseity Shards.";
             }
             printOutText(description, 18, 590, 105, "white", 20, 6*64-35);
             if (!this.looking) this.exppage = new TutorialDisplay(research.page[cx][cy].id);
@@ -1002,7 +1002,7 @@ class DrawWheel{
             research.completeResearch("Spellcast");
             if (player.fuffified > 0) spellName = "SERENE";
             if (spellName == "FLEXIBLE"){
-                legendaries.active[num].legendCast();
+                fail = legendaries.active[num].legendCast();
                 if (!fail){
                     this.saved.push(this.wheel[slot]);
                     wheel.spinningsouls.push(new SpinningSoul(this.wheel[slot].icon,wheel.spinningsouls[wheel.spinningsouls.length-1].angle-1));
@@ -1139,6 +1139,14 @@ class Inventory{
     castContin(word){
         for (let i of this.active){
             if (i.triggers && i.triggers.includes(word)){
+                if (soulcosts[word]){
+                    if (wheel.ipseity < soulcosts[word]){
+                        shakeAmount = 5;
+                        log.addLog("NoShards");
+                        return;
+                    }
+                    wheel.ipseity-=soulcosts[word];
+                }
                 i.legendCast();
             }
         }
@@ -1338,12 +1346,11 @@ class LegendSpell extends LegendarySoul{
         }
         for (let i of this.triggers){
             if (powerratings[i]) power+=powerratings[i];
-            if (soulcosts[i]) wheel.ipseity-=soulcosts[i];
         }
         for (let i of this.modifier){
             for (let y of targets){
                 bonuspower += modifiers[i](y,this.effect,power);
-                if (i == "CLICK") return;
+                if (i == "CLICK") return false;
             }  
         }
         power += bonuspower;
@@ -1352,6 +1359,7 @@ class LegendSpell extends LegendarySoul{
                 effects[i](y,power);
             }   
         }
+        return false;
     }
 
     describe(){
@@ -1361,7 +1369,7 @@ class LegendSpell extends LegendarySoul{
             else description += "\n[r]Lose " + Math.abs(powerratings[this.alllore[legendaries.describepage]]) + " Potency.[w]";
         }
         if (soulcosts[this.alllore[legendaries.describepage]]){
-            description += "\n[p]This spell costs "+soulcosts[this.alllore[legendaries.describepage]]+ " more Ipseity Shards per cast.";
+            description += "\n[p]Triggering this Contingency will consume "+soulcosts[this.alllore[legendaries.describepage]]+ " Ipseity Shards";
         }
         printOutText(description, 18, 590, 105, "white", 20, 6*64-35);
         printOutText(toTitleCase(this.caste) + " Caste", 18, 590, 30, colours[this.caste], 20, 6*64-35);

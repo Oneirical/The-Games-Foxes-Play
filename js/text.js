@@ -57,6 +57,7 @@ messages = {
     "EmptyRemove" : "The void hungers not for that which does not exist. Select a slot on the wheel containing a soul to sacrifice it!",
     "CastError" : "You cannot cast this soul right now!",
     "Constricted" : "You are constricted! You cannot move normally. Slay or escape the creature constricting you to regain your agility!",
+    "NoShards" : "A lack of Ipseity Shards is preventing an incarnation from taking place! Collect Shattered Souls to obtain more Shards.",
 
     //Inventory screen
     "InvTutorial" : "Incarnate up to six Legendary Souls - one of each type - to lead each of the spiritual castes and to enforce their will upon your common passengers. Alter the function of your basic abilties, gain new passive effects and assemble powerful combinations. Store up to four unused Souls in your subconscious mind for later use. Be wary, for Legendary souls have a mind of their own, and may not have the Old World's interests at heart...",
@@ -316,6 +317,7 @@ colours = {
     "KashiaLethal" : "magenta",
     "EmptyCast" : "yellow",
     "EmptyRemove" : "yellow",
+    "NoShards" : "yellow",
     "TurbulentCast" : "yellow",
     "Paralyzed" : "orange",
     "Falling" : "white",
@@ -863,7 +865,7 @@ researchexpl = {
     "KASHIA" : "[o]Function[w]: all targets obtain [m]Dissociated[w].\n[m]Dissociated[w]: Double all healing effects. All damage and healing received is not applied, but stored for later. When this effect expires, receive all stored damage and healing. On room clear, remove all stored damage.\nDuration of [m]Dissociated[w]: [g]Potency[w] x 2 turns.",
     "CLICK" : "[k]Mutator[w]: Skip all remaining [k]Mutators[w] and [o]Functions[w].\nOn all targets, place down a trap.\n[w]When a creature moves onto the trap, trigger all [o]Functions[w], with only the trap tile as target and with the [g]Potency[w] accumulated when this module executed. Then, remove the trap.",
     "SACRIFICE" : "[k]Mutator[w]: Discard all Souls on your Wheel. For every removed Soul, gain [g]1 Potency[w].",
-    "STEP" : "[z]Contingency[w]: When you take a step, cast this spell.",
+    "STEP" : "[z]Contingency[w]: When you take a step, incarnate this Legend.",
     "XCROSS" : "[l]Form[w]: surges out in all four diagonal directions, targeting all tiles it passes through until an obstacle is met.",
     "EPSILON" : "After I have proven my worth against this formidable opponent, my pilgrimage will cycle back to its beginning.\nMay the developer of this game cease succumbing to the vile cravings of companionship and grass-touching, and provide me more knowledge to feast on.",
 }
