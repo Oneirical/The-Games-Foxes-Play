@@ -6,6 +6,8 @@
 * you can go negative in shattered shards
 * Think about losing shattereds only on contingency trigger (update sharing saturday)
 * black screen crash on mousing over soul with its legendary
+* estate && large rooms do not work
+* epsilon respawn mechanic
 
 **"Serene Collective" design**
 

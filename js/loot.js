@@ -30,7 +30,7 @@ var nodeloot = {
     "MUTATOR" : mutators.slice(),
 }
 
-removeItemOnce(nodeloot["FORM"],"XCROSS"); //temp, remove
+//removeItemOnce(nodeloot["FORM"],"XCROSS"); //temp, remove
 
 //Monsters
 

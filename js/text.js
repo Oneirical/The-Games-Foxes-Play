@@ -748,6 +748,8 @@ researchnames = {
     "CLICK" : "A Click, Then a Flash",
     "SACRIFICE" : "Thoughts, What Delicacies",
     "STEP" : "Steps Shift The Mind",
+    "XCROSS" : "Yearnings Crossed Out",
+    "EPSILON" : "Pistons Crush Disobedience",
 
     "RANDOM" : "Erratic Pulse of Prey's Hearts",
 }
@@ -780,6 +782,8 @@ researchlore = {
     "CLICK" : "Where the Ordered forces do not have soldiers, they have traps. A careless step, and would-be looters become the looted, their every memory sold to the highest bidder on the hivemind's network.",
     "SACRIFICE" : "A gathering of Saints cannot be taken seriously without a batch of hapless subordinates to toy with. As they recount anecdotes and plot strategies of domination, the thrashing of their servants' spirits draws eerie grins on their faces.",
     "STEP" : "To walk and let the mind wander is a dangerous thing. A thought pulls harder than the rest, one's gait softens into the grace of a Saint, tears turn to bright smiles, and before one knows it, one is no more.",
+    "XCROSS" : "The Unhinged swore away control and domination, living according to whim and impulse. Were they truly free, or controlled by the ideology of freedom?",
+    "EPSILON" : "What strange fascination the Ordered had with size - to them, military rank and the weight of metal attached to their body were one and the same. Nothing would put these thrashing Ordered Souls in their place more than the defeat of one of their legends.",
 }
 
 researchunlocks = {
@@ -828,6 +832,8 @@ researchflags = {
     "CLICK" : "Mutator",
     "SACRIFICE" : "Mutator",
     "STEP" : "Contingency",
+    "XCROSS" : "Form",
+    "EPSILON" : "Form",
 }
 
 researchexpl = {
@@ -858,6 +864,8 @@ researchexpl = {
     "CLICK" : "[k]Mutator[w]: Skip all remaining [k]Mutators[w] and [o]Functions[w].\nOn all targets, place down a trap.\n[w]When a creature moves onto the trap, trigger all [o]Functions[w], with only the trap tile as target and with the [g]Potency[w] accumulated when this module executed. Then, remove the trap.",
     "SACRIFICE" : "[k]Mutator[w]: Discard all Souls on your Wheel. For every removed Soul, gain [g]1 Potency[w].",
     "STEP" : "[z]Contingency[w]: When you take a step, cast this spell.",
+    "XCROSS" : "[l]Form[w]: surges out in all four diagonal directions, targeting all tiles it passes through until an obstacle is met.",
+    "EPSILON" : "After I have proven my worth against this formidable opponent, my pilgrimage will cycle back to its beginning.\nMay the developer of this game cease succumbing to the vile cravings of companionship and grass-touching, and provide me more knowledge to feast on.",
 }
 
 researchflagcolour = {

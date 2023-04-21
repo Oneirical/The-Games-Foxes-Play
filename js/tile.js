@@ -920,6 +920,9 @@ const inside = {
     "CLICK" : 1,
     "KASHIA" : 1,
     "SACRIFICE" : 1,
+    "STEP" : 1,
+    "XCROSS" : 1,
+    "EPSILON" : 1,
 }
 
 class ResearchNode extends Floor{
@@ -941,7 +944,7 @@ class ResearchNode extends Floor{
         this.unlock = researchunlocks[this.id];
         if (researchunlockdata[this.id]) this.unlockdata = new researchunlockdata[this.id]("disabled");
         if (!this.unlock) this.unlock = researchunlocks["None"];
-        this.discovered = false;
+        this.discovered = true;
         this.completed = false;
         if (this.id == "Intro") this.discovered = true;
 

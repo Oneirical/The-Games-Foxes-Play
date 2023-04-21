@@ -121,7 +121,12 @@ var spellpatterns = {
         2: "...",
         "type" : "Form",
     },
-
+    "XCROSS" : {
+        0: "U..",
+        1: ".U.",
+        2: "U..",
+        "type" : "Form",
+    },
     "SENET" : {
         0: "VV",
         1: "V.",
