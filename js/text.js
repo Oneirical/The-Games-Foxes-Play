@@ -61,7 +61,7 @@ messages = {
     "NoShards" : "A lack of Ipseity Shards is preventing an incarnation from taking place! Collect Shattered Souls to obtain more Shards.",
 
     //Inventory screen
-    "InvTutorial" : "Incarnate up to six Legendary Souls - one of each type - to lead each of the spiritual castes and to enforce their will upon your common passengers. Alter the function of your basic abilties, gain new passive effects and assemble powerful combinations. Store up to four unused Souls in your subconscious mind for later use. Be wary, for Legendary souls have a mind of their own, and may not have the Old World's interests at heart...",
+    "InvTutorial" : "Press 'a' and 'd' while looking at a Legend to cycle through its components in the bottom right display.",
     
     
     // Death messages
@@ -848,7 +848,7 @@ researchexpl = {
     "Turbulent" : "Turbulent Souls thrash around in indiscipline, rendering them incapable of proper servitude. \nExhaling one into the Soul Cage should teach it some manners.",
     "Cage" : "Should I Exhale a Soul while I stand on top of this Cage, it will be snatched into one of its compartments, and forced into a hypnotic trance.",
     "Seed" : "Each Soul locked in the Cage dreams vividly of the Old World, and of its varied denizens. \nThese Hypnotic Projectors allow me to join them in trance, dispensing discipline and collecting a fresh bounty of Souls.",
-    "Vision" : "Accessed from the World Seed, Visions are hypnotic dreamscapes, teeming with fresh Souls and the dangers they present. \nUnfortunately, death here will not grant me the annihilation I crave, but will instead harmlessly jolt me out of trance.",
+    "Vision" : "Accessed from the World Seed, Visions are hypnotic dreamscapes, teeming with fresh Souls and the dangers they present. \nUnfortunately, death here will not grant me the annihilation I crave, but will instead harmlessly jolt me out of trance.\n[r]Important[w]: Press '1' to move up this tree, and '2' to return downwards.",
     "Subdued" : "Generated when I empty out a Soul's cluttered mind, Subdued Souls serve me obediently. \nExhaling them triggers useful effects, and the Visions they generate are devoid of danger.",
     "Shattered" : "Generated when I fail a Vision's trials, Shattered Souls choose annihilation over servitude. \nTheir remains still prove useful, empowering my Breath after a certain quantity has been assimilated.",
     "Song" : "It is easy to forget the cataclysm outside which wiped out the Old World. With each careless step, it inches closer to engulf me as well. \nI do not trust it will grant me glorious annihilation, but rather something even worse than the torture of life.",

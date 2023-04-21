@@ -816,7 +816,7 @@ function initSounds(){
         epsitink : new Audio('sounds/EpsilonTink.wav'),
         epsivuln : new Audio('sounds/EpsilonVuln.wav'),
         malform : new Audio('music/Malform.wav'),
-        learn : new Audio('sounds/Learn.ogg'),
+        learn : new Audio('sounds/Learn.wav'),
     };
 }
 

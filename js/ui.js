@@ -1133,6 +1133,7 @@ class Inventory{
         printOutText("8",22, 229, 194+68, "black",20,350);
         printOutText("9",22, 229, 194+138, "black",20,350);
         printOutText("0",22, 229, 194+138+68, "black",20,350);
+        printOutText(messages["InvTutorial"], 18, 10, 600, "white", 20, 560);
         
     }
 
