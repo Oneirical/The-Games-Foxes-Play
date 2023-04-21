@@ -2,7 +2,6 @@
 
 * convert the bottom box of the inventory screen into storage slots
 
-* black screen crash on mousing over soul with its legendary
 * estate && large rooms do not work
 * missing textures
 

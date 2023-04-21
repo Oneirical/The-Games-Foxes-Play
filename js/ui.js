@@ -1288,10 +1288,10 @@ class LegendarySoul{
         else {
             let command = legendaries.active[index].id;
             if (basic.includes(command)) command = "Commanded by its own whims";
-            else command = "Commanded by " + toTitleCase(command);
+            else command = "Commanded by a Legend";
             printOutText(command, 18, 10, 620, "lightgrey", 20, 690);
-            if (!basic.includes(legendaries.active[index].id) && legendaries.active[index].influence != "I") printOutText(legendaries.active[index].subdescript, 18, 10, 660, "white", 20, 690);
-            else printOutText(this.subdescript, 18, 10, 660, "white", 20, 690);
+            if (false && !basic.includes(legendaries.active[index].id) && legendaries.active[index].influence != "I") printOutText(legendaries.active[index].subdescript, 18, 10, 660, "white", 20, 690);
+            else printOutText("\n[g]Base Effect[w]\n"+this.subdescript, 18, 10, 660, "white", 20, 690);
         }
         
     }
