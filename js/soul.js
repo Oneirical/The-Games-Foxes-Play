@@ -26,9 +26,11 @@ targeters = {
             [1, -1],
             [1, 1]
         ];
+        let targets = [];
         for(let k=0;k<directions.length;k++){
-            return targetBoltTravel(directions[k], 14, caster.tile);
+            for (let i of targetBoltTravel(directions[k], 14, caster.tile)) targets.push(i);
         }
+        return targets;
     },
     SMOOCH : function(caster){
         let newTile = caster.tile;
