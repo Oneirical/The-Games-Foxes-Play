@@ -230,7 +230,7 @@ function draw(){
         if (!inInventory && !cursormode && !wheel.hide) printOutText(universe.getDepth(), 25, 905 - ctx.measureText(universe.getDepth()).width, 35, "lightblue");
         if (!inInventory && !cursormode && !wheel.hide) printOutText(world.getRoom().name, 25, 595, 35, "violet");
 
-        //if (gameState == "dead" && !victory) drawText("SOUL SHATTERED", 20, false, 100, "red");
+        //if (gameState == "dead" && !victory) drawText("SOUL SHATTERED", 20, false, 100, "orangered");
         //else if (gameState == "dead" && victory) drawText("VICTORY", 30, false, 100, "lime");
         let modulecol = "cyan";
         if (selectation == 21 || selectation == 22) modulecol = "white";
@@ -499,7 +499,7 @@ function showTitle(){
 function showBoss(currentboss){                                          
     let bossname = ["ROSE","EPSILON","RONIN","FLUFFY"];
     let bosstitle = ["-Last of the Saints-","-Supreme Ordered General-","-the Unfaltering Wheel-","-Grand Harmonic Maestra-"];
-    let bosscolour = ["pink","red","purple","cyan"];
+    let bosscolour = ["pink","orangered","purple","cyan"];
     let scale = [0,-100,-50,-75];
     ctx.fillStyle = 'rgba(0,0,0,.75)';
     ctx.fillRect(canvas.width/3-200+scale[currentboss],canvas.height/2 - 200,canvas.width/4+300, canvas.height/5);
@@ -509,7 +509,7 @@ function showBoss(currentboss){
 
 function drawBossHp(currentboss, hp){
     let bossname = ["ROSE","EPSILON","RONIN","FLUFFY"];
-    let bosscolour = ["pink","red","purple","cyan"];
+    let bosscolour = ["pink","orangered","purple","cyan"];
     let bar = ["⚙⚙","Σ","❄❄","♡♡"];
     ctx.fillStyle = 'rgba(0,0,0,.85)';
     ctx.fillRect(0,577-32,577,32);

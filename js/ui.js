@@ -106,7 +106,7 @@ class Research{
         //drawSymbol(4, 880, 230, 64);
         //drawSymbol(5, 880, 330, 64);
         //drawSymbol(21, 880, 430, 64);
-        //printOutText("Ordered",18, 664, 368, "red",20,350);
+        //printOutText("Ordered",18, 664, 368, "orangered",20,350);
         //printOutText("Shattered",18, 664, 168, "cornflowerblue",20,350);
         //printOutText("Saintly",18, 664, 268, "lime",20,350);
         //printOutText("Artistic",18, 664, 468, "orange",20,350);
@@ -328,7 +328,7 @@ class MessageLog{
             if (x != this.history.length-1 || this.allgrey) coloring = "#b4b5b8";
             else if (this.history[x].includes("Fluffy")) coloring = "cyan";
             else if (this.history[x].includes("Rose")) coloring = "lightpink";
-            else if (this.history[x].includes("Epsilon")) coloring = "red";
+            else if (this.history[x].includes("Epsilon")) coloring = "orangered";
             else if (this.history[x].includes("Saint")) coloring = "lime";
             let print = messages[this.history[x]];
             if (this.repeats[x] > 1) print += " x"+this.repeats[x];
@@ -409,7 +409,7 @@ class DrawWheel{
         drawSymbol(icon,590,320,64);
         if (gameState == "contemplation"){
             drawSymbol(13, 880, 50, 64);
-            printOutText(agony+" ", 23, 835, 90, "red", 20, 350);
+            printOutText(agony+" ", 23, 835, 90, "orangered", 20, 350);
         }
 
         else if (player.infested > 1){
@@ -424,7 +424,7 @@ class DrawWheel{
             }
             printOutText(paltars[0]+paltars[1]+paltars[2], 23, 780, 75, "cyan", 20, 350);
             printOutText("-", 23, 825, 75, "white", 20, 350);
-            printOutText(naltars[0]+naltars[1]+naltars[2], 23, 839, 75, "red", 20, 350);
+            printOutText(naltars[0]+naltars[1]+naltars[2], 23, 839, 75, "orangered", 20, 350);
             printOutText("=", 23, 805, 105, "white", 20, 350);
             for (let k = 0; k < 3; k++){
                 paltars[k] = parseInt(paltars[k])
@@ -445,7 +445,7 @@ class DrawWheel{
         else{
             //drawSymbol(12, 880, 50, 64);
             //let colour = "lightskyblue";
-            //if (this.resolve < 1) colour = "red";
+            //if (this.resolve < 1) colour = "orangered";
             //printOutText(this.resolve+"/"+(3+Math.floor(resolvebonus/2))+" ", 23, 835, 90, colour, 20, 350);
         }
         printOutText(" "+this.ipseity, 23, 660, 90, "plum", 20, 350);

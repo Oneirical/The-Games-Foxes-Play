@@ -16,7 +16,7 @@ inventorytext = {
 }
 
 const colourcodes = {
-    'r]' : "red",
+    'r]' : "orangered",
     'b]' : "blue",
     'w]' : "white",
     'l]' : "lime",
@@ -303,14 +303,14 @@ messages = {
 
 colours = {
     "Empty" : "black",
-    "Agony" : "red",
+    "Agony" : "orangered",
     "WIP" : "yellow",
     "MapDebug" : "yellow",
     "UsedRelay" : "cyan",
-    "AgonyWarning" : "red",
+    "AgonyWarning" : "orangered",
     "InvPrompt" : "yellow",
-    "RoomDeath" : "crimson",
-    "DrawDeath" : "crimson",
+    "RoomDeath" : "orangered",
+    "DrawDeath" : "orangered",
     "RoseDeath" : "lightpink",
     "NoSouls" : "yellow",
     "UnrulySouls" : "yellow",
@@ -325,13 +325,13 @@ colours = {
     "Falling" : "white",
     "Fallen" : "white",
     "Rosified" : "lightpink",
-    "CastError" : "red",
+    "CastError" : "orangered",
     "Constricted" : "yellow",
     "S" : "gainsboro",
     "H" : "cyan",
     "G" : "lightpink",
     "I" : "white",
-    "A" : "red",
+    "A" : "orangered",
     "Blehh" : "lime",
 
     "InvTutorial" : "white",
@@ -356,7 +356,7 @@ colours = {
     "TAINTED" : "magenta",
     "SAINTLY" : "lime",
     "SAINTLYS" : "lime",
-    "ORDERED" : "red",
+    "ORDERED" : "orangered",
     "ARTISTIC" : "orange",
     "UNHINGED" : "yellow",
     "FERAL" : "yellowgreen",
@@ -387,7 +387,7 @@ colours = {
 
     "TAINTEDF" : "magenta",
     "SAINTLYF" : "lime",
-    "ORDEREDF" : "red",
+    "ORDEREDF" : "orangered",
     "ARTISTICF" : "orange",
     "UNHINGEDF" : "yellow",
     "FERALF" : "yellowgreen",
