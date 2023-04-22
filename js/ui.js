@@ -739,11 +739,14 @@ class DrawWheel{
         }
         for (let k of this.wheel){
             if (k instanceof Empty){
+                let retrievesuccess = true;
                 if (!world.cage.slots[player.tile.x][player.tile.y].turbulent)research.completeResearch("Subdued");
                 if (basic.includes(world.cage.slots[player.tile.x][player.tile.y].id)) this.wheel[this.wheel.indexOf(k)] = world.cage.slots[player.tile.x][player.tile.y];
-                else legendaries.addSoul(world.cage.slots[player.tile.x][player.tile.y]);
-                world.cage.slots[player.tile.x][player.tile.y] = new Empty;
-                world.cage.size--;
+                else retrievesuccess = legendaries.addSoul(world.cage.slots[player.tile.x][player.tile.y]);
+                if (retrievesuccess) {
+                    world.cage.slots[player.tile.x][player.tile.y] = new Empty;
+                    world.cage.size--;
+                }
                 if(world.cage.size > 0) world.cage.generateWorld();
                 else world.cage.displayon = false;
                 break;
@@ -1184,7 +1187,10 @@ class Inventory{
     addSoul(soul){
         let noroom = 0;
         for (let i of this.storage){
-            if (noroom == this.storage.length) return;
+            if (noroom == this.storage.length){
+                shakeAmount = 5;
+                return false;
+            }
             else if (i instanceof Empty){
                 this.storage[this.storage.indexOf(i)] = soul;
                 break;

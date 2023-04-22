@@ -1083,19 +1083,6 @@ class Player extends Monster{
         level++;
         let areas = ["Faith","Circus","Spire","Edge"]; // add Edge when it's not bugged "Spire"
         area = areas[randomRange(0,0)]
-        if (level % 5 == 1 && level > 5){
-            if (area == "Faith"){
-                log.addLog("FluffyWelcome");
-                dialoguecount = 0;
-            }
-            else if (area == "Spire"){
-                log.addLog("FluffyWorkshop");
-                dialoguecount = 0;
-            }
-            else if (area == "Faith" && world.getRoom() instanceof EpsilonArena){
-                log.addLog("EpsilonWelcome1");
-            }
-        }
         if (area == "Spire") spirevisited = true;
         areachange = false;
         rosetoxin = 0;

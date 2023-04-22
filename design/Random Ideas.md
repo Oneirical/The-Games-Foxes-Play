@@ -6,6 +6,9 @@
 * stop duplicate patterns
 * when potency is 0 the componentsdisplay does not work
 
+* cheesing crafting with reenter exit
+* fix the red text
+
 **"Serene Collective" design**
 
 Glamour injectors to safely view the Collective without being infected.
