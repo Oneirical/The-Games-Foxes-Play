@@ -1236,7 +1236,7 @@ class Herald extends Monster{
     constructor(tile){
         super(tile, 54, 1, "FERAL", description["Herald"]);
         this.soul = "Soulless."
-        this.name = "Herald's Cage";
+        this.name = "Herald of the Old World";
         this.teleportCounter = 0;
         this.damage = 0;
     }
