@@ -87,7 +87,8 @@ class CageTemplate{
                     let c1 = this.getAdjacentNeighbors(i+p,j+o);
                     let c2 = this.getAdjacentGridNeighbors(k,o,p);
                     for (let u = 0; u < c1.length; u++){
-                        if (c1[u].id == currenttype) c1[u] = c1[u].id[0];
+                        if (c1[u].id == currenttype && c1[u].turbulent) c1[u] = c1[u].id[0];
+                        else if (!c1[u].turbulent && !(c1[u] instanceof Empty)) c1[u] = "#"; // handle turbulent/subdued better
                         else c1[u] = ".";
                     }
                     if(!arraysEqual(c1,c2)) return false;
