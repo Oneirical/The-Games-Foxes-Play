@@ -1,13 +1,15 @@
 ## This is a chaotic canvas on which I launch all the random things I come up with while going about my day and bugs I notice throughout playtesting. It is not meant to be comprehensible.
 
+* handle subdued/turbulent crafting mechanics
+
 * convert the bottom box of the inventory screen into storage slots
 
 * estate && large rooms do not work
-* stop duplicate patterns
+
 * when potency is 0 the componentsdisplay does not work
 
 * cheesing crafting with reenter exit
-* fix the red text
+
 
 **"Serene Collective" design**
 
