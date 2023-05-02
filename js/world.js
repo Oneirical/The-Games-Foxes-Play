@@ -21,6 +21,80 @@ class CageTemplate{
         this.pocketworld = universe.worlds[1];
     }
 
+    getNeighbor(x,y, dx, dy){
+        let ret = this.slots[x+dx];
+        if (!ret) return "Any";
+        let ret2 = ret[y + dy];
+        if (!ret2) return "Any";
+        else return ret2;
+    }
+
+    getAdjacentNeighbors(x,y){
+        return [
+            this.getNeighbor(x,y,0, -1),
+            this.getNeighbor(x,y,0, 1),
+            this.getNeighbor(x,y,-1, 0),
+            this.getNeighbor(x,y,1, 0),
+            this.getNeighbor(x,y,1, 1),
+            this.getNeighbor(x,y,-1, -1),
+            this.getNeighbor(x,y,-1, 1),
+            this.getNeighbor(x,y,1, -1),
+        ];
+    }
+
+    getGridNeighbor(k, x,y, dx, dy){
+        let ret = spellpatterns[k][x+dy];
+        if (!ret) return ".";
+        let ret2 = ret[y+dx];
+        if (!ret2) return ".";
+        else return ret2;
+    }
+
+    getAdjacentGridNeighbors(k,x,y){
+        return [
+            this.getGridNeighbor(k,x,y,0, -1),
+            this.getGridNeighbor(k,x,y,0, 1),
+            this.getGridNeighbor(k,x,y,-1, 0),
+            this.getGridNeighbor(k,x,y,1, 0),
+            this.getGridNeighbor(k,x,y,1, 1),
+            this.getGridNeighbor(k,x,y,-1, -1),
+            this.getGridNeighbor(k,x,y,-1, 1),
+            this.getGridNeighbor(k,x,y,1, -1),
+        ];
+    }
+
+    checkConflict(i,j,k){
+        let rele = false;
+        let currenttype;
+        for (let o =0; o<spellpatterns[k][0].length;o++){
+            for (let p =0; p<spellpatterns[k][0].length;p++){
+                if (spellpatterns[k][o][p] != "." && (this.slots[i][j] instanceof keyspells[spellpatterns[k][o][p]])) {
+                    rele = true;
+                    currenttype = this.slots[i][j].id;
+                    i -= o;
+                    j -= p;
+                    break;
+                }
+            }
+            if (rele) break;
+        }
+        if (!rele) return false;
+        for (let o =0; o<spellpatterns[k][0].length;o++){
+            for (let p =0; p<spellpatterns[k][0].length;p++){
+                if (spellpatterns[k][o][p] != "."){
+                    let c1 = this.getAdjacentNeighbors(i+p,j+o);
+                    let c2 = this.getAdjacentGridNeighbors(k,o,p);
+                    for (let u = 0; u < c1.length; u++){
+                        if (c1[u].id == currenttype) c1[u] = c1[u].id[0];
+                        else c1[u] = ".";
+                    }
+                    if(!arraysEqual(c1,c2)) return false;
+                }
+            }
+        }
+        return true;
+    }
+
     generateWorld(){
         this.displayon = true;
         this.pocketworld.reward = {
@@ -47,20 +121,7 @@ class CageTemplate{
                 if (!(this.slots[i][j] instanceof Empty)){
                     allsouls.push(this.slots[i][j].id);
                     for (let k of research.knownspells){
-                        if (this.slots[i][j] instanceof keyspells[spellpatterns[k][0][0]] && this.slots[i][j].turbulent){
-                            let nothere = false;
-                            for (let o =0; o<spellpatterns[k][0].length;o++){
-                                for (let p =0; p<spellpatterns[k][0].length;p++){
-                                    if (spellpatterns[k][o][p] != "." && (!(this.slots[i+p][j+o] instanceof keyspells[spellpatterns[k][o][p]]) || !this.slots[i][j].turbulent)){
-                                        nothere = true;
-                                        break;
-                                    }
-                                    else if (spellpatterns[k][o][p] != ".") this.slots[i+p][j+o].locked = true;
-                                }
-                                if (nothere) break;
-                            }
-                            if (!nothere) this.pocketworld.reward[spellpatterns[k]["type"]].push(k);
-                        }
+                        if (this.checkConflict(i,j,k)) this.pocketworld.reward[spellpatterns[k]["type"]].push(k);
                     }
                 }
             }

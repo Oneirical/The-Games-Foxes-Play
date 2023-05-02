@@ -1,19 +1,15 @@
 # Controls
 
-Unlike archaic or pseudo-archaic roguelikes, I tried to make it so 7 extra arms, 3 tentacles and a few robotic cybernetics are not required to play the game.
+I tried to make it so 7 extra arms, 3 tentacles and a few robotic cybernetics are not required to play the game.
 
-## Gameplay
+w/a/s/d - Move/attack/interact with NPCs in the 4 cardinal directions. There is no diagonal movement in TGFP.
 
-**w**/**a**/**s**/**d** - Move/attack/interact in the 4 cardinal directions. There is no diagonal movement or waiting in TGFP - it is part of the design.
+q - Draw Souls from your storage into your hotbar. It's kind of like reloading a gun with multicoloured bullets. It stands for "Quiver". On top of a Soul Cage, it will retrieve the caged soul.
 
-**q** - Draw souls from your storage into your casting wheel. It's kind of like reloading a gun with multicoloured bullets. It stands for "Quiver".
+1-8 - Invoke Souls from your wheel. It's kind of like firing said gun. On top of a Soul Cage slot, it will cage the soul instead.  You can also click on the souls to cast them.
 
-**1-8** - Invoke souls from your casting wheel. It's kind of like firing said gun. You can also click on them.
+l - Open your inventory. You may see the effects of all six basic Soul types, and equip Legends you have crafted.
 
-**f** - Cycle through Harmonic Modulators. It's kind of like adding modifiers on the gun. It stands for "Fluffy". In Harmonic Relay rooms, it will also reroll non-Serene cages.
+f - Open the Research menu. This contains a ton of tutorial information sorted in neat pages, as well as various patterns available for crafting.
 
-## Information
-
-**c** - Enter examine mode, to read tile descriptions and creature abilities. It stands for "Cursor". Use the mouse to move the cursor.
-
-**i** - Also available by leftclicking in examine mode. Enter Soul View mode, to read the effects of souls in your hotbar, or owned by a creature. Only usable in examine mode. It stands for "Inspect".
+c - Enter examine mode, to read tile descriptions and creature abilities. It stands for "Cursor". You can then move your mouse around to inspect things!
