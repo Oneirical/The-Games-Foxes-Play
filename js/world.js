@@ -31,6 +31,7 @@ class CageTemplate{
 
     getAdjacentNeighbors(x,y){
         return [
+            this.getNeighbor(x,y,0, 0),
             this.getNeighbor(x,y,0, -1),
             this.getNeighbor(x,y,0, 1),
             this.getNeighbor(x,y,-1, 0),
@@ -52,6 +53,7 @@ class CageTemplate{
 
     getAdjacentGridNeighbors(k,x,y){
         return [
+            this.getGridNeighbor(k,x,y,0, 0),
             this.getGridNeighbor(k,x,y,0, -1),
             this.getGridNeighbor(k,x,y,0, 1),
             this.getGridNeighbor(k,x,y,-1, 0),

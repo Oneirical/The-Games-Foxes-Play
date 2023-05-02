@@ -71,9 +71,9 @@ var keyresearch = {
 }
 
 var spellpatterns = {
+    //Saintly
     "EGO" : {
-        0: "S.",
-        1: "S.",
+        0: "S",
         "type" : "Form",
     },
     "STEP" : {
@@ -82,43 +82,54 @@ var spellpatterns = {
         2: "...",
         "type" : "Contingency",
     },
+    "SACRIFICE" : {
+        0: "S.",
+        1: ".S",
+        "type" : "Mutator",
+    },
+
+    //Ordered
+
     "PARACEON" : {
-        0: "O.",
-        1: "O.",
+        0: "O",
         "type" : "Function",
     },
     "ASPHA" : {
-        0: "OO.",
-        1: "...",
-        2: "...",
-        "type" : "Function",
-    },
-    "KASHIA" : {
-        0: "U..",
-        1: ".U.",
-        2: "...",
+        0: "OO",
+        1: "..",
         "type" : "Function",
     },
     "CLICK" : {
-        0: "O.",
-        1: ".O",
+        0: ".O",
+        1: "O.",
         "type" : "Mutator",
     },
-    "SACRIFICE" : {
-        0: "S..",
-        1: ".S.",
-        2: "...",
-        "type" : "Mutator",
-    },
-    "SMOOCH" : {
-        0: "VV",
-        1: "..",
+    "EPSILON" : {
+        0: "OOO",
+        1: "OOO",
+        2: "OOO",
         "type" : "Form",
     },
-    "BEAM" : {
-        0: "UUU",
+
+    //Artistic
+
+    "GYVJI" : {
+        0: "A.A",
         1: "...",
         2: "...",
+        "type" : "Function",
+    },
+    
+    //Unhinged
+
+    "KASHIA" : {
+        0: "U.",
+        1: ".U",
+        "type" : "Function",
+    },
+    "BEAM" : {
+        0: "UU",
+        1: "..",
         "type" : "Form",
     },
     "XCROSS" : {
@@ -127,26 +138,20 @@ var spellpatterns = {
         2: "U..",
         "type" : "Form",
     },
+
+    //Feral
+
+    //Vile
+
+    "SMOOCH" : {
+        0: "VV",
+        1: "..",
+        "type" : "Form",
+    },
     "SENET" : {
         0: "VV",
         1: "V.",
         "type" : "Function",
-    },
-    "GYVJI" : {
-        0: "A.A",
-        1: "...",
-        2: "...",
-        "type" : "Function",
-    },
-    "EPSILON" : {
-        0: "OOO",
-        1: "OOO",
-        2: "OOO",
-        "type" : "Form",
-    },
-    "TEST" : {
-        0: "V",
-        "type" : "Form",
     },
 }
 
