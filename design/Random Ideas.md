@@ -8,9 +8,9 @@
 
 * when potency is 0 the componentsdisplay does not work
 
-* cheesing crafting with reenter exit
-
 * make para a status effect (and fall later)
+
+* make the brush selector better visually (grey emphasis)
 
 
 **"Serene Collective" design**

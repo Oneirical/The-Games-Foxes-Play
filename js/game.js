@@ -21,6 +21,14 @@ function setupCanvas(){
         
         //if(mouspos[0]>603&&mousepos[1]>115){
     }, false);
+
+    canvas.addEventListener('mousedown', function() {
+        mouseIsDown = true;
+    });
+    
+    canvas.addEventListener('mouseup', function() {
+        mouseIsDown = false;
+    });
     canvas.addEventListener('click', function(event) {
         event.stopPropagation();
         event.preventDefault();
@@ -56,10 +64,10 @@ function setupCanvas(){
             else if (clickpos[0] >= 880 && clickpos[0] <= 880+64 && clickpos[1] >= 320 && clickpos[1] <= 320+64 && !inInventory) inInventory = true;
             else if (clickpos[0] >= 880 && clickpos[0] <= 880+64 && clickpos[1] >= 130 && clickpos[1] <= 130+64 && !inInventory) log.addLog("WIP");//inModules = !inModules;
             else if (clickpos[0] >= 590 && clickpos[0] <= 590+64 && clickpos[1] >= 320 && clickpos[1] <= 320+64 && !inInventory) wheel.drawSoul();
-            else if (inTriangle(clickpos,[0,577],[289,289],[577,577])) player.tryMove(0,1);
-            else if (inTriangle(clickpos,[0,0],[289,289],[0,577])) player.tryMove(-1,0);
-            else if (inTriangle(clickpos,[577,0],[289,289],[577,577])) player.tryMove(1,0);
-            else if (inTriangle(clickpos,[0,0],[289,289],[577,0])) player.tryMove(0,-1);
+            //else if (inTriangle(clickpos,[0,577],[289,289],[577,577])) player.tryMove(0,1); // mouse movement
+            //else if (inTriangle(clickpos,[0,0],[289,289],[0,577])) player.tryMove(-1,0);
+            //else if (inTriangle(clickpos,[577,0],[289,289],[577,577])) player.tryMove(1,0);
+            //else if (inTriangle(clickpos,[0,0],[289,289],[577,0])) player.tryMove(0,-1);
             else{
                 for (let x = 0; x <8 ; x++){
                     if (!inInventory && clickpos[0] >= wheel.wheelcoords[x][0] && clickpos[0] <= wheel.wheelcoords[x][0]+64 && clickpos[1] >= wheel.wheelcoords[x][1] && clickpos[1] <= wheel.wheelcoords[x][1]+64){
@@ -216,6 +224,15 @@ function draw(){
             for(let j=posgeny;j<maxy;j++){
                 getTile(i,j).draw();
                 viewedTiles.push(getTile(i,j));
+            }
+        }
+        if (world.getRoom() instanceof SoulCage){
+            let cread = getTile(Math.floor((mousepos[0]-shakeX)/tileSize),Math.floor((mousepos[1]-shakeY)/tileSize));
+            if (cread instanceof CageContainer){
+                ctx.globalAlpha = 0.5;
+                drawSprite(130,cread.x,cread.y);
+                ctx.globalAlpha = 1;
+                if (mouseIsDown) fishOutSoul(cread);
             }
         }
         for(let i=0;i<droppedsouls.length;i++){

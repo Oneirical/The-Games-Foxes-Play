@@ -480,6 +480,7 @@ class DrawWheel{
             if (world.getRoom() instanceof SoulCage){
                 display = greysouls[k];
                 if (k == this.currentbrush) display = lightsouls[k];
+                else ctx.globalAlpha = 0.5;
             }
             
             else if (gameState == "contemplation") display = this.saved[k].icon;
@@ -499,6 +500,7 @@ class DrawWheel{
                 this.wheel[k].offsetX -= Math.sign(this.wheel[k].offsetX)*(0.05);     
                 this.wheel[k].offsetY -= Math.sign(this.wheel[k].offsetY)*(0.05);
             }
+            ctx.globalAlpha = 1;
             printOutText(k+1+"",18, this.hotkeycoords[k][0], this.hotkeycoords[k][1], "white",20,350);
         }
         if (world.getRoom() instanceof SoulCage){//
@@ -701,11 +703,11 @@ class DrawWheel{
         }
     }
 
-    retrieveSoul(){
-        if (world.cage.slots[player.tile.x][player.tile.y] instanceof Empty) return;
-        if (world.cage.slots[player.tile.x][player.tile.y] instanceof Shattered){
+    retrieveSoul(override){
+        if (world.cage.slots[override.x][override.y] instanceof Empty) return;
+        if (world.cage.slots[override.x][override.y] instanceof Shattered){
             this.ipseity+= 10;
-            world.cage.slots[player.tile.x][player.tile.y] = new Empty();
+            world.cage.slots[override.x][override.y] = new Empty();
             world.cage.size--;
             if(world.cage.size > 0) world.cage.generateWorld();
             else world.cage.displayon = false;
@@ -722,11 +724,11 @@ class DrawWheel{
         for (let k of this.wheel){
             if (k instanceof Empty){
                 let retrievesuccess = true;
-                if (!world.cage.slots[player.tile.x][player.tile.y].turbulent)research.completeResearch("Subdued");
-                if (basic.includes(world.cage.slots[player.tile.x][player.tile.y].id)) this.wheel[this.wheel.indexOf(k)] = world.cage.slots[player.tile.x][player.tile.y];
-                else retrievesuccess = legendaries.addSoul(world.cage.slots[player.tile.x][player.tile.y]);
+                if (!world.cage.slots[override.x][override.y].turbulent)research.completeResearch("Subdued");
+                if (basic.includes(world.cage.slots[override.x][override.y].id)) this.wheel[this.wheel.indexOf(k)] = world.cage.slots[override.x][override.y];
+                else retrievesuccess = legendaries.addSoul(world.cage.slots[override.x][override.y]);
                 if (retrievesuccess) {
-                    world.cage.slots[player.tile.x][player.tile.y] = new Empty();
+                    world.cage.slots[override.x][override.y] = new Empty();
                     world.cage.size--;
                 }
                 if(world.cage.size > 0) world.cage.generateWorld();
@@ -902,21 +904,22 @@ class DrawWheel{
         }
     }
 
-    cageSoul(slot){
+    cageSoul(slot, override){
+        if (!override) override = player.tile;
         let soul = this.wheel[slot];
         if (soul instanceof Empty){
             shakeAmount = 5;
             //log.addLog("FluffyNoSoulTaunt");
             return;
         }
-        else if (!(world.cage.slots[player.tile.x][player.tile.y] instanceof Empty)){
+        else if (!(world.cage.slots[override.x][override.y] instanceof Empty)){
             shakeAmount = 5;
             //log.addLog("FluffyDoubleSacTaunt");
             return;
         }
         else {
             this.wheel[slot] = new Empty();
-            world.cage.slots[player.tile.x][player.tile.y] = soul;
+            world.cage.slots[override.x][override.y] = soul;
             world.cage.size++;
             if(world.cage.size > 0) world.cage.generateWorld();
             research.completeResearch("Turbulent");
@@ -1612,4 +1615,52 @@ class Kashia extends LegendarySoul{
         this.caste = "UNHINGED";
         this.influence = "I";
     }
+}
+
+function fishOutSoul(override){
+    if (!override) override = player.tile;
+    const soultypes = {
+        0: "EMPTY",
+        1 : "SAINTLY",
+        2: "ORDERED",
+        3: "ARTISTIC",
+        4: "UNHINGED",
+        5: "FERAL",
+        6: "VILE",
+        7: "SERENE",
+    }
+    let set = wheel.lookForSoul(soultypes[wheel.currentbrush],wheel.turbstatus);
+    if (set && wheel.wheel[wheel.currentbrush] instanceof Empty){
+        let replace;
+        if (set[0] == "discard"){
+            replace = wheel.discard[set[1]];
+            wheel.wheel[wheel.currentbrush] = replace;
+            removeItemOnce(wheel.discard,wheel.discard[set[1]]);
+        }
+        else if (set[0] == "pile"){
+            replace = wheel.pile[set[1]];
+            wheel.wheel[wheel.currentbrush] = replace;
+            removeItemOnce(wheel.pile,wheel.pile[set[1]]);
+        }
+    }
+    else if (wheel.wheel[wheel.currentbrush] instanceof Empty){
+        if (wheel.currentbrush == 0){
+            wheel.retrieveSoul(override);
+            if (!(wheel.wheel[wheel.currentbrush] instanceof Empty)){
+                wheel.pile.push(wheel.wheel[wheel.currentbrush]);
+                wheel.wheel[wheel.currentbrush] = new Empty();
+            }
+            return;
+        }
+        //if (log.history[log.history.length-1] != "BrushError") log.addLog("BrushError");
+        return;
+    }
+    if (!(world.cage.slots[override.x][override.y] instanceof Empty)) {
+        wheel.retrieveSoul(override);
+        if (!(wheel.wheel[0] instanceof Empty)){
+            wheel.pile.push(wheel.wheel[0]);
+            wheel.wheel[0] = new Empty();
+        }
+    }
+    wheel.cageSoul(wheel.currentbrush, override);
 }

@@ -845,51 +845,7 @@ class Player extends Monster{
         if(super.tryMove(dx,dy)){
             legendaries.castContin("STEP");
             if (world.getRoom() instanceof SoulCage && this.tile instanceof CageContainer && wheel.currentbrush != 8){
-                const soultypes = {
-                    0: "EMPTY",
-                    1 : "SAINTLY",
-                    2: "ORDERED",
-                    3: "ARTISTIC",
-                    4: "UNHINGED",
-                    5: "FERAL",
-                    6: "VILE",
-                    7: "SERENE",
-                }
-                let set = wheel.lookForSoul(soultypes[wheel.currentbrush],wheel.turbstatus);
-                if (set && wheel.wheel[wheel.currentbrush] instanceof Empty){
-                    let replace;
-                    if (set[0] == "discard"){
-                        replace = wheel.discard[set[1]];
-                        wheel.wheel[wheel.currentbrush] = replace;
-                        removeItemOnce(wheel.discard,wheel.discard[set[1]]);
-                    }
-                    else if (set[0] == "pile"){
-                        replace = wheel.pile[set[1]];
-                        wheel.wheel[wheel.currentbrush] = replace;
-                        removeItemOnce(wheel.pile,wheel.pile[set[1]]);
-                    }
-                }
-                else if (wheel.wheel[wheel.currentbrush] instanceof Empty){
-                    if (wheel.currentbrush == 0){
-                        wheel.retrieveSoul();
-                        if (!(wheel.wheel[wheel.currentbrush] instanceof Empty)){
-                            wheel.pile.push(wheel.wheel[wheel.currentbrush]);
-                            wheel.wheel[wheel.currentbrush] = new Empty();
-                        }
-                        return;
-                    }
-                    shakeAmount = 5;
-                    log.addLog("BrushError");
-                    return;
-                }
-                if (!(world.cage.slots[player.tile.x][player.tile.y] instanceof Empty)) {
-                    wheel.retrieveSoul();
-                    if (!(wheel.wheel[0] instanceof Empty)){
-                        wheel.pile.push(wheel.wheel[0]);
-                        wheel.wheel[0] = new Empty();
-                    }
-                }
-                wheel.cageSoul(wheel.currentbrush);
+                fishOutSoul(this.tile);
             }
             if (world.getRoom() instanceof HarmonyRelay){
                 if (world.getRoom().fuffspawn && world.getRoom().fuffspawn.x == this.tile.x && world.getRoom().fuffspawn.y == this.tile.y) this.infested = 1;
