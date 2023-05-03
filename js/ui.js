@@ -385,7 +385,7 @@ class DrawWheel{
         let hori = 64*5-5;
         this.circlemotion = {centerX:762, centerY:245, radius:20};
         this.spinningsouls = [new SpinningSoul(47,0)];
-        this.currentbrush = 0;
+        this.currentbrush = 8;
         this.turbstatus = true;
         this.castecoords = [first,[first[0]+hori,first[1]],[first[0],first[1]+vert],[first[0]+hori,first[1]+vert],[first[0],first[1]+vert*2],[first[0]+hori,first[1]+vert*2]]
     }
@@ -960,6 +960,7 @@ class DrawWheel{
 
     castSoul(slot){
         if (world.getRoom() instanceof SoulCage){
+            if (slot == this.currentbrush) slot = 8;
             this.currentbrush = slot;
             return;
         }

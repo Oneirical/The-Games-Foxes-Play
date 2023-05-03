@@ -259,6 +259,12 @@ class Universe{
             world.cage.slots[4][4] = reward;
             world.cage.size = 1;
         }
+        for(let i=0;i<wheel.discard.length;i++){
+            wheel.pile.push(wheel.discard[i]);
+            wheel.discard[i] = "deleted";
+        }
+        wheel.pile = shuffle(wheel.pile);
+        removeItemAll(wheel.discard,"deleted");
     }
 
     playRandomWorld(oldWorld){

@@ -844,7 +844,7 @@ class Player extends Monster{
         }
         if(super.tryMove(dx,dy)){
             legendaries.castContin("STEP");
-            if (world.getRoom() instanceof SoulCage && this.tile instanceof CageContainer){
+            if (world.getRoom() instanceof SoulCage && this.tile instanceof CageContainer && wheel.currentbrush != 8){
                 const soultypes = {
                     0: "EMPTY",
                     1 : "SAINTLY",
