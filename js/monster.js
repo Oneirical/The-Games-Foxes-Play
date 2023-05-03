@@ -844,7 +844,7 @@ class Player extends Monster{
         }
         if(super.tryMove(dx,dy)){
             legendaries.castContin("STEP");
-            if (world.getRoom() instanceof SoulCage && false){
+            if (world.getRoom() instanceof SoulCage && this.tile instanceof CageContainer){
                 const soultypes = {
                     0: "EMPTY",
                     1 : "SAINTLY",
@@ -872,6 +872,10 @@ class Player extends Monster{
                 else if (wheel.wheel[wheel.currentbrush] instanceof Empty){
                     if (wheel.currentbrush == 0){
                         wheel.retrieveSoul();
+                        if (!(wheel.wheel[wheel.currentbrush] instanceof Empty)){
+                            wheel.pile.push(wheel.wheel[wheel.currentbrush]);
+                            wheel.wheel[wheel.currentbrush] = new Empty();
+                        }
                         return;
                     }
                     shakeAmount = 5;

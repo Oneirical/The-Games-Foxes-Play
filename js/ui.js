@@ -475,7 +475,7 @@ class DrawWheel{
             7:21,
         }
         for (let k = 0;k<8;k++){
-            if (world.getRoom() instanceof SoulCage && false){
+            if (world.getRoom() instanceof SoulCage){
                 display = greysouls[k];
                 if (k == this.currentbrush) display = lightsouls[k];
             } 
@@ -959,7 +959,7 @@ class DrawWheel{
     }
 
     castSoul(slot){
-        if (world.getRoom() instanceof SoulCage && false){
+        if (world.getRoom() instanceof SoulCage){
             this.currentbrush = slot;
             return;
         }
