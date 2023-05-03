@@ -844,6 +844,42 @@ class Player extends Monster{
         }
         if(super.tryMove(dx,dy)){
             legendaries.castContin("STEP");
+            if (world.getRoom() instanceof SoulCage && false){
+                const soultypes = {
+                    0: "EMPTY",
+                    1 : "SAINTLY",
+                    2: "ORDERED",
+                    3: "ARTISTIC",
+                    4: "UNHINGED",
+                    5: "FERAL",
+                    6: "VILE",
+                    7: "SERENE",
+                }
+                let set = wheel.lookForSoul(soultypes[wheel.currentbrush],wheel.turbstatus);
+                if (set && wheel.wheel[wheel.currentbrush] instanceof Empty){
+                    let replace;
+                    if (set[0] == "discard"){
+                        replace = wheel.discard[set[1]];
+                        wheel.wheel[wheel.currentbrush] = replace;
+                        removeItemOnce(wheel.discard,wheel.discard[set[1]]);
+                    }
+                    else if (set[0] == "pile"){
+                        replace = wheel.pile[set[1]];
+                        wheel.wheel[wheel.currentbrush] = replace;
+                        removeItemOnce(wheel.pile,wheel.pile[set[1]]);
+                    }
+                }
+                else if (wheel.wheel[wheel.currentbrush] instanceof Empty){
+                    if (wheel.currentbrush == 0){
+                        wheel.retrieveSoul();
+                        return;
+                    }
+                    shakeAmount = 5;
+                    log.addLog("BrushError");
+                    return;
+                }
+                wheel.cageSoul(wheel.currentbrush);
+            }
             if (world.getRoom() instanceof HarmonyRelay){
                 if (world.getRoom().fuffspawn && world.getRoom().fuffspawn.x == this.tile.x && world.getRoom().fuffspawn.y == this.tile.y) this.infested = 1;
                 else if (player.infested == 1) this.infested = 0;

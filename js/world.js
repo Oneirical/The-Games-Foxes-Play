@@ -1222,6 +1222,14 @@ class SoulCage extends DefaultVaultRoom{
         this.id = "Cage2";
         this.name = "Soul Cage";
     }
+    initializeRoom(){
+        for(let i=0;i<wheel.wheel.length;i++){
+            if (wheel.wheel[i].turbulent){
+                wheel.pile.push(wheel.wheel[i]);
+                wheel.wheel[i] = new Empty();
+            }
+        }
+    }
 }
 
 class VoidRoom extends DefaultVaultRoom{

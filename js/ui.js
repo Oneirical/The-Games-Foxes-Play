@@ -330,6 +330,7 @@ class MessageLog{
             else if (this.history[x].includes("Rose")) coloring = "lightpink";
             else if (this.history[x].includes("Epsilon")) coloring = "orangered";
             else if (this.history[x].includes("Saint")) coloring = "lime";
+            else if (this.history[x].includes("Error")) coloring = "yellow";
             let print = messages[this.history[x]];
             if (this.repeats[x] > 1) print += " x"+this.repeats[x];
             printOutText(print, 18, 10, this.writeheight[x], coloring, 20, 690);
@@ -384,6 +385,8 @@ class DrawWheel{
         let hori = 64*5-5;
         this.circlemotion = {centerX:762, centerY:245, radius:20};
         this.spinningsouls = [new SpinningSoul(47,0)];
+        this.currentbrush = 0;
+        this.turbstatus = true;
         this.castecoords = [first,[first[0]+hori,first[1]],[first[0],first[1]+vert],[first[0]+hori,first[1]+vert],[first[0],first[1]+vert*2],[first[0]+hori,first[1]+vert*2]]
     }
 
@@ -451,9 +454,31 @@ class DrawWheel{
         printOutText(" "+this.ipseity, 23, 660, 90, "plum", 20, 350);
 
         let display;
+        const greysouls = {
+            0 : 57,
+            1: 50,
+            2: 51,
+            3: 52,
+            4: 53,
+            5 : 54,
+            6: 55,
+            7: 56,
+        }
+        const lightsouls = {
+            0:7,
+            1:0,
+            2:1,
+            3:2,
+            4:3,
+            5:4,
+            6:5,
+            7:21,
+        }
         for (let k = 0;k<8;k++){
-            if (player.infested > 1 && this.wheel[k].chosen) display = this.wheel[k].hicon;
-            else if (player.infested > 1 && !this.wheel[k].chosen) display = this.wheel[k].gicon;
+            if (world.getRoom() instanceof SoulCage && false){
+                display = greysouls[k];
+                if (k == this.currentbrush) display = lightsouls[k];
+            } 
             else if (gameState == "contemplation") display = this.saved[k].icon;
             else  display = this.wheel[k].icon;
             if (!this.wheel[k].turbulent) drawSymbol(display, this.wheelcoords[k][0], this.wheelcoords[k][1], 64);
@@ -473,23 +498,6 @@ class DrawWheel{
                 this.wheel[k].offsetY -= Math.sign(this.wheel[k].offsetY)*(0.05);
             }
             printOutText(k+1+"",18, this.hotkeycoords[k][0], this.hotkeycoords[k][1], "white",20,350);
-        }
-        if (false){
-            drawSymbol(k.icon, this.castecoords[this.castes.indexOf(k)][0], this.castecoords[this.castes.indexOf(k)][1], 48);
-        }
-        if (false){
-            if (this.castes.indexOf(k) % 2 == 0){
-                printOutText(" - " + this.countPileSouls()[this.castes.indexOf(k)], 18, this.castecoords[5-this.castes.indexOf(k)][0]-265, this.castecoords[this.castes.indexOf(k)][1]+32, "white", 20, 350);
-                printOutText("(" + this.countDiscardSouls()[(this.castes.indexOf(k))] + ")", 18, this.castecoords[5-this.castes.indexOf(k)][0]-265+ctx.measureText(" - " + this.countPileSouls()[this.castes.indexOf(k)]).width+10, this.castecoords[this.castes.indexOf(k)][1]+32, "pink", 20, 350);
-                if (player.infested > 1) printOutText("= " + (6-this.castes.indexOf(k)), 18, 720, this.castecoords[this.castes.indexOf(k)][1]+32, "cyan", 20, 350);
-                else printOutText("(" + this.countSavedSouls()[(this.castes.indexOf(k))] + ")", 18, 720, this.castecoords[this.castes.indexOf(k)][1]+32, "yellow", 20, 350); 
-            }
-            else if (this.castes.indexOf(k) % 2 == 1){
-                printOutText(this.countPileSouls()[this.castes.indexOf(k)] + " - ", 18, this.castecoords[5-this.castes.indexOf(k)][0]+285, this.castecoords[this.castes.indexOf(k)][1]+32, "white", 20, 350);
-                printOutText("(" + this.countDiscardSouls()[(this.castes.indexOf(k))] + ")", 18, this.castecoords[5-this.castes.indexOf(k)][0]+285-ctx.measureText(" - " + this.countPileSouls()[this.castes.indexOf(k)]).width-10, this.castecoords[this.castes.indexOf(k)][1]+32, "pink", 20, 350);
-                if (player.infested > 1) printOutText((6-this.castes.indexOf(k))+ " =", 18, this.castecoords[5-this.castes.indexOf(k)][0]+285-ctx.measureText(" - " + this.countPileSouls()[this.castes.indexOf(k)]).width-60, this.castecoords[this.castes.indexOf(k)][1]+32, "cyan", 20, 350);
-                else printOutText("(" + this.countSavedSouls()[(this.castes.indexOf(k))] + ")", 18, this.castecoords[5-this.castes.indexOf(k)][0]+285-ctx.measureText(" - " + this.countPileSouls()[this.castes.indexOf(k)]).width-60, this.castecoords[this.castes.indexOf(k)][1]+32, "yellow", 20, 350);
-            }
         }
         let j = 0;
         let k = 0;
@@ -744,7 +752,7 @@ class DrawWheel{
                 if (basic.includes(world.cage.slots[player.tile.x][player.tile.y].id)) this.wheel[this.wheel.indexOf(k)] = world.cage.slots[player.tile.x][player.tile.y];
                 else retrievesuccess = legendaries.addSoul(world.cage.slots[player.tile.x][player.tile.y]);
                 if (retrievesuccess) {
-                    world.cage.slots[player.tile.x][player.tile.y] = new Empty;
+                    world.cage.slots[player.tile.x][player.tile.y] = new Empty();
                     world.cage.size--;
                 }
                 if(world.cage.size > 0) world.cage.generateWorld();
@@ -919,33 +927,6 @@ class DrawWheel{
         }
     }
 
-    castSoulFree(slot){
-        let soul = this.wheel[slot];
-        if (soul instanceof Empty){
-            shakeAmount = 5;
-            log.addLog("EmptyCast");
-            return;
-        }                
-        else{
-            //if (soul.id == "SERENE") make this
-            let num = legendaries.castes.indexOf(soul.id);
-            let spellName = soul.id;
-            if (legendaries.active[num].influence == "C" || legendaries.active[num].influence == "A"){
-                spellName = legendaries.active[num].id;
-            }
-            if (player.fuffified > 0) spellName = "SERENE";
-            if (spellName){
-                if (basic.includes(spellName) && area == "Spire") spellName = spellName+"S";
-                spells[spellName](player, legendaries.active[num]);
-                if (legendaries.active[num].influence == "C") spells[legendaries.active[num].caste](player);
-                if (!fail && player.activemodule != "Focus"){
-                    this.discard.push(this.wheel[slot]);
-                    this.wheel[slot] = new Empty();
-                }
-            }
-        }
-    }
-
     cageSoul(slot){
         let soul = this.wheel[slot];
         if (soul instanceof Empty){
@@ -967,9 +948,19 @@ class DrawWheel{
         }
     }
 
+    lookForSoul(type, turbulent){
+        for (let i = 0; i < this.discard.length; i++){
+            if (this.discard[i].id == type && this.discard[i].turbulent == turbulent) return ["discard",i];
+        }
+        for (let i = 0; i < this.pile.length; i++){
+            if (this.pile[i].id == type && this.pile[i].turbulent == turbulent) return ["pile",i];
+        }
+        return false;
+    }
+
     castSoul(slot){
-        if (player.infested > 1){
-            this.sacrificeSoul(slot);
+        if (world.getRoom() instanceof SoulCage && false){
+            this.currentbrush = slot;
             return;
         }
         else if (player.tile instanceof CageContainer){
@@ -1197,6 +1188,7 @@ class Inventory{
             }
             else noroom++;
         }
+        return true;
     }
 
     storeSoul(slot){

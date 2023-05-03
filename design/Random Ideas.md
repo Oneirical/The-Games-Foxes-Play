@@ -108,6 +108,7 @@ Anisychia - Feral champion
 * Cool sliding animation in Inventory/Modules.
 * Bring back the glamour counter. Make the filter scale with glamour level too.
 * Make mouse movement follow Terminal.
+* Maybe censor the Fluffy in the brush UI until harmony is discovered
 
 **Rooms & Creatures**
 

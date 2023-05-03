@@ -38,6 +38,7 @@ messages = {
     "Empty" : "",
     "WrongCageError" : "the cage is weird idk",
     "Bug" : "If you are seeing this, you have caused spacetime to explode and have violated the elemental laws of reality. Please message u/oneirical on Reddit, Onirim#2777 on the Roguelikes Discord or raise an issue on TGFP's GitHub explaining what happened.",
+    "BrushError" : "Your psyche does not contain this type of Soul. Harvest Visions to obtain more Souls!",
     "WIP" : "This feature is not completed yet.",
     "MapDebug": "Use WASD to move.  Press 'f' to view the research tree. Press 'c' to examine tiles and creatures. Press 'm' to view the map.",
     "AddLegend" : "Press 'l' to equip your new Legend.",
