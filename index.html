@@ -241,7 +241,6 @@
             if(e.key=="a"&&cursormode) cursor.tryMove(-1, 0);
             if(e.key=="d"&&cursormode) cursor.tryMove(1, 0);
             if(e.key>=1 && e.key<=9 && !cursormode && player.para == 0) wheel.castSoul(e.key-1);
-            if(e.key>=1 && e.key<=9 && cursormode && invmode) currentspelldesc = e.key-1;
             //if(e.key=="f" && cursormode && invmode) currentspelldesc = player.activemodule;
             if(e.key=="q" && !cursormode && player.para == 0) wheel.drawSoul();//player.drawSpell();
             //if(e.key=="f" && gameState == "running" && !cursormode) inResearch = !inResearch;//log.addLog("WIP");//player.cycleModules();

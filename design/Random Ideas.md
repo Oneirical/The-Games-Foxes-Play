@@ -10,6 +10,10 @@
 
 * cheesing crafting with reenter exit
 
+* make para a status effect (and fall later)
+
+* potential solution to the weird pixelated potency number: 9+"" instead of "9"
+
 
 **"Serene Collective" design**
 

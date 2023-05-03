@@ -387,7 +387,9 @@ class DrawWheel{
         this.spinningsouls = [new SpinningSoul(47,0)];
         this.currentbrush = 8;
         this.turbstatus = true;
-        this.castecoords = [first,[first[0]+hori,first[1]],[first[0],first[1]+vert],[first[0]+hori,first[1]+vert],[first[0],first[1]+vert*2],[first[0]+hori,first[1]+vert*2]]
+        this.castecoords = [first,[first[0]+hori,first[1]],[first[0],first[1]+vert],[first[0]+hori,first[1]+vert],[first[0],first[1]+vert*2],[first[0]+hori,first[1]+vert*2]];
+        this.turbulentmarkers = [new Feral(),new Feral()];
+        this.turbulentmarkers[0].turbulent = true;
     }
 
     display(){
@@ -478,10 +480,11 @@ class DrawWheel{
             if (world.getRoom() instanceof SoulCage){
                 display = greysouls[k];
                 if (k == this.currentbrush) display = lightsouls[k];
-            } 
+            }
+            
             else if (gameState == "contemplation") display = this.saved[k].icon;
-            else  display = this.wheel[k].icon;
-            if (!this.wheel[k].turbulent) drawSymbol(display, this.wheelcoords[k][0], this.wheelcoords[k][1], 64);
+            else display = this.wheel[k].icon;
+            if (!this.wheel[k].turbulent && !(world.getRoom() instanceof SoulCage && this.turbstatus && k != 0 && k!=7)) drawSymbol(display, this.wheelcoords[k][0], this.wheelcoords[k][1], 64);
             else{
                 this.wheel[k].thrashcounter++;
                 if (this.wheel[k].thrashcounter > 10){ // is this effect too annoying? the alternative is setting all offsets to 2/3 and removing the *64 below
@@ -493,11 +496,16 @@ class DrawWheel{
                     this.wheel[k].thrashcounter = 0;
                 }
                 drawSymbol(display, (this.wheelcoords[k][0] + this.wheel[k].offsetX*64),  (this.wheelcoords[k][1] + this.wheel[k].offsetY*64),64);
-                ctx.globalAlpha = 1;
                 this.wheel[k].offsetX -= Math.sign(this.wheel[k].offsetX)*(0.05);     
                 this.wheel[k].offsetY -= Math.sign(this.wheel[k].offsetY)*(0.05);
             }
             printOutText(k+1+"",18, this.hotkeycoords[k][0], this.hotkeycoords[k][1], "white",20,350);
+        }
+        if (world.getRoom() instanceof SoulCage){//
+            this.turbulentmarkers[0].thrash(800,62,32);
+            this.turbulentmarkers[1].thrash(880,62,32);
+            printOutText(9+"",18, 850, 110, "white",20,350);
+            drawSymbol(45, 840, 62, 32);
         }
         let j = 0;
         let k = 0;
@@ -960,8 +968,15 @@ class DrawWheel{
 
     castSoul(slot){
         if (world.getRoom() instanceof SoulCage){
-            if (slot == this.currentbrush) slot = 8;
+            if (slot == 8){
+                this.turbstatus = !this.turbstatus;
+                return;
+            }
+            else if (slot == this.currentbrush) slot = 8;
             this.currentbrush = slot;
+            return;
+        }
+        if (slot > 7){
             return;
         }
         else if (player.tile instanceof CageContainer){
@@ -1259,15 +1274,15 @@ class LegendarySoul{
         if (!this.turbulent) drawSymbol(this.icon, x, y,size);
         else{
             this.thrashcounter++;
-            if (this.thrashcounter > 10 && this.offsetX == 0 && this.offsetY == 0){
+            if (this.thrashcounter > 10){
                 let rt = randomRange(1,4);
-                if (rt == 1) this.offsetX+= 0.05;
-                else if (rt == 2) this.offsetX-= 0.05;
-                else if (rt == 3)this.offsetY+= 0.05;
-                else if (rt == 4)this.offsetY-= 0.05;
+                if (rt == 1) this.offsetX+= 0.1;
+                else if (rt == 2) this.offsetX-= 0.1;
+                else if (rt == 3)this.offsetY+= 0.1;
+                else if (rt == 4)this.offsetY-= 0.1;
                 this.thrashcounter = 0;
             }
-            drawSymbol(this.icon, (x/64+this.offsetX)*64,  (y/64 + this.offsetY)*64,size);
+            drawSymbol(this.icon, x+this.offsetX*size,  y + this.offsetY*size,size);
             this.offsetX -= Math.sign(this.offsetX)*(this.speed);     
             this.offsetY -= Math.sign(this.offsetY)*(this.speed);
         }
