@@ -701,40 +701,6 @@ class DrawWheel{
         }
     }
 
-    drawSoulFree(){ //possibly not up to date
-        if (this.discard.length <= 0 && this.pile.length <= 0){
-            log.addLog("NoSouls");
-            shakeAmount = 5;
-            return;
-        }
-        let space = 8;
-        for (let k of this.wheel){
-            if (!(k instanceof Empty)) space--;
-        }
-        if (space == 0){
-            this.cycleSouls();
-        }
-        if(true){
-            //log.addLog("Empty");
-            if (this.pile.length <= 0){
-                //this.discard.push("TAINTED") //remplacer avec curse, dash est un placeholder
-    
-                this.discard = shuffle(this.discard);
-                for(let i=0;i<this.discard.length;i++){
-                    this.pile.push(this.discard[i]);
-                }
-                this.discard = [];
-            }
-            for (let k of this.wheel){
-                if (k instanceof Empty){
-                    this.wheel[this.wheel.indexOf(k)] = this.pile[0];
-                    break;
-                } 
-            }
-            this.pile.shift();
-        }
-    }
-
     retrieveSoul(){
         if (world.cage.slots[player.tile.x][player.tile.y] instanceof Empty) return;
         if (world.cage.slots[player.tile.x][player.tile.y] instanceof Shattered){
@@ -784,10 +750,11 @@ class DrawWheel{
             this.breatheSoul();
             return;
         }
-        else if (player.tile instanceof CageContainer && world.cage.slots[player.tile.x][player.tile.y].id != "EMPTY"){
+        else if (false && player.tile instanceof CageContainer && world.cage.slots[player.tile.x][player.tile.y].id != "EMPTY"){ //made obsolete by brush system for now
             this.retrieveSoul();
             return;
         }
+        if (world.getRoom() instanceof SoulCage) return;
         if (player.tile.souls.length > 0){
             for (let i of player.tile.souls){
                 this.addSoul(i);
