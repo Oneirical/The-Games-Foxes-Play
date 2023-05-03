@@ -882,6 +882,13 @@ class Player extends Monster{
                     log.addLog("BrushError");
                     return;
                 }
+                if (!(world.cage.slots[player.tile.x][player.tile.y] instanceof Empty)) {
+                    wheel.retrieveSoul();
+                    if (!(wheel.wheel[0] instanceof Empty)){
+                        wheel.pile.push(wheel.wheel[0]);
+                        wheel.wheel[0] = new Empty();
+                    }
+                }
                 wheel.cageSoul(wheel.currentbrush);
             }
             if (world.getRoom() instanceof HarmonyRelay){
