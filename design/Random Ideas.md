@@ -12,6 +12,11 @@
 
 * reorganize the research tree to include inhale/exhale
 
+**Brushstroke Crafting**
+
+* Show available souls in inventory
+* Highlight the found pattern in the cage when mousing over the bottom right grid components
+* Become able to place a whole pattern in one shot by selecting from catalogue
 
 **"Serene Collective" design**
 
@@ -35,6 +40,7 @@ The reason the player can't attack the intruder is because spells only work agai
 **Forms**
 
 * Random target with fat power. Feral.
+* something that travels across every adjacent wall and adjacent floors to those walls
 
 **Mutators**
 
@@ -42,7 +48,8 @@ The reason the player can't attack the intruder is because spells only work agai
 * Set down a landmine with this effect.
 * Get random power up or down.
 * Sacrifice your wheel contents for power.
-* Get power for damaged units (not at max hp).
+* Get power for damaged units (not at max hp) shroud of silent mist style
+* Joltzazon that makes the Form spread to adjacent entities/walls
 
 **Research Nodes**
 Terminal is made out of shattered souls, that is why he can shapelessly assume the shape of others?

@@ -99,6 +99,7 @@
     rosetoxin = 0;
 
     var inCatalogue = false;
+    var showingComponent = false;
 
     mouseIsDown = false;
 
@@ -170,6 +171,7 @@
             if (inInventory || inResearch) return;
             if(e.key=="c") {
                 if (inMap) return;
+                if (world.getRoom() instanceof SoulCage) return; //too lazy for now
                 cursormode = !cursormode;
                 invmode = false;
                 currentspelldesc = "nan";

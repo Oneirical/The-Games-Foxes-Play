@@ -149,6 +149,7 @@ class Research{
 }
 
 function showCatalogue(type){
+    if (!type) return;
     let description = researchexpl[type];
     if (powerratings[type]){
         if (powerratings[type] > 0) description += "\n[g]Gain " + powerratings[type] + " Potency.[w]";
@@ -157,8 +158,9 @@ function showCatalogue(type){
     if (soulcosts[type]){
         description += "\n[p]Triggering this Contingency will consume "+soulcosts[type]+ " Ipseity Shards.";
     }
-    printOutText(description, 18, 590, 85, "white", 20, 6*64-35);
-    printOutText(researchnames[type], 18, 590, 30, "white", 20, 6*64-100);
+    printOutText(description, 18, 590, 105, "white", 20, 6*64-35);
+    printOutText(researchnames[type], 18, 590, 50, "white", 20, 6*64-100);
+    drawSymbol(inside[type], 890, 20, 64);
 }
 
 class TutorialDisplay{
@@ -244,28 +246,28 @@ class ComponentsDisplay{
                 if (this.cage[i][j] instanceof CageContainer){
                     for (let k=0;k<this.contin.length;k++){
                         if(j == 1&& i-1 == k){
-                            this.cage[i][j].value = new Component(inside[this.contin[k]]);
+                            this.cage[i][j].value = new Component(this.contin[k]);
                             this.cage[i][j].seq = seq;
                             seq++;
                         }
                     }
                     for (let k=0;k<this.forms.length;k++){
                         if (j == 2 && i-1 == k){
-                            this.cage[i][j].value = new Component(inside[this.forms[k]]);
+                            this.cage[i][j].value = new Component(this.forms[k]);
                             this.cage[i][j].seq = seq;
                             seq++;
                         }
                     }
                     for (let k=0;k<this.functions.length;k++){
                         if(j == 4&& i-1 == k){
-                            this.cage[i][j].value = new Component(inside[this.functions[k]]);
+                            this.cage[i][j].value = new Component(this.functions[k]);
                             this.cage[i][j].seq = seq;
                             seq++;
                         }
                     }
                     for (let k=0;k<this.mutators.length;k++){
                         if(j == 3&& i-1 == k){
-                            this.cage[i][j].value = new Component(inside[this.mutators[k]]);
+                            this.cage[i][j].value = new Component(this.mutators[k]);
                             this.cage[i][j].seq = seq;
                             seq++;
                         }
@@ -283,7 +285,7 @@ class ComponentsDisplay{
         for(let i=0;i<this.cage.length;i++){
             for(let j=0;j<this.cage.length-1;j++){
                 let size = 64;
-                if (this.cage[i][j].seq && this.cage[i][j].seq == legendaries.describepage+1){
+                if (this.cage[i][j].seq && this.cage[i][j].seq == legendaries.describepage+1 && (inInventory)){
                     this.cage[i][j].sprite = 126;
                     drawSymbol(this.cage[i][j].value.icon, 890, 20, 64);
                 }
@@ -407,7 +409,7 @@ class DrawWheel{
     }
 
     display(){
-        if (!inInventory && !cursormode) printOutText(universe.getDepth(), 25, 905 - ctx.measureText(universe.getDepth()).width, 35, "lightblue");
+        if (!inInventory && !cursormode && !(world.getRoom() instanceof SoulCage)) printOutText(universe.getDepth(), 25, 905 - ctx.measureText(universe.getDepth()).width, 35, "lightblue");
         if (!inInventory && !cursormode) printOutText(world.getRoom().name, 25, 595, 35, "violet");
         for (let i = 0; i<this.spinningsouls.length;i++){
             this.spinningsouls[i].x = this.circlemotion.centerX + Math.cos(this.spinningsouls[i].angle) * this.circlemotion.radius;
@@ -1278,6 +1280,7 @@ class LegendarySoul{
     }
 
     describeWheel(){
+        if (world.getRoom() instanceof SoulCage) return;
         const hijack = {
             "VILE" : 0,
             "FERAL" : 1,
@@ -1390,9 +1393,10 @@ class LegendSpell extends LegendarySoul{
 }
 
 class Component extends LegendarySoul{
-    constructor(icon){
+    constructor(type){
         super("SAINTLY");
-        this.icon = icon;
+        this.type = type;
+        this.icon = inside[type];
         this.caste = "SAINTLY";
     }
 }

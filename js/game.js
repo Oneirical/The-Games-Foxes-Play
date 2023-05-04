@@ -228,7 +228,42 @@ function draw(){
                 viewedTiles.push(getTile(i,j));
             }
         }
-        if (world.getRoom() instanceof SoulCage){
+        for(let i=0;i<monsters.length;i++){
+            if (viewedTiles.includes(monsters[i].tile) || monsters[i].statuseff["Charmed"] > 0)monsters[i].draw();
+        }
+        if (world.getRoom() instanceof WorldSeed && world.cage.displayon) world.cage.pocketworld.hypnoDisplay();
+        if(!inResearch) player.draw();
+        if (cursormode && !invmode){
+            if (inResearch) research.display(research.currentpage);
+            cursor.draw();
+            cursor.info();
+            if (!inResearch) drawSymbol(9, 590, 500, 64);
+        }
+        else if (inInventory) legendaries.display();
+        else {
+            if (!wheel.hide && !inCatalogue && !showingComponent) wheel.display();
+                    //if (rosetoxin > 1) spellText = (i+1) + ") " + ("ROSE" || "");
+                    //if (player.fuffified > 0) spellText = (i+1) + ") " + ("SERENE" || "");
+            else if (gameState == "vision"  && !fufflore){
+                for(let i=0; i<player.vision.length; i++){
+                    let spellText = (i+1) + ") " + (player.vision[i] || "");                        
+                    drawText(spellText, 20, false, 130+i*20, "lightskyblue");
+                }
+                log.addLog("Shiza");
+            }
+            if (!(world.getRoom() instanceof SoulCage) && !loghide && (!cursormode && !invmode) || (cursormode && invmode)) log.display();//printOutText(messages[message], 18, 10, 600, coloring, 20, 690);
+            if (rosetoxin > 1){
+                ctx.globalAlpha = 0.5;
+                drawFilter(rosefilter);
+                ctx.globalAlpha = 1;
+            }
+            else if (player.fuffified > 0){
+                ctx.globalAlpha = 0.5;
+                drawFilter(cyanfilter);
+                ctx.globalAlpha = 1;
+            }
+        }
+        if (world.getRoom() instanceof SoulCage && !inInventory && !inResearch){
             length = 9;
             j = 0;
             if (!inCatalogue) world.exppage.display();
@@ -276,7 +311,18 @@ function draw(){
                         }
                     }
                 }
+                else if (between(cread[0],545+64,545+6*64)&& between(cread[1],482+64,482+5*64) ){
+                    ctx.globalAlpha = 0.5;
+                    drawSpriteFreeform(130,(545+64)/64,(482+64)/64,Math.floor((cread[0]-545+64)/64)*64-128,Math.floor((cread[1]-482+64)/64)*64-128,64);
+                    ctx.globalAlpha = 1;
+                    if (world.getComps(Math.floor((cread[0]-545+64)/64)-1, Math.floor((cread[1]-482+64)/64)-1)){
+                        showCatalogue(world.getComps(Math.floor((cread[0]-545+64)/64)-1, Math.floor((cread[1]-482+64)/64)-1));
+                        showingComponent = true;
+                    }
+                    else showingComponent = false;
+                }
                 else{
+                    showingComponent = false;
                     inCatalogue = false;
                     world.getRoom().cataloguedis = false;
                 }
@@ -285,47 +331,13 @@ function draw(){
         for(let i=0;i<droppedsouls.length;i++){
             droppedsouls[i].draw();
         }
-        if(!inResearch) player.draw();
-        if (world.getRoom() instanceof WorldSeed && world.cage.displayon) world.cage.pocketworld.hypnoDisplay();
-        for(let i=0;i<monsters.length;i++){
-            if (viewedTiles.includes(monsters[i].tile) || monsters[i].statuseff["Charmed"] > 0)monsters[i].draw();
-        }
         //if (!inInventory && !cursormode && !wheel.hide) drawText(world.getRoom().name, 30, false, 40, "violet");
 
         //if (gameState == "dead" && !victory) drawText("SOUL SHATTERED", 20, false, 100, "orangered");
         //else if (gameState == "dead" && victory) drawText("VICTORY", 30, false, 100, "lime");
         let modulecol = "cyan";
         if (selectation == 21 || selectation == 22) modulecol = "white";
-        if (cursormode && !invmode){
-            if (inResearch) research.display(research.currentpage);
-            cursor.draw();
-            cursor.info();
-            if (!inResearch) drawSymbol(9, 590, 500, 64);
-        }
-        else if (inInventory) legendaries.display();
-        else {
-            if (!wheel.hide && !inCatalogue) wheel.display();
-                    //if (rosetoxin > 1) spellText = (i+1) + ") " + ("ROSE" || "");
-                    //if (player.fuffified > 0) spellText = (i+1) + ") " + ("SERENE" || "");
-            else if (gameState == "vision"  && !fufflore){
-                for(let i=0; i<player.vision.length; i++){
-                    let spellText = (i+1) + ") " + (player.vision[i] || "");                        
-                    drawText(spellText, 20, false, 130+i*20, "lightskyblue");
-                }
-                log.addLog("Shiza");
-            }
-            if (!(world.getRoom() instanceof SoulCage) && !loghide && (!cursormode && !invmode) || (cursormode && invmode)) log.display();//printOutText(messages[message], 18, 10, 600, coloring, 20, 690);
-            if (rosetoxin > 1){
-                ctx.globalAlpha = 0.5;
-                drawFilter(rosefilter);
-                ctx.globalAlpha = 1;
-            }
-            else if (player.fuffified > 0){
-                ctx.globalAlpha = 0.5;
-                drawFilter(cyanfilter);
-                ctx.globalAlpha = 1;
-            }
-        }
+        
         if (showboss){
             showBoss(1);
         }
@@ -357,7 +369,7 @@ function draw(){
             ctx.moveTo(0, 577);
             ctx.lineTo(577, 577);
             ctx.stroke();
-            if (!inInventory && !(world.getRoom() instanceof SoulCage)){
+            if (inResearch || (!inInventory && !(world.getRoom() instanceof SoulCage))){
                 ctx.beginPath();
                 ctx.moveTo(0, 695);
                 ctx.lineTo(577, 695);

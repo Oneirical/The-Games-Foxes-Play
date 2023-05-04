@@ -384,6 +384,10 @@ class World{
         drawPixel(colour,this.x*7.11,this.y*7.11);
     }
 
+    getComps(i,j){
+        return this.exppage.cage[i][j].value.type;
+    }
+
     display(){
         let brush = (64/9);
         drawFilter(blackfilter);
