@@ -1237,6 +1237,7 @@ class SoulCage extends DefaultVaultRoom{
         this.name = "Soul Cage";
     }
     initializeRoom(){
+        research.completeResearch("Cage");
         for(let i=0;i<wheel.wheel.length;i++){
             if (!(wheel.wheel[i] instanceof Empty)){
                 wheel.pile.push(wheel.wheel[i]);

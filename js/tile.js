@@ -847,7 +847,6 @@ class CageContainer extends Altar{
     }
 
     stepOn(monster){
-        research.completeResearch("Cage");
         super.stepOn(monster);
     }
 }
@@ -923,6 +922,7 @@ const inside = {
     "STEP" : 32,
     "XCROSS" : 43,
     "EPSILON" : 44,
+    "Brush" : 23,
 }
 
 class ResearchNode extends Floor{

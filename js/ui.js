@@ -923,6 +923,7 @@ class DrawWheel{
             world.cage.size++;
             if(world.cage.size > 0) world.cage.generateWorld();
             research.completeResearch("Turbulent");
+            research.completeResearch("Brush");
         }
     }
 

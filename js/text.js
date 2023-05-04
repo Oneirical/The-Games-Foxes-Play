@@ -698,7 +698,8 @@ researchequivalences = {
         "f" : "Vision",
         "g" : "Security",
         "h" : "Song",
-        "i" : "Breath"
+        "i" : "Brush"
+        //breath
     },
     1 : {
         "a" : "Shattered",
@@ -742,6 +743,7 @@ researchnames = {
     "Shattered" : "Spiritual Sewage",
     "Song" : "The Song That Stirs Souls",
     "Breath" : "Souls and Air as One",
+    "Brush" : "Paint the Canvas With Belief",
     "BEAM" : "Hatred and Strife, Focused",
     "GYVJI" : "Gyvji, Soul-Severer",
     "SENET" : "Senet, the Felidol Tycoon",
@@ -765,6 +767,7 @@ researchlore = {
     "Turbulent" : "The recently liberated still teem with sensation, memory, clinging... I am the voice that will banish these illusions. I am the light that will break their chains.",
     "Cage" : "My task is that of a god, but following its completion, I would at last receive the annihilation I crave so much. Such promises feel so distant now.",
     "Breath" : "Each breath, a cycle - not so unlike the ones that cause the beginnings and ends of worlds.",
+    "Brush" : "Most think of art as a way to turn ideas into tangible works. I personally prefer the opposite - to turn what can be touched into what cannot.",
     "Shattered" : "Some chains are unbreakable. In this case, it is the prisoner that must be broken.",
     "Subdued" : "I choose to remain whole so I can bring glorious annihilation to the worthy. I suffer so others can be pure. I am a saint.",
     "Song" : "If you wish to render someone vulnerable to your control - make them believe they are too strong to be manipulated.",
@@ -815,6 +818,7 @@ researchflags = {
     "Herald" : "Data",
     "Vision" : "Data",
     "Turbulent" : "Data",
+    "Brush" : "Data",
     "Cage" : "Data",
     "Subdued" : "Data",
     "Shattered" : "Data",
@@ -846,6 +850,7 @@ researchexpl = {
     "Intro" : "Each step I take must be purposeful. \nOn contact with a creature, I will choose to draw word with ear, or draw blood with fang.",
     "Herald" : "Those trapped in prisons of flesh deserve release. \nUpon slaying a creature, I may obtain its Turbulent Soul, which pathetically still clings to its past imprisonment.",
     "Breath" : "I Inhale (Q) to draw Souls into my conscious mind, and Exhale (1-9) them to perform an action related to its nature. \nNo Soul is ever lost in this way - without a Vessel of their own, they inevitably return back to squirm in the depths of my psyche.",
+    "Brush" : "As a painter would, I select a Soul Caste from the palette in my wheel, and spread its denizens across the Cage with sliding motions.\nThe topmost glyph of Emptiness allows the reclaiming of caged Souls.",
     "Turbulent" : "Turbulent Souls thrash around in indiscipline, rendering them incapable of proper servitude. \nExhaling one into the Soul Cage should teach it some manners.",
     "Cage" : "Should I Exhale a Soul while I stand on top of this Cage, it will be snatched into one of its compartments, and forced into a hypnotic trance.",
     "Seed" : "Each Soul locked in the Cage dreams vividly of the Old World, and of its varied denizens. \nThese Hypnotic Projectors allow me to join them in trance, dispensing discipline and collecting a fresh bounty of Souls.",
