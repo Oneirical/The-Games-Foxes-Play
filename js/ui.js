@@ -1324,7 +1324,7 @@ class LegendarySoul{
 
 function calculatePower(triggers,targeter,modifier,effect){
     let basecost = 0;
-    let basepower = 0;
+    let basepower = 99;
     for (let i of targeter){
         basepower = Math.min(powerratings[i],basepower);
     }
@@ -1332,6 +1332,7 @@ function calculatePower(triggers,targeter,modifier,effect){
         if (powerratings[i]) basepower+=powerratings[i];
         if (soulcosts[i]) basecost+=soulcosts[i];
     }
+    if (basepower == 99) basepower = 0;
     return [basepower,basecost];
 }
 
