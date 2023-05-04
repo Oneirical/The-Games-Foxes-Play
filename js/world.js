@@ -124,7 +124,7 @@ class CageTemplate{
                 if (!(this.slots[i][j] instanceof Empty)){
                     allsouls.push(this.slots[i][j].id);
                     for (let k of research.knownspells){
-                        if (this.checkConflict(i,j,k)) this.pocketworld.reward[spellpatterns[k]["type"]].push(k);
+                        if (this.checkConflict(i,j,k) && !this.pocketworld.reward[spellpatterns[k]["type"]].includes(k)) this.pocketworld.reward[spellpatterns[k]["type"]].push(k);
                     }
                 }
             }

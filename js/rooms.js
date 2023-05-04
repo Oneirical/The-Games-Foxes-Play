@@ -77,9 +77,9 @@ var spellpatterns = {
         "type" : "Form",
     },
     "STEP" : {
-        0: "SS.",
-        1: "..S",
-        2: "...",
+        0: "S.S",
+        1: "...",
+        2: "..S",
         "type" : "Contingency",
     },
     "SACRIFICE" : {
