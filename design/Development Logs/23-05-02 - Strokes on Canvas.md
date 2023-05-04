@@ -7,7 +7,7 @@
 
 After completing a few quests for the Plane Where Grass Is Touched last week, I was able to free up a lot of time this week to return to my cyber-grimoire. Here are the incantations I have concocted this time:
 
-# Rethink Patterns of Thought
+# Thought-Pattern Interference
 
 The previous spell-crafting algorithm had... its share of problems. The main one being that it was possible to make patterns out of other patterns. This meant that the structure:
 
@@ -30,3 +30,5 @@ This does make it more difficult to cram a lot of components in your limited 3x3
 Another flaw in the crafting system was just how *tedious* it was to extract exactly the Soul type you wanted for a given recipe. If you needed just one more Unhinged Soul for your spell but it was hidden underneath a pile of 50 Ordered Souls, it meant you had to mash your Q key 51 times. Not exactly engaging gameplay.
 
 I have introduced a new thematic "brush" system - it causes your Soul wheel on the sidebar to become a palette with every Caste represented on it. This is only available in Soul Cage rooms, but it lets the player pick out a "color", and, well, [draw](). The mouse control is easier (just drag and drop, like Minecraft's crafting), but keyboard is also an option, requiring the player to walk over the cage to place their payload [drive-by style]().
+
+This UI update comes with many quality-of-life additions related to the spell crafting system - including a complete [catalogue]() at the bottom with every unlocked pattern (and its recipe), and a [display]() predicting the outcome of the crafting recipe (with dynamic highlighting of where each component is found inside your Soul Cage).

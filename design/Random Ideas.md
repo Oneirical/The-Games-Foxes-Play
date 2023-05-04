@@ -6,7 +6,7 @@
 
 * estate && large rooms do not work
 
-* when potency is 0 the componentsdisplay does not work
+* make it so the caste icon in componentsdisplay shows ties
 
 * make para a status effect (and fall later)
 

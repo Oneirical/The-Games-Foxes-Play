@@ -290,7 +290,7 @@ class ComponentsDisplay{
                     drawSymbol(this.cage[i][j].value.icon, 890, 20, 64);
                 }
                 else if (this.cage[i][j].seq != null) this.cage[i][j].sprite = this.cage[i][j].spritesave;
-                if (i != 0 || j != 0) this.cage[i][j].drawFreeform(673-size/2*(this.cage.length-3),64+546-size/2*(this.cage.length-3),size);
+                if (!(this.cage[i][j].sprite == 2)) this.cage[i][j].drawFreeform(673-size/2*(this.cage.length-3),64+546-size/2*(this.cage.length-3),size);
                 drawSymbol(12, 673-size/2*(this.cage.length-3)+40, 46+546-size/2*(this.cage.length-3), 64);
                 printOutText(this.power+"",40, 660, 508, "lightsteelblue",20,350); //
                 drawSymbol(49, 673-size/2*(this.cage.length-3)+89+64*4, 46+546-size/2*(this.cage.length-3), 64);
