@@ -1,6 +1,6 @@
-*""*
+*"To walk and let the mind wander is a dangerous thing. A thought pulls harder than the rest, one's gait softens into the grace of a Saint, tears turn to bright smiles, and before one knows it, one is no more."*
 
-- 
+- Flavour text of Steps Shift The Mind, contingency component
 
 ## The Games Foxes Play
 *([complete source code on github](https://github.com/Oneirical/The-Games-Foxes-Play) | [view all previous posts](https://github.com/Oneirical/The-Games-Foxes-Play/tree/main/design/Development%20Logs) | [play 0.4 online in browser on itch.io!](https://oneirical.itch.io/tgfp))*
@@ -29,4 +29,4 @@ This does make it more difficult to cram a lot of components in your limited 3x3
 
 Another flaw in the crafting system was just how *tedious* it was to extract exactly the Soul type you wanted for a given recipe. If you needed just one more Unhinged Soul for your spell but it was hidden underneath a pile of 50 Ordered Souls, it meant you had to mash your Q key 51 times. Not exactly engaging gameplay.
 
-I have introduced a new thematic "brush" system - it causes your Soul wheel on the sidebar to become a palette with every Caste represented on it. This is only available in Soul Cage rooms, but it lets the player pick out a "color", and, well, [draw](). The mouse control is easier (just drag and drop, like Minecraft's crafting), but keyboard is also an option, requiring the player to walk over the cage to place their payload drive-by style.
+I have introduced a new thematic "brush" system - it causes your Soul wheel on the sidebar to become a palette with every Caste represented on it. This is only available in Soul Cage rooms, but it lets the player pick out a "color", and, well, [draw](). The mouse control is easier (just drag and drop, like Minecraft's crafting), but keyboard is also an option, requiring the player to walk over the cage to place their payload [drive-by style]().

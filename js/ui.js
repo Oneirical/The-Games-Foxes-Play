@@ -194,7 +194,7 @@ class ComponentsDisplay{
         this.functions = [];
         this.mutators = [];
         this.contin = [];
-        this.caste = caste
+        this.caste = caste;
         this.power = power;
         this.cost = cost;
         if (functions) for (let i of functions) this.functions.push(i);
@@ -265,7 +265,8 @@ class ComponentsDisplay{
     }
 
     display(){
-        if (!this.power) return;
+        if (!this.power) this.power = 0;
+        if (!this.cost) this.cost = 0;
         for(let i=0;i<this.cage.length;i++){
             for(let j=0;j<this.cage.length-1;j++){
                 let size = 64;
@@ -274,7 +275,7 @@ class ComponentsDisplay{
                     drawSymbol(this.cage[i][j].value.icon, 890, 20, 64);
                 }
                 else if (this.cage[i][j].seq != null) this.cage[i][j].sprite = this.cage[i][j].spritesave;
-                this.cage[i][j].drawFreeform(673-size/2*(this.cage.length-3),64+546-size/2*(this.cage.length-3),size);
+                if (i != 0 || j != 0) this.cage[i][j].drawFreeform(673-size/2*(this.cage.length-3),64+546-size/2*(this.cage.length-3),size);
                 drawSymbol(12, 673-size/2*(this.cage.length-3)+40, 46+546-size/2*(this.cage.length-3), 64);
                 printOutText(this.power+"",40, 660, 508, "lightsteelblue",20,350); //
                 drawSymbol(49, 673-size/2*(this.cage.length-3)+89+64*4, 46+546-size/2*(this.cage.length-3), 64);
@@ -512,25 +513,31 @@ class DrawWheel{
         let j = 0;
         let k = 0;
         let length = 21;
-        //84 is max capacity for each box
-        for (let i = 0; i<84; i++){
-            if(i < this.pile.length) this.pile[i].thrash(581  + i*18 - (length*18*Math.floor(j/length)),420 + Math.floor(j/length)*18,16);
-            else this.saved[0].thrash(581  + i*18 - (length*18*Math.floor(j/length)),420 + Math.floor(j/length)*18,16);
-            j++;
+        if (!(world.getRoom() instanceof SoulCage)){
+            //84 is max capacity for each box
+            for (let i = 0; i<84; i++){
+                if(i < this.pile.length) this.pile[i].thrash(581  + i*18 - (length*18*Math.floor(j/length)),420 + Math.floor(j/length)*18,16);
+                else this.saved[0].thrash(581  + i*18 - (length*18*Math.floor(j/length)),420 + Math.floor(j/length)*18,16);
+                j++;
+            }
+            for (let i = 0; i<84; i++){
+                if(i < this.discard.length) this.discard[i].thrash(581  + i*18 - (length*18*Math.floor(k/length)),501 + Math.floor(k/length)*18,16);
+                else this.saved[0].thrash(581  + i*18 - (length*18*Math.floor(k/length)),501 + Math.floor(k/length)*18,16);
+                k++;
+            }
+            ctx.beginPath();
+            ctx.moveTo(577, 496);
+            ctx.lineTo(960, 496);
+            ctx.stroke();
+            ctx.beginPath();
+            ctx.moveTo(577, 415);
+            ctx.lineTo(960, 415);
+            ctx.stroke();
         }
-        for (let i = 0; i<84; i++){
-            if(i < this.discard.length) this.discard[i].thrash(581  + i*18 - (length*18*Math.floor(k/length)),501 + Math.floor(k/length)*18,16);
-            else this.saved[0].thrash(581  + i*18 - (length*18*Math.floor(k/length)),501 + Math.floor(k/length)*18,16);
-            k++;
+        else{
+            world.exppage.display();
+            //if (world.soulex) world.soulex.describe();
         }
-        ctx.beginPath();
-        ctx.moveTo(577, 496);
-        ctx.lineTo(960, 496);
-        ctx.stroke();
-        ctx.beginPath();
-        ctx.moveTo(577, 415);
-        ctx.lineTo(960, 415);
-        ctx.stroke();
     }
 
     countPileSouls(){
@@ -1301,6 +1308,19 @@ class LegendarySoul{
     }
 }
 
+function calculatePower(triggers,targeter,modifier,effect){
+    let basecost = 0;
+    let basepower = 0;
+    for (let i of targeter){
+        basepower = Math.min(powerratings[i],basepower);
+    }
+    for (let i of triggers){
+        if (powerratings[i]) basepower+=powerratings[i];
+        if (soulcosts[i]) basecost+=soulcosts[i];
+    }
+    return [basepower,basecost];
+}
+
 class LegendSpell extends LegendarySoul{
     constructor(trigger,targeter,modifier,effect,caste){
         super("FLEXIBLE");
@@ -1313,13 +1333,7 @@ class LegendSpell extends LegendarySoul{
         this.basepower = 99;
         this.basecost = 0;
         this.alllore = this.triggers.concat(this.targeter.concat(this.modifier.concat(this.effect)));
-        for (let i of this.targeter){
-            this.basepower = Math.min(powerratings[i],this.basepower);
-        }
-        for (let i of this.triggers){
-            if (powerratings[i]) this.basepower+=powerratings[i];
-            if (soulcosts[i]) this.basecost+=soulcosts[i];
-        }
+        calculatePower(this.triggers,this.targeter)
     }
 
     legendCast(){

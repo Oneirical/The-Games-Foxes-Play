@@ -172,10 +172,12 @@ function draw(){
         let fufflore = false;
         let loghide = false;
         let selectation = 99;
-        if (!inInventory && !inMap && !inResearch) world.miniMap();
-        ctx.fillStyle = 'rgba(0,0,0,1)';
-        ctx.fillRect(705-100,577-100,canvas.width/4+300, 100);
-        ctx.fillRect(705-100,577,100, canvas.width/4+300);
+        if (!inInventory && !inMap && !inResearch && !(world.getRoom() instanceof SoulCage)){
+            world.miniMap();
+            ctx.fillStyle = 'rgba(0,0,0,1)';
+            ctx.fillRect(705-100,577-100,canvas.width/4+300, 100);
+            ctx.fillRect(705-100,577,100, canvas.width/4+300);
+        }
         if(inInventory){
             let nohover = true;
             for (let i of legendaries.storecoords){
@@ -269,7 +271,7 @@ function draw(){
                 }
                 log.addLog("Shiza");
             }
-            if (!loghide && (!cursormode && !invmode) || (cursormode && invmode)) log.display();//printOutText(messages[message], 18, 10, 600, coloring, 20, 690);
+            if (!(world.getRoom() instanceof SoulCage) && !loghide && (!cursormode && !invmode) || (cursormode && invmode)) log.display();//printOutText(messages[message], 18, 10, 600, coloring, 20, 690);
             if (rosetoxin > 1){
                 ctx.globalAlpha = 0.5;
                 drawFilter(rosefilter);
@@ -293,7 +295,7 @@ function draw(){
         }
         ctx.strokeStyle = 'white';
         ctx.lineWidth = 1.5;
-        if (!inResearch && !inInventory){
+        if (!inResearch && !inInventory && !(world.getRoom() instanceof SoulCage)){
             ctx.beginPath();
             ctx.moveTo(0, 577);
             ctx.lineTo(960, 577);
@@ -312,7 +314,7 @@ function draw(){
             ctx.moveTo(0, 577);
             ctx.lineTo(577, 577);
             ctx.stroke();
-            if (!inInventory){
+            if (!inInventory && !(world.getRoom() instanceof SoulCage)){
                 ctx.beginPath();
                 ctx.moveTo(0, 695);
                 ctx.lineTo(577, 695);
@@ -328,7 +330,7 @@ function draw(){
             ctx.stroke();
         }
         if (inMap) world.display();
-        if (inBigMap) universe.display(); // break in case of sanity
+        //if (inBigMap) universe.display(); // break in case of sanity
         //drawSymbol(5, 300, 400, 16);
         //drawSymbol(7, 292, 392, 32);
         //mouseclick lines

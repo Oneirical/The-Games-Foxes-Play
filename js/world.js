@@ -130,6 +130,8 @@ class CageTemplate{
             }
         }
         this.pocketworld.reward["Caste"] = mode(allsouls);
+        world.exppage = new ComponentsDisplay(this.pocketworld.reward["Contingency"],this.pocketworld.reward["Form"],this.pocketworld.reward["Mutator"],this.pocketworld.reward["Function"],calculatePower(this.pocketworld.reward["Contingency"],this.pocketworld.reward["Form"])[0],calculatePower(this.pocketworld.reward["Contingency"],this.pocketworld.reward["Form"])[1],this.pocketworld.reward["Caste"]);
+        world.soulex = new LegendSpell(this.pocketworld.reward["Contingency"],this.pocketworld.reward["Form"],this.pocketworld.reward["Mutator"],this.pocketworld.reward["Function"],this.pocketworld.reward["Caste"]);
     }
 }
 
@@ -353,7 +355,10 @@ class World{
             "Form" : [],
             "Mutator" : [],
             "Function" : [],
+            "Caste" : [],
         };
+        this.exppage = new ComponentsDisplay();
+        this.soulex;
     }
 
     checkPixel(tile){

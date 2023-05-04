@@ -10,7 +10,7 @@
 
 * make para a status effect (and fall later)
 
-* make the brush selector better visually (grey emphasis)
+* reorganize the research tree to include inhale/exhale
 
 
 **"Serene Collective" design**
