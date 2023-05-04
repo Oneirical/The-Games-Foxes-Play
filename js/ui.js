@@ -148,6 +148,19 @@ class Research{
     
 }
 
+function showCatalogue(type){
+    let description = researchexpl[type];
+    if (powerratings[type]){
+        if (powerratings[type] > 0) description += "\n[g]Gain " + powerratings[type] + " Potency.[w]";
+        else description += "\n[r]Lose " + Math.abs(powerratings[type]) + " Potency.[w]";
+    }
+    if (soulcosts[type]){
+        description += "\n[p]Triggering this Contingency will consume "+soulcosts[type]+ " Ipseity Shards.";
+    }
+    printOutText(description, 18, 590, 85, "white", 20, 6*64-35);
+    printOutText(researchnames[type], 18, 590, 30, "white", 20, 6*64-100);
+}
+
 class TutorialDisplay{
     constructor(type){
         //this.timer = 0;
@@ -394,6 +407,8 @@ class DrawWheel{
     }
 
     display(){
+        if (!inInventory && !cursormode) printOutText(universe.getDepth(), 25, 905 - ctx.measureText(universe.getDepth()).width, 35, "lightblue");
+        if (!inInventory && !cursormode) printOutText(world.getRoom().name, 25, 595, 35, "violet");
         for (let i = 0; i<this.spinningsouls.length;i++){
             this.spinningsouls[i].x = this.circlemotion.centerX + Math.cos(this.spinningsouls[i].angle) * this.circlemotion.radius;
             this.spinningsouls[i].y = this.circlemotion.centerY + Math.sin(this.spinningsouls[i].angle) * this.circlemotion.radius;
@@ -533,10 +548,6 @@ class DrawWheel{
             ctx.moveTo(577, 415);
             ctx.lineTo(960, 415);
             ctx.stroke();
-        }
-        else{
-            world.exppage.display();
-            //if (world.soulex) world.soulex.describe();
         }
     }
 

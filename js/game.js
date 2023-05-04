@@ -229,12 +229,57 @@ function draw(){
             }
         }
         if (world.getRoom() instanceof SoulCage){
+            length = 9;
+            j = 0;
+            if (!inCatalogue) world.exppage.display();
+            //if (world.soulex) world.soulex.describe();
+            for (let i = 0; i<36; i++){
+                let sep = 18*4-8;
+                let drawx = 3  + i*(sep-0.5) - (length*(sep-0.5)*Math.floor(i/length));
+                let drawy = 580 + (Math.floor(i/length)*(sep-2));
+                if (inside[research.knownspells[i]]) drawSymbol(inside[research.knownspells[i]],drawx,drawy,64)
+                else wheel.saved[0].thrash(drawx,drawy,64);
+            }
             let cread = getTile(Math.floor((mousepos[0]-shakeX)/tileSize),Math.floor((mousepos[1]-shakeY)/tileSize));
             if (cread instanceof CageContainer){
                 ctx.globalAlpha = 0.5;
                 drawSprite(130,cread.x,cread.y);
                 ctx.globalAlpha = 1;
                 if (mouseIsDown) fishOutSoul(cread);
+            }
+            else{
+                cread = [mousepos[0],mousepos[1]];
+                let length = 9;
+                let sep = 18*4-8;
+                let minx = 3  + 0*(sep-0.5) - (length*(sep-0.5)*Math.floor(0/length));
+                let miny = 580 + (Math.floor(0/length)*(sep-2));
+                let maxx = 3  +35*(sep-0.5) - (length*(sep-0.5)*Math.floor(35/length))+64;
+                let maxy = 580 + (Math.floor(36/length)*(sep-2));
+                if (between(cread[0],minx,maxx) && between(cread[1],miny,maxy)){
+                    for (let j = 0; j<36;j++){
+                        if (between(cread[0],3  + j*(sep-0.5) - (length*(sep-0.5)*Math.floor(j/length)),3  + j*(sep-0.5) - (length*(sep-0.5)*Math.floor(j/length))+64) && between(cread[1],580 + (Math.floor(j/length)*(sep-2)),64+580 + (Math.floor(j/length)*(sep-2)))){
+                            ctx.globalAlpha = 0.5;
+                            drawSpriteFreeform(130,(3  + j*(sep-0.5) - (length*(sep-0.5)*Math.floor(j/length)))/64,(580 + (Math.floor(j/length)*(sep-2)))/64,0,0,64);
+                            ctx.globalAlpha = 1;
+                            if (research.knownspells[j]){
+                                if (!world.getRoom().cataloguedis || world.getRoom().currentcat != j) world.getRoom().cataloguedis = new TutorialDisplay(research.knownspells[j]);
+                                world.getRoom().currentcat = j;
+                                world.getRoom().cataloguedis.display();
+                                showCatalogue(research.knownspells[j]);
+                                inCatalogue = true;
+                                break;
+                            }
+                            else{
+                                inCatalogue = false;
+                                world.getRoom().cataloguedis = false;
+                            }
+                        }
+                    }
+                }
+                else{
+                    inCatalogue = false;
+                    world.getRoom().cataloguedis = false;
+                }
             }
         }
         for(let i=0;i<droppedsouls.length;i++){
@@ -246,8 +291,6 @@ function draw(){
             if (viewedTiles.includes(monsters[i].tile) || monsters[i].statuseff["Charmed"] > 0)monsters[i].draw();
         }
         //if (!inInventory && !cursormode && !wheel.hide) drawText(world.getRoom().name, 30, false, 40, "violet");
-        if (!inInventory && !cursormode && !wheel.hide) printOutText(universe.getDepth(), 25, 905 - ctx.measureText(universe.getDepth()).width, 35, "lightblue");
-        if (!inInventory && !cursormode && !wheel.hide) printOutText(world.getRoom().name, 25, 595, 35, "violet");
 
         //if (gameState == "dead" && !victory) drawText("SOUL SHATTERED", 20, false, 100, "orangered");
         //else if (gameState == "dead" && victory) drawText("VICTORY", 30, false, 100, "lime");
@@ -261,7 +304,7 @@ function draw(){
         }
         else if (inInventory) legendaries.display();
         else {
-            if (!wheel.hide) wheel.display();
+            if (!wheel.hide && !inCatalogue) wheel.display();
                     //if (rosetoxin > 1) spellText = (i+1) + ") " + ("ROSE" || "");
                     //if (player.fuffified > 0) spellText = (i+1) + ") " + ("SERENE" || "");
             else if (gameState == "vision"  && !fufflore){

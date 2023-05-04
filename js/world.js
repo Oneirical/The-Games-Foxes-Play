@@ -1240,6 +1240,8 @@ class SoulCage extends DefaultVaultRoom{
         super(index);
         this.id = "Cage2";
         this.name = "Soul Cage";
+        this.cataloguedis;
+        this.currentcat;
     }
     initializeRoom(){
         research.completeResearch("Cage");
