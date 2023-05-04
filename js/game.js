@@ -312,11 +312,21 @@ function draw(){
                     }
                 }
                 else if (between(cread[0],545+64,545+6*64)&& between(cread[1],482+64,482+5*64) ){
-                    ctx.globalAlpha = 0.5;
+                    ctx.globalAlpha = 0.8;
                     drawSpriteFreeform(130,(545+64)/64,(482+64)/64,Math.floor((cread[0]-545+64)/64)*64-128,Math.floor((cread[1]-482+64)/64)*64-128,64);
                     ctx.globalAlpha = 1;
                     if (world.getComps(Math.floor((cread[0]-545+64)/64)-1, Math.floor((cread[1]-482+64)/64)-1)){
-                        showCatalogue(world.getComps(Math.floor((cread[0]-545+64)/64)-1, Math.floor((cread[1]-482+64)/64)-1));
+                        let type = world.getComps(Math.floor((cread[0]-545+64)/64)-1, Math.floor((cread[1]-482+64)/64)-1);
+                        for(let j=0;j<9;j++){
+                            for(let i=0;i<9;i++){
+                                if (!world.cage.slots[i][j].discpatt.includes(type) && getTile(i,j) instanceof CageContainer){
+                                    ctx.globalAlpha = 0.8;
+                                    drawSprite(131,i,j);
+                                    ctx.globalAlpha = 1;
+                                }
+                            }
+                        }
+                        showCatalogue(type);
                         showingComponent = true;
                     }
                     else showingComponent = false;

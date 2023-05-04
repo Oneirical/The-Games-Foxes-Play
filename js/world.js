@@ -81,11 +81,13 @@ class CageTemplate{
             if (rele) break;
         }
         if (!rele) return false;
+        let confirmed = [];
         for (let o =0; o<spellpatterns[k][0].length;o++){
             for (let p =0; p<spellpatterns[k][0].length;p++){
                 if (spellpatterns[k][o][p] != "."){
                     let c1 = this.getAdjacentNeighbors(i+p,j+o);
                     let c2 = this.getAdjacentGridNeighbors(k,o,p);
+                    confirmed.push(c1[0]);
                     for (let u = 0; u < c1.length; u++){
                         if (c1[u].id == currenttype && c1[u].turbulent) c1[u] = c1[u].id[0];
                         else if (!c1[u].turbulent && !(c1[u] instanceof Empty)) c1[u] = "#"; // handle turbulent/subdued better
@@ -95,6 +97,7 @@ class CageTemplate{
                 }
             }
         }
+        for (let r of confirmed) r.discpatt.push(k);
         return true;
     }
 
@@ -115,16 +118,21 @@ class CageTemplate{
     legendCheck(){
         for(let j=0;j<9;j++){
             for(let i=0;i<9;i++){
-                this.slots[i][j].locked = false;
+                this.slots[i][j].discpatt = [];
             }
         }
         let allsouls = [];
+        let addedpatterns = [];
         for(let j=0;j<9;j++){
             for(let i=0;i<9;i++){
                 if (!(this.slots[i][j] instanceof Empty)){
                     allsouls.push(this.slots[i][j].id);
                     for (let k of research.knownspells){
-                        if (this.checkConflict(i,j,k) && !this.pocketworld.reward[spellpatterns[k]["type"]].includes(k)) this.pocketworld.reward[spellpatterns[k]["type"]].push(k);
+                        if (addedpatterns.includes(k)) continue;
+                        if (this.checkConflict(i,j,k) && !this.pocketworld.reward[spellpatterns[k]["type"]].includes(k)){
+                            this.pocketworld.reward[spellpatterns[k]["type"]].push(k);
+                            addedpatterns.push(k);
+                        }
                     }
                 }
             }

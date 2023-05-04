@@ -138,7 +138,7 @@ function sign(p1, p2, p3){
 }
 
 function between(x, min, max) {
-    return x >= min && x <= max;
+    return x > min && x < max;
 }
 
 function inTriangle(pt, v1, v2, v3){

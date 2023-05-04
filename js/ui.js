@@ -1246,6 +1246,7 @@ class LegendarySoul{
         this.offsetY = 0;
         this.speed = 0.05;
         this.thrashcounter = 0;
+        this.discpatt = [];
         if (basic.includes(name)) this.alpha = 0.55;
     }
 
@@ -1649,6 +1650,7 @@ class Kashia extends LegendarySoul{
 }
 
 function fishOutSoul(override){
+    if (wheel.currentbrush == 8) return;
     if (!override) override = player.tile;
     const soultypes = {
         0: "EMPTY",
