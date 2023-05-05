@@ -3,7 +3,7 @@
 - Flavour text of Steps Shift The Mind, contingency component
 
 ## The Games Foxes Play
-*([complete source code on github](https://github.com/Oneirical/The-Games-Foxes-Play) | [view all previous posts](https://github.com/Oneirical/The-Games-Foxes-Play/tree/main/design/Development%20Logs) | [play 0.4.2 online in browser on itch.io!](https://oneirical.itch.io/tgfp))*
+*([complete source code on github](https://github.com/Oneirical/The-Games-Foxes-Play) | [view all previous posts](https://github.com/Oneirical/The-Games-Foxes-Play/tree/main/design/Development%20Logs) | [play 0.4.3 online in browser on itch.io!](https://oneirical.itch.io/tgfp))*
 
 After completing a few quests for the Plane Where Grass Is Touched last week, I was able to free up a lot of time this week to return to my cyber-grimoire. Here are the incantations I have concocted this time:
 
@@ -44,4 +44,4 @@ This does make it more difficult to cram a lot of components in your limited 3x3
 
 Finally, some old spells from version 0.2 have found their way back in, adapted and revised to fit the new spell-component system. "Joltzazon", for example, is now a very powerful Mutator that lets spells "spread" across adjacent targets, resulting in [amusing effects](https://youtube.com/shorts/Fp63Jid-aNo?feature=share). Abazon and Rasel have also returned.
 
-I predict that next week will haul me back screaming into the abyss of responsibilities and will devour a significant chunk of my free time. I will still see if I can cook up something simple for next Saturday, my motivation levels are through the roof!
+I predict that next week will haul me back screaming into the abyss of responsibilities and will devour a significant chunk of my free time. I will still see if I can cook up something for next Saturday, my motivation levels are through the roof! I have some fine ideas cooked up...
