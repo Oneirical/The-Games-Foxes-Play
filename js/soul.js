@@ -62,15 +62,18 @@ class ClickTrap{
 }
 
 modifiers = {
-    CLICK: function(targets,functions,power){
+    CLICK: function(mods){
+        let targets = mods["targets"];
+        let functions = mods["functions"];
+        let power = mods["power"];
         for (let i of targets){
             if (i.passable) {
                 i.clicktrap = new ClickTrap(i,functions,power);
             }
         }
-        return 0;
+        return mods;
     },
-    SACRIFICE: function(){
+    SACRIFICE: function(mods){
         let bonus = 0;
         for (let i = 0; i<wheel.wheel.length;i++){
             if (!(wheel.wheel[i] instanceof Empty)){
@@ -79,8 +82,26 @@ modifiers = {
                 bonus++;
             }
         }
-        return bonus;
+        mods["power"] += bonus;
+        return mods;
+    },
+    JOLTZAZON: function(mods){
+        let targets = mods["targets"];
+        for (let o of targets){
+            let nei = o.getAdjacentNeighbors();
+            for (let f of nei){
+                if (f.monster && !targets.includes(f) && !sameTile(f,mods["caster"].tile)){
+                    tiles[f.x][f.y].setEffect(32,45);
+                    targets.push(f);
+                }
+            }
+        }
+        return mods;
     }
+}
+
+function sameTile(tile1,tile2){
+    return tile1.x == tile2.x && tile1.y == tile2.y;
 }
 
 var mutators = Object.keys(modifiers);
@@ -90,86 +111,74 @@ var mutators = Object.keys(modifiers);
 // ABAZON (only wall targets affected)
 
 effects = {
-    SENET: function(targets, power){ //if power > X, give frenzy, haste?
-        for (let i of targets){
-            if (i.monster){
-                i.monster.statuseff["Persuasive"] += power*3;
-            }
+    SENET: function(target, power){ //if power > X, give frenzy, haste?
+        if (target.monster){
+            target.monster.statuseff["Persuasive"] += power*3;
         }
     },
-    KASHIA: function(targets, power){
-        for (let i of targets){
-            if (i.monster){
-                i.monster.statuseff["Dissociated"] += power*2;
-                i.monster.falsehp = i.monster.hp;
-            }
+    KASHIA: function(target, power){
+        if (target.monster){
+            target.monster.statuseff["Dissociated"] += power*2;
+            target.monster.falsehp = target.monster.hp;
         }
     },
-    PARACEON: function(targets, power){
-        for (let i of targets){
-            if (i.monster){
-                i.monster.statuseff["Invincible"] += power;
-            }
+    PARACEON: function(target, power){
+        if (target.monster){
+            target.monster.statuseff["Invincible"] += power;
         }
     },
-    RASEL: function(targets,power){
-        for (let i of targets){
-            if (i.monster){
-                i.monster.statuseff["Puppeteered"] += power*2;
-            }
+    RASEL: function(target,power){
+        if (target.monster){
+            target.monster.statuseff["Puppeteered"] += power*2;
         }
     },
-    GYVJI: function(targets,power){
-        for (let i of targets){
-            let newTile = i;
-            newTile.setEffect(14,30);
-            let testTile = newTile;
-            let target = testTile.monster;
-            while(target){
-                testTile = newTile.getNeighbor(player.lastMove[0],player.lastMove[1]);
-                if(testTile.passable && !testTile.monster){
-                    newTile.setEffect(target.sprite,30);
-                    newTile = testTile;
-                }else{
-                    break;
-                }
-            }
-            if(target && target.tile != newTile){
-                target.move(newTile);
-                playSound("explosion");
-                target.tile.setEffect(14,30);
-                target.hit(power);
-                if (power >= 4){
-                    newTile.getAllNeighbors().forEach(t => {
-                        t.setEffect(14,30);
-                        if(t.monster){
-                            t.monster.stunned = true;
-                            if (!t.monster.isPlayer) t.monster.hit(power);
-                        }
-                        else if(t.eat && !t.passable && inBounds(t.x, t.y)){
-                            t.replace(Floor);
-                        }
-                    });
-                }
-                shakeAmount = 20 + power*5;
+    GYVJI: function(targeti,power){
+        let newTile = targeti;
+        //newTile.setEffect(14,30);
+        let testTile = newTile;
+        let target = testTile.monster;
+        while(target){
+            testTile = newTile.getNeighbor(player.lastMove[0],player.lastMove[1]);
+            if(testTile.passable && !testTile.monster){
+                newTile.setEffect(target.sprite,30);
+                newTile = testTile;
+            }else{
+                break;
             }
         }
-    },
-    ASPHA: function(targets,power){
-        for (let i of targets){
-            let tper;
-            if (i.monster && !i.monster.isPlayer) tper = monsters[monsters.indexOf(i.monster)];
-            else if (i.monster && i.monster.isPlayer) tper = player;
-            else continue;
-            for (let i = 0; i<power; i++){
-                tper.move(randomPassableTile());
-                tper.tile.getAllNeighbors().forEach(function(t){
-                    t.setEffect(14, 30);
+        if(target && target.tile != newTile){
+            target.move(newTile);
+            playSound("explosion");
+            target.tile.setEffect(14,30);
+            target.hit(power);
+            if (power >= 4){
+                newTile.getAllNeighbors().forEach(t => {
+                    t.setEffect(14,30);
                     if(t.monster){
-                        t.monster.hit(1);
+                        t.monster.stunned = true;
+                        if (!t.monster.isPlayer) t.monster.hit(power);
+                    }
+                    else if(t.eat && !t.passable && inBounds(t.x, t.y)){
+                        t.replace(Floor);
                     }
                 });
             }
+            shakeAmount = 20 + power*5;
+        }
+    },
+    ASPHA: function(target,power){
+        let tper;
+        if (target.monster && !target.monster.isPlayer) tper = monsters[monsters.indexOf(target.monster)];
+        else if (target.monster && target.monster.isPlayer) tper = player;
+        else return;
+        for (let i = 0; i<power; i++){
+            tper.move(randomPassableTile());
+            tper.tile.getAllNeighbors().forEach(function(t){
+                t.setEffect(14, 30);
+                if(t.monster){
+                    t.monster.hit(1);
+                }
+            });
         }
     },
 }

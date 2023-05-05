@@ -1378,6 +1378,7 @@ class LegendSpell extends LegendarySoul{
         this.caste = caste;
         this.basepower = 99;
         this.basecost = 0;
+        this.caster = player;
         this.alllore = this.triggers.concat(this.targeter.concat(this.modifier.concat(this.effect)));
         calculatePower(this.triggers,this.targeter)
     }
@@ -1385,21 +1386,26 @@ class LegendSpell extends LegendarySoul{
     legendCast(){
         let targets = [];
         let power = 99;
-        let bonuspower = 0;
         for (let i of this.targeter){
-            targets.push(targeters[i](player));
+            let obtainta = targeters[i](this.caster);
+            for (let g of obtainta) targets.push(g);
             power = Math.min(powerratings[i],power)
         }
         for (let i of this.triggers){
             if (powerratings[i]) power+=powerratings[i];
         }
         for (let i of this.modifier){
-            for (let y of targets){
-                bonuspower += modifiers[i](y,this.effect,power);
-                if (i == "CLICK") return false;
-            }  
+            let mods = {
+                "targets" : targets,
+                "power" : power,
+                "functions" : this.effect,
+                "caster" : this.caster,
+            }
+            let edit = modifiers[i](mods);
+            power = edit["power"];
+            targets = edit["targets"];
+            if (i == "CLICK") return false;
         }
-        power += bonuspower;
         for (let i of this.effect){
             for (let y of targets){
                 effects[i](y,power);
