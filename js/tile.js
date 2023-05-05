@@ -929,6 +929,7 @@ const inside = {
     "PURPIZUG" : 16,
     "SHIZAPIS" : 20,
     "RASEL" : 25,
+    "ABAZON" : 22,
 }
 
 class ResearchNode extends Floor{

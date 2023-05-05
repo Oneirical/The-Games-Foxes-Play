@@ -138,6 +138,12 @@ var spellpatterns = {
         2: "U..",
         "type" : "Form",
     },
+    "JOLTZAZON" : {
+        0: "...",
+        1: "U.U",
+        2: "...",
+        "type" : "Mutator",
+    },
 
     //Feral
 
@@ -151,6 +157,11 @@ var spellpatterns = {
     "SENET" : {
         0: "VV",
         1: "V.",
+        "type" : "Function",
+    },
+    "RASEL" : {
+        0: ".V",
+        1: "VV",
         "type" : "Function",
     },
 }

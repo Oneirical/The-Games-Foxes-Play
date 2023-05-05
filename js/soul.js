@@ -181,6 +181,9 @@ effects = {
             });
         }
     },
+    //ABAZON : function(target, power){
+
+    //}
 }
 
 var functions = Object.keys(effects);
