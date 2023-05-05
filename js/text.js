@@ -31,6 +31,7 @@ const colourcodes = {
     'k]' : "lightpink",
     'm]' : "magenta",
     'z]' : "gold",
+    'f]' : "yellowgreen",
 }
 
 messages = {
@@ -757,6 +758,7 @@ researchnames = {
     "STEP" : "Steps Shift The Mind",
     "XCROSS" : "Yearnings Crossed Out",
     "EPSILON" : "Pistons Crush Disobedience",
+    "RASEL" : "Rasel, the Thousand-Limbed",
 
     "RANDOM" : "Erratic Pulse of Prey's Hearts",
 }
@@ -792,6 +794,7 @@ researchlore = {
     "STEP" : "To walk and let the mind wander is a dangerous thing. A thought pulls harder than the rest, one's gait softens into the grace of a Saint, tears turn to bright smiles, and before one knows it, one is no more.",
     "XCROSS" : "The Unhinged swore away control and domination, living according to whim and impulse. Were they truly free, or controlled by the ideology of freedom?",
     "EPSILON" : "What strange fascination the Ordered had with size - to them, military rank and the weight of metal attached to their body were one and the same. Nothing would put these thrashing Ordered Souls in their place more than the defeat of one of their legends.",
+    "RASEL" : "A modest puppeteer, who sold dolls in dark alleys. Repeated inhalation of Saints' Breath eventually convinced her that her soul transcended beyond much more than just her body, granting her control over soulless corpses as if it were her own flesh. She was chased across kilometres of concrete halls, until Ordered garrisons finally defeated her after slicing their former comrades in half."
 }
 
 researchunlocks = {
@@ -801,6 +804,7 @@ researchunlocks = {
     "SENET" : "Completing this node will populate Visions with [p]Greedswept Felidols[w] - animated feline statues stopping at nothing to cling onto what they have.",
     "BEAM" : "Completing this node will populate Visions with [y]Anisychic Oracles[w] - trembling prophets of the Crimson Forest, who traded their courage for a pre-emptive taste of the cataclysm.",
     "PARACEON" : "Completing this node will populate Visions with [r]Shelled Electromedics[w] - a rare organic breed among the military, compensating for its disastrous slowness with the peak of Ordered technology.",
+    "RASEL" : "Completing this node will populate Visions with [f]Midnight Ragemaws[w] - terrifying beasts which require complete silence to die a true death.",
 }
 
 researchunlockdata = {
@@ -810,6 +814,7 @@ researchunlockdata = {
     "SENET" : Felidol,
     "BEAM" : Oracle,
     "PARACEON" : Snail,
+    "RASEL" : Ragemaw,
 }
 
 researchflags = {
@@ -843,6 +848,7 @@ researchflags = {
     "STEP" : "Contingency",
     "XCROSS" : "Form",
     "EPSILON" : "Form",
+    "RASEL" : "Function",
 }
 
 researchexpl = {
@@ -876,6 +882,7 @@ researchexpl = {
     "STEP" : "[z]Contingency[w]: When you take a step, incarnate this Legend.",
     "XCROSS" : "[l]Form[w]: surges out in all four diagonal directions, targeting all tiles it passes through until an obstacle is met.",
     "EPSILON" : "I should ensure I have a collected a few Shattered Souls before entering this vision.\nAfter I have proven my worth against this formidable opponent, my pilgrimage will cycle back to its beginning.\nMay the developer of this game cease succumbing to the vile cravings of companionship and grass-touching, and provide me more knowledge to feast on.",
+    "RASEL" : "[o]Function[w]: all targets obtain [z]Puppeteered[w].\n[z]Puppeteered[w]: When this creature dies, revive it as a friendly Husk.\nDuration of [z]Puppeteered[w]: [g]Potency[w] x 2 turns.",
 }
 
 researchflagcolour = {

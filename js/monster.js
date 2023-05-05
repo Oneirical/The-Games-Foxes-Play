@@ -199,13 +199,13 @@ class Monster{
             "Marked" : 0,
             "Dissociated" : 0,
             "Invincible" : 0,
+            "Puppeteered" : 0,
         }
 
         this.permacharm = false;
         this.enraged = false;
         this.inhand = [];
         this.falsehp = 0;
-        this.statuseff["Dissociated"] = 0;
         this.soulless = false;
         this.order = -1;
         this.infested = 0;
@@ -668,7 +668,7 @@ class Monster{
     die(){
         this.dead = true;
         this.tile.monster = 0;
-        if (player.reaping && !this.statuseff["Charmed"] > 0 && !this.tile.siphon && !this.respawned){
+        if (this.statuseff["Puppeteered"] > 0 && !this.tile.siphon && !this.respawned){
             let husk = new Husk(this.tile);
             monsters.push(husk);
         }
@@ -731,7 +731,6 @@ class Player extends Monster{
         this.toxified = false;
         this.fuffified = 0;
         this.entranced = false;
-        this.reaping = false;
         this.para = 0;
         this.fall = 0;
         this.rosetox = 0;

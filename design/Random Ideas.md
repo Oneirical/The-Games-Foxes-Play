@@ -10,6 +10,8 @@
 
 * reorganize the research tree to include inhale/exhale
 
+* overhaul status effects display
+
 **Brushstroke Crafting**
 
 * Show available souls in inventory
@@ -28,6 +30,10 @@ The reason the player can't attack the intruder is because spells only work agai
 * Soul Press - convert 10 turbulent into 1 disciplined & 9 waste "pick off the bits and pieces that are primed for submission from the lot"
 * A weird soul that induces a positive effect if your room path is executed in a certain way? This used to be rooms superposing each other...
 * permanently lose access to a caste slot for a fat bonus.
+
+**Contingencies**
+
+* On death: revives you if positive HP at the end of the spell.
 
 **Functions**
 

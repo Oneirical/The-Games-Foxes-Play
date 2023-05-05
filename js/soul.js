@@ -112,6 +112,13 @@ effects = {
             }
         }
     },
+    RASEL: function(targets,power){
+        for (let i of targets){
+            if (i.monster){
+                i.monster.statuseff["Puppeteered"] += power*2;
+            }
+        }
+    },
     GYVJI: function(targets,power){
         for (let i of targets){
             let newTile = i;

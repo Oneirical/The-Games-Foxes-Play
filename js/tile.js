@@ -913,17 +913,22 @@ const inside = {
     "GYVJI" : 27,
     "SENET" : 8,
     "EGO" : 29,
-    "BEAM" : 19,
+    "BEAM" : 66,
     "PARACEON" : 41,
     "SMOOCH" : 17,
     "ASPHA" : 18,
     "CLICK" : 30,
-    "KASHIA" : 25,
+    "KASHIA" : 43,
     "SACRIFICE" : 42,
     "STEP" : 32,
-    "XCROSS" : 43,
+    "XCROSS" : 38,
     "EPSILON" : 44,
-    "Brush" : 23,
+    "Brush" : 65,
+
+    "JOLTZAZON" : 15,
+    "PURPIZUG" : 16,
+    "SHIZAPIS" : 20,
+    "RASEL" : 25,
 }
 
 class ResearchNode extends Floor{
