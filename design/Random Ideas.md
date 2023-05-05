@@ -6,8 +6,6 @@
 
 * estate && large rooms do not work
 
-* make it so the caste icon in componentsdisplay shows ties
-
 * make para a status effect (and fall later)
 
 * reorganize the research tree to include inhale/exhale
@@ -15,8 +13,8 @@
 **Brushstroke Crafting**
 
 * Show available souls in inventory
-* Highlight the found pattern in the cage when mousing over the bottom right grid components
 * Become able to place a whole pattern in one shot by selecting from catalogue
+* make it so the caste icon in componentsdisplay shows ties
 
 **"Serene Collective" design**
 

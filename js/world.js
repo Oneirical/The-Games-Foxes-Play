@@ -1263,6 +1263,11 @@ class SoulCage extends DefaultVaultRoom{
                 wheel.wheel[i] = new Empty();
             }
         }
+        for (let j = 0; j<7; j++){
+            for (let i = 0; i < (wheel.countPileSouls(wheel.turbstatus)[j] + wheel.countDiscardSouls(wheel.turbstatus)[j]); i++){
+                wheel.paintcans[j].push(new SpinningSoul(j,wheel.paintcans[j][wheel.paintcans[j].length-1].angle-1));
+            }
+        }
     }
 }
 

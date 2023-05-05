@@ -423,6 +423,7 @@ class MapExit extends Tile{
         if(monster.isPlayer){
             playSound("newLevel");
             this.monster = 0;
+            wheel.paintcans = [[new SpinningSoul(47,0)],[new SpinningSoul(47,0)],[new SpinningSoul(47,0)],[new SpinningSoul(47,0)],[new SpinningSoul(47,0)],[new SpinningSoul(47,0)],[new SpinningSoul(47,0)]];
             world.saveRoom(world.getRoom());
             world.enterRoom(this.direction);
             log.allgrey = true;

@@ -375,6 +375,9 @@ class SpinningSoul{
         this.y = 0;
         this.speed = 0.01;
         this.angle = startangle;
+        this.offsetX = 0;
+        this.offsetY = 0;
+        this.thrashcounter = 0;
     }
 }
 
@@ -399,23 +402,59 @@ class DrawWheel{
         let first = [587, 420];
         let vert = 52;
         let hori = 64*5-5;
+        center = [760,247];
+        dist = 100;
         this.circlemotion = {centerX:762, centerY:245, radius:20};
         this.spinningsouls = [new SpinningSoul(47,0)];
+        this.paintcans = [[new SpinningSoul(47,0)],[new SpinningSoul(47,0)],[new SpinningSoul(47,0)],[new SpinningSoul(47,0)],[new SpinningSoul(47,0)],[new SpinningSoul(47,0)],[new SpinningSoul(47,0)]];
+        this.paintcoords = [[center[0]+Math.cos(pi/4)*dist, center[1]-Math.sin(pi/4)*dist],[center[0]+dist, center[1]],[center[0]+Math.cos(pi/4)*dist, center[1]+Math.sin(pi/4)*dist],[center[0], center[1]+dist],[center[0]-Math.cos(pi/4)*dist, center[1]+Math.sin(pi/4)*dist],[center[0]-dist, center[1]],[center[0]-Math.cos(pi/4)*dist, center[1]-Math.sin(pi/4)*dist]];
+        this.paintcir = [];
+        for (let i of this.paintcoords) this.paintcir.push({centerX:i[0], centerY:i[1], radius:15});
         this.currentbrush = 8;
         this.turbstatus = true;
         this.castecoords = [first,[first[0]+hori,first[1]],[first[0],first[1]+vert],[first[0]+hori,first[1]+vert],[first[0],first[1]+vert*2],[first[0]+hori,first[1]+vert*2]];
         this.turbulentmarkers = [new Feral(),new Feral()];
         this.turbulentmarkers[0].turbulent = true;
+
+        //for (let o = 0; o<7;o++) this.paintcans[o].push(new SpinningSoul(o,0));
     }
 
     display(){
         if (!inInventory && !cursormode && !(world.getRoom() instanceof SoulCage)) printOutText(universe.getDepth(), 25, 905 - ctx.measureText(universe.getDepth()).width, 35, "lightblue");
         if (!inInventory && !cursormode) printOutText(world.getRoom().name, 25, 595, 35, "violet");
-        for (let i = 0; i<this.spinningsouls.length;i++){
-            this.spinningsouls[i].x = this.circlemotion.centerX + Math.cos(this.spinningsouls[i].angle) * this.circlemotion.radius;
-            this.spinningsouls[i].y = this.circlemotion.centerY + Math.sin(this.spinningsouls[i].angle) * this.circlemotion.radius;
-            this.spinningsouls[i].angle += this.spinningsouls[i].speed;
-            drawSymbol(this.spinningsouls[i].icon, this.spinningsouls[i].x, this.spinningsouls[i].y, 16);
+        if (!(world.getRoom() instanceof SoulCage)){
+            for (let i = 0; i<this.spinningsouls.length;i++){
+                this.spinningsouls[i].x = this.circlemotion.centerX + Math.cos(this.spinningsouls[i].angle) * this.circlemotion.radius;
+                this.spinningsouls[i].y = this.circlemotion.centerY + Math.sin(this.spinningsouls[i].angle) * this.circlemotion.radius;
+                this.spinningsouls[i].angle += this.spinningsouls[i].speed;
+                drawSymbol(this.spinningsouls[i].icon, this.spinningsouls[i].x, this.spinningsouls[i].y, 16);
+            }
+        }
+        else{
+            for (let p = 0; p<this.paintcans.length; p++){
+                for (let i = 0; i<this.paintcans[p].length;i++){
+                    this.paintcans[p][i].x = this.paintcir[p].centerX + Math.cos(this.paintcans[p][i].angle) * this.paintcir[p].radius;
+                    this.paintcans[p][i].y = this.paintcir[p].centerY + Math.sin(this.paintcans[p][i].angle) * this.paintcir[p].radius;
+                    this.paintcans[p][i].angle += this.paintcans[p][i].speed;
+                    if (this.currentbrush-1 != p) ctx.globalAlpha = 0.8;
+                    if (!this.turbstatus) drawSymbol(this.paintcans[p][i].icon, this.paintcans[p][i].x, this.paintcans[p][i].y, 16);
+                    else {
+                        this.paintcans[p][i].thrashcounter++;
+                        if (this.paintcans[p][i].thrashcounter > 10){ // is this effect too annoying? the alternative is setting all offsets to 2/3 and removing the *64 below
+                            let rt = randomRange(1,4);
+                            if (rt == 1) this.paintcans[p][i].offsetX+= 0.1;
+                            else if (rt == 2) this.paintcans[p][i].offsetX-= 0.1;
+                            else if (rt == 3)this.paintcans[p][i].offsetY+= 0.1;
+                            else if (rt == 4)this.paintcans[p][i].offsetY-= 0.1;
+                            this.paintcans[p][i].thrashcounter = 0;
+                        }
+                        drawSymbol(this.paintcans[p][i].icon, (this.paintcans[p][i].x + this.paintcans[p][i].offsetX*32),  (this.paintcans[p][i].y + this.paintcans[p][i].offsetY*32),16);
+                        this.paintcans[p][i].offsetX -= Math.sign(this.paintcans[p][i].offsetX)*(0.05);     
+                        this.paintcans[p][i].offsetY -= Math.sign(this.paintcans[p][i].offsetY)*(0.05);
+                    }
+                    ctx.globalAlpha = 1;
+                }
+            }
         }
 
         drawSymbol(6, 880, 320, 64);
@@ -475,14 +514,14 @@ class DrawWheel{
 
         let display;
         const greysouls = {
-            0 : 57,
-            1: 50,
-            2: 51,
-            3: 52,
-            4: 53,
-            5 : 54,
-            6: 55,
-            7: 56,
+            0 : 7,
+            1: 50+8,
+            2: 51+8,
+            3: 52+8,
+            4: 53+8,
+            5 : 54+8,
+            6: 55+8,
+            7: 56+8,
         }
         const lightsouls = {
             0:7,
@@ -497,13 +536,16 @@ class DrawWheel{
         for (let k = 0;k<8;k++){
             if (world.getRoom() instanceof SoulCage){
                 display = greysouls[k];
-                if (k == this.currentbrush) display = lightsouls[k];
-                else ctx.globalAlpha = 0.5;
+                if (k == this.currentbrush){
+                    ctx.globalAlpha = 0.6;
+                    if (this.currentbrush == 0) ctx.globalAlpha = 1;
+                }
+                else ctx.globalAlpha = 0.2;
             }
             
             else if (gameState == "contemplation") display = this.saved[k].icon;
             else display = this.wheel[k].icon;
-            if (!this.wheel[k].turbulent && !(world.getRoom() instanceof SoulCage && this.turbstatus && k != 0 && k!=7)) drawSymbol(display, this.wheelcoords[k][0], this.wheelcoords[k][1], 64);
+            if (!this.wheel[k].turbulent) drawSymbol(display, this.wheelcoords[k][0], this.wheelcoords[k][1], 64);
             else{
                 this.wheel[k].thrashcounter++;
                 if (this.wheel[k].thrashcounter > 10){ // is this effect too annoying? the alternative is setting all offsets to 2/3 and removing the *64 below
@@ -522,10 +564,10 @@ class DrawWheel{
             printOutText(k+1+"",18, this.hotkeycoords[k][0], this.hotkeycoords[k][1], "white",20,350);
         }
         if (world.getRoom() instanceof SoulCage){//
-            this.turbulentmarkers[0].thrash(800,62,32);
-            this.turbulentmarkers[1].thrash(880,62,32);
-            printOutText(9+"",18, 850, 110, "white",20,350);
-            drawSymbol(45, 840, 62, 32);
+            this.turbulentmarkers[0].thrash(717,392,32);
+            this.turbulentmarkers[1].thrash(787,392,32);
+            printOutText(9+"",18, 764, 439, "white",20,350);
+            drawSymbol(45, 752, 392, 32);
         }
         let j = 0;
         let k = 0;
@@ -553,21 +595,21 @@ class DrawWheel{
         }
     }
 
-    countPileSouls(){
+    countPileSouls(turb){
         let counts = [0,0,0,0,0,0];
         for (let k of this.pile){
             for (let g of this.castes){
-                if (k.caste == g.caste) counts[this.castes.indexOf(g)]++;
+                if (k.caste == g.caste && k.turbulent == turb) counts[this.castes.indexOf(g)]++;
             } 
         }
         return counts;
     }
 
-    countDiscardSouls(){
+    countDiscardSouls(turb){
         let counts = [0,0,0,0,0,0];
         for (let k of this.discard){
             for (let g of this.castes){
-                if (k.caste ==  g.caste) counts[this.castes.indexOf(g)]++;
+                if (k.caste ==  g.caste && k.turbulent == turb) counts[this.castes.indexOf(g)]++;
             } 
         }
         return counts;
@@ -624,35 +666,6 @@ class DrawWheel{
         //removeItemOnce(droppedsouls,skey);
         //skey.attach.soulless = true;
         //skey.attach.pushable = true;
-    }
-
-    discardSoul(index){
-        let soul = this.wheel[index];
-        if (soul instanceof Empty){
-            shakeAmount = 5;
-            log.addLog("EmptyCast");
-            return;
-        }
-        else{
-            this.discard.push(soul);
-            if (naiamode){
-                this.castSoulFree(index);
-            }
-            this.wheel[index] = new Empty();
-            player.discarded++;
-        }
-    }
-
-    endDiscard(){ // if more discardmode stuff gets added review the if statements
-        gameState = "running";
-        if (!naiamode){
-            spells["ASPHAF"](player.discarded);
-        }
-        else if (naiamode){
-            log.addLog("NAIA");
-            naiamode = false;
-        }
-        player.discarded = 0;
     }
 
     breatheSoul(){
@@ -745,7 +758,11 @@ class DrawWheel{
             if (k instanceof Empty){
                 let retrievesuccess = true;
                 if (!world.cage.slots[override.x][override.y].turbulent)research.completeResearch("Subdued");
-                if (basic.includes(world.cage.slots[override.x][override.y].id)) this.wheel[this.wheel.indexOf(k)] = world.cage.slots[override.x][override.y];
+                if (basic.includes(world.cage.slots[override.x][override.y].id)){
+                    this.wheel[this.wheel.indexOf(k)] = world.cage.slots[override.x][override.y];
+                    const types = ["SAINTLY","ORDERED","ARTISTIC","UNHINGED","FERAL","VILE","SERENE"];
+                    if (world.cage.slots[override.x][override.y].turbulent == this.turbstatus) this.paintcans[types.indexOf(world.cage.slots[override.x][override.y].id)].push(new SpinningSoul(world.cage.slots[override.x][override.y].icon,this.paintcans[types.indexOf(world.cage.slots[override.x][override.y].id)][this.paintcans[types.indexOf(world.cage.slots[override.x][override.y].id)].length-1].angle-1));
+                }
                 else retrievesuccess = legendaries.addSoul(world.cage.slots[override.x][override.y]);
                 if (retrievesuccess) {
                     world.cage.slots[override.x][override.y] = new Empty();
@@ -944,6 +961,7 @@ class DrawWheel{
             if(world.cage.size > 0) world.cage.generateWorld();
             research.completeResearch("Turbulent");
             research.completeResearch("Brush");
+            this.paintcans[slot-1].pop();
         }
     }
 
@@ -961,10 +979,26 @@ class DrawWheel{
         if (world.getRoom() instanceof SoulCage){
             if (slot == 8){
                 this.turbstatus = !this.turbstatus;
+                this.paintcans = [[new SpinningSoul(47,0)],[new SpinningSoul(47,0)],[new SpinningSoul(47,0)],[new SpinningSoul(47,0)],[new SpinningSoul(47,0)],[new SpinningSoul(47,0)],[new SpinningSoul(47,0)]];
+                for (let j = 0; j<7; j++){
+                    for (let i = 0; i < (wheel.countPileSouls(wheel.turbstatus)[j] + wheel.countDiscardSouls(wheel.turbstatus)[j]); i++){
+                        wheel.paintcans[j].push(new SpinningSoul(j,wheel.paintcans[j][wheel.paintcans[j].length-1].angle-1));
+                    }
+                }
                 return;
             }
             else if (slot == this.currentbrush) slot = 8;
+            if (this.currentbrush != 8 && this.currentbrush != 0){
+                for (let o of this.paintcans[this.currentbrush-1]){
+                    o.speed = 0.01;
+                }
+            }
             this.currentbrush = slot;
+            if (slot != 0 && slot != 8){
+                for (let o of this.paintcans[slot-1]){
+                    o.speed = 0.1;
+                }
+            }
             return;
         }
         if (slot > 7){
@@ -976,10 +1010,6 @@ class DrawWheel{
         }
         else if (gameState == "contemplation"){
             this.removeSoul(slot);
-            return;
-        }
-        else if (gameState == "discard"){
-            this.discardSoul(slot);
             return;
         }
         let soul = this.wheel[slot];
