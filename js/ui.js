@@ -1142,6 +1142,7 @@ class Inventory{
         drawFilter(blackfilter);
         this.exppage.display();
         drawSymbol(6, 0, 0, 577);
+        //drawSymbol(6, 577, 30, 577/1.5); //for the cursor later
         //drawSymbol(6, 880, 490, 64);
         ctx.globalAlpha = 0.55;
         //intérieur
@@ -1378,7 +1379,7 @@ class LegendSpell extends LegendarySoul{
         this.caste = caste;
         this.basepower = 99;
         this.basecost = 0;
-        this.caster = player;
+        this.caster;
         this.alllore = this.triggers.concat(this.targeter.concat(this.modifier.concat(this.effect)));
         calculatePower(this.triggers,this.targeter)
     }
@@ -1386,6 +1387,7 @@ class LegendSpell extends LegendarySoul{
     legendCast(){
         let targets = [];
         let power = 99;
+        this.caster = player;
         for (let i of this.targeter){
             let obtainta = targeters[i](this.caster);
             for (let g of obtainta) targets.push(g);

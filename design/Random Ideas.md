@@ -12,6 +12,10 @@
 
 * overhaul status effects display
 
+**Everyone Is Legendary**
+
+* Relay up the data transfer better. summon(), giveEffect(), effectRunsOut(), teleport(), ...
+
 **Brushstroke Crafting**
 
 * Become able to place a whole pattern in one shot by selecting from catalogue
@@ -49,11 +53,9 @@ The reason the player can't attack the intruder is because spells only work agai
 **Mutators**
 
 * Increase power depending on depth? or too grindy?
-* Set down a landmine with this effect.
 * Get random power up or down.
-* Sacrifice your wheel contents for power.
 * Get power for damaged units (not at max hp) shroud of silent mist style
-* Joltzazon that makes the Form spread to adjacent entities/walls
+* Extra power if includes a function with a status effect. Status effect becomes random.
 
 **Research Nodes**
 Terminal is made out of shattered souls, that is why he can shapelessly assume the shape of others?

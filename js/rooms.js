@@ -144,8 +144,8 @@ var spellpatterns = {
         "type" : "Form",
     },
     "JOLTZAZON" : {
-        0: "...",
-        1: "U.U",
+        0: "U.U",
+        1: "...",
         2: "...",
         "type" : "Mutator",
     },
@@ -165,8 +165,9 @@ var spellpatterns = {
         "type" : "Function",
     },
     "RASEL" : {
-        0: ".V",
-        1: "VV",
+        0: "V..",
+        1: ".V.",
+        2: ".V.",
         "type" : "Function",
     },
 }

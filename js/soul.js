@@ -6,6 +6,15 @@ const powerratings = {
     "STEP" : -2,
 }
 
+function getSouls(){
+    let i = [Saintly,Ordered,Artistic,Unhinged,Feral,Vile];
+    for (let r of i){
+        for (let j = 0; j<10; j++){
+            wheel.addSoul(r);
+        }
+    }
+}
+
 const soulcosts = {
     "STEP" : 3,
 }
