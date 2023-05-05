@@ -760,6 +760,7 @@ researchnames = {
     "EPSILON" : "Pistons Crush Disobedience",
     "RASEL" : "Rasel, the Thousand-Limbed",
     "JOLTZAZON" : "Joltzazon, Wed to the Scarved River",
+    "ABAZON" : "Abazon, the Immovable",
 
     "RANDOM" : "Erratic Pulse of Prey's Hearts",
 }
@@ -797,6 +798,7 @@ researchlore = {
     "EPSILON" : "What strange fascination the Ordered had with size - to them, military rank and the weight of metal attached to their body were one and the same. Nothing would put these thrashing Ordered Souls in their place more than the defeat of one of their legends.",
     "RASEL" : "A modest puppeteer, who sold dolls in dark alleys. Repeated inhalation of Saints' Breath eventually convinced her that her soul transcended beyond much more than just her body, granting her control over soulless corpses as if it were her own flesh. She was chased across kilometres of concrete halls, until Ordered garrisons finally defeated her after slicing their former comrades in half.",
     "JOLTZAZON" : "When the youth took too long to find a partner, their guardians would tell them the tale of Joltzazon, who married a river out of disinterest for his kin, and eventually drowned in it. In his honour, the tea savoured by the newly-wed is prepared from the waters of this stream.",
+    "ABAZON" : "A mechanical clay sentinel, tasked to protect the Saint's palaces until the end times. As progress marched on, walls thickened with steel and concrete, but Abazon refused to budge from its post, and was soon engulfed. Rumour says it still stands there, immured and paralyzed, waiting to strike out with extreme prejudice at any who'd dare dig out its tomb."
 }
 
 researchunlocks = {
@@ -852,6 +854,7 @@ researchflags = {
     "EPSILON" : "Form",
     "RASEL" : "Function",
     "JOLTZAZON" : "Mutator",
+    "ABAZON" : "Function",
 }
 
 researchexpl = {
@@ -885,8 +888,9 @@ researchexpl = {
     "STEP" : "[z]Contingency[w]: When you take a step, incarnate this Legend.",
     "XCROSS" : "[l]Form[w]: surges out in all four diagonal directions, targeting all tiles it passes through until an obstacle is met.",
     "EPSILON" : "I should ensure I have a collected a few Shattered Souls before entering this vision.\nAfter I have proven my worth against this formidable opponent, my pilgrimage will cycle back to its beginning.\nMay the developer of this game cease succumbing to the vile cravings of companionship and grass-touching, and provide me more knowledge to feast on.",
-    "RASEL" : "[o]Function[w]: all targets obtain [z]Puppeteered[w].\n[z]Puppeteered[w]: When this creature dies, revive it as a friendly Husk.\nDuration of [z]Puppeteered[w]: [g]Potency[w] x 2 turns.",
+    "RASEL" : "[o]Function[w]: all targets obtain [z]Puppeteered[w].\n[z]Puppeteered[w]: When this creature dies, revive it as a friendly [g]Husk[w].\nDuration of [z]Puppeteered[w]: [g]Potency[w] x 2 turns.\n[g]Husk[w]: Mundane puppets with no abilities and a single Health point.",
     "JOLTZAZON" : "[k]Mutator[w]: Each target propagates into all connected creatures, adding them as targets as well.\nThe caster is not affected by the spread.",
+    "ABAZON" : "[o]Function[w]: all targets, if they are a wall, turn into a [r]Terracotta Sentry[w] for [g]Potency[w] x 2 turns.\n[r]Terracotta Sentry[w]: Immobile and invincible ally which strikes any enemy creature that comes near it.",
 }
 
 researchflagcolour = {

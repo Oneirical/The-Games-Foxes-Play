@@ -951,7 +951,7 @@ class ResearchNode extends Floor{
         this.unlock = researchunlocks[this.id];
         if (researchunlockdata[this.id]) this.unlockdata = new researchunlockdata[this.id]("disabled");
         if (!this.unlock) this.unlock = researchunlocks["None"];
-        this.discovered = false;
+        this.discovered = true;
         this.completed = false;
         if (this.id == "Intro") this.discovered = true;
 

@@ -677,7 +677,7 @@ function countLines(text, fitWidth){
     {
         let str = words.slice(0,idx).join(' ');
         let w = ctx.measureText(str).width;
-        if (str == words.slice(0,words.length).join(' ') && w-fitWidth < 10) return currentLine;
+        if (str == words.slice(0,words.length).join(' ') && w-fitWidth < 1) return currentLine;
         if ( w > fitWidth )
         {
             if (idx==1)
@@ -704,7 +704,7 @@ function printOutText(text, size, x, y, color, lineHeight, fitWidth, oldx)
             let sis = "";
             if (i != 0) sis = breaker[i-1];
             printOutText(breaker[i], size,  x, yscale + Math.min(1,i)*20 + (lineHeight*countLines(sis,fitWidth)),color,lineHeight,fitWidth);
-            yscale = y + i*20 + (i*lineHeight*countLines(sis,fitWidth));
+            yscale = yscale + 20*Math.min(1,i) + (lineHeight*countLines(sis,fitWidth));
         }
         return;
     }
@@ -739,13 +739,14 @@ function printOutText(text, size, x, y, color, lineHeight, fitWidth, oldx)
         return;
     }
     if (!text) return;
-    let words = text.split(' ');
     let currentLine = 0;
-    if (fitWidth < 30){
+    if (fitWidth < 20){
+        if (text[0] == " ") text = text.slice(1);
         currentLine++;
         if (oldx) sx = oldx[0];
         fitWidth = oldx[1];
     }
+    let words = text.split(' ');
     let idx = 1;
     while (words.length > 0 && idx <= words.length)
     {

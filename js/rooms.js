@@ -99,6 +99,11 @@ var spellpatterns = {
         1: "..",
         "type" : "Function",
     },
+    "ABAZON" : {
+        0: ".O",
+        1: "OO",
+        "type" : "Function",
+    },
     "CLICK" : {
         0: ".O",
         1: "O.",

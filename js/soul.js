@@ -181,9 +181,16 @@ effects = {
             });
         }
     },
-    //ABAZON : function(target, power){
-
-    //}
+    ABAZON : function(target, power){
+        let t = target;
+        let test = !t.passable && t.sprite != 17;
+        if (test){
+            let save = tiles[t.x][t.y];
+            tiles[t.x][t.y] = new AbazonWall(t.x,t.y)
+            let monster = new AbazonSummon(t,save,power*2);
+            monsters.push(monster);
+        }
+    }
 }
 
 var functions = Object.keys(effects);
@@ -704,7 +711,6 @@ spells = {
             let tile = neighbors.pop();
             tiles[tile.x][tile.y] = new AbazonWall(tile.x,tile.y)
             let monster = new AbazonSummon(tile);
-            tile.monster
             monsters.push(monster);
             fail = false;
         }

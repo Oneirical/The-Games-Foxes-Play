@@ -14,9 +14,9 @@
 
 **Brushstroke Crafting**
 
-* Show available souls in inventory
 * Become able to place a whole pattern in one shot by selecting from catalogue
 * make it so the caste icon in componentsdisplay shows ties
+* highlight the paintcans when mousing over them
 
 **"Serene Collective" design**
 

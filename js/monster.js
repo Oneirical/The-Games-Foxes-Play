@@ -200,6 +200,7 @@ class Monster{
             "Dissociated" : 0,
             "Invincible" : 0,
             "Puppeteered" : 0,
+            "Decaying" : 0,
         }
 
         this.permacharm = false;
@@ -231,9 +232,14 @@ class Monster{
 
     update(){
         let kashcheck = false;
+        let deccheck = false;
         if (this.statuseff["Dissociated"] > 0) kashcheck = true;
+        if (this.statuseff["Decaying"] > 0) deccheck = true;
         for (let i of Object.keys(this.statuseff)){
             this.statuseff[i] = Math.max(0,this.statuseff[i]-1);
+        }
+        if (this.statuseff["Decaying"] == 0 && deccheck){
+            this.die();
         }
         this.teleportCounter--;
 
@@ -1366,7 +1372,7 @@ class Hologram extends Monster{
 }
 
 class AbazonSummon extends Monster{
-    constructor(tile){
+    constructor(tile,savet,power){
         super(tile, 28, 5, "ABAZON", description["Abazon"]);
         this.teleportCounter = 0;
         this.noloot = true;
@@ -1376,6 +1382,14 @@ class AbazonSummon extends Monster{
         this.name = "Terracotta Sentry";
         this.isInvincible = true;
         this.permacharm = true;
+        this.savet = savet;
+        this.statuseff["Decaying"] = power;
+    }
+
+    die(){
+        super.die();
+        removeItemOnce(monsters,this);
+        tiles[this.savet.x][this.savet.y] = this.savet;
     }
 }
 
