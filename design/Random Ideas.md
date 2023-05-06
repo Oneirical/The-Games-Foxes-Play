@@ -16,11 +16,26 @@
 
 * Relay up the data transfer better. summon(), giveEffect(), effectRunsOut(), teleport(), ...
 
+* Apis
+When attack
+On smooch
+Delay to attack
+apply constrict
+
+* Shrike
+When turn ends
+On self
+Apply Haste
+
+
+
+
 **Brushstroke Crafting**
 
 * Become able to place a whole pattern in one shot by selecting from catalogue
 * make it so the caste icon in componentsdisplay shows ties
 * highlight the paintcans when mousing over them
+* top left corner patterns only? find the cause
 
 **"Serene Collective" design**
 
@@ -34,6 +49,10 @@ The reason the player can't attack the intruder is because spells only work agai
 * Soul Press - convert 10 turbulent into 1 disciplined & 9 waste "pick off the bits and pieces that are primed for submission from the lot"
 * A weird soul that induces a positive effect if your room path is executed in a certain way? This used to be rooms superposing each other...
 * permanently lose access to a caste slot for a fat bonus.
+
+**Estate**
+
+Universal law that can be changed: default: when room begins, on all enemies, apply 2 Paralysis
 
 **Contingencies**
 
@@ -56,6 +75,9 @@ The reason the player can't attack the intruder is because spells only work agai
 * Get random power up or down.
 * Get power for damaged units (not at max hp) shroud of silent mist style
 * Extra power if includes a function with a status effect. Status effect becomes random.
+* Make effect appliers cleanse that effect instead
+
+* NOT: inverts all targets, what was now isn't and what wasn't now is
 
 **Research Nodes**
 Terminal is made out of shattered souls, that is why he can shapelessly assume the shape of others?
@@ -109,6 +131,7 @@ Anisychia - Feral champion
 
 **Low priority nitpicks**
 
+* Potential softlock with Apis constrict + him dying after applying his constrict
 * Epsilon's vulnerability markings cause confusion.
 * Naia is too OP vs Epsilon. Make Epsilon knockback the player and gain invulnerability if he loses more than 33% of his HP in a single turn.
 * In fact, Epsilon needs buffs in general: make the dash leave behind flames, make the lasers do damage.

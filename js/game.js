@@ -40,7 +40,7 @@ function setupCanvas(){
             if(inInventory){
                 for (let i of legendaries.storecoords){
                     if (clickpos[0] > i[0] && clickpos[0] < (i[0]+64) && clickpos[1] > i[1] && clickpos[1] < (i[1]+64)){
-                        legendaries.activateSoul(legendaries.storecoords.indexOf(i));
+                        legendaries.activateAxiom(legendaries.storecoords.indexOf(i));
                     }
                 }
                 for (let i of legendaries.actcoords){

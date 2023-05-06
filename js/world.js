@@ -139,7 +139,7 @@ class CageTemplate{
         }
         this.pocketworld.reward["Caste"] = mode(allsouls);
         world.exppage = new ComponentsDisplay(this.pocketworld.reward["Contingency"],this.pocketworld.reward["Form"],this.pocketworld.reward["Mutator"],this.pocketworld.reward["Function"],calculatePower(this.pocketworld.reward["Contingency"],this.pocketworld.reward["Form"])[0],calculatePower(this.pocketworld.reward["Contingency"],this.pocketworld.reward["Form"])[1],this.pocketworld.reward["Caste"]);
-        world.soulex = new LegendSpell(this.pocketworld.reward["Contingency"],this.pocketworld.reward["Form"],this.pocketworld.reward["Mutator"],this.pocketworld.reward["Function"],this.pocketworld.reward["Caste"]);
+        world.soulex = new Axiom(this.pocketworld.reward["Contingency"],this.pocketworld.reward["Form"],this.pocketworld.reward["Mutator"],this.pocketworld.reward["Function"],this.pocketworld.reward["Caste"],"me");
     }
 }
 
@@ -242,7 +242,7 @@ class Universe{
             }
         }
         let reward = false;
-        if (world.reward["Form"].length > 0 && world.reward["Function"].length > 0 && receivereward) reward = new LegendSpell(world.reward["Contingency"],world.reward["Form"],world.reward["Mutator"],world.reward["Function"],shuffle(world.reward["Caste"])[0]);
+        if (world.reward["Form"].length > 0 && world.reward["Function"].length > 0 && receivereward) reward = new Axiom(world.reward["Contingency"],world.reward["Form"],world.reward["Mutator"],world.reward["Function"],shuffle(world.reward["Caste"])[0],"me");
         if (reward){
             research.completeResearch("Craft");
             for (let i of Object.keys(world.reward)){
@@ -809,7 +809,7 @@ class Room{
     populateRoom(){
         let hp;
         if(player) hp = player.hp;
-        player = new Player(getTile(this.playerspawn[0], this.playerspawn[1]));
+        player = new Terminal(getTile(this.playerspawn[0], this.playerspawn[1]));
         player.hp = hp;
         if (this.hostile && !this.visited) generateMonsters();
         if (creaturespawn[this.creatures] && !this.visited) {

@@ -30,7 +30,16 @@ var nodeloot = {
     "MUTATOR" : mutators.slice(),
 }
 
-removeItemOnce(nodeloot["FORM"],"EPSILON"); //temp, remove
+let excludeloot = {
+    "FORM" : ["EPSILON"],
+    "FUNCTION" : [],
+    "CONTINGENCY" : [],
+    "MUTATOR" : [],
+}
+
+for (let i of Object.keys(excludeloot)){
+    for (let j of excludeloot[i]) removeItemOnce(nodeloot[i],j);
+}
 
 //Monsters
 

@@ -4,6 +4,8 @@ const powerratings = {
     "SMOOCH" : 5,
     "XCROSS" : 2,
     "STEP" : -2,
+    "TURNEND" : -3,
+    "ATTACK" : -1,
 }
 
 function getSouls(){
@@ -17,6 +19,8 @@ function getSouls(){
 
 const soulcosts = {
     "STEP" : 3,
+    "TURNEND" : 4,
+    "ATTACK" : 2,
 }
 // In the research menu, these should have "history book" descriptions.
 // EGO - BEAM - PCROSS - XCROSS - 8ADJ - 4ADJ - RANDOM (up to power) - WALL - ALL - PAYLOAD (summon that unleashes targets on death)
@@ -44,21 +48,19 @@ targeters = {
     SMOOCH : function(caster){
         let newTile = caster.tile;
         newTile = newTile.getNeighbor(caster.lastMove[0],caster.lastMove[1]);
-        newTile.setEffect(14,30);
+        //newTile.setEffect(14,30);
         return [newTile];
     },
     EPSILON: function(caster){
     }
 }
 
-var forms = Object.keys(targeters);
-
 // ARTISTICMINE - LASTMOVE>RANDOMDIR - SACRIFICE (Dump wheel) - DAMPENER (reduce power, get something in exchange) - ALLOUT (lose all resolve, get power)
 //
 
 class ClickTrap{
     constructor(tile,functions,power){
-        this.functions = functions;
+        this.functions = functions.slice();
         this.power = power;
         this.tile = tile;
     }
@@ -67,6 +69,21 @@ class ClickTrap{
         for (let i of this.functions){
             effects[i]([this.tile],this.power);
         }
+    }
+}
+
+class DelayedAttack{
+    constructor(entity,forms,mutators,functions,power){
+        this.forms = forms.slice();
+        this.mutators = mutators.slice();
+        this.functions = functions.slice();
+        this.power = power;
+        this.caster = entity;
+        removeItemOnce(this.mutators,"ATKDELAY");
+    }
+    trigger(){
+        let blast = new Axiom([],this.forms,this.mutators,this.functions,"VILE",this.caster);
+        blast.legendCast();
     }
 }
 
@@ -80,6 +97,17 @@ modifiers = {
                 i.clicktrap = new ClickTrap(i,functions,power);
             }
         }
+        mods["continue"] = false;
+        return mods;
+    },
+    ATKDELAY: function(mods){
+        let mutators = mods["mutators"];
+        let functions = mods["functions"];
+        let power = mods["power"];
+        let forms = mods["forms"];
+        let caster = mods["caster"];
+        mods["continue"] = false;
+        caster.storedattacks.push(new DelayedAttack(caster,forms,mutators,functions,power));
         return mods;
     },
     SACRIFICE: function(mods){
@@ -106,14 +134,20 @@ modifiers = {
             }
         }
         return mods;
-    }
+    },
+    NEUTER: function(mods){
+        mods["power"] -= 1;
+        return mods;
+    },
+    WEAKEN: function(mods){
+        mods["power"] -= 4;
+        return mods;
+    },
 }
 
 function sameTile(tile1,tile2){
     return tile1.x == tile2.x && tile1.y == tile2.y;
 }
-
-var mutators = Object.keys(modifiers);
 
 // SENET - LASHOL (status) - KILAMI (status) - GYVJI - DASH - RASEL (status) - ASPHA (tp and hit) - SUGCHA (lifesteal)
 // ROSE (status) - JOLTZAZON (targets spread to adj) - HARBINGER (summon that will endlessly copy the first spell it is hit by)
@@ -122,23 +156,32 @@ var mutators = Object.keys(modifiers);
 effects = {
     SENET: function(target, power){ //if power > X, give frenzy, haste?
         if (target.monster){
-            target.monster.statuseff["Persuasive"] += power*3;
+            target.monster.giveEffect("Persuasive",power*3);
         }
     },
     KASHIA: function(target, power){
         if (target.monster){
-            target.monster.statuseff["Dissociated"] += power*2;
-            target.monster.falsehp = target.monster.hp;
+            target.monster.giveEffect("Dissociated",power*2);
         }
     },
     PARACEON: function(target, power){
         if (target.monster){
-            target.monster.statuseff["Invincible"] += power;
+            target.monster.giveEffect("Invincible",power);
+        }
+    },
+    STOP: function(target, power){
+        if (target.monster){
+            target.monster.giveEffect("Paralyzed",power);
         }
     },
     RASEL: function(target,power){
         if (target.monster){
-            target.monster.statuseff["Puppeteered"] += power*2;
+            target.monster.giveEffect("Puppeteered",power*2);
+        }
+    },
+    APIS: function(target,power){
+        if (target.monster){
+            target.monster.giveEffect("Constricted",power);
         }
     },
     GYVJI: function(targeti,power){
@@ -201,8 +244,6 @@ effects = {
         }
     }
 }
-
-var functions = Object.keys(effects);
 
 spells = {
     WOOP: function(caster){
@@ -1136,7 +1177,7 @@ function targetBoltTravel(direction, effect, location){
         if(testTile.passable){
             newTile = testTile;
             if(newTile.monster) break;
-            newTile.setEffect(effect,30);
+            //newTile.setEffect(effect,30);
         }else{
             break;
         }

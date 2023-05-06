@@ -173,8 +173,14 @@ var spellpatterns = {
 }
 
 var contingencies = [];
+var forms = [];
+var mutators = [];
+var functions = [];
 for (let i of Object.keys(spellpatterns)){
     if (spellpatterns[i]["type"] == "Contingency") contingencies.push(i);
+    else if (spellpatterns[i]["type"] == "Form") forms.push(i);
+    else if (spellpatterns[i]["type"] == "Mutator") mutators.push(i);
+    else if (spellpatterns[i]["type"] == "Function") functions.push(i);
 }
 
 var researchpage = {

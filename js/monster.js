@@ -102,7 +102,7 @@ function unlockAllSpells(){
 }
 
 function createSpell(contin,form,mod,func){
-    return new LegendSpell([contin],[form],[mod],[func],"VILE");
+    return new Axiom([contin],[form],[mod],[func],"VILE","me");
 }
 
 class DroppedSoul{
@@ -188,19 +188,24 @@ class Monster{
         this.bonusAttack = 0;
         this.lore = lore;
         this.specialAttack = "";
+        this.isPlayer = false;
         this.paralyzed = false;
         this.isFluffy = false;
         this.noloot = false;
         this.canmove = true;
+        this.influences = new Inventory();
+        this.storedattacks = [];
 
         this.statuseff = {
             "Persuasive" : 0,
             "Charmed" : 0,
+            "Constricted" : 0,
             "Marked" : 0,
             "Dissociated" : 0,
             "Invincible" : 0,
             "Puppeteered" : 0,
             "Decaying" : 0,
+            "Paralyzed" : 0,
         }
 
         this.permacharm = false;
@@ -230,20 +235,20 @@ class Monster{
         else if (this.statuseff["Dissociated"] > 0) this.falsehp = Math.min(maxHp, this.falsehp+(damage*2));
     }
 
-    update(){
-        let kashcheck = false;
-        let deccheck = false;
-        if (this.statuseff["Dissociated"] > 0) kashcheck = true;
-        if (this.statuseff["Decaying"] > 0) deccheck = true;
-        for (let i of Object.keys(this.statuseff)){
-            this.statuseff[i] = Math.max(0,this.statuseff[i]-1);
-        }
-        if (this.statuseff["Decaying"] == 0 && deccheck){
-            this.die();
-        }
-        this.teleportCounter--;
+    assignAxiom(co,fo,mu,fu,ca){
+        let axiom = new Axiom(co,fo,mu,fu,ca,this);
+        this.influences.addAxiom(axiom);
+        this.influences.activateAxiom(0);
+    }
 
-        if (this.statuseff["Dissociated"] == 0 && kashcheck){
+    giveEffect(effect, duration){
+        this.statuseff[effect] += duration;
+        if (effect == "Dissociated") this.falsehp = this.hp;
+    }
+
+    effectsExpire(expired){
+        if (expired.includes("Decaying")) this.die();
+        if (expired.includes("Dissociated")){
             if (this.falsehp <= 0){
                 if (!this.isPlayer) this.hit(99);
                 else this.doomed = true;
@@ -251,6 +256,18 @@ class Monster{
             }
             else this.hp = this.falsehp;
         }
+    }
+
+    update(){
+        if (this.statuseff["Paralyzed"] > 0) this.stunned = true;
+        let activeeffects = [];
+        for (let i of Object.keys(this.statuseff)){
+            if (this.statuseff[i] > 0) activeeffects.push(i);
+            this.statuseff[i] = Math.max(0,this.statuseff[i]-1);
+            if (this.statuseff[i] > 0 && activeeffects.includes(i)) removeItemOnce(activeeffects,i);
+        }
+        this.effectsExpire(activeeffects);
+        this.teleportCounter--;
         if (this.soulless) return;
         if (this.soulstun > 2){
             this.soulstun--;
@@ -267,6 +284,7 @@ class Monster{
         if(this.paralyzed) return;
         if(this.statuseff["Charmed"] > 0 && monsters.length < 2 && !this.permacharm) this.statuseff["Charmed"] = 0;
         this.doStuff();
+        this.influences.castContin("TURNEND",this.isPlayer);
     }
 
     doStuff(){
@@ -485,7 +503,15 @@ class Monster{
             if(!newTile.monster || (newTile.monster && newTile.monster instanceof Harmonizer)){ //||(newTile.monster.statuseff["Charmed"] > 0&&(this.isPlayer||this.statuseff["Charmed"] > 0))||newTile.monster.isPassive
                 let boxpull = false;
                 if (this.tile.getNeighbor(-dx,-dy).monster && this.tile.getNeighbor(-dx,-dy).monster.pushable && this.isPlayer) boxpull = this.tile;
-                if (this.canmove) this.move(newTile);
+                if (this.statuseff["Constricted"]>0){
+                    log.addLog("Constricted");
+                    shakeAmount = 5;
+                    return false;
+                }
+                if (this.canmove){
+                    this.move(newTile);
+                    this.influences.castContin("STEP",this.isPlayer);
+                }
                 if (boxpull) boxpull.getNeighbor(-dx,-dy).monster.move(boxpull);
                 for (let x of legendaries.active){
                     if (x instanceof Lashol) player.bonusAttack += (1/3);
@@ -510,6 +536,13 @@ class Monster{
                                 player.fp = 0;
                                 player.hit(1);
                             }
+                        }
+                    }
+                    if (newTile.monster){
+                        this.influences.castContin("ATTACK",this.isPlayer);
+                        for (let i of this.storedattacks){
+                            i.trigger();
+                            removeItemOnce(this.storedattacks,i);
                         }
                     }
                     if ((this.statuseff["Persuasive"] > 0) && newTile.monster){
@@ -573,7 +606,7 @@ class Monster{
                     dialoguecount = newTile.monster.diareset;
                 }else if (newTile.monster.pushable){
                     let lm = this.lastMove;
-                    let corevore = false;
+                    let coredevour = false;
                     let abandon = false;
                     let pushTile = getTile(newTile.x+lm[0],newTile.y+lm[1]);
                     if (inBounds(pushTile.x,pushTile.y) && pushTile.passable){
@@ -604,7 +637,7 @@ class Monster{
                                     }
                                     pushTile.monster.vulnerability = 99999;
                                 }
-                                corevore = true;
+                                coredevour = true;
                                 newTile.monster.hit(99);
                                 removeItemOnce(monsters, newTile.monster);
                             }
@@ -620,7 +653,7 @@ class Monster{
                             //else if (pushTile.monster instanceof Tail) return false;
                             //else pushTile.monster.tryMove(getTile(lm[0],lm[1]);
                         }
-                        if (!corevore && !abandon) newTile.monster.move(pushTile);
+                        if (!coredevour && !abandon) newTile.monster.move(pushTile);
                         if (!abandon) this.move(newTile);
                     }
                     else{
@@ -714,7 +747,7 @@ class Monster{
     }
 }
 
-class Player extends Monster{
+class Terminal extends Monster{
     constructor(tile){
         super(tile, 0, 3, "SOULLESS", description["Terminal"]);
         this.isPlayer = true;
@@ -822,26 +855,6 @@ class Player extends Monster{
 
     tryMove(dx, dy){
         if (gameState != "running") return;
-        let neighbours = player.tile.getAdjacentNeighbors();
-        let check = true;
-        let constrictatk = false;
-        if (getTile(this.tile.x + dx,this.tile.y+dy).monster) constrictatk = true;
-        if (naiamode && !constrictatk) wheel.endDiscard();
-        else if (gameState == "discard" && !constrictatk) return;
-        for (let i of neighbours){
-            if(i.monster instanceof Apis){
-                check = false;
-            }
-        }
-        if (check) this.constrict = false;
-        if (this.constrict){
-            if (!player.dead) {
-                if (!constrictatk){
-                    log.addLog("Constricted");
-                    return;
-                }
-            }
-        }
         if (this.para > 0){
             player.para--;
             tick();
@@ -1141,14 +1154,7 @@ class Apiarist extends Monster{
         this.soul = "Animated by an Ordered (5) soul.";
         this.name = "Brass Apiarist";
         this.ability = monabi["Apiarist"];
-    }
-
-    update(){
-        let startedStunned = this.stunned;
-        super.update();
-        if(!startedStunned){
-            this.stunned = true;
-        }
+        this.assignAxiom(["STEP"],["EGO"],["NEUTER"],["STOP"],"ORDERED");
     }
 }
 
@@ -1940,10 +1946,7 @@ class Apis extends Monster{
         this.soul = "Animated by an Unhinged (3) soul.";
         this.name = "Messenger of Aculeo";
         this.ability = monabi["Apis"];
-    }
-    doStuff(){
-        this.specialAttack = "Constrict";
-        super.doStuff();
+        this.assignAxiom(["ATTACK"],["SMOOCH"],["WEAKEN","ATKDELAY"],["APIS"],"UNHINGED");
     }
 }
 

@@ -675,7 +675,7 @@ class DrawWheel{
                 if (player.tile.value instanceof x) commoncheck = true;
             }
             if (!commoncheck){
-                legendaries.addSoul(player.tile.value);
+                legendaries.addAxiom(player.tile.value);
                 tiles = world.getRoom().tiles;
                 player.infested = 0;
                 player.sprite = 0;
@@ -763,7 +763,7 @@ class DrawWheel{
                     const types = ["SAINTLY","ORDERED","ARTISTIC","UNHINGED","FERAL","VILE","SERENE"];
                     if (world.cage.slots[override.x][override.y].turbulent == this.turbstatus) this.paintcans[types.indexOf(world.cage.slots[override.x][override.y].id)].push(new SpinningSoul(world.cage.slots[override.x][override.y].icon,this.paintcans[types.indexOf(world.cage.slots[override.x][override.y].id)][this.paintcans[types.indexOf(world.cage.slots[override.x][override.y].id)].length-1].angle-1));
                 }
-                else retrievesuccess = legendaries.addSoul(world.cage.slots[override.x][override.y]);
+                else retrievesuccess = legendaries.addAxiom(world.cage.slots[override.x][override.y]);
                 if (retrievesuccess) {
                     world.cage.slots[override.x][override.y] = new Empty();
                     world.cage.size--;
@@ -1169,10 +1169,10 @@ class Inventory{
         
     }
 
-    castContin(word){
+    castContin(word, isPlayer){
         for (let i of this.active){
-            if (i.triggers && i.triggers.includes(word)){
-                if (soulcosts[word]){
+            if (i.contingencies && i.contingencies.includes(word)){
+                if (soulcosts[word] && (isPlayer == null || isPlayer)){
                     if (wheel.ipseity < soulcosts[word]){
                         shakeAmount = 5;
                         log.addLog("NoShards");
@@ -1185,7 +1185,7 @@ class Inventory{
         }
     }
 
-    activateSoul(slot){
+    activateAxiom(slot){
         let soul = this.storage[slot];
         if (soul instanceof Empty) return;
         if (soul instanceof Ezezza && world.fighting) return;
@@ -1213,7 +1213,7 @@ class Inventory{
         return false;
     }
 
-    addSoul(soul){
+    addAxiom(soul){
         let noroom = 0;
         for (let i of this.storage){
             if (noroom == this.storage.length){
@@ -1368,48 +1368,52 @@ function calculatePower(triggers,targeter,modifier,effect){
     return [basepower,basecost];
 }
 
-class LegendSpell extends LegendarySoul{
-    constructor(trigger,targeter,modifier,effect,caste){
+class Axiom extends LegendarySoul{
+    constructor(contingencies,forms,mutators,functions,caste,owner){
         super("FLEXIBLE");
-        this.targeter = targeter;
-        this.modifier = modifier;
-        this.effect = effect;
-        this.triggers = trigger;
-        this.icon = inside[this.effect[0]];
+        this.forms = forms;
+        this.mutators = mutators;
+        this.functions = functions;
+        this.contingencies = contingencies;
+        this.icon = inside[this.functions[0]];
         this.caste = caste;
         this.basepower = 99;
         this.basecost = 0;
-        this.caster;
-        this.alllore = this.triggers.concat(this.targeter.concat(this.modifier.concat(this.effect)));
-        calculatePower(this.triggers,this.targeter)
+        this.caster = owner;
+        this.alllore = this.contingencies.concat(this.forms.concat(this.mutators.concat(this.functions)));
+        calculatePower(this.contingencies,this.forms)
     }
 
     legendCast(){
         let targets = [];
         let power = 99;
-        this.caster = player;
-        for (let i of this.targeter){
+        if (this.caster == "me") this.caster = player;
+        for (let i of this.forms){
             let obtainta = targeters[i](this.caster);
             for (let g of obtainta) targets.push(g);
             power = Math.min(powerratings[i],power)
         }
-        for (let i of this.triggers){
+        for (let i of this.contingencies){
             if (powerratings[i]) power+=powerratings[i];
         }
-        for (let i of this.modifier){
+        for (let i of this.mutators){
             let mods = {
                 "targets" : targets,
                 "power" : power,
-                "functions" : this.effect,
+                "functions" : this.functions,
                 "caster" : this.caster,
+                "continue" : true,
+                "mutators" : this.mutators,
+                "forms" : this.forms,
             }
             let edit = modifiers[i](mods);
             power = edit["power"];
             targets = edit["targets"];
-            if (i == "CLICK") return false;
+            if (!edit["continue"]) return false;
         }
-        for (let i of this.effect){
+        for (let i of this.functions){
             for (let y of targets){
+                y.setEffect(14,30);
                 effects[i](y,power);
             }   
         }
@@ -1428,7 +1432,7 @@ class LegendSpell extends LegendarySoul{
         printOutText(description, 18, 590, 105, "white", 20, 6*64-35);
         printOutText(toTitleCase(this.caste) + " Caste", 18, 590, 30, colours[this.caste], 20, 6*64-35);
         printOutText(researchnames[this.alllore[legendaries.describepage]], 18, 590, 50, "white", 20, 6*64-100);
-        legendaries.exppage = new ComponentsDisplay(this.triggers,this.targeter,this.modifier,this.effect,this.basepower,this.basecost, this.caste);
+        legendaries.exppage = new ComponentsDisplay(this.contingencies,this.forms,this.mutators,this.functions,this.basepower,this.basecost, this.caste);
     }
 }
 
