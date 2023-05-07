@@ -199,16 +199,7 @@ class Universe{
             }
         }
         if (wheel.pile.length > 0){
-            //this.discard.push("TAINTED") //remplacer avec curse, dash est un placeholder
-            for(let i=0;i<wheel.pile.length;i++){
-                if(wheel.pile[i].turbulent){
-                    wheel.discard.push(wheel.pile[i]);
-                    wheel.pile[i] = "deleted";
-                }
-            }
-            removeItemAll(wheel.pile,"deleted");
-
-            //this.discard = [];
+            wheel.reshuffle()
         }
         research.completeResearch("Vision");
         if(!world.getRoom().hostile){
@@ -277,10 +268,7 @@ class Universe{
             "Caste" : [],
         }
         world.cage.legendCheck();
-        for(let i=0;i<wheel.discard.length;i++){
-            wheel.pile.push(wheel.discard[i]);
-            wheel.discard[i] = "deleted";
-        }
+        wheel.reshuffle();
         wheel.pile = shuffle(wheel.pile);
         removeItemAll(wheel.discard,"deleted");
     }
@@ -397,48 +385,51 @@ class World{
     }
 
     display(){
-        let brush = (64/9);
+        let size = 64;
+        let brush = (size/9);
         drawFilter(blackfilter);
         for(let y = 0; y<9;y++){
             for(let x = 0; x<9;x++){
                 if (this.rooms[x][y].tangible){
                     for(let i = 0; i<this.rooms[x][y].size;i++){
                         for (let j = 0; j<this.rooms[x][y].size; j++){
-                            if (!(this.rooms[x][y].tiles[i][j] instanceof RealityWall)) drawPixel(this.checkPixel(this.rooms[x][y].tiles[i][j]),i*brush+x*64,j*brush+y*64);
+                            if (!(this.rooms[x][y].tiles[i][j] instanceof RealityWall)) drawPixel(this.checkPixel(this.rooms[x][y].tiles[i][j]),i*brush+x*size,j*brush+y*size);
                         }
                     }
-                    if (this.rooms[x][y].visited) drawPixel(9,4*7+x*64,4*7+y*64);
+                    if (this.rooms[x][y].visited) drawPixel(9,4*7+x*size,4*7+y*size);
                 }
             }
         }
         for(let i = 0; i<numTiles;i++){
             for (let j = 0; j<numTiles; j++){
-                if (!(tiles[i][j] instanceof RealityWall)) drawPixel(this.checkPixel(tiles[i][j]),i*brush+this.currentroom[0]*64,j*brush+this.currentroom[1]*64);
-                if (tiles[i][j].monster && tiles[i][j].monster.isPlayer) drawPixel(3,i*brush+this.currentroom[0]*64,j*brush+this.currentroom[1]*64);
+                if (!(tiles[i][j] instanceof RealityWall)) drawPixel(this.checkPixel(tiles[i][j]),i*brush+this.currentroom[0]*size,j*brush+this.currentroom[1]*size);
+                if (tiles[i][j].monster && tiles[i][j].monster.isPlayer) drawPixel(3,i*brush+this.currentroom[0]*size,j*brush+this.currentroom[1]*size);
             }
         }
-        if (this.currentroom.visited) drawPixel(9,4*7+x*64,4*7+y*64);
+        if (this.currentroom.visited) drawPixel(9,4*7+x*size,4*7+y*size);
     }
 
     miniMap(){
-        let brush = (64/9);
+        let size = 64;
+        let brush = (size/9);
         let range = 3;
         for(let y = world.getRoom().index[1]-range; y<world.getRoom().index[1]+range+1;y++){
             for(let x = world.getRoom().index[0]-range; x<world.getRoom().index[0]+range+1;x++){
                 if (this.rooms[x] && this.rooms[x][y] && this.rooms[x][y].tangible){
                     for(let i = 0; i<this.rooms[x][y].size;i++){
                         for (let j = 0; j<this.rooms[x][y].size; j++){
-                            if (!(this.rooms[x][y].tiles[i][j] instanceof RealityWall)) drawPixel(this.checkPixel(this.rooms[x][y].tiles[i][j]),i*brush+673+128+64*(x-world.getRoom().index[0]),j*brush+546+128+64*(y-world.getRoom().index[1]));
-                        }
+                            if (!(this.rooms[x][y].tiles[i][j] instanceof RealityWall)) drawPixel(this.checkPixel(this.rooms[x][y].tiles[i][j]),i*brush+canvas.width-156+size*(x-world.getRoom().index[0]),j*brush+130+size*(y-world.getRoom().index[1]));
+                        }//+673+128+size*(x-world.getRoom().index[0])
+                        //+546+128+size*(y-world.getRoom().index[1])
                     }
-                    //if (this.rooms[x][y].visited) drawPixel(9,4*7+x*64,4*7+y*64);
+                    //if (this.rooms[x][y].visited) drawPixel(9,4*7+x*size,4*7+y*size);
                 }
             }
         }
         for(let i = 0; i<numTiles;i++){
             for (let j = 0; j<numTiles; j++){
-                if (!(tiles[i][j] instanceof RealityWall)) drawPixel(this.checkPixel(tiles[i][j]),i*brush+673+128,j*brush+546+128);
-                if (tiles[i][j].monster && tiles[i][j].monster.isPlayer) drawPixel(3,i*brush+673+128,j*brush+546+128);
+                if (!(tiles[i][j] instanceof RealityWall)) drawPixel(this.checkPixel(tiles[i][j]),i*brush+canvas.width-156,j*brush+130);
+                if (tiles[i][j].monster && tiles[i][j].monster.isPlayer) drawPixel(3,i*brush+canvas.width-156,j*brush+130);
             }
         }
     }
@@ -1265,7 +1256,7 @@ class SoulCage extends DefaultVaultRoom{
         }
         for (let j = 0; j<7; j++){
             for (let i = 0; i < (wheel.countPileSouls(wheel.turbstatus)[j] + wheel.countDiscardSouls(wheel.turbstatus)[j]); i++){
-                wheel.paintcans[j].push(new SpinningSoul(j,wheel.paintcans[j][wheel.paintcans[j].length-1].angle-1));
+                wheel.paintcans[j].push(new SpinningSoul(j,wheel.paintcans[j][wheel.paintcans[j].length-1].angle-0.5));
             }
         }
     }

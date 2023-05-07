@@ -173,6 +173,7 @@ Anisychia - Feral champion
 * Fluffy is an empty shell, if defeated she may be replaced and duplicate you.
 * The Harmony contains "ultimate lifeforms", as they have reached maximum complexity.
 * Rose's ability to "drown out in endless lives".
+* Fluffy should taunt you about how your task is endless and infinite, and how submission to the Harmony is the only sensible course of action.
 
 **Insane/overly ambitious stuff**
 

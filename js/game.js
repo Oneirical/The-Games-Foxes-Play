@@ -4,8 +4,10 @@ function setupCanvas(){
 
     //canvas.width = tileSize*(numTiles+uiWidth);
     //canvas.height = tileSize*(numTiles+uiHeight);
-    canvas.width = 960;
-    canvas.height = 833;
+    canvas.width = 1600; //1024
+    canvas.height = 900; //576
+    //960*833
+    //(64*1600*900)/(960*833)
     canvas.style.width = canvas.width + 'px';
     canvas.style.height = canvas.height + 'px';
     ctx.imageSmoothingEnabled = false;
@@ -92,6 +94,10 @@ function setupCanvas(){
     }, false);
 }
 
+function getMouse(){
+    return mousepos;
+}
+
 function drawSpriteFreeform(sprite, x, y, offX, offY, size){
     ctx.drawImage(
         spritesheet,
@@ -107,6 +113,7 @@ function drawSpriteFreeform(sprite, x, y, offX, offY, size){
 }
 
 function drawSprite(sprite, x, y){
+    tileSize = Math.floor(canvas.height/(world.getRoom().size));
     ctx.drawImage(
         spritesheet,
         sprite*16,
@@ -173,10 +180,12 @@ function draw(){
         let loghide = false;
         let selectation = 99;
         if (!inInventory && !inMap && !inResearch && !(world.getRoom() instanceof SoulCage)){
-            world.miniMap();
             ctx.fillStyle = 'rgba(0,0,0,1)';
-            ctx.fillRect(705-100,577-100,canvas.width/4+300, 100);
-            ctx.fillRect(705-100,577,100, canvas.width/4+300);
+            ctx.fillRect(0,0,canvas.width, canvas.height);
+            world.miniMap();
+            ctx.fillRect(canvas.width-356,0,100, 400);
+            ctx.fillRect(canvas.width-326,296, 356,400);
+            ctx.fillRect(canvas.width-256,0, 256,40);
         }
         if(inInventory){
             let nohover = true;
@@ -360,18 +369,47 @@ function draw(){
         }
         ctx.strokeStyle = 'white';
         ctx.lineWidth = 1.5;
-        if (!inResearch && !inInventory && !(world.getRoom() instanceof SoulCage)){
+        if (!inResearch && !inInventory){
+            //ctx.beginPath();
+            //ctx.moveTo(0, 577);
+            //ctx.lineTo(960, 577);
+            //ctx.stroke();
             ctx.beginPath();
-            ctx.moveTo(0, 577);
-            ctx.lineTo(960, 577);
+            ctx.moveTo(canvas.height, canvas.height);
+            ctx.lineTo(canvas.height, 0);
             ctx.stroke();
             ctx.beginPath();
-            ctx.moveTo(577, 577);
-            ctx.lineTo(577, 0);
+            ctx.moveTo(canvas.width-256, 0);
+            ctx.lineTo(canvas.width-256, canvas.height-256);
             ctx.stroke();
             ctx.beginPath();
-            ctx.moveTo(705, 577);
-            ctx.lineTo(705, 833);
+            ctx.moveTo(canvas.height, canvas.height-256);
+            ctx.lineTo(canvas.width, canvas.height-256);
+            ctx.stroke();
+
+            ctx.beginPath();
+            ctx.moveTo(canvas.width-256, 296);
+            ctx.lineTo(canvas.width, 296);
+            ctx.stroke();
+
+            ctx.beginPath();
+            ctx.moveTo(canvas.width-256, 556);
+            ctx.lineTo(canvas.width, 556);
+            ctx.stroke();
+
+            ctx.beginPath();
+            ctx.moveTo(canvas.width-128, 556);
+            ctx.lineTo(canvas.width-128, canvas.height-256);
+            ctx.stroke();
+
+            ctx.beginPath();
+            ctx.moveTo(canvas.width-256, 40);
+            ctx.lineTo(canvas.width, 40);
+            ctx.stroke();
+
+            ctx.beginPath();
+            ctx.moveTo(canvas.height, canvas.width-canvas.height-256);
+            ctx.lineTo(canvas.width-256, canvas.width-canvas.height-256);
             ctx.stroke();
         }
         else{
@@ -408,6 +446,7 @@ function draw(){
         //ctx.lineTo(0, 577);
         //ctx.stroke();
     }
+    var imgData = ctx.getImageData(0, 0, canvas.width, canvas.height);
 }
 
 function summonExits(){

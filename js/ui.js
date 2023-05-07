@@ -322,11 +322,12 @@ class MessageLog{
         this.repeats.push(1);
         if (message != this.history[this.history.length-1]){
             this.history.push(message);
-            this.writeheight.push(600);
+            this.writeheight.push(canvas.height-(230/(1600/canvas.width)));
             if (this.writeheight.length > 1){
                 for (let x = this.writeheight.length-2;x >= 0; x--){
-                    let thehe = ctx.measureText(removeColorTags(messages[this.history[this.history.length-1]])).width;
-                    this.writeheight[x] += 25 * Math.ceil(thehe/690);
+                    let thehe = countLines(messages[this.history[this.history.length-1]],canvas.width-canvas.height-20);
+                    //let thehe = ctx.measureText(removeColorTags(messages[this.history[this.history.length-1]])).width;
+                    this.writeheight[x] += 20 * thehe + 5;
                 }
             }
             if (this.history.length > 8){
@@ -349,7 +350,7 @@ class MessageLog{
             else if (this.history[x].includes("Error")) coloring = "yellow";
             let print = messages[this.history[x]];
             if (this.repeats[x] > 1) print += " x"+this.repeats[x];
-            printOutText(print, 18, 10, this.writeheight[x], coloring, 20, 690);
+            printOutText(print, 18, 10+canvas.height, this.writeheight[x], coloring, 20, canvas.width-canvas.height-20);
             //for (let y = 0; y < this.writeheight.length-1; y++){
                 //let margin = 26;
                 //let wtf = Math.ceil(ctx.measureText(messages[this.history[y+1]]+"x00").width/690);
@@ -384,8 +385,9 @@ class SpinningSoul{
 class DrawWheel{
     constructor(){
         this.wheel = [new Empty(),new Empty(),new Empty(),new Empty(),new Empty(),new Empty(),new Empty(),new Empty()];
-        let center = [736, 223];
-        let dist = 100;
+        let center = [(canvas.height+canvas.width-256)/2-40, 180]; //256: minimap height
+        this.dist = 100;
+        let dist = this.dist;
         let pi = Math.PI;
         this.wheelcoords = [[center[0], center[1]-dist],[center[0]+Math.cos(pi/4)*dist, center[1]-Math.sin(pi/4)*dist],[center[0]+dist, center[1]],[center[0]+Math.cos(pi/4)*dist, center[1]+Math.sin(pi/4)*dist],[center[0], center[1]+dist],[center[0]-Math.cos(pi/4)*dist, center[1]+Math.sin(pi/4)*dist],[center[0]-dist, center[1]],[center[0]-Math.cos(pi/4)*dist, center[1]-Math.sin(pi/4)*dist]];
         dist = 45;
@@ -404,7 +406,7 @@ class DrawWheel{
         let hori = 64*5-5;
         center = [760,247];
         dist = 100;
-        this.circlemotion = {centerX:762, centerY:245, radius:20};
+        this.circlemotion = {centerX:1108, centerY:204, radius:170};
         this.spinningsouls = [new SpinningSoul(47,0)];
         this.paintcans = [[new SpinningSoul(47,0)],[new SpinningSoul(47,0)],[new SpinningSoul(47,0)],[new SpinningSoul(47,0)],[new SpinningSoul(47,0)],[new SpinningSoul(47,0)],[new SpinningSoul(47,0)]];
         this.paintcoords = [[center[0]+Math.cos(pi/4)*dist, center[1]-Math.sin(pi/4)*dist],[center[0]+dist, center[1]],[center[0]+Math.cos(pi/4)*dist, center[1]+Math.sin(pi/4)*dist],[center[0], center[1]+dist],[center[0]-Math.cos(pi/4)*dist, center[1]+Math.sin(pi/4)*dist],[center[0]-dist, center[1]],[center[0]-Math.cos(pi/4)*dist, center[1]-Math.sin(pi/4)*dist]];
@@ -420,14 +422,20 @@ class DrawWheel{
     }
 
     display(){
-        if (!inInventory && !cursormode && !(world.getRoom() instanceof SoulCage)) printOutText(universe.getDepth(), 25, 905 - ctx.measureText(universe.getDepth()).width, 35, "lightblue");
-        if (!inInventory && !cursormode) printOutText(world.getRoom().name, 25, 595, 35, "violet");
+        //if (!inInventory && !cursormode && !(world.getRoom() instanceof SoulCage)) printOutText(universe.getDepth(), 25, 905 - ctx.measureText(universe.getDepth()).width, 35, "lightblue");
+        if (!inInventory && !cursormode) printOutText(world.getRoom().name, 25, canvas.width-246, 28, "violet");
         if (!(world.getRoom() instanceof SoulCage)){
-            for (let i = 0; i<this.spinningsouls.length;i++){
-                this.spinningsouls[i].x = this.circlemotion.centerX + Math.cos(this.spinningsouls[i].angle) * this.circlemotion.radius;
-                this.spinningsouls[i].y = this.circlemotion.centerY + Math.sin(this.spinningsouls[i].angle) * this.circlemotion.radius;
-                this.spinningsouls[i].angle += this.spinningsouls[i].speed;
-                drawSymbol(this.spinningsouls[i].icon, this.spinningsouls[i].x, this.spinningsouls[i].y, 16);
+            for (let i = 0; i<this.pile.length;i++){
+                this.pile[i].x = this.circlemotion.centerX + Math.cos(this.pile[i].angle) * this.circlemotion.radius;
+                this.pile[i].y = this.circlemotion.centerY + Math.sin(this.pile[i].angle) * this.circlemotion.radius;
+                this.pile[i].angle += this.pile[i].speed;
+                drawSymbol(this.pile[i].icon, this.pile[i].x, this.pile[i].y, 16);
+            }
+            for (let i = 0; i<this.saved.length;i++){
+                this.saved[i].x = this.circlemotion.centerX + Math.cos(this.saved[i].angle) * 20;
+                this.saved[i].y = this.circlemotion.centerY + Math.sin(this.saved[i].angle) * 20;
+                this.saved[i].angle += this.saved[i].speed;
+                if (!(this.saved[i] instanceof Empty)) drawSymbol(this.saved[i].icon, this.saved[i].x, this.saved[i].y, 16);
             }
         }
         else{
@@ -457,18 +465,20 @@ class DrawWheel{
             }
         }
 
-        drawSymbol(6, 880, 320, 64);
-        drawSymbol(9, 590, 130, 64);
-        drawSymbol(10, 880, 130, 64);
-        drawSymbol(11, 590, 50, 64);
-        printOutText("Q",18, 616, 398, "white",20,350);
-        printOutText("C",18, 616, 208, "white",20,350);
-        printOutText("F",18, 906, 208, "white",20,350);
-        printOutText("L",18, 906, 400, "white",20,350);
+        drawSymbol(6, canvas.width-256, 296, 256);
+        drawSymbol(6, canvas.width-87, canvas.height-334, 64);
+        printOutText("L",18, canvas.width-102, canvas.height-295, "white",20,350);
+        //drawSymbol(9, 590, 130, 64);
+        drawSymbol(10, canvas.width-232, canvas.height-334, 64);
+        printOutText("F",18, canvas.width-172, canvas.height-295, "white",20,350);
+        //drawSymbol(11, canvas.height+10, 10, 64);
+        //printOutText("Q",18, (canvas.height+canvas.width-256)/2-12, 235, "white",20,350);
+        //printOutText("C",18, 616, 208, "white",20,350);
+        
         let icon = 33;
         if (player.infested > 0) icon = 34;
         else if (player.tile.souls.length > 0) icon = 48;
-        drawSymbol(icon,590,320,64);
+        //drawSymbol(icon,(canvas.height+canvas.width-256)/2-22,184,32);
         if (gameState == "contemplation"){
             drawSymbol(13, 880, 50, 64);
             printOutText(agony+" ", 23, 835, 90, "orangered", 20, 350);
@@ -510,7 +520,7 @@ class DrawWheel{
             //if (this.resolve < 1) colour = "orangered";
             //printOutText(this.resolve+"/"+(3+Math.floor(resolvebonus/2))+" ", 23, 835, 90, colour, 20, 350);
         }
-        printOutText(" "+this.ipseity, 23, 660, 90, "plum", 20, 350);
+        //printOutText(" "+this.ipseity, 23, canvas.height+80, 50, "plum", 20, 350);
 
         let display;
         const greysouls = {
@@ -571,28 +581,28 @@ class DrawWheel{
         }
         let j = 0;
         let k = 0;
-        let length = 21;
+        let length = 24;
         if (!(world.getRoom() instanceof SoulCage)){
             //84 is max capacity for each box
-            for (let i = 0; i<84; i++){
-                if(i < this.pile.length) this.pile[i].thrash(581  + i*18 - (length*18*Math.floor(j/length)),420 + Math.floor(j/length)*18,16);
-                else this.saved[0].thrash(581  + i*18 - (length*18*Math.floor(j/length)),420 + Math.floor(j/length)*18,16);
-                j++;
-            }
-            for (let i = 0; i<84; i++){
-                if(i < this.discard.length) this.discard[i].thrash(581  + i*18 - (length*18*Math.floor(k/length)),501 + Math.floor(k/length)*18,16);
-                else this.saved[0].thrash(581  + i*18 - (length*18*Math.floor(k/length)),501 + Math.floor(k/length)*18,16);
+            for (let i = 0; i<240; i++){
+                let thrasher = this.saved[0];
+                if (i < this.discard.length)thrasher = this.discard[i];
+                thrasher.thrash(canvas.height+7  + i*18 - (length*18*Math.floor(k/length)),canvas.width-canvas.height-246 + Math.floor(k/length)*18,16);
                 k++;
             }
-            ctx.beginPath();
-            ctx.moveTo(577, 496);
-            ctx.lineTo(960, 496);
-            ctx.stroke();
-            ctx.beginPath();
-            ctx.moveTo(577, 415);
-            ctx.lineTo(960, 415);
-            ctx.stroke();
         }
+    }
+
+    reshuffle(){
+        for(let i=0;i<this.discard.length;i++){
+            if(!this.discard[i].turbulent || world.tranquil){
+                if (this.pile[this.pile.length-1]) this.discard[i].angle = this.pile[this.pile.length-1].angle-0.5;
+                this.pile.push(this.discard[i]);
+                this.discard[i] = "deleted";
+            }
+        }
+        this.pile = shuffle(this.pile);
+        removeItemAll(this.discard,"deleted");
     }
 
     countPileSouls(turb){
@@ -761,7 +771,7 @@ class DrawWheel{
                 if (basic.includes(world.cage.slots[override.x][override.y].id)){
                     this.wheel[this.wheel.indexOf(k)] = world.cage.slots[override.x][override.y];
                     const types = ["SAINTLY","ORDERED","ARTISTIC","UNHINGED","FERAL","VILE","SERENE"];
-                    if (world.cage.slots[override.x][override.y].turbulent == this.turbstatus) this.paintcans[types.indexOf(world.cage.slots[override.x][override.y].id)].push(new SpinningSoul(world.cage.slots[override.x][override.y].icon,this.paintcans[types.indexOf(world.cage.slots[override.x][override.y].id)][this.paintcans[types.indexOf(world.cage.slots[override.x][override.y].id)].length-1].angle-1));
+                    if (world.cage.slots[override.x][override.y].turbulent == this.turbstatus) this.paintcans[types.indexOf(world.cage.slots[override.x][override.y].id)].push(new SpinningSoul(world.cage.slots[override.x][override.y].icon,this.paintcans[types.indexOf(world.cage.slots[override.x][override.y].id)][this.paintcans[types.indexOf(world.cage.slots[override.x][override.y].id)].length-1].angle-0.1));
                 }
                 else retrievesuccess = legendaries.addAxiom(world.cage.slots[override.x][override.y]);
                 if (retrievesuccess) {
@@ -782,6 +792,13 @@ class DrawWheel{
             this.wheel[i] = this.wheel[i+1];
         }
         this.wheel[7] = new Empty();
+    }
+
+    resetAngles(){
+        for (let i = 0; i<this.pile.length; i++){
+            if (i == 0) continue;
+            else this.pile[i].angle = this.pile[i-1].angle+0.1;
+        }
     }
 
     drawSoul(){
@@ -823,16 +840,7 @@ class DrawWheel{
             }
             //log.addLog("Empty");
             if (this.pile.length <= 0){
-                //this.discard.push("TAINTED") //remplacer avec curse, dash est un placeholder
-                for(let i=0;i<this.discard.length;i++){
-                    if(!this.discard[i].turbulent || world.tranquil){
-                        this.pile.push(this.discard[i]);
-                        this.discard[i] = "deleted";
-                    }
-                }
-                this.pile = shuffle(this.pile);
-                removeItemAll(this.discard,"deleted");
-                //this.discard = [];
+                this.reshuffle();
             }
             if (this.pile.length < 1){
                 log.addLog("UnrulySouls");
@@ -855,6 +863,7 @@ class DrawWheel{
                 }
             }
             this.pile.shift();
+            this.resetAngles();
             if (this.activemodule != "Alacrity") tick();
             else if (!player.consumeCommon(1,false)){
                 log.addLog("FluffyInsufficientPower");
@@ -982,7 +991,7 @@ class DrawWheel{
                 this.paintcans = [[new SpinningSoul(47,0)],[new SpinningSoul(47,0)],[new SpinningSoul(47,0)],[new SpinningSoul(47,0)],[new SpinningSoul(47,0)],[new SpinningSoul(47,0)],[new SpinningSoul(47,0)]];
                 for (let j = 0; j<7; j++){
                     for (let i = 0; i < (wheel.countPileSouls(wheel.turbstatus)[j] + wheel.countDiscardSouls(wheel.turbstatus)[j]); i++){
-                        wheel.paintcans[j].push(new SpinningSoul(j,wheel.paintcans[j][wheel.paintcans[j].length-1].angle-1));
+                        wheel.paintcans[j].push(new SpinningSoul(j,wheel.paintcans[j][wheel.paintcans[j].length-1].angle-0.5));
                     }
                 }
                 return;
@@ -1036,7 +1045,7 @@ class DrawWheel{
                 fail = legendaries.active[num].legendCast();
                 if (!fail){
                     this.saved.push(this.wheel[slot]);
-                    wheel.spinningsouls.push(new SpinningSoul(this.wheel[slot].icon,wheel.spinningsouls[wheel.spinningsouls.length-1].angle-1));
+                    wheel.spinningsouls.push(new SpinningSoul(this.wheel[slot].icon,wheel.spinningsouls[wheel.spinningsouls.length-1].angle-0.5));
                     this.wheel[slot] = new Empty();
                     playSound("spell");
                     tick();
@@ -1053,7 +1062,7 @@ class DrawWheel{
                 if (legendaries.active[num].influence == "C") spells[legendaries.active[num].caste](player);
                 if (!fail && player.activemodule != "Focus"){
                     this.saved.push(this.wheel[slot]);
-                    wheel.spinningsouls.push(new SpinningSoul(this.wheel[slot].icon,wheel.spinningsouls[wheel.spinningsouls.length-1].angle-1));
+                    wheel.spinningsouls.push(new SpinningSoul(this.wheel[slot].icon,wheel.spinningsouls[wheel.spinningsouls.length-1].angle-0.5));
                     this.wheel[slot] = new Empty();
                 }
                 else if (this.activemodule == "Focus"){
@@ -1278,6 +1287,10 @@ class LegendarySoul{
         this.speed = 0.05;
         this.thrashcounter = 0;
         this.discpatt = [];
+        this.x = 0;
+        this.y = 0;
+        this.speed = 0.01;
+        this.angle = 0;
         if (basic.includes(name)) this.alpha = 0.55;
     }
 
