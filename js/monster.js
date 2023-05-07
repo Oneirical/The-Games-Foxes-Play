@@ -21,7 +21,7 @@ class Cursor{
     }
     tryMove(newTile){
         if (newTile.x < numTiles && newTile.y < numTiles && newTile.x >= 0 && newTile.y >= 0){
-            if (inResearch && !(research.page[newTile.x][newTile.y] instanceof ResearchNode || research.page[newTile.x][newTile.y] instanceof ResearchConnector )) return;
+            if (inResearch && !(research.page[newTile.x][newTile.y] instanceof ResearchNode ||research.page[newTile.x][newTile.y] instanceof ResearchConnector )) return;
             this.move(newTile);
         }
     }

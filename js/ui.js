@@ -29,7 +29,7 @@ class Research{
     }
 
     changeTab(inc){
-        if (this.tabs.length == this.currentpage + inc || this.currentpage + inc < 0) return;
+        if (this.tabs.length == this.currentpage + inc ||this.currentpage + inc < 0) return;
         this.currentpage+= inc;
         this.page = this.tabs[this.currentpage];
     }
@@ -176,7 +176,7 @@ class TutorialDisplay{
         for(let i=0;i<spellpatterns[this.type][0].length+2;i++){
             this.cage[i] = [];
             for(let j=0;j<spellpatterns[this.type][0].length+2;j++){
-                if((i == 0 && j == 0) || (i == spellpatterns[this.type][0].length+1 && j == spellpatterns[this.type][0].length+1) || (i == 0 && j == spellpatterns[this.type][0].length+1) || (j == 0 && i == spellpatterns[this.type][0].length+1)) this.cage[i][j] = new Floor(i,j);
+                if((i == 0 && j == 0) || (i == spellpatterns[this.type][0].length+1 && j == spellpatterns[this.type][0].length+1) ||(i == 0 && j == spellpatterns[this.type][0].length+1) ||(j == 0 && i == spellpatterns[this.type][0].length+1)) this.cage[i][j] = new Floor(i,j);
                 else if (i == 0) this.cage[i][j] = new CageWall(i,j,"w");
                 else if (j == 0) this.cage[i][j] = new CageWall(i,j,"n");
                 else if (i == spellpatterns[this.type][0].length+1) this.cage[i][j] = new CageWall(i,j,"e");
@@ -226,7 +226,7 @@ class ComponentsDisplay{
         for(let i=0;i<5+2;i++){
             this.cage[i] = [];
             for(let j=0;j<4+2;j++){
-                if((i == 0 && j == 0) || (i == 5+1 && j == 4+1) || (i == 0 && j == 4+1) || (j == 0 && i == 5+1)) this.cage[i][j] = new Floor(i,j);
+                if((i == 0 && j == 0) || (i == 5+1 && j == 4+1) ||(i == 0 && j == 4+1) ||(j == 0 && i == 5+1)) this.cage[i][j] = new Floor(i,j);
                 else if (i == 0) this.cage[i][j] = new CageWall(i,j,"w");
                 else if (j == 0) this.cage[i][j] = new CageWall(i,j,"n");
                 else if (i == 5+1) this.cage[i][j] = new CageWall(i,j,"e");
@@ -595,7 +595,7 @@ class DrawWheel{
 
     reshuffle(){
         for(let i=0;i<this.discard.length;i++){
-            if(!this.discard[i].turbulent || world.tranquil){
+            if(!this.discard[i].turbulent ||world.tranquil){
                 if (this.pile[this.pile.length-1]) this.discard[i].angle = this.pile[this.pile.length-1].angle-0.5;
                 this.pile.push(this.discard[i]);
                 this.discard[i] = "deleted";
@@ -1181,7 +1181,7 @@ class Inventory{
     castContin(word, isPlayer){
         for (let i of this.active){
             if (i.contingencies && i.contingencies.includes(word)){
-                if (soulcosts[word] && (isPlayer == null || isPlayer)){
+                if (soulcosts[word] && (isPlayer == null ||isPlayer)){
                     if (wheel.ipseity < soulcosts[word]){
                         shakeAmount = 5;
                         log.addLog("NoShards");

@@ -446,7 +446,7 @@ function draw(){
         //ctx.lineTo(0, 577);
         //ctx.stroke();
     }
-    var imgData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+    //var imgData = ctx.getImageData(0, 0, canvas.width, canvas.height);
 }
 
 function summonExits(){

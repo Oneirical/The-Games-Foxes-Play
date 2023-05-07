@@ -1,6 +1,6 @@
 I have a GitHub now! My code is accessible by all, and I hope programmers will recount its terrifying syntax around campfires to scare each other. I never had actual dev experience and learned everything from the internet, so, uh, what even are those "good practices" everyone talks about? Surely they don't have anything to do with the funny noises my computer fans make when I boot up my game...
 
-**The Games Foxes Play** ([github](https://github.com/Oneirical/The-Games-Foxes-Play) | [original post](https://www.reddit.com/r/roguelikedev/comments/uzb3iu/sharing_saturday_416/iaa1w3u/))
+**The Games Foxes Play** ([github](https://github.com/Oneirical/The-Games-Foxes-Play) |[original post](https://www.reddit.com/r/roguelikedev/comments/uzb3iu/sharing_saturday_416/iaa1w3u/))
 
 This week, I started work on diversifying the 4 branches of the game. Traditionally, roguelike players move between branches by finding entrances, but I think that's kind of boring. It makes every game start in a "Dungeon", locking away all the cool environments behind progression, and makes early splats extremely repetitive. In my game, you will always start in the same branch, yes, but every single time you *die*, you will randomly continue your adventure in one of the other branches. If you die in F:3, you may respawn in C:4, and when you later die in C:7, you might respawn in F:8. Dying in my game is part of the mechanics, and the amount of times you can respawn is your "real" HP bar. I was inspired by Felid gameplay in DCSS, after all.
 

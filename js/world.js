@@ -358,8 +358,8 @@ class World{
     }
 
     checkPixel(tile){
-        if (tile instanceof BExit || tile instanceof MapExit) return 6;
-        else if (tile instanceof BAscendExit || tile instanceof AscendExit) return 2; //
+        if (tile instanceof BExit ||tile instanceof MapExit) return 6;
+        else if (tile instanceof BAscendExit ||tile instanceof AscendExit) return 2; //
         else if (tile instanceof Window) return 7;
         else if (tile.passable || tile instanceof RealityWall) return 5;
         else return 0;
@@ -509,7 +509,7 @@ class World{
                     let flip = false;
                     let corridor = false;
                     let bannedsquares = [];
-                    //if ((j == 8 && i == 4) || (j == 4 && i == 8) || (j == 0 && i == 4) || (j == 4 && i == 0)) roomType = EmptyFaith;
+                    //if ((j == 8 && i == 4) || (j == 4 && i == 8) ||(j == 0 && i == 4) ||(j == 4 && i == 0)) roomType = EmptyFaith;
                     //else if (j == 4 && i == 4) roomType = PlateGenerator;
                     if (this.reward["Form"].includes("EPSILON") && j < 8 && i < 8 && worldgen[i+1][j].passable && worldgen[i][j+1].passable && worldgen[i+1][j+1].passable && !isArrayInArray(bannedsquares,[i+1,j]) && !isArrayInArray(bannedsquares,[i+1,j+1]) && !isArrayInArray(bannedsquares,[i,j+1])){
                         if (!placedboss){
@@ -615,7 +615,7 @@ class World{
         for(let i=0;i<9;i++){
             worldgen[i] = [];
             for(let j=0;j<9;j++){
-                if((j==8&&i==4)||(j==0&&i==4) || (j==4&&i==8) || (j==4&&i==0) || (j==4&&i==4)){
+                if((j==8&&i==4)||(j==0&&i==4) || (j==4&&i==8) || (j==4&&i==0) ||(j==4&&i==4)){
                     worldgen[i][j] = new Floor(i,j); // ridiculous, but ingenious!
                     passableRooms++;
                 }
