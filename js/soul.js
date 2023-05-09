@@ -6,6 +6,7 @@ const powerratings = {
     "STEP" : -2,
     "TURNEND" : -3,
     "ATTACK" : -1,
+    "PLUS" : 4,
 }
 
 function getSouls(){
@@ -52,7 +53,15 @@ targeters = {
         return [newTile];
     },
     EPSILON: function(caster){
-    }
+    },
+    PLUS: function(caster){
+        let targets = [];
+        targets.push(caster.tile);
+        caster.tile.getAdjacentNeighbors().forEach(function(t){
+            targets.push(t);
+        });
+        return targets;
+    },
 }
 
 // ARTISTICMINE - LASTMOVE>RANDOMDIR - SACRIFICE (Dump wheel) - DAMPENER (reduce power, get something in exchange) - ALLOUT (lose all resolve, get power)
@@ -139,8 +148,22 @@ modifiers = {
         mods["power"] -= 1;
         return mods;
     },
+    CRIPPLE: function(mods){
+        mods["power"] -= 3;
+        return mods;
+    },
     WEAKEN: function(mods){
         mods["power"] -= 4;
+        return mods;
+    },
+    DEVOUR: function(mods){
+        let targets = mods["targets"];
+        for (let target of targets){
+            if (!target.passable && inBounds(target.x,target.y) && target.eat){
+                target.replace(Floor);
+                mods["power"] += 1;
+            }
+        }
         return mods;
     },
 }
@@ -182,6 +205,11 @@ effects = {
     APIS: function(target,power){
         if (target.monster){
             target.monster.giveEffect("Constricted",power);
+        }
+    },
+    HEAL: function(target,power){
+        if (target.monster){
+            target.monster.heal(power);
         }
     },
     GYVJI: function(targeti,power){

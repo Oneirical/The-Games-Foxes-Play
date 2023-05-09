@@ -226,6 +226,7 @@ class Monster{
     }
 
     heal(damage){
+        if (damage <= 0) return;
         if (this instanceof Tail){
             for (let x of monsters){
                 if (x instanceof Epsilon) x.hp = Math.min(33, x.hp+damage);
@@ -233,6 +234,7 @@ class Monster{
         }
         else if (this.statuseff["Dissociated"] == 0) this.hp = Math.min(maxHp, this.hp+damage);
         else if (this.statuseff["Dissociated"] > 0) this.falsehp = Math.min(maxHp, this.falsehp+(damage*2));
+        this.influences.castContin("ONHEAL",this.isPlayer);
     }
 
     assignAxiom(co,fo,mu,fu,ca){
@@ -676,7 +678,8 @@ class Monster{
         }
     }
 
-    hit(damage){            
+    hit(damage){  
+        if (damage <= 0) return;          
         if(this.statuseff["Invincible"]>0 || (this.isInvincible && this.order < 0)){           
             return;                                                             
         }
@@ -1164,16 +1167,8 @@ class Second extends Monster{
         this.soul = "Animated by a Vile (1) soul.";
         this.name = "Second Emblem of Sin";
         this.ability = monabi["Second"];
-    }
-
-    doStuff(){
-        let neighbors = this.tile.getAdjacentNeighbors().filter(t => !t.passable && inBounds(t.x,t.y) && t.eat);
-        if(neighbors.length){
-            neighbors[0].replace(Floor);
-            this.heal(0.5);
-        }else{
-            super.doStuff();
-        }
+        this.assignAxiom(["TURNEND"],["PLUS"],["NEUTER","DEVOUR"],["HEAL"],"VILE");
+        this.assignAxiom(["ONHEAL"],["EGO"],["CRIPPLE"],["STOP"],"ORDERED");
     }
 }
 
