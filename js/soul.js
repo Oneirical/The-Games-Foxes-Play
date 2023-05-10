@@ -76,7 +76,7 @@ class ClickTrap{
 
     trigger(){
         for (let i of this.functions){
-            effects[i]([this.tile],this.power);
+            effects[i](this.tile,this.power);
         }
     }
 }
@@ -142,6 +142,10 @@ modifiers = {
                 }
             }
         }
+        return mods;
+    },
+    BUFF: function(mods){
+        mods["power"] += 1;
         return mods;
     },
     NEUTER: function(mods){
@@ -215,6 +219,11 @@ effects = {
     HEAL: function(target,power){
         if (target.monster){
             target.monster.heal(power);
+        }
+    },
+    THRASH: function(target,power){
+        if (target.monster){
+            target.monster.giveEffect("Thrashing",power*2);
         }
     },
     GYVJI: function(targeti,power){

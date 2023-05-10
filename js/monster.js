@@ -208,6 +208,7 @@ class Monster{
             "Decaying" : 0,
             "Paralyzed" : 0,
             "Hasted" : 0,
+            "Thrashing" : 0,
         }
 
         this.permacharm = false;
@@ -333,7 +334,7 @@ class Monster{
             }
            
            let newTile = neighbors[0];
-           if (this.previousdir){
+           if (this.previousdir){ // this doesn't seem to work...
                if (newTile.x == this.previousdir.x && newTile.y == this.previousdir.y && this.speed > 1 && neighbors.length > 1) newTile = neighbors[1];
                else if (newTile.x == this.previousdir.x && newTile.y == this.previousdir.y && this.speed > 1 && neighbors.length <= 1) return; 
            }
@@ -494,6 +495,13 @@ class Monster{
     }   
 
     tryMove(dx, dy){
+        if (this.statuseff["Thrashing"] > 0){
+            let neighbors = this.tile.getAdjacentPassableNeighbors();
+            if(neighbors.length){
+                dx = neighbors[0].x - this.tile.x;
+                dy = neighbors[0].y - this.tile.y;
+            }
+        }
         let movesave;
         if (dx == -this.lastMove[0] && dy == -this.lastMove[1] && (this instanceof Epsilon)){
             movesave = dx;
@@ -866,8 +874,8 @@ class Terminal extends Monster{
 
     tryMove(dx, dy){
         if (gameState != "running") return;
-        if (this.para > 0){
-            player.para--;
+        if (this.statuseff["Paralyzed"] > 0){
+            lose(this.statuseff["Paralyzed"],1);
             tick();
             return;
         }
@@ -1178,13 +1186,7 @@ class Tinker extends Monster{
         this.soul = "Animated by an Artistic (4) soul.";
         this.name = "Frenzied Dream-Tinker";
         this.ability = monabi["Tinker"];
-    }
-
-    doStuff(){
-        let neighbors = this.tile.getAdjacentPassableNeighbors();
-        if(neighbors.length){
-            this.tryMove(neighbors[0].x - this.tile.x, neighbors[0].y - this.tile.y);
-        }
+        this.assignAxiom(["TURNEND"],["EGO"],[],["THRASH"],"FERAL");
     }
 }
 
@@ -1440,14 +1442,8 @@ class Slug extends Monster{
         this.soul = "Animated by an Ordered (5) soul.";
         this.name = "Shackle-Slug";
         this.ability = monabi["Slug"];
-    }
-    update(){
-        let startedStunned = this.stunned;
-        super.update();
-        if(!startedStunned && this.teleportCounter != 0){
-            this.stunned = true;
-            this.tile.cuff = true;
-        }
+        this.assignAxiom(["STEP"],["EGO"],["NEUTER"],["STOP"],"ORDERED");
+        this.assignAxiom(["TURNEND"],["EGO"],["BUFF","CLICK"],["STOP"],"SAINTLY");
     }
 }
 
