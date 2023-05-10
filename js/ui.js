@@ -284,16 +284,16 @@ class ComponentsDisplay{
         if (!this.cost) this.cost = 0;
         for(let i=0;i<this.cage.length;i++){
             for(let j=0;j<this.cage.length-1;j++){
-                let size = 64;
+                let size = 100;
                 if (this.cage[i][j].seq && this.cage[i][j].seq == legendaries.describepage+1 && (inInventory)){
                     this.cage[i][j].sprite = 126;
-                    drawSymbol(this.cage[i][j].value.icon, 890, 20, 64);
+                    drawSymbol(this.cage[i][j].value.icon, 890, 20, 100);
                 }
                 else if (this.cage[i][j].seq != null) this.cage[i][j].sprite = this.cage[i][j].spritesave;
                 if (!(this.cage[i][j].sprite == 2)) this.cage[i][j].drawFreeform(673-size/2*(this.cage.length-3),64+546-size/2*(this.cage.length-3),size);
-                drawSymbol(12, 673-size/2*(this.cage.length-3)+40, 46+546-size/2*(this.cage.length-3), 64);
+                drawSymbol(12, 673-size/2*(this.cage.length-3)+40, 46+546-size/2*(this.cage.length-3), 100);
                 printOutText(this.power+"",40, 660, 508, "lightsteelblue",20,350); //
-                drawSymbol(49, 673-size/2*(this.cage.length-3)+89+64*4, 46+546-size/2*(this.cage.length-3), 64);
+                drawSymbol(49, 673-size/2*(this.cage.length-3)+89+64*4, 46+546-size/2*(this.cage.length-3), 100);
                 printOutText(this.cost+"",40, 855, 508, "plum",20,350); //add for shattered energy
                 const hijack = {
                     "VILE" : 5,
@@ -304,7 +304,7 @@ class ComponentsDisplay{
                     "SAINTLY" : 0
                 }
                 const index = hijack[this.caste];
-                drawSymbol(index, ((673-size/2*(this.cage.length-3)+89+64*4)+673-size/2*(this.cage.length-3)+40)/2, 46+546-size/2*(this.cage.length-3), 64);
+                drawSymbol(index, ((673-size/2*(this.cage.length-3)+89+64*4)+673-size/2*(this.cage.length-3)+40)/2, 46+546-size/2*(this.cage.length-3), 100);
             }
         }
     }
@@ -1139,7 +1139,7 @@ class Inventory{
     constructor(){
         this.active = [new Vile(),new Feral(),new Unhinged(),new Artistic(),new Ordered(),new Saintly()];
         this.storage = [new Empty(),new Empty(),new Empty(),new Empty()];
-        this.actcoords = [[148, 76],[366, 76],[76, 256],[438, 256],[148, 438],[366, 438]];
+        this.actcoords = [[148, 76],[366, 76],[76, 256],[437, 256],[148, 438],[366, 438]];
         this.actcoords.reverse();//don't feel like re-writing these in the correct order lmao
         this.castes = ["VILE","FERAL","UNHINGED","ARTISTIC","ORDERED","SAINTLY","SERENE"];
         this.castesclass = [new Vile(),new Feral(),new Unhinged(),new Artistic(),new Ordered(),new Saintly()];
@@ -1190,31 +1190,31 @@ class Inventory{
     display(){
         drawFilter(blackfilter);
         this.exppage.display();
-        drawSymbol(6, 0, 0, 577);
+        drawSymbol(6, 0, 0, 900);
         //drawSymbol(6, 577, 30, 577/1.5); //for the cursor later
         //drawSymbol(6, 880, 490, 64);
         ctx.globalAlpha = 0.55;
         //intérieur
         for (let k of this.active){
             ctx.globalAlpha = k.alpha;
-            drawSymbol(k.icon, this.actcoords[this.active.indexOf(k)][0], this.actcoords[this.active.indexOf(k)][1], 64);
+            drawSymbol(k.icon, this.actcoords[this.active.indexOf(k)][0]*900/577, this.actcoords[this.active.indexOf(k)][1]*900/577, 100);
         }
         //stockage
         for (let k of this.storage){
             ctx.globalAlpha = k.alpha;
-            drawSymbol(k.icon, this.storecoords[this.storage.indexOf(k)][0], this.storecoords[this.storage.indexOf(k)][1], 64);
+            drawSymbol(k.icon, this.storecoords[this.storage.indexOf(k)][0]*900/577, this.storecoords[this.storage.indexOf(k)][1]*900/577, 100);
         }
-        printOutText("1",22, 482, 478, "white",20,350);
-        printOutText("2",22, 80, 478, "white",20,350);
-        printOutText("3",22, 554, 297, "white",20,350);
-        printOutText("4",22, 10, 297, "white",20,350);
-        printOutText("5",22, 482, 116, "white",20,350);
-        printOutText("6",22, 80, 116, "white",20,350);
-        printOutText("7",22, 229, 194, "black",20,350);
-        printOutText("8",22, 229, 194+68, "black",20,350);
-        printOutText("9",22, 229, 194+138, "black",20,350);
-        printOutText("0",22, 229, 194+138+68, "black",20,350);
-        printOutText(messages["InvTutorial"], 18, 10, 600, "white", 20, 560);
+        printOutText("1",22, 482*900/577, 478*900/577, "white",20,350);
+        printOutText("2",22, 80*900/577, 478*900/577, "white",20,350);
+        printOutText("3",22, 554*900/577, 297*900/577, "white",20,350);
+        printOutText("4",22, 10*900/577, 297*900/577, "white",20,350);
+        printOutText("5",22, 482*900/577, 116*900/577, "white",20,350);
+        printOutText("6",22, 80*900/577, 116*900/577, "white",20,350);
+        printOutText("7",22, 229*900/577, 194*900/577, "black",20,350);
+        printOutText("8",22, 229*900/577, (194+68)*900/577, "black",20,350);
+        printOutText("9",22, 229*900/577, (194+138)*900/577, "black",20,350);
+        printOutText("0",22, 229*900/577, (194+138+68)*900/577, "black",20,350);
+        //printOutText(messages["InvTutorial"], 18, 10, 600, "white", 20, 560);
         
     }
 

@@ -129,8 +129,8 @@ function drawFilter(filter){
         577,
         0 + shakeX,
         0 + shakeX,
-        577,
-        577
+        900,
+        900
     );
 }
 
@@ -402,24 +402,24 @@ function draw(){
             ctx.stroke();
         }
         else{
-            ctx.beginPath();
+            //ctx.beginPath();
             ctx.moveTo(0, 577);
             ctx.lineTo(577, 577);
-            ctx.stroke();
+            //ctx.stroke();
             if (inResearch || (!inInventory && !(world.getRoom() instanceof SoulCage))){
                 ctx.beginPath();
                 ctx.moveTo(0, 695);
                 ctx.lineTo(577, 695);
                 ctx.stroke();
             }
-            ctx.beginPath();
+            //ctx.beginPath();
             ctx.moveTo(577, 833);
             ctx.lineTo(577, 0);
-            ctx.stroke();
-            ctx.beginPath();
+            //ctx.stroke();
+            //ctx.beginPath();
             ctx.moveTo(960, 450);
             ctx.lineTo(577, 450);
-            ctx.stroke();
+            //ctx.stroke();
         }
         if (inMap) world.display();
         //if (inBigMap) universe.display(); // break in case of sanity

@@ -961,8 +961,8 @@ class ResearchNode extends Floor{
     draw(){
         if (!this.discovered) ctx.globalAlpha = 0.55;
         super.draw();
-        if (this.discovered) drawSymbol(this.contents, this.x*tileSize+8, this.y*tileSize+8,48);
-        else drawSymbol(7, this.x*tileSize+8, this.y*tileSize+8,48);
+        if (this.discovered) drawSymbol(this.contents, this.x*100+18, this.y*100+17,64);
+        else drawSymbol(7, this.x*100+18, this.y*100+17,64);
         if (!this.discovered) ctx.globalAlpha = 1;
     }
 }
