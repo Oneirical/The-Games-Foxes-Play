@@ -207,6 +207,11 @@ effects = {
             target.monster.giveEffect("Constricted",power);
         }
     },
+    HASTE: function(target,power){
+        if (target.monster){
+            target.monster.giveEffect("Hasted",power*2);
+        }
+    },
     HEAL: function(target,power){
         if (target.monster){
             target.monster.heal(power);

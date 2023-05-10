@@ -183,6 +183,7 @@ class Monster{
         this.offsetX = 0;                                                   
         this.offsetY = 0;
         this.souldropped = false; 
+        this.hastedthisturn = false;
         this.lastMove = [-1,0];
         this.targeted = false;   
         this.bonusAttack = 0;
@@ -206,6 +207,7 @@ class Monster{
             "Puppeteered" : 0,
             "Decaying" : 0,
             "Paralyzed" : 0,
+            "Hasted" : 0,
         }
 
         this.permacharm = false;
@@ -338,6 +340,12 @@ class Monster{
            this.tryMove(newTile.x - this.tile.x, newTile.y - this.tile.y);
            this.previousdir =this.tile;
        }
+       if (this.statuseff["Hasted"] > 0 && !this.hastedthisturn){
+            this.hastedthisturn = true;
+            this.doStuff();
+            return;
+       }
+       this.hastedthisturn = false;
     }
 
     useAbility(spellName){
@@ -1139,15 +1147,7 @@ class Shrike extends Monster{
         this.name = "Starpaper Shrike";
         this.ability = monabi["Shrike"];
         this.speed = 2;
-    }
-
-    doStuff(){
-        this.attackedThisTurn = false;
-        super.doStuff();
-
-        if(!this.attackedThisTurn){
-            super.doStuff();
-        }
+        this.assignAxiom(["TURNEND"],["EGO"],[],["HASTE"],"FERAL");
     }
 }
 
