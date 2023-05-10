@@ -16,11 +16,7 @@
 
 * Relay up the data transfer better. summon(), giveEffect(), effectRunsOut(), teleport(), ...
 
-* Apis
-When attack
-On smooch
-Delay to attack
-apply constrict
+* second rewrite lore to feed others
 
 * Shrike
 When turn ends

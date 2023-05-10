@@ -39,18 +39,7 @@ function setupCanvas(){
         let y = event.clientY - rect.top;
         let clickpos = [x,y];
         if (gameState != "title"){
-            if(inInventory){
-                for (let i of legendaries.storecoords){
-                    if (clickpos[0] > i[0] && clickpos[0] < (i[0]+64) && clickpos[1] > i[1] && clickpos[1] < (i[1]+64)){
-                        legendaries.activateAxiom(legendaries.storecoords.indexOf(i));
-                    }
-                }
-                for (let i of legendaries.actcoords){
-                    if (clickpos[0] > i[0] && clickpos[0] < (i[0]+64) && clickpos[1] > i[1] && clickpos[1] < (i[1]+64)){
-                        legendaries.storeSoul(legendaries.actcoords.indexOf(i));
-                    }
-                }
-            }
+            legendaries.click(clickpos[0],clickpos[1]);
         }
         if(gameState != "dead" && gameState != "title"){
             let mousdes = Math.ceil((clickpos[1] - 130)/20);

@@ -591,6 +591,7 @@ class DrawWheel{
                 k++;
             }
         }
+        legendaries.displaySmall();
     }
 
     reshuffle(){
@@ -1142,9 +1143,48 @@ class Inventory{
         this.actcoords.reverse();//don't feel like re-writing these in the correct order lmao
         this.castes = ["VILE","FERAL","UNHINGED","ARTISTIC","ORDERED","SAINTLY","SERENE"];
         this.castesclass = [new Vile(),new Feral(),new Unhinged(),new Artistic(),new Ordered(),new Saintly()];
-        this.storecoords = [[257, 154],[257, 154+68],[257, 154+138],[257, 154+138+68]];   
+        this.storecoords = [[257, 154],[257, 154+68],[257, 154+138],[257, 154+138+68]];
+        this.mactcoords = [[1504,488],[1408,488],[1536,408],[1376,408],[1504,328],[1408,328]]
+        //this.mactcoords = [[]];
+        let store1 = [1456,360];
+        let store2 = 32;
+        this.mstorecoords = [];
+        for (let i = 0; i<4;i++){
+            this.mstorecoords.push([store1[0],store1[1]+store2*i]);
+        }
         this.exppage = new ComponentsDisplay();
         this.describepage = 0;
+    }
+
+    click(x,y){
+        if (inInventory){
+            for (let i of this.actcoords){
+                if (x >= i[0] && x <= i[0]+100 && y >= i[1] && y <= i[1] + 100){
+                    this.storeSoul(this.actcoords.indexOf(i));
+                    return;
+                }
+            }
+            for (let i of this.storecoords){
+                if (x >= i[0] && x <= i[0]+100 && y >= i[1] && y <= i[1] + 100){
+                    this.activateAxiom(this.storecoords.indexOf(i));
+                    return;
+                }
+            }
+        }
+        else{
+            for (let i of this.mactcoords){
+                if (x >= i[0] && x <= i[0]+32 && y >= i[1] && y <= i[1] + 32){
+                    this.storeSoul(this.mactcoords.indexOf(i));
+                    return;
+                }
+            }
+            for (let i of this.mstorecoords){
+                if (x >= i[0] && x <= i[0]+32 && y >= i[1] && y <= i[1] + 32){
+                    this.activateAxiom(this.mstorecoords.indexOf(i));
+                    return;
+                }
+            }
+        }
     }
 
     display(){
@@ -1176,6 +1216,18 @@ class Inventory{
         printOutText("0",22, 229, 194+138+68, "black",20,350);
         printOutText(messages["InvTutorial"], 18, 10, 600, "white", 20, 560);
         
+    }
+
+    displaySmall(){
+        ctx.globalAlpha = 0.55;
+        for (let k of this.active){
+            ctx.globalAlpha = k.alpha;
+            drawSymbol(k.icon, this.mactcoords[this.active.indexOf(k)][0], this.mactcoords[this.active.indexOf(k)][1], 32);
+        }
+        for (let k of this.storage){
+            ctx.globalAlpha = k.alpha;
+            drawSymbol(k.icon, this.mstorecoords[this.storage.indexOf(k)][0], this.mstorecoords[this.storage.indexOf(k)][1], 32);
+        }
     }
 
     castContin(word, isPlayer){
