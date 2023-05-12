@@ -284,17 +284,17 @@ class ComponentsDisplay{
         if (!this.cost) this.cost = 0;
         for(let i=0;i<this.cage.length;i++){
             for(let j=0;j<this.cage.length-1;j++){
-                let size = 100;
+                let size = 64;
                 if (this.cage[i][j].seq && this.cage[i][j].seq == legendaries.describepage+1 && (inInventory)){
                     this.cage[i][j].sprite = 126;
-                    drawSymbol(this.cage[i][j].value.icon, 890, 20, 100);
+                    drawSymbol(this.cage[i][j].value.icon, 890, 20, 64);
                 }
                 else if (this.cage[i][j].seq != null) this.cage[i][j].sprite = this.cage[i][j].spritesave;
-                if (!(this.cage[i][j].sprite == 2)) this.cage[i][j].drawFreeform(673-size/2*(this.cage.length-3),64+546-size/2*(this.cage.length-3),size);
-                drawSymbol(12, 673-size/2*(this.cage.length-3)+40, 46+546-size/2*(this.cage.length-3), 100);
-                printOutText(this.power+"",40, 660, 508, "lightsteelblue",20,350); //
-                drawSymbol(49, 673-size/2*(this.cage.length-3)+89+64*4, 46+546-size/2*(this.cage.length-3), 100);
-                printOutText(this.cost+"",40, 855, 508, "plum",20,350); //add for shattered energy
+                if (!(this.cage[i][j].sprite == 2)) this.cage[i][j].drawFreeform(900,900-256-128,size);
+                drawSymbol(12, 900+64, 46+546-size/2*(this.cage.length-3), 64);
+                printOutText(this.power+"",40, 900+150, 508, "lightsteelblue",20,350); //
+                drawSymbol(49, 900+320, 46+546-size/2*(this.cage.length-3), 64);
+                printOutText(this.cost+"",40, 900+278, 508, "plum",20,350); //add for shattered energy
                 const hijack = {
                     "VILE" : 5,
                     "FERAL" : 4,
@@ -304,7 +304,7 @@ class ComponentsDisplay{
                     "SAINTLY" : 0
                 }
                 const index = hijack[this.caste];
-                drawSymbol(index, ((673-size/2*(this.cage.length-3)+89+64*4)+673-size/2*(this.cage.length-3)+40)/2, 46+546-size/2*(this.cage.length-3), 100);
+                drawSymbol(index, ((673-size/2*(this.cage.length-3)+89+64*4)+673-size/2*(this.cage.length-3)+40)/2, 46+546-size/2*(this.cage.length-3), 64);
             }
         }
     }
@@ -404,14 +404,14 @@ class DrawWheel{
         let first = [587, 420];
         let vert = 52;
         let hori = 64*5-5;
-        center = [760,247];
+        center = [(canvas.height+canvas.width-256)/2-40, 180];
         dist = 100;
         this.circlemotion = {centerX:1108, centerY:204, radius:170};
         this.spinningsouls = [new SpinningSoul(47,0)];
         this.paintcans = [[new SpinningSoul(47,0)],[new SpinningSoul(47,0)],[new SpinningSoul(47,0)],[new SpinningSoul(47,0)],[new SpinningSoul(47,0)],[new SpinningSoul(47,0)],[new SpinningSoul(47,0)]];
         this.paintcoords = [[center[0]+Math.cos(pi/4)*dist, center[1]-Math.sin(pi/4)*dist],[center[0]+dist, center[1]],[center[0]+Math.cos(pi/4)*dist, center[1]+Math.sin(pi/4)*dist],[center[0], center[1]+dist],[center[0]-Math.cos(pi/4)*dist, center[1]+Math.sin(pi/4)*dist],[center[0]-dist, center[1]],[center[0]-Math.cos(pi/4)*dist, center[1]-Math.sin(pi/4)*dist]];
         this.paintcir = [];
-        for (let i of this.paintcoords) this.paintcir.push({centerX:i[0], centerY:i[1], radius:15});
+        for (let i of this.paintcoords) this.paintcir.push({centerX:i[0]+24, centerY:i[1]+24, radius:15});
         this.currentbrush = 8;
         this.turbstatus = true;
         this.castecoords = [first,[first[0]+hori,first[1]],[first[0],first[1]+vert],[first[0]+hori,first[1]+vert],[first[0],first[1]+vert*2],[first[0]+hori,first[1]+vert*2]];
@@ -465,7 +465,7 @@ class DrawWheel{
             }
         }
 
-        drawSymbol(6, canvas.width-256, 296, 256);
+        if (!(world.getRoom() instanceof SoulCage)) drawSymbol(6, canvas.width-256, 296, 256);
         drawSymbol(6, canvas.width-87, canvas.height-334, 64);
         printOutText("L",18, canvas.width-102, canvas.height-295, "white",20,350);
         //drawSymbol(9, 590, 130, 64);
@@ -590,8 +590,8 @@ class DrawWheel{
                 thrasher.thrash(canvas.height+7  + i*18 - (length*18*Math.floor(k/length)),canvas.width-canvas.height-246 + Math.floor(k/length)*18,16);
                 k++;
             }
+            legendaries.displaySmall();
         }
-        legendaries.displaySmall();
     }
 
     reshuffle(){

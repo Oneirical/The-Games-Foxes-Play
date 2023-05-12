@@ -262,16 +262,16 @@ function draw(){
             }
         }
         if (world.getRoom() instanceof SoulCage && !inInventory && !inResearch){
-            length = 9;
+            length = 8;
             j = 0;
             if (!inCatalogue) world.exppage.display();
             //if (world.soulex) world.soulex.describe();
-            for (let i = 0; i<36; i++){
-                let sep = 18*4-8;
-                let drawx = 3  + i*(sep-0.5) - (length*(sep-0.5)*Math.floor(i/length));
-                let drawy = 580 + (Math.floor(i/length)*(sep-2));
-                if (inside[research.knownspells[i]]) drawSymbol(inside[research.knownspells[i]],drawx,drawy,64)
-                else wheel.saved[0].thrash(drawx,drawy,64);
+            for (let i = 0; i<64; i++){
+                let sep = 9*4-4;
+                let drawx = canvas.width-254  + i*(sep-0.5) - (length*(sep-0.5)*Math.floor(i/length));
+                let drawy = 298 + (Math.floor(i/length)*(sep));
+                if (inside[research.knownspells[i]]) drawSymbol(inside[research.knownspells[i]],drawx,drawy,32)
+                else wheel.saved[0].thrash(drawx,drawy,32);
             }
             let cread = getTile(Math.floor((mousepos[0]-shakeX)/tileSize),Math.floor((mousepos[1]-shakeY)/tileSize));
             if (cread instanceof CageContainer){

@@ -617,7 +617,7 @@ class Altar extends Floor{
             return;
         }
         super.draw();
-        if (!world.cage.slots[this.x][this.y].turbulent) drawSymbol(world.cage.slots[this.x][this.y].icon, this.x*tileSize+8, this.y*tileSize+8,48);
+        if (!world.cage.slots[this.x][this.y].turbulent) drawSymbol(world.cage.slots[this.x][this.y].icon, this.x*tileSize+18, this.y*tileSize+18,64);
         else{
             this.thrashcounter++;
             if (this.thrashcounter > 10 && this.offsetX == 0 && this.offsetY == 0){
@@ -628,7 +628,7 @@ class Altar extends Floor{
                 else if (rt == 4)this.offsetY-= 0.1;
                 this.thrashcounter = 0;
             }
-            drawSymbol(world.cage.slots[this.x][this.y].icon, this.getDisplayX()*tileSize + shakeX+8,  this.getDisplayY()*tileSize + shakeY+8,48);
+            drawSymbol(world.cage.slots[this.x][this.y].icon, this.getDisplayX()*tileSize + shakeX+18,  this.getDisplayY()*tileSize + shakeY+18,64);
             ctx.globalAlpha = 1;
             this.offsetX -= Math.sign(this.offsetX)*(this.speed);     
             this.offsetY -= Math.sign(this.offsetY)*(this.speed);
@@ -981,4 +981,11 @@ class Window extends Wall{
         super.draw();
         ctx.globalAlpha = 1;
     }
+}
+
+function goToCage(){
+    tiles[4][0].stepOn(player);
+    tiles[4][0].stepOn(player);
+    summonExits();
+    tiles[4][0].stepOn(player);
 }
