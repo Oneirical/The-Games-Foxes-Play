@@ -25,7 +25,9 @@ Following my horror, I then grabbed my big metaphorical axe and butchered up my 
 
 If any readers feel like this new UI has something out of place or should be improved at some location, now is the time.
 
-At the risk of horrifying some readers of the subreddit, I will say that I build my UI by literally saying "draw this symbol at pixels x: 1473 and y: 843" and going at it trial and error style until everything looks centered and pleasant. I can't help but feel like there might be a better way. Please tell me the secret. No, I don't have an engine or libraries, this is all vanilla JavaScript canvas stuff, but the time might have come where I need to upgrade my foundations a bit.
+At the risk of horrifying some readers of the subreddit, I will say that I build my UI by literally saying "draw this symbol at pixels x: 1473 and y: 843" and going at it trial and error style until everything looks centered and pleasant.
+
+So far, I've been going at it pure JavaScript Canvas Vanilla style, but I am starting to get quite fed up about the graphics constantly getting in the way and sucking up my limited development time moving pixels around instead of coding actually fun stuff. Not to mention my CPU fans going *brrrrrr* every time I open the world map screen due to the hundreds of sprites getting drawn every 15 milliseconds on it. I've been looking into libraries - PixiJS especially, but any one would imply a complete rewrite of my rendering code. Sigh.
 
 # Long Days Ahead
 
