@@ -4,12 +4,18 @@
 <style>
     canvas{
         outline: 1.5px solid white;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        width: 50%;
+        height: 50%;
+        text-align: center;
     }
 
     body{
         background-color: black;
         text-align: center;
-        margin-top: 50px;
     }
     @font-face {
     font-family: 'Play';
@@ -71,6 +77,7 @@
     var monsters = [];
     var droppedsouls = [];
     var world;
+    var resolutionSize = 7;
     area = "Faith";
  
     cursormode = false;
@@ -122,6 +129,7 @@
                 inResearch = false;
                 cursormode = false;
             }
+            if (e.key == "k") toggleFullScreen();
             if(e.key=="a"&&inInventory) if (legendaries.describepage > 0) legendaries.describepage--;
             if(e.key=="d"&&inInventory) if (legendaries.describepage < maxseq-1) legendaries.describepage++;
             if (e.key == 1 && inResearch){
@@ -153,15 +161,13 @@
                 inInventory = false;
                 inMap = false;
             }
-            if (e.key == "k"){
-                //universe.passUp(0);
-            }
             if (e.key == "o"){ // debug
-                saveGame();
+                resolutionSize--;
+                setupCanvas();
             }
             if (e.key == "p"){ // debug
-                //reloadGame();
-                //return;
+                resolutionSize++;
+                setupCanvas();
             }
             if (inInventory){
                 if (e.key >= 1 && e.key <= 6) legendaries.storeSoul(e.key-1);
@@ -250,7 +256,6 @@
             //if(e.key=="f" && cursormode && invmode) currentspelldesc = player.activemodule;
             if(e.key=="q" && !cursormode && player.para == 0) wheel.drawSoul();//player.drawSpell();
             //if(e.key=="f" && gameState == "running" && !cursormode) inResearch = !inResearch;//log.addLog("WIP");//player.cycleModules();
-            if(e.key=="p") cursor.debug();
             
         }else if(gameState == "contemplation"){
             if(e.key>=1 && e.key<=9 && !cursormode && player.para == 0) wheel.castSoul(e.key-1);

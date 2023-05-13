@@ -1,13 +1,22 @@
+function toggleFullScreen() {
+    if (!document.fullscreenElement) {
+      document.documentElement.requestFullscreen();
+    } else if (document.exitFullscreen) {
+      document.exitFullscreen();
+    }
+  }
+  
+
 function setupCanvas(){
     canvas = document.querySelector("canvas");
     ctx = canvas.getContext("2d");
 
     //canvas.width = tileSize*(numTiles+uiWidth);
     //canvas.height = tileSize*(numTiles+uiHeight);
-    canvas.width = 1600; //1024
-    canvas.height = 900; //576
+    canvas.width = resolutionSize*16*16; //1024
+    canvas.height = resolutionSize*16*9; //576
     //960*833
-    //(64*1600*900)/(960*833)
+    //(64*canvas.width*canvas.height)/(960*833)
     canvas.style.width = canvas.width + 'px';
     canvas.style.height = canvas.height + 'px';
     ctx.imageSmoothingEnabled = false;
@@ -129,12 +138,13 @@ function drawFilter(filter){
         577,
         0 + shakeX,
         0 + shakeX,
-        900,
-        900
+        canvas.height,
+        canvas.height
     );
 }
 
 function drawSymbol(sprite, x, y, size){
+    size = size*(resolutionSize*16)/112;
     ctx.drawImage(
         invsheet,
         sprite*16,

@@ -290,11 +290,11 @@ class ComponentsDisplay{
                     drawSymbol(this.cage[i][j].value.icon, 890, 20, 64);
                 }
                 else if (this.cage[i][j].seq != null) this.cage[i][j].sprite = this.cage[i][j].spritesave;
-                if (!(this.cage[i][j].sprite == 2)) this.cage[i][j].drawFreeform(900,900-256-128,size);
-                drawSymbol(12, 900+64, 46+546-size/2*(this.cage.length-3), 64);
-                printOutText(this.power+"",40, 900+150, 508, "lightsteelblue",20,350); //
-                drawSymbol(49, 900+320, 46+546-size/2*(this.cage.length-3), 64);
-                printOutText(this.cost+"",40, 900+278, 508, "plum",20,350); //add for shattered energy
+                if (!(this.cage[i][j].sprite == 2)) this.cage[i][j].drawFreeform(canvas.height,canvas.height-256-128,size);
+                drawSymbol(12, canvas.height+64, 46+546-size/2*(this.cage.length-3), 64);
+                printOutText(this.power+"",40, canvas.height+150, 508, "lightsteelblue",20,350); //
+                drawSymbol(49, canvas.height+320, 46+546-size/2*(this.cage.length-3), 64);
+                printOutText(this.cost+"",40, canvas.height+278, 508, "plum",20,350); //add for shattered energy
                 const hijack = {
                     "VILE" : 5,
                     "FERAL" : 4,
@@ -322,7 +322,7 @@ class MessageLog{
         this.repeats.push(1);
         if (message != this.history[this.history.length-1]){
             this.history.push(message);
-            this.writeheight.push(canvas.height-(230/(1600/canvas.width)));
+            this.writeheight.push(canvas.height-(230/(canvas.width/canvas.width)));
             if (this.writeheight.length > 1){
                 for (let x = this.writeheight.length-2;x >= 0; x--){
                     let thehe = countLines(messages[this.history[this.history.length-1]],canvas.width-canvas.height-20);
@@ -385,12 +385,12 @@ class SpinningSoul{
 class DrawWheel{
     constructor(){
         this.wheel = [new Empty(),new Empty(),new Empty(),new Empty(),new Empty(),new Empty(),new Empty(),new Empty()];
-        let center = [(canvas.height+canvas.width-256)/2-40, 180]; //256: minimap height
-        this.dist = 100;
+        let center = [(canvas.height+canvas.width-256)/2-40, 195*canvas.height/900]; //256: minimap height
+        this.dist = 100*(resolutionSize/7);
         let dist = this.dist;
         let pi = Math.PI;
         this.wheelcoords = [[center[0], center[1]-dist],[center[0]+Math.cos(pi/4)*dist, center[1]-Math.sin(pi/4)*dist],[center[0]+dist, center[1]],[center[0]+Math.cos(pi/4)*dist, center[1]+Math.sin(pi/4)*dist],[center[0], center[1]+dist],[center[0]-Math.cos(pi/4)*dist, center[1]+Math.sin(pi/4)*dist],[center[0]-dist, center[1]],[center[0]-Math.cos(pi/4)*dist, center[1]-Math.sin(pi/4)*dist]];
-        dist = 45;
+        dist = 45*(resolutionSize/7);
         center = [center[0]+28,center[1]+38];
         this.hotkeycoords = [[center[0], center[1]-dist],[center[0]+Math.cos(pi/4)*dist, center[1]-Math.sin(pi/4)*dist],[center[0]+dist, center[1]],[center[0]+Math.cos(pi/4)*dist, center[1]+Math.sin(pi/4)*dist],[center[0], center[1]+dist],[center[0]-Math.cos(pi/4)*dist, center[1]+Math.sin(pi/4)*dist],[center[0]-dist, center[1]],[center[0]-Math.cos(pi/4)*dist, center[1]-Math.sin(pi/4)*dist]];
 
@@ -1190,30 +1190,30 @@ class Inventory{
     display(){
         drawFilter(blackfilter);
         this.exppage.display();
-        drawSymbol(6, 0, 0, 900);
+        drawSymbol(6, 0, 0, canvas.height);
         //drawSymbol(6, 577, 30, 577/1.5); //for the cursor later
         //drawSymbol(6, 880, 490, 64);
         ctx.globalAlpha = 0.55;
         //intérieur
         for (let k of this.active){
             ctx.globalAlpha = k.alpha;
-            drawSymbol(k.icon, this.actcoords[this.active.indexOf(k)][0]*900/577, this.actcoords[this.active.indexOf(k)][1]*900/577, 100);
+            drawSymbol(k.icon, this.actcoords[this.active.indexOf(k)][0]*canvas.height/577, this.actcoords[this.active.indexOf(k)][1]*canvas.height/577, 100);
         }
         //stockage
         for (let k of this.storage){
             ctx.globalAlpha = k.alpha;
-            drawSymbol(k.icon, this.storecoords[this.storage.indexOf(k)][0]*900/577, this.storecoords[this.storage.indexOf(k)][1]*900/577, 100);
+            drawSymbol(k.icon, this.storecoords[this.storage.indexOf(k)][0]*canvas.height/577, this.storecoords[this.storage.indexOf(k)][1]*canvas.height/577, 100);
         }
-        printOutText("1",22, 482*900/577, 478*900/577, "white",20,350);
-        printOutText("2",22, 80*900/577, 478*900/577, "white",20,350);
-        printOutText("3",22, 554*900/577, 297*900/577, "white",20,350);
-        printOutText("4",22, 10*900/577, 297*900/577, "white",20,350);
-        printOutText("5",22, 482*900/577, 116*900/577, "white",20,350);
-        printOutText("6",22, 80*900/577, 116*900/577, "white",20,350);
-        printOutText("7",22, 229*900/577, 194*900/577, "black",20,350);
-        printOutText("8",22, 229*900/577, (194+68)*900/577, "black",20,350);
-        printOutText("9",22, 229*900/577, (194+138)*900/577, "black",20,350);
-        printOutText("0",22, 229*900/577, (194+138+68)*900/577, "black",20,350);
+        printOutText("1",22, 482*canvas.height/577, 478*canvas.height/577, "white",20,350);
+        printOutText("2",22, 80*canvas.height/577, 478*canvas.height/577, "white",20,350);
+        printOutText("3",22, 554*canvas.height/577, 297*canvas.height/577, "white",20,350);
+        printOutText("4",22, 10*canvas.height/577, 297*canvas.height/577, "white",20,350);
+        printOutText("5",22, 482*canvas.height/577, 116*canvas.height/577, "white",20,350);
+        printOutText("6",22, 80*canvas.height/577, 116*canvas.height/577, "white",20,350);
+        printOutText("7",22, 229*canvas.height/577, 194*canvas.height/577, "black",20,350);
+        printOutText("8",22, 229*canvas.height/577, (194+68)*canvas.height/577, "black",20,350);
+        printOutText("9",22, 229*canvas.height/577, (194+138)*canvas.height/577, "black",20,350);
+        printOutText("0",22, 229*canvas.height/577, (194+138+68)*canvas.height/577, "black",20,350);
         //printOutText(messages["InvTutorial"], 18, 10, 600, "white", 20, 560);
         
     }
