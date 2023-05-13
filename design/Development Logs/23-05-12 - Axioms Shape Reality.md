@@ -17,11 +17,15 @@ For clarity, these spells are now named Axioms. Lore-wise, they are an unshakabl
 
 This ironically also makes it much easier for me to add new enemies, since all I must do is look at my ever-growing list of spell components, jam a couple that seem funny together, and go for a test run. If I'm happy, I sketch a quick sprite, give it some crispy lore and I'm done.
 
+Hard to show off this feature in a screenshot, since everything mechanically works the same as it used to, but I guess [this code](https://cdn.discordapp.com/attachments/504088568084561930/1106749090638864414/image.png) looks pretty neat.
+
 # Vision Stretches Out From Squares
 
 While I was reading about Path of Achra's awesome launch on Steam, I fell upon an interesting exchange questioning why the game had been made with a 4:3 aspect ratio. This sent me into a reading frenzy about the way games should be displayed, until I eventually came to the harrowing conclusion that my game is impossible to display in glorious fullscreen in its current state.
 
-Following my horror, I then grabbed my big metaphorical axe and butchered up my UI to bits, expanded the screen to majestuous 16:9, and began the rather daunting task of putting everything back together. On the plus side, this gave me much more space to work with, and allowed me to add a [miniature]() Axiom equip screen accessible directly at any time. There are reasons why one would want to swap between two Axioms for a certain task, and speeding up the process instead of mashing the keyboard each time is such a huge improvement. It also makes me feel like I added the equivalent of an "Right arm: Steel Gauntlet" equipment display sidebar to my game, which earns bonus True Roguelike™ points.
+Following my horror, I then grabbed my big metaphorical axe and butchered up my UI to bits, expanded the screen to majestuous 16:9, and began the rather daunting task of putting everything back together. On the plus side, this gave me much more space to work with, and allowed me to add a [miniature (to the right)](https://cdn.discordapp.com/attachments/504088568084561930/1106749495615701042/image.png) Axiom equip screen accessible directly at any time. There are reasons why one would want to swap between two Axioms for a certain task, and speeding up the process instead of mashing the keyboard each time is such a huge improvement. It also makes me feel like I added the equivalent of an "Right arm: Steel Gauntlet" equipment display sidebar to my game, which earns bonus True Roguelike™ points.
+
+Additionally, all Souls loaded up for future usage now spin around your casting wheel. [Look at them go!](https://postimg.cc/XGBG5FjH)
 
 If any readers feel like this new UI has something out of place or should be improved at some location, now is the time.
 
