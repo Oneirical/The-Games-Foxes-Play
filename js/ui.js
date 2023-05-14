@@ -91,6 +91,26 @@ class Research{
     }
 
     display(tab){
+        ctx.beginPath();
+        ctx.moveTo(canvas.height+32, canvas.height);
+        ctx.lineTo(canvas.height+32, 0);
+        ctx.stroke();  
+        for (let i = 0; i<7;i++){
+            ctx.beginPath();
+            ctx.moveTo(canvas.height+128+32, 32+(135*i));
+            ctx.lineTo(canvas.height+128+32, 32+(135*i)+112);
+            ctx.stroke();
+            ctx.beginPath();
+            ctx.moveTo(canvas.height+32, 32+(135*i));
+            ctx.lineTo(canvas.height+128+32, 32+(135*i));
+            ctx.stroke();  
+            ctx.beginPath();
+            ctx.moveTo(canvas.height+32, 32+(135*i)+112);
+            ctx.lineTo(canvas.height+128+32, 32+(135*i)+112);
+            ctx.stroke();
+            if (i == 0) drawSymbol(35,canvas.height+64,32+(135*i)+16,80);
+            else drawSymbol(i-1,canvas.height+64,32+(135*i)+16,80);
+        }
         drawFilter(blackfilter);
         for(let i=0;i<9;i++){
             for(let j=0;j<9;j++){
@@ -119,12 +139,12 @@ class Research{
     displayNode(cx, cy){
         //let colour = "lightgray";
         if (research.page[cx][cy].discovered){
-            printOutText(research.page[cx][cy].lore, 18, 10, 720, "#cda4f2", 20, 560);
-            printOutText(research.page[cx][cy].unlock, 18, 10, 600, "white", 20, 390);
-            printOutText(research.page[cx][cy].name, 18, 590, 30, "white", 20, 350);
-            if (research.page[cx][cy].unlockdata) drawSpriteFreeform(research.page[cx][cy].unlockdata.sprite,8,9,-10,40,64);
-            drawSymbol((research.page[cx][cy].contents), 890, 20, 64);
-            printOutText(research.page[cx][cy].flags, 18, 590, 55, researchflagcolour[research.page[cx][cy].flags], 20, 6*64-35);
+            printOutText(research.page[cx][cy].lore, 18, canvas.height+128+52, 600, "#cda4f2", 20, 560);
+            printOutText(research.page[cx][cy].unlock, 18, canvas.height+128+52, 480, "white", 20, 390);
+            printOutText(research.page[cx][cy].name, 18, canvas.height+128+52, 30, "white", 20, 350);
+            if (research.page[cx][cy].unlockdata) drawSpriteFreeform(research.page[cx][cy].unlockdata.sprite,0,0,canvas.width-80,464,64);
+            drawSymbol((research.page[cx][cy].contents), canvas.width-80, 20, 64);
+            printOutText(research.page[cx][cy].flags, 18, canvas.height+128+52, 55, researchflagcolour[research.page[cx][cy].flags], 20, 6*64-35);
             let description = research.page[cx][cy].capsule;
             if (powerratings[research.page[cx][cy].id]){
                 if (powerratings[research.page[cx][cy].id] > 0) description += "\n[g]Gain " + powerratings[research.page[cx][cy].id] + " Potency.[w]";
@@ -133,16 +153,16 @@ class Research{
             if (soulcosts[research.page[cx][cy].id]){
                 description += "\n[p]Triggering this Contingency will consume "+soulcosts[research.page[cx][cy].id]+ " Ipseity Shards.";
             }
-            printOutText(description, 18, 590, 105, "white", 20, 6*64-35);
+            printOutText(description, 18, canvas.height+128+52, 105, "white", 20, 500);
             if (!this.looking) this.exppage = new TutorialDisplay(research.page[cx][cy].id);
             this.looking = true;
         }
         else{
-            printOutText(researchlore["Null"], 18, 10, 720, "#cda4f2", 20, 560);
-            printOutText(researchnames["Null"], 18, 590, 30, "white", 20, 350);
-            drawSymbol(7, 890, 20, 64);
-            printOutText(researchflags["Null"], 18, 590, 55, researchflagcolour[researchflags["Null"]], 20, 6*64-35);
-            printOutText(researchexpl["Null"], 18, 590, 105, "white", 20, 6*64-35);
+            printOutText(researchlore["Null"], 18, canvas.height+128+52, 720, "#cda4f2", 20, 560);
+            printOutText(researchnames["Null"], 18, canvas.height+128+52, 30, "white", 20, 350);
+            drawSymbol(7, canvas.width-80, 20, 64);
+            printOutText(researchflags["Null"], 18, canvas.height+128+52, 55, researchflagcolour[researchflags["Null"]], 20, 6*64-35);
+            printOutText(researchexpl["Null"], 18, canvas.height+128+52, 105, "white", 20, 6*64-35);
         }
     }
     
@@ -193,8 +213,8 @@ class TutorialDisplay{
     display(){
         for(let i=0;i<this.cage.length;i++){
             for(let j=0;j<this.cage.length;j++){
-                let size = 64;
-                this.cage[i][j].drawFreeform(673-size/2*(this.cage.length-3),546-size/2*(this.cage.length-3),size);
+                let size = 48;
+                this.cage[i][j].drawFreeform((canvas.width+canvas.height)/2-size/2*(this.cage.length-3),canvas.height-256-size/2*(this.cage.length-3),size);
             }
         }
     }
@@ -284,17 +304,17 @@ class ComponentsDisplay{
         if (!this.cost) this.cost = 0;
         for(let i=0;i<this.cage.length;i++){
             for(let j=0;j<this.cage.length-1;j++){
-                let size = 64;
+                let size = 80;
                 if (this.cage[i][j].seq && this.cage[i][j].seq == legendaries.describepage+1 && (inInventory)){
                     this.cage[i][j].sprite = 126;
                     drawSymbol(this.cage[i][j].value.icon, 890, 20, 64);
                 }
                 else if (this.cage[i][j].seq != null) this.cage[i][j].sprite = this.cage[i][j].spritesave;
-                if (!(this.cage[i][j].sprite == 2)) this.cage[i][j].drawFreeform(canvas.height,canvas.height-256-128,size);
-                drawSymbol(12, canvas.height+64, 46+546-size/2*(this.cage.length-3), 64);
-                printOutText(this.power+"",40, canvas.height+150, 508, "lightsteelblue",20,350); //
-                drawSymbol(49, canvas.height+320, 46+546-size/2*(this.cage.length-3), 64);
-                printOutText(this.cost+"",40, canvas.height+278, 508, "plum",20,350); //add for shattered energy
+                if (!(this.cage[i][j].sprite == 2)) this.cage[i][j].drawFreeform(canvas.height-16,canvas.height-256-224+32,size);
+                drawSymbol(12, canvas.height+64, canvas.height-256-210, 64);
+                printOutText(this.power+"",40, canvas.height+150, canvas.height-256-166, "lightsteelblue",20,350); //
+                drawSymbol(49, canvas.height+64+80*4+(80-64), canvas.height-256-210, 64);
+                printOutText(this.cost+"",40, canvas.height+256+96, canvas.height-256-166, "plum",20,350); //add for shattered energy
                 const hijack = {
                     "VILE" : 5,
                     "FERAL" : 4,
@@ -404,8 +424,8 @@ class DrawWheel{
         let first = [587, 420];
         let vert = 52;
         let hori = 64*5-5;
-        center = [(canvas.height+canvas.width-256)/2-40, 180];
-        dist = 100;
+        center = [(canvas.height+canvas.width-256)/2-40, 195*canvas.height/900];
+        dist = 100*(resolutionSize/7);
         this.circlemotion = {centerX:1108, centerY:204, radius:170};
         this.spinningsouls = [new SpinningSoul(47,0)];
         this.paintcans = [[new SpinningSoul(47,0)],[new SpinningSoul(47,0)],[new SpinningSoul(47,0)],[new SpinningSoul(47,0)],[new SpinningSoul(47,0)],[new SpinningSoul(47,0)],[new SpinningSoul(47,0)]];
@@ -581,13 +601,13 @@ class DrawWheel{
         }
         let j = 0;
         let k = 0;
-        let length = 24;
+        let length = 29;
         if (!(world.getRoom() instanceof SoulCage)){
             //84 is max capacity for each box
-            for (let i = 0; i<240; i++){
+            for (let i = 0; i<348; i++){
                 let thrasher = this.saved[0];
                 if (i < this.discard.length)thrasher = this.discard[i];
-                thrasher.thrash(canvas.height+7  + i*18 - (length*18*Math.floor(k/length)),canvas.width-canvas.height-246 + Math.floor(k/length)*18,16);
+                thrasher.thrash(canvas.height+4  + i*18 - (length*18*Math.floor(k/length)),canvas.width-canvas.height-251 + Math.floor(k/length)*18,16);
                 k++;
             }
             legendaries.displaySmall();
@@ -1144,13 +1164,20 @@ class Inventory{
         this.castes = ["VILE","FERAL","UNHINGED","ARTISTIC","ORDERED","SAINTLY","SERENE"];
         this.castesclass = [new Vile(),new Feral(),new Unhinged(),new Artistic(),new Ordered(),new Saintly()];
         this.storecoords = [[257, 154],[257, 154+68],[257, 154+138],[257, 154+138+68]];
-        this.mactcoords = [[1504,488],[1408,488],[1536,408],[1376,408],[1504,328],[1408,328]]
+        this.mactcoords = [[1504,488],[1408,488],[1536,408],[1376,408],[1504,328],[1408,328]];
+        let push = 192;
+        for (let i of this.mactcoords){
+            i[0]+=push;
+        }
         //this.mactcoords = [[]];
         let store1 = [1456,360];
         let store2 = 32;
         this.mstorecoords = [];
         for (let i = 0; i<4;i++){
             this.mstorecoords.push([store1[0],store1[1]+store2*i]);
+        }
+        for (let i of this.mstorecoords){
+            i[0]+=push;
         }
         this.exppage = new ComponentsDisplay();
         this.describepage = 0;
@@ -1197,12 +1224,12 @@ class Inventory{
         //intérieur
         for (let k of this.active){
             ctx.globalAlpha = k.alpha;
-            drawSymbol(k.icon, this.actcoords[this.active.indexOf(k)][0]*canvas.height/577, this.actcoords[this.active.indexOf(k)][1]*canvas.height/577, 100);
+            drawSymbol(k.icon, this.actcoords[this.active.indexOf(k)][0]*canvas.height/577, this.actcoords[this.active.indexOf(k)][1]*canvas.height/577, 112);
         }
         //stockage
         for (let k of this.storage){
             ctx.globalAlpha = k.alpha;
-            drawSymbol(k.icon, this.storecoords[this.storage.indexOf(k)][0]*canvas.height/577, this.storecoords[this.storage.indexOf(k)][1]*canvas.height/577, 100);
+            drawSymbol(k.icon, this.storecoords[this.storage.indexOf(k)][0]*canvas.height/577, this.storecoords[this.storage.indexOf(k)][1]*canvas.height/577, 112);
         }
         printOutText("1",22, 482*canvas.height/577, 478*canvas.height/577, "white",20,350);
         printOutText("2",22, 80*canvas.height/577, 478*canvas.height/577, "white",20,350);

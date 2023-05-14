@@ -766,6 +766,7 @@ researchnames = {
 }
 
 researchlore = {
+    "Awaiting" : "Faith is the key which opens the doors of death.",
     "Intro" : "There is no mistaking that strange buzzing in my brain. This cycle has ended. My pilgrimage begins.",
     "Herald" : "I have waited for far too long an apocalypse that refused to come. I lust to learn what has become of the outside world, and this Herald is my key.",
     "Turbulent" : "The recently liberated still teem with sensation, memory, clinging... I am the voice that will banish these illusions. I am the light that will break their chains.",

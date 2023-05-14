@@ -368,21 +368,23 @@ function draw(){
         }
         ctx.strokeStyle = 'white';
         ctx.lineWidth = 1.5;
+        ctx.beginPath();
+        ctx.moveTo(canvas.height, canvas.height);
+        ctx.lineTo(canvas.height, 0);
+        ctx.stroke();
         if (!inResearch && !inInventory){
             //ctx.beginPath();
             //ctx.moveTo(0, 577);
             //ctx.lineTo(960, 577);
             //ctx.stroke();
             ctx.beginPath();
-            ctx.moveTo(canvas.height, canvas.height);
-            ctx.lineTo(canvas.height, 0);
-            ctx.stroke();
-            ctx.beginPath();
             ctx.moveTo(canvas.width-256, 0);
             ctx.lineTo(canvas.width-256, canvas.height-256);
             ctx.stroke();
+            let bai = canvas.height;
+            if (world.getRoom() instanceof SoulCage) bai = canvas.width-256;
             ctx.beginPath();
-            ctx.moveTo(canvas.height, canvas.height-256);
+            ctx.moveTo(bai, canvas.height-256);
             ctx.lineTo(canvas.width, canvas.height-256);
             ctx.stroke();
 
@@ -416,12 +418,6 @@ function draw(){
             ctx.moveTo(0, 577);
             ctx.lineTo(577, 577);
             //ctx.stroke();
-            if (inResearch || (!inInventory && !(world.getRoom() instanceof SoulCage))){
-                ctx.beginPath();
-                ctx.moveTo(0, 695);
-                ctx.lineTo(577, 695);
-                ctx.stroke();
-            }
             //ctx.beginPath();
             ctx.moveTo(577, 833);
             ctx.lineTo(577, 0);

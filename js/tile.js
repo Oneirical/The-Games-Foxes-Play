@@ -593,7 +593,13 @@ class Altar extends Floor{
 
     drawFreeform(x,y,size){
         super.drawFreeform(x,y,size);
-        if (!this.value.turbulent) drawSymbol(this.value.icon, x+this.x*size+8, y+this.y*size+8,size*3/4);
+        let factor = 8;
+        let beeg = 64;
+        if (size == 48){
+            factor = 8;
+            beeg = 32;
+        }
+        if (!this.value.turbulent) drawSymbol(this.value.icon, x+this.x*size+factor, y+this.y*size+factor,beeg);
         else{
             this.thrashcounter++;
             if (this.thrashcounter > 10 && this.offsetX == 0 && this.offsetY == 0){
@@ -604,7 +610,7 @@ class Altar extends Floor{
                 else if (rt == 4)this.offsetY-= 0.1;
                 this.thrashcounter = 0;
             }
-            drawSymbol(this.value.icon, x+this.getDisplayX()*size+size/8,  y+this.getDisplayY()*size+size/8,size*3/4);
+            drawSymbol(this.value.icon, x+this.getDisplayX()*size+factor,  y+this.getDisplayY()*size+factor,beeg);
             ctx.globalAlpha = 1;
             this.offsetX -= Math.sign(this.offsetX)*(this.speed);     
             this.offsetY -= Math.sign(this.offsetY)*(this.speed);
@@ -617,7 +623,7 @@ class Altar extends Floor{
             return;
         }
         super.draw();
-        if (!world.cage.slots[this.x][this.y].turbulent) drawSymbol(world.cage.slots[this.x][this.y].icon, this.x*tileSize+18, this.y*tileSize+18,64);
+        if (!world.cage.slots[this.x][this.y].turbulent) drawSymbol(world.cage.slots[this.x][this.y].icon, this.x*tileSize+16, this.y*tileSize+16,80);
         else{
             this.thrashcounter++;
             if (this.thrashcounter > 10 && this.offsetX == 0 && this.offsetY == 0){
@@ -628,7 +634,7 @@ class Altar extends Floor{
                 else if (rt == 4)this.offsetY-= 0.1;
                 this.thrashcounter = 0;
             }
-            drawSymbol(world.cage.slots[this.x][this.y].icon, this.getDisplayX()*tileSize + shakeX+18,  this.getDisplayY()*tileSize + shakeY+18,64);
+            drawSymbol(world.cage.slots[this.x][this.y].icon, this.getDisplayX()*tileSize + shakeX+16,  this.getDisplayY()*tileSize + shakeY+16,80);
             ctx.globalAlpha = 1;
             this.offsetX -= Math.sign(this.offsetX)*(this.speed);     
             this.offsetY -= Math.sign(this.offsetY)*(this.speed);
@@ -951,7 +957,7 @@ class ResearchNode extends Floor{
         this.unlock = researchunlocks[this.id];
         if (researchunlockdata[this.id]) this.unlockdata = new researchunlockdata[this.id]("disabled");
         if (!this.unlock) this.unlock = researchunlocks["None"];
-        this.discovered = false;
+        this.discovered = true;
         this.completed = false;
         if (this.id == "Intro") this.discovered = true;
 
@@ -961,8 +967,8 @@ class ResearchNode extends Floor{
     draw(){
         if (!this.discovered) ctx.globalAlpha = 0.55;
         super.draw();
-        if (this.discovered) drawSymbol(this.contents, this.x*100+18, this.y*100+17,64);
-        else drawSymbol(7, this.x*100+18, this.y*100+17,64);
+        if (this.discovered) drawSymbol(this.contents, this.x*112+16, this.y*112+16,80);
+        else drawSymbol(7, this.x*112+16, this.y*112+16,80);
         if (!this.discovered) ctx.globalAlpha = 1;
     }
 }

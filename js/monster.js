@@ -48,6 +48,7 @@ class Cursor{
                 let cy = this.tile.y;
                 research.displayNode(cx, cy);
             }
+            else printOutText(researchlore["Awaiting"], 18, canvas.height+128+52, 30, "#cda4f2", 20, 560);
             return;
         }
         if (this.tile.monster){
