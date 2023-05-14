@@ -189,13 +189,12 @@ class Monster{
         this.targeted = false;   
         this.bonusAttack = 0;
         this.lore = lore;
-        this.specialAttack = "";
         this.isPlayer = false;
         this.paralyzed = false;
         this.isFluffy = false;
         this.noloot = false;
         this.canmove = true;
-        this.influences = new Inventory();
+        this.axioms = new Inventory();
         this.storedattacks = [];
 
         this.statuseff = {
@@ -238,13 +237,13 @@ class Monster{
         }
         else if (this.statuseff["Dissociated"] == 0) this.hp = Math.min(maxHp, this.hp+damage);
         else if (this.statuseff["Dissociated"] > 0) this.falsehp = Math.min(maxHp, this.falsehp+(damage*2));
-        this.influences.castContin("ONHEAL",this.isPlayer);
+        this.axioms.castContin("ONHEAL",this.isPlayer);
     }
 
     assignAxiom(co,fo,mu,fu,ca){
         let axiom = new Axiom(co,fo,mu,fu,ca,this);
-        this.influences.addAxiom(axiom);
-        this.influences.activateAxiom(0);
+        this.axioms.addAxiom(axiom);
+        this.axioms.activateAxiom(0);
     }
 
     giveEffect(effect, duration){
@@ -290,7 +289,7 @@ class Monster{
         if(this.paralyzed) return;
         if(this.statuseff["Charmed"] > 0 && monsters.length < 2 && !this.permacharm) this.statuseff["Charmed"] = 0;
         this.doStuff();
-        this.influences.castContin("TURNEND",this.isPlayer);
+        this.axioms.castContin("TURNEND",this.isPlayer);
     }
 
     doStuff(){
@@ -529,7 +528,7 @@ class Monster{
                 }
                 if (this.canmove){
                     this.move(newTile);
-                    this.influences.castContin("STEP",this.isPlayer);
+                    this.axioms.castContin("STEP",this.isPlayer);
                 }
                 if (boxpull) boxpull.getNeighbor(-dx,-dy).monster.move(boxpull);
                 for (let x of legendaries.active){
@@ -558,7 +557,7 @@ class Monster{
                         }
                     }
                     if (newTile.monster){
-                        this.influences.castContin("ATTACK",this.isPlayer);
+                        this.axioms.castContin("ATTACK",this.isPlayer);
                         for (let i of this.storedattacks){
                             i.trigger();
                             removeItemOnce(this.storedattacks,i);
@@ -772,27 +771,12 @@ class Terminal extends Monster{
         super(tile, 0, 3, "SOULLESS", description["Terminal"]);
         this.isPlayer = true;
         this.teleportCounter = 0;
-        this.discarded = 0;
-        this.resolve = 0;
         this.name = "Terminal, the Reality Anchor";
         this.soul = "Does not have a soul of its own -- is merely the combination of its many passengers.";
-        this.activemodule = "NONE";
-        this.specialAttack = "";
-        this.vision = [];
         this.ability = "";
         this.noloot = true;
-        this.betted = false;
         this.fov = 0;
         this.souldropped = true;
-
-        //status effects
-        this.constrict = false;
-        this.toxified = false;
-        this.fuffified = 0;
-        this.entranced = false;
-        this.para = 0;
-        this.fall = 0;
-        this.rosetox = 0;
     }
 
     cycleModules(){
@@ -870,7 +854,8 @@ class Terminal extends Monster{
                 if (!this.noloot) wheel.addSoul(this.loot);
                 this.noloot = true;
             }
-        }                                                 
+        }
+        this.axioms.castContin("TURNEND",this.isPlayer);                                                 
     }
 
     tryMove(dx, dy){

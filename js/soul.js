@@ -181,52 +181,69 @@ function sameTile(tile1,tile2){
 // ABAZON (only wall targets affected)
 
 effects = {
-    SENET: function(target, power){ //if power > X, give frenzy, haste?
+    ZENORIUM: function(target,power,mods){
+        if (!mods) return;
+        if (target.monster){
+            let poly = shuffle(mods["targets"]).filter(t => t.monster && t.monster.name != target.monster.name)[0];
+            if (!poly) return;
+            let polykeys = Object.keys(poly.monster);
+            let tarkeys = Object.keys(target.monster);
+            let polydata = {};
+            let tardata = {};
+            for (let i of polykeys) polydata[i] = poly.monster[i];
+            for (let i of tarkeys) tardata[i] = target.monster[i];
+            for (let i of Object.keys(polydata)) target.monster[i] = polydata[i];
+            for (let i of Object.keys(tardata)) poly.monster[i] = tardata[i];
+            target.monster["isPlayer"] = tardata["isPlayer"]; 
+            poly.monster["isPlayer"] = polydata["isPlayer"]; 
+        }
+    },
+    SENET: function(target,power,mods){ //if power > X, give frenzy, haste?
         if (target.monster){
             target.monster.giveEffect("Persuasive",power*3);
         }
     },
-    KASHIA: function(target, power){
+    KASHIA: function(target,power,mods){
         if (target.monster){
             target.monster.giveEffect("Dissociated",power*2);
         }
     },
-    PARACEON: function(target, power){
+    PARACEON: function(target,power,mods){
         if (target.monster){
             target.monster.giveEffect("Invincible",power);
         }
     },
-    STOP: function(target, power){
+    STOP: function(target,power,mods){
         if (target.monster){
             target.monster.giveEffect("Paralyzed",power);
         }
     },
-    RASEL: function(target,power){
+    RASEL: function(target,power,mods){
         if (target.monster){
             target.monster.giveEffect("Puppeteered",power*2);
         }
     },
-    APIS: function(target,power){
+    APIS: function(target,power,mods){
         if (target.monster){
             target.monster.giveEffect("Constricted",power);
         }
     },
-    HASTE: function(target,power){
+    HASTE: function(target,power,mods){
         if (target.monster){
             target.monster.giveEffect("Hasted",power*2);
         }
     },
-    HEAL: function(target,power){
+    HEAL: function(target,power,mods){
         if (target.monster){
             target.monster.heal(power);
         }
     },
-    THRASH: function(target,power){
+    THRASH: function(target,power,mods){
         if (target.monster){
             target.monster.giveEffect("Thrashing",power*2);
         }
     },
-    GYVJI: function(targeti,power){
+    GYVJI: function(targeti,power,mods){
         let newTile = targeti;
         //newTile.setEffect(14,30);
         let testTile = newTile;
@@ -260,7 +277,7 @@ effects = {
             shakeAmount = 20 + power*5;
         }
     },
-    ASPHA: function(target,power){
+    ASPHA: function(target,power,mods){
         let tper;
         if (target.monster && !target.monster.isPlayer) tper = monsters[monsters.indexOf(target.monster)];
         else if (target.monster && target.monster.isPlayer) tper = player;
@@ -275,7 +292,7 @@ effects = {
             });
         }
     },
-    ABAZON : function(target, power){
+    ABAZON : function(target,power,mods){
         let t = target;
         let test = !t.passable && t.sprite != 17;
         if (test){

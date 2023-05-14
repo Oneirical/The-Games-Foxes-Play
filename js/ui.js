@@ -1494,25 +1494,24 @@ class Axiom extends LegendarySoul{
         for (let i of this.contingencies){
             if (powerratings[i]) power+=powerratings[i];
         }
+        let mods = {
+            "targets" : targets,
+            "power" : power,
+            "functions" : this.functions,
+            "caster" : this.caster,
+            "continue" : true,
+            "mutators" : this.mutators,
+            "forms" : this.forms,
+        }
         for (let i of this.mutators){
-            let mods = {
-                "targets" : targets,
-                "power" : power,
-                "functions" : this.functions,
-                "caster" : this.caster,
-                "continue" : true,
-                "mutators" : this.mutators,
-                "forms" : this.forms,
-            }
             let edit = modifiers[i](mods);
-            power = edit["power"];
-            targets = edit["targets"];
+            mods = edit;
             if (!edit["continue"]) return false;
         }
         for (let i of this.functions){
-            for (let y of targets){
+            for (let y of mods["targets"]){
                 y.setEffect(14,30);
-                effects[i](y,power);
+                effects[i](y,mods["power"],mods);
             }   
         }
         return false;
