@@ -644,6 +644,8 @@ class World{
         this.rooms[this.currentroom[0]][this.currentroom[1]].tiles = tiles;
         this.rooms[this.currentroom[0]][this.currentroom[1]].visited = room.visited;
         monsters = [];
+        let pkeys = Object.keys(player);
+        for (let i of pkeys) pdata[i] = player[i];
     }
 
     appearRoom(spawnl){
@@ -800,7 +802,9 @@ class Room{
         let hp;
         if(player) hp = player.hp;
         player = new Terminal(getTile(this.playerspawn[0], this.playerspawn[1]));
+        for (let i of Object.keys(pdata)) player[i] = pdata[i];
         player.hp = hp;
+        player.tile = getTile(this.playerspawn[0], this.playerspawn[1]);
         if (this.hostile && !this.visited) generateMonsters();
         if (creaturespawn[this.creatures] && !this.visited) {
             for(let j=0;j<9;j++){

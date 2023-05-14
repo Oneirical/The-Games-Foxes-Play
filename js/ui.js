@@ -305,7 +305,7 @@ class ComponentsDisplay{
         for(let i=0;i<this.cage.length;i++){
             for(let j=0;j<this.cage.length-1;j++){
                 let size = 80;
-                if (this.cage[i][j].seq && this.cage[i][j].seq == legendaries.describepage+1 && (inInventory)){
+                if (this.cage[i][j].seq && this.cage[i][j].seq == player.axioms.describepage+1 && (inInventory)){
                     this.cage[i][j].sprite = 126;
                     drawSymbol(this.cage[i][j].value.icon, 890, 20, 64);
                 }
@@ -610,7 +610,7 @@ class DrawWheel{
                 thrasher.thrash(canvas.height+4  + i*18 - (length*18*Math.floor(k/length)),canvas.width-canvas.height-251 + Math.floor(k/length)*18,16);
                 k++;
             }
-            legendaries.displaySmall();
+            player.axioms.displaySmall();
         }
     }
 
@@ -630,6 +630,7 @@ class DrawWheel{
         }
         this.pile = shuffle(this.pile);
         removeItemAll(this.discard,"deleted");
+        removeItemAll(this.pile,"deleted");
     }
 
     countPileSouls(turb){
@@ -683,7 +684,7 @@ class DrawWheel{
         loot.turbulent = true;
         this.discard.push(loot);
         research.completeResearch("Herald");
-        //for (let x of legendaries.active){
+        //for (let x of player.axioms.active){
         //    if (x instanceof Kilami) spells[loot.id](player);
         //}
         //if (this.getWheelSpace() == 0){
@@ -712,7 +713,7 @@ class DrawWheel{
                 if (player.tile.value instanceof x) commoncheck = true;
             }
             if (!commoncheck){
-                legendaries.addAxiom(player.tile.value);
+                player.axioms.addAxiom(player.tile.value);
                 tiles = world.getRoom().tiles;
                 player.infested = 0;
                 player.sprite = 0;
@@ -800,7 +801,7 @@ class DrawWheel{
                     const types = ["SAINTLY","ORDERED","ARTISTIC","UNHINGED","FERAL","VILE","SERENE"];
                     if (world.cage.slots[override.x][override.y].turbulent == this.turbstatus) this.paintcans[types.indexOf(world.cage.slots[override.x][override.y].id)].push(new SpinningSoul(world.cage.slots[override.x][override.y].icon,this.paintcans[types.indexOf(world.cage.slots[override.x][override.y].id)][this.paintcans[types.indexOf(world.cage.slots[override.x][override.y].id)].length-1].angle-0.1));
                 }
-                else retrievesuccess = legendaries.addAxiom(world.cage.slots[override.x][override.y]);
+                else retrievesuccess = player.axioms.addAxiom(world.cage.slots[override.x][override.y]);
                 if (retrievesuccess) {
                     world.cage.slots[override.x][override.y] = new Empty();
                     world.cage.size--;
@@ -882,7 +883,7 @@ class DrawWheel{
                 } 
             }
             if(this.pile[0] instanceof Feral){
-                for (let j of legendaries.active){
+                for (let j of player.axioms.active){
                     if (j instanceof Ezezza){
                         player.para++;
                         log.addLog("EZEZZA");
@@ -1061,15 +1062,15 @@ class DrawWheel{
         }                    
         else{
             //if (soul.id == "SERENE") make this
-            let num = legendaries.castes.indexOf(soul.id);
+            let num = player.axioms.castes.indexOf(soul.id);
             let spellName = soul.id;
-            if (legendaries.active[num].influence == "C" || legendaries.active[num].influence == "A"){
-                spellName = legendaries.active[num].id;
+            if (player.axioms.active[num].influence == "C" || player.axioms.active[num].influence == "A"){
+                spellName = player.axioms.active[num].id;
             }
             research.completeResearch("Spellcast");
             if (player.fuffified > 0) spellName = "SERENE";
             if (spellName == "FLEXIBLE"){
-                fail = legendaries.active[num].legendCast();
+                fail = player.axioms.active[num].legendCast(player);
                 if (!fail){
                     this.saved.push(this.wheel[slot]);
                     wheel.spinningsouls.push(new SpinningSoul(this.wheel[slot].icon,wheel.spinningsouls[wheel.spinningsouls.length-1].angle-0.5));
@@ -1083,10 +1084,10 @@ class DrawWheel{
             }
             if (spellName){
                 if (basic.includes(spellName) && area == "Spire") spellName = spellName+"S";
-                if (legendaries.active[num].influence != "I") legendaries.active[num].talk();
+                if (player.axioms.active[num].influence != "I") player.axioms.active[num].talk();
                 else log.addLog(spellName);
-                spells[spellName](player, legendaries.active[num]);
-                if (legendaries.active[num].influence == "C") spells[legendaries.active[num].caste](player);
+                spells[spellName](player, player.axioms.active[num]);
+                if (player.axioms.active[num].influence == "C") spells[player.axioms.active[num].caste](player);
                 if (!fail && player.activemodule != "Focus"){
                     this.saved.push(this.wheel[slot]);
                     wheel.spinningsouls.push(new SpinningSoul(this.wheel[slot].icon,wheel.spinningsouls[wheel.spinningsouls.length-1].angle-0.5));
@@ -1263,10 +1264,10 @@ class Inventory{
         }
     }
 
-    castContin(word, isPlayer){
+    castContin(word, caster){
         for (let i of this.active){
             if (i.contingencies && i.contingencies.includes(word)){
-                if (soulcosts[word] && (isPlayer == null ||isPlayer)){
+                if (soulcosts[word] && caster.isPlayer){
                     if (wheel.ipseity < soulcosts[word]){
                         shakeAmount = 5;
                         log.addLog("NoShards");
@@ -1274,7 +1275,7 @@ class Inventory{
                     }
                     wheel.ipseity-=soulcosts[word];
                 }
-                i.legendCast();
+                i.legendCast(caster);
             }
         }
     }
@@ -1423,11 +1424,11 @@ class LegendarySoul{
         printOutText(toTitleCase(this.caste) + " Soul", 18, 10, 600, colours[this.id], 20, 690);
         if (this instanceof Empty) printOutText(soulabi["EMPTY"], 18, 10, 640, "white", 20, 690);
         else {
-            let command = legendaries.active[index].id;
+            let command = player.axioms.active[index].id;
             if (basic.includes(command)) command = "Commanded by its own whims";
             else command = "Commanded by a Legend";
             printOutText(command, 18, 10, 620, "lightgrey", 20, 690);
-            if (false && !basic.includes(legendaries.active[index].id) && legendaries.active[index].influence != "I") printOutText(legendaries.active[index].subdescript, 18, 10, 660, "white", 20, 690);
+            if (false && !basic.includes(player.axioms.active[index].id) && player.axioms.active[index].influence != "I") printOutText(player.axioms.active[index].subdescript, 18, 10, 660, "white", 20, 690);
             else printOutText("\n[g]Base Effect[w]\n"+this.subdescript, 18, 10, 660, "white", 20, 690);
         }
         
@@ -1482,10 +1483,10 @@ class Axiom extends LegendarySoul{
         calculatePower(this.contingencies,this.forms)
     }
 
-    legendCast(){
+    legendCast(caster){
         let targets = [];
         let power = 99;
-        if (this.caster == "me") this.caster = player;
+        this.caster = caster;
         for (let i of this.forms){
             let obtainta = targeters[i](this.caster);
             for (let g of obtainta) targets.push(g);
@@ -1518,18 +1519,18 @@ class Axiom extends LegendarySoul{
     }
 
     describe(){
-        let description = researchexpl[this.alllore[legendaries.describepage]];
-        if (powerratings[this.alllore[legendaries.describepage]]){
-            if (powerratings[this.alllore[legendaries.describepage]] > 0) description += "\n[g]Gain " + powerratings[this.alllore[legendaries.describepage]] + " Potency.[w]";
-            else description += "\n[r]Lose " + Math.abs(powerratings[this.alllore[legendaries.describepage]]) + " Potency.[w]";
+        let description = researchexpl[this.alllore[player.axioms.describepage]];
+        if (powerratings[this.alllore[player.axioms.describepage]]){
+            if (powerratings[this.alllore[player.axioms.describepage]] > 0) description += "\n[g]Gain " + powerratings[this.alllore[player.axioms.describepage]] + " Potency.[w]";
+            else description += "\n[r]Lose " + Math.abs(powerratings[this.alllore[player.axioms.describepage]]) + " Potency.[w]";
         }
-        if (soulcosts[this.alllore[legendaries.describepage]]){
-            description += "\n[p]Triggering this Contingency will consume "+soulcosts[this.alllore[legendaries.describepage]]+ " Ipseity Shards.";
+        if (soulcosts[this.alllore[player.axioms.describepage]]){
+            description += "\n[p]Triggering this Contingency will consume "+soulcosts[this.alllore[player.axioms.describepage]]+ " Ipseity Shards.";
         }
         printOutText(description, 18, 590, 105, "white", 20, 6*64-35);
         printOutText(toTitleCase(this.caste) + " Caste", 18, 590, 30, colours[this.caste], 20, 6*64-35);
-        printOutText(researchnames[this.alllore[legendaries.describepage]], 18, 590, 50, "white", 20, 6*64-100);
-        legendaries.exppage = new ComponentsDisplay(this.contingencies,this.forms,this.mutators,this.functions,this.basepower,this.basecost, this.caste);
+        printOutText(researchnames[this.alllore[player.axioms.describepage]], 18, 590, 50, "white", 20, 6*64-100);
+        player.axioms.exppage = new ComponentsDisplay(this.contingencies,this.forms,this.mutators,this.functions,this.basepower,this.basecost, this.caste);
     }
 }
 

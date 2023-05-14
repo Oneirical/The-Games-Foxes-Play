@@ -108,6 +108,8 @@
     var inCatalogue = false;
     var showingComponent = false;
 
+    var pdata = {};
+
     mouseIsDown = false;
 
     resolvebonus = 0;
@@ -130,8 +132,8 @@
                 cursormode = false;
             }
             if (e.key == "k") toggleFullScreen();
-            if(e.key=="a"&&inInventory) if (legendaries.describepage > 0) legendaries.describepage--;
-            if(e.key=="d"&&inInventory) if (legendaries.describepage < maxseq-1) legendaries.describepage++;
+            if(e.key=="a"&&inInventory) if (player.axioms.describepage > 0) player.axioms.describepage--;
+            if(e.key=="d"&&inInventory) if (player.axioms.describepage < maxseq-1) player.axioms.describepage++;
             if (e.key == 1 && inResearch){
                 research.changeTab(1);
             }
@@ -170,9 +172,9 @@
                 setupCanvas();
             }
             if (inInventory){
-                if (e.key >= 1 && e.key <= 6) legendaries.storeSoul(e.key-1);
-                if (e.key >= 7 && e.key <= 9) legendaries.activateAxiom(e.key-7);
-                if (e.key == 0) legendaries.activateAxiom(3);
+                if (e.key >= 1 && e.key <= 6) player.axioms.storeSoul(e.key-1);
+                if (e.key >= 7 && e.key <= 9) player.axioms.activateAxiom(e.key-7);
+                if (e.key == 0) player.axioms.activateAxiom(3);
             }
             if (inInventory || inResearch) return;
             if(e.key=="c") {

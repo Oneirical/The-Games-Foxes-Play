@@ -87,12 +87,11 @@ class DelayedAttack{
         this.mutators = mutators.slice();
         this.functions = functions.slice();
         this.power = power;
-        this.caster = entity;
         removeItemOnce(this.mutators,"ATKDELAY");
     }
-    trigger(){
-        let blast = new Axiom([],this.forms,this.mutators,this.functions,"VILE",this.caster);
-        blast.legendCast();
+    trigger(caster){
+        let blast = new Axiom([],this.forms,this.mutators,this.functions,"VILE");
+        blast.legendCast(caster);
     }
 }
 
@@ -182,25 +181,33 @@ function sameTile(tile1,tile2){
 
 effects = {
     ZENORIUM: function(target,power,mods){
-        if (!mods) return;
-        if (target.monster){
-            let poly = shuffle(mods["targets"]).filter(t => t.monster && t.monster.name != target.monster.name)[0];
+        if (mods && target.monster && target.monster.statuseff["Transformed"] == 0){
+            let sample = mods["targets"].slice();
+            let poly = shuffle(sample).filter(t => t.monster && t.monster.name != target.monster.name)[0];
             if (!poly) return;
             let polykeys = Object.keys(poly.monster);
             let tarkeys = Object.keys(target.monster);
             let polydata = {};
             let tardata = {};
-            for (let i of polykeys) polydata[i] = poly.monster[i];
+            let protection = ["spritesave","datasave", "isPlayer"];
+            for (let i of polykeys)polydata[i] = poly.monster[i];
+            poly.monster.datasave = polydata;
             for (let i of tarkeys) tardata[i] = target.monster[i];
-            for (let i of Object.keys(polydata)) target.monster[i] = polydata[i];
-            for (let i of Object.keys(tardata)) poly.monster[i] = tardata[i];
-            target.monster["isPlayer"] = tardata["isPlayer"]; 
-            poly.monster["isPlayer"] = polydata["isPlayer"]; 
+            target.monster.datasave = tardata;
+            for (let i of Object.keys(polydata)) if (!protection.includes(i)) target.monster[i] = polydata[i];
+            for (let i of Object.keys(tardata)) if (!protection.includes(i)) poly.monster[i] = tardata[i];
+            target.monster.giveEffect("Transformed",power*3);
+            poly.monster.giveEffect("Transformed",power*3);
         }
     },
     SENET: function(target,power,mods){ //if power > X, give frenzy, haste?
         if (target.monster){
             target.monster.giveEffect("Persuasive",power*3);
+        }
+    },
+    DEBUG: function(target,power,mods){ //if power > X, give frenzy, haste?
+        if (target.monster){
+            console.log("hai");
         }
     },
     KASHIA: function(target,power,mods){
@@ -800,7 +807,7 @@ spells = {
                 cap--;
             }
         }
-        legendaries.active[legendaries.active.indexOf(soul)].uses++;
+        player.axioms.active[player.axioms.active.indexOf(soul)].uses++;
     },
     SHIZAPIS: function(caster){
         if (caster.inventory.length > 2){
@@ -835,9 +842,9 @@ spells = {
                 entity.paralyzed = true;
             }
         });
-        legendaries.active.forEach(function(soul){
+        player.axioms.active.forEach(function(soul){
             if (soul instanceof Zaint){
-                legendaries.active[5] = new Saintly(); // if there ever is a soul that lets you place things anywhere it will mess this up
+                player.axioms.active[5] = new Saintly(); // if there ever is a soul that lets you place things anywhere it will mess this up
             }
         });
     },

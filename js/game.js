@@ -47,8 +47,8 @@ function setupCanvas(){
         let x = event.clientX - rect.left;
         let y = event.clientY - rect.top;
         let clickpos = [x,y];
-        if (gameState != "title"){
-            legendaries.click(clickpos[0],clickpos[1]);
+        if (gameState != "title" && player){
+            player.axioms.click(clickpos[0],clickpos[1]);
         }
         if(gameState != "dead" && gameState != "title"){
             let mousdes = Math.ceil((clickpos[1] - 130)/20);
@@ -189,21 +189,21 @@ function draw(){
         }
         if(inInventory){
             let nohover = true;
-            for (let i of legendaries.storecoords){
+            for (let i of player.axioms.storecoords){
                 if (mousepos[0] > i[0] && mousepos[0] < (i[0]+64) && mousepos[1] > i[1] && mousepos[1] < (i[1]+64)){
-                    legendaries.storage[legendaries.storecoords.indexOf(i)].describe();
+                    player.axioms.storage[player.axioms.storecoords.indexOf(i)].describe();
                     nohover = false;
                 }
             }
-            for (let i of legendaries.actcoords){
+            for (let i of player.axioms.actcoords){
                 if (mousepos[0] > i[0] && mousepos[0] < (i[0]+64) && mousepos[1] > i[1] && mousepos[1] < (i[1]+64)){
-                    legendaries.active[legendaries.actcoords.indexOf(i)].describe();
+                    player.axioms.active[player.axioms.actcoords.indexOf(i)].describe();
                     nohover = false;
                 }
             }
             if (nohover){
-                legendaries.exppage = new ComponentsDisplay();
-                legendaries.describepage = 0;
+                player.axioms.exppage = new ComponentsDisplay();
+                player.axioms.describepage = 0;
             }
         }
         else if (cursormode){
@@ -248,7 +248,7 @@ function draw(){
             cursor.info();
             if (!inResearch) drawSymbol(9, 590, 500, 64);
         }
-        else if (inInventory) legendaries.display();
+        else if (inInventory) player.axioms.display();
         else {
             if (!wheel.hide && !inCatalogue && !showingComponent) wheel.display();
                     //if (rosetoxin > 1) spellText = (i+1) + ") " + ("ROSE" || "");
@@ -457,7 +457,7 @@ function summonExits(){
     }
     if (world.fighting){
         truehp++;
-        for (let j of legendaries.active){
+        for (let j of player.axioms.active){
             if (j instanceof Ezezza){
                 truehp++;
             }
@@ -507,6 +507,19 @@ function tick(){
         }else if (monsters[k].order < 0){
             monsters.splice(k,1);
         }
+    }
+
+    for(let k=monsters.length;k>=0;k--){
+        let activeeffects = [];
+        let con;
+        if (k == monsters.length) con = player;
+        else con = monsters[k];
+        for (let i of Object.keys(con.statuseff)){
+            if (con.statuseff[i] > 0) activeeffects.push(i);
+            con.statuseff[i] = Math.max(0,con.statuseff[i]-1);
+            if (con.statuseff[i] > 0 && activeeffects.includes(i)) removeItemOnce(activeeffects,i);
+        }
+        con.effectsExpire(activeeffects);
     }
     for(let k=droppedsouls.length-1;k>=0;k--){
         droppedsouls[k].update();
@@ -655,11 +668,10 @@ function startGame(){
     shuffle(invsave);
     naiamode = false;
     dissave = [];
-    legendaries = new Inventory();
     research = new Research();
     wheel = new DrawWheel();
-    log = new MessageLog();
     universe = new Universe();
+    log = new MessageLog();
     universe.start(startingHp);
     world.cage.equateWorld();
     gameState = "running";
@@ -933,7 +945,7 @@ function initSounds(){
         epsitink : new Audio('sounds/EpsilonTink.wav'),
         epsivuln : new Audio('sounds/EpsilonVuln.wav'),
         malform : new Audio('music/Malform.wav'),
-        learn : new Audio('sounds/Learn.wav'),
+        learn : new Audio('sounds/learn.wav'),
     };
 }
 

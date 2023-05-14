@@ -172,6 +172,7 @@ class Monster{
         this.spritesave = sprite;
         this.hp = hp;
         this.speed = 1;
+        this.datasave = {};
         this.fphit = 0;
         this.fp = 0; //it stands for fluffy points
         this.dmg = 1;
@@ -199,6 +200,7 @@ class Monster{
 
         this.statuseff = {
             "Persuasive" : 0,
+            "Transformed" : 0,
             "Charmed" : 0,
             "Constricted" : 0,
             "Marked" : 0,
@@ -222,7 +224,7 @@ class Monster{
         this.doomed = false;
         this.previousdir;
         this.lootid = this.loot;
-        if (legendaries.castes.includes(this.loot)) this.loot = commoneq[this.loot];
+        if (this.axioms.castes.includes(this.loot)) this.loot = commoneq[this.loot];
         if (tile == "disabled") return;
         this.move(tile);
         this.adjacentmon = this.tile.getAdjacentNeighbors().filter(t => t.monster && !t.monster.isPlayer).length;
@@ -237,7 +239,7 @@ class Monster{
         }
         else if (this.statuseff["Dissociated"] == 0) this.hp = Math.min(maxHp, this.hp+damage);
         else if (this.statuseff["Dissociated"] > 0) this.falsehp = Math.min(maxHp, this.falsehp+(damage*2));
-        this.axioms.castContin("ONHEAL",this.isPlayer);
+        this.axioms.castContin("ONHEAL",this);
     }
 
     assignAxiom(co,fo,mu,fu,ca){
@@ -251,6 +253,10 @@ class Monster{
         if (effect == "Dissociated") this.falsehp = this.hp;
     }
 
+    endTransformation(){
+        for (let i of Object.keys(this.datasave)) this[i] = this.datasave[i];
+    }
+
     effectsExpire(expired){
         if (expired.includes("Decaying")) this.die();
         if (expired.includes("Dissociated")){
@@ -261,17 +267,13 @@ class Monster{
             }
             else this.hp = this.falsehp;
         }
+        if (expired.includes("Transformed")){
+            this.endTransformation();
+        }
     }
 
     update(){
         if (this.statuseff["Paralyzed"] > 0) this.stunned = true;
-        let activeeffects = [];
-        for (let i of Object.keys(this.statuseff)){
-            if (this.statuseff[i] > 0) activeeffects.push(i);
-            this.statuseff[i] = Math.max(0,this.statuseff[i]-1);
-            if (this.statuseff[i] > 0 && activeeffects.includes(i)) removeItemOnce(activeeffects,i);
-        }
-        this.effectsExpire(activeeffects);
         this.teleportCounter--;
         if (this.soulless) return;
         if (this.soulstun > 2){
@@ -289,7 +291,7 @@ class Monster{
         if(this.paralyzed) return;
         if(this.statuseff["Charmed"] > 0 && monsters.length < 2 && !this.permacharm) this.statuseff["Charmed"] = 0;
         this.doStuff();
-        this.axioms.castContin("TURNEND",this.isPlayer);
+        this.axioms.castContin("TURNEND",this);
     }
 
     doStuff(){
@@ -528,10 +530,10 @@ class Monster{
                 }
                 if (this.canmove){
                     this.move(newTile);
-                    this.axioms.castContin("STEP",this.isPlayer);
+                    this.axioms.castContin("STEP",this);
                 }
                 if (boxpull) boxpull.getNeighbor(-dx,-dy).monster.move(boxpull);
-                for (let x of legendaries.active){
+                for (let x of player.axioms.active){
                     if (x instanceof Lashol) player.bonusAttack += (1/3);
                 }
                 if (this instanceof Oracle) this.bonusAttack += (1/3);
@@ -557,9 +559,9 @@ class Monster{
                         }
                     }
                     if (newTile.monster){
-                        this.axioms.castContin("ATTACK",this.isPlayer);
+                        this.axioms.castContin("ATTACK",this);
                         for (let i of this.storedattacks){
-                            i.trigger();
+                            i.trigger(this);
                             removeItemOnce(this.storedattacks,i);
                         }
                     }
@@ -799,9 +801,6 @@ class Terminal extends Monster{
         if (this.tile.name.includes("Toxin")){
             this.rosetox += 2;  
         }
-        for (let i of Object.keys(this.statuseff)){
-            this.statuseff[i] = Math.max(0,this.statuseff[i]-1);
-        }
         this.fuffified--;
         if (this.fuffified < 1 && this.infested < 1 && !this.dead) this.sprite = 0;
         if (this.rosetox <= 0) rosetoxin = 0;
@@ -833,7 +832,7 @@ class Terminal extends Monster{
                 rosetoxin = 0;
             }
         }
-        if (legendaries.hasSoul(Kashia) && this.statuseff["Dissociated"] < 1){
+        if (player.axioms.hasSoul(Kashia) && this.statuseff["Dissociated"] < 1){
             this.statuseff["Dissociated"] = 5;
             this.falsehp = this.hp;
         }
@@ -844,7 +843,7 @@ class Terminal extends Monster{
             }
             if (this.statuseff["Dissociated"] == 0){
                 if (this.isPlayer){
-                    for (let g of legendaries.active){
+                    for (let g of player.axioms.active){
                         if (g instanceof Kashia) this.statuseff["Dissociated"] = 5;
                     }
                 }
@@ -855,7 +854,7 @@ class Terminal extends Monster{
                 this.noloot = true;
             }
         }
-        this.axioms.castContin("TURNEND",this.isPlayer);                                                 
+        this.axioms.castContin("TURNEND",this);                                                 
     }
 
     tryMove(dx, dy){
@@ -866,7 +865,7 @@ class Terminal extends Monster{
             return;
         }
         if(super.tryMove(dx,dy)){
-            legendaries.castContin("STEP");
+            player.axioms.castContin("STEP",this);
             if (world.getRoom() instanceof SoulCage && this.tile instanceof CageContainer && wheel.currentbrush != 8){
                 fishOutSoul(this.tile);
             }
@@ -1459,7 +1458,7 @@ class Ragemaw extends Monster{
 
 class Monk extends Monster{
     constructor(tile){
-        super(tile, 45, 2, commoneq[legendaries.castes[randomRange(0,5)]], description["Monk"]);
+        super(tile, 45, 2, commoneq[[ "VILE", "FERAL", "UNHINGED", "ARTISTIC", "ORDERED", "SAINTLY"][randomRange(0,5)]], description["Monk"]);
         this.lootid = new this.loot().id;
         let sun = this.lootid.charAt(0) + this.lootid.substring(1).toLowerCase();
         let n = " ";
@@ -1923,7 +1922,7 @@ class Apis extends Monster{
         this.soul = "Animated by an Unhinged (3) soul.";
         this.name = "Messenger of Aculeo";
         this.ability = monabi["Apis"];
-        this.assignAxiom(["ATTACK"],["SMOOCH"],["WEAKEN","ATKDELAY"],["APIS"],"UNHINGED");
+        this.assignAxiom(["ATTACK"],["SMOOCH"],["CRIPPLE","ATKDELAY"],["APIS"],"UNHINGED");
     }
 }
 
