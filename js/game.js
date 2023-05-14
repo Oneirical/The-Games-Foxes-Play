@@ -158,7 +158,8 @@ function drawSymbol(sprite, x, y, size){
     );
 }
 
-function drawPixel(sprite, x, y){
+function drawPixel(sprite, x, y,size){
+    if (!size) size = 8;
     ctx.drawImage(
         mapsheet,
         sprite,
@@ -167,8 +168,8 @@ function drawPixel(sprite, x, y){
         1,
         x,
         y,
-        8,
-        8
+        size,
+        size
     );
 }
 
@@ -280,8 +281,26 @@ function draw(){
                 let sep = 9*4-4;
                 let drawx = canvas.width-254  + i*(sep-0.5) - (length*(sep-0.5)*Math.floor(i/length));
                 let drawy = 298 + (Math.floor(i/length)*(sep));
-                if (inside[research.knownspells[i]]) drawSymbol(inside[research.knownspells[i]],drawx,drawy,32)
+                if (inside[research.knownspells[i]]){
+                    drawSymbol(inside[research.knownspells[i]],drawx,drawy,32);
+                }
                 else wheel.saved[0].thrash(drawx,drawy,32);
+                if (between(mousepos[0],drawx,drawx+32) && between(mousepos[1],drawy,drawy+32)){
+                    ctx.globalAlpha = 0.5;
+                    drawSpriteFreeform(130,drawx,drawy,0,0,32);
+                    ctx.globalAlpha = 1;
+                    if (research.knownspells[i]){
+                        if (!world.getRoom().cataloguedis || world.getRoom().currentcat != i) world.getRoom().cataloguedis = new TutorialDisplay(research.knownspells[i]);
+                        world.getRoom().currentcat = i;
+                        world.getRoom().cataloguedis.display();
+                        showCatalogue(research.knownspells[i]);
+                        inCatalogue = true;
+                    }
+                    else{
+                        inCatalogue = false;
+                        world.getRoom().cataloguedis = false;
+                    }
+                }
             }
             let cread = getTile(Math.floor((mousepos[0]-shakeX)/tileSize),Math.floor((mousepos[1]-shakeY)/tileSize));
             if (cread instanceof CageContainer){
@@ -298,28 +317,7 @@ function draw(){
                 let miny = 580 + (Math.floor(0/length)*(sep-2));
                 let maxx = 3  +35*(sep-0.5) - (length*(sep-0.5)*Math.floor(35/length))+64;
                 let maxy = 580 + (Math.floor(36/length)*(sep-2));
-                if (between(cread[0],minx,maxx) && between(cread[1],miny,maxy)){
-                    for (let j = 0; j<36;j++){
-                        if (between(cread[0],3  + j*(sep-0.5) - (length*(sep-0.5)*Math.floor(j/length)),3  + j*(sep-0.5) - (length*(sep-0.5)*Math.floor(j/length))+64) && between(cread[1],580 + (Math.floor(j/length)*(sep-2)),64+580 + (Math.floor(j/length)*(sep-2)))){
-                            ctx.globalAlpha = 0.5;
-                            drawSpriteFreeform(130,(3  + j*(sep-0.5) - (length*(sep-0.5)*Math.floor(j/length)))/64,(580 + (Math.floor(j/length)*(sep-2)))/64,0,0,64);
-                            ctx.globalAlpha = 1;
-                            if (research.knownspells[j]){
-                                if (!world.getRoom().cataloguedis || world.getRoom().currentcat != j) world.getRoom().cataloguedis = new TutorialDisplay(research.knownspells[j]);
-                                world.getRoom().currentcat = j;
-                                world.getRoom().cataloguedis.display();
-                                showCatalogue(research.knownspells[j]);
-                                inCatalogue = true;
-                                break;
-                            }
-                            else{
-                                inCatalogue = false;
-                                world.getRoom().cataloguedis = false;
-                            }
-                        }
-                    }
-                }
-                else if (between(cread[0],545+64,545+6*64)&& between(cread[1],482+64,482+5*64) ){
+                if (between(cread[0],545+64,545+6*64)&& between(cread[1],482+64,482+5*64) ){
                     ctx.globalAlpha = 0.8;
                     drawSpriteFreeform(130,(545+64)/64,(482+64)/64,Math.floor((cread[0]-545+64)/64)*64-128,Math.floor((cread[1]-482+64)/64)*64-128,64);
                     ctx.globalAlpha = 1;

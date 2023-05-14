@@ -214,7 +214,7 @@ class TutorialDisplay{
         for(let i=0;i<this.cage.length;i++){
             for(let j=0;j<this.cage.length;j++){
                 let size = 48;
-                this.cage[i][j].drawFreeform((canvas.width+canvas.height)/2-size/2*(this.cage.length-3),canvas.height-256-size/2*(this.cage.length-3),size);
+                if (!(this.cage[i][j].sprite == 2)) this.cage[i][j].drawFreeform(canvas.width-208-size/2*(this.cage.length-3),canvas.height-208-size/2*(this.cage.length-3),size);
             }
         }
     }
@@ -426,7 +426,7 @@ class DrawWheel{
         let hori = 64*5-5;
         center = [(canvas.height+canvas.width-256)/2-40, 195*canvas.height/900];
         dist = 100*(resolutionSize/7);
-        this.circlemotion = {centerX:1108, centerY:204, radius:170};
+        this.circlemotion = {centerX:(canvas.height+canvas.width-256)/2-16, centerY:195*canvas.height/900+24, radius:170};
         this.spinningsouls = [new SpinningSoul(47,0)];
         this.paintcans = [[new SpinningSoul(47,0)],[new SpinningSoul(47,0)],[new SpinningSoul(47,0)],[new SpinningSoul(47,0)],[new SpinningSoul(47,0)],[new SpinningSoul(47,0)],[new SpinningSoul(47,0)]];
         this.paintcoords = [[center[0]+Math.cos(pi/4)*dist, center[1]-Math.sin(pi/4)*dist],[center[0]+dist, center[1]],[center[0]+Math.cos(pi/4)*dist, center[1]+Math.sin(pi/4)*dist],[center[0], center[1]+dist],[center[0]-Math.cos(pi/4)*dist, center[1]+Math.sin(pi/4)*dist],[center[0]-dist, center[1]],[center[0]-Math.cos(pi/4)*dist, center[1]-Math.sin(pi/4)*dist]];
@@ -615,6 +615,12 @@ class DrawWheel{
     }
 
     reshuffle(){
+        for(let i=0;i<this.pile.length;i++){
+            if(!this.pile[i].turbulent ||world.tranquil){
+                this.discard.push(this.pile[i]);
+                this.pile[i] = "deleted";
+            }
+        }
         for(let i=0;i<this.discard.length;i++){
             if(!this.discard[i].turbulent ||world.tranquil){
                 if (this.pile[this.pile.length-1]) this.discard[i].angle = this.pile[this.pile.length-1].angle-0.5;

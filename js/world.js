@@ -385,7 +385,7 @@ class World{
     }
 
     display(){
-        let size = 64;
+        let size = 112;
         let brush = (size/9);
         drawFilter(blackfilter);
         for(let y = 0; y<9;y++){
@@ -393,7 +393,7 @@ class World{
                 if (this.rooms[x][y].tangible){
                     for(let i = 0; i<this.rooms[x][y].size;i++){
                         for (let j = 0; j<this.rooms[x][y].size; j++){
-                            if (!(this.rooms[x][y].tiles[i][j] instanceof RealityWall)) drawPixel(this.checkPixel(this.rooms[x][y].tiles[i][j]),i*brush+x*size,j*brush+y*size);
+                            if (!(this.rooms[x][y].tiles[i][j] instanceof RealityWall)) drawPixel(this.checkPixel(this.rooms[x][y].tiles[i][j]),i*brush+x*size,j*brush+y*size,14);
                         }
                     }
                     if (this.rooms[x][y].visited) drawPixel(9,4*7+x*size,4*7+y*size);
@@ -402,11 +402,11 @@ class World{
         }
         for(let i = 0; i<numTiles;i++){
             for (let j = 0; j<numTiles; j++){
-                if (!(tiles[i][j] instanceof RealityWall)) drawPixel(this.checkPixel(tiles[i][j]),i*brush+this.currentroom[0]*size,j*brush+this.currentroom[1]*size);
-                if (tiles[i][j].monster && tiles[i][j].monster.isPlayer) drawPixel(3,i*brush+this.currentroom[0]*size,j*brush+this.currentroom[1]*size);
+                if (!(tiles[i][j] instanceof RealityWall)) drawPixel(this.checkPixel(tiles[i][j]),i*brush+this.currentroom[0]*size,j*brush+this.currentroom[1]*size,14);
+                if (tiles[i][j].monster && tiles[i][j].monster.isPlayer) drawPixel(3,i*brush+this.currentroom[0]*size,j*brush+this.currentroom[1]*size,14);
             }
         }
-        if (this.currentroom.visited) drawPixel(9,4*7+x*size,4*7+y*size);
+        if (this.currentroom.visited) drawPixel(9,4*7+x*size,4*7+y*size,14);
     }
 
     miniMap(){
@@ -440,10 +440,9 @@ class World{
                 if (this.rooms[x][y].tangible){
                     for(let i = 0; i<this.rooms[x][y].size;i++){
                         for (let j = 0; j<this.rooms[x][y].size; j++){
-                            drawPixel(this.checkPixel(this.rooms[x][y].tiles[i][j]),i*(64/9)+x*64,j*(64/9)+y*64);
+                            drawPixel(this.checkPixel(this.rooms[x][y].tiles[i][j]),i*(112/9)+x*112,j*(112/9)+y*112,14);
                         }
                     }
-                    if (this.rooms[x][y] instanceof HarmonyRelay) drawPixel(4,4*(64/9)+x*64,4*(64/9)+y*64);
                 }
             }
         }
