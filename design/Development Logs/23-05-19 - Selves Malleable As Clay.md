@@ -1,11 +1,11 @@
-*""*
+*"Most known for his revolutionary political theory, this squid scribe eventually traded away sanity in his endless quest for a truly equal society. In his utopia, each body would only be temporary refuge, and each soul would come to know the pride of commanding an Ordered garrison, the delight in using Vile business tactics, the brutality of Feral infighting and the illumination that comes with Sainthood - all in a single day."*
 
-- 
+- Zenorium, Who Dreams of Broken Hierarchies - Artistic Function
 
 ## The Games Foxes Play
 *([complete source code on github](https://github.com/Oneirical/The-Games-Foxes-Play) | [view all previous posts](https://github.com/Oneirical/The-Games-Foxes-Play/tree/main/design/Development%20Logs) | [play 0.4.3 online in browser on itch.io!](https://oneirical.itch.io/tgfp))*
 
-It's tough to still channel the discipline to hammer out lines of code after each 9-to-5 toiling in the data mines. Anyone who has released a game while simultaneously working full-time, I bow to you.
+It's tough to still channel the discipline to hammer out lines of code after each 9-to-5 toiling in the data mines. Anyone who has released a game while simultaneously working full-time, I bow to you. I've set up a tight personal schedule and have done well in following it thus far.
 
 # Selves Malleable As Clay
 
@@ -13,7 +13,9 @@ I am getting *waaaay* too ahead of myself already working on this feature when t
 
 But I was just too hyped to not at least start.
 
-Enter: Soulswapping. Currently accessible as a Function spell component, it will shuffle around the souls of every affected creature, being quite unimpressive when used on two enemies together. However, when the *player* joins in on the fun... true chaos is abound. This allows one to play as any creature in the game and use their innate ability to your advantage, while the... previous owner of your new flesh vessel is now thrashing around in your body, spamming your own spells and potentially trying to swap themselves back. New meta: craft deliberately horrible suicide spells and soul swap with a boss and watch them self-detonate? We get there when we get there.
+Enter: Soulswapping. Currently accessible as a Function spell component (named "Zenorium"), it will shuffle around the souls of every affected creature, being quite unimpressive when used on two enemies together. However, when the *player* joins in on the fun... true chaos is abound. This allows one to play as any creature in the game and use their innate ability to your advantage, while the... previous owner of your new flesh vessel is now thrashing around in your body, spamming your own spells and potentially trying to swap themselves back. New meta: craft deliberately horrible suicide spells and soul swap with a boss and watch them self-detonate? We get there when we get there.
+
+All enemy-native Axiom spells are now also accessible to the player, allowing their abilities to be crafted and used for general purpose occasions. This has invited me to write a considerable amount of flavour text - I quite like [this one](TODO). 
 
 # Knowledge Forks Among Many Paths
 

@@ -124,6 +124,13 @@ var spellpatterns = {
         2: "...",
         "type" : "Function",
     },
+
+    "ZENORIUM" : {
+        0: "A.A",
+        1: ".A.",
+        2: "...",
+        "type" : "Function",
+    },
     
     //Unhinged
 

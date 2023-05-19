@@ -1918,8 +1918,8 @@ class Box extends Monster{
 
 class Apis extends Monster{
     constructor(tile){
-        super(tile, 70, 2, "UNHINGED", description["Apis"]);
-        this.soul = "Animated by an Unhinged (3) soul.";
+        super(tile, 70, 2, "FERAL", description["Apis"]);
+        this.soul = "Animated by a Feral (2) soul.";
         this.name = "Messenger of Aculeo";
         this.ability = monabi["Apis"];
         this.assignAxiom(["ATTACK"],["SMOOCH"],["CRIPPLE","ATKDELAY"],["APIS"],"UNHINGED");

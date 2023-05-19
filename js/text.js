@@ -761,6 +761,16 @@ researchnames = {
     "RASEL" : "Rasel, the Thousand-Limbed",
     "JOLTZAZON" : "Joltzazon, Wed to the Scarved River",
     "ABAZON" : "Abazon, the Immovable",
+    "ZENORIUM" : "Zenorium, Who Dreams of Broken Hierarchies",
+    "APIS" : "Apis Aculeo, Six Limbs Apart",
+    "STOP" : "Rips in the Fabric of Desire",
+    "HEAL" : "Undo the Sacraments of Blood",
+    "THRASH" : "Rage Dilutes Focus",
+    "HASTE" : "Flow Fast As Thought",
+    "DEVOUR" : "Churn Glory Into Sludge",
+    "PLUS" : "Share the Fruits of Faith",
+    "TURNEND" : "Beating Hearts Tick Down the End of Time",
+    "ATTACK" : "The Chains Bleed Rivers",
 
     "RANDOM" : "Erratic Pulse of Prey's Hearts",
 }
@@ -799,7 +809,18 @@ researchlore = {
     "EPSILON" : "What strange fascination the Ordered had with size - to them, military rank and the weight of metal attached to their body were one and the same. Nothing would put these thrashing Ordered Souls in their place more than the defeat of one of their legends.",
     "RASEL" : "A modest puppeteer, who sold dolls in dark alleys. Repeated inhalation of Saints' Breath eventually convinced her that her soul transcended beyond much more than just her body, granting her control over soulless corpses as if it were her own flesh. She was chased across kilometres of concrete halls, until Ordered garrisons finally defeated her after slicing their former comrades in half.",
     "JOLTZAZON" : "When the youth took too long to find a partner, their guardians would tell them the tale of Joltzazon, who married a river out of disinterest for his kin, and eventually drowned in it. In his honour, the tea savoured by the newly-wed is prepared from the waters of this stream.",
-    "ABAZON" : "A mechanical clay sentinel, tasked to protect the Saint's palaces until the end times. As progress marched on, walls thickened with steel and concrete, but Abazon refused to budge from its post, and was soon engulfed. Rumour says it still stands there, immured and paralyzed, waiting to strike out with extreme prejudice at any who'd dare dig out its tomb."
+    "ABAZON" : "A mechanical clay sentinel, tasked to protect the Saint's palaces until the end times. As progress marched on, walls thickened with steel and concrete, but Abazon refused to budge from its post, and was soon engulfed. Rumour says it still stands there, immured and paralyzed, waiting to strike out with extreme prejudice at any who'd dare dig out its tomb.",
+    "ZENORIUM" : "Most known for his revolutionary political theory, this squid scribe eventually traded away sanity in his endless quest for a truly equal society. In his utopia, each body would only be temporary refuge, and each soul would come to know the pride of commanding an Ordered garrison, the delight in using Vile business tactics, the brutality of Feral infighting and the illumination that comes with Sainthood - all in a single day.",
+    "APIS" : "Tirelessly serving a beloved queen he could crush between two of his digits, Apis gladly disregarded his monstrous size as he tried his best to harvest pollen from miniature flowers. This Feral chimera had love for his nonsensical task, and with it, success followed. As the Saints taught: Belief is what makes things right.",
+    "STOP" : "There were many who followed my faith, but very few craved true annihilation. Most contented themselves with the occasional state of self-void - a moment where one desires nothing, standing still and letting the hours brush against their hollow shell.",
+    "HEAL" : "The only good flesh is one torn at the seams. To imagine I may need to occasionally mend it back to complete my quest disgusts me to no end, but I know the value of a worthy sacrifice.",
+    "THRASH" : "Of all emotions, anger must be the most terrible. How could one be so foolish to wield a sword with a bladed hilt?",
+    "HASTE" : "The thrill-seeking Feral enjoyed races in the Saint's stadiums. Sportsmanship sadly becomes difficult when the most charismatic athlete on the track simply wills it so that they have reached the finish line, and that all other contenders never stood the shadow of a chance.",
+    "DEVOUR" : "Cuisine confounds me to no end. Assemble the basic into the complex, then serve it so the complex may be digested back down into the basic. Why entangle oneself in such a strange cycle?",
+    "PLUS" : "A kind being both takes and gives, while a saintly being only does the latter. When that gift is death, suddenly, everything changes. Why is that?",
+    "TURNEND" : "Each spasm of muscle, each spark of the neurons - they all trickled down to the inevitable Unification. The best time to annihilate all was many eons ago - the second best time is now.",
+    "ATTACK" : "Flesh is the easiest of all chains to break, and yet, it is also the one prisoners tend to cling onto the most. Pain must have been the unfaithful's most dastardly invention...",
+
 }
 
 researchunlocks = {
@@ -823,6 +844,16 @@ researchunlockdata = {
 }
 
 researchflags = {
+    "APIS" : "Function",
+    "ZENORIUM" : "Function",
+    "STOP" : "Function",
+    "HEAL" : "Function",
+    "THRASH" : "Function",
+    "HASTE" : "Function",
+    "DEVOUR" : "Mutator",
+    "PLUS" : "Form",
+    "TURNEND" : "Contingency",
+    "ATTACK" : "Contingency",
     "Null" : "Locked",
     "Intro" : "Data",
     "Herald" : "Data",
@@ -892,6 +923,8 @@ researchexpl = {
     "RASEL" : "[o]Function[w]: all targets obtain [z]Puppeteered[w].\n[z]Puppeteered[w]: When this creature dies, revive it as a friendly [g]Husk[w].\nDuration of [z]Puppeteered[w]: [g]Potency[w] x 2 turns.\n[g]Husk[w]: Mundane puppets with no abilities and a single Health point.",
     "JOLTZAZON" : "[k]Mutator[w]: Each target propagates into all connected creatures, adding them as targets as well.\nThe caster is not affected by the spread.",
     "ABAZON" : "[o]Function[w]: all targets, if they are a wall, turn into a [r]Terracotta Sentry[w] for [g]Potency[w] x 2 turns.\n[r]Terracotta Sentry[w]: Immobile and invincible ally which strikes any enemy creature that comes near it.",
+    "ZENORIUM" : "[o]Function[w]: the souls of all targets are randomly shuffled around, ensuring each of the affected receive a new body to control for [g]Potency[w] x 3 turns.",
+    //must still do the explanations of all the new axioms apis etc
 }
 
 researchflagcolour = {
