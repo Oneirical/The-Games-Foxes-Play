@@ -842,6 +842,7 @@ class Room{
         player.hp = this.startingplayerHP;
         player.lastMove = this.playerlastmove;
         gameState = "running";
+        drawTiles();
     }
 }
 

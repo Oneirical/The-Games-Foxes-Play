@@ -766,7 +766,7 @@ class Monster{
             this.tile.monster = 0;
             this.offsetX = this.tile.x - tile.x;    
             this.offsetY = this.tile.y - tile.y;
-            this.anispeed = 1/7*(Math.abs(this.offsetX)+Math.abs(this.offsetY));
+            this.anispeed = 1/16*(Math.abs(this.offsetX)+Math.abs(this.offsetY));
         }
         this.tile = tile;
         tile.monster = this;                             

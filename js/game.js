@@ -7,6 +7,74 @@ function toggleFullScreen() {
   }
   
 
+function setupPixi(){
+    app = new PIXI.Application({
+        view: document.getElementById("pixi-canvas"),
+        resolution: window.devicePixelRatio || 1,
+        autoDensity: true,
+        width: 16*16*7,
+        height: 16*9*7
+    });
+    document.body.appendChild(app.view);
+    tilesDisplay = new PIXI.Container();
+    tilesDisplay.x = 0;
+    tilesDisplay.y = 0;
+    app.stage.addChild(tilesDisplay);
+    allsprites = new PIXI.Spritesheet(
+        PIXI.BaseTexture.from(atlasData.meta.image),
+        atlasData
+    );
+    allsprites.parse();
+    startGame();
+    drawTiles();
+    defineLoop();
+}
+
+function defineLoop(){
+}
+
+function drawTiles(){
+    for (let i = tilesDisplay.children.length - 1; i >= 0; i--) {	tilesDisplay.removeChild(tilesDisplay.children[i]);};
+    tileSize = (7*16)/(world.getRoom().size/9);
+    for(let i=0;i<numTiles;i++){
+        for(let j=0;j<numTiles;j++){
+            let hai = tiles[i][j].sprite;
+            let clampy = new PIXI.Sprite(allsprites.textures['sprite'+hai]);
+            clampy.x = i*tileSize;
+            clampy.y = j*tileSize;
+            clampy.width = tileSize;
+            clampy.height = tileSize;
+            clampy.texture.baseTexture.scaleMode = PIXI.SCALE_MODES.NEAREST;
+            tilesDisplay.addChild(clampy);
+        }
+    }
+    drawSprites();
+}
+
+
+function drawSprites(){
+    let hai = player.sprite;
+    let clampy = new PIXI.Sprite(allsprites.textures['sprite'+hai]);
+    clampy.x = player.getDisplayX()*tileSize;
+    clampy.y = player.getDisplayY()*tileSize;
+    clampy.width = tileSize;
+    clampy.height = tileSize;
+    clampy.texture.baseTexture.scaleMode = PIXI.SCALE_MODES.NEAREST;
+
+    clampy.eventMode = 'static';
+    clampy.on('mouseover', (event) => {
+        console.log("hai");
+    });
+    tilesDisplay.addChild(clampy);
+    app.ticker.add((delta) => {
+        clampy.x = player.getDisplayX()*tileSize;
+        clampy.y = player.getDisplayY()*tileSize;
+        if (player.offsetX >= 0) player.offsetX = Math.max(player.offsetX - Math.sign(player.offsetX)*(player.anispeed),0);
+        else player.offsetX = Math.min(player.offsetX - Math.sign(player.offsetX)*(player.anispeed),0);
+        if (player.offsetY >= 0) player.offsetY = Math.max(player.offsetY - Math.sign(player.offsetY)*(player.anispeed),0);
+        else player.offsetY = Math.min(player.offsetY - Math.sign(player.offsetY)*(player.anispeed),0);    });
+}
+
 function setupCanvas(){
     canvas = document.querySelector("canvas");
     ctx = canvas.getContext("2d");
@@ -666,8 +734,8 @@ function drawBossHp(currentboss, hp){
 }
 
 function startGame(){
-    pauseSound("title");            
-    playSound("cage");                         
+    //pauseSound("title");            
+    //playSound("cage");                         
     level = 1;
     resolvebonus = 0;
     rosetoxin = 0;

@@ -23,7 +23,9 @@
     }
 </style>
 
-<canvas></canvas>
+<body></body>
+<script src="js/pixi.js"></script>
+<script src="js/spritesheet.js"></script>
 <script src="js/game.js"></script>
 <script src="js/map.js"></script>
 <script src="js/tile.js"></script>
@@ -40,7 +42,7 @@
     mousepos = [0,0];
     spritesheet = new Image();
     spritesheet.src = 'textures/spritesheet.png';
-    spritesheet.onload = startGame;
+    //spritesheet.onload = startGame;
 
     invsheet = new Image();
     invsheet.src = 'textures/inventorysheet.png';
@@ -79,6 +81,8 @@
     var world;
     var resolutionSize = 7;
     area = "Faith";
+
+    var canvas = {width:1600, height:900};
  
     cursormode = false;
     invmode = false;
@@ -118,6 +122,8 @@
 
     var spirespawner;
     var worldgen; 
+    initSounds();
+    setupPixi();
     //document.addEventListener('contextmenu', event => event.preventDefault());    // disable right click inspect element
     document.querySelector("html").onkeypress = function(e){
         if(gameState == "title"){                              
@@ -249,9 +255,9 @@
         }
     };
 
-    setInterval(draw, 15);
+    //setInterval(draw, 15);
 
-    setupCanvas();
+    //setupCanvas();
+    //startGame();
 
-    initSounds();
 </script>
