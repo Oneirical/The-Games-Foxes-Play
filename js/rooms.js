@@ -82,6 +82,11 @@ var spellpatterns = {
         2: "..S",
         "type" : "Contingency",
     },
+    "STOP" : {
+        0: "S.",
+        1: "S.",
+        "type" : "Function",
+    },
     "SACRIFICE" : {
         0: "S.",
         1: ".S",

@@ -196,6 +196,7 @@ class Monster{
         this.noloot = false;
         this.canmove = true;
         this.axioms = new Inventory();
+        this.soullink;
         this.storedattacks = [];
 
         this.statuseff = {
@@ -254,7 +255,9 @@ class Monster{
     }
 
     endTransformation(){
-        for (let i of Object.keys(this.datasave)) this[i] = this.datasave[i];
+        let protection = ["spritesave","datasave", "isPlayer","tile"];
+        for (let i of Object.keys(this.datasave)) if (!protection.includes(i)) this[i] = this.datasave[i];
+        if (this.soullink) this.soullink = this.soullink.tile;
     }
 
     effectsExpire(expired){

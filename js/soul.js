@@ -5,7 +5,7 @@ const powerratings = {
     "XCROSS" : 2,
     "STEP" : -2,
     "TURNEND" : -3,
-    "ATTACK" : -1,
+    "ATTACK" : -2,
     "PLUS" : 4,
 }
 
@@ -196,6 +196,8 @@ effects = {
             target.monster.datasave = tardata;
             for (let i of Object.keys(polydata)) if (!protection.includes(i)) target.monster[i] = polydata[i];
             for (let i of Object.keys(tardata)) if (!protection.includes(i)) poly.monster[i] = tardata[i];
+            target.monster.soullink = poly.monster;
+            poly.monster.soullink = target.monster;
             target.monster.giveEffect("Transformed",power*3);
             poly.monster.giveEffect("Transformed",power*3);
         }

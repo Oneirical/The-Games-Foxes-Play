@@ -521,6 +521,16 @@ function tick(){
         }
         con.effectsExpire(activeeffects);
     }
+
+    for(let k=monsters.length;k>=0;k--){
+        let con;
+        if (k == monsters.length) con = player;
+        else con = monsters[k];
+        if (con.soullink && con.soullink instanceof Tile){
+            con.move(con.soullink);
+            con.soullink = null;
+        }
+    }
     for(let k=droppedsouls.length-1;k>=0;k--){
         droppedsouls[k].update();
     }

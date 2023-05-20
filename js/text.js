@@ -925,6 +925,7 @@ researchexpl = {
     "ABAZON" : "[o]Function[w]: all targets, if they are a wall, turn into a [r]Terracotta Sentry[w] for [g]Potency[w] x 2 turns.\n[r]Terracotta Sentry[w]: Immobile and invincible ally which strikes any enemy creature that comes near it.",
     "ZENORIUM" : "[o]Function[w]: the souls of all targets are randomly shuffled around, ensuring each of the affected receive a new body to control for [g]Potency[w] x 3 turns.",
     //must still do the explanations of all the new axioms apis etc
+    "STOP" : "[o]Function[w]: all targets obtain [o]Paralyzed[w].\n[o]Paralyzed[w]: Prevents all turn actions.\nDuration of [o]Paralyzed[w]: [g]Potency[w] x 1 turns.",
 }
 
 researchflagcolour = {

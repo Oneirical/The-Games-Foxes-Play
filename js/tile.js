@@ -930,6 +930,7 @@ const inside = {
     "XCROSS" : 38,
     "EPSILON" : 44,
     "Brush" : 65,
+    "STOP" : 20,
 
     "JOLTZAZON" : 15,
     "PURPIZUG" : 16,
