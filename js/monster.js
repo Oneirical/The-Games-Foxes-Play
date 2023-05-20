@@ -215,6 +215,7 @@ class Monster{
         }
 
         this.permacharm = false;
+        this.queuedcontin = [];
         this.enraged = false;
         this.inhand = [];
         this.falsehp = 0;
@@ -240,7 +241,7 @@ class Monster{
         }
         else if (this.statuseff["Dissociated"] == 0) this.hp = Math.min(maxHp, this.hp+damage);
         else if (this.statuseff["Dissociated"] > 0) this.falsehp = Math.min(maxHp, this.falsehp+(damage*2));
-        this.axioms.castContin("ONHEAL",this);
+        this.axioms.queueContin("ONHEAL",this);
     }
 
     assignAxiom(co,fo,mu,fu,ca){
@@ -294,7 +295,9 @@ class Monster{
         if(this.paralyzed) return;
         if(this.statuseff["Charmed"] > 0 && monsters.length < 2 && !this.permacharm) this.statuseff["Charmed"] = 0;
         this.doStuff();
-        this.axioms.castContin("TURNEND",this);
+        this.axioms.queueContin("TURNEND",this);
+        for (let i of this.queuedcontin) this.axioms.castContin(i,this);      
+        this.queuedcontin = []; 
     }
 
     doStuff(){
@@ -533,7 +536,7 @@ class Monster{
                 }
                 if (this.canmove){
                     this.move(newTile);
-                    this.axioms.castContin("STEP",this);
+                    if (!this.isPlayer) this.axioms.queueContin("STEP",this);
                 }
                 if (boxpull) boxpull.getNeighbor(-dx,-dy).monster.move(boxpull);
                 for (let x of player.axioms.active){
@@ -562,7 +565,7 @@ class Monster{
                         }
                     }
                     if (newTile.monster){
-                        this.axioms.castContin("ATTACK",this);
+                        this.axioms.queueContin("ATTACK",this);
                         for (let i of this.storedattacks){
                             i.trigger(this);
                             removeItemOnce(this.storedattacks,i);
@@ -627,7 +630,7 @@ class Monster{
                 }else if (this.isPlayer && newTile.monster.isGuide && dialoguecount == newTile.monster.diamax){
                     log.addLog(newTile.monster.dialogue[dialoguecount]);//message = newTile.monster.dialogue[dialoguecount];
                     dialoguecount = newTile.monster.diareset;
-                }else if (newTile.monster.pushable){
+                }else if (newTile.monster.pushable){ //this should integrate more cleanly with step code
                     let lm = this.lastMove;
                     let coredevour = false;
                     let abandon = false;
@@ -857,18 +860,22 @@ class Terminal extends Monster{
                 this.noloot = true;
             }
         }
-        this.axioms.castContin("TURNEND",this);                                                 
+        this.axioms.queueContin("TURNEND",this); 
+        for (let i of this.queuedcontin) this.axioms.castContin(i,this);   
+        this.queuedcontin = [];                                              
     }
 
     tryMove(dx, dy){
         if (gameState != "running") return;
         if (this.statuseff["Paralyzed"] > 0){
             lose(this.statuseff["Paralyzed"],1);
+            beginTurn();
             tick();
             return;
         }
         if(super.tryMove(dx,dy)){
-            player.axioms.castContin("STEP",this);
+            beginTurn();
+            player.axioms.queueContin("STEP",this);
             if (world.getRoom() instanceof SoulCage && this.tile instanceof CageContainer && wheel.currentbrush != 8){
                 fishOutSoul(this.tile);
             }
@@ -1925,7 +1932,7 @@ class Apis extends Monster{
         this.soul = "Animated by a Feral (2) soul.";
         this.name = "Messenger of Aculeo";
         this.ability = monabi["Apis"];
-        this.assignAxiom(["ATTACK"],["SMOOCH"],["CRIPPLE","ATKDELAY"],["APIS"],"UNHINGED");
+        this.assignAxiom(["ATTACK"],["SMOOCH"],["CRIPPLE"],["APIS"],"UNHINGED");
     }
 }
 

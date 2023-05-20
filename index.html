@@ -171,6 +171,9 @@
                 resolutionSize++;
                 setupCanvas();
             }
+            if (e.key == "i"){ // debug
+                lol()
+            }
             if (inInventory){
                 if (e.key >= 1 && e.key <= 6) player.axioms.storeSoul(e.key-1);
                 if (e.key >= 7 && e.key <= 9) player.axioms.activateAxiom(e.key-7);

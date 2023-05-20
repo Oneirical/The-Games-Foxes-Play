@@ -471,6 +471,37 @@ function summonExits(){
     }
 }
 
+function beginTurn(){
+    for(let k=monsters.length;k>=0;k--){
+        let activeeffects = [];
+        let con;
+        if (k == monsters.length) con = player;
+        else con = monsters[k];
+        for (let i of Object.keys(con.statuseff)){
+            if (con.statuseff[i] > 0) activeeffects.push(i);
+            con.statuseff[i] = Math.max(0,con.statuseff[i]-1);
+            if (con.statuseff[i] > 0 && activeeffects.includes(i)) removeItemOnce(activeeffects,i);
+        }
+        con.effectsExpire(activeeffects);
+    }
+
+    for(let k=monsters.length;k>=0;k--){
+        let con;
+        if (k == monsters.length) con = player;
+        else con = monsters[k];
+        if (con.soullink && con.soullink instanceof Tile){
+            con.move(con.soullink);
+            con.soullink = null;
+        }
+    }
+}
+
+function lol(){
+    let senet = new Axiom([],["BEAM","EGO"],["BUFF"],["ZENORIUM"],"SAINTLY");
+    senet.legendCast(player);
+    player.statuseff["Transformed"] = 99;
+}
+
 function tick(){
     player.update();
     deadcheck = 0;
@@ -506,29 +537,6 @@ function tick(){
             if (!monsters[k].permacharm || monsters[k].name.includes("Vermin")) deadcheck++
         }else if (monsters[k].order < 0){
             monsters.splice(k,1);
-        }
-    }
-
-    for(let k=monsters.length;k>=0;k--){
-        let activeeffects = [];
-        let con;
-        if (k == monsters.length) con = player;
-        else con = monsters[k];
-        for (let i of Object.keys(con.statuseff)){
-            if (con.statuseff[i] > 0) activeeffects.push(i);
-            con.statuseff[i] = Math.max(0,con.statuseff[i]-1);
-            if (con.statuseff[i] > 0 && activeeffects.includes(i)) removeItemOnce(activeeffects,i);
-        }
-        con.effectsExpire(activeeffects);
-    }
-
-    for(let k=monsters.length;k>=0;k--){
-        let con;
-        if (k == monsters.length) con = player;
-        else con = monsters[k];
-        if (con.soullink && con.soullink instanceof Tile){
-            con.move(con.soullink);
-            con.soullink = null;
         }
     }
     for(let k=droppedsouls.length-1;k>=0;k--){

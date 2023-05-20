@@ -5,7 +5,7 @@ const powerratings = {
     "XCROSS" : 2,
     "STEP" : -2,
     "TURNEND" : -3,
-    "ATTACK" : -2,
+    //"ATTACK" : 0,
     "PLUS" : 4,
 }
 

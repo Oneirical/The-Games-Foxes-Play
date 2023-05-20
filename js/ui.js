@@ -862,44 +862,43 @@ class DrawWheel{
         for (let k of this.wheel){
             if (!(k instanceof Empty)) space--;
         }
-        if(true){
-            if (space == 0){
-                this.cycleSouls();
-            }
-            //log.addLog("Empty");
-            if (this.pile.length <= 0){
-                this.reshuffle();
-            }
-            if (this.pile.length < 1){
-                log.addLog("UnrulySouls");
-                shakeAmount = 5;
-                return;
-            }
-            for (let k of this.wheel){
-                if (k instanceof Empty){
-                    this.wheel[this.wheel.indexOf(k)] = this.pile[0];
-                    research.completeResearch("Breath");
-                    break;
-                } 
-            }
-            if(this.pile[0] instanceof Feral){
-                for (let j of player.axioms.active){
-                    if (j instanceof Ezezza){
-                        player.para++;
-                        log.addLog("EZEZZA");
-                    }
-                }
-            }
-            this.pile.shift();
-            this.resetAngles();
-            if (this.activemodule != "Alacrity") tick();
-            else if (!player.consumeCommon(1,false)){
-                log.addLog("FluffyInsufficientPower");
-                playSound("off");
-                tick();
-                this.activemodule = "NONE";
+        if (space == 0){
+            this.cycleSouls();
+        }
+        //log.addLog("Empty");
+        if (this.pile.length <= 0){
+            this.reshuffle();
+        }
+        if (this.pile.length < 1){
+            log.addLog("UnrulySouls");
+            shakeAmount = 5;
+            return;
+        }
+        beginTurn();
+        for (let k of this.wheel){
+            if (k instanceof Empty){
+                this.wheel[this.wheel.indexOf(k)] = this.pile[0];
+                research.completeResearch("Breath");
+                break;
             } 
         }
+        if(this.pile[0] instanceof Feral){
+            for (let j of player.axioms.active){
+                if (j instanceof Ezezza){
+                    player.para++;
+                    log.addLog("EZEZZA");
+                }
+            }
+        }
+        this.pile.shift();
+        this.resetAngles();
+        if (this.activemodule != "Alacrity") tick();
+        else if (!player.consumeCommon(1,false)){
+            log.addLog("FluffyInsufficientPower");
+            playSound("off");
+            tick();
+            this.activemodule = "NONE";
+        } 
     }
 
     sacrificeSoul(slot){
@@ -1069,45 +1068,39 @@ class DrawWheel{
             }
             research.completeResearch("Spellcast");
             if (player.fuffified > 0) spellName = "SERENE";
-            if (spellName == "FLEXIBLE"){
-                fail = player.axioms.active[num].legendCast(player);
-                if (!fail){
-                    this.saved.push(this.wheel[slot]);
-                    wheel.spinningsouls.push(new SpinningSoul(this.wheel[slot].icon,wheel.spinningsouls[wheel.spinningsouls.length-1].angle-0.5));
-                    this.wheel[slot] = new Empty();
-                    playSound("spell");
-                    tick();
-                }
-                else if (fail && spellName != "SERENE") log.addLog("CastError");
-                fail = false;
-                return;
-            }
             if (spellName){
-                if (basic.includes(spellName) && area == "Spire") spellName = spellName+"S";
-                if (player.axioms.active[num].influence != "I") player.axioms.active[num].talk();
-                else log.addLog(spellName);
-                spells[spellName](player, player.axioms.active[num]);
-                if (player.axioms.active[num].influence == "C") spells[player.axioms.active[num].caste](player);
-                if (!fail && player.activemodule != "Focus"){
+                beginTurn();
+                if (spellName == "FLEXIBLE"){
+                    fail = player.axioms.active[num].legendCast(player);
                     this.saved.push(this.wheel[slot]);
                     wheel.spinningsouls.push(new SpinningSoul(this.wheel[slot].icon,wheel.spinningsouls[wheel.spinningsouls.length-1].angle-0.5));
                     this.wheel[slot] = new Empty();
-                }
-                else if (this.activemodule == "Focus"){
-                    if(!player.consumeCommon(3,false)){
-                        log.addLog("FluffyInsufficientPower");
-                        this.saved.push(this.wheel[slot]);
-                        this.wheel[slot] = new Empty(); 
-                        player.activemodule = "NONE";
-                        playSound("off");
-                    }
-                }
-                if (!fail){
                     playSound("spell");
                     tick();
                 }
-                if (fail && spellName != "SERENE") log.addLog("CastError");
-                fail = false;
+                else{
+                    if (basic.includes(spellName) && area == "Spire") spellName = spellName+"S";
+                    if (player.axioms.active[num].influence != "I") player.axioms.active[num].talk();
+                    else log.addLog(spellName);
+                    spells[spellName](player, player.axioms.active[num]);
+                    if (player.axioms.active[num].influence == "C") spells[player.axioms.active[num].caste](player);
+                    if (!fail && player.activemodule != "Focus"){
+                        this.saved.push(this.wheel[slot]);
+                        wheel.spinningsouls.push(new SpinningSoul(this.wheel[slot].icon,wheel.spinningsouls[wheel.spinningsouls.length-1].angle-0.5));
+                        this.wheel[slot] = new Empty();
+                    }
+                    else if (this.activemodule == "Focus"){
+                        if(!player.consumeCommon(3,false)){
+                            log.addLog("FluffyInsufficientPower");
+                            this.saved.push(this.wheel[slot]);
+                            this.wheel[slot] = new Empty(); 
+                            player.activemodule = "NONE";
+                            playSound("off");
+                        }
+                    }
+                    playSound("spell");
+                    tick();
+                }
             }
         }
     }
@@ -1264,10 +1257,14 @@ class Inventory{
         }
     }
 
+    queueContin(word,caster){
+        caster.queuedcontin.push(word);
+    }
+
     castContin(word, caster){
         for (let i of this.active){
             if (i.contingencies && i.contingencies.includes(word)){
-                if (soulcosts[word] && caster.isPlayer){
+                if (soulcosts[word] && caster.isPlayer && caster.statuseff["Transformed"] == 0){
                     if (wheel.ipseity < soulcosts[word]){
                         shakeAmount = 5;
                         log.addLog("NoShards");
