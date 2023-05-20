@@ -9,13 +9,13 @@ It's tough to still channel the discipline to hammer out lines of code after eac
 
 # Selves Malleable As Clay
 
-I am getting *waaaay* too ahead of myself already working on this feature when the UI is still half-broken from my last week's 16:9 aspect ratio modifications. Plus, I haven't even finished equipping every entity with cutting-edge Axioms yet to make this mechanic truly universal.
+I am getting *waaaay* too ahead of myself already working on this feature when the UI is still half-broken from last week's 16:9 aspect ratio modifications. Plus, I haven't even finished equipping every entity with cutting-edge Axioms yet to make this mechanic truly universal.
 
 But I was just too hyped to not at least start.
 
 Enter: Soulswapping. Currently accessible as a Function spell component (named "Zenorium"), it will shuffle around the souls of every affected creature, being quite unimpressive when used on two enemies together. However, when the *player* joins in on the fun... true chaos is abound. This allows one to play as any creature in the game and use their innate ability to your advantage, while the... previous owner of your new flesh vessel is now thrashing around in your body, spamming your own spells and potentially trying to swap themselves back. New meta: craft deliberately horrible suicide spells and soul swap with a boss and watch them self-detonate? We get there when we get there.
 
-[Quick video demonstration here.](https://invidious.esmailelbob.xyz/watch?v=pqTH9YUSHVQ) I, the player character on the top (@), have only 1 HP remaining. I swap my soul with this pink fellow, who is quite slow and can only move every other turn - but successfully slay my old body despite this drawback, and leave the room, my existence now cursed with constant slowness. Thankfully, one will eventually revert to their old body after a few turns.
+[Quick video demonstration here.](https://vid.puffyan.us/watch?v=pqTH9YUSHVQ) I, the player character on the top (@), have only 1 HP remaining. I swap my soul with this pink fellow, who is quite slow and can only move every other turn - but successfully slay my old body despite this drawback, and leave the room, my existence now cursed with constant slowness. Thankfully, one will eventually revert to their old body after a few turns.
 
 All enemy-native Axiom spells are now also accessible to the player, allowing their abilities to be crafted and used for general purpose occasions. This has invited me to write a considerable amount of flavour text - I quite like [this one](https://cdn.discordapp.com/attachments/504088568084561930/1109289979525468260/image.png). 
 
