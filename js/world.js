@@ -636,6 +636,7 @@ class World{
         tiles = room.tiles;
         if (room instanceof WorldSeed && level == 1) room.populateRoom();
         room.initializeRoom();
+        drawTiles();
     }
 
     saveRoom(room){
@@ -842,7 +843,6 @@ class Room{
         player.hp = this.startingplayerHP;
         player.lastMove = this.playerlastmove;
         gameState = "running";
-        drawTiles();
     }
 }
 

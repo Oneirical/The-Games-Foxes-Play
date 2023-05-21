@@ -94,6 +94,7 @@ function summonMonster(x,y,type){
     let monster = new type(tile);
     monster.teleportCounter = 0;
     monsters.push(monster);
+    monster.setUpSprite();
 }
 
 function unlockAllSpells(){
@@ -232,6 +233,50 @@ class Monster{
         this.adjacentmon = this.tile.getAdjacentNeighbors().filter(t => t.monster && !t.monster.isPlayer).length;
     }
 
+    setUpSprite(){
+        this.creaturecon = new PIXI.Container();
+        tilesDisplay.addChild(this.creaturecon);
+        this.creaturecon.x = this.getDisplayX()*tileSize;
+        this.creaturecon.y = this.getDisplayY()*tileSize;
+        let hai = this.sprite;
+        let clampy = new PIXI.Sprite(allsprites.textures['sprite'+hai]);
+        clampy.width = tileSize;
+        clampy.height = tileSize;
+        clampy.texture.baseTexture.scaleMode = PIXI.SCALE_MODES.NEAREST;
+        this.creaturecon.addChild(clampy);
+        let hpcon = new PIXI.Container();
+        this.creaturecon.addChild(hpcon);
+        for(let i=0; i<6; i++){
+            let bai = new PIXI.Sprite(allsprites.textures['sprite9']);
+            bai.x = i*19;
+            bai.width = tileSize;
+            bai.height = tileSize;
+            bai.texture.baseTexture.scaleMode = PIXI.SCALE_MODES.NEAREST;
+            hpcon.addChild(bai);
+        }
+        this.updateHp();
+        app.ticker.add((delta) => {
+            if (this.offsetX != 0 || this.offsetY != 0){
+                if (this.offsetX >= 0) this.offsetX = Math.max(this.offsetX - Math.sign(this.offsetX)*(this.anispeed),0);
+                else this.offsetX = Math.min(this.offsetX - Math.sign(this.offsetX)*(this.anispeed),0);
+                if (this.offsetY >= 0) this.offsetY = Math.max(this.offsetY - Math.sign(this.offsetY)*(this.anispeed),0);
+                else this.offsetY = Math.min(this.offsetY - Math.sign(this.offsetY)*(this.anispeed),0);  
+                this.creaturecon.x = this.getDisplayX()*tileSize;
+                this.creaturecon.y = this.getDisplayY()*tileSize; 
+            }
+        });
+
+    }
+
+    updateHp(){
+        let hp = this.hp;
+        if (this.isInvincible || this.order >= 0) hp = 0;
+        for (let i of this.creaturecon.children[1].children){
+            if (hp <= 0) i.visible = false;
+            hp--;
+        }
+    }
+
     heal(damage){
         if (damage <= 0) return;
         if (this instanceof Tail){
@@ -242,6 +287,7 @@ class Monster{
         else if (this.statuseff["Dissociated"] == 0) this.hp = Math.min(maxHp, this.hp+damage);
         else if (this.statuseff["Dissociated"] > 0) this.falsehp = Math.min(maxHp, this.falsehp+(damage*2));
         this.axioms.queueContin("ONHEAL",this);
+        this.updateHp();
     }
 
     assignAxiom(co,fo,mu,fu,ca){
@@ -729,6 +775,7 @@ class Monster{
         }else{                                                       
             playSound("hit2");                                              
         }
+        this.updateHp();
     }
 
     die(){
@@ -759,6 +806,7 @@ class Monster{
         }
         if (area != "Spire") this.sprite = 1;
         else this.sprite = 83;
+        this.creaturecon.visible = false;
     }
 
     move(tile){
@@ -766,7 +814,7 @@ class Monster{
             this.tile.monster = 0;
             this.offsetX = this.tile.x - tile.x;    
             this.offsetY = this.tile.y - tile.y;
-            this.anispeed = 1/16*(Math.abs(this.offsetX)+Math.abs(this.offsetY));
+            this.anispeed = 1/9*(Math.abs(this.offsetX)+Math.abs(this.offsetY));
         }
         this.tile = tile;
         tile.monster = this;                             

@@ -15,6 +15,20 @@ class Tile{
         this.clicktrap = false;;
     }
 
+    setUpSprite(){
+        this.tilecon = new PIXI.Container();
+        tilesDisplay.addChild(this.tilecon);
+        this.tilecon.x = this.x*tileSize;
+        this.tilecon.y = this.y*tileSize;
+        let hai = this.sprite;
+        let clampy = new PIXI.Sprite(allsprites.textures['sprite'+hai]);
+        clampy.width = tileSize;
+        clampy.height = tileSize;
+        clampy.texture.baseTexture.scaleMode = PIXI.SCALE_MODES.NEAREST;
+        this.tilecon.addChild(clampy);
+        //add traps here
+    }
+
     replace(newTileType){
         tiles[this.x][this.y] = new newTileType(this.x, this.y);
         return tiles[this.x][this.y];
@@ -581,6 +595,17 @@ class Altar extends Floor{
         this.offsetY = 0;
         this.speed = 0.05;
         this.thrashcounter = 0;
+    }
+
+    setUpSprite(){
+        super.setUpSprite();
+        let soulcon = new PIXI.Sprite(allsprites.textures['sprite0']);
+        soulcon.width = tileSize*0.8;
+        soulcon.height = tileSize*0.8;
+        soulcon.x = tileSize/2;
+        soulcon.y = tileSize/2;
+        soulcon.anchor.set(0.5);
+        this.tilecon.addChild(soulcon);
     }
 
     getDisplayX(){                     

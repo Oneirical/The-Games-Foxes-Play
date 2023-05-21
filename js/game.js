@@ -27,10 +27,15 @@ function setupPixi(){
     allsprites.parse();
     startGame();
     drawTiles();
-    defineLoop();
 }
 
-function defineLoop(){
+function tickTiles(){
+    for(let i=0;i<numTiles;i++){
+        for(let j=0;j<numTiles;j++){
+            let hai = tiles[i][j].sprite;
+            tilesDisplay.children[j+(i*9)].texture = allsprites.textures['sprite'+hai]; //extend this to also place traps and caged souls
+        }
+    }
 }
 
 function drawTiles(){
@@ -38,14 +43,7 @@ function drawTiles(){
     tileSize = (7*16)/(world.getRoom().size/9);
     for(let i=0;i<numTiles;i++){
         for(let j=0;j<numTiles;j++){
-            let hai = tiles[i][j].sprite;
-            let clampy = new PIXI.Sprite(allsprites.textures['sprite'+hai]);
-            clampy.x = i*tileSize;
-            clampy.y = j*tileSize;
-            clampy.width = tileSize;
-            clampy.height = tileSize;
-            clampy.texture.baseTexture.scaleMode = PIXI.SCALE_MODES.NEAREST;
-            tilesDisplay.addChild(clampy);
+            tiles[i][j].setUpSprite();
         }
     }
     drawSprites();
@@ -53,26 +51,12 @@ function drawTiles(){
 
 
 function drawSprites(){
-    let hai = player.sprite;
-    let clampy = new PIXI.Sprite(allsprites.textures['sprite'+hai]);
-    clampy.x = player.getDisplayX()*tileSize;
-    clampy.y = player.getDisplayY()*tileSize;
-    clampy.width = tileSize;
-    clampy.height = tileSize;
-    clampy.texture.baseTexture.scaleMode = PIXI.SCALE_MODES.NEAREST;
-
-    clampy.eventMode = 'static';
-    clampy.on('mouseover', (event) => {
-        console.log("hai");
-    });
-    tilesDisplay.addChild(clampy);
-    app.ticker.add((delta) => {
-        clampy.x = player.getDisplayX()*tileSize;
-        clampy.y = player.getDisplayY()*tileSize;
-        if (player.offsetX >= 0) player.offsetX = Math.max(player.offsetX - Math.sign(player.offsetX)*(player.anispeed),0);
-        else player.offsetX = Math.min(player.offsetX - Math.sign(player.offsetX)*(player.anispeed),0);
-        if (player.offsetY >= 0) player.offsetY = Math.max(player.offsetY - Math.sign(player.offsetY)*(player.anispeed),0);
-        else player.offsetY = Math.min(player.offsetY - Math.sign(player.offsetY)*(player.anispeed),0);    });
+    for(let k=monsters.length;k>=0;k--){
+        let con;
+        if (k == monsters.length) con = player;
+        else con = monsters[k];
+        con.setUpSprite();
+    }
 }
 
 function setupCanvas(){
@@ -696,6 +680,7 @@ function tick(){
         
     }
     if (doublecounter != 0) doublecounter--;
+    tickTiles();
 }
 
 function showTitle(){                                          
