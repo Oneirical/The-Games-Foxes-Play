@@ -33,7 +33,8 @@ function tickTiles(){
     for(let i=0;i<numTiles;i++){
         for(let j=0;j<numTiles;j++){
             let hai = tiles[i][j].sprite;
-            tilesDisplay.children[j+(i*9)].texture = allsprites.textures['sprite'+hai]; //extend this to also place traps and caged souls
+            let bai = allsprites.textures['sprite'+hai];
+            tilesDisplay.children[j+(i*9)].children[0].texture = bai; //extend this to also place traps and caged souls
         }
     }
 }

@@ -336,8 +336,49 @@ class MessageLog{
         this.writeheight = [];
         this.repeats = [];
         this.allgrey = false;
+        this.setUpLog();
     }
+
+    setUpLog(){
+        this.textcon = new PIXI.Container();
+        this.textcon.x = resolutionSize*9*16+10;
+        this.textcon.y = resolutionSize*9*16-256;
+        app.stage.addChild(this.textcon);
+        PIXI.Assets.addBundle('fonts', {
+            Play: 'Play-Regular.ttf',
+        });
+        PIXI.Assets.loadBundle('fonts');
+    }
+
     addLog(message){
+        let coloring = colours[message];
+        if (message.includes("Fluffy")) coloring = "cyan";
+        else if (message.includes("Rose")) coloring = "lightpink";
+        else if (message.includes("Epsilon")) coloring = "orangered";
+        else if (message.includes("Saint")) coloring = "lime";
+        else if (message.includes("Error")) coloring = "yellow";
+        const style = new PIXI.TextStyle({
+            fontFamily: 'Play',
+            fontSize: 18,
+            fill: coloring,
+            wordWrap: true,
+            wordWrapWidth: resolutionSize*16*16-resolutionSize*9*16-20-128,
+            lineJoin: 'round',
+        });
+        const richText = new PIXI.Text(messages[message], style);
+        this.textcon.addChild(richText);
+        let beeeg = PIXI.TextMetrics.measureText(richText.text,richText.style).height+5;
+        if (this.textcon.children.length > 1){
+            this.textcon.children[this.textcon.children.length-2].style.fill = "#b4b5b8";
+            for (let i of this.textcon.children){
+                if (i === richText)continue;
+                i.y += beeeg;
+                if (i.y > resolutionSize*16*9) i.visible = false;
+            }
+        }
+    }
+
+    addLogOld(message){
         this.allgrey = false;
         this.repeats.push(1);
         if (message != this.history[this.history.length-1]){
