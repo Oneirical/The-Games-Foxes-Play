@@ -27,6 +27,7 @@ function setupPixi(){
     allsprites.parse();
     startGame();
     drawTiles();
+    setUpUI();
 }
 
 function tickTiles(){
@@ -35,6 +36,53 @@ function tickTiles(){
             let hai = tiles[i][j].sprite;
             let bai = allsprites.textures['sprite'+hai];
             tilesDisplay.children[j+(i*9)].children[0].texture = bai; //extend this to also place traps and caged souls
+        }
+    }
+}
+
+function setUpUI(){
+    uiDisplay = new PIXI.Container();
+    uiDisplay.x = resolutionSize*9*16;
+    uiDisplay.y = 0;
+    app.stage.addChild(uiDisplay);
+    let clampy = new PIXI.Sprite(allsprites.textures['sprite'+hai]);
+    for (let i=0; i<9;i++){
+        for (let j=0;j<7;j++){
+            if (uisidebar["MAIN"][i][j] != "."){
+                let hai = 139;
+                if (["Q","P","Z","M"].includes(uisidebar["MAIN"][i][j])) hai = 140;
+                else if (["B","E","L","T"].includes(uisidebar["MAIN"][i][j])) hai = 141;
+                let clampy = new PIXI.Sprite(allsprites.textures['sprite'+hai]);
+                clampy.width = resolutionSize*16;
+                clampy.height = resolutionSize*16;
+                clampy.anchor.set(0.5,0.5);
+                clampy.x = j*resolutionSize*16+(resolutionSize*16/2);
+                clampy.y = i*resolutionSize*16+(resolutionSize*16/2);
+                if (uisidebar["MAIN"][i][j] == "B") clampy.y -= (resolutionSize*11);
+                else if (uisidebar["MAIN"][i][j] == "M" && i == 5) clampy.y -= (resolutionSize*11);
+                else if (uisidebar["MAIN"][i][j] == ">" && j == 4) clampy.y += (resolutionSize*5);
+                else if (uisidebar["MAIN"][i][j] == "T"){
+                    clampy.y += (resolutionSize*5);
+                    clampy.x += (resolutionSize*11);
+                }
+                const rotatea = {
+                    "Q" : 0,
+                    "P" : Math.PI/2,
+                    "Z" : 3*Math.PI/2,
+                    "M" : Math.PI,
+                    "-" : Math.PI/2,
+                    "=" : 3*Math.PI/2,
+                    "<" : 0,
+                    ">" : Math.PI,
+                    "B" : 3*Math.PI/2,
+                    "E" : Math.PI/2,
+                    "L" : Math.PI,
+                    "T" : 0,
+                }
+                clampy.rotation = rotatea[uisidebar["MAIN"][i][j]];
+                clampy.texture.baseTexture.scaleMode = PIXI.SCALE_MODES.NEAREST;
+                this.uiDisplay.addChild(clampy);
+            }
         }
     }
 }

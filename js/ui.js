@@ -341,8 +341,8 @@ class MessageLog{
 
     setUpLog(){
         this.textcon = new PIXI.Container();
-        this.textcon.x = resolutionSize*9*16+10;
-        this.textcon.y = resolutionSize*9*16-256;
+        this.textcon.x = resolutionSize*9*16+38;
+        this.textcon.y = resolutionSize*9*16-300;
         app.stage.addChild(this.textcon);
         PIXI.Assets.addBundle('fonts', {
             Play: 'Play-Regular.ttf',
@@ -362,7 +362,7 @@ class MessageLog{
             fontSize: 18,
             fill: coloring,
             wordWrap: true,
-            wordWrapWidth: resolutionSize*16*16-resolutionSize*9*16-20-128,
+            wordWrapWidth: resolutionSize*16*16-resolutionSize*11*16+32,
             lineJoin: 'round',
         });
         const richText = new PIXI.Text(messages[message], style);

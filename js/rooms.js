@@ -70,6 +70,20 @@ var keyresearch = {
     "Y" : "Y",
 }
 
+var uisidebar = {
+    "MAIN" : {
+        0:"Q-----P",
+        1:"<...T.>",
+        2:"<...>.>",
+        3:"<...>.>",
+        4:"<.....>",
+        5:"<B--M.>",
+        6:"<B---P>",
+        7:"<....L>",
+        8:"Z=====M",
+    }
+}
+
 var spellpatterns = {
     //Saintly
     "EGO" : {
