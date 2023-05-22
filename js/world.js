@@ -360,13 +360,7 @@ class World{
     setUpSprites(){
         this.mapcon = new PIXI.Container();
 
-        uiDisplay.addChild(this.mapcon);
-        let frame = new PIXI.Graphics();
-        frame.lineStyle(2, 0xFFFFFF, 1);
-        frame.beginFill(0x000000);
-        frame.drawRect(resolutionSize*16*4-14, 44, (resolutionSize+6)*16, (resolutionSize+6)*16);
-        frame.endFill();
-        this.mapcon.addChild(frame);
+        uiDisplayLeft.addChild(this.mapcon);
         let newSprite = new PIXI.Sprite(allsprites.textures['icon7']);
         newSprite.width = (resolutionSize+12)*16;
         newSprite.height = (resolutionSize+12)*16;

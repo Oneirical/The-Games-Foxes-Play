@@ -12,14 +12,18 @@ function setupPixi(){
         view: document.getElementById("pixi-canvas"),
         resolution: window.devicePixelRatio || 1,
         autoDensity: true,
-        width: 16*16*7,
-        height: 16*9*7
+        width: 1920,
+        height: 1080
     });
     document.body.appendChild(app.view);
+    gameDisplay = new PIXI.Container();
+    gameDisplay.x = (1920-16*16*resolutionSize)/2;
+    gameDisplay.y = (1080-16*9*resolutionSize)/2;
+    app.stage.addChild(gameDisplay);
     tilesDisplay = new PIXI.Container();
     tilesDisplay.x = (resolutionSize+12)*16;
     tilesDisplay.y = 0;
-    app.stage.addChild(tilesDisplay);
+    gameDisplay.addChild(tilesDisplay);
     allsprites = new PIXI.Spritesheet(
         PIXI.BaseTexture.from(atlasData.meta.image),
         atlasData
@@ -30,41 +34,37 @@ function setupPixi(){
     setUpUI();
 }
 
-function tickTiles(){
-    for(let i=0;i<numTiles;i++){
-        for(let j=0;j<numTiles;j++){
-            let hai = tiles[i][j].sprite;
-            let bai = allsprites.textures['sprite'+hai];
-            tilesDisplay.children[j+(i*9)].children[0].texture = bai; //extend this to also place traps and caged souls
-        }
-    }
-}
-
-function setUpUI(){
-    uiDisplay = new PIXI.Container();
-    uiDisplay.x = resolutionSize*9*16;
-    uiDisplay.y = 0;
-    app.stage.addChild(uiDisplay);
-    //let newSprite = new PIXI.Sprite(allsprites.textures['sprite'+hai]);
-    for (let i=0; i<9;i++){
-        for (let j=0;j<7;j++){
-            if (uisidebar["MAIN"][i][j] != "."){
+function drawChainBorder(x,y,w,h){
+    let lolswappedthemoops;
+    lolswappedthemoops = w;
+    w = h;
+    h = lolswappedthemoops;
+    let chaincon = new PIXI.ParticleContainer();
+    chaincon.x = x;
+    chaincon.y = y;
+    app.stage.addChild(chaincon);
+    for (let i=0; i<w;i++){
+        for (let j=0;j<h;j++){
+            if (i == 0 || j == 0 || i == w-1 || j == h-1){
+                let character = ".";
+                if (i == 0 && j == 0) character = "Q";
+                else if (i == 0 && j == h-1) character = "P";
+                else if (i == w-1 && j == 0) character = "Z";
+                else if (i == w-1 && j == h-1) character = "M";
+                else if (i == 0) character = "-";
+                else if (i == w-1) character = "=";
+                else if (j == 0) character = "<";
+                else if (j == h-1) character = ">";
+                
                 let hai = 139;
-                if (["Q","P","Z","M"].includes(uisidebar["MAIN"][i][j])) hai = 140;
-                else if (["B","E","L","T"].includes(uisidebar["MAIN"][i][j])) hai = 141;
+                if (["Q","P","Z","M"].includes(character)) hai = 140;
+                else if (["B","E","L","T"].includes(character)) hai = 141;
                 let newSprite = new PIXI.Sprite(allsprites.textures['sprite'+hai]);
-                newSprite.width = resolutionSize*16;
-                newSprite.height = resolutionSize*16;
+                newSprite.width = 32;
+                newSprite.height = 32;
                 newSprite.anchor.set(0.5,0.5);
-                newSprite.x = j*resolutionSize*16+(resolutionSize*16/2);
-                newSprite.y = i*resolutionSize*16+(resolutionSize*16/2);
-                if (uisidebar["MAIN"][i][j] == "B") newSprite.y -= (resolutionSize*11);
-                else if (uisidebar["MAIN"][i][j] == "M" && i == 5) newSprite.y -= (resolutionSize*11);
-                else if (uisidebar["MAIN"][i][j] == ">" && j == 4) newSprite.y += (resolutionSize*5);
-                else if (uisidebar["MAIN"][i][j] == "T"){
-                    newSprite.y += (resolutionSize*5);
-                    newSprite.x += (resolutionSize*11);
-                }
+                newSprite.x = (j*32);
+                newSprite.y = (i*32);
                 const rotatea = {
                     "Q" : 0,
                     "P" : Math.PI/2,
@@ -79,12 +79,42 @@ function setUpUI(){
                     "L" : Math.PI,
                     "T" : 0,
                 }
-                newSprite.rotation = rotatea[uisidebar["MAIN"][i][j]];
+                newSprite.rotation = rotatea[character];
                 newSprite.texture.baseTexture.scaleMode = PIXI.SCALE_MODES.NEAREST;
-                uiDisplay.addChild(newSprite);
+                chaincon.addChild(newSprite);
             }
         }
     }
+}
+
+function tickTiles(){
+    for(let i=0;i<numTiles;i++){
+        for(let j=0;j<numTiles;j++){
+            let hai = tiles[i][j].sprite;
+            let bai = allsprites.textures['sprite'+hai];
+            tilesDisplay.children[j+(i*9)].children[0].texture = bai; //extend this to also place traps and caged souls
+        }
+    }
+}
+
+function setUpUI(){
+    drawChainBorder(376,44,32,32); //main
+    drawChainBorder(34,44+32*18+96,10,11); //axiom
+    drawChainBorder(34,44,10,3); //title
+    drawChainBorder(34,44+32*3+32,10,10); //map
+    drawChainBorder(34,44+32*13+64,10,5); //status
+
+    drawChainBorder(372+32*32+28,44,15,15); //souls
+    drawChainBorder(372+32*32+28,44+32*16,15,12); //log
+    drawChainBorder(372+32*32+28,44+32*29,15,3); //buttons
+    uiDisplayLeft = new PIXI.Container();
+    gameDisplay.addChild(uiDisplayLeft);
+    uiDisplay = new PIXI.Container();
+    uiDisplay.x = resolutionSize*9*16 + (resolutionSize+12)*16;
+    uiDisplay.y = 0;
+    gameDisplay.addChild(uiDisplay);
+    //let newSprite = new PIXI.Sprite(allsprites.textures['sprite'+hai]);
+
     wheel.setUpSprites();
     player.axioms.setUpSprites();
     world.setUpSprites();

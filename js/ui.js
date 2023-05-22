@@ -341,9 +341,9 @@ class MessageLog{
 
     setUpLog(){
         this.textcon = new PIXI.Container();
-        this.textcon.x = resolutionSize*9*16+38;
-        this.textcon.y = resolutionSize*9*16-300;
-        app.stage.addChild(this.textcon);
+        this.textcon.x = 372+32*30+28;
+        this.textcon.y = 44+29*16+8;
+        gameDisplay.addChild(this.textcon);
         PIXI.Assets.addBundle('fonts', {
             Play: 'Play-Regular.ttf',
         });
@@ -367,7 +367,7 @@ class MessageLog{
             fontSize: 18,
             fill: coloring,
             wordWrap: true,
-            wordWrapWidth: resolutionSize*16*16-resolutionSize*11*16+32,
+            wordWrapWidth: resolutionSize*16*16-(resolutionSize*9*16+(resolutionSize+12)*16+10)-20,
             lineJoin: 'round',
         });
         const richText = new PIXI.Text(messages[message], style);
@@ -380,7 +380,7 @@ class MessageLog{
             for (let i of this.textcon.children){
                 if (i === richText)continue;
                 i.y += beeeg;
-                if ((resolutionSize*9*16-300)+i.y+PIXI.TextMetrics.measureText(i.text,i.style).height > resolutionSize*9*16-35) i.visible = false;
+                if ((44+29*16+8)+i.y+PIXI.TextMetrics.measureText(i.text,i.style).height > resolutionSize*8*16-30) i.visible = false;
                 //this is better for now, but consider a rectangle that reshapes itself to only show the last possible line
             }
         }
@@ -1254,12 +1254,13 @@ class Inventory{
 
     setUpSprites(){
         this.axiomcon = new PIXI.Container();
-        app.stage.addChild(this.axiomcon);
+        this.axiomcon.y = resolutionSize*9*16-(resolutionSize+12)*16;
+        uiDisplayLeft.addChild(this.axiomcon);
         let newSprite = new PIXI.Sprite(allsprites.textures['icon6']);
         newSprite.width = (resolutionSize+12)*16;
         newSprite.height = (resolutionSize+12)*16;
         newSprite.x = 0;
-        newSprite.y = resolutionSize*16*3+30;
+        newSprite.y = 0;
         newSprite.texture.baseTexture.scaleMode = PIXI.SCALE_MODES.NEAREST;
         this.axiomcon.addChild(newSprite);
     }
