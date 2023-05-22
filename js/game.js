@@ -34,15 +34,21 @@ function setupPixi(){
     setUpUI();
 }
 
-function drawChainBorder(x,y,w,h){
+function drawChainBorder(x,y,w,h,source,scaler){
     let lolswappedthemoops;
     lolswappedthemoops = w;
     w = h;
     h = lolswappedthemoops;
     let chaincon = new PIXI.ParticleContainer();
-    chaincon.x = x;
-    chaincon.y = y;
-    app.stage.addChild(chaincon);
+    if (!scaler){
+        chaincon.x = x;
+        chaincon.y = y;
+    }
+    else{
+        chaincon.x = x-gameDisplay.x-scaler.x;
+        chaincon.y = y-gameDisplay.y-scaler.y;
+    }
+    source.addChild(chaincon);
     for (let i=0; i<w;i++){
         for (let j=0;j<h;j++){
             if (i == 0 || j == 0 || i == w-1 || j == h-1){
@@ -98,15 +104,14 @@ function tickTiles(){
 }
 
 function setUpUI(){
-    drawChainBorder(376,44,32,32); //main
-    drawChainBorder(34,44+32*18+96,10,11); //axiom
-    drawChainBorder(34,44,10,3); //title
-    drawChainBorder(34,44+32*3+32,10,10); //map
-    drawChainBorder(34,44+32*13+64,10,5); //status
+    drawChainBorder(376,44,32,32,app.stage); //main
+    ////title
+    // //map
+    drawChainBorder(34,44+32*13+64,10,5,app.stage); //status
 
-    drawChainBorder(372+32*32+28,44,15,15); //souls
-    drawChainBorder(372+32*32+28,44+32*16,15,12); //log
-    drawChainBorder(372+32*32+28,44+32*29,15,3); //buttons
+    // //souls
+    // //log
+    drawChainBorder(372+32*32+28,44+32*29,15,3,app.stage); //buttons
     uiDisplayLeft = new PIXI.Container();
     gameDisplay.addChild(uiDisplayLeft);
     uiDisplay = new PIXI.Container();
@@ -118,6 +123,7 @@ function setUpUI(){
     wheel.setUpSprites();
     player.axioms.setUpSprites();
     world.setUpSprites();
+    log.setUpLog();
 }
 
 function drawTiles(){

@@ -336,18 +336,22 @@ class MessageLog{
         this.writeheight = [];
         this.repeats = [];
         this.allgrey = false;
-        this.setUpLog();
     }
 
     setUpLog(){
+        this.logcon = new PIXI.Container();
+        this.logcon.x = 372+32*30+28;
+        this.logcon.y = 44+29*16+8;
+        gameDisplay.addChild(this.logcon);
         this.textcon = new PIXI.Container();
-        this.textcon.x = 372+32*30+28;
-        this.textcon.y = 44+29*16+8;
-        gameDisplay.addChild(this.textcon);
+        this.logcon.addChild(this.textcon);
+        drawChainBorder(372+32*32+28,44+32*16,15,12,this.logcon,this.logcon);
         PIXI.Assets.addBundle('fonts', {
             Play: 'Play-Regular.ttf',
         });
         PIXI.Assets.loadBundle('fonts');
+
+        //log.addLog("MapDebug"); //remove later
     }
 
     addLog(message){
@@ -493,7 +497,8 @@ class DrawWheel{
     setUpSprites(){
         this.wheelcon = new PIXI.Container();
         uiDisplay.addChild(this.wheelcon);
-        let center = [(1562-1016)/2,(580)/2];
+        drawChainBorder(372+32*32+28,44,15,15,this.wheelcon,uiDisplay);
+        let center = [(1885-1412)/2+34,(505-30)/2];
         let dist = 100*(resolutionSize/7);
         let pi = Math.PI;
         let wheelcoords = [[center[0], center[1]-dist],[center[0]+Math.cos(pi/4)*dist, center[1]-Math.sin(pi/4)*dist],[center[0]+dist, center[1]],[center[0]+Math.cos(pi/4)*dist, center[1]+Math.sin(pi/4)*dist],[center[0], center[1]+dist],[center[0]-Math.cos(pi/4)*dist, center[1]+Math.sin(pi/4)*dist],[center[0]-dist, center[1]],[center[0]-Math.cos(pi/4)*dist, center[1]-Math.sin(pi/4)*dist]];
@@ -1204,26 +1209,6 @@ class DrawWheel{
     }
 }
 
-class Modules{
-    constructor(){
-        this.active = [new Empty(),new Empty(),new Empty(),new Empty(),new Empty(),new Empty()];
-        this.storage = [new Empty(),new Empty()];
-        this.actcoords = [[257, 40],[366+68, 76],[257, 257],[472, 257],[257, 474],[366+68, 438]];
-        this.storecoords = [[112,185],[112,330]];
-    }
-
-    display(){
-        drawFilter(blackfilter);
-        drawSymbol(10, 0, 0, 577);
-        for (let k of this.active){
-            drawSymbol(k.icon, this.actcoords[this.active.indexOf(k)][0], this.actcoords[this.active.indexOf(k)][1], 64);
-        }
-        for (let k of this.storage){
-            drawSymbol(k.icon, this.storecoords[this.storage.indexOf(k)][0], this.storecoords[this.storage.indexOf(k)][1], 64);
-        }
-    }
-}
-
 class Inventory{
     constructor(){
         this.active = [new Vile(),new Feral(),new Unhinged(),new Artistic(),new Ordered(),new Saintly()];
@@ -1255,12 +1240,13 @@ class Inventory{
     setUpSprites(){
         this.axiomcon = new PIXI.Container();
         this.axiomcon.y = resolutionSize*9*16-(resolutionSize+12)*16;
-        uiDisplayLeft.addChild(this.axiomcon);
+        gameDisplay.addChild(this.axiomcon);
+        drawChainBorder(34,44+32*18+96,10,11,this.axiomcon,this.axiomcon); //axiom
         let newSprite = new PIXI.Sprite(allsprites.textures['icon6']);
         newSprite.width = (resolutionSize+12)*16;
         newSprite.height = (resolutionSize+12)*16;
-        newSprite.x = 0;
-        newSprite.y = 0;
+        newSprite.x = -38;
+        newSprite.y = -15;
         newSprite.texture.baseTexture.scaleMode = PIXI.SCALE_MODES.NEAREST;
         this.axiomcon.addChild(newSprite);
     }

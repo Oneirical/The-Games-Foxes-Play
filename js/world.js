@@ -170,7 +170,6 @@ class Universe{
         world.currentroom = [4,8];
         world.tranquil = true;
         world.playRoom(world.rooms[4][8],startingHp);
-        log.addLog("MapDebug");
     }
 
     passDown(layer, spawnx, spawny){
@@ -361,6 +360,8 @@ class World{
         this.mapcon = new PIXI.Container();
 
         uiDisplayLeft.addChild(this.mapcon);
+        drawChainBorder(34,44,10,3,this.mapcon,this.mapcon); 
+        drawChainBorder(34,44+32*3+32,10,10,this.mapcon,this.mapcon);
         let newSprite = new PIXI.Sprite(allsprites.textures['icon7']);
         newSprite.width = (resolutionSize+12)*16;
         newSprite.height = (resolutionSize+12)*16;
