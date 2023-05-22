@@ -351,6 +351,11 @@ class MessageLog{
     }
 
     addLog(message){
+        if (this.textcon.children.length > 0 && messages[message] == this.textcon.children[this.textcon.children.length-1].originalText){
+            this.textcon.children[this.textcon.children.length-1].repetitions += 1;
+            this.textcon.children[this.textcon.children.length-1].text = this.textcon.children[this.textcon.children.length-1].originalText +  " x" + this.textcon.children[this.textcon.children.length-1].repetitions;
+            return;
+        }
         let coloring = colours[message];
         if (message.includes("Fluffy")) coloring = "cyan";
         else if (message.includes("Rose")) coloring = "lightpink";
@@ -366,6 +371,8 @@ class MessageLog{
             lineJoin: 'round',
         });
         const richText = new PIXI.Text(messages[message], style);
+        richText.repetitions = 0;
+        richText.originalText = richText.text;
         this.textcon.addChild(richText);
         let beeeg = PIXI.TextMetrics.measureText(richText.text,richText.style).height+5;
         if (this.textcon.children.length > 1){
@@ -373,7 +380,8 @@ class MessageLog{
             for (let i of this.textcon.children){
                 if (i === richText)continue;
                 i.y += beeeg;
-                if (i.y > resolutionSize*16*9) i.visible = false;
+                if ((resolutionSize*9*16-300)+i.y+PIXI.TextMetrics.measureText(i.text,i.style).height > resolutionSize*9*16-35) i.visible = false;
+                //this is better for now, but consider a rectangle that reshapes itself to only show the last possible line
             }
         }
     }
@@ -480,6 +488,26 @@ class DrawWheel{
         this.turbulentmarkers[0].turbulent = true;
 
         //for (let o = 0; o<7;o++) this.paintcans[o].push(new SpinningSoul(o,0));
+    }
+
+    setUpSprites(){
+        this.wheelcon = new PIXI.Container();
+        uiDisplay.addChild(this.wheelcon);
+        let center = [(1562-1016)/2,(580)/2];
+        let dist = 100*(resolutionSize/7);
+        let pi = Math.PI;
+        let wheelcoords = [[center[0], center[1]-dist],[center[0]+Math.cos(pi/4)*dist, center[1]-Math.sin(pi/4)*dist],[center[0]+dist, center[1]],[center[0]+Math.cos(pi/4)*dist, center[1]+Math.sin(pi/4)*dist],[center[0], center[1]+dist],[center[0]-Math.cos(pi/4)*dist, center[1]+Math.sin(pi/4)*dist],[center[0]-dist, center[1]],[center[0]-Math.cos(pi/4)*dist, center[1]-Math.sin(pi/4)*dist]];
+        dist = 45*(resolutionSize/7);
+        for (let i = 0; i<8; i++){
+            let newSprite = new PIXI.Sprite(allsprites.textures['icon7']);
+            newSprite.width = (resolutionSize-3)*16;
+            newSprite.height = (resolutionSize-3)*16;
+            newSprite.anchor.set(0.5,0.5);
+            newSprite.x = wheelcoords[i][0];
+            newSprite.y = wheelcoords[i][1];
+            newSprite.texture.baseTexture.scaleMode = PIXI.SCALE_MODES.NEAREST;
+            this.wheelcon.addChild(newSprite);
+        }
     }
 
     display(){
@@ -1222,6 +1250,18 @@ class Inventory{
         }
         this.exppage = new ComponentsDisplay();
         this.describepage = 0;
+    }
+
+    setUpSprites(){
+        this.axiomcon = new PIXI.Container();
+        app.stage.addChild(this.axiomcon);
+        let newSprite = new PIXI.Sprite(allsprites.textures['icon6']);
+        newSprite.width = (resolutionSize+12)*16;
+        newSprite.height = (resolutionSize+12)*16;
+        newSprite.x = 0;
+        newSprite.y = resolutionSize*16*3+30;
+        newSprite.texture.baseTexture.scaleMode = PIXI.SCALE_MODES.NEAREST;
+        this.axiomcon.addChild(newSprite);
     }
 
     click(x,y){

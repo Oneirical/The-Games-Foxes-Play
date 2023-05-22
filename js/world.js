@@ -357,6 +357,25 @@ class World{
         this.soulex;
     }
 
+    setUpSprites(){
+        this.mapcon = new PIXI.Container();
+
+        uiDisplay.addChild(this.mapcon);
+        let frame = new PIXI.Graphics();
+        frame.lineStyle(2, 0xFFFFFF, 1);
+        frame.beginFill(0x000000);
+        frame.drawRect(resolutionSize*16*4-14, 44, (resolutionSize+6)*16, (resolutionSize+6)*16);
+        frame.endFill();
+        this.mapcon.addChild(frame);
+        let newSprite = new PIXI.Sprite(allsprites.textures['icon7']);
+        newSprite.width = (resolutionSize+12)*16;
+        newSprite.height = (resolutionSize+12)*16;
+        newSprite.x = resolutionSize*16*4;
+        newSprite.y = resolutionSize*16*1+30;
+        newSprite.texture.baseTexture.scaleMode = PIXI.SCALE_MODES.NEAREST;
+        //this.mapcon.addChild(newSprite);
+    }
+
     checkPixel(tile){
         if (tile instanceof BExit ||tile instanceof MapExit) return 6;
         else if (tile instanceof BAscendExit ||tile instanceof AscendExit) return 2; //

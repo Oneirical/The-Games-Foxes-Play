@@ -239,11 +239,11 @@ class Monster{
         this.creaturecon.x = this.getDisplayX()*tileSize;
         this.creaturecon.y = this.getDisplayY()*tileSize;
         let hai = this.sprite;
-        let clampy = new PIXI.Sprite(allsprites.textures['sprite'+hai]);
-        clampy.width = tileSize;
-        clampy.height = tileSize;
-        clampy.texture.baseTexture.scaleMode = PIXI.SCALE_MODES.NEAREST;
-        this.creaturecon.addChild(clampy);
+        let newSprite = new PIXI.Sprite(allsprites.textures['sprite'+hai]);
+        newSprite.width = tileSize;
+        newSprite.height = tileSize;
+        newSprite.texture.baseTexture.scaleMode = PIXI.SCALE_MODES.NEAREST;
+        this.creaturecon.addChild(newSprite);
         let hpcon = new PIXI.Container();
         this.creaturecon.addChild(hpcon);
         for(let i=0; i<6; i++){

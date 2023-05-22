@@ -17,7 +17,7 @@ function setupPixi(){
     });
     document.body.appendChild(app.view);
     tilesDisplay = new PIXI.Container();
-    tilesDisplay.x = 0;
+    tilesDisplay.x = (resolutionSize+12)*16;
     tilesDisplay.y = 0;
     app.stage.addChild(tilesDisplay);
     allsprites = new PIXI.Spritesheet(
@@ -45,25 +45,25 @@ function setUpUI(){
     uiDisplay.x = resolutionSize*9*16;
     uiDisplay.y = 0;
     app.stage.addChild(uiDisplay);
-    let clampy = new PIXI.Sprite(allsprites.textures['sprite'+hai]);
+    //let newSprite = new PIXI.Sprite(allsprites.textures['sprite'+hai]);
     for (let i=0; i<9;i++){
         for (let j=0;j<7;j++){
             if (uisidebar["MAIN"][i][j] != "."){
                 let hai = 139;
                 if (["Q","P","Z","M"].includes(uisidebar["MAIN"][i][j])) hai = 140;
                 else if (["B","E","L","T"].includes(uisidebar["MAIN"][i][j])) hai = 141;
-                let clampy = new PIXI.Sprite(allsprites.textures['sprite'+hai]);
-                clampy.width = resolutionSize*16;
-                clampy.height = resolutionSize*16;
-                clampy.anchor.set(0.5,0.5);
-                clampy.x = j*resolutionSize*16+(resolutionSize*16/2);
-                clampy.y = i*resolutionSize*16+(resolutionSize*16/2);
-                if (uisidebar["MAIN"][i][j] == "B") clampy.y -= (resolutionSize*11);
-                else if (uisidebar["MAIN"][i][j] == "M" && i == 5) clampy.y -= (resolutionSize*11);
-                else if (uisidebar["MAIN"][i][j] == ">" && j == 4) clampy.y += (resolutionSize*5);
+                let newSprite = new PIXI.Sprite(allsprites.textures['sprite'+hai]);
+                newSprite.width = resolutionSize*16;
+                newSprite.height = resolutionSize*16;
+                newSprite.anchor.set(0.5,0.5);
+                newSprite.x = j*resolutionSize*16+(resolutionSize*16/2);
+                newSprite.y = i*resolutionSize*16+(resolutionSize*16/2);
+                if (uisidebar["MAIN"][i][j] == "B") newSprite.y -= (resolutionSize*11);
+                else if (uisidebar["MAIN"][i][j] == "M" && i == 5) newSprite.y -= (resolutionSize*11);
+                else if (uisidebar["MAIN"][i][j] == ">" && j == 4) newSprite.y += (resolutionSize*5);
                 else if (uisidebar["MAIN"][i][j] == "T"){
-                    clampy.y += (resolutionSize*5);
-                    clampy.x += (resolutionSize*11);
+                    newSprite.y += (resolutionSize*5);
+                    newSprite.x += (resolutionSize*11);
                 }
                 const rotatea = {
                     "Q" : 0,
@@ -79,17 +79,20 @@ function setUpUI(){
                     "L" : Math.PI,
                     "T" : 0,
                 }
-                clampy.rotation = rotatea[uisidebar["MAIN"][i][j]];
-                clampy.texture.baseTexture.scaleMode = PIXI.SCALE_MODES.NEAREST;
-                this.uiDisplay.addChild(clampy);
+                newSprite.rotation = rotatea[uisidebar["MAIN"][i][j]];
+                newSprite.texture.baseTexture.scaleMode = PIXI.SCALE_MODES.NEAREST;
+                uiDisplay.addChild(newSprite);
             }
         }
     }
+    wheel.setUpSprites();
+    player.axioms.setUpSprites();
+    world.setUpSprites();
 }
 
 function drawTiles(){
     for (let i = tilesDisplay.children.length - 1; i >= 0; i--) {	tilesDisplay.removeChild(tilesDisplay.children[i]);};
-    tileSize = (7*16)/(world.getRoom().size/9);
+    tileSize = ((resolutionSize)*16)/(world.getRoom().size/9);
     for(let i=0;i<numTiles;i++){
         for(let j=0;j<numTiles;j++){
             tiles[i][j].setUpSprite();
@@ -194,7 +197,8 @@ function setupCanvas(){
 }
 
 function getMouse(){
-    return mousepos;
+    console.log((app.renderer.events).rootPointerEvent.global.x);
+    console.log((app.renderer.events).rootPointerEvent.global.y);
 }
 
 function drawSpriteFreeform(sprite, x, y, offX, offY, size){

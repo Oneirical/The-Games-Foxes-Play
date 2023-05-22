@@ -21,11 +21,11 @@ class Tile{
         this.tilecon.x = this.x*tileSize;
         this.tilecon.y = this.y*tileSize;
         let hai = this.sprite;
-        let clampy = new PIXI.Sprite(allsprites.textures['sprite'+hai]);
-        clampy.width = tileSize;
-        clampy.height = tileSize;
-        clampy.texture.baseTexture.scaleMode = PIXI.SCALE_MODES.NEAREST;
-        this.tilecon.addChild(clampy);
+        let newSprite = new PIXI.Sprite(allsprites.textures['sprite'+hai]);
+        newSprite.width = tileSize;
+        newSprite.height = tileSize;
+        newSprite.texture.baseTexture.scaleMode = PIXI.SCALE_MODES.NEAREST;
+        this.tilecon.addChild(newSprite);
         //add traps here
     }
 
