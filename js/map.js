@@ -108,51 +108,6 @@ function generateVault(id,room){
     if (vault["tags"].includes("randomgen")) generateMonsters();
 }
 
-function generateUnityTest(){
-    tiles = [];
-    for(let i=0;i<numTiles;i++){
-        tiles[i] = [];
-        for(let j=0;j<numTiles;j++){
-            if((j==(numTiles-2)&&i==Math.floor((numTiles-1)/2))||(j==1&&i==Math.floor((numTiles-1)/2)) || (j==Math.floor((numTiles-1)/2)&&i==numTiles-2) || (j==Math.floor((numTiles-1)/2)&&i==1)){
-                tiles[i][j] = new Floor(i,j);
-            }
-            else if(!inBounds(i,j)){
-                tiles[i][j] = new Wall(i,j);
-            }
-            else{
-                tiles[i][j] = new Floor(i,j);
-            }
-        }
-    }
-}
-
-function generateRelay(){
-    tiles = [];
-    for(let i=0;i<numTiles;i++){
-        tiles[i] = [];
-        for(let j=0;j<numTiles;j++){
-            if((j==(numTiles-2)&&i==Math.floor((numTiles-1)/2))||(j==1&&i==Math.floor((numTiles-1)/2)) || (j==Math.floor((numTiles-1)/2)&&i==numTiles-2) || (j==Math.floor((numTiles-1)/2)&&i==1)){
-                tiles[i][j] = new Floor(i,j);
-            }
-            else if(!inBounds(i,j)){
-                tiles[i][j] = new AbazonWall(i,j);
-            }
-            else if(((((j == 2) && (i == 4)))||((j==3)&&(i==1))||((j == 3) && (i == 7)))){
-                tiles[i][j] = new PosAltar(i,j);
-            }
-            else if(((((j == 6) && (i == 4)))||((j==5)&&(i==1))||((j == 5) && (i == 7)))){
-                tiles[i][j] = new NegAltar(i,j);
-            }
-            else if (j==4 && i == 3 || j==4 && i == 5){ //||((j==5)&&(i==3))||((j==5)&&(i==5))||((j==3)&&(i==3)))
-                tiles[i][j] = new BetAltar(i,j);
-            }
-            else{
-                tiles[i][j] = new Floor(i,j);
-            }
-        }
-    }
-}
-
 function blockedExits(){
     let exitlocations = world.getRoom().possibleexits;
     let returnpoint = world.getRoom().returnpoint;
@@ -231,28 +186,6 @@ function generateSpire(){
     }
 
     return passableTiles;
-}
-
-function generateModule(){
-    let vault = {
-        0: [Booster, Floor, Floor,Floor,Floor,Floor,Floor,Floor,Floor],
-        1: [Platform,Platform,Platform,Platform,Floor,Floor,Floor,Floor, Floor],
-        2: [Floor, Floor, Ladder, Floor, Floor, Floor, Platform, Platform, Platform],
-        3: [Floor, Floor, Ladder, Floor,Floor,Floor,Ladder,Floor,Floor],
-        4: [Floor,Floor,Ladder,Floor,Platform,Platform,Platform,Platform,Platform],
-        5: [Floor,Floor,Ladder,Floor,Floor,Floor,Floor,Floor,Floor],
-        6: [Floor,Floor,Ladder,Floor,Floor,Floor,Floor,Floor,Floor],
-        7: [Platform,Platform,Platform,Floor,Floor,Platform,Platform,Platform,Floor],
-        8: [Floor,Ladder,Floor,Floor,Floor,Floor,Floor,Floor,Floor],
-    }
-    tiles = [];
-    for(let i=0;i<numTiles;i++){
-        tiles[i] = [];
-        for(let j=0;j<numTiles;j++){
-            let tile = vault[j][i];
-            tiles[i][j] = new tile(i,j);
-        }
-    }
 }
 
 function inBounds(x,y){
@@ -408,13 +341,4 @@ function spawnMonster(){
         monsters.push(monster);
     }
 
-}
-
-//summon cages in harmonic relay rooms
-function spawnCages(loot, tile){
-    let cage;
-    if (smod.includes(loot)) cage = new Modulorb(tile, loot);
-    else cage = new Cage(tile, loot);
-    if (cage.loot == "SERENE") cage.lore = description["FluffyCage"];
-    monsters.push(cage);
 }

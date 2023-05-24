@@ -671,56 +671,6 @@ spells = {
         }
     },
 
-    SERENEUNUSED: function(){
-        if (player.inventory.length == 0){
-            //player.discard.push("TAINTED") //remplacer avec curse, dash est un placeholder
-            shuffle(player.discard)
-            for(let i=0;i<player.discard.length;i++){
-                player.inventory.push(player.discard[i]);
-            }
-            player.discard = [];
-        }
-        if (player.activemodule != "Selective"){
-            if (!player.harmonizeAny(1)){
-                log.addLog("FluffyNoConvertTaunt");
-                removeItemOnce(player.saved,"SERENE");
-                fail = true;
-            }
-            else{
-                player.specialAttack = "Harmony";
-                fail = false;
-            }
-        }
-        else{
-            if (player.consumeCommon(1,false)){ // pay the price
-                if (!player.consumeCommon(1,true)){
-                    player.discard.push(dontremove[0]);
-                    log.addLog("FluffyNoConvertTaunt");
-                    removeItemOnce(player.saved,"SERENE");
-                    fail = true;
-                }
-                else{
-                    player.specialAttack = "Harmony";
-                    fail = false;
-                }
-            }
-            else{
-                log.addLog("FluffyInsufficientPower");
-                playSound("off");
-                player.activemodule = "NONE";
-                if (!player.harmonizeAny(1)){
-                    log.addLog("FluffyNoConvertTaunt");
-                    removeItemOnce(player.saved,"SERENE");
-                    fail = true;
-                }
-                else{
-                    player.specialAttack = "Harmony";
-                    fail = false;
-                }
-            }
-        }
-
-    },
     JOLTZAZON: function(){
         monsters.forEach(function(entity){
             if (!entity.isPlayer){

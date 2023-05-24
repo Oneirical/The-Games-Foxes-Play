@@ -14,6 +14,8 @@
 
 * senet should become pure charm
 
+* when remaking the soul cage use fishOutSoul()
+
 **Everyone Is Legendary**
 
 * Relay up the data transfer better. teleport()

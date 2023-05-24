@@ -17,15 +17,11 @@
         background-color: black;
         text-align: center;
     }
-    @font-face {
-    font-family: 'Play';
-    src: url("Play-Regular.ttf");
-    }
 </style>
 
 <body></body>
-<script src="js/pixi.js"></script>
-<script src="js/spritesheet.js"></script>
+<script src="js/pixi/pixi.js"></script>
+<script src="js/pixi/spritesheet.js"></script>
 <script src="js/game.js"></script>
 <script src="js/map.js"></script>
 <script src="js/tile.js"></script>
@@ -38,26 +34,6 @@
 <script src="js/rooms.js"></script>
 <script src="js/loot.js"></script>
 <script>
-
-    mousepos = [0,0];
-    spritesheet = new Image();
-    spritesheet.src = 'textures/spritesheet.png';
-    //spritesheet.onload = startGame;
-
-    invsheet = new Image();
-    invsheet.src = 'textures/inventorysheet.png';
-
-    mapsheet = new Image();
-    mapsheet.src = 'textures/mapsheet.png';
-
-    rosefilter = new Image();
-    rosefilter.src = 'textures/rosefilter.png';
-
-    cyanfilter = new Image();
-    cyanfilter.src = 'textures/cyanfilter.png';
-
-    blackfilter = new Image();
-    blackfilter.src = 'textures/blackfilter.png';
                              
     gameState = "running";  
 
@@ -71,8 +47,6 @@
     uiHeight = 4;
     level = 1;
 
-    dontremove = [];
-
     tileSize = 64;
     numTiles = 9;
     var tiles = [];
@@ -85,50 +59,33 @@
     var canvas = {width:1600, height:900};
  
     cursormode = false;
-    invmode = false;
-    numLevels = 17;
     doublecounter = 0;
-    dialoguecount = 0;
+    dialoguecount = 0; //change this to be a this. variable
     fail = false;
     fallen = false;
-    areachange = true;
-    spirevisited = false;
     showboss = false;
 
     shakeAmount = 0;       
     shakeX = 0;                 
     shakeY = 0;
-    currentspelldesc = "nan";
-    falseagony = false;
+
     inInventory = false;
     inResearch = false;
-
-    naiamode = false;
-    contemhint = false;
     inMap = false;
-    inBigMap = false;
-    rosetoxin = 0;
 
     var inCatalogue = false;
     var showingComponent = false;
 
     var pdata = {};
 
-    mouseIsDown = false;
-
-    resolvebonus = 0;
-
     currenttrack = "none";
 
-    var spirespawner;
     var worldgen; 
     initSounds();
     setupPixi();
     //document.addEventListener('contextmenu', event => event.preventDefault());    // disable right click inspect element
-    document.querySelector("html").onkeypress = function(e){
-        if(gameState == "title"){                              
-            startGame();                
-        }else if(gameState == "dead"){                             
+    document.querySelector("html").onkeypress = function(e){              
+        if(gameState == "dead"){                             
             showTitle();                                      
         }else if(gameState == "running"){
             if (e.key == "l"){
@@ -199,65 +156,18 @@
             else if(e.key=="s"&&!cursormode) player.tryMove(0, 1);
             else if(e.key=="a"&&!cursormode)  player.tryMove(-1, 0);
             else if(e.key=="d"&&!cursormode) player.tryMove(1, 0);
-            else if((e.key=="w"||e.key=="s"||e.key=="a"||e.key=="d") && player.fall > 1) {
-                //tick();
-                if (e.key == "a"){
-                    player.tryMove(-1, 0);
-                }
-                else if (e.key == "d"){
-                    player.tryMove(1, 0);
-                }
-                else if (e.key == "w" && (player.tile.getNeighbor(0, -1).monster || player.entranced)){
-                    player.tryMove(0, -1);
-                }
-                else if (e.key == "s" && (player.tile.getNeighbor(0, 1).monster|| player.entranced)){
-                    player.tryMove(0, 1);
-                    if (player.tile.getNeighbor(0, 1).monster) player.tile.getNeighbor(0, 1).monster.knockback(1, [0,1]);
-                }
-                let tile = getTile(player.tile.x,player.tile.y+1);
-                if (player.fall > 0) player.move(tile);
-                if (player.tile.y > 8 || player.tile.x > 8 || player.tile.x < 0 || player.tile.y < 0){
-                    player.hit(99);
-                    player.sprite = 83;
-                    fallen = true;
-                    log.addLog("Fallen");
-                    tick();
-                }
-                if (player.tile.y > 8){
-                    player.hit(99);
-                }
-                if(player.tile.getNeighbor(0,1) instanceof Platform || player.tile.getNeighbor(0,1) instanceof Ladder || player.tile.getNeighbor(0,1) instanceof Booster) {
-                    player.fall = 0;
-                }
-                if(player.activemodule == "Hover") player.fall = 0;
-            }
             if(e.key=="w"&&cursormode) cursor.tryMove(0, -1);
             if(e.key=="s"&&cursormode) cursor.tryMove(0, 1);
             if(e.key=="a"&&cursormode) cursor.tryMove(-1, 0);
             if(e.key=="d"&&cursormode) cursor.tryMove(1, 0);
             if(e.key>=1 && e.key<=9 && !cursormode && player.para == 0) wheel.castSoul(e.key-1);
-            //if(e.key=="f" && cursormode && invmode) currentspelldesc = player.activemodule;
             if(e.key=="q" && !cursormode && player.para == 0) wheel.drawSoul();//player.drawSpell();
-            //if(e.key=="f" && gameState == "running" && !cursormode) inResearch = !inResearch;//log.addLog("WIP");//player.cycleModules();
             
         }else if(gameState == "contemplation"){
             if(e.key>=1 && e.key<=9 && !cursormode && player.para == 0) wheel.castSoul(e.key-1);
             if(e.key=="q" && !falseagony){
-                //log.addLog("Empty");
                 player.revivify();
             }
-        }else if(gameState == "vision"){
-            if(e.key>=1 && e.key<=9 && player.discarded > 0){
-                player.discardSpell(e.key-1);
-                player.discarded--;
-            } 
-            else if(e.key>=1 && e.key<=9 && player.discarded == 0) player.stackSpell(e.key-1);
         }
     };
-
-    //setInterval(draw, 15);
-
-    //setupCanvas();
-    //startGame();
-
 </script>
