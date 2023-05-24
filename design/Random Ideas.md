@@ -2,26 +2,23 @@
 
 * handle subdued/turbulent crafting mechanics
 
-* convert the bottom box of the inventory screen into storage slots
-
 * estate && large rooms do not work
 
-* make para a status effect (and fall later)
+* does para REALLY prevent casting or drawing?
+* constrict softlock allow the player to tick it down
 
-* reorganize the research tree to include inhale/exhale
+* fix haste (timesnapped)
 
-* overhaul status effects display
+* Add form grid images in their descriptions for clarity
+* A better ui for descriptions, with definitions for each keyword like 'exhale' or 'targets' or the status effects
+
+* senet should become pure charm
 
 **Everyone Is Legendary**
 
-* Relay up the data transfer better. summon(), giveEffect(), effectRunsOut(), teleport(), ...
+* Relay up the data transfer better. teleport()
 
 * second rewrite lore to feed others
-
-* Shrike
-When turn ends
-On self
-Apply Haste
 
 
 
