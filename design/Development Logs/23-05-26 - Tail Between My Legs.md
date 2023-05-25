@@ -11,13 +11,14 @@ Well I do kind of like starting over. It's refreshing to grab a big metaphorical
 
 * Possibly about half of the game's entire code has just been vaporized out of existence. 
 * The entire graphics and UI module has been rewritten from scratch, this time using PIXI.js.
+* In addition to being playable in browser, the game has been turned into a standalone app using Tauri.
 * Tons upon tons of mechanics that had been concocted back when I didn't really know where I was bringing this project have been expunged.
 * Many fundamental concepts, like monsters existing and moving around, have been significantly changed to ensure the player character is no longer some special snowflake with unique functions, but rather just another creature with some "is Controllable" flag set to true.
 * The "Great Wall of Global Variables" has terrorized the populace for too long, and has been rightfully destroyed.
 
 This hurt. It really did. So many hours of work, just gone. But proved to be a worthy sacrifice. At last, I have:
 
-* Pure 60 FPS crispy goodness
+* Pure 60 FPS crispy goodness (well, when using Tauri, that is)
 * A 1920x1080 resolution that actually makes sense
 * A gloriously juicy UI redesign
 * A code architecture that does *not* instill desires in me to abandon society and live in the woods when I look at it
