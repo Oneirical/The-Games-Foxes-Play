@@ -1264,13 +1264,43 @@ class Inventory{
         this.displayCon.y = 32*21;
         uiDisplayLeft.addChild(this.displayCon);
         drawChainBorder(10,11,this.displayCon); 
+        this.axiomCon = new PIXI.Container();
+        this.axiomCon.x = -8;
+        this.axiomCon.y = 10;
+        this.displayCon.addChild(this.axiomCon);
         let newSprite = new PIXI.Sprite(allsprites.textures['icon6']);
         newSprite.width = (resolutionSize+12)*16;
         newSprite.height = (resolutionSize+12)*16;
-        newSprite.x = -8;
-        newSprite.y = 10;
         newSprite.texture.baseTexture.scaleMode = PIXI.SCALE_MODES.NEAREST;
-        this.displayCon.addChild(newSprite);
+        this.axiomCon.addChild(newSprite);
+
+        const xcoords = {
+            0: 79,
+            1: 193,
+            2: 41,
+            3: 231,
+            4: 79,
+            5: 193,
+        }
+
+        const ycoords = {
+            0: 41,
+            1: 41,
+            2: 136,
+            3: 136,
+            4: 231,
+            5: 231,
+        }
+
+        for (let i = 0; i<6; i++){
+            let axiomslot = new PIXI.Sprite(allsprites.textures['icon'+i]);
+            axiomslot.width = 32;
+            axiomslot.height = 32;
+            axiomslot.x = xcoords[i];
+            axiomslot.y = ycoords[i];
+            axiomslot.texture.baseTexture.scaleMode = PIXI.SCALE_MODES.NEAREST;
+            this.axiomCon.addChild(axiomslot);
+        }
     }
 
     queueContin(word,caster){
