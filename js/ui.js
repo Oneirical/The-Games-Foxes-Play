@@ -183,6 +183,97 @@ function showCatalogue(type){
     drawSymbol(inside[type], 890, 20, 64);
 }
 
+class Cursor{
+    constructor(tile){
+        this.move(tile);
+        this.sprite = 18;
+        this.offsetX = 0;                                                   
+        this.offsetY = 0;
+        this.lastMove = [-1,0];
+        this.isPlayer = false;
+    }
+    getDisplayX(){                     
+        return this.tile.x;
+    }
+
+    getDisplayY(){                                                                  
+        return this.tile.y;
+    }
+    draw(){
+        drawSprite(this.sprite, this.getDisplayX(),  this.getDisplayY());
+        this.offsetX -= Math.sign(this.offsetX)*(1/8);     
+        this.offsetY -= Math.sign(this.offsetY)*(1/8); 
+    }
+    tryMove(newTile){
+        if (newTile.x < numTiles && newTile.y < numTiles && newTile.x >= 0 && newTile.y >= 0){
+            if (inResearch && !(research.page[newTile.x][newTile.y] instanceof ResearchNode ||research.page[newTile.x][newTile.y] instanceof ResearchConnector )) return;
+            this.move(newTile);
+        }
+    }
+    move(tile){
+        if (tile == this.tile) return
+        if(this.tile){
+            this.offsetX = this.tile.x - tile.x;    
+            this.offsetY = this.tile.y - tile.y;
+        }
+        this.tile = tile;
+        tile.cursor = this;
+        research.looking = false;
+        if (!(this.tile instanceof ResearchNode)) research.exppage = new TutorialDisplay("Default");                     
+    }
+    die(){
+        this.dead = true;
+        this.tile.cursor = null;
+        this.sprite = 99999;
+    }
+    info(){
+        if (inResearch){
+            if (research.page[this.tile.x][this.tile.y] instanceof ResearchNode){
+                let cx = this.tile.x;
+                let cy = this.tile.y;
+                research.displayNode(cx, cy);
+            }
+            else printOutText(researchlore["Awaiting"], 18, canvas.height+128+52, 30, "#cda4f2", 20, 560);
+            return;
+        }
+        if (this.tile.monster){
+            if (rosetoxin > 0){
+                printOutText(description["Rose"], 18, 10, 600, "pink", 20, 690);
+                printOutText("Rose Rose Rose", 18, 590, 70, "pink", 20, 350);
+                printOutText("Rose", 18, 590, 30, "pink", 20, 350);
+            }
+            else if (this.tile.monster.teleportCounter > 0){
+                printOutText(description["Warp"], 18, 10, 600, "white", 20, 690);
+                printOutText("The details of this soul are not clear to you yet.", 18, 590, 70, "white", 20, 350);
+                printOutText("Warp-wisp", 18, 590, 30, "white", 20, 350);
+            }
+            else{
+                printOutText(this.tile.monster.lore, 18, 10, 600, "white", 20, 690);
+                printOutText(this.tile.monster.soul, 18, 590, 70, "white", 20, 350);
+                printOutText(this.tile.monster.name, 18, 590, 30, "white", 20, 350);
+                printOutText(this.tile.monster.ability, 18, 10, 630+((this.tile.monster.lore.length/100)*20), "pink", 20, 690);
+                for (let i of Object.keys(this.tile.monster.statuseff)){
+                    if (this.tile.monster.statuseff[i] > 0){
+                        printOutText(i, 18, 590, 130+Object.keys(this.tile.monster.statuseff).indexOf(i)*10, "white", 20, 690);
+                        printOutText(this.tile.monster.statuseff[i].toString(), 18, 750, 130+Object.keys(this.tile.monster.statuseff).indexOf(i)*10, "white", 20, 690);
+                    }
+                }
+            }
+        }
+        else{
+            let colour = "lightgray";
+            if (this.tile.sprite == 61 || this.tile.sprite == 62) colour = "white";
+            printOutText(this.tile.lore, 18, 10, 600, colour, 20, 690);
+            printOutText(this.tile.name, 18, 590, 30, colour, 20, 350);
+        }
+        
+
+    }
+    debug(){
+        console.log(this.tile.id);
+    }
+}
+
 class LocationDisplay{
     constructor(){
         this.displayCon;

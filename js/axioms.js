@@ -9,15 +9,6 @@ const powerratings = {
     "PLUS" : 4,
 }
 
-function getSouls(){
-    let i = [Saintly,Ordered,Artistic,Unhinged,Feral,Vile];
-    for (let r of i){
-        for (let j = 0; j<10; j++){
-            wheel.addSoul(r);
-        }
-    }
-}
-
 const soulcosts = {
     "STEP" : 3,
     "TURNEND" : 4,
@@ -66,20 +57,6 @@ targeters = {
 
 // ARTISTICMINE - LASTMOVE>RANDOMDIR - SACRIFICE (Dump wheel) - DAMPENER (reduce power, get something in exchange) - ALLOUT (lose all resolve, get power)
 //
-
-class ClickTrap{
-    constructor(tile,functions,power){
-        this.functions = functions.slice();
-        this.power = power;
-        this.tile = tile;
-    }
-
-    trigger(){
-        for (let i of this.functions){
-            effects[i](this.tile,this.power);
-        }
-    }
-}
 
 class DelayedAttack{
     constructor(entity,forms,mutators,functions,power){
@@ -169,10 +146,6 @@ modifiers = {
         }
         return mods;
     },
-}
-
-function sameTile(tile1,tile2){
-    return tile1.x == tile2.x && tile1.y == tile2.y;
 }
 
 // SENET - LASHOL (status) - KILAMI (status) - GYVJI - DASH - RASEL (status) - ASPHA (tp and hit) - SUGCHA (lifesteal)

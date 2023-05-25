@@ -10,6 +10,10 @@ function generateATonOfWalls(){
     });                                    
 }
 
+function sameTile(tile1,tile2){
+    return tile1.x == tile2.x && tile1.y == tile2.y;
+}
+
 function generateWalls(){
     let passableTiles=0;
     for(let i=world.getRoom().extreme["W"]+1;i<world.getRoom().extreme["E"];i++){
