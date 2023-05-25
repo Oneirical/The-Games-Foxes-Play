@@ -185,26 +185,64 @@ function showCatalogue(type){
 
 class LocationDisplay{
     constructor(){
-
+        this.displayCon;
     }
 
     setUpSprites(){
         this.displayCon = new PIXI.Container();
         uiDisplayLeft.addChild(this.displayCon);
-        drawChainBorder(10,3,this.displayCon); 
+        drawChainBorder(10,3,this.displayCon);
+        const style = new PIXI.TextStyle({
+            fontFamily: 'Play',
+            fontSize: 40,
+            fill: "plum",
+        });
+        const richText = new PIXI.Text(world.getRoom().name, style);
+        richText.anchor.set(0.5,0.5);
+        richText.x = (335+22)/4+54;
+        richText.y = (121+31)/4-8;
+        this.displayCon.addChild(richText);
+    }
+
+    update(){
+        this.displayCon.children[1].text = world.getRoom().name;
     }
 }
 
 class StatusDisplay{
     constructor(){
-
     }
 
     setUpSprites(){
         this.displayCon = new PIXI.Container();
         this.displayCon.y = 32*15;
         uiDisplayLeft.addChild(this.displayCon);
-        drawChainBorder(10,5,this.displayCon); 
+        drawChainBorder(10,5,this.displayCon);
+        this.hpCon = new PIXI.Container();
+        this.hpCon.x = 8;
+        this.hpCon.y = 6;
+        this.displayCon.addChild(this.hpCon);
+        for (let i = 0; i<2;i++){
+            for (let j = 0; j<3; j++){
+                let newSprite = new PIXI.Sprite(allsprites.textures['icon1']);
+                newSprite.x = i*40
+                newSprite.y = j*40
+                newSprite.width = 32;
+                newSprite.height = 32;
+                this.hpCon.addChild(newSprite);
+            }
+        }
+    }
+
+    update(i){
+        for (let b of this.hpCon.children) b.visible = true;
+        let count = 0;
+        for (let j = 0; j < i.hp; j++){
+            count++;
+        }
+        for (let r = count; r<6;r++){
+            this.hpCon.children[r].visible = false;
+        }
     }
 }
 

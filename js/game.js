@@ -109,7 +109,6 @@ function setUpUI(){
     uiDisplayRight.x = 372+32*32+28;
     uiDisplayRight.y = 44;
     app.stage.addChild(uiDisplayRight);
-    //let newSprite = new PIXI.Sprite(allsprites.textures['sprite'+hai]);
     areaname.setUpSprites();
     statuses.setUpSprites();
     buttons.setUpSprites()

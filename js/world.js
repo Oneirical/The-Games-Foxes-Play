@@ -650,6 +650,7 @@ class World{
         if (room instanceof WorldSeed && level == 1) room.populateRoom();
         room.initializeRoom();
         drawTiles();
+        if (areaname.displayCon) areaname.update();
     }
 
     saveRoom(room){
