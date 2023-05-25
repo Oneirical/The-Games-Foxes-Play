@@ -357,18 +357,17 @@ class World{
     }
 
     setUpSprites(){
-        this.mapcon = new PIXI.Container();
-
-        uiDisplayLeft.addChild(this.mapcon);
-        drawChainBorder(34,44,10,3,this.mapcon,this.mapcon); 
-        drawChainBorder(34,44+32*3+32,10,10,this.mapcon,this.mapcon);
+        this.displayCon = new PIXI.Container();
+        this.displayCon.y = 32*4;
+        uiDisplayLeft.addChild(this.displayCon);
+        drawChainBorder(10,10,this.displayCon);
         let newSprite = new PIXI.Sprite(allsprites.textures['icon7']);
         newSprite.width = (resolutionSize+12)*16;
         newSprite.height = (resolutionSize+12)*16;
         newSprite.x = resolutionSize*16*4;
         newSprite.y = resolutionSize*16*1+30;
         newSprite.texture.baseTexture.scaleMode = PIXI.SCALE_MODES.NEAREST;
-        //this.mapcon.addChild(newSprite);
+        //this.displayCon.addChild(newSprite);
     }
 
     checkPixel(tile){

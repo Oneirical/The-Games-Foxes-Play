@@ -16,14 +16,10 @@ function setupPixi(){
         height: 1080
     });
     document.body.appendChild(app.view);
-    gameDisplay = new PIXI.Container();
-    gameDisplay.x = (1920-16*16*resolutionSize)/2;
-    gameDisplay.y = (1080-16*9*resolutionSize)/2;
-    app.stage.addChild(gameDisplay);
     tilesDisplay = new PIXI.Container();
-    tilesDisplay.x = (resolutionSize+12)*16;
-    tilesDisplay.y = 0;
-    gameDisplay.addChild(tilesDisplay);
+    tilesDisplay.x = (1920-16*16*resolutionSize)/2+(resolutionSize+12)*16+8;
+    tilesDisplay.y = (1080-16*9*resolutionSize)/2+8;
+    app.stage.addChild(tilesDisplay);
     allsprites = new PIXI.Spritesheet(
         PIXI.BaseTexture.from(atlasData.meta.image),
         atlasData
@@ -34,20 +30,12 @@ function setupPixi(){
     setUpUI();
 }
 
-function drawChainBorder(x,y,w,h,source,scaler){
-    let lolswappedthemoops;
-    lolswappedthemoops = w;
+function drawChainBorder(w,h,source){
+    let temp;
+    temp = w;
     w = h;
-    h = lolswappedthemoops;
+    h = temp;
     let chaincon = new PIXI.ParticleContainer();
-    if (!scaler){
-        chaincon.x = x;
-        chaincon.y = y;
-    }
-    else{
-        chaincon.x = x-gameDisplay.x-scaler.x;
-        chaincon.y = y-gameDisplay.y-scaler.y;
-    }
     source.addChild(chaincon);
     for (let i=0; i<w;i++){
         for (let j=0;j<h;j++){
@@ -104,22 +92,27 @@ function tickTiles(){
 }
 
 function setUpUI(){
-    drawChainBorder(376,44,32,32,app.stage); //main
+    //drawChainBorder(376,44,32,32,app.stage); //main
     ////title
     // //map
-    drawChainBorder(34,44+32*13+64,10,5,app.stage); //status
+    //drawChainBorder(34,44+32*13+64,10,5,app.stage); //status
 
     // //souls
     // //log
-    drawChainBorder(372+32*32+28,44+32*29,15,3,app.stage); //buttons
+    //drawChainBorder(372+32*32+28,44+32*29,15,3,app.stage); //buttons
     uiDisplayLeft = new PIXI.Container();
-    gameDisplay.addChild(uiDisplayLeft);
-    uiDisplay = new PIXI.Container();
-    uiDisplay.x = resolutionSize*9*16 + (resolutionSize+12)*16;
-    uiDisplay.y = 0;
-    gameDisplay.addChild(uiDisplay);
+    uiDisplayLeft.x = 34;
+    uiDisplayLeft.y = 44;
+    app.stage.addChild(uiDisplayLeft);
+    //drawChainBorder(32,32,uiDisplayLeft);
+    uiDisplayRight = new PIXI.Container();
+    uiDisplayRight.x = 372+32*32+28;
+    uiDisplayRight.y = 44;
+    app.stage.addChild(uiDisplayRight);
     //let newSprite = new PIXI.Sprite(allsprites.textures['sprite'+hai]);
-
+    areaname.setUpSprites();
+    statuses.setUpSprites();
+    buttons.setUpSprites()
     wheel.setUpSprites();
     player.axioms.setUpSprites();
     world.setUpSprites();
@@ -135,6 +128,7 @@ function drawTiles(){
         }
     }
     drawSprites();
+    drawChainBorder(32,32,tilesDisplay);
 }
 
 
@@ -165,20 +159,7 @@ function summonExits(){
             }
         }
     }
-    if (world.fighting){
-        truehp++;
-        for (let j of player.axioms.active){
-            if (j instanceof Ezezza){
-                truehp++;
-            }
-        }
-    }
     world.fighting = false;
-    if (player.activemodule == "Hover"){
-        player.activemodule = "NONE";
-        log.addLog("FluffyModuleFarewell");
-        playSound("off");
-    }
 }
 
 function beginTurn(){
@@ -345,6 +326,9 @@ function startGame(){
     rosetoxin = 0;
     tileSize = 64;
     numTiles = 9;
+    areaname = new LocationDisplay();
+    statuses = new StatusDisplay();
+    buttons = new ButtonsDisplay();
     research = new Research();
     wheel = new DrawWheel();
     universe = new Universe();

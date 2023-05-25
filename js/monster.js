@@ -236,8 +236,8 @@ class Monster{
     setUpSprite(){
         this.creaturecon = new PIXI.Container();
         tilesDisplay.addChild(this.creaturecon);
-        this.creaturecon.x = this.getDisplayX()*tileSize;
-        this.creaturecon.y = this.getDisplayY()*tileSize;
+        this.creaturecon.x = this.getDisplayX()*tileSize-8;
+        this.creaturecon.y = this.getDisplayY()*tileSize-8;
         let hai = this.sprite;
         let newSprite = new PIXI.Sprite(allsprites.textures['sprite'+hai]);
         newSprite.width = tileSize;
@@ -261,8 +261,8 @@ class Monster{
                 else this.offsetX = Math.min(this.offsetX - Math.sign(this.offsetX)*(this.anispeed),0);
                 if (this.offsetY >= 0) this.offsetY = Math.max(this.offsetY - Math.sign(this.offsetY)*(this.anispeed),0);
                 else this.offsetY = Math.min(this.offsetY - Math.sign(this.offsetY)*(this.anispeed),0);  
-                this.creaturecon.x = this.getDisplayX()*tileSize;
-                this.creaturecon.y = this.getDisplayY()*tileSize; 
+                this.creaturecon.x = this.getDisplayX()*tileSize-8;
+                this.creaturecon.y = this.getDisplayY()*tileSize-8; 
             }
         });
 
@@ -585,13 +585,7 @@ class Monster{
                     if (!this.isPlayer) this.axioms.queueContin("STEP",this);
                 }
                 if (boxpull) boxpull.getNeighbor(-dx,-dy).monster.move(boxpull);
-                for (let x of player.axioms.active){
-                    if (x instanceof Lashol) player.bonusAttack += (1/3);
-                }
                 if (this instanceof Oracle) this.bonusAttack += (1/3);
-                if (this.bonusAttack == 3 && this.isPlayer){
-                    log.addLog("LASHOL");
-                }
             }else{
                 let crit;
                 research.completeResearch("Intro");
@@ -873,6 +867,7 @@ class Terminal extends Monster{
             if (world.getRoom() instanceof SoulCage && this.tile instanceof CageContainer && wheel.currentbrush != 8){
                 fishOutSoul(this.tile);
             }
+            tick();
         }
         if (area == "Spire" && this.activemodule != "Hover" && !(this.tile.getNeighbor(0,1) instanceof Platform || this.tile.getNeighbor(0,1) instanceof Ladder || this.tile instanceof Ladder || this.tile.getNeighbor(0,1).monster)){
             this.fall++;

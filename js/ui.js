@@ -183,6 +183,31 @@ function showCatalogue(type){
     drawSymbol(inside[type], 890, 20, 64);
 }
 
+class LocationDisplay{
+    constructor(){
+
+    }
+
+    setUpSprites(){
+        this.displayCon = new PIXI.Container();
+        uiDisplayLeft.addChild(this.displayCon);
+        drawChainBorder(10,3,this.displayCon); 
+    }
+}
+
+class StatusDisplay{
+    constructor(){
+
+    }
+
+    setUpSprites(){
+        this.displayCon = new PIXI.Container();
+        this.displayCon.y = 32*15;
+        uiDisplayLeft.addChild(this.displayCon);
+        drawChainBorder(10,5,this.displayCon); 
+    }
+}
+
 class TutorialDisplay{
     constructor(type){
         //this.timer = 0;
@@ -330,6 +355,19 @@ class ComponentsDisplay{
     }
 }
 
+class ButtonsDisplay{
+    constructor(){
+
+    }
+    
+    setUpSprites(){
+        this.displayCon = new PIXI.Container();
+        this.displayCon.y = 32*29;
+        drawChainBorder(15,3,this.displayCon);
+        uiDisplayRight.addChild(this.displayCon);
+    }
+}
+
 class MessageLog{
     constructor(){
         this.history = [];
@@ -339,13 +377,12 @@ class MessageLog{
     }
 
     setUpLog(){
-        this.logcon = new PIXI.Container();
-        this.logcon.x = 372+32*30+28;
-        this.logcon.y = 44+29*16+8;
-        gameDisplay.addChild(this.logcon);
+        this.displayCon = new PIXI.Container();
+        this.displayCon.y = 32*16;
+        uiDisplayRight.addChild(this.displayCon);
         this.textcon = new PIXI.Container();
-        this.logcon.addChild(this.textcon);
-        drawChainBorder(372+32*32+28,44+32*16,15,12,this.logcon,this.logcon);
+        this.displayCon.addChild(this.textcon);
+        drawChainBorder(15,12,this.displayCon);
         PIXI.Assets.addBundle('fonts', {
             Play: 'Play-Regular.ttf',
         });
@@ -495,10 +532,10 @@ class DrawWheel{
     }
 
     setUpSprites(){
-        this.wheelcon = new PIXI.Container();
-        uiDisplay.addChild(this.wheelcon);
-        drawChainBorder(372+32*32+28,44,15,15,this.wheelcon,uiDisplay);
-        let center = [(1885-1412)/2+34,(505-30)/2];
+        this.displayCon = new PIXI.Container();
+        uiDisplayRight.addChild(this.displayCon);
+        drawChainBorder(15,15,this.displayCon);
+        let center = [(1885-1410)/2-16,(505-30)/2-16];
         let dist = 100*(resolutionSize/7);
         let pi = Math.PI;
         let wheelcoords = [[center[0], center[1]-dist],[center[0]+Math.cos(pi/4)*dist, center[1]-Math.sin(pi/4)*dist],[center[0]+dist, center[1]],[center[0]+Math.cos(pi/4)*dist, center[1]+Math.sin(pi/4)*dist],[center[0], center[1]+dist],[center[0]-Math.cos(pi/4)*dist, center[1]+Math.sin(pi/4)*dist],[center[0]-dist, center[1]],[center[0]-Math.cos(pi/4)*dist, center[1]-Math.sin(pi/4)*dist]];
@@ -511,7 +548,7 @@ class DrawWheel{
             newSprite.x = wheelcoords[i][0];
             newSprite.y = wheelcoords[i][1];
             newSprite.texture.baseTexture.scaleMode = PIXI.SCALE_MODES.NEAREST;
-            this.wheelcon.addChild(newSprite);
+            this.displayCon.addChild(newSprite);
         }
     }
 
@@ -1094,17 +1131,17 @@ class Inventory{
     }
 
     setUpSprites(){
-        this.axiomcon = new PIXI.Container();
-        this.axiomcon.y = resolutionSize*9*16-(resolutionSize+12)*16;
-        gameDisplay.addChild(this.axiomcon);
-        drawChainBorder(34,44+32*18+96,10,11,this.axiomcon,this.axiomcon); //axiom
+        this.displayCon = new PIXI.Container();
+        this.displayCon.y = 32*21;
+        uiDisplayLeft.addChild(this.displayCon);
+        drawChainBorder(10,11,this.displayCon); 
         let newSprite = new PIXI.Sprite(allsprites.textures['icon6']);
         newSprite.width = (resolutionSize+12)*16;
         newSprite.height = (resolutionSize+12)*16;
-        newSprite.x = -38;
-        newSprite.y = -15;
+        newSprite.x = -8;
+        newSprite.y = 10;
         newSprite.texture.baseTexture.scaleMode = PIXI.SCALE_MODES.NEAREST;
-        this.axiomcon.addChild(newSprite);
+        this.displayCon.addChild(newSprite);
     }
 
     queueContin(word,caster){
