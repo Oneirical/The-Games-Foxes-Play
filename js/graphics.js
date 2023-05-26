@@ -190,13 +190,14 @@ function handleColors(text,x,y,style,source, oldx)
             for (let i of Object.keys(style)) newStyle[i] = style[i];
             let pickcolor = colourcodes[breaker2[i].slice(0, 2)];
             if (pickcolor) breaker2[i] = breaker2[i].slice(2);
-            else if (!pickcolor) pickcolor = "white";
+            else if (!pickcolor) pickcolor = newStyle.fill;
             if (source.ancient) pickcolor = "#b4b5b8";
             if (fitWidth-xsave <= 0){
                 xsave = xsave-fitWidth;
                 y+= lineHeight;
             }
             if (pickcolor == "bold") newStyle.fontWeight = pickcolor;
+            else if (pickcolor == "italic") newStyle.fontStyle = pickcolor;
             else newStyle.fill = pickcolor;
             newStyle.wordWrapWidth -= xsave;
             handleColors(breaker2[i], x, y, newStyle, source, oldx);

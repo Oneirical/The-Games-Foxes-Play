@@ -33,6 +33,7 @@ const colourcodes = {
     'z]' : "gold",
     'f]' : "yellowgreen",
     '*]' : "bold",
+    '_]' : "italic",
 }
 
 messages = {
