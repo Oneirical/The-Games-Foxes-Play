@@ -540,12 +540,10 @@ class MessageLog{
             wordWrapWidth: resolutionSize*16*16-(resolutionSize*9*16+(resolutionSize+12)*16+10)-20,
             lineJoin: 'round',
         });
-        printOutTextO(messages[message],0,0,style,this.textcon);
+        printOutText(messages[message],0,0,style,this.textcon);
         const richText = new PIXI.Text(messages[message], style);
         richText.repetitions = 0;
         richText.originalText = richText.text;
-        //this.textcon.addChild(richText);
-        //let beeeg = PIXI.TextMetrics.measureText(richText.text,richText.style).height+5;
         if (this.textcon.children.length > 1){
             this.textcon.children[this.textcon.children.length-2].ancient = true;
             for (let i = 0; i<this.textcon.children.length-1; i++){

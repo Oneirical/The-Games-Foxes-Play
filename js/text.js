@@ -32,6 +32,7 @@ const colourcodes = {
     'm]' : "magenta",
     'z]' : "gold",
     'f]' : "yellowgreen",
+    '*]' : "bold",
 }
 
 messages = {

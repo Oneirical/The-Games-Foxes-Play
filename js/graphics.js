@@ -149,12 +149,12 @@ function removeColorTags(text){
     return text.replace(/\[[\s\S]*?\]/g, '');
 }
 
-function printOutTextO(text,x,y,style,source){
+function printOutText(text,x,y,style,source){
     let textBlock = new PIXI.Container();
     textBlock.x = x;
     textBlock.y = y;
     textBlock.linesnum = 0;
-    printOutText(text,x,y,style,textBlock);
+    handleColors(text,x,y,style,textBlock);
     source.addChild(textBlock);
     let arr = [];
     for (let i of textBlock.children) arr.push(i.text);
@@ -164,7 +164,7 @@ function printOutTextO(text,x,y,style,source){
     //handle including ;l in there, maybe?
 }
 
-function printOutText(text,x,y,style,source, oldx)
+function handleColors(text,x,y,style,source, oldx)
 {
     let fitWidth = style.wordWrapWidth;
     let lineHeight = 20;
@@ -174,7 +174,7 @@ function printOutText(text,x,y,style,source, oldx)
         for (let i = 0; i<breaker.length; i++){
             let sis = "";
             if (i != 0) sis = breaker[i-1];
-            printOutText(breaker[i],  x, yscale + Math.min(1,i)*20 + (PIXI.TextMetrics.measureText(sis,style).height)-20,style,source);
+            handleColors(breaker[i],  x, yscale + Math.min(1,i)*20 + (PIXI.TextMetrics.measureText(sis,style).height)-20,style,source);
             yscale = yscale + 20*Math.min(1,i) + (PIXI.TextMetrics.measureText(sis,style).height);
             source.linesnum += 20;
         }
@@ -196,9 +196,10 @@ function printOutText(text,x,y,style,source, oldx)
                 xsave = xsave-fitWidth;
                 y+= lineHeight;
             }
-            newStyle.fill = pickcolor;
+            if (pickcolor == "bold") newStyle.fontWeight = pickcolor;
+            else newStyle.fill = pickcolor;
             newStyle.wordWrapWidth -= xsave;
-            printOutText(breaker2[i], x, y, newStyle, source, oldx);
+            handleColors(breaker2[i], x, y, newStyle, source, oldx);
             x += PIXI.TextMetrics.measureText(breaker2[i],newStyle).width;
             if (x >= (oldx[0] + oldx[1])) x = oldx[0] + nextlinesave;
             xsave += PIXI.TextMetrics.measureText(breaker2[i],newStyle).width;
