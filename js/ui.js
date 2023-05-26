@@ -548,11 +548,12 @@ class MessageLog{
         //let beeeg = PIXI.TextMetrics.measureText(richText.text,richText.style).height+5;
         if (this.textcon.children.length > 1){
             this.textcon.children[this.textcon.children.length-2].ancient = true;
-            for (let i = 0; i<this.textcon.children.length; i++){
-                if (i === this.textcon.children.length-1)continue;
+            for (let i = 0; i<this.textcon.children.length-1; i++){
                 this.textcon.children[i].y += this.textcon.children[this.textcon.children.length-1].linesnum+5;
-                //if ((44+29*16+8)+i.y+PIXI.TextMetrics.measureText(i.text,i.style).height > resolutionSize*8*16-30) i.visible = false;
-                //this is better for now, but consider a rectangle that reshapes itself to only show the last possible line
+                for (let j = 0; j<this.textcon.children[i].children.length; j++){
+                    if (this.textcon.children[i].y + this.textcon.children[i].children[j].y > 335) this.textcon.children[i].children[j].visible = false;
+                }
+                if (this.textcon.children[i].y > 700) this.textcon.removeChildAt(i);
             }
         }
     }
