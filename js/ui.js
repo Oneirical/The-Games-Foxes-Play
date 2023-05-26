@@ -540,7 +540,7 @@ class MessageLog{
             wordWrapWidth: resolutionSize*16*16-(resolutionSize*9*16+(resolutionSize+12)*16+10)-20,
             lineJoin: 'round',
         });
-        printOutText(messages[message],0,0,style,this.textcon);
+        printOutTextO(messages[message],0,0,style,this.textcon);
         const richText = new PIXI.Text(messages[message], style);
         richText.repetitions = 0;
         richText.originalText = richText.text;

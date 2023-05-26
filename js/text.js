@@ -161,7 +161,7 @@ messages = {
     "ESaint1" : "\"Vessel. Your rest has come to its end.\"",
     "ESaint2" : "\"The end times we prophetized have finally come. The task I have assigned you begins at last.\"",
     "ESaint3" : "[l]\"You are [p]Terminal[l], the Reality Anchor purposed to ferry our civilization away from this crumbling reality, and into a new world of your creation. Should you succeed, our centuries of scientific and cultural progress will not be undone.\"",
-    "ESaint4" : "\"As I predicted, the nature of the cataclysm turned out to be very different from even the theories of our most unhinged denizens.\"",
+    "ESaint4" : "\"As I [r]predicted, the[l] nature of the cataclysm turned;lout to be very different from even the theories of our most unhinged denizens.\"",
     "ESaint5" : "\"To prevent any... unfortunate accidents, I regret to remind you that you are still forbidden from all interaction with the outside world while you fulfill your duty.\"",
     "ESaint6" : "\"I will try to resist for as long as possible to buy you time, but after I succumb, you will inevitably be marked as the next target.\"",
     "ESaint7" : "\"Instruct yourself through the Path of Shapelessness. Grow in power, and sink down trances within trances, sanitizing your psyche against the parasite that will soon come to consume it.\"",

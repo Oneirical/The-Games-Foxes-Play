@@ -149,87 +149,72 @@ function removeColorTags(text){
     return text.replace(/\[[\s\S]*?\]/g, '');
 }
 
-function printOutText(text,x,y,style,source){
+function printOutTextO(text,x,y,style,source){
     let textBlock = new PIXI.Container();
     textBlock.x = x;
     textBlock.y = y;
     textBlock.linesnum = 0;
-    handleColors(text,x,y,style,textBlock);
+    printOutText(text,x,y,style,textBlock);
     source.addChild(textBlock);
     let arr = [];
     for (let i of textBlock.children) arr.push(i.text);
     let totalse = arr.join(' ');
+    style.wordWrap = true;
     textBlock.linesnum = PIXI.TextMetrics.measureText(totalse,style).height;
+    //handle including ;l in there, maybe?
 }
 
-function handleColors(text,x,y,style,source){
+function deletelater(){
+
+}
+
+function printOutText(text,x,y,style,source, oldx)
+{
+    let fitWidth = style.wordWrapWidth;
+    let lineHeight = 20;
+    if (text.includes(';l')){
+        let breaker = text.split(';l');
+        let yscale = y;
+        for (let i = 0; i<breaker.length; i++){
+            let sis = "";
+            if (i != 0) sis = breaker[i-1];
+            printOutText(breaker[i],  x, yscale + Math.min(1,i)*20 + (PIXI.TextMetrics.measureText(sis,style).height),style,source);
+            yscale = yscale + 20*Math.min(1,i) + (PIXI.TextMetrics.measureText(sis,style).height);
+        }
+        return;
+    }
     let breaker2 = text.split('[');
     if (text.includes('[')){
-        for (let i = 0; i< breaker2.length; i++){
+        let xsave = 0;
+        let oldx = [x,fitWidth];
+        for (let i = 0; i<breaker2.length; i++) {
             let newStyle = new PIXI.TextStyle();
             for (let i of Object.keys(style)) newStyle[i] = style[i];
             let pickcolor = colourcodes[breaker2[i].slice(0, 2)];
             if (pickcolor) breaker2[i] = breaker2[i].slice(2);
             else if (!pickcolor) pickcolor = "white";
             if (source.ancient) pickcolor = "#b4b5b8";
-            if (newStyle.wordWrapWidth-x-PIXI.TextMetrics.measureText(breaker2[i],newStyle).width <= 0){
-                x = 0;
-                y+= 20;
-            }
-            newStyle.fill = pickcolor;
-            handleColors(breaker2[i], x, y, newStyle, source);
-            x += PIXI.TextMetrics.measureText(breaker2[i],newStyle).width;
-        }
-        return;
-    }
-    let output = new PIXI.Text(text, style);
-    output.x = x;
-    output.y = y;
-    source.addChild(output);
-}
-
-function printOutTextO(text, size, x, y, color, lineHeight, fitWidth, oldx)
-{
-    ctx.font = size + "px Play";
-    if (text.includes('\n')){
-        let yscale = y;
-        for (let i = 0; i<breaker.length; i++){
-            let sis = "";
-            if (i != 0) sis = breaker[i-1];
-            printOutText(breaker[i], size,  x, yscale + Math.min(1,i)*20 + (lineHeight*countLines(sis,fitWidth)),color,lineHeight,fitWidth);
-            yscale = yscale + 20*Math.min(1,i) + (lineHeight*countLines(sis,fitWidth));
-        }
-        return;
-    }
-    let breaker2 = text.split('[');
-    if (text.includes('[')){
-        ctx.save();
-        let xsave = 0;
-        let oldx = [x,fitWidth];
-        breaker2.forEach((text) => {
-            let pickcolor = colourcodes[text.slice(0, 2)];
-            if (pickcolor) text = text.slice(2);
-            else if (!pickcolor) pickcolor = "white";
-            if (color == "#b4b5b8") pickcolor = "#b4b5b8";
             if (fitWidth-xsave <= 0){
                 xsave = xsave-fitWidth;
                 y+= lineHeight;
             }
-            printOutText(text, size, x, y, pickcolor, lineHeight, fitWidth-xsave, oldx);
-            x += ctx.measureText(text).width;
+            newStyle.fill = pickcolor;
+            newStyle.wordWrapWidth -= xsave;
+            printOutText(breaker2[i], x, y, newStyle, source, oldx);
+            x += PIXI.TextMetrics.measureText(breaker2[i],newStyle).width;
             if (x >= (oldx[0] + oldx[1])) x = oldx[0] + nextlinesave;
-            xsave += ctx.measureText(text).width;
-        });
-        ctx.restore();
+            xsave += PIXI.TextMetrics.measureText(breaker2[i],newStyle).width;
+        }
         return;
     }
-    let sx = x || canvas.width-uiWidth*64+25;
+    let sx = x;
     fitWidth = fitWidth || 0;
-    ctx.fillStyle = color;
     if (fitWidth <= 0)
     {
-        ctx.fillText( text, x, y );
-        return;
+        let output = new PIXI.Text(text, style);
+        output.x = x;
+        output.y = y;
+        source.addChild(output);
     }
     if (!text) return;
     let currentLine = 0;
@@ -244,14 +229,19 @@ function printOutTextO(text, size, x, y, color, lineHeight, fitWidth, oldx)
     while (words.length > 0 && idx <= words.length)
     {
         let str = words.slice(0,idx).join(' ');
-        let w = ctx.measureText(str).width;
+        style.wordWrap = false;
+        let w = PIXI.TextMetrics.measureText(str,style).width;
         if ( w > fitWidth )
         {
             if (idx==1)
             {
                 idx=2;
             }
-            ctx.fillText( words.slice(0,idx-1).join(' '), sx, y + (lineHeight*currentLine) );
+            let combined = words.slice(0,idx-1).join(' ');
+            let output = new PIXI.Text(combined, style);
+            output.x = sx;
+            output.y = y + (lineHeight*currentLine);
+            source.addChild(output);
             currentLine++;
             words = words.splice(idx-1);
             idx = 1;
@@ -264,10 +254,13 @@ function printOutTextO(text, size, x, y, color, lineHeight, fitWidth, oldx)
         {idx++;}
     }
     if (idx > 0){
-        ctx.fillText( words.join(' '), sx, y + (lineHeight*currentLine) );
-        nextlinesave = ctx.measureText(words.join(' ')).width;
-    }
-        
+        let all = words.join(' ');
+        let output = new PIXI.Text(all, style);
+        output.x = sx;
+        output.y = y + (lineHeight*currentLine);
+        source.addChild(output);
+        nextlinesave = PIXI.TextMetrics.measureText(words.join(' '),style).width;
+    }        
 }
 
 function screenshake(){ // SHAKE SHAKE SHAKE
