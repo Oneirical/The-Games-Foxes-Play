@@ -160,12 +160,8 @@ function printOutTextO(text,x,y,style,source){
     for (let i of textBlock.children) arr.push(i.text);
     let totalse = arr.join(' ');
     style.wordWrap = true;
-    textBlock.linesnum = PIXI.TextMetrics.measureText(totalse,style).height;
+    textBlock.linesnum += PIXI.TextMetrics.measureText(totalse,style).height;
     //handle including ;l in there, maybe?
-}
-
-function deletelater(){
-
 }
 
 function printOutText(text,x,y,style,source, oldx)
@@ -178,9 +174,11 @@ function printOutText(text,x,y,style,source, oldx)
         for (let i = 0; i<breaker.length; i++){
             let sis = "";
             if (i != 0) sis = breaker[i-1];
-            printOutText(breaker[i],  x, yscale + Math.min(1,i)*20 + (PIXI.TextMetrics.measureText(sis,style).height),style,source);
+            printOutText(breaker[i],  x, yscale + Math.min(1,i)*20 + (PIXI.TextMetrics.measureText(sis,style).height)-20,style,source);
             yscale = yscale + 20*Math.min(1,i) + (PIXI.TextMetrics.measureText(sis,style).height);
+            source.linesnum += 20;
         }
+
         return;
     }
     let breaker2 = text.split('[');
