@@ -30,7 +30,7 @@ class Monster{
         this.axioms = new Inventory();
         this.soullink;
         this.storedattacks = [];
-
+        this.dialoguecount = 0;
         this.statuseff = {
             "Persuasive" : 0,
             "Transformed" : 0,
@@ -495,12 +495,12 @@ class Monster{
                     this.offsetX = (newTile.x - this.tile.x)/2;         
                     this.offsetY = (newTile.y - this.tile.y)/2;   
                 }
-                else if(this.isPlayer && newTile.monster.isGuide && dialoguecount < newTile.monster.diamax){
-                    log.addLog(newTile.monster.dialogue[dialoguecount]);
-                    dialoguecount++;
-                }else if (this.isPlayer && newTile.monster.isGuide && dialoguecount == newTile.monster.diamax){
-                    log.addLog(newTile.monster.dialogue[dialoguecount]);//message = newTile.monster.dialogue[dialoguecount];
-                    dialoguecount = newTile.monster.diareset;
+                else if(this.isPlayer && newTile.monster.isGuide && newTile.monster.dialoguecount < newTile.monster.diamax){
+                    log.addLog(newTile.monster.dialogue[newTile.monster.dialoguecount]);
+                    newTile.monster.dialoguecount++;
+                }else if (this.isPlayer && newTile.monster.isGuide && newTile.monster.dialoguecount == newTile.monster.diamax){
+                    log.addLog(newTile.monster.dialogue[newTile.monster.dialoguecount]);//message = newTile.monster.dialogue[dialoguecount];
+                    newTile.monster.dialoguecount = newTile.monster.diareset;
                 }else if (newTile.monster.pushable){ //this should integrate more cleanly with step code
                     let lm = this.lastMove;
                     let coredevour = false;

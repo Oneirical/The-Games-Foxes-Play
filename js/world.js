@@ -1320,7 +1320,6 @@ class HarmonyRelay extends DefaultVaultRoom{
 
     initializeRoom(){
         world.fighting = false;
-        dialoguecount = 0;
         super.initializeRoom();
         summonExits();
     }
@@ -1473,7 +1472,6 @@ class FluffianWorkshop extends Room{
     }
 
     initializeRoom(){
-        dialoguecount = 0;
         this.playerspawn = getTile(1,8);
         super.initializeRoom();
     }

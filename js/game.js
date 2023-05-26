@@ -108,7 +108,6 @@ function tick(){
                 if (area == "Faith" && player.rosetox < 10) log.addLog("Agony");
                 else if (area == "Serene"){
                     log.addLog("Fallen");
-                    fallen = false;
                 }
                 else if (player.rosetox > 9){
                     log.addLog("Rosified");
@@ -164,7 +163,6 @@ function tick(){
         //}
         
     }
-    if (doublecounter != 0) doublecounter--;
     tickTiles();
 }
 

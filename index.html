@@ -65,22 +65,18 @@
     var canvas = {width:1600, height:900};
  
     cursormode = false;
-    doublecounter = 0;
-    dialoguecount = 0; //change this to be a this. variable
-    fail = false;
-    fallen = false;
     showboss = false;
 
-    shakeAmount = 0;       
+    shakeAmount = 0;       //assign these to app.stage
     shakeX = 0;                 
     shakeY = 0;
 
-    inInventory = false;
+    inInventory = false; // get these inside some "gamestate" class
     inResearch = false;
     inMap = false;
 
-    var inCatalogue = false;
-    var showingComponent = false;
+    inCatalogue = false;
+    showingComponent = false;
 
     var pdata = {};
 

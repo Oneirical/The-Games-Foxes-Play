@@ -1167,7 +1167,7 @@ class DrawWheel{
             if (spellName){
                 beginTurn();
                 if (spellName == "FLEXIBLE"){
-                    fail = player.axioms.active[num].legendCast(player);
+                    player.axioms.active[num].legendCast(player);
                     this.saved.push(this.wheel[slot]);
                     wheel.spinningsouls.push(new SpinningSoul(this.wheel[slot].icon,wheel.spinningsouls[wheel.spinningsouls.length-1].angle-0.5));
                     this.wheel[slot] = new Empty();
@@ -1180,20 +1180,9 @@ class DrawWheel{
                     else log.addLog(spellName);
                     spells[spellName](player, player.axioms.active[num]);
                     if (player.axioms.active[num].influence == "C") spells[player.axioms.active[num].caste](player);
-                    if (!fail && player.activemodule != "Focus"){
-                        this.saved.push(this.wheel[slot]);
-                        wheel.spinningsouls.push(new SpinningSoul(this.wheel[slot].icon,wheel.spinningsouls[wheel.spinningsouls.length-1].angle-0.5));
-                        this.wheel[slot] = new Empty();
-                    }
-                    else if (this.activemodule == "Focus"){
-                        if(!player.consumeCommon(3,false)){
-                            log.addLog("FluffyInsufficientPower");
-                            this.saved.push(this.wheel[slot]);
-                            this.wheel[slot] = new Empty(); 
-                            player.activemodule = "NONE";
-                            playSound("off");
-                        }
-                    }
+                    this.saved.push(this.wheel[slot]);
+                    wheel.spinningsouls.push(new SpinningSoul(this.wheel[slot].icon,wheel.spinningsouls[wheel.spinningsouls.length-1].angle-0.5));
+                    this.wheel[slot] = new Empty();
                     playSound("spell");
                     tick();
                 }

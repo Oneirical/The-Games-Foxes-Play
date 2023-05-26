@@ -687,7 +687,7 @@ spells = {
         player.specialAttack = "Charm";
     },
     KILAMI: function(){
-        doublecounter = 2;
+       // doublecounter = 2;
     },
     AUBE: function(){
         monsters.forEach(function(entity){
