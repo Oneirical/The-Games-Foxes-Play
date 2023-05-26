@@ -149,10 +149,48 @@ function removeColorTags(text){
     return text.replace(/\[[\s\S]*?\]/g, '');
 }
 
-function printOutText(text, size, x, y, color, lineHeight, fitWidth, oldx)
+function printOutText(text,x,y,style,source){
+    let textBlock = new PIXI.Container();
+    textBlock.x = x;
+    textBlock.y = y;
+    textBlock.linesnum = 0;
+    handleColors(text,x,y,style,textBlock);
+    source.addChild(textBlock);
+    let arr = [];
+    for (let i of textBlock.children) arr.push(i.text);
+    let totalse = arr.join(' ');
+    textBlock.linesnum = PIXI.TextMetrics.measureText(totalse,style).height;
+}
+
+function handleColors(text,x,y,style,source){
+    let breaker2 = text.split('[');
+    if (text.includes('[')){
+        for (let i = 0; i< breaker2.length; i++){
+            let newStyle = new PIXI.TextStyle();
+            for (let i of Object.keys(style)) newStyle[i] = style[i];
+            let pickcolor = colourcodes[breaker2[i].slice(0, 2)];
+            if (pickcolor) breaker2[i] = breaker2[i].slice(2);
+            else if (!pickcolor) pickcolor = "white";
+            if (source.ancient) pickcolor = "#b4b5b8";
+            if (newStyle.wordWrapWidth-x-PIXI.TextMetrics.measureText(breaker2[i],newStyle).width <= 0){
+                x = 0;
+                y+= 20;
+            }
+            newStyle.fill = pickcolor;
+            handleColors(breaker2[i], x, y, newStyle, source);
+            x += PIXI.TextMetrics.measureText(breaker2[i],newStyle).width;
+        }
+        return;
+    }
+    let output = new PIXI.Text(text, style);
+    output.x = x;
+    output.y = y;
+    source.addChild(output);
+}
+
+function printOutTextO(text, size, x, y, color, lineHeight, fitWidth, oldx)
 {
     ctx.font = size + "px Play";
-    let breaker = text.split('\n');
     if (text.includes('\n')){
         let yscale = y;
         for (let i = 0; i<breaker.length; i++){

@@ -540,17 +540,18 @@ class MessageLog{
             wordWrapWidth: resolutionSize*16*16-(resolutionSize*9*16+(resolutionSize+12)*16+10)-20,
             lineJoin: 'round',
         });
+        printOutText(messages[message],0,0,style,this.textcon);
         const richText = new PIXI.Text(messages[message], style);
         richText.repetitions = 0;
         richText.originalText = richText.text;
-        this.textcon.addChild(richText);
-        let beeeg = PIXI.TextMetrics.measureText(richText.text,richText.style).height+5;
+        //this.textcon.addChild(richText);
+        //let beeeg = PIXI.TextMetrics.measureText(richText.text,richText.style).height+5;
         if (this.textcon.children.length > 1){
-            this.textcon.children[this.textcon.children.length-2].style.fill = "#b4b5b8";
-            for (let i of this.textcon.children){
-                if (i === richText)continue;
-                i.y += beeeg;
-                if ((44+29*16+8)+i.y+PIXI.TextMetrics.measureText(i.text,i.style).height > resolutionSize*8*16-30) i.visible = false;
+            this.textcon.children[this.textcon.children.length-2].ancient = true;
+            for (let i = 0; i<this.textcon.children.length; i++){
+                if (i === this.textcon.children.length-1)continue;
+                this.textcon.children[i].y += this.textcon.children[this.textcon.children.length-1].linesnum+5;
+                //if ((44+29*16+8)+i.y+PIXI.TextMetrics.measureText(i.text,i.style).height > resolutionSize*8*16-30) i.visible = false;
                 //this is better for now, but consider a rectangle that reshapes itself to only show the last possible line
             }
         }
@@ -1298,6 +1299,16 @@ class Inventory{
             axiomslot.height = 32;
             axiomslot.x = xcoords[i];
             axiomslot.y = ycoords[i];
+            axiomslot.texture.baseTexture.scaleMode = PIXI.SCALE_MODES.NEAREST;
+            this.axiomCon.addChild(axiomslot);
+        }
+
+        for (let i = 0; i<4; i++){
+            let axiomslot = new PIXI.Sprite(allsprites.textures['icon7']);
+            axiomslot.width = 32;
+            axiomslot.height = 32;
+            axiomslot.x = (79+193)/2;
+            axiomslot.y = 82+i*36;
             axiomslot.texture.baseTexture.scaleMode = PIXI.SCALE_MODES.NEAREST;
             this.axiomCon.addChild(axiomslot);
         }
