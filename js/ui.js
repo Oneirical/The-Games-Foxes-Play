@@ -309,6 +309,7 @@ class StatusDisplay{
         this.displayCon.y = 32*15;
         uiDisplayLeft.addChild(this.displayCon);
         drawChainBorder(10,5,this.displayCon);
+        drawChainLine(4,110,15,"v",this.displayCon)
         this.hpCon = new PIXI.Container();
         this.hpCon.x = 8;
         this.hpCon.y = 6;
@@ -555,57 +556,6 @@ class MessageLog{
             }
         }
     }
-
-    addLogOld(message){
-        this.allgrey = false;
-        this.repeats.push(1);
-        if (message != this.history[this.history.length-1]){
-            this.history.push(message);
-            this.writeheight.push(canvas.height-(230/(canvas.width/canvas.width)));
-            if (this.writeheight.length > 1){
-                for (let x = this.writeheight.length-2;x >= 0; x--){
-                    let thehe = countLines(messages[this.history[this.history.length-1]],canvas.width-canvas.height-20);
-                    //let thehe = ctx.measureText(removeColorTags(messages[this.history[this.history.length-1]])).width;
-                    this.writeheight[x] += 20 * thehe + 5;
-                }
-            }
-            if (this.history.length > 8){
-                this.history.shift();
-                this.writeheight.shift();
-                this.repeats.shift();
-            } 
-        }
-        else this.repeats[this.history.length-1]++;
-    }
-
-    display(){
-        for (let x = 0; x<this.history.length; x++){
-            let coloring = colours[this.history[x]];
-            if (x != this.history.length-1 || this.allgrey) coloring = "#b4b5b8";
-            else if (this.history[x].includes("Fluffy")) coloring = "cyan";
-            else if (this.history[x].includes("Rose")) coloring = "lightpink";
-            else if (this.history[x].includes("Epsilon")) coloring = "orangered";
-            else if (this.history[x].includes("Saint")) coloring = "lime";
-            else if (this.history[x].includes("Error")) coloring = "yellow";
-            let print = messages[this.history[x]];
-            if (this.repeats[x] > 1) print += " x"+this.repeats[x];
-            printOutText(print, 18, 10+canvas.height, this.writeheight[x], coloring, 20, canvas.width-canvas.height-20);
-            //for (let y = 0; y < this.writeheight.length-1; y++){
-                //let margin = 26;
-                //let wtf = Math.ceil(ctx.measureText(messages[this.history[y+1]]+"x00").width/690);
-                //let wtf2 = Math.ceil(ctx.measureText(messages[this.history[y]]+"x00").width/690)
-                //if(wtf == 1 ||wtf2 == 1){
-                //    margin = 20;
-                //}
-                //ctx.strokeStyle = 'white';
-                //ctx.lineWidth = 1.5;
-                //ctx.beginPath();
-                //ctx.moveTo(0, this.writeheight[y]-margin);
-                //ctx.lineTo(960, this.writeheight[y]-margin);
-                //ctx.stroke();
-            //}
-        }
-    }
 }
 
 class SpinningSoul{
@@ -679,6 +629,8 @@ class DrawWheel{
             newSprite.texture.baseTexture.scaleMode = PIXI.SCALE_MODES.NEAREST;
             this.displayCon.addChild(newSprite);
         }
+        this.bouncySouls = new PIXI.ParticleContainer();
+        this.displayCon.addChild(this.bouncySouls);
     }
 
     display(){
@@ -923,6 +875,30 @@ class DrawWheel{
         let loot = new drops[skey.name]();
         loot.turbulent = true;
         this.discard.push(loot);
+        loot.displayIcon.width = 32;
+        loot.displayIcon.height = 32;
+        loot.displayIcon.x = 150;
+        loot.displayIcon.y = 150;
+        loot.displayIcon.alpha = 0.15;
+        this.bouncySouls.addChild(loot.displayIcon);
+        app.ticker.add(() => {
+            if (loot.displayIcon.x > 425 || loot.displayIcon.x < -10) loot.displayIcon.x = 100;
+            else if (loot.displayIcon.y > 425 || loot.displayIcon.y < -10) loot.displayIcon.y = 100;
+            if (loot.displayIcon.x > 420) Math.abs(loot.displayIcon.dirx *= shuffle([-0.99,-1,-1.01])[0]);
+            else if (loot.displayIcon.x < -4) Math.abs(loot.displayIcon.dirx *= shuffle([-0.99,-1,-1.01])[0])*-1;
+            else if (loot.displayIcon.y > 420) Math.abs(loot.displayIcon.diry *= shuffle([-0.99,-1,-1.01])[0]);
+            else if (loot.displayIcon.y < -4) Math.abs(loot.displayIcon.diry *= shuffle([-0.99,-1,-1.01])[0])*-1;
+            if (Math.abs(loot.displayIcon.diry) > 0.900){
+                loot.displayIcon.diry /= 2;
+                loot.displayIcon.dirx *= 2;
+            }
+            if (Math.abs(loot.displayIcon.dirx) > 0.900){
+                loot.displayIcon.dirx /= 2;
+                loot.displayIcon.diry *= 2;
+            }
+            loot.displayIcon.x += loot.displayIcon.dirx*5;
+            loot.displayIcon.y += loot.displayIcon.diry*5;
+        });
         research.completeResearch("Herald");
         //for (let x of player.axioms.active){
         //    if (x instanceof Kilami) spells[loot.id](player);
@@ -1420,6 +1396,17 @@ class LegendarySoul{
         this.speed = 0.01;
         this.angle = 0;
         if (basic.includes(name)) this.alpha = 0.55;
+        this.setUpSprites();
+    }
+
+    setUpSprites(){
+        if (basic.includes(this.id)) this.displayIcon = new PIXI.Sprite(allsprites.textures['icon'+(6-basic.indexOf(this.id))]);
+        else return;
+        this.displayIcon.dirx = Math.random();
+        this.displayIcon.diry = 1 - this.displayIcon.dirx;
+        if (Math.random > 0.5) this.displayIcon.dirx *= -1;
+        if (Math.random > 0.5) this.displayIcon.diry *= -1;
+
     }
 
     describe(){

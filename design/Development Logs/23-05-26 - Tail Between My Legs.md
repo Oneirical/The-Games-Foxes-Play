@@ -1,6 +1,6 @@
-*""*
+*"A kind being both takes and gives, while a saintly being only does the latter. When that gift is death, suddenly, everything changes. Why is that?"*
 
-- 
+- Flavour text of *Share the Fruits of Faith*, Form component
 
 ## The Games Foxes Play
 *([complete source code on github](https://github.com/Oneirical/The-Games-Foxes-Play) | [view all previous posts](https://github.com/Oneirical/The-Games-Foxes-Play/tree/main/design/Development%20Logs) | [play 0.4.3 online in browser on itch.io!](https://oneirical.itch.io/tgfp))*
@@ -20,7 +20,9 @@ This hurt. It really did. So many hours of work, just gone. But proved to be a w
 
 * Pure 60 FPS crispy goodness (well, when using Tauri, that is)
 * A 1920x1080 resolution that actually makes sense
-* A gloriously juicy UI redesign
+* [A gloriously juicy UI redesign](https://cdn.discordapp.com/attachments/504088568084561930/1111805672372322364/image.png), unfinished (still need to readd the minimap and many other features...) but already showing promise
 * A code architecture that does *not* instill desires in me to abandon society and live in the woods when I look at it
 
-I have also unlocked a lot more visual tricks to add some pizazz to my otherwise minimalist graphics, like this cool looking [blur effect](). It is giving me delusions of grandeur to make this game actually look good despite my non-existent art skills. Please dispense a slap to my facial regions to knock some sense into me.
+That *one* unholy multicoloured text function had to be redone from scratch, and it was just as horrible the second time around as it was the first time. I spent an unreasonable amount of time trying to get some random npm library to do the work for me, but got crushed under the might of a thousand compatibility errors, and had to do things my way instead. But hey. Now I can have bold and italic text!
+
+I have also unlocked a lot more visual tricks to add some pizazz to my otherwise minimalist graphics, like this annoying [blur effect](https://cdn.discordapp.com/attachments/504088568084561930/1111806814120579092/image.png). It is giving me delusions of grandeur to make this game actually look good despite my non-existent art skills. Please dispense a slap to my facial regions to knock some sense into me.

@@ -361,21 +361,8 @@ class World{
         this.displayCon.y = 32*4;
         uiDisplayLeft.addChild(this.displayCon);
         drawChainBorder(10,10,this.displayCon);
-        let newSprite = new PIXI.Sprite(allsprites.textures['icon7']);
-        newSprite.width = (resolutionSize+12)*16;
-        newSprite.height = (resolutionSize+12)*16;
-        newSprite.x = resolutionSize*16*4;
-        newSprite.y = resolutionSize*16*1+30;
-        newSprite.texture.baseTexture.scaleMode = PIXI.SCALE_MODES.NEAREST;
+        this.setUpMap();
         //this.displayCon.addChild(newSprite);
-    }
-
-    checkPixel(tile){
-        if (tile instanceof BExit ||tile instanceof MapExit) return 6;
-        else if (tile instanceof BAscendExit ||tile instanceof AscendExit) return 2; //
-        else if (tile instanceof Window) return 7;
-        else if (tile.passable || tile instanceof RealityWall) return 5;
-        else return 0;
     }
 
     represent(colour){
@@ -397,29 +384,38 @@ class World{
         return this.exppage.cage[i][j].value.type;
     }
 
-    display(){
+    setUpMap(){
+        this.mapCon = new PIXI.Container();
         let size = 112;
-        let brush = (size/9);
-        drawFilter(blackfilter);
+        drawPixel("black",0,0,112*9,this.mapCon);
+        this.mapCon.children[0].alpha = 0.9;
+        this.roomsInMap = new PIXI.Container();
+        this.mapCon.addChild(this.roomsInMap);
         for(let y = 0; y<9;y++){
             for(let x = 0; x<9;x++){
                 if (this.rooms[x][y].tangible){
-                    for(let i = 0; i<this.rooms[x][y].size;i++){
-                        for (let j = 0; j<this.rooms[x][y].size; j++){
-                            if (!(this.rooms[x][y].tiles[i][j] instanceof RealityWall)) drawPixel(this.checkPixel(this.rooms[x][y].tiles[i][j]),i*brush+x*size,j*brush+y*size,14);
-                        }
-                    }
-                    if (this.rooms[x][y].visited) drawPixel(9,4*7+x*size,4*7+y*size);
+                    this.rooms[x][y].displayCon.x = x*size;
+                    this.rooms[x][y].displayCon.y = y*size;
+                    this.roomsInMap.addChild(this.rooms[x][y].displayCon);
                 }
             }
         }
-        for(let i = 0; i<numTiles;i++){
-            for (let j = 0; j<numTiles; j++){
-                if (!(tiles[i][j] instanceof RealityWall)) drawPixel(this.checkPixel(tiles[i][j]),i*brush+this.currentroom[0]*size,j*brush+this.currentroom[1]*size,14);
-                if (tiles[i][j].monster && tiles[i][j].monster.isPlayer) drawPixel(3,i*brush+this.currentroom[0]*size,j*brush+this.currentroom[1]*size,14);
-            }
-        }
-        if (this.currentroom.visited) drawPixel(9,4*7+x*size,4*7+y*size,14);
+        this.mapCon.x -= -12; //used to be 8
+        this.mapCon.y -= -12;
+        this.roomsInMap.x += 24;
+        this.roomsInMap.y += 24;
+        //this.roomsInMap.scale.set(0.95,0.95);
+        this.mapCon.scale.set(1/4,1/4);
+        //this.mapCon.pivot.set(1/2,1/2);
+        this.displayCon.addChild(this.mapCon);
+                    //if (this.rooms[x][y].visited) drawPixel(9,4*7+x*size,4*7+y*size);
+        //for(let i = 0; i<numTiles;i++){
+           // for (let j = 0; j<numTiles; j++){
+                //if (!(tiles[i][j] instanceof RealityWall)) drawPixel(this.checkPixel(tiles[i][j]),i*brush+this.currentroom[0]*size,j*brush+this.currentroom[1]*size,14);
+                //if (tiles[i][j].monster && tiles[i][j].monster.isPlayer) drawPixel(3,i*brush+this.currentroom[0]*size,j*brush+this.currentroom[1]*size,14);
+        //    }
+        //}
+        //if (this.currentroom.visited) drawPixel(9,4*7+x*size,4*7+y*size,14);
     }
 
     miniMap(){
@@ -494,6 +490,7 @@ class World{
                 }
                 if (this.rooms[i][j].tangible) this.spreadExits(i,j);
                 this.rooms[i][j].layer = this.layer;
+                this.rooms[i][j].setUpSprites();
             }
         }
     }
@@ -565,6 +562,7 @@ class World{
                     if (flip) flipRoom(this.rooms[i][j].id,this.rooms[i][j].size,times);
                     if (corridor && flip) this.rooms[i][j].verticality = "side";
                     else if (corridor) this.rooms[i][j].verticality = "up";
+                    this.rooms[i][j].setUpSprites();
                 }
                 else this.rooms[i][j] = new VoidRoom([i,j]);
             }
@@ -809,8 +807,15 @@ class Room{
         this.layer;
     }
 
-    draw(){
-
+    setUpSprites(){
+        this.displayCon = new PIXI.Container();
+        let size = 112;
+        let brush = (size/9);
+        for(let i = 0; i<this.size;i++){
+            for (let j = 0; j<this.size; j++){
+                if (!(this.tiles[i][j] instanceof RealityWall)) drawPixel(checkPixel(this.tiles[i][j]),i*brush,j*brush,14,this.displayCon);
+            }
+        }
     }
 
     populateRoom(){

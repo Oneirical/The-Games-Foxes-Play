@@ -30,6 +30,60 @@ function setupPixi(){
     setUpUI();
 }
 
+function drawChainLine(l,x,y,dir,source){
+    let chaincon = new PIXI.ParticleContainer();
+    chaincon.x = x;
+    chaincon.y = y;
+    source.addChild(chaincon);
+    for (let i=0; i<l;i++){
+        let character = ".";
+        if (dir == "h"){
+            if (i == 0) character = "B";
+            else if (i == l-1) character = "E";
+            else character = "-";
+        }
+        else{
+            if (i == 0) character = "T";
+            else if (i == l-1) character = "L";
+            else character = "<";
+        }
+        let hai = 139;
+        if (["B","E","L","T"].includes(character)) hai = 141;
+        let newSprite = new PIXI.Sprite(allsprites.textures['sprite'+hai]);
+        newSprite.width = 32;
+        newSprite.height = 32;
+        newSprite.anchor.set(0.5,0.5);
+        let push = 0;
+        if (["L","B"].includes(character)) push = 22;
+        if (dir == "h"){
+            newSprite.x = (i*32);
+            newSprite.y = -push;
+        }
+        else{
+            newSprite.y = (i*32);
+            newSprite.x = -push;
+        }
+        const rotatea = {
+            "Q" : 0,
+            "P" : Math.PI/2,
+            "Z" : 3*Math.PI/2,
+            "M" : Math.PI,
+            "-" : Math.PI/2,
+            "=" : 3*Math.PI/2,
+            "<" : 0,
+            ">" : Math.PI,
+            "B" : 3*Math.PI/2,
+            "E" : Math.PI/2,
+            "L" : Math.PI,
+            "T" : 0,
+        }
+        newSprite.rotation = rotatea[character];
+        newSprite.texture.baseTexture.scaleMode = PIXI.SCALE_MODES.NEAREST;
+        chaincon.addChild(newSprite);
+    }
+
+}
+
 function drawChainBorder(w,h,source){
     let temp;
     temp = w;
@@ -92,19 +146,10 @@ function tickTiles(){
 }
 
 function setUpUI(){
-    //drawChainBorder(376,44,32,32,app.stage); //main
-    ////title
-    // //map
-    //drawChainBorder(34,44+32*13+64,10,5,app.stage); //status
-
-    // //souls
-    // //log
-    //drawChainBorder(372+32*32+28,44+32*29,15,3,app.stage); //buttons
     uiDisplayLeft = new PIXI.Container();
     uiDisplayLeft.x = 34;
     uiDisplayLeft.y = 44;
     app.stage.addChild(uiDisplayLeft);
-    //drawChainBorder(32,32,uiDisplayLeft);
     uiDisplayRight = new PIXI.Container();
     uiDisplayRight.x = 372+32*32+28;
     uiDisplayRight.y = 44;
@@ -143,6 +188,22 @@ function drawSprites(){
 function getMouse(){
     console.log((app.renderer.events).rootPointerEvent.global.x);
     console.log((app.renderer.events).rootPointerEvent.global.y);
+}
+
+function checkPixel(tile){
+    if (tile instanceof BExit ||tile instanceof MapExit) return "red";
+    else if (tile instanceof BAscendExit ||tile instanceof AscendExit) return "lightgray"; //
+    else if (tile instanceof Window) return "gray";
+    else if (tile.passable || tile instanceof RealityWall) return "black";
+    else return "white";
+}
+
+function drawPixel(fill,x,y,size,source){
+    const graphics = new PIXI.Graphics();
+    graphics.beginFill(fill);
+    graphics.drawRect(x, y, size, size);
+    graphics.endFill();
+    source.addChild(graphics);
 }
 
 function removeColorTags(text){
