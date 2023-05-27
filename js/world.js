@@ -659,6 +659,7 @@ class World{
         monsters = [];
         let pkeys = Object.keys(player);
         for (let i of pkeys) pdata[i] = player[i];
+        room.exitRoom();
     }
 
     appearRoom(spawnl){
@@ -787,14 +788,12 @@ class Room{
         this.tangible = true;
         this.hostile = false;
         this.effects = [];
-        this.previousRoom = -1; //Maybe secretly divide arrow tiles into return/generator tiles?
         this.index = [index[0],index[1]];
         this.tiles = []; //it will also need to stock the contents of course
         this.monsters = [];
         this.creatures = "";
         this.vault = true;
         this.name = "Bugtopia";
-        this.fourway = false;
         this.filler = BAscendExit;
         this.vault = false;
         this.extreme = {
@@ -805,6 +804,10 @@ class Room{
         }
         this.visited = false;
         this.layer;
+    }
+
+    exitRoom(){
+        //placeholder
     }
 
     setUpSprites(){
@@ -1277,11 +1280,11 @@ class SoulCage extends DefaultVaultRoom{
                 wheel.wheel[i] = new Empty();
             }
         }
-        for (let j = 0; j<7; j++){
-            for (let i = 0; i < (wheel.countPileSouls(wheel.turbstatus)[j] + wheel.countDiscardSouls(wheel.turbstatus)[j]); i++){
-                wheel.paintcans[j].push(new SpinningSoul(j,wheel.paintcans[j][wheel.paintcans[j].length-1].angle-0.5));
-            }
-        }
+        wheel.toPaintMode();
+    }
+
+    exitRoom(){
+        wheel.toNormalMode();
     }
 }
 
@@ -1448,7 +1451,6 @@ class EpsilonArena extends DefaultVaultRoom{
         this.name = "Industrial Apex";
         this.music = "epsilon";
         this.id = "Epsilon";
-        this.fourway = true;
         this.hostile = true;
     }
 

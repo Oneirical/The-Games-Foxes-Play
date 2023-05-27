@@ -196,6 +196,14 @@ function summonMonster(x,y,type){
     monster.setUpSprite();
 }
 
+function playerTransformTest(type){
+    let tile = getTile(player.tile.x,player.tile.y);
+    let monster = new type(tile);
+    monster.teleportCounter = 0;
+    player = monster;
+    player.setUpSprite();
+}
+
 function unlockAllSpells(){
     for (let i of Object.keys(spellpatterns)){
         research.knownspells.push(i);

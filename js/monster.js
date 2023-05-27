@@ -667,11 +667,6 @@ class Terminal extends Monster{
                 playSound("deathdelay");
             }
             if (this.statuseff["Dissociated"] == 0){
-                if (this.isPlayer){
-                    for (let g of player.axioms.active){
-                        if (g instanceof Kashia) this.statuseff["Dissociated"] = 5;
-                    }
-                }
                 this.hp = this.falsehp;
                 if (this.hp <= 0) this.hit(99);
                 removeItemOnce(monsters,this);

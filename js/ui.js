@@ -769,26 +769,6 @@ class DrawWheel{
             loot.displayIcon.y += loot.displayIcon.diry*loot.displayIcon.trspeed;
         });
         research.completeResearch("Herald");
-        //for (let x of player.axioms.active){
-        //    if (x instanceof Kilami) spells[loot.id](player);
-        //}
-        //if (this.getWheelSpace() == 0){
-        
-       // }
-        //else {
-          //  for (let i = 0; i < 8; i++){
-         //       if (this.wheel[i] instanceof Empty){
-        //            this.wheel[i] = loot;
-        //            break;
-        //        }
-        //    }
-        //}
- 
-        //smash combat stuff
-        //removeItemOnce(player.tile.souls,skey);
-        //removeItemOnce(droppedsouls,skey);
-        //skey.attach.soulless = true;
-        //skey.attach.pushable = true;
     }
 
     retrieveSoul(override){
@@ -898,14 +878,6 @@ class DrawWheel{
                 research.completeResearch("Breath");
                 break;
             } 
-        }
-        if(this.pile[0] instanceof Feral){
-            for (let j of player.axioms.active){
-                if (j instanceof Ezezza){
-                    player.para++;
-                    log.addLog("EZEZZA");
-                }
-            }
         }
         this.pile.shift();
         this.resetAngles();
@@ -1170,7 +1142,6 @@ class Inventory{
     activateAxiom(slot){
         let soul = this.storage[slot];
         if (soul instanceof Empty) return;
-        if (soul instanceof Ezezza && world.fighting) return;
         let caste;
         caste = this.castes.indexOf(this.storage[slot].caste);
         this.storage[slot] = new Empty();
@@ -1182,10 +1153,6 @@ class Inventory{
         }
         this.storeSoul(caste, this.active[caste]);
         this.active[caste] = soul;
-        if (soul instanceof Kashia){
-            player.statuseff["Dissociated"] = 5;
-            player.falsehp = player.hp;
-        }
     }
 
     hasSoul(type){
@@ -1213,14 +1180,8 @@ class Inventory{
 
     storeSoul(slot){
         let soul = this.active[slot];
-        if (soul instanceof Ezezza && world.fighting) return;
         if (basic.includes(this.active[slot].id)) return;
         else{
-            if (soul instanceof Kashia){
-                player.statuseff["Dissociated"] = 0;
-                player.hp = player.falsehp;
-                if (player.hp <= 0) player.hit(99);
-            }
             let noroom = 0;
             for (let i of this.storage){
                 if (noroom == this.storage.length) return;
