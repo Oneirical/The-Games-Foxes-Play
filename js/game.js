@@ -116,15 +116,6 @@ function tick(){
                 //    monsters.splice(k,1);
                 //}
             }
-            else if (world.getRoom() instanceof WorldSeed){
-                player.hp = maxHp;
-                player.dead = false;
-                player.tile.setEffect(1, 30);
-                wheel.resolve = 3+Math.floor(resolvebonus/2);
-                world.getRoom().progressTutorial(world.getRoom().stage);
-                player.sprite = 0;
-                log.addLog("BlehhFail");
-            }
             else{
                 wheel.ipseity = lose(wheel.ipseity,5);
                 if(wheel.ipseity <= 0){
@@ -147,7 +138,6 @@ function tick(){
                     player.fuffified = 0;
                     for (let k of wheel.saved){
                         if (!(k instanceof Empty))wheel.discard.push(k);
-                        wheel.spinningsouls = [new SpinningSoul(47,0)];
                     }
                     wheel.saved = [new Empty(),new Empty(),new Empty(),new Empty(),new Empty(),new Empty(),new Empty(),new Empty()];
                 }
@@ -177,10 +167,9 @@ function startGame(){
     tileSize = 64;
     numTiles = 9;
     areaname = new LocationDisplay();
-    statuses = new StatusDisplay();
     buttons = new ButtonsDisplay();
     research = new Research();
-    wheel = new DrawWheel();
+    wheel = new SoulBreathing(); //should belong to entity
     universe = new Universe();
     log = new MessageLog();
     universe.start(startingHp);

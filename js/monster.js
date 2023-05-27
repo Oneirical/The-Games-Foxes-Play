@@ -28,6 +28,8 @@ class Monster{
         this.noloot = false;
         this.canmove = true;
         this.axioms = new Inventory();
+        this.statusDisplay = new StatusDisplay(this);
+        this.wheel = false;
         this.soullink;
         this.storedattacks = [];
         this.dialoguecount = 0;
@@ -85,7 +87,6 @@ class Monster{
             bai.texture.baseTexture.scaleMode = PIXI.SCALE_MODES.NEAREST;
             hpcon.addChild(bai);
         }
-        this.updateHp();
         app.ticker.add((delta) => {
             if (this.offsetX != 0 || this.offsetY != 0){
                 if (this.offsetX >= 0) this.offsetX = Math.max(this.offsetX - Math.sign(this.offsetX)*(this.anispeed),0);
@@ -96,7 +97,8 @@ class Monster{
                 this.creaturecon.y = this.getDisplayY()*tileSize-8; 
             }
         });
-
+        this.statusDisplay.setUpSprites();
+        this.updateHp();
     }
 
     updateHp(){
@@ -106,6 +108,7 @@ class Monster{
             if (hp <= 0) i.visible = false;
             hp--;
         }
+        this.statusDisplay.updateHp(this);
     }
 
     heal(damage){
@@ -171,7 +174,7 @@ class Monster{
         }
         if(this.paralyzed) return;
         if(this.statuseff["Charmed"] > 0 && monsters.length < 2 && !this.permacharm) this.statuseff["Charmed"] = 0;
-        this.doStuff();
+        if (!this.isPlayer) this.doStuff();
         this.axioms.queueContin("TURNEND",this);
         for (let i of this.queuedcontin) this.axioms.castContin(i,this);      
         this.queuedcontin = []; 
@@ -657,26 +660,8 @@ class Terminal extends Monster{
         this.ability = "";
         this.noloot = true;
         this.fov = 0;
+        this.wheel = new SoulBreathing();
         this.souldropped = true;
-    }
-
-    update(){
-        if (this.statuseff["Dissociated"] > 0){
-            if (this.falsehp < 1){
-                log.addLog("KashiaLethal");
-                playSound("deathdelay");
-            }
-            if (this.statuseff["Dissociated"] == 0){
-                this.hp = this.falsehp;
-                if (this.hp <= 0) this.hit(99);
-                removeItemOnce(monsters,this);
-                if (!this.noloot) wheel.addSoul(this.loot);
-                this.noloot = true;
-            }
-        }
-        this.axioms.queueContin("TURNEND",this); 
-        for (let i of this.queuedcontin) this.axioms.castContin(i,this);   
-        this.queuedcontin = [];                                              
     }
 
     tryMove(dx, dy){

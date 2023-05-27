@@ -167,12 +167,14 @@ Anisychia - Feral champion
 * If Fluffy is Pride incarnate, Terminal is Envy incarnate - gnawing, coveting value. It is only right that it would be put against a being of infinite value...
 * Fluffy is an empty shell, if defeated she may be replaced and duplicate you.
 * The Harmony contains "ultimate lifeforms", as they have reached maximum complexity.
-* Rose's ability to "drown out in endless lives".
 * Fluffy should taunt you about how your task is endless and infinite, and how submission to the Harmony is the only sensible course of action.
 
 **Insane/overly ambitious stuff**
 
 *absolute madness below*
+
+* Rose's ability to "drown out in endless lives".
+* Give Rose something about choked souls, drowned souls, the player's own soul still existing but with piles upon piles of roseic souls on top preventing access to who they once were
 
 * The "Next World" is the world above, and all the Old World data is Higher Terminal's dream.
 * The very first run of the game, you play as the first Terminal to ever encounter Fluffy, who spawns from Glamorous Toxin. She is not directly with you and spawns all the way in the Roseic Circus after a while, so you have time to learn the game.

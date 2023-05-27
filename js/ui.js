@@ -309,7 +309,8 @@ class StatusDisplay{
         this.displayCon.y = 32*15;
         uiDisplayLeft.addChild(this.displayCon);
         drawChainBorder(10,5,this.displayCon);
-        drawChainLine(4,110,15,"v",this.displayCon)
+        drawChainLine(4,110,15,"v",this.displayCon);
+        drawChainLine(4,165,15,"v",this.displayCon);
         this.hpCon = new PIXI.Container();
         this.hpCon.x = 8;
         this.hpCon.y = 6;
@@ -317,16 +318,27 @@ class StatusDisplay{
         for (let i = 0; i<2;i++){
             for (let j = 0; j<3; j++){
                 let newSprite = new PIXI.Sprite(allsprites.textures['icon1']);
-                newSprite.x = i*40
-                newSprite.y = j*40
+                newSprite.x = i*40;
+                newSprite.y = j*40;
                 newSprite.width = 32;
                 newSprite.height = 32;
                 this.hpCon.addChild(newSprite);
             }
         }
+        this.soulCon = new PIXI.Container();
+        this.soulCon.x = 111;
+        this.soulCon.y = 6;
+        this.displayCon.addChild(this.soulCon);
+        let newSprite = new PIXI.Sprite(allsprites.textures['icon49']);
+        newSprite.x = 0;
+        newSprite.y = 40;
+        newSprite.width = 32;
+        newSprite.height = 32;
+        this.soulCon.addChild(newSprite);
     }
 
-    update(i){
+    updateHp(i){
+        if (!i.isPlayer) this.displayCon.visible = false;
         for (let b of this.hpCon.children) b.visible = true;
         let count = 0;
         for (let j = 0; j < i.hp; j++){
@@ -558,20 +570,7 @@ class MessageLog{
     }
 }
 
-class SpinningSoul{
-    constructor(icon,startangle){
-        this.icon = icon;
-        this.x = 0;
-        this.y = 0;
-        this.speed = 0.01;
-        this.angle = startangle;
-        this.offsetX = 0;
-        this.offsetY = 0;
-        this.thrashcounter = 0;
-    }
-}
-
-class DrawWheel{
+class SoulBreathing{
     constructor(){
         this.wheel = [new Empty(),new Empty(),new Empty(),new Empty(),new Empty(),new Empty(),new Empty(),new Empty()];
         let center = [(canvas.height+canvas.width-256)/2-40, 195*canvas.height/900]; //256: minimap height
@@ -596,8 +595,6 @@ class DrawWheel{
         center = [(canvas.height+canvas.width-256)/2-40, 195*canvas.height/900];
         dist = 100*(resolutionSize/7);
         this.circlemotion = {centerX:(canvas.height+canvas.width-256)/2-16, centerY:195*canvas.height/900+24, radius:170};
-        this.spinningsouls = [new SpinningSoul(47,0)];
-        this.paintcans = [[new SpinningSoul(47,0)],[new SpinningSoul(47,0)],[new SpinningSoul(47,0)],[new SpinningSoul(47,0)],[new SpinningSoul(47,0)],[new SpinningSoul(47,0)],[new SpinningSoul(47,0)]];
         this.paintcoords = [[center[0]+Math.cos(pi/4)*dist, center[1]-Math.sin(pi/4)*dist],[center[0]+dist, center[1]],[center[0]+Math.cos(pi/4)*dist, center[1]+Math.sin(pi/4)*dist],[center[0], center[1]+dist],[center[0]-Math.cos(pi/4)*dist, center[1]+Math.sin(pi/4)*dist],[center[0]-dist, center[1]],[center[0]-Math.cos(pi/4)*dist, center[1]-Math.sin(pi/4)*dist]];
         this.paintcir = [];
         for (let i of this.paintcoords) this.paintcir.push({centerX:i[0]+24, centerY:i[1]+24, radius:15});
@@ -606,8 +603,6 @@ class DrawWheel{
         this.castecoords = [first,[first[0]+hori,first[1]],[first[0],first[1]+vert],[first[0]+hori,first[1]+vert],[first[0],first[1]+vert*2],[first[0]+hori,first[1]+vert*2]];
         this.turbulentmarkers = [new Feral(),new Feral()];
         this.turbulentmarkers[0].turbulent = true;
-
-        //for (let o = 0; o<7;o++) this.paintcans[o].push(new SpinningSoul(o,0));
     }
 
     setUpSprites(){
@@ -796,7 +791,6 @@ class DrawWheel{
                 if (basic.includes(world.cage.slots[override.x][override.y].id)){
                     this.wheel[this.wheel.indexOf(k)] = world.cage.slots[override.x][override.y];
                     const types = ["SAINTLY","ORDERED","ARTISTIC","UNHINGED","FERAL","VILE","SERENE"];
-                    if (world.cage.slots[override.x][override.y].turbulent == this.turbstatus) this.paintcans[types.indexOf(world.cage.slots[override.x][override.y].id)].push(new SpinningSoul(world.cage.slots[override.x][override.y].icon,this.paintcans[types.indexOf(world.cage.slots[override.x][override.y].id)][this.paintcans[types.indexOf(world.cage.slots[override.x][override.y].id)].length-1].angle-0.1));
                 }
                 else retrievesuccess = player.axioms.addAxiom(world.cage.slots[override.x][override.y]);
                 if (retrievesuccess) {
@@ -928,12 +922,6 @@ class DrawWheel{
         if (world.getRoom() instanceof SoulCage){
             if (slot == 8){
                 this.turbstatus = !this.turbstatus;
-                this.paintcans = [[new SpinningSoul(47,0)],[new SpinningSoul(47,0)],[new SpinningSoul(47,0)],[new SpinningSoul(47,0)],[new SpinningSoul(47,0)],[new SpinningSoul(47,0)],[new SpinningSoul(47,0)]];
-                for (let j = 0; j<7; j++){
-                    for (let i = 0; i < (wheel.countPileSouls(wheel.turbstatus)[j] + wheel.countDiscardSouls(wheel.turbstatus)[j]); i++){
-                        wheel.paintcans[j].push(new SpinningSoul(j,wheel.paintcans[j][wheel.paintcans[j].length-1].angle-0.5));
-                    }
-                }
                 return;
             }
             else if (slot == this.currentbrush) slot = 8;
@@ -986,7 +974,6 @@ class DrawWheel{
                 if (spellName == "FLEXIBLE"){
                     player.axioms.active[num].legendCast(player);
                     this.saved.push(this.wheel[slot]);
-                    wheel.spinningsouls.push(new SpinningSoul(this.wheel[slot].icon,wheel.spinningsouls[wheel.spinningsouls.length-1].angle-0.5));
                     this.wheel[slot] = new Empty();
                     playSound("spell");
                     tick();
@@ -998,7 +985,6 @@ class DrawWheel{
                     spells[spellName](player, player.axioms.active[num]);
                     if (player.axioms.active[num].influence == "C") spells[player.axioms.active[num].caste](player);
                     this.saved.push(this.wheel[slot]);
-                    wheel.spinningsouls.push(new SpinningSoul(this.wheel[slot].icon,wheel.spinningsouls[wheel.spinningsouls.length-1].angle-0.5));
                     this.wheel[slot] = new Empty();
                     playSound("spell");
                     tick();
@@ -1198,7 +1184,7 @@ class Inventory{
 
 //maybe make it so clicking inside actcoords triggers the swap. the boundary is just actcoords stretched to a square to pass which one is clicked
 
-class LegendarySoul{
+class Soul{
     constructor(name){
         this.id = name;
         this.name = soulname[name];
@@ -1326,7 +1312,7 @@ function calculatePower(triggers,targeter,modifier,effect){
     return [basepower,basecost];
 }
 
-class Axiom extends LegendarySoul{
+class Axiom extends Soul{
     constructor(contingencies,forms,mutators,functions,caste,owner){
         super("FLEXIBLE");
         this.forms = forms;
@@ -1393,7 +1379,7 @@ class Axiom extends LegendarySoul{
     }
 }
 
-class Component extends LegendarySoul{
+class Component extends Soul{
     constructor(type){
         super("SAINTLY");
         this.type = type;
@@ -1402,7 +1388,7 @@ class Component extends LegendarySoul{
     }
 }
 
-class Empty extends LegendarySoul{
+class Empty extends Soul{
     constructor(){
         super("EMPTY");
         this.icon = 7;
@@ -1415,7 +1401,16 @@ class Empty extends LegendarySoul{
     }
 }
 
-class Shattered extends LegendarySoul{
+class RealityAnchor extends Soul{
+    constructor(type){
+        super("SAINTLY");
+        this.type = type;
+        this.icon = inside[type];
+        this.caste = "SAINTLY";
+    }
+} 
+
+class Shattered extends Soul{
     constructor(){
         super("SHATTERED");
         this.icon = 49;
@@ -1423,7 +1418,7 @@ class Shattered extends LegendarySoul{
     }
 }
 
-class Vile extends LegendarySoul{
+class Vile extends Soul{
     constructor(){
         super("VILE");
         this.icon = 5;
@@ -1433,7 +1428,7 @@ class Vile extends LegendarySoul{
     }
 }
 
-class Feral extends LegendarySoul{
+class Feral extends Soul{
     constructor(){
         super("FERAL");
         this.icon = 4;
@@ -1443,7 +1438,7 @@ class Feral extends LegendarySoul{
     }
 }
 
-class Unhinged extends LegendarySoul{
+class Unhinged extends Soul{
     constructor(){
         super("UNHINGED");
         this.icon = 3;
@@ -1453,7 +1448,7 @@ class Unhinged extends LegendarySoul{
     }
 }
 
-class Artistic extends LegendarySoul{
+class Artistic extends Soul{
     constructor(){
         super("ARTISTIC");
         this.icon = 2;
@@ -1463,7 +1458,7 @@ class Artistic extends LegendarySoul{
     }
 }
 
-class Ordered extends LegendarySoul{
+class Ordered extends Soul{
     constructor(){
         super("ORDERED");
         this.icon = 1;
@@ -1473,7 +1468,7 @@ class Ordered extends LegendarySoul{
     }
 }
 
-class Saintly extends LegendarySoul{
+class Saintly extends Soul{
     constructor(){
         super("SAINTLY");
         this.icon = 0;
@@ -1483,7 +1478,7 @@ class Saintly extends LegendarySoul{
     }
 }
 
-class Serene extends LegendarySoul{
+class Serene extends Soul{
     constructor(){
         super("SERENE");
         this.icon = 21;

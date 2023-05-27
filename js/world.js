@@ -859,7 +859,6 @@ class Room{
         if (this.effects.includes("Darkness")) player.fov = 2;
         for (let k of wheel.saved){
             if (!(k instanceof Empty))wheel.discard.push(k);
-            wheel.spinningsouls = [new SpinningSoul(47,0)];
         }
         wheel.saved = [new Empty(),new Empty(),new Empty(),new Empty(),new Empty(),new Empty(),new Empty(),new Empty()];
         player.hp = this.startingplayerHP;

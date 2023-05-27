@@ -25,8 +25,15 @@ function setupPixi(){
         atlasData
     );
     allsprites.parse();
+    uiDisplayLeft = new PIXI.Container();
+    uiDisplayLeft.x = 34;
+    uiDisplayLeft.y = 44;
+    app.stage.addChild(uiDisplayLeft);
+    uiDisplayRight = new PIXI.Container();
+    uiDisplayRight.x = 372+32*32+28;
+    uiDisplayRight.y = 44;
+    app.stage.addChild(uiDisplayRight);
     startGame();
-    drawTiles();
     setUpUI();
 }
 
@@ -146,16 +153,7 @@ function tickTiles(){
 }
 
 function setUpUI(){
-    uiDisplayLeft = new PIXI.Container();
-    uiDisplayLeft.x = 34;
-    uiDisplayLeft.y = 44;
-    app.stage.addChild(uiDisplayLeft);
-    uiDisplayRight = new PIXI.Container();
-    uiDisplayRight.x = 372+32*32+28;
-    uiDisplayRight.y = 44;
-    app.stage.addChild(uiDisplayRight);
     areaname.setUpSprites();
-    statuses.setUpSprites();
     buttons.setUpSprites()
     wheel.setUpSprites();
     player.axioms.setUpSprites();
