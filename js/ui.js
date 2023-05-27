@@ -619,6 +619,9 @@ class DrawWheel{
         let pi = Math.PI;
         let wheelcoords = [[center[0], center[1]-dist],[center[0]+Math.cos(pi/4)*dist, center[1]-Math.sin(pi/4)*dist],[center[0]+dist, center[1]],[center[0]+Math.cos(pi/4)*dist, center[1]+Math.sin(pi/4)*dist],[center[0], center[1]+dist],[center[0]-Math.cos(pi/4)*dist, center[1]+Math.sin(pi/4)*dist],[center[0]-dist, center[1]],[center[0]-Math.cos(pi/4)*dist, center[1]-Math.sin(pi/4)*dist]];
         dist = 45*(resolutionSize/7);
+        this.wheelCon = new PIXI.Container();
+        this.displayCon.addChild(this.wheelCon);
+        let paintcans = [];
         for (let i = 0; i<8; i++){
             let newSprite = new PIXI.Sprite(allsprites.textures['icon7']);
             newSprite.width = (resolutionSize-3)*16;
@@ -627,182 +630,54 @@ class DrawWheel{
             newSprite.x = wheelcoords[i][0];
             newSprite.y = wheelcoords[i][1];
             newSprite.texture.baseTexture.scaleMode = PIXI.SCALE_MODES.NEAREST;
-            this.displayCon.addChild(newSprite);
+            this.wheelCon.addChild(newSprite);
+            newSprite.paintCan = new PIXI.Container();
+            newSprite.paintCan.x = newSprite.x-22;
+            newSprite.paintCan.y = newSprite.y-22;
+            paintcans.push(newSprite.paintCan);
         }
+        for (let i of paintcans) this.wheelCon.addChild(i);
         this.bouncySouls = new PIXI.ParticleContainer();
         this.displayCon.addChild(this.bouncySouls);
     }
 
-    display(){
-        //if (!inInventory && !cursormode && !(world.getRoom() instanceof SoulCage)) printOutText(universe.getDepth(), 25, 905 - ctx.measureText(universe.getDepth()).width, 35, "lightblue");
-        if (!inInventory && !cursormode) printOutText(world.getRoom().name, 25, canvas.width-246, 28, "violet");
-        if (!(world.getRoom() instanceof SoulCage)){
-            for (let i = 0; i<this.pile.length;i++){
-                this.pile[i].x = this.circlemotion.centerX + Math.cos(this.pile[i].angle) * this.circlemotion.radius;
-                this.pile[i].y = this.circlemotion.centerY + Math.sin(this.pile[i].angle) * this.circlemotion.radius;
-                this.pile[i].angle += this.pile[i].speed;
-                drawSymbol(this.pile[i].icon, this.pile[i].x, this.pile[i].y, 16);
-            }
-            for (let i = 0; i<this.saved.length;i++){
-                this.saved[i].x = this.circlemotion.centerX + Math.cos(this.saved[i].angle) * 20;
-                this.saved[i].y = this.circlemotion.centerY + Math.sin(this.saved[i].angle) * 20;
-                this.saved[i].angle += this.saved[i].speed;
-                if (!(this.saved[i] instanceof Empty)) drawSymbol(this.saved[i].icon, this.saved[i].x, this.saved[i].y, 16);
-            }
+    toPaintMode(){
+        for (let i = 0; i< 8;  i++){
+            let hai = (i-1+58);
+            if (i == 0) hai = 7;
+            this.wheelCon.children[i].texture = allsprites.textures['icon'+hai];
+            this.wheelCon.children[i].alpha = 0.25;
         }
-        else{
-            for (let p = 0; p<this.paintcans.length; p++){
-                for (let i = 0; i<this.paintcans[p].length;i++){
-                    this.paintcans[p][i].x = this.paintcir[p].centerX + Math.cos(this.paintcans[p][i].angle) * this.paintcir[p].radius;
-                    this.paintcans[p][i].y = this.paintcir[p].centerY + Math.sin(this.paintcans[p][i].angle) * this.paintcir[p].radius;
-                    this.paintcans[p][i].angle += this.paintcans[p][i].speed;
-                    if (this.currentbrush-1 != p) ctx.globalAlpha = 0.8;
-                    if (!this.turbstatus) drawSymbol(this.paintcans[p][i].icon, this.paintcans[p][i].x, this.paintcans[p][i].y, 16);
-                    else {
-                        this.paintcans[p][i].thrashcounter++;
-                        if (this.paintcans[p][i].thrashcounter > 10){ // is this effect too annoying? the alternative is setting all offsets to 2/3 and removing the *64 below
-                            let rt = randomRange(1,4);
-                            if (rt == 1) this.paintcans[p][i].offsetX+= 0.1;
-                            else if (rt == 2) this.paintcans[p][i].offsetX-= 0.1;
-                            else if (rt == 3)this.paintcans[p][i].offsetY+= 0.1;
-                            else if (rt == 4)this.paintcans[p][i].offsetY-= 0.1;
-                            this.paintcans[p][i].thrashcounter = 0;
-                        }
-                        drawSymbol(this.paintcans[p][i].icon, (this.paintcans[p][i].x + this.paintcans[p][i].offsetX*32),  (this.paintcans[p][i].y + this.paintcans[p][i].offsetY*32),16);
-                        this.paintcans[p][i].offsetX -= Math.sign(this.paintcans[p][i].offsetX)*(0.05);     
-                        this.paintcans[p][i].offsetY -= Math.sign(this.paintcans[p][i].offsetY)*(0.05);
-                    }
-                    ctx.globalAlpha = 1;
-                }
-            }
+        let initial =this.bouncySouls.children.length-1;
+        for (let i = initial; i>=0; i--){
+            let can = this.bouncySouls.children[i];
+            can.bounceborder = 32;
+            can.x = 16;
+            can.y = 16;
+            can.width = 16;
+            can.height = 16;
+            can.alpha = 0.5;
+            can.trspeed = 2;
+            this.wheelCon.children[6-can.caste].paintCan.addChild(can);
         }
+    }
 
-        if (!(world.getRoom() instanceof SoulCage)) drawSymbol(6, canvas.width-256, 296, 256);
-        drawSymbol(6, canvas.width-87, canvas.height-334, 64);
-        printOutText("L",18, canvas.width-102, canvas.height-295, "white",20,350);
-        //drawSymbol(9, 590, 130, 64);
-        drawSymbol(10, canvas.width-232, canvas.height-334, 64);
-        printOutText("F",18, canvas.width-172, canvas.height-295, "white",20,350);
-        //drawSymbol(11, canvas.height+10, 10, 64);
-        //printOutText("Q",18, (canvas.height+canvas.width-256)/2-12, 235, "white",20,350);
-        //printOutText("C",18, 616, 208, "white",20,350);
-        
-        let icon = 33;
-        if (player.infested > 0) icon = 34;
-        else if (player.tile.souls.length > 0) icon = 48;
-        //drawSymbol(icon,(canvas.height+canvas.width-256)/2-22,184,32);
-        if (gameState == "contemplation"){
-            drawSymbol(13, 880, 50, 64);
-            printOutText(agony+" ", 23, 835, 90, "orangered", 20, 350);
-        }
-
-        else if (player.infested > 1){
-            drawSymbol(32, 880, 50, 64);
-            let paltars = [];
-            let naltars = [];
-            for (let x of tiles){
-                for (let y of x){
-                    if (y instanceof PosAltar) paltars.push(y.getValue());
-                    else if (y instanceof NegAltar) naltars.push(y.getValue());
-                }
+    toNormalMode(){
+        for (let i = 0; i< 8;  i++){
+            this.wheelCon.children[i].alpha = 1;
+            this.wheelCon.children[i].texture = allsprites.textures['icon7'];
+            let initial = this.wheelCon.children[i].paintCan.children.length-1;
+            for (let k = initial; k>=0; k--){
+                let j = this.wheelCon.children[i].paintCan.children[k];
+                j.x = 194;
+                j.y = 194;
+                j.width = 32;
+                j.height = 32;
+                j.alpha = 0.15;
+                j.trspeed = 5;
+                j.bounceborder = 420;
+                this.bouncySouls.addChild(j);
             }
-            printOutText(paltars[0]+paltars[1]+paltars[2], 23, 780, 75, "cyan", 20, 350);
-            printOutText("-", 23, 825, 75, "white", 20, 350);
-            printOutText(naltars[0]+naltars[1]+naltars[2], 23, 839, 75, "orangered", 20, 350);
-            printOutText("=", 23, 805, 105, "white", 20, 350);
-            for (let k = 0; k < 3; k++){
-                paltars[k] = parseInt(paltars[k])
-            }
-            for (let e = 0; e < 3; e++){
-                naltars[e] = parseInt(naltars[e])
-            }
-            let results = ["?","?","?"];
-            for (let q = 0; q < 3; q++){
-                if (paltars[q] && naltars[q]){
-                    results[q] = (paltars[q] - naltars[q]);
-                }
-            }
-            if (results.includes("?")) results = "???";
-            else results = results[0]*100+results[1]*10+results[2];
-            printOutText(results.toString(), 23, 825, 102, "white", 20, 350);
-        }
-        else{
-            //drawSymbol(12, 880, 50, 64);
-            //let colour = "lightskyblue";
-            //if (this.resolve < 1) colour = "orangered";
-            //printOutText(this.resolve+"/"+(3+Math.floor(resolvebonus/2))+" ", 23, 835, 90, colour, 20, 350);
-        }
-        //printOutText(" "+this.ipseity, 23, canvas.height+80, 50, "plum", 20, 350);
-
-        let display;
-        const greysouls = {
-            0 : 7,
-            1: 50+8,
-            2: 51+8,
-            3: 52+8,
-            4: 53+8,
-            5 : 54+8,
-            6: 55+8,
-            7: 56+8,
-        }
-        const lightsouls = {
-            0:7,
-            1:0,
-            2:1,
-            3:2,
-            4:3,
-            5:4,
-            6:5,
-            7:21,
-        }
-        for (let k = 0;k<8;k++){
-            if (world.getRoom() instanceof SoulCage){
-                display = greysouls[k];
-                if (k == this.currentbrush){
-                    ctx.globalAlpha = 0.6;
-                    if (this.currentbrush == 0) ctx.globalAlpha = 1;
-                }
-                else ctx.globalAlpha = 0.2;
-            }
-            
-            else if (gameState == "contemplation") display = this.saved[k].icon;
-            else display = this.wheel[k].icon;
-            if (!this.wheel[k].turbulent) drawSymbol(display, this.wheelcoords[k][0], this.wheelcoords[k][1], 64);
-            else{
-                this.wheel[k].thrashcounter++;
-                if (this.wheel[k].thrashcounter > 10){ // is this effect too annoying? the alternative is setting all offsets to 2/3 and removing the *64 below
-                    let rt = randomRange(1,4);
-                    if (rt == 1) this.wheel[k].offsetX+= 0.1;
-                    else if (rt == 2) this.wheel[k].offsetX-= 0.1;
-                    else if (rt == 3)this.wheel[k].offsetY+= 0.1;
-                    else if (rt == 4)this.wheel[k].offsetY-= 0.1;
-                    this.wheel[k].thrashcounter = 0;
-                }
-                drawSymbol(display, (this.wheelcoords[k][0] + this.wheel[k].offsetX*64),  (this.wheelcoords[k][1] + this.wheel[k].offsetY*64),64);
-                this.wheel[k].offsetX -= Math.sign(this.wheel[k].offsetX)*(0.05);     
-                this.wheel[k].offsetY -= Math.sign(this.wheel[k].offsetY)*(0.05);
-            }
-            ctx.globalAlpha = 1;
-            printOutText(k+1+"",18, this.hotkeycoords[k][0], this.hotkeycoords[k][1], "white",20,350);
-        }
-        if (world.getRoom() instanceof SoulCage){//
-            this.turbulentmarkers[0].thrash(717,392,32);
-            this.turbulentmarkers[1].thrash(787,392,32);
-            printOutText(9+"",18, 764, 439, "white",20,350);
-            drawSymbol(45, 752, 392, 32);
-        }
-        let j = 0;
-        let k = 0;
-        let length = 29;
-        if (!(world.getRoom() instanceof SoulCage)){
-            //84 is max capacity for each box
-            for (let i = 0; i<348; i++){
-                let thrasher = this.saved[0];
-                if (i < this.discard.length)thrasher = this.discard[i];
-                thrasher.thrash(canvas.height+4  + i*18 - (length*18*Math.floor(k/length)),canvas.width-canvas.height-251 + Math.floor(k/length)*18,16);
-                k++;
-            }
-            player.axioms.displaySmall();
         }
     }
 
@@ -873,31 +748,25 @@ class DrawWheel{
             "Saintly" : Saintly,
         }
         let loot = new drops[skey.name]();
+        let caste = Object.keys(drops).indexOf(skey.name);
         loot.turbulent = true;
         this.discard.push(loot);
         loot.displayIcon.width = 32;
         loot.displayIcon.height = 32;
-        loot.displayIcon.x = 150;
-        loot.displayIcon.y = 150;
+        loot.displayIcon.x = 194;
+        loot.displayIcon.y = 194;
         loot.displayIcon.alpha = 0.15;
+        loot.displayIcon.bounceborder = 420;
+        loot.displayIcon.trspeed = 5;
+        loot.displayIcon.caste = caste;
         this.bouncySouls.addChild(loot.displayIcon);
         app.ticker.add(() => {
-            if (loot.displayIcon.x > 425 || loot.displayIcon.x < -10) loot.displayIcon.x = 100;
-            else if (loot.displayIcon.y > 425 || loot.displayIcon.y < -10) loot.displayIcon.y = 100;
-            if (loot.displayIcon.x > 420) Math.abs(loot.displayIcon.dirx *= shuffle([-0.99,-1,-1.01])[0]);
-            else if (loot.displayIcon.x < -4) Math.abs(loot.displayIcon.dirx *= shuffle([-0.99,-1,-1.01])[0])*-1;
-            else if (loot.displayIcon.y > 420) Math.abs(loot.displayIcon.diry *= shuffle([-0.99,-1,-1.01])[0]);
-            else if (loot.displayIcon.y < -4) Math.abs(loot.displayIcon.diry *= shuffle([-0.99,-1,-1.01])[0])*-1;
-            if (Math.abs(loot.displayIcon.diry) > 0.900){
-                loot.displayIcon.diry /= 2;
-                loot.displayIcon.dirx *= 2;
-            }
-            if (Math.abs(loot.displayIcon.dirx) > 0.900){
-                loot.displayIcon.dirx /= 2;
-                loot.displayIcon.diry *= 2;
-            }
-            loot.displayIcon.x += loot.displayIcon.dirx*5;
-            loot.displayIcon.y += loot.displayIcon.diry*5;
+            if (loot.displayIcon.x > loot.displayIcon.bounceborder) loot.displayIcon.dirx = -Math.abs(loot.displayIcon.dirx);
+            else if (loot.displayIcon.x < -6) loot.displayIcon.dirx = Math.abs(loot.displayIcon.dirx);
+            else if (loot.displayIcon.y > loot.displayIcon.bounceborder) loot.displayIcon.diry = -Math.abs(loot.displayIcon.diry);
+            else if (loot.displayIcon.y < -6) loot.displayIcon.diry = Math.abs(loot.displayIcon.diry);
+            loot.displayIcon.x += loot.displayIcon.dirx*loot.displayIcon.trspeed;
+            loot.displayIcon.y += loot.displayIcon.diry*loot.displayIcon.trspeed;
         });
         research.completeResearch("Herald");
         //for (let x of player.axioms.active){
