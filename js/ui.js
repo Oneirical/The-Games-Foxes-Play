@@ -916,7 +916,24 @@ class SoulBreathing{
 
     cageSoul(slot, override){
         if (!override) override = player.tile;
-        let soul = this.wheel[slot];
+        const choices = [Saintly, Ordered, Artistic, Unhinged, Feral, Vile, Serene];
+        let soulType = choices[slot-1];
+        let soul;
+        for (let i of this.discard) if (i instanceof soulType){ 
+            soul = i; 
+            break;
+        }
+        if (soul){
+            removeItemOnce(this.discard,soul);
+            world.cage.slots[override.x][override.y] = soul;
+            world.cage.size++;
+            if(world.cage.size > 0) world.cage.generateWorld();
+            research.completeResearch("Turbulent");
+            research.completeResearch("Brush");
+            this.wheelCon.children[slot].paintCan.removeChildAt(0);
+            return;
+        }
+        else return;
         if (soul instanceof Empty){
             shakeAmount = 5;
             //log.addLog("FluffyNoSoulTaunt");

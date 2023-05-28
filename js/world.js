@@ -647,7 +647,12 @@ class World{
         tiles = room.tiles;
         if (room instanceof WorldSeed && level == 1) room.populateRoom();
         room.initializeRoom();
+        tilesDisplay.removeChildren();
+        animationTick.destroy();
+        animationTick = new PIXI.Ticker;
+        animationTick.start();
         drawTiles();
+        drawSprites();
         if (areaname.displayCon) areaname.update();
     }
 

@@ -7,6 +7,8 @@ function summonExits(){
                 let py = y.y;
                 if (y instanceof BExit) tiles[px][py] = new MapExit(px,py,world.getRoom());
                 if (y instanceof BAscendExit) tiles[px][py] = new AscendExit(px,py,world.getRoom());
+                drawTiles();
+                drawSprites();
                 tiles[px][py].id = id;
             }
         }

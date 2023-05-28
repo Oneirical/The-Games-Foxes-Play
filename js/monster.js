@@ -28,7 +28,6 @@ class Monster{
         this.noloot = false;
         this.canmove = true;
         this.axioms = new Inventory();
-        this.statusDisplay = new StatusDisplay(this);
         this.wheel = false;
         this.soullink;
         this.storedattacks = [];
@@ -86,7 +85,7 @@ class Monster{
             bai.height = tileSize;
             hpcon.addChild(bai);
         }
-        app.ticker.add((delta) => {
+        animationTick.add((delta) => {
             if (this.offsetX != 0 || this.offsetY != 0){
                 if (this.offsetX >= 0) this.offsetX = Math.max(this.offsetX - Math.sign(this.offsetX)*(this.anispeed),0);
                 else this.offsetX = Math.min(this.offsetX - Math.sign(this.offsetX)*(this.anispeed),0);
@@ -96,7 +95,6 @@ class Monster{
                 this.creaturecon.y = this.getDisplayY()*tileSize-8; 
             }
         });
-        this.statusDisplay.setUpSprites();
         this.updateHp();
     }
 
@@ -107,7 +105,6 @@ class Monster{
             if (hp <= 0) i.visible = false;
             hp--;
         }
-        this.statusDisplay.updateHp(this);
     }
 
     heal(damage){
@@ -633,7 +630,7 @@ class Monster{
         }
         if (area != "Spire") this.sprite = 1;
         else this.sprite = 83;
-        this.creaturecon.visible = false;
+        tilesDisplay.removeChild(this.creaturecon);
     }
 
     move(tile){

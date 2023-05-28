@@ -163,7 +163,8 @@ function tickTiles(){
         for(let j=0;j<numTiles;j++){
             let hai = tiles[i][j].sprite;
             let bai = allsprites.textures['sprite'+hai];
-            tilesDisplay.children[j+(i*9)].children[0].texture = bai; //extend this to also place traps and caged souls
+            tiles[i][j].tickTile(bai);
+            //tilesDisplay.children[j+(i*9)].children[0].texture = bai; //extend this to also place traps and caged souls
         }
     }
 }
@@ -178,14 +179,12 @@ function setUpUI(){
 }
 
 function drawTiles(){
-    for (let i = tilesDisplay.children.length - 1; i >= 0; i--) {	tilesDisplay.removeChild(tilesDisplay.children[i]);};
     tileSize = ((resolutionSize)*16)/(world.getRoom().size/9);
     for(let i=0;i<numTiles;i++){
         for(let j=0;j<numTiles;j++){
             tiles[i][j].setUpSprite();
         }
     }
-    drawSprites();
     drawChainBorder(32,32,tilesDisplay);
 }
 
@@ -226,7 +225,6 @@ function drawHitbox(fill,x,y,size,source){
     graphics.drawRect(x, y, size, size);
     graphics.endFill();
     graphics.alpha = 0;
-    graphics.eventMode = 'static';
     source.addChild(graphics);
 }
 

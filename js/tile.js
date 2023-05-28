@@ -26,7 +26,13 @@ class Tile{
         newSprite.height = tileSize;
         
         this.tilecon.addChild(newSprite);
+        this.spriteDisplay = newSprite;
         //add traps here
+    }
+
+    tickTile(newTex){
+        //newTex = allsprites.textures['sprite0'];
+        this.spriteDisplay.texture = newTex;
     }
 
     replace(newTileType){
@@ -605,13 +611,15 @@ class Altar extends Floor{
         soulcon.y = tileSize/2;
         soulcon.anchor.set(0.5);
         this.tilecon.addChild(soulcon);
-        drawHitbox("white", 0, 0,tileSize,this.tilecon);
-        this.tilecon.children[this.tilecon.children.length-1].on('pointerover', (event) => {
-            this.tilecon.children[this.tilecon.children.length-1].alpha = 0.7;
-            if (isMouseDown) wheel.cageSoul(wheel.selectedCan);
+        drawHitbox("white", 20, 20,tileSize*0.8-20*0.8,this.tilecon);
+        this.hitBox = this.tilecon.children[this.tilecon.children.length-1];
+        this.spriteDisplay.eventMode = 'static';
+        this.spriteDisplay.on('pointerover', (event) => {
+            this.hitBox.alpha = 0.7;
+            if (isMouseDown) wheel.cageSoul(wheel.selectedCan,getTile(this.x,this.y));
         });
-        this.tilecon.children[this.tilecon.children.length-1].on('pointerout', (event) => {
-            this.tilecon.children[this.tilecon.children.length-1].alpha = 0;
+        this.spriteDisplay.on('pointerout', (event) => {
+            this.hitBox.alpha = 0;
         });
 
     }
