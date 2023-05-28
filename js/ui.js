@@ -626,7 +626,12 @@ class SoulBreathing{
             newSprite.y = wheelcoords[i][1];
             newSprite.texture.baseTexture.scaleMode = PIXI.SCALE_MODES.NEAREST;
             this.wheelCon.addChild(newSprite);
+            this.wheelCon.children[i].eventMode = 'static';
+            this.wheelCon.children[i].on('click', (event) => {
+                this.selectCan(i);
+            });
             newSprite.paintCan = new PIXI.Container();
+            newSprite.paintCan.eventMode = 'none';
             newSprite.paintCan.x = newSprite.x-22;
             newSprite.paintCan.y = newSprite.y-22;
             paintcans.push(newSprite.paintCan);
@@ -643,10 +648,6 @@ class SoulBreathing{
             this.wheelCon.children[i].texture = allsprites.textures['icon'+hai];
             if (i!=0) this.wheelCon.children[i].alpha = 0.25;
             else this.wheelCon.children[i].alpha = 0.5;
-            this.wheelCon.children[i].eventMode = 'static';
-            this.wheelCon.children[i].on('pointerdown', (event) => {
-                this.selectCan(i);
-            });
         }
         let initial =this.bouncySouls.children.length-1;
         for (let i = initial; i>=0; i--){
@@ -671,7 +672,10 @@ class SoulBreathing{
             if (this.selectedCan != 0) this.wheelCon.children[this.selectedCan].alpha = 0.15;
             else this.wheelCon.children[this.selectedCan].alpha = 0.5;
         }
-        if (i == this.selectedCan) return;
+        if (i == this.selectedCan){
+            this.selectedCan = null;
+            return;
+        }
         this.selectedCan = i;
         if (this.selectedCan != 0) this.wheelCon.children[i].alpha = 0.5;
         else this.wheelCon.children[i].alpha = 1;
@@ -682,7 +686,7 @@ class SoulBreathing{
     }
 
     toNormalMode(){
-        this.selectCan(this.selectedCan);
+        if (this.selectedCan != null) this.selectCan(this.selectedCan);
         this.selectedCan = null;
         for (let i = 0; i< 8;  i++){
             this.wheelCon.children[i].alpha = 1;

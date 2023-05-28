@@ -4,7 +4,16 @@ function toggleFullScreen() {
     } else if (document.exitFullscreen) {
       document.exitFullscreen();
     }
-  }
+}
+
+class FoxSprite extends PIXI.Sprite{
+    constructor(imageURL)
+    {
+        super(Texture.fromImage(imageURL));
+        this.texture.baseTexture.scaleMode = PIXI.SCALE_MODES.NEAREST;
+        this.eventMode = 'none';
+    }
+}
   
 
 function setupPixi(){

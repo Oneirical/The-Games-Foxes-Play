@@ -305,7 +305,8 @@ function nukeRoom(){
     } 
 }
 
-function playSound(soundName){                       
+function playSound(soundName){      
+    return;                 
     sounds[soundName].currentTime = 0;
     sounds[soundName].play();
     let loops = ["cage","max","roseic","title","harmony2","harmony4","harmony6","falsity","seal","quarry","toxic","spire","spireloop","epsilon","malform"];
