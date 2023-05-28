@@ -21,10 +21,10 @@ class Tile{
         this.tilecon.x = this.x*tileSize-8;
         this.tilecon.y = this.y*tileSize-8;
         let hai = this.sprite;
-        let newSprite = new PIXI.Sprite(allsprites.textures['sprite'+hai]);
+        let newSprite = new FoxSprite(allsprites.textures['sprite'+hai]);
         newSprite.width = tileSize;
         newSprite.height = tileSize;
-        newSprite.texture.baseTexture.scaleMode = PIXI.SCALE_MODES.NEAREST;
+        
         this.tilecon.addChild(newSprite);
         //add traps here
     }
@@ -598,7 +598,7 @@ class Altar extends Floor{
 
     setUpSprite(){
         super.setUpSprite();
-        let soulcon = new PIXI.Sprite(allsprites.textures['icon7']);
+        let soulcon = new FoxSprite(allsprites.textures['icon7']);
         soulcon.width = tileSize*0.8;
         soulcon.height = tileSize*0.8;
         soulcon.x = tileSize/2;

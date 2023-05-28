@@ -9,9 +9,9 @@ function toggleFullScreen() {
 class FoxSprite extends PIXI.Sprite{
     constructor(imageURL)
     {
-        super(Texture.fromImage(imageURL));
-        this.texture.baseTexture.scaleMode = PIXI.SCALE_MODES.NEAREST;
+        super(imageURL);
         this.eventMode = 'none';
+        this.texture.baseTexture.scaleMode = PIXI.SCALE_MODES.NEAREST;
     }
 }
   
@@ -72,7 +72,7 @@ function drawChainLine(l,x,y,dir,source){
         }
         let hai = 139;
         if (["B","E","L","T"].includes(character)) hai = 141;
-        let newSprite = new PIXI.Sprite(allsprites.textures['sprite'+hai]);
+        let newSprite = new FoxSprite(allsprites.textures['sprite'+hai]);
         newSprite.width = 32;
         newSprite.height = 32;
         newSprite.anchor.set(0.5,0.5);
@@ -101,7 +101,7 @@ function drawChainLine(l,x,y,dir,source){
             "T" : 0,
         }
         newSprite.rotation = rotatea[character];
-        newSprite.texture.baseTexture.scaleMode = PIXI.SCALE_MODES.NEAREST;
+        
         chaincon.addChild(newSprite);
     }
 
@@ -130,7 +130,7 @@ function drawChainBorder(w,h,source){
                 let hai = 139;
                 if (["Q","P","Z","M"].includes(character)) hai = 140;
                 else if (["B","E","L","T"].includes(character)) hai = 141;
-                let newSprite = new PIXI.Sprite(allsprites.textures['sprite'+hai]);
+                let newSprite = new FoxSprite(allsprites.textures['sprite'+hai]);
                 newSprite.width = 32;
                 newSprite.height = 32;
                 newSprite.anchor.set(0.5,0.5);
@@ -151,7 +151,7 @@ function drawChainBorder(w,h,source){
                     "T" : 0,
                 }
                 newSprite.rotation = rotatea[character];
-                newSprite.texture.baseTexture.scaleMode = PIXI.SCALE_MODES.NEAREST;
+                
                 chaincon.addChild(newSprite);
             }
         }

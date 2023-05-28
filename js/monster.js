@@ -72,19 +72,18 @@ class Monster{
         this.creaturecon.x = this.getDisplayX()*tileSize-8;
         this.creaturecon.y = this.getDisplayY()*tileSize-8;
         let hai = this.sprite;
-        let newSprite = new PIXI.Sprite(allsprites.textures['sprite'+hai]);
+        let newSprite = new FoxSprite(allsprites.textures['sprite'+hai]);
         newSprite.width = tileSize;
         newSprite.height = tileSize;
-        newSprite.texture.baseTexture.scaleMode = PIXI.SCALE_MODES.NEAREST;
+        
         this.creaturecon.addChild(newSprite);
         let hpcon = new PIXI.Container();
         this.creaturecon.addChild(hpcon);
         for(let i=0; i<6; i++){
-            let bai = new PIXI.Sprite(allsprites.textures['sprite9']);
+            let bai = new FoxSprite(allsprites.textures['sprite9']);
             bai.x = i*19;
             bai.width = tileSize;
             bai.height = tileSize;
-            bai.texture.baseTexture.scaleMode = PIXI.SCALE_MODES.NEAREST;
             hpcon.addChild(bai);
         }
         app.ticker.add((delta) => {

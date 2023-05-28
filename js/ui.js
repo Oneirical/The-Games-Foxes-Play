@@ -317,7 +317,7 @@ class StatusDisplay{
         this.displayCon.addChild(this.hpCon);
         for (let i = 0; i<2;i++){
             for (let j = 0; j<3; j++){
-                let newSprite = new PIXI.Sprite(allsprites.textures['icon1']);
+                let newSprite = new FoxSprite(allsprites.textures['icon1']);
                 newSprite.x = i*40;
                 newSprite.y = j*40;
                 newSprite.width = 32;
@@ -329,7 +329,7 @@ class StatusDisplay{
         this.soulCon.x = 111;
         this.soulCon.y = 6;
         this.displayCon.addChild(this.soulCon);
-        let newSprite = new PIXI.Sprite(allsprites.textures['icon49']);
+        let newSprite = new FoxSprite(allsprites.textures['icon49']);
         newSprite.x = 0;
         newSprite.y = 40;
         newSprite.width = 32;
@@ -618,13 +618,13 @@ class SoulBreathing{
         this.displayCon.addChild(this.wheelCon);
         let paintcans = [];
         for (let i = 0; i<8; i++){
-            let newSprite = new PIXI.Sprite(allsprites.textures['icon7']);
+            let newSprite = new FoxSprite(allsprites.textures['icon7']);
             newSprite.width = (resolutionSize-3)*16;
             newSprite.height = (resolutionSize-3)*16;
             newSprite.anchor.set(0.5,0.5);
             newSprite.x = wheelcoords[i][0];
             newSprite.y = wheelcoords[i][1];
-            newSprite.texture.baseTexture.scaleMode = PIXI.SCALE_MODES.NEAREST;
+            
             this.wheelCon.addChild(newSprite);
             this.wheelCon.children[i].eventMode = 'static';
             this.wheelCon.children[i].on('click', (event) => {
@@ -1090,10 +1090,10 @@ class Inventory{
         this.axiomCon.x = -8;
         this.axiomCon.y = 10;
         this.displayCon.addChild(this.axiomCon);
-        let newSprite = new PIXI.Sprite(allsprites.textures['icon6']);
+        let newSprite = new FoxSprite(allsprites.textures['icon6']);
         newSprite.width = (resolutionSize+12)*16;
         newSprite.height = (resolutionSize+12)*16;
-        newSprite.texture.baseTexture.scaleMode = PIXI.SCALE_MODES.NEAREST;
+        
         this.axiomCon.addChild(newSprite);
 
         const xcoords = {
@@ -1115,22 +1115,20 @@ class Inventory{
         }
 
         for (let i = 0; i<6; i++){
-            let axiomslot = new PIXI.Sprite(allsprites.textures['icon'+i]);
+            let axiomslot = new FoxSprite(allsprites.textures['icon'+i]);
             axiomslot.width = 32;
             axiomslot.height = 32;
             axiomslot.x = xcoords[i];
             axiomslot.y = ycoords[i];
-            axiomslot.texture.baseTexture.scaleMode = PIXI.SCALE_MODES.NEAREST;
             this.axiomCon.addChild(axiomslot);
         }
 
         for (let i = 0; i<4; i++){
-            let axiomslot = new PIXI.Sprite(allsprites.textures['icon7']);
+            let axiomslot = new FoxSprite(allsprites.textures['icon7']);
             axiomslot.width = 32;
             axiomslot.height = 32;
             axiomslot.x = (79+193)/2;
             axiomslot.y = 82+i*36;
-            axiomslot.texture.baseTexture.scaleMode = PIXI.SCALE_MODES.NEAREST;
             this.axiomCon.addChild(axiomslot);
         }
     }
@@ -1246,7 +1244,7 @@ class Soul{
     }
 
     setUpSprites(){
-        if (basic.includes(this.id)) this.displayIcon = new PIXI.Sprite(allsprites.textures['icon'+(6-basic.indexOf(this.id))]);
+        if (basic.includes(this.id)) this.displayIcon = new FoxSprite(allsprites.textures['icon'+(6-basic.indexOf(this.id))]);
         else return;
         this.displayIcon.dirx = Math.random();
         this.displayIcon.diry = 1 - this.displayIcon.dirx;
