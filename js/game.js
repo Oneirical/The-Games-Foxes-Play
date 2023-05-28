@@ -156,6 +156,7 @@ function tick(){
         
     }
     tickTiles();
+    statuses.updateDisplay();
 }
 
 //let bosstitle = ["-Last of the Saints-","-Supreme Ordered General-","-the Unfaltering Wheel-","-Grand Harmonic Maestra-"];
@@ -169,6 +170,7 @@ function startGame(){
     tileSize = 64;
     numTiles = 9;
     areaname = new LocationDisplay();
+    statuses = new StatusDisplay();
     buttons = new ButtonsDisplay();
     research = new Research();
     wheel = new SoulBreathing(); //should belong to entity

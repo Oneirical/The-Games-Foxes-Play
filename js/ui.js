@@ -302,6 +302,7 @@ class LocationDisplay{
 
 class StatusDisplay{
     constructor(){
+        this.trackedEntity;
     }
 
     setUpSprites(){
@@ -337,7 +338,9 @@ class StatusDisplay{
         this.soulCon.addChild(newSprite);
     }
 
-    updateHp(i){
+    updateDisplay(){
+        this.trackedEntity = player;
+        let i = this.trackedEntity;
         if (!i.isPlayer) this.displayCon.visible = false;
         for (let b of this.hpCon.children) b.visible = true;
         let count = 0;

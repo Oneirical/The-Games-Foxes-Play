@@ -176,6 +176,7 @@ function setUpUI(){
     player.axioms.setUpSprites();
     world.setUpSprites();
     log.setUpLog();
+    statuses.setUpSprites();
 }
 
 function drawTiles(){
