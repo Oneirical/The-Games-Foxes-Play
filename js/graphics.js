@@ -15,6 +15,13 @@ function setupPixi(){
         width: 1920,
         height: 1080
     });
+    app.stage.eventMode = 'static';
+    app.stage.on('pointerdown', (event) => {
+        isMouseDown = true;
+    });
+    app.stage.on('pointerup', (event) => {
+        isMouseDown = false;
+    });
     document.body.appendChild(app.view);
     tilesDisplay = new PIXI.Container();
     tilesDisplay.x = (1920-16*16*resolutionSize)/2+(resolutionSize+12)*16+8;
@@ -201,6 +208,16 @@ function drawPixel(fill,x,y,size,source){
     graphics.beginFill(fill);
     graphics.drawRect(x, y, size, size);
     graphics.endFill();
+    source.addChild(graphics);
+}
+
+function drawHitbox(fill,x,y,size,source){
+    const graphics = new PIXI.Graphics();
+    graphics.beginFill(fill);
+    graphics.drawRect(x, y, size, size);
+    graphics.endFill();
+    graphics.alpha = 0;
+    graphics.eventMode = 'static';
     source.addChild(graphics);
 }
 

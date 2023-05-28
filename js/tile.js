@@ -12,7 +12,7 @@ class Tile{
         this.pin = false;
         this.recallpoint = false;
         this.souls = [];
-        this.clicktrap = false;;
+        this.clicktrap = false;
     }
 
     setUpSprite(){
@@ -598,13 +598,22 @@ class Altar extends Floor{
 
     setUpSprite(){
         super.setUpSprite();
-        let soulcon = new PIXI.Sprite(allsprites.textures['sprite0']);
+        let soulcon = new PIXI.Sprite(allsprites.textures['icon7']);
         soulcon.width = tileSize*0.8;
         soulcon.height = tileSize*0.8;
         soulcon.x = tileSize/2;
         soulcon.y = tileSize/2;
         soulcon.anchor.set(0.5);
         this.tilecon.addChild(soulcon);
+        drawHitbox("white", 0, 0,tileSize,this.tilecon);
+        this.tilecon.children[this.tilecon.children.length-1].on('pointerover', (event) => {
+            this.tilecon.children[this.tilecon.children.length-1].alpha = 0.7;
+            if (isMouseDown) wheel.cageSoul(wheel.selectedCan);
+        });
+        this.tilecon.children[this.tilecon.children.length-1].on('pointerout', (event) => {
+            this.tilecon.children[this.tilecon.children.length-1].alpha = 0;
+        });
+
     }
 
     getDisplayX(){                     

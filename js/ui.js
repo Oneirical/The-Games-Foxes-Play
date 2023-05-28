@@ -641,7 +641,12 @@ class SoulBreathing{
             let hai = (i-1+58);
             if (i == 0) hai = 7;
             this.wheelCon.children[i].texture = allsprites.textures['icon'+hai];
-            this.wheelCon.children[i].alpha = 0.25;
+            if (i!=0) this.wheelCon.children[i].alpha = 0.25;
+            else this.wheelCon.children[i].alpha = 0.5;
+            this.wheelCon.children[i].eventMode = 'static';
+            this.wheelCon.children[i].on('pointerdown', (event) => {
+                this.selectCan(i);
+            });
         }
         let initial =this.bouncySouls.children.length-1;
         for (let i = initial; i>=0; i--){
@@ -657,7 +662,28 @@ class SoulBreathing{
         }
     }
 
+    selectCan(i){
+        if (this.selectedCan != null || i == this.selectedCan) {
+            for (let s of this.wheelCon.children[this.selectedCan].paintCan.children){
+                s.trspeed = 2;
+                s.alpha = 0.5;
+            }
+            if (this.selectedCan != 0) this.wheelCon.children[this.selectedCan].alpha = 0.15;
+            else this.wheelCon.children[this.selectedCan].alpha = 0.5;
+        }
+        if (i == this.selectedCan) return;
+        this.selectedCan = i;
+        if (this.selectedCan != 0) this.wheelCon.children[i].alpha = 0.5;
+        else this.wheelCon.children[i].alpha = 1;
+        for (let s of this.wheelCon.children[i].paintCan.children){
+            s.trspeed = 5;
+            s.alpha = 0.8;
+        }
+    }
+
     toNormalMode(){
+        this.selectCan(this.selectedCan);
+        this.selectedCan = null;
         for (let i = 0; i< 8;  i++){
             this.wheelCon.children[i].alpha = 1;
             this.wheelCon.children[i].texture = allsprites.textures['icon7'];
