@@ -5,10 +5,11 @@ function summonExits(){
                 let id = y.id;
                 let px = y.x;
                 let py = y.y;
+                tilesDisplay.removeChild(tiles[px][py].tilecon);
                 if (y instanceof BExit) tiles[px][py] = new MapExit(px,py,world.getRoom());
                 if (y instanceof BAscendExit) tiles[px][py] = new AscendExit(px,py,world.getRoom());
-                drawTiles();
-                drawSprites();
+                tiles[px][py].setUpSprite();
+                //drawSprites();
                 tiles[px][py].id = id;
             }
         }
