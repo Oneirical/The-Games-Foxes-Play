@@ -86,6 +86,7 @@ class Monster{
             hpcon.addChild(bai);
         }
         animationTick.add((delta) => {
+            //console.log(isMouseDown);
             if (this.offsetX != 0 || this.offsetY != 0){
                 if (this.offsetX >= 0) this.offsetX = Math.max(this.offsetX - Math.sign(this.offsetX)*(this.anispeed),0);
                 else this.offsetX = Math.min(this.offsetX - Math.sign(this.offsetX)*(this.anispeed),0);

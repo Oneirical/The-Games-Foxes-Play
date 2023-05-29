@@ -934,6 +934,7 @@ class SoulBreathing{
             research.completeResearch("Turbulent");
             research.completeResearch("Brush");
             this.wheelCon.children[slot].paintCan.removeChildAt(0);
+            tiles[override.x][override.y].tickTile(allsprites.textures['sprite110']);
             return;
         }
         else return;

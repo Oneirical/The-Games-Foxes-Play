@@ -31,7 +31,6 @@ class Tile{
     }
 
     tickTile(newTex){
-        //newTex = allsprites.textures['sprite0'];
         this.spriteDisplay.texture = newTex;
     }
 
@@ -605,23 +604,33 @@ class Altar extends Floor{
     setUpSprite(){
         super.setUpSprite();
         let soulcon = new FoxSprite(allsprites.textures['icon7']);
-        soulcon.width = tileSize*0.8;
-        soulcon.height = tileSize*0.8;
+        soulcon.width = tileSize*0.8-20*0.8;
+        soulcon.height = tileSize*0.8-20*0.8;
         soulcon.x = tileSize/2;
         soulcon.y = tileSize/2;
         soulcon.anchor.set(0.5);
-        this.tilecon.addChild(soulcon);
-        drawHitbox("white", 20, 20,tileSize*0.8-20*0.8,this.tilecon);
+        this.soulCon = soulcon;
+        this.tilecon.addChild(this.soulCon);
+        drawHitbox(tileSize/2, tileSize/2,tileSize*0.8+7,this.tilecon);
         this.hitBox = this.tilecon.children[this.tilecon.children.length-1];
         this.spriteDisplay.eventMode = 'static';
         this.spriteDisplay.on('pointerover', (event) => {
             this.hitBox.alpha = 0.7;
             if (isMouseDown) wheel.cageSoul(wheel.selectedCan,getTile(this.x,this.y));
         });
+        this.spriteDisplay.on('pointerdown', (event) => {
+            wheel.cageSoul(wheel.selectedCan,getTile(this.x,this.y));
+        });
         this.spriteDisplay.on('pointerout', (event) => {
             this.hitBox.alpha = 0;
         });
 
+    }
+
+    tickTile(newTex){
+        super.tickTile(newTex);
+        let hai = world.cage.slots[this.x][this.y].icon;
+        this.soulCon.texture = allsprites.textures['icon'+hai];
     }
 
     getDisplayX(){                     
