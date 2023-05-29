@@ -86,7 +86,6 @@ class Monster{
             hpcon.addChild(bai);
         }
         animationTick.add((delta) => {
-            //console.log(isMouseDown);
             if (this.offsetX != 0 || this.offsetY != 0){
                 if (this.offsetX >= 0) this.offsetX = Math.max(this.offsetX - Math.sign(this.offsetX)*(this.anispeed),0);
                 else this.offsetX = Math.min(this.offsetX - Math.sign(this.offsetX)*(this.anispeed),0);
@@ -97,6 +96,8 @@ class Monster{
             }
         });
         this.updateHp();
+        //remember when you looked for 2 hours for that one bug that made you drop 1 FPS every time Terminal passed a door and it turned
+        //out to be that one tiny line under here that caused literal thousands of StatusDisplay to stack on top of each other? Now that was funny
     }
 
     updateHp(){

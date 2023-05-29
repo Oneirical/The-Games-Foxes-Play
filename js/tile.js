@@ -624,7 +624,21 @@ class Altar extends Floor{
         this.spriteDisplay.on('pointerout', (event) => {
             this.hitBox.alpha = 0;
         });
-
+        animationTick.add((delta) => {
+            this.thrashcounter += 1;
+            if (this.thrashcounter > 10 && world.cage.slots[this.x][this.y].turbulent){
+                let rt = randomRange(1,4);
+                if (rt == 1) this.offsetX+= 0.1;
+                else if (rt == 2) this.offsetX-= 0.1;
+                else if (rt == 3)this.offsetY+= 0.1;
+                else if (rt == 4)this.offsetY-= 0.1;
+                this.thrashcounter = 0;
+            }
+            this.soulCon.x = tileSize/2 + this.offsetX*tileSize;
+            this.soulCon.y = tileSize/2 + this.offsetY*tileSize;
+            this.offsetX -= Math.sign(this.offsetX)*(this.speed);     
+            this.offsetY -= Math.sign(this.offsetY)*(this.speed);
+        });
     }
 
     tickTile(newTex){
