@@ -139,10 +139,10 @@ function tick(){
                     spells["WOOP"](player);
                     player.sprite = 0;
                     player.fuffified = 0;
-                    for (let k of wheel.saved){
-                        if (!(k instanceof Empty))wheel.discard.push(k);
+                    for (let k of wheelexhaustedSouls){
+                        if (!(k instanceof Empty))wheel.turbulentSouls.push(k);
                     }
-                    wheel.saved = [new Empty(),new Empty(),new Empty(),new Empty(),new Empty(),new Empty(),new Empty(),new Empty()];
+                    wheelexhaustedSouls = [new Empty(),new Empty(),new Empty(),new Empty(),new Empty(),new Empty(),new Empty(),new Empty()];
                 }
             }
         }

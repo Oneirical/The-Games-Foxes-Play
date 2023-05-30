@@ -99,7 +99,7 @@ modifiers = {
         let bonus = 0;
         for (let i = 0; i<wheel.wheel.length;i++){
             if (!(wheel.wheel[i] instanceof Empty)){
-                wheel.discard.push(wheel.wheel[i]);
+                wheel.turbulentSouls.push(wheel.wheel[i]);
                 wheel.wheel[i] = new Empty();
                 bonus++;
             }

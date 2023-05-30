@@ -193,11 +193,11 @@ class Universe{
         if(!world.getRoom().hostile) summonExits();
         for(let i=0;i<wheel.wheel.length;i++){
             if (wheel.wheel[i].turbulent){
-                wheel.discard.push(wheel.wheel[i]);
+                wheel.turbulentSouls.push(wheel.wheel[i]);
                 wheel.wheel[i] = new Empty();
             }
         }
-        if (wheel.pile.length > 0){
+        if (wheel.subduedSouls.length > 0){
             wheel.reshuffle()
         }
         research.completeResearch("Vision");
@@ -868,10 +868,10 @@ class Room{
         //}
         //if (world.getRoom() instanceof EpsilonArena) this.playerspawn = [1,1];
         if (this.effects.includes("Darkness")) player.fov = 2;
-        for (let k of wheel.saved){
-            if (!(k instanceof Empty))wheel.discard.push(k);
+        for (let k of wheelexhaustedSouls){
+            if (!(k instanceof Empty))wheel.turbulentSouls.push(k);
         }
-        wheel.saved = [new Empty(),new Empty(),new Empty(),new Empty(),new Empty(),new Empty(),new Empty(),new Empty()];
+        wheelexhaustedSouls = [new Empty(),new Empty(),new Empty(),new Empty(),new Empty(),new Empty(),new Empty(),new Empty()];
         player.hp = this.startingplayerHP;
         player.lastMove = this.playerlastmove;
         gameState = "running";
@@ -1286,7 +1286,7 @@ class SoulCage extends DefaultVaultRoom{
         research.completeResearch("Cage");
         for(let i=0;i<wheel.wheel.length;i++){
             if (!(wheel.wheel[i] instanceof Empty)){
-                wheel.pile.push(wheel.wheel[i]);
+                wheel.subduedSouls.push(wheel.wheel[i]);
                 wheel.wheel[i] = new Empty();
             }
         }

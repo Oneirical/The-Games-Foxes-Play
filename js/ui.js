@@ -585,9 +585,9 @@ class SoulBreathing{
         center = [center[0]+28,center[1]+38];
         this.hotkeycoords = [[center[0], center[1]-dist],[center[0]+Math.cos(pi/4)*dist, center[1]-Math.sin(pi/4)*dist],[center[0]+dist, center[1]],[center[0]+Math.cos(pi/4)*dist, center[1]+Math.sin(pi/4)*dist],[center[0], center[1]+dist],[center[0]-Math.cos(pi/4)*dist, center[1]+Math.sin(pi/4)*dist],[center[0]-dist, center[1]],[center[0]-Math.cos(pi/4)*dist, center[1]-Math.sin(pi/4)*dist]];
 
-        this.pile = [];
-        this.discard = []; //
-        this.saved = [];
+        this.subduedSouls = [];
+        this.turbulentSouls = []; //
+        thisexhaustedSouls = [];
         this.resolve = 3; //update this later with the bonus
         this.castes = [new Saintly(),new Ordered(),new Artistic(),new Unhinged(),new Feral(),new Vile()];
         this.hide = false;
@@ -710,27 +710,17 @@ class SoulBreathing{
     }
 
     reshuffle(){
-        for(let i=0;i<this.pile.length;i++){
-            if(!this.pile[i].turbulent ||world.tranquil){
-                this.discard.push(this.pile[i]);
-                this.pile[i] = "deleted";
-            }
+        for(let i=0;i<this.exhaustedSouls.length;i++){
+            this.subduedSouls.push(this.exhaustedSouls[i]);
+            this.exhaustedSouls[i] = "deleted";
         }
-        for(let i=0;i<this.discard.length;i++){
-            if(!this.discard[i].turbulent ||world.tranquil){
-                if (this.pile[this.pile.length-1]) this.discard[i].angle = this.pile[this.pile.length-1].angle-0.5;
-                this.pile.push(this.discard[i]);
-                this.discard[i] = "deleted";
-            }
-        }
-        this.pile = shuffle(this.pile);
-        removeItemAll(this.discard,"deleted");
-        removeItemAll(this.pile,"deleted");
+        this.subduedSouls = shuffle(this.subduedSouls);
+        removeItemAll(this.exhaustedSouls,"deleted");
     }
 
-    countPileSouls(turb){
+    countsubduedSoulsSouls(turb){
         let counts = [0,0,0,0,0,0];
-        for (let k of this.pile){
+        for (let k of this.subduedSouls){
             for (let g of this.castes){
                 if (k.caste == g.caste && k.turbulent == turb) counts[this.castes.indexOf(g)]++;
             } 
@@ -740,7 +730,7 @@ class SoulBreathing{
 
     countDiscardSouls(turb){
         let counts = [0,0,0,0,0,0];
-        for (let k of this.discard){
+        for (let k of this.turbulentSouls){
             for (let g of this.castes){
                 if (k.caste ==  g.caste && k.turbulent == turb) counts[this.castes.indexOf(g)]++;
             } 
@@ -750,7 +740,7 @@ class SoulBreathing{
 
     countSavedSouls(){
         let counts = [0,0,0,0,0,0];
-        for (let k of this.saved){
+        for (let k of thisexhaustedSouls){
             for (let g of this.castes){
                 if (k.caste ==  g.caste) counts[this.castes.indexOf(g)]++;
             } 
@@ -778,7 +768,7 @@ class SoulBreathing{
         let loot = new drops[skey.name]();
         let caste = Object.keys(drops).indexOf(skey.name);
         loot.turbulent = true;
-        this.discard.push(loot);
+        this.turbulentSouls.push(loot);
         loot.displayIcon.width = 32;
         loot.displayIcon.height = 32;
         loot.displayIcon.x = 194;
@@ -814,11 +804,11 @@ class SoulBreathing{
         if (!world.cage.slots[override.x][override.y].turbulent)research.completeResearch("Subdued");
         if (basic.includes(world.cage.slots[override.x][override.y].id)){
             if (!world.cage.slots[override.x][override.y].turbulent){
-                this.pile.push(world.cage.slots[override.x][override.y]);
+                this.subduedSouls.push(world.cage.slots[override.x][override.y]);
                 //and make it spin
             } 
             else {
-                this.discard.push(world.cage.slots[override.x][override.y]);
+                this.turbulentSouls.push(world.cage.slots[override.x][override.y]);
                 this.wheelCon.children[7-basic.indexOf(world.cage.slots[override.x][override.y].id)].paintCan.addChild(world.cage.slots[override.x][override.y].displayIcon);
                 let can = world.cage.slots[override.x][override.y].displayIcon; //oh so NOW you assign a variable to that. Fu!
                 can.bounceborder = 32;
@@ -845,7 +835,7 @@ class SoulBreathing{
     }
 
     cycleSouls(){
-        this.discard.push(this.wheel[0]);
+        this.turbulentSouls.push(this.wheel[0]);
         this.wheel[0] = new Empty();
         for (let i =0; i<this.wheel.length-1;i++){
             this.wheel[i] = this.wheel[i+1];
@@ -854,21 +844,13 @@ class SoulBreathing{
     }
 
     resetAngles(){
-        for (let i = 0; i<this.pile.length; i++){
+        for (let i = 0; i<this.subduedSouls.length; i++){
             if (i == 0) continue;
-            else this.pile[i].angle = this.pile[i-1].angle+0.1;
+            else this.subduedSouls[i].angle = this.subduedSouls[i-1].angle+0.1;
         }
     }
 
     drawSoul(){
-        if (player.infested > 0){
-            this.breatheSoul();
-            return;
-        }
-        else if (false && player.tile instanceof CageContainer && world.cage.slots[player.tile.x][player.tile.y].id != "EMPTY"){ //made obsolete by brush system for now
-            this.retrieveSoul();
-            return;
-        }
         if (world.getRoom() instanceof SoulCage) return;
         if (player.tile.souls.length > 0){
             for (let i of player.tile.souls){
@@ -876,15 +858,11 @@ class SoulBreathing{
             }
             return;
         }
-        if (gameState == "discard"){
-            wheel.endDiscard();
-            return;
-        }
         if (gameState == "contemplation"){
             player.revivify();
             return;
         }
-        if (this.discard.length <= 0 && this.pile.length <= 0){
+        if (this.subduedSouls.length <= 0){
             log.addLog("NoSouls");
             shakeAmount = 5;
             return;
@@ -896,24 +874,15 @@ class SoulBreathing{
         if (space == 0){
             this.cycleSouls();
         }
-        //log.addLog("Empty");
-        if (this.pile.length <= 0){
-            this.reshuffle();
-        }
-        if (this.pile.length < 1){
-            log.addLog("UnrulySouls");
-            shakeAmount = 5;
-            return;
-        }
         beginTurn();
         for (let k of this.wheel){
             if (k instanceof Empty){
-                this.wheel[this.wheel.indexOf(k)] = this.pile[0];
+                this.wheel[this.wheel.indexOf(k)] = this.subduedSouls[0];
                 research.completeResearch("Breath");
                 break;
             } 
         }
-        this.pile.shift();
+        this.subduedSouls.shift();
         this.resetAngles();
         if (this.activemodule != "Alacrity") tick();
         else if (!player.consumeCommon(1,false)){
@@ -933,7 +902,7 @@ class SoulBreathing{
             this.retrieveSoul(override);
             return;
         }
-        for (let i of this.discard) if (i instanceof soulType){ 
+        for (let i of this.turbulentSouls) if (i instanceof soulType){ 
             soul = i; 
             break;
         }
@@ -941,7 +910,7 @@ class SoulBreathing{
             if (!(world.cage.slots[override.x][override.y] instanceof Empty)){
                 this.retrieveSoul(override);
             }
-            removeItemOnce(this.discard,soul);
+            removeItemOnce(this.turbulentSouls,soul);
             world.cage.slots[override.x][override.y] = soul;
             world.cage.size++;
             if(world.cage.size > 0) world.cage.generateWorld();
@@ -953,11 +922,11 @@ class SoulBreathing{
     }
 
     lookForSoul(type, turbulent){
-        for (let i = 0; i < this.discard.length; i++){
-            if (this.discard[i].id == type && this.discard[i].turbulent == turbulent) return ["discard",i];
+        for (let i = 0; i < this.turbulentSouls.length; i++){
+            if (this.turbulentSouls[i].id == type && this.turbulentSouls[i].turbulent == turbulent) return ["turbulentSouls",i];
         }
-        for (let i = 0; i < this.pile.length; i++){
-            if (this.pile[i].id == type && this.pile[i].turbulent == turbulent) return ["pile",i];
+        for (let i = 0; i < this.subduedSouls.length; i++){
+            if (this.subduedSouls[i].id == type && this.subduedSouls[i].turbulent == turbulent) return ["subduedSouls",i];
         }
         return false;
     }
@@ -1017,7 +986,7 @@ class SoulBreathing{
                 beginTurn();
                 if (spellName == "FLEXIBLE"){
                     player.axioms.active[num].legendCast(player);
-                    this.saved.push(this.wheel[slot]);
+                    thisexhaustedSouls.push(this.wheel[slot]);
                     this.wheel[slot] = new Empty();
                     playSound("spell");
                     tick();
@@ -1028,7 +997,7 @@ class SoulBreathing{
                     else log.addLog(spellName);
                     spells[spellName](player, player.axioms.active[num]);
                     if (player.axioms.active[num].influence == "C") spells[player.axioms.active[num].caste](player);
-                    this.saved.push(this.wheel[slot]);
+                    thisexhaustedSouls.push(this.wheel[slot]);
                     this.wheel[slot] = new Empty();
                     playSound("spell");
                     tick();
@@ -1038,7 +1007,7 @@ class SoulBreathing{
     }
 
     removeSoul(slot){
-        let soul = this.saved[slot];
+        let soul = thisexhaustedSouls[slot];
         if (soul instanceof Empty){
             shakeAmount = 5;
             log.addLog("EmptyRemove");
@@ -1052,7 +1021,7 @@ class SoulBreathing{
                 else{
                     if (soul instanceof Serene) agony -= 3;
                     else agony--;
-                    this.saved[slot] = new Empty();
+                    thisexhaustedSouls[slot] = new Empty();
                     resolvebonus++;
                     if (falseagony){
                         gameState = "running";
@@ -1545,21 +1514,21 @@ function fishOutSoul(override){
     if (set && wheel.wheel[wheel.currentbrush] instanceof Empty){
         let replace;
         if (set[0] == "discard"){
-            replace = wheel.discard[set[1]];
+            replace = wheel.turbulentSouls[set[1]];
             wheel.wheel[wheel.currentbrush] = replace;
-            removeItemOnce(wheel.discard,wheel.discard[set[1]]);
+            removeItemOnce(wheel.turbulentSouls,wheel.turbulentSouls[set[1]]);
         }
         else if (set[0] == "pile"){
-            replace = wheel.pile[set[1]];
+            replace = wheel.subduedSouls[set[1]];
             wheel.wheel[wheel.currentbrush] = replace;
-            removeItemOnce(wheel.pile,wheel.pile[set[1]]);
+            removeItemOnce(wheel.subduedSouls,wheel.subduedSouls[set[1]]);
         }
     }
     else if (wheel.wheel[wheel.currentbrush] instanceof Empty){
         if (wheel.currentbrush == 0){
             wheel.retrieveSoul(override);
             if (!(wheel.wheel[wheel.currentbrush] instanceof Empty)){
-                wheel.pile.push(wheel.wheel[wheel.currentbrush]);
+                wheel.subduedSouls.push(wheel.wheel[wheel.currentbrush]);
                 wheel.wheel[wheel.currentbrush] = new Empty();
             }
             return;
@@ -1570,7 +1539,7 @@ function fishOutSoul(override){
     if (!(world.cage.slots[override.x][override.y] instanceof Empty)) {
         wheel.retrieveSoul(override);
         if (!(wheel.wheel[0] instanceof Empty)){
-            wheel.pile.push(wheel.wheel[0]);
+            wheel.subduedSouls.push(wheel.wheel[0]);
             wheel.wheel[0] = new Empty();
         }
     }
