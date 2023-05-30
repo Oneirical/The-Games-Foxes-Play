@@ -65,6 +65,30 @@ class Monster{
         this.adjacentmon = this.tile.getAdjacentNeighbors().filter(t => t.monster && !t.monster.isPlayer).length;
     }
 
+    playerMove(dx, dy){
+        if (gameState != "running") return;
+        if (this.statuseff["Paralyzed"] > 0){
+            lose(this.statuseff["Paralyzed"],1);
+            beginTurn();
+            tick();
+            return;
+        }
+        if(this.tryMove(dx,dy,true)){
+            beginTurn();
+            player.axioms.queueContin("STEP",this);
+            if (world.getRoom() instanceof SoulCage && this.tile instanceof CageContainer && wheel.currentbrush != 8){
+                fishOutSoul(this.tile);
+            }
+            tick();
+        }
+        if (area == "Spire" && this.activemodule != "Hover" && !(this.tile.getNeighbor(0,1) instanceof Platform || this.tile.getNeighbor(0,1) instanceof Ladder || this.tile instanceof Ladder || this.tile.getNeighbor(0,1).monster)){
+            this.fall++;
+        }
+        if (this.para > 0){
+            log.addLog("Paralyzed");
+        }
+    }
+
     setUpSprite(){
         this.creaturecon = new PIXI.Container();
         tilesDisplay.addChild(this.creaturecon);
@@ -380,7 +404,11 @@ class Monster{
 
     }   
 
-    tryMove(dx, dy){
+    tryMove(dx, dy, antiloop){
+        if (this.isPlayer && !antiloop){
+            this.playerMove(dx,dy);
+            return;
+        } 
         if (this.statuseff["Thrashing"] > 0){
             let neighbors = this.tile.getAdjacentPassableNeighbors();
             if(neighbors.length){
@@ -660,30 +688,6 @@ class Terminal extends Monster{
         this.fov = 0;
         this.wheel = new SoulBreathing();
         this.souldropped = true;
-    }
-
-    tryMove(dx, dy){
-        if (gameState != "running") return;
-        if (this.statuseff["Paralyzed"] > 0){
-            lose(this.statuseff["Paralyzed"],1);
-            beginTurn();
-            tick();
-            return;
-        }
-        if(super.tryMove(dx,dy)){
-            beginTurn();
-            player.axioms.queueContin("STEP",this);
-            if (world.getRoom() instanceof SoulCage && this.tile instanceof CageContainer && wheel.currentbrush != 8){
-                fishOutSoul(this.tile);
-            }
-            tick();
-        }
-        if (area == "Spire" && this.activemodule != "Hover" && !(this.tile.getNeighbor(0,1) instanceof Platform || this.tile.getNeighbor(0,1) instanceof Ladder || this.tile instanceof Ladder || this.tile.getNeighbor(0,1).monster)){
-            this.fall++;
-        }
-        if (this.para > 0){
-            log.addLog("Paralyzed");
-        }
     }
 
     revivify(){

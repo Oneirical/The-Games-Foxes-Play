@@ -136,7 +136,7 @@ function drawChainBorder(w,h,source){
                 newSprite.height = 32;
                 newSprite.anchor.set(0.5,0.5);
                 let huff = 0;
-                if (source = tilesDisplay) huff = 8;
+                if (source == tilesDisplay) huff = 8;
                 newSprite.x = (j*32)+huff;
                 newSprite.y = (i*32)+huff;
                 const rotatea = {
