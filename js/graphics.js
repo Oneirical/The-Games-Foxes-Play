@@ -200,6 +200,18 @@ function drawSprites(){
         else con = monsters[k];
         con.setUpSprite();
     }
+
+    let newSprite = new FoxSprite(allsprites.textures['sprite'+0]);
+    newSprite.width = tileSize;
+    newSprite.height = tileSize;
+    newSprite.x = 112*3;
+    newSprite.y = 112*3;
+    tilesDisplay.addChild(newSprite);
+
+    app.ticker.add((delta) => {
+        newSprite.x = 75*Math.cos(delta)
+        newSprite.y = 75*Math.sin(delta)
+    });
 }
 
 function getMouse(){
