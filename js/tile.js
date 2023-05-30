@@ -942,6 +942,13 @@ class HypnoticProjector extends Floor{
             else if (world.cage.slots[this.x][this.y].id != "EMPTY") universe.passDown(world.depth+1, this.x, this.y);
         }
     }
+
+    setUpSprite(){
+        super.setUpSprite();
+        if (world.cage.displayon){
+            world.cage.pocketworld.hypnoDisplay();
+        }
+    }
 }
 
 class ResearchConnector extends Floor{

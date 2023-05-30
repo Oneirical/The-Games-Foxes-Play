@@ -190,10 +190,6 @@ function drawTiles(){
         }
     }
     drawChainBorder(32,32,tilesDisplay);
-
-    if (world.getRoom() instanceof WorldSeed && world.cage.displayon){
-        world.cage.pocketworld.hypnoDisplay();
-    }
 }
 
 

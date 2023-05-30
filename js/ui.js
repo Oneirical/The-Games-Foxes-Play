@@ -587,7 +587,7 @@ class SoulBreathing{
 
         this.subduedSouls = [];
         this.turbulentSouls = []; //
-        thisexhaustedSouls = [];
+        this.exhaustedSouls = [];
         this.resolve = 3; //update this later with the bonus
         this.castes = [new Saintly(),new Ordered(),new Artistic(),new Unhinged(),new Feral(),new Vile()];
         this.hide = false;
@@ -740,7 +740,7 @@ class SoulBreathing{
 
     countSavedSouls(){
         let counts = [0,0,0,0,0,0];
-        for (let k of thisexhaustedSouls){
+        for (let k of this.exhaustedSouls){
             for (let g of this.castes){
                 if (k.caste ==  g.caste) counts[this.castes.indexOf(g)]++;
             } 
@@ -808,9 +808,11 @@ class SoulBreathing{
                 //and make it spin
             } 
             else {
-                this.turbulentSouls.push(world.cage.slots[override.x][override.y]);
+                if (world.cage.slots[override.x][override.y].turbulent) this.turbulentSouls.push(world.cage.slots[override.x][override.y]);
+                else this.subduedSouls.push(world.cage.slots[override.x][override.y]);
                 this.wheelCon.children[7-basic.indexOf(world.cage.slots[override.x][override.y].id)].paintCan.addChild(world.cage.slots[override.x][override.y].displayIcon);
                 let can = world.cage.slots[override.x][override.y].displayIcon; //oh so NOW you assign a variable to that. Fu!
+                // MAKE IT SO RETRIEVING A SUBDUED GETS PLACED IN THE SPINNING
                 can.bounceborder = 32;
                 can.x = 16;
                 can.y = 16;
@@ -986,7 +988,7 @@ class SoulBreathing{
                 beginTurn();
                 if (spellName == "FLEXIBLE"){
                     player.axioms.active[num].legendCast(player);
-                    thisexhaustedSouls.push(this.wheel[slot]);
+                    this.exhaustedSouls.push(this.wheel[slot]);
                     this.wheel[slot] = new Empty();
                     playSound("spell");
                     tick();
@@ -997,7 +999,7 @@ class SoulBreathing{
                     else log.addLog(spellName);
                     spells[spellName](player, player.axioms.active[num]);
                     if (player.axioms.active[num].influence == "C") spells[player.axioms.active[num].caste](player);
-                    thisexhaustedSouls.push(this.wheel[slot]);
+                    this.exhaustedSouls.push(this.wheel[slot]);
                     this.wheel[slot] = new Empty();
                     playSound("spell");
                     tick();
@@ -1007,7 +1009,7 @@ class SoulBreathing{
     }
 
     removeSoul(slot){
-        let soul = thisexhaustedSouls[slot];
+        let soul = this.exhaustedSouls[slot];
         if (soul instanceof Empty){
             shakeAmount = 5;
             log.addLog("EmptyRemove");
@@ -1021,7 +1023,7 @@ class SoulBreathing{
                 else{
                     if (soul instanceof Serene) agony -= 3;
                     else agony--;
-                    thisexhaustedSouls[slot] = new Empty();
+                    this.exhaustedSouls[slot] = new Empty();
                     resolvebonus++;
                     if (falseagony){
                         gameState = "running";

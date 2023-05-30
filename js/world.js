@@ -197,9 +197,6 @@ class Universe{
                 wheel.wheel[i] = new Empty();
             }
         }
-        if (wheel.subduedSouls.length > 0){
-            wheel.reshuffle()
-        }
         research.completeResearch("Vision");
         if(!world.getRoom().hostile){
             research.completeResearch("Subdued");
@@ -653,6 +650,7 @@ class World{
         drawTiles();
         drawSprites();
         if (areaname.displayCon) areaname.update();
+        wheel.reshuffle();
     }
 
     saveRoom(room){
@@ -868,10 +866,10 @@ class Room{
         //}
         //if (world.getRoom() instanceof EpsilonArena) this.playerspawn = [1,1];
         if (this.effects.includes("Darkness")) player.fov = 2;
-        for (let k of wheelexhaustedSouls){
+        for (let k of wheel.exhaustedSouls){
             if (!(k instanceof Empty))wheel.turbulentSouls.push(k);
         }
-        wheelexhaustedSouls = [new Empty(),new Empty(),new Empty(),new Empty(),new Empty(),new Empty(),new Empty(),new Empty()];
+        wheel.exhaustedSouls = [new Empty(),new Empty(),new Empty(),new Empty(),new Empty(),new Empty(),new Empty(),new Empty()];
         player.hp = this.startingplayerHP;
         player.lastMove = this.playerlastmove;
         gameState = "running";
