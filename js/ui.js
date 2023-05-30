@@ -760,7 +760,7 @@ class SoulBreathing{
         return space;
     }
 
-    addSoul(skey){
+    addSoul(skey,noturb){
         const drops = {
             "Vile" : Vile,
             "Feral" : Feral,
@@ -771,7 +771,7 @@ class SoulBreathing{
         }
         let loot = new drops[skey.name]();
         let caste = Object.keys(drops).indexOf(skey.name);
-        loot.turbulent = true;
+        if (!noturb) loot.turbulent = true;
         this.turbulentSouls.push(loot);
         loot.displayIcon.width = 32;
         loot.displayIcon.height = 32;
@@ -826,7 +826,9 @@ class SoulBreathing{
             else{
                 this.subduedSouls.push(world.cage.slots[override.x][override.y]);
                 let newSoul = this.subduedSouls[this.subduedSouls.length-1].displayIcon;
-                newSoul.calAngle = 0;
+                let startangle = 0;
+                if (this.subduedSouls.length > 1) startangle = this.subduedSouls[this.subduedSouls.length-2].displayIcon.calAngle + 0.1;
+                newSoul.calAngle = startangle;
                 newSoul.width = 16;
                 newSoul.height = 16;
                 newSoul.spinSpeed = 0.01;
@@ -930,7 +932,7 @@ class SoulBreathing{
             if(world.cage.size > 0) world.cage.generateWorld();
             research.completeResearch("Turbulent");
             research.completeResearch("Brush");
-            this.wheelCon.children[slot].paintCan.removeChildAt(0);
+            if (this.wheelCon.children[slot].paintCan.children.length > 0) this.wheelCon.children[slot].paintCan.removeChildAt(0);
             tiles[override.x][override.y].tickTile(allsprites.textures['sprite110']);
         }
     }

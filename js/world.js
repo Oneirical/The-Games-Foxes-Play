@@ -866,10 +866,6 @@ class Room{
         //}
         //if (world.getRoom() instanceof EpsilonArena) this.playerspawn = [1,1];
         if (this.effects.includes("Darkness")) player.fov = 2;
-        for (let k of wheel.exhaustedSouls){
-            if (!(k instanceof Empty))wheel.turbulentSouls.push(k);
-        }
-        wheel.exhaustedSouls = [new Empty(),new Empty(),new Empty(),new Empty(),new Empty(),new Empty(),new Empty(),new Empty()];
         player.hp = this.startingplayerHP;
         player.lastMove = this.playerlastmove;
         gameState = "running";

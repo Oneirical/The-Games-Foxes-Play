@@ -205,11 +205,11 @@ function createSpell(contin,form,mod,func){
     return new Axiom([contin],[form],[mod],[func],"VILE","me");
 }
 
-function getSouls(){
+function getSouls(noturb){
     let i = [Saintly,Ordered,Artistic,Unhinged,Feral,Vile];
     for (let r of i){
         for (let j = 0; j<10; j++){
-            wheel.addSoul(r);
+            wheel.addSoul(r,noturb);
         }
     }
 }
