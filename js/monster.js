@@ -941,6 +941,11 @@ class Hologram extends Monster{
         this.diareset = 0;
         this.noloot = true;
     }
+
+    setUpSprite(){
+        super.setUpSprite();
+        new GlitchSprite(this.creaturecon);
+    }
 }
 
 class AbazonSummon extends Monster{

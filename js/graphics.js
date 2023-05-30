@@ -187,6 +187,10 @@ function drawTiles(){
         }
     }
     drawChainBorder(32,32,tilesDisplay);
+
+    if (world.getRoom() instanceof WorldSeed && world.cage.displayon){
+        world.cage.pocketworld.hypnoDisplay();
+    }
 }
 
 
@@ -357,3 +361,112 @@ function screenshake(){ // SHAKE SHAKE SHAKE
     shakeX = Math.round(Math.cos(shakeAngle)*shakeAmount); 
     shakeY = Math.round(Math.sin(shakeAngle)*shakeAmount);
 }
+
+
+class GlitchSprite {
+  
+    constructor(glitch) {
+    
+      this.img = glitch;
+  
+      this.img.filters = [new PIXI.filters.RGBSplitFilter(), new PIXI.filters.GlitchFilter()]
+  
+      this.img.filters[0].red.x = 0
+      this.img.filters[0].red.y = 0
+      this.img.filters[0].green.x = 0
+      this.img.filters[0].green.y = 0
+      this.img.filters[0].blue.x = 0
+      this.img.filters[0].blue.y = 0
+  
+      this.img.filters[1].slices = 0 
+      this.img.filters[1].offset = 20
+      
+      this.anim = this.anim.bind(this)
+      this.anim()
+      
+    }
+    
+    randomIntFromInterval(min, max) {
+      return Math.random() * (max - min + 1) + min
+    }
+    
+    anim() {
+  
+      const THAT = this
+      
+      const tl = gsap.timeline({
+        delay: this.randomIntFromInterval(0, 3),
+        onComplete: this.anim
+      })
+  
+      tl.to(this.img.filters[0].red, {
+        duration: 0.2,
+        x: this.randomIntFromInterval(-15, 15),
+        y: this.randomIntFromInterval(-15, 15)
+      })
+  
+      tl.to(this.img.filters[0].red, {
+        duration: 0.01,
+        x: 0,
+        y: 0
+      })
+  
+      tl.to(this.img.filters[0].blue, {
+        duration: 0.2,
+        x: this.randomIntFromInterval(-15, 15),
+        y: 0,
+        onComplete() {
+          
+          THAT.img.filters[1].slices = 20
+          THAT.img.filters[1].direction = THAT.randomIntFromInterval(-75, 75)
+            
+        }
+      }, '-=0.2')
+  
+      tl.to(this.img.filters[0].blue, {
+        duration: 0.1,
+        x: this.randomIntFromInterval(-15, 15),
+        y: this.randomIntFromInterval(-5, 5),
+        onComplete() {
+  
+          THAT.img.filters[1].slices = 12
+          THAT.img.filters[1].direction = THAT.randomIntFromInterval(-75, 75)
+          
+        }
+      })
+  
+      tl.to(this.img.filters[0].blue, {
+        duration: 0.01,
+        x: 0,
+        y: 0,
+        onComplete() {
+  
+          THAT.img.filters[1].slices = 0
+          THAT.img.filters[1].direction = 0
+  
+        }
+      })
+  
+      tl.to(this.img.filters[0].green, {
+        duration: 0.2,
+        x: this.randomIntFromInterval(-15, 15),
+        y: 0
+      }, '-=0.2')
+  
+      tl.to(this.img.filters[0].green, {
+        duration: 0.1,
+        x: this.randomIntFromInterval(-20, 20),
+        y: this.randomIntFromInterval(-15, 15)
+      })
+  
+      tl.to(this.img.filters[0].green, {
+        duration: 0.01,
+        x: 0,
+        y: 0
+      })
+  
+      tl.timeScale(1.2)
+      
+    }
+     
+  } 

@@ -444,14 +444,15 @@ class World{
     }
 
     hypnoDisplay(){
+        this.hypnosis = new PIXI.Container();
+        new GlitchSprite(this.hypnosis);
+        tilesDisplay.addChild(this.hypnosis);
         for(let y = 0; y<9;y++){
             for(let x = 0; x<9;x++){
                 if (this.rooms[x][y].tangible){
-                    for(let i = 0; i<this.rooms[x][y].size;i++){
-                        for (let j = 0; j<this.rooms[x][y].size; j++){
-                            drawPixel(this.checkPixel(this.rooms[x][y].tiles[i][j]),i*(112/9)+x*112,j*(112/9)+y*112,14);
-                        }
-                    }
+                    this.rooms[x][y].displayCon.x = x*112-8;
+                    this.rooms[x][y].displayCon.y = y*112-8;
+                    this.hypnosis.addChild(this.rooms[x][y].displayCon);
                 }
             }
         }
@@ -562,18 +563,19 @@ class World{
                     if (flip) flipRoom(this.rooms[i][j].id,this.rooms[i][j].size,times);
                     if (corridor && flip) this.rooms[i][j].verticality = "side";
                     else if (corridor) this.rooms[i][j].verticality = "up";
-                    this.rooms[i][j].setUpSprites();
                 }
                 else this.rooms[i][j] = new VoidRoom([i,j]);
             }
         }
         for(let i=0;i<9;i++){
             for(let j=0;j<9;j++){
-                if (this.rooms[i][j].tangible) this.spreadExits(i,j);
+                if (this.rooms[i][j].tangible){
+                    this.spreadExits(i,j);
+                    this.rooms[i][j].setUpSprites();
+                }
                 this.rooms[i][j].layer = this.layer;
             }
-        }
-        this.generated = true;
+        }        this.generated = true;
     }
 
     spreadExits(i,j){
@@ -646,8 +648,8 @@ class World{
         if (!room.playerspawn) room.playerspawn = [4,4];
         tiles = room.tiles;
         if (room instanceof WorldSeed && level == 1) room.populateRoom();
-        room.initializeRoom();
         tilesDisplay.removeChildren();
+        room.initializeRoom();
         animationTick.destroy();
         animationTick = new PIXI.Ticker;
         animationTick.start();
@@ -821,7 +823,14 @@ class Room{
         let brush = (size/9);
         for(let i = 0; i<this.size;i++){
             for (let j = 0; j<this.size; j++){
-                if (!(this.tiles[i][j] instanceof RealityWall)) drawPixel(checkPixel(this.tiles[i][j]),i*brush,j*brush,14,this.displayCon);
+                let hai = this.tiles[i][j].sprite;
+                let newSprite = new FoxSprite(allsprites.textures['sprite'+hai]);
+                newSprite.width = 112/9;
+                newSprite.height = 112/9;
+                newSprite.x = i*(112/9);
+                newSprite.y = j*(112/9);
+                this.displayCon.addChild(newSprite);
+                //if (!(this.tiles[i][j] instanceof RealityWall)) drawPixel(checkPixel(this.tiles[i][j]),i*brush,j*brush,14,this.displayCon);
             }
         }
     }

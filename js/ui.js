@@ -672,7 +672,7 @@ class SoulBreathing{
                 s.trspeed = 2;
                 s.alpha = 0.5;
             }
-            if (this.selectedCan != 0) this.wheelCon.children[this.selectedCan].alpha = 0.15;
+            if (this.selectedCan != 0) this.wheelCon.children[this.selectedCan].alpha = 0.25;
             else this.wheelCon.children[this.selectedCan].alpha = 0.5;
         }
         if (i == this.selectedCan){
