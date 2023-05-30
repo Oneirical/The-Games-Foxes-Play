@@ -267,9 +267,6 @@ class Universe{
             "Caste" : [],
         }
         world.cage.legendCheck();
-        wheel.reshuffle();
-        wheel.pile = shuffle(wheel.pile);
-        removeItemAll(wheel.discard,"deleted");
     }
 
     playRandomWorld(oldWorld){
@@ -450,8 +447,8 @@ class World{
         for(let y = 0; y<9;y++){
             for(let x = 0; x<9;x++){
                 if (this.rooms[x][y].tangible){
-                    this.rooms[x][y].displayCon.x = x*112-8;
-                    this.rooms[x][y].displayCon.y = y*112-8;
+                    this.rooms[x][y].displayCon.x = x*112;
+                    this.rooms[x][y].displayCon.y = y*112;
                     this.hypnosis.addChild(this.rooms[x][y].displayCon);
                 }
             }

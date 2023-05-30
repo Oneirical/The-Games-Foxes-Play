@@ -31,15 +31,16 @@ function setupPixi(){
     document.addEventListener("mouseup",function() {
         isMouseDown = false;
     }, false);
-    document.body.appendChild(app.view);
-    tilesDisplay = new PIXI.Container();
-    tilesDisplay.x = (1920-16*16*resolutionSize)/2+(resolutionSize+12)*16+8;
-    tilesDisplay.y = (1080-16*9*resolutionSize)/2+8;
-    app.stage.addChild(tilesDisplay);
     allsprites = new PIXI.Spritesheet(
         PIXI.BaseTexture.from(atlasData.meta.image),
         atlasData
     );
+    document.body.appendChild(app.view);
+    tilesDisplay = new PIXI.Container();
+    tilesDisplay.x = (1920-16*16*resolutionSize)/2+(resolutionSize+12)*16;
+    tilesDisplay.y = (1080-16*9*resolutionSize)/2;
+    app.stage.addChild(tilesDisplay);
+
     allsprites.parse();
     uiDisplayLeft = new PIXI.Container();
     uiDisplayLeft.x = 34;
@@ -134,8 +135,10 @@ function drawChainBorder(w,h,source){
                 newSprite.width = 32;
                 newSprite.height = 32;
                 newSprite.anchor.set(0.5,0.5);
-                newSprite.x = (j*32);
-                newSprite.y = (i*32);
+                let huff = 0;
+                if (source = tilesDisplay) huff = 8;
+                newSprite.x = (j*32)+huff;
+                newSprite.y = (i*32)+huff;
                 const rotatea = {
                     "Q" : 0,
                     "P" : Math.PI/2,

@@ -18,8 +18,8 @@ class Tile{
     setUpSprite(){
         this.tilecon = new PIXI.Container();
         tilesDisplay.addChild(this.tilecon);
-        this.tilecon.x = this.x*tileSize-8;
-        this.tilecon.y = this.y*tileSize-8;
+        this.tilecon.x = this.x*tileSize;
+        this.tilecon.y = this.y*tileSize;
         let hai = this.sprite;
         let newSprite = new FoxSprite(allsprites.textures['sprite'+hai]);
         newSprite.width = tileSize;
