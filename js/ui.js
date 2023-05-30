@@ -641,7 +641,11 @@ class SoulBreathing{
         }
         for (let i of paintcans) this.wheelCon.addChild(i);
         this.bouncySouls = new PIXI.ParticleContainer();
+        this.spinningPile = new PIXI.ParticleContainer();
+        this.spinningPile.x = center[0]-8;
+        this.spinningPile.y = center[1]-8;
         this.displayCon.addChild(this.bouncySouls);
+        this.displayCon.addChild(this.spinningPile);
     }
 
     toPaintMode(){
@@ -803,16 +807,10 @@ class SoulBreathing{
         let retrievesuccess = true;
         if (!world.cage.slots[override.x][override.y].turbulent)research.completeResearch("Subdued");
         if (basic.includes(world.cage.slots[override.x][override.y].id)){
-            if (!world.cage.slots[override.x][override.y].turbulent){
-                this.subduedSouls.push(world.cage.slots[override.x][override.y]);
-                //and make it spin
-            } 
-            else {
-                if (world.cage.slots[override.x][override.y].turbulent) this.turbulentSouls.push(world.cage.slots[override.x][override.y]);
-                else this.subduedSouls.push(world.cage.slots[override.x][override.y]);
+            if (world.cage.slots[override.x][override.y].turbulent){
+                this.turbulentSouls.push(world.cage.slots[override.x][override.y]);
                 this.wheelCon.children[7-basic.indexOf(world.cage.slots[override.x][override.y].id)].paintCan.addChild(world.cage.slots[override.x][override.y].displayIcon);
                 let can = world.cage.slots[override.x][override.y].displayIcon; //oh so NOW you assign a variable to that. Fu!
-                // MAKE IT SO RETRIEVING A SUBDUED GETS PLACED IN THE SPINNING
                 can.bounceborder = 32;
                 can.x = 16;
                 can.y = 16;
@@ -825,6 +823,20 @@ class SoulBreathing{
                     can.alpha = 0.8;
                 }
             }
+            else{
+                this.subduedSouls.push(world.cage.slots[override.x][override.y]);
+                let newSoul = this.subduedSouls[this.subduedSouls.length-1].displayIcon;
+                newSoul.calAngle = 0;
+                newSoul.width = 16;
+                newSoul.height = 16;
+                newSoul.spinSpeed = 0.01;
+                app.ticker.add((delta) => {
+                    newSoul.calAngle+= newSoul.spinSpeed;
+                    newSoul.x = 170*Math.cos(newSoul.calAngle);
+                    newSoul.y = 170*Math.sin(newSoul.calAngle);
+                });
+                this.spinningPile.addChild(newSoul);
+            } 
         }
         else retrievesuccess = player.axioms.addAxiom(world.cage.slots[override.x][override.y]);
         if (retrievesuccess) {
@@ -1217,7 +1229,7 @@ class Soul{
         this.offsetX = 0;      
         this.shattered = false;                                             
         this.offsetY = 0;
-        this.speed = 0.05;
+        this.spinSpeed = 0.05;
         this.thrashcounter = 0;
         this.discpatt = [];
         this.x = 0;

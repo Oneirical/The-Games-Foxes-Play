@@ -624,7 +624,8 @@ class Altar extends Floor{
         this.spriteDisplay.on('pointerout', (event) => {
             this.hitBox.alpha = 0;
         });
-        animationTick.add((delta) => {
+        animationTick.add((delta) => {//This is technically adding tons of ticker statements on each room entry.
+            // maybe fix it, also they go out of bounds sometimes
             if (world.cage.slots[this.x][this.y].turbulent){
                 this.soulCon.x = 100*Math.cos(delta)+2;
                 this.soulCon.y = 100*Math.sin(delta)-28;
