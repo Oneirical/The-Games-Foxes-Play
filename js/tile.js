@@ -609,6 +609,7 @@ class Altar extends Floor{
         soulcon.x = tileSize/2;
         soulcon.y = tileSize/2;
         soulcon.anchor.set(0.5);
+        soulcon.shakeAmount = 0;
         this.soulCon = soulcon;
         this.tilecon.addChild(this.soulCon);
         drawHitbox(tileSize/2, tileSize/2,tileSize*0.8+7,this.tilecon);
@@ -625,18 +626,23 @@ class Altar extends Floor{
             this.hitBox.alpha = 0;
         });
         animationTick.add((delta) => {//This is technically adding tons of ticker statements on each room entry.
-            // maybe fix it, also they go out of bounds sometimes
-            if (world.cage.slots[this.x][this.y].turbulent){
-                this.soulCon.x = 100*Math.cos(delta)+2;
-                this.soulCon.y = 100*Math.sin(delta)-28;
+            if (Math.random() > 0.9 && world.cage.slots[this.x][this.y].turbulent) soulcon.shakeAmount = 5;
+            if(soulcon.shakeAmount){
+                soulcon.shakeAmount--;
             }
-        });
+            let shakeAngle = Math.random()*Math.PI*2;
+            soulcon.offsetX = Math.round(Math.cos(shakeAngle)*soulcon.shakeAmount);
+            soulcon.offsetY = Math.round(Math.sin(shakeAngle)*soulcon.shakeAmount);
+            soulcon.x = tileSize/2 + soulcon.offsetX;
+            soulcon.y = tileSize/2 + soulcon.offsetY;
+        }); 
     }
 
     tickTile(newTex){
         super.tickTile(newTex);
         let hai = world.cage.slots[this.x][this.y].icon;
         this.soulCon.texture = allsprites.textures['icon'+hai];
+        //if (world.cage.slots[this.x][this.y].turbulent) new GlitchSprite(this.soulCon,0);
     }
 
     getDisplayX(){                     

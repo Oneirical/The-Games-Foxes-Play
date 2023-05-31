@@ -364,9 +364,10 @@ function screenshake(){ // SHAKE SHAKE SHAKE
 
 class GlitchSprite {
   
-    constructor(glitch) {
+    constructor(glitch,time) {
     
       this.img = glitch;
+      this.time = time;
   
       this.img.filters = [new PIXI.filters.RGBSplitFilter(), new PIXI.filters.GlitchFilter()]
   
@@ -394,7 +395,7 @@ class GlitchSprite {
       const THAT = this
       
       const tl = gsap.timeline({
-        delay: this.randomIntFromInterval(0, 3),
+        delay: this.randomIntFromInterval(3, this.time),
         onComplete: this.anim
       })
   

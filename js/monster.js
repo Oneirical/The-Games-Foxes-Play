@@ -948,7 +948,7 @@ class Hologram extends Monster{
 
     setUpSprite(){
         super.setUpSprite();
-        new GlitchSprite(this.creaturecon);
+        new GlitchSprite(this.creaturecon,3);
     }
 }
 

@@ -439,7 +439,7 @@ class World{
 
     hypnoDisplay(){
         this.hypnosis = new PIXI.Container();
-        new GlitchSprite(this.hypnosis);
+        new GlitchSprite(this.hypnosis,3);
         tilesDisplay.addChild(this.hypnosis);
         for(let y = 0; y<9;y++){
             for(let x = 0; x<9;x++){
