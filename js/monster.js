@@ -152,7 +152,8 @@ class Monster{
         this.axioms.activateAxiom(0);
     }
 
-    giveEffect(effect, duration){
+    giveEffect(effect, duration,mods){
+        if (mods["flags"].includes("ephemeral")) duration = 1;
         this.statuseff[effect] += duration;
         if (effect == "Dissociated") this.falsehp = this.hp;
     }
@@ -738,7 +739,7 @@ class Apiarist extends Monster{
         this.soul = "Animated by an Ordered (5) soul.";
         this.name = "Brass Apiarist";
         this.ability = monabi["Apiarist"];
-        this.assignAxiom(["STEP"],["EGO"],["NEUTER"],["STOP"],"ORDERED");
+        this.assignAxiom(["STEP"],["EGO"],["EPHEMERAL"],["STOP"],"ORDERED");
     }
 }
 
@@ -1515,7 +1516,7 @@ class Apis extends Monster{
         this.soul = "Animated by a Feral (2) soul.";
         this.name = "Messenger of Aculeo";
         this.ability = monabi["Apis"];
-        this.assignAxiom(["ATTACK"],["SMOOCH"],[],["APIS"],"UNHINGED");
+        this.assignAxiom(["ATTACK"],["SMOOCH"],["EPHEMERAL"],["APIS"],"UNHINGED");
     }
 }
 

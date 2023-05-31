@@ -1384,6 +1384,7 @@ class Axiom extends Soul{
             "continue" : true,
             "mutators" : this.mutators,
             "forms" : this.forms,
+            "flags" : [],
         }
         for (let i of this.mutators){
             let edit = modifiers[i](mods);

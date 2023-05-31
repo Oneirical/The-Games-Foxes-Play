@@ -773,6 +773,7 @@ researchnames = {
     "PLUS" : "Share the Fruits of Faith",
     "TURNEND" : "Beating Hearts Tick Down the End of Time",
     "ATTACK" : "The Chains Bleed Rivers",
+    "EPHEMERAL" : "Memories Fleeting, Time Even More So",
 
     "RANDOM" : "Erratic Pulse of Prey's Hearts",
 }
@@ -822,6 +823,7 @@ researchlore = {
     "PLUS" : "A kind being both takes and gives, while a saintly being only does the latter. When that gift is death, suddenly, everything changes. Why is that?",
     "TURNEND" : "Each spasm of muscle, each spark of the neurons - they all trickled down to the inevitable Unification. The best time to annihilate all was many eons ago - the second best time is now.",
     "ATTACK" : "Flesh is the easiest of all chains to break, and yet, it is also the one prisoners tend to cling onto the most. Pain must have been the unfaithful's most dastardly invention...",
+    "EPHEMERAL" : "Whenever the Saints' propaganda gets to me and I believe my quest to have any significance, I picture a cosmic beach with planets for grains of sand, with me writhing as a mere speck on the trillionth one.",
 
 }
 
@@ -889,6 +891,7 @@ researchflags = {
     "RASEL" : "Function",
     "JOLTZAZON" : "Mutator",
     "ABAZON" : "Function",
+    "EPHEMERAL" : "Mutator",
 }
 
 researchexpl = {
@@ -936,6 +939,7 @@ researchexpl = {
     "PLUS" : "[l]Form[w]: [r]Target[w] the tile on which the caster stands, as well as all tiles orthogonal to it.",
     "TURNEND" : "[z]Contingency[w]: When a turn ends, cast this Axiom.",
     "ATTACK" : "[z]Contingency[w]: When the caster attacks a foe, cast this Axiom.",
+    "EPHEMERAL" : "[k]Mutator[w]: If this Axiom would apply a status effect, the effect duration becomes 1, no matter the [g]Potency[w].",
 }
 
 researchflagcolour = {

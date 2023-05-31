@@ -3,9 +3,9 @@ const powerratings = {
     "BEAM" : 3,
     "SMOOCH" : 5,
     "XCROSS" : 2,
-    "STEP" : -2,
-    "TURNEND" : -3,
-    "ATTACK" : -4,
+    "STEP" : -3,
+    "TURNEND" : -4,
+    "ATTACK" : -2,
     "PLUS" : 4,
 }
 
@@ -120,6 +120,10 @@ modifiers = {
         }
         return mods;
     },
+    EPHEMERAL: function(mods){
+        mods["flags"].push("ephemeral");
+        return mods;
+    },
     BUFF: function(mods){
         mods["power"] += 1;
         return mods;
@@ -171,13 +175,13 @@ effects = {
             for (let i of Object.keys(tardata)) if (!protection.includes(i)) poly.monster[i] = tardata[i];
             target.monster.soullink = poly.monster;
             poly.monster.soullink = target.monster;
-            target.monster.giveEffect("Transformed",power*3);
-            poly.monster.giveEffect("Transformed",power*3);
+            target.monster.giveEffect("Transformed",power*3,mods);
+            poly.monster.giveEffect("Transformed",power*3,mods);
         }
     },
     SENET: function(target,power,mods){ //if power > X, give frenzy, haste?
         if (target.monster){
-            target.monster.giveEffect("Persuasive",power*3);
+            target.monster.giveEffect("Persuasive",power*3,mods);
         }
     },
     DEBUG: function(target,power,mods){ //if power > X, give frenzy, haste?
@@ -187,32 +191,32 @@ effects = {
     },
     KASHIA: function(target,power,mods){
         if (target.monster){
-            target.monster.giveEffect("Dissociated",power*2);
+            target.monster.giveEffect("Dissociated",power*2,mods);
         }
     },
     PARACEON: function(target,power,mods){
         if (target.monster){
-            target.monster.giveEffect("Invincible",power);
+            target.monster.giveEffect("Invincible",power,mods);
         }
     },
     STOP: function(target,power,mods){
         if (target.monster){
-            target.monster.giveEffect("Paralyzed",power);
+            target.monster.giveEffect("Paralyzed",power,mods);
         }
     },
     RASEL: function(target,power,mods){
         if (target.monster){
-            target.monster.giveEffect("Puppeteered",power*2);
+            target.monster.giveEffect("Puppeteered",power*2,mods);
         }
     },
     APIS: function(target,power,mods){
         if (target.monster){
-            target.monster.giveEffect("Constricted",power);
+            target.monster.giveEffect("Constricted",power,mods);
         }
     },
     HASTE: function(target,power,mods){
         if (target.monster){
-            target.monster.giveEffect("Hasted",power*2);
+            target.monster.giveEffect("Hasted",power*2,mods);
         }
     },
     HEAL: function(target,power,mods){
@@ -222,7 +226,7 @@ effects = {
     },
     THRASH: function(target,power,mods){
         if (target.monster){
-            target.monster.giveEffect("Thrashing",power*2);
+            target.monster.giveEffect("Thrashing",power*2,mods);
         }
     },
     GYVJI: function(targeti,power,mods){
