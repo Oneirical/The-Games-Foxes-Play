@@ -203,8 +203,7 @@ function drawSprites(){
 }
 
 function getMouse(){
-    console.log((app.renderer.events).rootPointerEvent.global.x);
-    console.log((app.renderer.events).rootPointerEvent.global.y);
+    return [(app.renderer.events).rootPointerEvent.global.x,(app.renderer.events).rootPointerEvent.global.y];
 }
 
 function checkPixel(tile){

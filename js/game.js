@@ -154,6 +154,7 @@ function tick(){
         
     }
     tickTiles();
+    wheel.tickWheel();
     statuses.updateDisplay();
 }
 

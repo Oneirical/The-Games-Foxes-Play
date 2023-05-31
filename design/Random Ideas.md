@@ -8,6 +8,7 @@
 * A better ui for descriptions, with definitions for each keyword like 'exhale' or 'targets' or the status effects, StS style
 * Senet should become pure charm
 * Try to remove fishOutSoul()
+* Autoharvest subdueds on entering cage room
 
 **Influential Dungeons**
 
@@ -37,6 +38,8 @@ Sell your memories (nodes) to the Collective to cleanse yourself of infection.
 Make creatures be able to be "injected" with serenes to harmonize them as a non-violent way of defeating enemies.
 The infection starts with "drawbridge unauthorized access" while you are in a Vision.
 The reason the player can't attack the intruder is because spells only work against those who believe in them.
+Serene components should force the whole axiom to be serene.
+Using a serene soul directly should imply some form of risk reward.
 
 **Estate upgrades**
 

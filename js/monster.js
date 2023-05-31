@@ -1515,7 +1515,7 @@ class Apis extends Monster{
         this.soul = "Animated by a Feral (2) soul.";
         this.name = "Messenger of Aculeo";
         this.ability = monabi["Apis"];
-        this.assignAxiom(["ATTACK"],["SMOOCH"],["CRIPPLE"],["APIS"],"UNHINGED");
+        this.assignAxiom(["ATTACK"],["SMOOCH"],[],["APIS"],"UNHINGED");
     }
 }
 

@@ -832,10 +832,11 @@ class SoulBreathing{
                 newSoul.width = 16;
                 newSoul.height = 16;
                 newSoul.spinSpeed = 0.01;
+                newSoul.spinDist = 170;
                 app.ticker.add((delta) => {
                     newSoul.calAngle+= newSoul.spinSpeed;
-                    newSoul.x = 170*Math.cos(newSoul.calAngle);
-                    newSoul.y = 170*Math.sin(newSoul.calAngle);
+                    newSoul.x = newSoul.spinDist*Math.cos(newSoul.calAngle);
+                    newSoul.y = newSoul.spinDist*Math.sin(newSoul.calAngle);
                 });
                 this.spinningPile.addChild(newSoul);
             } 
@@ -851,7 +852,9 @@ class SoulBreathing{
     }
 
     cycleSouls(){
-        this.turbulentSouls.push(this.wheel[0]);
+        this.exhaustedSouls.push(this.wheel[0]);
+        this.spinningPile.addChild(this.wheel[0].displayIcon);
+        this.wheel[0].displayIcon.spinDist = 30;
         this.wheel[0] = new Empty();
         for (let i =0; i<this.wheel.length-1;i++){
             this.wheel[i] = this.wheel[i+1];
@@ -863,6 +866,15 @@ class SoulBreathing{
         for (let i = 0; i<this.subduedSouls.length; i++){
             if (i == 0) continue;
             else this.subduedSouls[i].angle = this.subduedSouls[i-1].angle+0.1;
+        }
+    }
+
+    tickWheel(){
+        if (world.getRoom() instanceof SoulCage) return;
+        for (let k of this.wheelCon.children){
+            if (k instanceof FoxSprite){
+                k.texture = this.wheel[this.wheelCon.children.indexOf(k)].displayIcon.texture;
+            }
         }
     }
 
@@ -893,20 +905,18 @@ class SoulBreathing{
         beginTurn();
         for (let k of this.wheel){
             if (k instanceof Empty){
-                this.wheel[this.wheel.indexOf(k)] = this.subduedSouls[0];
+                let slot = this.wheel.indexOf(k);
+                this.wheel[slot] = this.subduedSouls[0];
                 research.completeResearch("Breath");
                 break;
             } 
         }
+        this.spinningPile.removeChild(this.subduedSouls[0].displayIcon);
+        for (let i = 1; i< this.spinningPile.children.length; i++){
+            this.spinningPile.children[i].calAngle = this.spinningPile.children[i-1].calAngle+0.1;
+        }
         this.subduedSouls.shift();
-        this.resetAngles();
-        if (this.activemodule != "Alacrity") tick();
-        else if (!player.consumeCommon(1,false)){
-            log.addLog("FluffyInsufficientPower");
-            playSound("off");
-            tick();
-            this.activemodule = "NONE";
-        } 
+        tick();
     }
 
     cageSoul(slot, override){
@@ -1209,8 +1219,6 @@ class Inventory{
     }
 }
 
-//maybe make it so clicking inside actcoords triggers the swap. the boundary is just actcoords stretched to a square to pass which one is clicked
-
 class Soul{
     constructor(name){
         this.id = name;
@@ -1244,6 +1252,7 @@ class Soul{
 
     setUpSprites(){
         if (basic.includes(this.id)) this.displayIcon = new FoxSprite(allsprites.textures['icon'+(6-basic.indexOf(this.id))]);
+        else if (this.id == "EMPTY") this.displayIcon = new FoxSprite(allsprites.textures['icon7']);
         else return;
         this.displayIcon.dirx = Math.random();
         this.displayIcon.diry = 1 - this.displayIcon.dirx;

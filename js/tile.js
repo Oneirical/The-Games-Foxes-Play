@@ -626,7 +626,7 @@ class Altar extends Floor{
             this.hitBox.alpha = 0;
         });
         animationTick.add((delta) => {//This is technically adding tons of ticker statements on each room entry.
-            if (Math.random() > 0.9 && world.cage.slots[this.x][this.y].turbulent) soulcon.shakeAmount = 5;
+            if (Math.random() > 0.97 && world.cage.slots[this.x][this.y].turbulent) soulcon.shakeAmount = 5;
             if(soulcon.shakeAmount){
                 soulcon.shakeAmount--;
             }
