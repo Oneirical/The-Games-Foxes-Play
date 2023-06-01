@@ -5,11 +5,13 @@
 ## The Games Foxes Play
 *([complete source code on github](https://github.com/Oneirical/The-Games-Foxes-Play) | [view all previous posts](https://github.com/Oneirical/The-Games-Foxes-Play/tree/main/design/Development%20Logs) | [play 0.4.3 online in browser on itch.io!](https://oneirical.itch.io/tgfp))*
 
-The toiling in the UI mines continues, scorched by the heat of the miniaturized sun that is my laptop CPU every time I cause an infinite loop, and pestered by the buzzing of the feature ideas sparking up while I am stuck in graphical work.
+The toiling in the UI mines continues, scorched by the heat of the miniaturized sun that is my laptop CPU every time I cause an infinite loop, and pestered by the buzzing of the feature ideas sparking up while I am stuck in graphical work. 
 
-# Glamour Sparks Respect**
+It's particularly annoying that so much of this stuff *used* to be completed, but has to be remade from scratch due to the rendering code working in a completely different way after my rewrite.
 
-In the spirit of adding some pizzazz to my otherwise unimpressive minimalist graphics, I added some neat animations here and there:
+# Glamour Sparks Respect
+
+In the spirit of adding some pizzazz to my otherwise unimpressive minimalist graphics, I added:
 
 * This awesome glitch effect, which I ~~shamelessly stole~~ borrowed from the Internet, looks absolutely amazing on all things holographic. It depends on a library that has a "no commercial use" license - not that selling this game was my intention, but honestly, this effect is so cool it might just harden my choice even further.
 
@@ -23,5 +25,6 @@ This week, I have also encountered (and patched) one of the most devious bugs I 
 
 Fun.
 
+# Trees Of Knowledge Covered In Webs
 
-
+The research screen is slowly being re-introduced, with a new sprawling design! I didn't like the cramped and claustrophobic previous iteration, so now, I am going for something truly [expansive](). I have mapped out a very unique (to my knowledge) game mechanic idea related to this screen, and I am *so* hyped to begin working on it. If only all that pesky UI work could stop getting in the way...
