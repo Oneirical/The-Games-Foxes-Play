@@ -117,25 +117,13 @@
                 cursormode = false;
             }
             if (e.key == "f"){
-                if (world.getRoom().size == 18){
-                    if (inResearch){
-                        tileSize = 32;
-                        numTiles = 18;
-                    }
-                    else {
-                        tileSize = 64;
-                        numTiles = 9;
-                    }
-                }
-                cursor = new Cursor(getTile(4,4));
                 inResearch = !inResearch;
-                cursormode = inResearch;
                 inInventory = false;
                 inMap = false;
+                if (inResearch) tilesDisplay.addChild(research.displayCon);
+                else tilesDisplay.removeChild(research.displayCon);
             }
             if (e.key == "o"){ // debug
-                resolutionSize--;
-                setupCanvas();
             }
             if (e.key == "p"){ // debug
                 resolutionSize++;

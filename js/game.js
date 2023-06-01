@@ -9,7 +9,6 @@ function summonExits(){
                 if (y instanceof BExit) tiles[px][py] = new MapExit(px,py,world.getRoom());
                 if (y instanceof BAscendExit) tiles[px][py] = new AscendExit(px,py,world.getRoom());
                 tiles[px][py].setUpSprite();
-                //drawSprites();
                 tiles[px][py].id = id;
             }
         }

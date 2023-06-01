@@ -6,13 +6,47 @@ class Research{
         this.knownnodes = [];
         this.knownspells = [];
         this.buildTabs();
+        this.setUpSprites();
         this.looking = false;
-
         this.exppage = new TutorialDisplay();
         this.monsterpool = [Apis, Second, Tinker, Slug, Scion, Shrike, Apiarist];
     }
 
+    setUpSprites(){
+        this.displayCon = new PIXI.Container();
+        drawPixel("black",-24,-24,112*9,this.displayCon);
+        this.displayCon.children[0].alpha = 0.9;
+        this.displayCon.x = 24;
+        this.displayCon.y = 24;
+        for(let i=0;i<15;i++){
+            for(let j=0;j<15;j++){
+                let hai = this.page[i][j].sprite;
+                if (hai == 2) continue;
+                let newSprite = new FoxSprite(allsprites.textures['sprite'+hai]);
+                newSprite.x = i*64;
+                newSprite.y = j*64;
+                newSprite.width = 64;
+                newSprite.height = 64;
+                this.displayCon.addChild(newSprite);
+            }
+        }
+        drawPixel("black",64*6+8,64*6+8,64*3-16,this.displayCon);
+    }
+
     buildTabs(){
+        for(let i=0;i<15;i++){
+            this.tabs[i] = [];
+            for(let j=0;j<15;j++){
+                let nodeType = keyresearch[researchpage["Web"][j][i]];
+                if ("TL)><I-+KY".includes(researchpage["Web"][j][i])) this.tabs[i][j] = new ResearchConnector(i,j,nodeType);
+                else if (nodeType == ".") this.tabs[i][j] = new RealityWall(i,j);
+                else this.tabs[i][j] = new ResearchNode(i,j,researchpage["Web"][j][i],0);
+            }
+        }
+        this.page = this.tabs;
+    }
+
+    buildTabsOld(){
         for (let k=0; k<Object.keys(researchpage).length-1;k++){
             this.tabs[k] = [];
             for(let i=0;i<9;i++){
