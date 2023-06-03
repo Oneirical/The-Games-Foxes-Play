@@ -701,7 +701,13 @@ researchequivalences = {
         "f" : "Vision",
         "g" : "Security",
         "h" : "Song",
-        "i" : "Brush"
+        "i" : "Brush",
+        "k" : "Shattered",
+        "l" : "Subdued",
+        "m" : "Spellcast",
+        "n" : "Craft",
+        "o" : "Breath",
+        "D" : "PCage", //inhale exhale
         //breath
     },
     1 : {

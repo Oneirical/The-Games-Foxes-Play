@@ -180,6 +180,7 @@ function setUpUI(){
     world.setUpSprites();
     log.setUpLog();
     statuses.setUpSprites();
+    research.setUpSprites();
 }
 
 function drawTiles(){

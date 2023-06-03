@@ -6,7 +6,6 @@ class Research{
         this.knownnodes = [];
         this.knownspells = [];
         this.buildTabs();
-        this.setUpSprites();
         this.looking = false;
         this.exppage = new TutorialDisplay();
         this.monsterpool = [Apis, Second, Tinker, Slug, Scion, Shrike, Apiarist];
@@ -27,17 +26,10 @@ class Research{
         // this.displayCon.addChild(newSprite);
         for(let i=0;i<15;i++){
             for(let j=0;j<15;j++){
-                let hai = this.page[i][j].sprite;
-                if (hai == 2) continue;
-                let newSprite = new FoxSprite(allsprites.textures['sprite'+hai]);
-                newSprite.x = i*64;
-                newSprite.y = j*64;
-                newSprite.width = 64;
-                newSprite.height = 64;
-                this.displayCon.addChild(newSprite);
+                this.page[i][j].setUpResearch();
             }
         }
-        drawPixel("black",64*6+8,64*6+8,64*3-16,this.displayCon);
+        //drawPixel("black",64*6+8,64*6+8,64*3-16,this.displayCon);
     }
 
     buildTabs(){

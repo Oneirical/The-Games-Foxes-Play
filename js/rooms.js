@@ -242,22 +242,22 @@ var researchpage = {
         13:  "...............",
         14:  "...............",
     },
-    "Web" : {//Fundamentals
-        0 :  "..a............", //f for fuffypocalypse
-        1 :  "..I..cTc......c",//s for spellcraft
-        2 :  "..a...I...m.>-K",// inhale exhale
-        3 :  "..I...I.s-K.I.c", // o and m contin and mut
-        4 :  "..f...a-K.a-K..",//shattereds and subdueds
-        5 :  "..I.>-).s-K.I..", // t for structures
-        6 :  "a-+-a.....o.I..",// dreamscape
-        7 :  "..I.........d..",
-        8 :  ">-a-<.......I..",// paint & seed
-        9 :  "I...I...>-i-+-c", 
-        10:  "a-a-a...I...I..",//herald
+    "Web3" : {//Fundamentals
+        0 :  "..a.........c..", //f for fuffypocalypse
+        1 :  "..I..cTc....I..",//s for spellcraft
+        2 :  "..a...I...m.Kc.",// inhale exhale
+        3 :  "..I...I.s-K.I..", // o and m contin and mut
+        4 :  "..h...n-K.a-K..",//shattereds and subdueds
+        5 :  "..I...I.s-K.I..", // t for structures
+        6 :  "k-+-l-o...o.I..",// dreamscape
+        7 :  "..I.........d..", // d for deeper still, i for influences
+        8 :  "i-f-<.......I..",// paint & seed
+        9 :  "I...d...>-i-+-c", 
+        10:  "c-b-)...I...I..",//herald
         11:  "..I.....t...c..",
         12:  "..a.....I......",//move
         13:  "..I...r-)......",
-        14:  "..a............",//research tree
+        14:  "..z............",//research tree
     },
     "Web2" : {
         0 :  "c.............f",
@@ -275,6 +275,23 @@ var researchpage = {
         12 : "......sYm......",
         13 : "......I.I......",
         14 : "......Lc)......",
+    },
+    "Web" : {
+        0 :  "C-D----a----T-C",
+        1 :  "..I...>Y<...I..",
+        2 :  "C-K.o-sTs-m.C..",
+        3 :  "..I....I.......",
+        4 :  "N-)..>-n--T-C..",
+        5 :  "I....o....I....",
+        6 :  "I....L-l..C.F-F",
+        7 :  "I......I....I..",
+        8 :  "S..>---f--T-F..",
+        9 :  "I..i...I..I....",
+        10 : "I..L-T-d..k....",
+        11 : "I....c.........",
+        12 : "r....L-b-<.....",
+        13 : ".........a.....",
+        14 : ".......z-).....",
     },
     "Page0" : {
         0 : "....I....",

@@ -13,6 +13,7 @@ class Tile{
         this.recallpoint = false;
         this.souls = [];
         this.clicktrap = false;
+        this.tilecon = new PIXI.Container();
     }
 
     setUpSprite(){
@@ -28,6 +29,18 @@ class Tile{
         this.tilecon.addChild(newSprite);
         this.spriteDisplay = newSprite;
         //add traps here
+    }
+
+    setUpResearch(){
+        let hai = this.sprite;
+        if (hai == 2) return;
+        let newSprite = new FoxSprite(allsprites.textures['sprite'+hai]);
+        this.tilecon.x = this.x*64;
+        this.tilecon.y = this.y*64;
+        newSprite.width = 64;
+        newSprite.height = 64;
+        this.tilecon.addChild(newSprite);
+        research.displayCon.addChild(this.tilecon);
     }
 
     tickTile(newTex){
@@ -1017,7 +1030,7 @@ class ResearchNode extends Floor{
         this.sprite = 111;
         this.page = page;
         this.letter = type;
-        this.id = researchequivalences[page][type];
+        if (researchequivalences[0][type]) this.id = researchequivalences[0][type];
         if (Object.keys(nodeloot).includes(this.id)){
             let source = this.id;
             this.id = shuffle(nodeloot[this.id])[0];
@@ -1035,6 +1048,19 @@ class ResearchNode extends Floor{
         if (this.id == "Intro") this.discovered = true;
 
         this.contents = inside[this.id];
+    }
+
+    setUpResearch(){
+        let hai = 7;
+        if (this.id) hai = inside[this.id];
+        let newSprite = new FoxSprite(allsprites.textures['icon'+hai]);
+        newSprite.width = 48;
+        newSprite.x = 8;
+        newSprite.y = 8;
+        this.tilecon.alpha = 0.3;
+        newSprite.height = 48;
+        this.tilecon.addChild(newSprite);
+        super.setUpResearch();
     }
 
     draw(){
