@@ -18,6 +18,13 @@ class Research{
         this.displayCon.children[0].alpha = 0.9;
         this.displayCon.x = 24;
         this.displayCon.y = 24;
+        // let newSprite = new FoxSprite(allsprites.textures['sprite0']); //background image
+        // newSprite.x = -24;
+        // newSprite.y = -24;
+        // newSprite.width = 112*9;
+        // newSprite.height = 112*9;
+        // newSprite.alpha = 0.2;
+        // this.displayCon.addChild(newSprite);
         for(let i=0;i<15;i++){
             for(let j=0;j<15;j++){
                 let hai = this.page[i][j].sprite;
