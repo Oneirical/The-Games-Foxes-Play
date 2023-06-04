@@ -30,7 +30,7 @@ function toResearchMode(){
         uiDisplayLeft.removeChild(player.axioms.displayCon);
     }
     else{
-        tilesDisplay.eventMode = 'none';
+        tilesDisplay.eventMode = 'passive';
         tilesDisplay.removeChild(research.displayCon);
         uiDisplayLeft.removeChild(research.tabContainer);
         uiDisplayLeft.addChild(areaname.displayCon);

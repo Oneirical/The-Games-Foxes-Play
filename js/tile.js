@@ -32,7 +32,7 @@ class Tile{
         //add traps here
     }
 
-    setUpResearch(){
+    setUpResearch(source){
         let hai = this.sprite;
         if (hai == 2) return;
         let newSprite = new FoxSprite(allsprites.textures['sprite'+hai]);
@@ -42,7 +42,7 @@ class Tile{
         newSprite.height = 64;
         this.tilecon.addChild(newSprite);
         this.spriteDisplay = newSprite;
-        research.displayCon.addChild(this.tilecon);
+        source.addChild(this.tilecon);
     }
 
     tickTile(newTex){
@@ -982,10 +982,11 @@ class ResearchConnector extends Floor{
         this.sprite = conn[type];
         this.lore = description["Floor"];
         this.name = "hai";
+        this.connectType = type;
     }
 
-    setUpResearch(){
-        super.setUpResearch();
+    setUpResearch(source){
+        super.setUpResearch(source);
         let wai = new PIXI.filters.GrayscaleFilter();
         this.tilecon.filters = [wai];
         this.tilecon.alpha = 0.3;
@@ -1059,7 +1060,7 @@ class ResearchNode extends Floor{
         this.contents = inside[this.id];
     }
 
-    setUpResearch(){
+    setUpResearch(source){
         let hai = 7;
         if (this.id) hai = inside[this.id];
         let newSprite = new FoxSprite(allsprites.textures['icon'+hai]);
@@ -1069,7 +1070,7 @@ class ResearchNode extends Floor{
         this.tilecon.alpha = 0.3;
         newSprite.height = 48;
         this.tilecon.addChild(newSprite);
-        super.setUpResearch();
+        super.setUpResearch(source);
     }
 
     draw(){

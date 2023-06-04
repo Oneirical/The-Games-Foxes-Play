@@ -693,13 +693,14 @@ modulename = {
 
 researchequivalences = {
     0 : {
+        "z" : "Research",
         "a" : "Intro",
         "b" : "Herald",
         "c" : "Cage",
         "d" : "Seed",
         "e" : "Turbulent",
         "f" : "Vision",
-        "g" : "Security",
+        "g" : "Harmony",
         "h" : "Song",
         "i" : "Brush",
         "k" : "Shattered",
@@ -707,7 +708,16 @@ researchequivalences = {
         "m" : "Spellcast",
         "n" : "Craft",
         "o" : "Breath",
-        "D" : "PCage", //inhale exhale
+        "D" : "PCage",
+        "C" : "Caste",
+        "F" : "Form",
+        "U" : "Function",
+        "M" : "Mutator",
+        "O" : "Contingency",
+        "A" : "Axioms",
+        "N" : "Influence",
+        "S" : "Structures",
+        "r" : "RoseQuest",
         //breath
     },
     1 : {

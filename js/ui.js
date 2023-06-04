@@ -12,10 +12,19 @@ class Research{
         this.infectedConnectors = [];
     }
 
+    selectCaste(num){
+        this.displayCon.children[this.currentpage+1].visible = false;
+        this.tabContainer.children[this.currentpage].extended = false;
+        this.tabContainer.children[this.currentpage].truePos = 252;
+        this.displayCon.children[num+1].visible = true;
+        this.tabContainer.children[num].extended = true;
+        this.currentpage = num;
+    }
+
     setUpSprites(){
         this.displayCon = new PIXI.Container();
         drawPixel("black",-24,-24,112*9,this.displayCon);
-        this.displayCon.children[0].alpha = 0.9;
+        this.displayCon.children[0].alpha = 1; //if this is lower the chains show up
         this.displayCon.x = 24;
         this.displayCon.y = 24;
         // let newSprite = new FoxSprite(allsprites.textures['sprite0']); //background image
@@ -25,9 +34,14 @@ class Research{
         // newSprite.height = 112*9;
         // newSprite.alpha = 0.2;
         // this.displayCon.addChild(newSprite);
-        for(let i=0;i<15;i++){
-            for(let j=0;j<15;j++){
-                this.page[i][j].setUpResearch();
+        for (let k = 0; k<7; k++){
+            let tabCon = new PIXI.Container();
+            tabCon.visible = false;
+            this.displayCon.addChild(tabCon);
+            for(let i=0;i<15;i++){
+                for(let j=0;j<15;j++){
+                    this.tabs[k][i][j].setUpResearch(tabCon);
+                }
             }
         }
         this.tabContainer = new PIXI.Container();
@@ -36,11 +50,12 @@ class Research{
             if (i == 0) sprite = 33;
             let selector = new CasteTab(sprite);
             selector.setUpSprites();
+            selector.casteNum = i;
             selector.displayCon.y = i*112+16;
             selector.displayCon.x = 252;
             this.tabContainer.addChild(selector.displayCon);
         }
-        //drawPixel("black",64*6+8,64*6+8,64*3-16,this.displayCon);
+        this.selectCaste(this.currentpage);
     }
 
     sereneSpread(){
@@ -50,20 +65,20 @@ class Research{
         let candidates = [];
         for (let g of this.infectedConnectors){
             for (let x of neig){
-                if (this.tabs[g.x+x[0]] && this.tabs[g.x+x[0]][g.y+x[1]]){
-                    if (!this.tabs[g.x+x[0]][g.y+x[1]].fuffified && !(this.tabs[g.x+x[0]][g.y+x[1]] instanceof RealityWall)){
-                        candidates.push(this.tabs[g.x+x[0]][g.y+x[1]]);
-                        this.tabs[g.x+x[0]][g.y+x[1]].fuffified = true;
-                        if (this.tabs[g.x+x[0]][g.y+x[1]] instanceof ResearchNode){
-                            this.tabs[g.x+x[0]][g.y+x[1]].tilecon.alpha = 1;
-                            this.tabs[g.x+x[0]][g.y+x[1]].discovered = true;
-                            this.tabs[g.x+x[0]][g.y+x[1]].completed = true;
-                            this.tabs[g.x+x[0]][g.y+x[1]].spriteDisplay.texture = allsprites.textures['sprite150'];
+                if (this.tabs[g.x+x[0]] && this.tabs[k][g.x+x[0]][g.y+x[1]]){
+                    if (!this.tabs[k][g.x+x[0]][g.y+x[1]].fuffified && !(this.tabs[k][g.x+x[0]][g.y+x[1]] instanceof RealityWall)){
+                        candidates.push(this.tabs[k][g.x+x[0]][g.y+x[1]]);
+                        this.tabs[k][g.x+x[0]][g.y+x[1]].fuffified = true;
+                        if (this.tabs[k][g.x+x[0]][g.y+x[1]] instanceof ResearchNode){
+                            this.tabs[k][g.x+x[0]][g.y+x[1]].tilecon.alpha = 1;
+                            this.tabs[k][g.x+x[0]][g.y+x[1]].discovered = true;
+                            this.tabs[k][g.x+x[0]][g.y+x[1]].completed = true;
+                            this.tabs[k][g.x+x[0]][g.y+x[1]].spriteDisplay.texture = allsprites.textures['sprite150'];
                         }
                         else{
-                            this.tabs[g.x+x[0]][g.y+x[1]].tilecon.alpha = 1;
-                            this.tabs[g.x+x[0]][g.y+x[1]].tilecon.filters = [];
-                            this.tabs[g.x+x[0]][g.y+x[1]].spriteDisplay.texture = allsprites.textures['sprite'+(this.tabs[g.x+x[0]][g.y+x[1]].sprite+30)];
+                            this.tabs[k][g.x+x[0]][g.y+x[1]].tilecon.alpha = 1;
+                            this.tabs[k][g.x+x[0]][g.y+x[1]].tilecon.filters = [];
+                            this.tabs[k][g.x+x[0]][g.y+x[1]].spriteDisplay.texture = allsprites.textures['sprite'+(this.tabs[k][g.x+x[0]][g.y+x[1]].sprite+30)];
                         }
                     }
                 }
@@ -72,14 +87,15 @@ class Research{
         this.infectedConnectors = candidates;
     }
 
-    goopSpread(i,j){
-        this.tabs[i][j].tilecon.alpha = 1;
-        this.tabs[i][j].spriteDisplay.texture = allsprites.textures['sprite'+this.tabs[i][j].sprite];
+    goopSpread(k,i,j){
+        this.tabs[k][i][j].tilecon.alpha = 1;
+        this.tabs[k][i][j].spriteDisplay.texture = allsprites.textures['sprite'+this.tabs[k][i][j].sprite];
         let goo = [];
         const neig = [[-1,0],[1,0],[0,1],[0,-1]];
         for (let x of neig){
-            if (this.tabs[i+x[0]] && this.tabs[i+x[0]][j+x[1]]) goo.push(this.tabs[i+x[0]][j+x[1]]);
+            if (this.tabs[k][i+x[0]] && this.tabs[k][i+x[0]][j+x[1]]) goo.push(this.tabs[k][i+x[0]][j+x[1]]);
         }
+        console.log(goo);
         goo = goo.filter(t => t instanceof ResearchConnector && t.tilecon.alpha != 1);
         while (goo.length){
             for (let g of goo){
@@ -91,12 +107,13 @@ class Research{
                 }
                 const neig = [[-1,0],[1,0],[0,1],[0,-1]];
                 for (let x of neig){
-                    if (this.tabs[g.x+x[0]] && this.tabs[g.x+x[0]][g.y+x[1]]){
-                        goo.push(this.tabs[g.x+x[0]][g.y+x[1]]);
-                        if (this.tabs[g.x+x[0]][g.y+x[1]] instanceof ResearchNode){
-                            this.tabs[g.x+x[0]][g.y+x[1]].tilecon.alpha = 1;
-                            this.tabs[g.x+x[0]][g.y+x[1]].discovered = true;
-                            //this.knownspells.push(this.tabs[g.x+x[0]][g.y+x[1]].id); //this will have to be restricted to caste pages
+                    if (x[1] == -1 && g.connectType == "t") continue; // that weird edge case in Fundamentals at the top, maybe make this better eventually
+                    if (this.tabs[k][g.x+x[0]] && this.tabs[k][g.x+x[0]][g.y+x[1]]){
+                        goo.push(this.tabs[k][g.x+x[0]][g.y+x[1]]);
+                        if (this.tabs[k][g.x+x[0]][g.y+x[1]] instanceof ResearchNode){
+                            this.tabs[k][g.x+x[0]][g.y+x[1]].tilecon.alpha = 1;
+                            this.tabs[k][g.x+x[0]][g.y+x[1]].discovered = true;
+                            //this.knownspells.push(this.tabs[k][g.x+x[0]][g.y+x[1]].id); //this will have to be restricted to caste pages
                         }
                     }
                 }
@@ -109,16 +126,21 @@ class Research{
     }
 
     buildTabs(){
-        for(let i=0;i<15;i++){
-            this.tabs[i] = [];
-            for(let j=0;j<15;j++){
-                let nodeType = keyresearch[researchpage["Web"][j][i]];
-                if ("TL)><I-+KY".includes(researchpage["Web"][j][i])) this.tabs[i][j] = new ResearchConnector(i,j,nodeType);
-                else if (nodeType == ".") this.tabs[i][j] = new RealityWall(i,j);
-                else this.tabs[i][j] = new ResearchNode(i,j,researchpage["Web"][j][i],0);
+        for (let k=0; k<7;k++){
+            this.tabs[k] = [];
+            let web = k;
+            if (web > 0) web = 2;
+            for(let i=0;i<15;i++){
+                this.tabs[k][i] = [];
+                for(let j=0;j<15;j++){
+                    let nodeType = keyresearch[researchpage["Web"+web][j][i]];
+                    if ("TL)><I-+KY".includes(researchpage["Web"+web][j][i])) this.tabs[k][i][j] = new ResearchConnector(i,j,nodeType);
+                    else if (nodeType == ".") this.tabs[k][i][j] = new RealityWall(i,j);
+                    else this.tabs[k][i][j] = new ResearchNode(i,j,researchpage["Web"+web][j][i],k);
+                }
             }
         }
-        this.page = this.tabs;
+        this.page = this.tabs[0];
     }
 
     buildTabsOld(){
@@ -147,13 +169,15 @@ class Research{
         if (this.knownnodes.includes(dis)) return;
         playSound("learn");
         this.knownnodes.push(dis);
-        for(let i=0;i<14;i++){
-            for(let j=0;j<14;j++){
-                if (this.tabs[i][j] instanceof ResearchNode && dis == this.tabs[i][j].id){
-                    this.tabs[i][j].completed = true;
-                    this.tabs[i][j].sprite = 120;
-                    this.goopSpread(i,j);
-                    break;
+        for (let k = 0; k<7; k++){
+            for(let i=0;i<14;i++){
+                for(let j=0;j<14;j++){
+                    if (this.tabs[k][i][j] instanceof ResearchNode && dis == this.tabs[k][i][j].id){
+                        this.tabs[k][i][j].completed = true;
+                        this.tabs[k][i][j].sprite = 120;
+                        this.goopSpread(k,i,j);
+                        break;
+                    }
                 }
             }
         }
@@ -284,11 +308,12 @@ class CasteTab{
     constructor(caste){
         this.caste = caste;
         this.extension = 4;
-        this.truePos = 252;
+        this.extended = false;
     }
 
     setUpSprites(){
         this.displayCon = new PIXI.Container();
+        this.displayCon.truePos = 252;
         drawChainBorder(12,3,this.displayCon);
         for (let i of this.displayCon.children[0].children){
             if (i.x == 11*32) this.displayCon.children[0].removeChild(i);
@@ -330,18 +355,19 @@ class CasteTab{
         graphics.alpha = 0.1;
         graphics.eventMode = 'static';
         graphics.on('pointerover', (event) => {
-            this.truePos = 16;
+            this.displayCon.truePos = 16;
         });
         graphics.on('pointerdown', (event) => {
-            //idk yet
+            research.selectCaste(this.casteNum);
         });
         graphics.on('pointerout', (event) => {
-            this.truePos = 252;
+            if (!this.displayCon.extended) this.displayCon.truePos = 252;
         });
         this.displayCon.addChild(graphics);
         app.ticker.add(() => {
-            if (this.displayCon.x < this.truePos) this.displayCon.x = Math.min(this.displayCon.x+24,this.truePos);
-            else if (this.displayCon.x > this.truePos) this.displayCon.x = Math.max(this.displayCon.x-24,this.truePos);
+            if (this.displayCon.extended) this.displayCon.truePos = 16;
+            if (this.displayCon.x < this.displayCon.truePos) this.displayCon.x = Math.min(this.displayCon.x+24,this.displayCon.truePos);
+            else if (this.displayCon.x > this.displayCon.truePos) this.displayCon.x = Math.max(this.displayCon.x-24,this.displayCon.truePos);
         });
     }
 }
