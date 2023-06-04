@@ -35,17 +35,16 @@ function setupPixi(){
         PIXI.BaseTexture.from(atlasData.meta.image),
         atlasData
     );
-    document.body.appendChild(app.view);
-    tilesDisplay = new PIXI.Container();
-    tilesDisplay.x = (1920-16*16*resolutionSize)/2+(resolutionSize+12)*16;
-    tilesDisplay.y = (1080-16*9*resolutionSize)/2;
-    app.stage.addChild(tilesDisplay);
-
     allsprites.parse();
+    document.body.appendChild(app.view);
     uiDisplayLeft = new PIXI.Container();
     uiDisplayLeft.x = 34;
     uiDisplayLeft.y = 44;
     app.stage.addChild(uiDisplayLeft);
+    tilesDisplay = new PIXI.Container();
+    tilesDisplay.x = (1920-16*16*resolutionSize)/2+(resolutionSize+12)*16;
+    tilesDisplay.y = (1080-16*9*resolutionSize)/2;
+    app.stage.addChild(tilesDisplay);
     uiDisplayRight = new PIXI.Container();
     uiDisplayRight.x = 372+32*32+28;
     uiDisplayRight.y = 44;

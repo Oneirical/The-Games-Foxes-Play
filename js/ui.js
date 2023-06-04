@@ -30,6 +30,16 @@ class Research{
                 this.page[i][j].setUpResearch();
             }
         }
+        this.tabContainer = new PIXI.Container();
+        for (let i = 0; i<7; i++){
+            let sprite = i-1;
+            if (i == 0) sprite = 33;
+            let selector = new CasteTab(sprite);
+            selector.setUpSprites();
+            selector.displayCon.y = i*112+16;
+            selector.displayCon.x = 252;
+            this.tabContainer.addChild(selector.displayCon);
+        }
         //drawPixel("black",64*6+8,64*6+8,64*3-16,this.displayCon);
     }
 
@@ -268,6 +278,72 @@ function showCatalogue(type){
     printOutText(description, 18, 590, 105, "white", 20, 6*64-35);
     printOutText(researchnames[type], 18, 590, 50, "white", 20, 6*64-100);
     drawSymbol(inside[type], 890, 20, 64);
+}
+
+class CasteTab{
+    constructor(caste){
+        this.caste = caste;
+        this.extension = 4;
+        this.truePos = 252;
+    }
+
+    setUpSprites(){
+        this.displayCon = new PIXI.Container();
+        drawChainBorder(12,3,this.displayCon);
+        for (let i of this.displayCon.children[0].children){
+            if (i.x == 11*32) this.displayCon.children[0].removeChild(i);
+        }
+        let newSprite = new FoxSprite(allsprites.textures['icon'+this.caste]);
+        newSprite.width = 64;
+        newSprite.height = 64;
+        newSprite.alpha = 0.8;
+        this.displayCon.addChild(newSprite);
+        const tabText = {
+            33: "Fundamentals",
+            0: "Saintly",
+            1: "Ordered",
+            2: "Artistic",
+            3: "Unhinged",
+            4: "Feral",
+            5: "Vile"
+        };
+        const tabColor = {
+            33: "white",
+            0: "lime",
+            1: "orangered",
+            2: "orange",
+            3: "yellow",
+            4: "yellowgreen",
+            5: "plum"
+        };
+        const style = new PIXI.TextStyle({
+            fontFamily: 'Play',
+            fontSize: 32,
+            fill: tabColor[this.caste],
+        });
+        printOutText(tabText[this.caste],92,15,style,this.displayCon);
+        for (let i of this.displayCon.children[2].children) i.anchor.set(0.5,0.5);
+        const graphics = new PIXI.Graphics();
+        graphics.beginFill("white");
+        graphics.drawRect(-16, -16, 11*32, 3*32);
+        graphics.endFill();
+        graphics.alpha = 0.1;
+        graphics.eventMode = 'static';
+        graphics.on('pointerover', (event) => {
+            this.truePos = 16;
+        });
+        graphics.on('pointerdown', (event) => {
+            //idk yet
+        });
+        graphics.on('pointerout', (event) => {
+            this.truePos = 252;
+        });
+        this.displayCon.addChild(graphics);
+        app.ticker.add(() => {
+            if (this.displayCon.x < this.truePos) this.displayCon.x = Math.min(this.displayCon.x+24,this.truePos);
+            else if (this.displayCon.x > this.truePos) this.displayCon.x = Math.max(this.displayCon.x-24,this.truePos);
+        });
+    }
 }
 
 class Cursor{

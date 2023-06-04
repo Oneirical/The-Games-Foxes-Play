@@ -16,6 +16,30 @@ function summonExits(){
     world.fighting = false;
 }
 
+function toResearchMode(){
+    inResearch = !inResearch;
+    inInventory = false;
+    inMap = false;
+    if (inResearch){
+        tilesDisplay.eventMode = 'static';
+        tilesDisplay.addChild(research.displayCon);
+        uiDisplayLeft.addChild(research.tabContainer);
+        uiDisplayLeft.removeChild(areaname.displayCon);
+        uiDisplayLeft.removeChild(statuses.displayCon);
+        uiDisplayLeft.removeChild(world.displayCon);
+        uiDisplayLeft.removeChild(player.axioms.displayCon);
+    }
+    else{
+        tilesDisplay.eventMode = 'none';
+        tilesDisplay.removeChild(research.displayCon);
+        uiDisplayLeft.removeChild(research.tabContainer);
+        uiDisplayLeft.addChild(areaname.displayCon);
+        uiDisplayLeft.addChild(statuses.displayCon);
+        uiDisplayLeft.addChild(world.displayCon);
+        uiDisplayLeft.addChild(player.axioms.displayCon);
+    }
+}
+
 function beginTurn(){
     for(let k=monsters.length;k>=0;k--){
         let activeeffects = [];

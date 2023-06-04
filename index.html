@@ -117,11 +117,7 @@
                 cursormode = false;
             }
             if (e.key == "f"){
-                inResearch = !inResearch;
-                inInventory = false;
-                inMap = false;
-                if (inResearch) tilesDisplay.addChild(research.displayCon);
-                else tilesDisplay.removeChild(research.displayCon);
+                toResearchMode();
             }
             if (e.key == "o"){ // debug
                 research.sereneSpread();
