@@ -32,6 +32,42 @@ class Research{
         //drawPixel("black",64*6+8,64*6+8,64*3-16,this.displayCon);
     }
 
+    goopSpread(i,j){
+        this.tabs[i][j].tilecon.alpha = 1;
+        this.tabs[i][j].spriteDisplay.texture = allsprites.textures['sprite'+this.tabs[i][j].sprite];
+        let goo = [];
+        let neig = [[-1,0],[1,0],[0,1],[0,-1]];
+        for (let x of neig){
+            if (this.tabs[i+x[0]] && this.tabs[i+x[0]][j+x[1]]) goo.push(this.tabs[i+x[0]][j+x[1]]);
+        }
+        goo = goo.filter(t => t instanceof ResearchConnector && t.tilecon.alpha != 1);
+        while (goo.length){
+            for (let g of goo){
+                if (!(g instanceof ResearchConnector)){
+                    removeItemOnce(goo,g);
+                    g.alpha = 1;
+                    g.filters = [];
+                    continue;
+                }
+                let neig = [[-1,0],[1,0],[0,1],[0,-1]];
+                for (let x of neig){
+                    if (this.tabs[g.x+x[0]] && this.tabs[g.x+x[0]][g.y+x[1]]){
+                        goo.push(this.tabs[g.x+x[0]][g.y+x[1]]);
+                        if (this.tabs[g.x+x[0]][g.y+x[1]] instanceof ResearchNode){
+                            this.tabs[g.x+x[0]][g.y+x[1]].tilecon.alpha = 1;
+                            this.tabs[g.x+x[0]][g.y+x[1]].discovered = true;
+                            //this.knownspells.push(this.tabs[g.x+x[0]][g.y+x[1]].id); //this will have to be restricted to caste pages
+                        }
+                    }
+                }
+                goo = goo.filter(t => t instanceof ResearchConnector && t.tilecon.alpha != 1);
+                g.tilecon.alpha = 1;
+                g.tilecon.filters = [];
+            }
+            if (goo.length > 20) return "uh oh";
+        }
+    }
+
     buildTabs(){
         for(let i=0;i<15;i++){
             this.tabs[i] = [];
@@ -71,25 +107,13 @@ class Research{
         if (this.knownnodes.includes(dis)) return;
         playSound("learn");
         this.knownnodes.push(dis);
-        if (researchunlockdata[dis]) this.monsterpool.push(researchunlockdata[dis]);
-        for (let k=0; k<this.tabs.length;k++){
-            for(let i=0;i<9;i++){
-                for(let j=0;j<9;j++){
-                    if (this.tabs[k][i][j] instanceof ResearchNode && dis == this.tabs[k][i][j].id){
-                        this.tabs[k][i][j].completed = true;
-                        this.tabs[k][i][j].sprite = 120;
-                        break;
-                    }
-                }
-            }
-        }
-        for (let k=0; k<this.tabs.length;k++){ //change the 1 later to pagecount
-            for(let i=0;i<9;i++){
-                for(let j=0;j<9;j++){
-                    if (this.tabs[k][i][j] instanceof ResearchNode && this.checkforLinks(researchpage["Page"+k]["links"][this.tabs[k][i][j].letter],k)) {
-                        this.tabs[k][i][j].discovered = true;
-                        if (!this.knownspells.includes(this.tabs[k][i][j].id) && (contingencies.includes(this.tabs[k][i][j].id) || forms.includes(this.tabs[k][i][j].id) || mutators.includes(this.tabs[k][i][j].id) || functions.includes(this.tabs[k][i][j].id))) this.knownspells.push(this.tabs[k][i][j].id);
-                    }
+        for(let i=0;i<14;i++){
+            for(let j=0;j<14;j++){
+                if (this.tabs[i][j] instanceof ResearchNode && dis == this.tabs[i][j].id){
+                    this.tabs[i][j].completed = true;
+                    this.tabs[i][j].sprite = 120;
+                    this.goopSpread(i,j);
+                    break;
                 }
             }
         }

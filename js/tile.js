@@ -40,6 +40,7 @@ class Tile{
         newSprite.width = 64;
         newSprite.height = 64;
         this.tilecon.addChild(newSprite);
+        this.spriteDisplay = newSprite;
         research.displayCon.addChild(this.tilecon);
     }
 
@@ -981,6 +982,13 @@ class ResearchConnector extends Floor{
         this.lore = description["Floor"];
         this.name = "hai";
     }
+
+    setUpResearch(){
+        super.setUpResearch();
+        let wai = new PIXI.filters.GrayscaleFilter();
+        this.tilecon.filters = [wai];
+        this.tilecon.alpha = 0.3;
+    }
 }
 
 const inside = {
@@ -1043,7 +1051,7 @@ class ResearchNode extends Floor{
         this.unlock = researchunlocks[this.id];
         if (researchunlockdata[this.id]) this.unlockdata = new researchunlockdata[this.id]("disabled");
         if (!this.unlock) this.unlock = researchunlocks["None"];
-        this.discovered = true;
+        this.discovered = false;
         this.completed = false;
         if (this.id == "Intro") this.discovered = true;
 
