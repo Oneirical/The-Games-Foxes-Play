@@ -9,6 +9,7 @@ class Research{
         this.looking = false;
         this.exppage = new TutorialDisplay();
         this.monsterpool = [Apis, Second, Tinker, Slug, Scion, Shrike, Apiarist];
+        this.infectedConnectors = [];
     }
 
     setUpSprites(){
@@ -32,11 +33,40 @@ class Research{
         //drawPixel("black",64*6+8,64*6+8,64*3-16,this.displayCon);
     }
 
+    sereneSpread(){
+        if (this.infectedConnectors.length == 0) this.infectedConnectors.push(this.tabs[7][12]);
+
+        const neig = [[-1,0],[1,0],[0,1],[0,-1]];
+        let candidates = [];
+        for (let g of this.infectedConnectors){
+            for (let x of neig){
+                if (this.tabs[g.x+x[0]] && this.tabs[g.x+x[0]][g.y+x[1]]){
+                    if (!this.tabs[g.x+x[0]][g.y+x[1]].fuffified && !(this.tabs[g.x+x[0]][g.y+x[1]] instanceof RealityWall)){
+                        candidates.push(this.tabs[g.x+x[0]][g.y+x[1]]);
+                        this.tabs[g.x+x[0]][g.y+x[1]].fuffified = true;
+                        if (this.tabs[g.x+x[0]][g.y+x[1]] instanceof ResearchNode){
+                            this.tabs[g.x+x[0]][g.y+x[1]].tilecon.alpha = 1;
+                            this.tabs[g.x+x[0]][g.y+x[1]].discovered = true;
+                            this.tabs[g.x+x[0]][g.y+x[1]].completed = true;
+                            this.tabs[g.x+x[0]][g.y+x[1]].spriteDisplay.texture = allsprites.textures['sprite150'];
+                        }
+                        else{
+                            this.tabs[g.x+x[0]][g.y+x[1]].tilecon.alpha = 1;
+                            this.tabs[g.x+x[0]][g.y+x[1]].tilecon.filters = [];
+                            this.tabs[g.x+x[0]][g.y+x[1]].spriteDisplay.texture = allsprites.textures['sprite'+(this.tabs[g.x+x[0]][g.y+x[1]].sprite+30)];
+                        }
+                    }
+                }
+            }
+        }
+        this.infectedConnectors = candidates;
+    }
+
     goopSpread(i,j){
         this.tabs[i][j].tilecon.alpha = 1;
         this.tabs[i][j].spriteDisplay.texture = allsprites.textures['sprite'+this.tabs[i][j].sprite];
         let goo = [];
-        let neig = [[-1,0],[1,0],[0,1],[0,-1]];
+        const neig = [[-1,0],[1,0],[0,1],[0,-1]];
         for (let x of neig){
             if (this.tabs[i+x[0]] && this.tabs[i+x[0]][j+x[1]]) goo.push(this.tabs[i+x[0]][j+x[1]]);
         }
@@ -49,7 +79,7 @@ class Research{
                     g.filters = [];
                     continue;
                 }
-                let neig = [[-1,0],[1,0],[0,1],[0,-1]];
+                const neig = [[-1,0],[1,0],[0,1],[0,-1]];
                 for (let x of neig){
                     if (this.tabs[g.x+x[0]] && this.tabs[g.x+x[0]][g.y+x[1]]){
                         goo.push(this.tabs[g.x+x[0]][g.y+x[1]]);

@@ -12,6 +12,7 @@ class Tile{
         this.pin = false;
         this.recallpoint = false;
         this.souls = [];
+        this.fuffified = false;
         this.clicktrap = false;
         this.tilecon = new PIXI.Container();
     }
