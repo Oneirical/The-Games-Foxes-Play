@@ -17,6 +17,7 @@ function summonExits(){
 }
 
 function toResearchMode(){
+    research.completeResearch("Research");
     inResearch = !inResearch;
     inInventory = false;
     inMap = false;
@@ -28,15 +29,21 @@ function toResearchMode(){
         uiDisplayLeft.removeChild(statuses.displayCon);
         uiDisplayLeft.removeChild(world.displayCon);
         uiDisplayLeft.removeChild(player.axioms.displayCon);
+        uiDisplayRight.removeChild(wheel.displayCon);
+        uiDisplayRight.removeChild(log.displayCon);
+        uiDisplayRight.addChild(research.descriptionBox.displayCon);
     }
     else{
         tilesDisplay.eventMode = 'passive';
         tilesDisplay.removeChild(research.displayCon);
         uiDisplayLeft.removeChild(research.tabContainer);
+        uiDisplayRight.removeChild(research.descriptionBox.displayCon);
         uiDisplayLeft.addChild(areaname.displayCon);
         uiDisplayLeft.addChild(statuses.displayCon);
         uiDisplayLeft.addChild(world.displayCon);
         uiDisplayLeft.addChild(player.axioms.displayCon);
+        uiDisplayRight.addChild(wheel.displayCon);
+        uiDisplayRight.addChild(log.displayCon);
     }
 }
 

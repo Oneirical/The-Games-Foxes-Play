@@ -249,6 +249,7 @@ function printOutText(text,x,y,style,source){
     let totalse = arr.join(' ');
     style.wordWrap = true;
     textBlock.linesnum += PIXI.TextMetrics.measureText(totalse,style).height;
+    return textBlock.linesnum;
     //handle including ;l in there, maybe?
 }
 
@@ -262,7 +263,7 @@ function handleColors(text,x,y,style,source, oldx)
         for (let i = 0; i<breaker.length; i++){
             let sis = "";
             if (i != 0) sis = breaker[i-1];
-            handleColors(breaker[i],  x, yscale + Math.min(1,i)*20 + (PIXI.TextMetrics.measureText(sis,style).height)-20,style,source);
+            handleColors(breaker[i],  x, yscale + Math.min(1,i)*20 + (PIXI.TextMetrics.measureText(sis,style).height)-60,style,source);
             yscale = yscale + 20*Math.min(1,i) + (PIXI.TextMetrics.measureText(sis,style).height);
             source.linesnum += 20;
         }

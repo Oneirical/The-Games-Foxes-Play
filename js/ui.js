@@ -55,6 +55,8 @@ class Research{
             selector.displayCon.x = 252;
             this.tabContainer.addChild(selector.displayCon);
         }
+        this.descriptionBox = new NodeDescription();
+        this.descriptionBox.setUpSprites();
         this.selectCaste(this.currentpage);
     }
 
@@ -95,7 +97,6 @@ class Research{
         for (let x of neig){
             if (this.tabs[k][i+x[0]] && this.tabs[k][i+x[0]][j+x[1]]) goo.push(this.tabs[k][i+x[0]][j+x[1]]);
         }
-        console.log(goo);
         goo = goo.filter(t => t instanceof ResearchConnector && t.tilecon.alpha != 1);
         while (goo.length){
             for (let g of goo){
@@ -170,8 +171,8 @@ class Research{
         playSound("learn");
         this.knownnodes.push(dis);
         for (let k = 0; k<7; k++){
-            for(let i=0;i<14;i++){
-                for(let j=0;j<14;j++){
+            for(let i=0;i<15;i++){
+                for(let j=0;j<15;j++){
                     if (this.tabs[k][i][j] instanceof ResearchNode && dis == this.tabs[k][i][j].id){
                         this.tabs[k][i][j].completed = true;
                         this.tabs[k][i][j].sprite = 120;
@@ -302,6 +303,35 @@ function showCatalogue(type){
     printOutText(description, 18, 590, 105, "white", 20, 6*64-35);
     printOutText(researchnames[type], 18, 590, 50, "white", 20, 6*64-100);
     drawSymbol(inside[type], 890, 20, 64);
+}
+
+class NodeDescription{
+    constructor(){
+    }
+
+    setUpSprites(){
+        this.displayCon = new PIXI.Container();
+        drawChainBorder(15,28,this.displayCon);
+    }
+
+    getDescription(node){
+        this.displayCon.removeChildren();
+        drawChainBorder(15,28,this.displayCon);
+        const text = [node.name,node.flags,node.description,node.lore]; //,node.extra
+        let linesnum = 0;
+        for (let i of text){
+            if (!i) return;
+            const style = new PIXI.TextStyle({
+                fontFamily: 'Play',
+                fontSize: 18,
+                fill: "white",
+                wordWrap: true,
+                wordWrapWidth: resolutionSize*16*16-(resolutionSize*9*16+(resolutionSize+12)*16+10)-20,
+                lineJoin: 'round',
+            });
+            linesnum += printOutText(i,0,linesnum,style,this.displayCon);
+        }
+    }
 }
 
 class CasteTab{

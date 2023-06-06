@@ -994,6 +994,7 @@ class ResearchConnector extends Floor{
 }
 
 const inside = {
+    "Research" : 67,
     "Cage" : 35,
     "Herald" : 37,
     "Intro" : 36,
@@ -1049,7 +1050,7 @@ class ResearchNode extends Floor{
         this.lore = researchlore[this.id];
         this.name = researchnames[this.id];
         this.flags = researchflags[this.id];
-        this.capsule = researchexpl[this.id];
+        this.description = researchexpl[this.id];
         this.unlock = researchunlocks[this.id];
         if (researchunlockdata[this.id]) this.unlockdata = new researchunlockdata[this.id]("disabled");
         if (!this.unlock) this.unlock = researchunlocks["None"];
@@ -1071,6 +1072,11 @@ class ResearchNode extends Floor{
         newSprite.height = 48;
         this.tilecon.addChild(newSprite);
         super.setUpResearch(source);
+        newSprite.eventMode = 'static';
+        newSprite.on('pointerover', (event) => {
+            console.log("wai");
+            research.descriptionBox.getDescription(this);
+        });
     }
 
     draw(){
