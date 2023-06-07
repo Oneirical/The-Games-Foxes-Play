@@ -329,26 +329,14 @@ class NodeDescription{
                 wordWrapWidth: resolutionSize*16*16-(resolutionSize*9*16+(resolutionSize+12)*16+10)-20,
                 lineJoin: 'round',
             });
-            let newText = new PIXI.Text(i,style);
-            if (i != node.name){
-                newText.y = PIXI.TextMetrics.measureText(text[text.indexOf(i)-1],style).height + accy;
-                accy += PIXI.TextMetrics.measureText(text[text.indexOf(i)],style).height
-            }
-            this.displayCon.addChild(newText);
+            textWithoutCringe(i,0,text.indexOf(i)*200,style,this.displayCon);
+            //let newText = new PIXI.Text(i,style);
+            //if (i != node.name){
+            //    newText.y = PIXI.TextMetrics.measureText(text[text.indexOf(i)-1],style).height + accy;
+            //    accy += PIXI.TextMetrics.measureText(text[text.indexOf(i)],style).height
+            //}
+            //this.displayCon.addChild(newText);
         }
-        const style = new PIXI.TextStyle({
-            fontFamily: 'Play',
-            fontSize: 18,
-            fill: "white",
-            fontWeight: "bold",
-            wordWrap: true,
-            wordWrapWidth: resolutionSize*16*16-(resolutionSize*9*16+(resolutionSize+12)*16+10)-20,
-            lineJoin: 'round',
-        });
-        style.fill = "lime";
-        let wai = new PIXI.Text('Canvas',style);
-        wai.x = PIXI.TextMetrics.measureText(" Paint the",style).width;
-        this.displayCon.addChild(wai);
     }
 }
 

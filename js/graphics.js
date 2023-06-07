@@ -237,6 +237,32 @@ function removeColorTags(text){
     return text.replace(/\[[\s\S]*?\]/g, '');
 }
 
+function textWithoutCringe(text,x,y,style,source){
+    let textBlock = new PIXI.Container();
+    textBlock.x = x;
+    textBlock.y = y;
+    let newText = new PIXI.Text(removeColorTags(text),style);
+    textBlock.addChild(newText);
+    source.addChild(textBlock);
+    if (text.includes('[')){
+        let breaker = text.split('[');
+        for (let i = 0; i<breaker.length; i++) {
+            let newStyle = new PIXI.TextStyle();
+            for (let i of Object.keys(style)) newStyle[i] = style[i];
+            let pickcolor = colourcodes[breaker[i].slice(0, 2)];
+            if (pickcolor) breaker[i] = breaker[i].slice(2);
+            else if (!pickcolor) pickcolor = newStyle.fill;
+            if (source.ancient) pickcolor = "#b4b5b8";
+            if (pickcolor == newStyle.fill) continue;
+            else newStyle.fill = pickcolor;
+            let colorText = new PIXI.Text(breaker[i],newStyle);
+            if (i>0) colorText.x = PIXI.TextMetrics.measureText(breaker[i-1],style).width;
+            textBlock.addChild(colorText);
+        }
+    }
+    
+}
+
 function printOutText(text,x,y,style,source){
     let textBlock = new PIXI.Container();
     textBlock.x = x;
