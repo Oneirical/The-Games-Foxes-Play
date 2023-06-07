@@ -318,7 +318,7 @@ class NodeDescription{
         this.displayCon.removeChildren();
         drawChainBorder(15,28,this.displayCon);
         const text = [node.name,node.flags,node.description,node.lore]; //,node.extra
-        let linesnum = 0;
+        let accy = 0;
         for (let i of text){
             if (!i) return;
             const style = new PIXI.TextStyle({
@@ -329,8 +329,26 @@ class NodeDescription{
                 wordWrapWidth: resolutionSize*16*16-(resolutionSize*9*16+(resolutionSize+12)*16+10)-20,
                 lineJoin: 'round',
             });
-            linesnum += printOutText(i,0,linesnum,style,this.displayCon);
+            let newText = new PIXI.Text(i,style);
+            if (i != node.name){
+                newText.y = PIXI.TextMetrics.measureText(text[text.indexOf(i)-1],style).height + accy;
+                accy += PIXI.TextMetrics.measureText(text[text.indexOf(i)],style).height
+            }
+            this.displayCon.addChild(newText);
         }
+        const style = new PIXI.TextStyle({
+            fontFamily: 'Play',
+            fontSize: 18,
+            fill: "white",
+            fontWeight: "bold",
+            wordWrap: true,
+            wordWrapWidth: resolutionSize*16*16-(resolutionSize*9*16+(resolutionSize+12)*16+10)-20,
+            lineJoin: 'round',
+        });
+        style.fill = "lime";
+        let wai = new PIXI.Text('Canvas',style);
+        wai.x = PIXI.TextMetrics.measureText(" Paint the",style).width;
+        this.displayCon.addChild(wai);
     }
 }
 
