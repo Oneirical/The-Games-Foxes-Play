@@ -244,7 +244,30 @@ function textWithoutCringe(text,x,y,style,source){
     let newText = new PIXI.Text(removeColorTags(text),style);
     textBlock.addChild(newText);
     source.addChild(textBlock);
-    if (text.includes('[')){
+
+    let allLines = PIXI.TextMetrics.measureText(removeColorTags(text),style).lines;
+    for (let i of allLines){
+        for (let j of Object.keys(specialWords)) if (i.includes(j)){
+            console.log(j);
+            let regex = new RegExp(".+?(?="+j+")");
+            console.log(regex);
+            let atX = 0;
+            if (i.match(regex))atX = PIXI.TextMetrics.measureText(" "+i.match(regex)[0],style).width;
+            let newStyle = new PIXI.TextStyle();
+            for (let i of Object.keys(style)) newStyle[i] = style[i];
+            newStyle.fill = specialWords[j];
+            const graphics = new PIXI.Graphics();
+            graphics.beginFill("black");
+            graphics.drawRect(atX, allLines.indexOf(i)*20, PIXI.TextMetrics.measureText(j,style).width, 20);
+            graphics.endFill();
+            textBlock.addChild(graphics);
+            let colorText = new PIXI.Text(j,newStyle);
+            colorText.x = atX;
+            colorText.y = allLines.indexOf(i)*20;
+            textBlock.addChild(colorText);
+        }
+    }
+    if (false && text.includes('[')){
         let breaker = text.split('[');
         for (let i = 0; i<breaker.length; i++) {
             let newStyle = new PIXI.TextStyle();
@@ -256,7 +279,14 @@ function textWithoutCringe(text,x,y,style,source){
             if (pickcolor == newStyle.fill) continue;
             else newStyle.fill = pickcolor;
             let colorText = new PIXI.Text(breaker[i],newStyle);
-            if (i>0) colorText.x = PIXI.TextMetrics.measureText(breaker[i-1],style).width;
+            //now here comes the fun part
+            console.log(PIXI.TextMetrics.measureText(text,style).lines);
+            // let until = breaker.slice(0,i);
+            // until.join('');
+            // until = removeColorTags(until[0]);
+            // console.log(until);
+            // if (i>0) colorText.x = PIXI.TextMetrics.measureText(until,style).lineWidths[PIXI.TextMetrics.measureText(until[0],style).lineWidths.length-1];
+
             textBlock.addChild(colorText);
         }
     }
