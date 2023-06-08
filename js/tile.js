@@ -1024,7 +1024,12 @@ const inside = {
     "EPSILON" : 44,
     "Brush" : 65,
     "STOP" : 20,
-
+    "Saintly" : 0,
+    "Ordered" : 1,
+    "Unhinged" : 3,
+    "Feral" : 4,
+    "Vile" : 5,
+    "Artistic" : 2,
     "JOLTZAZON" : 15,
     "PURPIZUG" : 16,
     "SHIZAPIS" : 20,

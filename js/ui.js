@@ -318,18 +318,27 @@ class NodeDescription{
         this.displayCon.removeChildren();
         drawChainBorder(15,28,this.displayCon);
         const text = [node.name,node.flags,node.description,node.lore]; //,node.extra
-        let accy = 0;
+        const heights = [0,20,60,325];
+        let newSprite = new FoxSprite(allsprites.textures['icon'+node.contents]);
+        newSprite.x = 32*13;
+        newSprite.width = 32;
+        newSprite.height = 32;
+        this.displayCon.addChild(newSprite);
         for (let i of text){
+            console.log(node);
             if (!i) return;
+            let coloring = "white";
+            if (i == node.lore) coloring = "plum";
             const style = new PIXI.TextStyle({
                 fontFamily: 'Play',
                 fontSize: 18,
-                fill: "white",
+                fill: coloring,
                 wordWrap: true,
                 wordWrapWidth: resolutionSize*16*16-(resolutionSize*9*16+(resolutionSize+12)*16+10)-20,
                 lineJoin: 'round',
             });
-            textWithoutCringe(i,0,text.indexOf(i)*200,style,this.displayCon);
+            textWithoutCringe(i,0,heights[text.indexOf(i)],style,this.displayCon);
+            if (text.indexOf(i) > 1) drawChainLine(12,50,heights[text.indexOf(i)],"h",this.displayCon);
             //let newText = new PIXI.Text(i,style);
             //if (i != node.name){
             //    newText.y = PIXI.TextMetrics.measureText(text[text.indexOf(i)-1],style).height + accy;

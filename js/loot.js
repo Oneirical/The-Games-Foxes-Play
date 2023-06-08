@@ -28,6 +28,7 @@ var nodeloot = {
     "FUNCTION" : functions.slice(),
     "CONTINGENCY" : contingencies.slice(),
     "MUTATOR" : mutators.slice(),
+    "Caste" : ["Saintly","Ordered","Artistic","Unhinged","Feral","Vile"],
 }
 
 let excludeloot = {

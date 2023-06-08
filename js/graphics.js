@@ -237,7 +237,7 @@ function removeColorTags(text){
     return text.replace(/\[[\s\S]*?\]/g, '');
 }
 
-function textWithoutCringe(text,x,y,style,source){
+function textWithoutCringe(text,x,y,style,source){ // here lies my sanity - june 5th 2023-june 7th 2023
     let textBlock = new PIXI.Container();
     textBlock.x = x;
     textBlock.y = y;
@@ -266,31 +266,7 @@ function textWithoutCringe(text,x,y,style,source){
             colorText.y = allLines.indexOf(i)*20;
             textBlock.addChild(colorText);
         }
-    }
-    if (false && text.includes('[')){
-        let breaker = text.split('[');
-        for (let i = 0; i<breaker.length; i++) {
-            let newStyle = new PIXI.TextStyle();
-            for (let i of Object.keys(style)) newStyle[i] = style[i];
-            let pickcolor = colourcodes[breaker[i].slice(0, 2)];
-            if (pickcolor) breaker[i] = breaker[i].slice(2);
-            else if (!pickcolor) pickcolor = newStyle.fill;
-            if (source.ancient) pickcolor = "#b4b5b8";
-            if (pickcolor == newStyle.fill) continue;
-            else newStyle.fill = pickcolor;
-            let colorText = new PIXI.Text(breaker[i],newStyle);
-            //now here comes the fun part
-            console.log(PIXI.TextMetrics.measureText(text,style).lines);
-            // let until = breaker.slice(0,i);
-            // until.join('');
-            // until = removeColorTags(until[0]);
-            // console.log(until);
-            // if (i>0) colorText.x = PIXI.TextMetrics.measureText(until,style).lineWidths[PIXI.TextMetrics.measureText(until[0],style).lineWidths.length-1];
-
-            textBlock.addChild(colorText);
-        }
-    }
-    
+    }    
 }
 
 function printOutText(text,x,y,style,source){
