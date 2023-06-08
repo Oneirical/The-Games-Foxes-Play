@@ -68,6 +68,7 @@ var keyresearch = {
     "+" : "+",
     "K" : "K",
     "Y" : "Y",
+    "J" : "J",
 }
 
 var spellpatterns = {
@@ -262,7 +263,7 @@ var researchpage = {
     "Web2" : {
         0 :  "c.............f",
         1 :  "L-s-m.....m-c-)",
-        2 :  "....K-sTs-K....",
+        2 :  "....K-sTs-J....",
         3 :  "f-c-s..I..m-s-s",
         4 :  "..I....f....I..",
         5 :  "..m-f..I..c-f..",
@@ -279,7 +280,7 @@ var researchpage = {
     "Web0" : {
         0 :  "C-D----A----T-C",
         1 :  "..I...>Y<...I..",
-        2 :  "C-K.O-FTU-M.C..",
+        2 :  "C-J.O-FTU-M.C..",
         3 :  "..I....I.......",
         4 :  "N-)..>-n----T-C",
         5 :  "I....o......I..",

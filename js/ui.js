@@ -135,7 +135,7 @@ class Research{
                 this.tabs[k][i] = [];
                 for(let j=0;j<15;j++){
                     let nodeType = keyresearch[researchpage["Web"+web][j][i]];
-                    if ("TL)><I-+KY".includes(researchpage["Web"+web][j][i])) this.tabs[k][i][j] = new ResearchConnector(i,j,nodeType);
+                    if ("TL)><I-+KYJ".includes(researchpage["Web"+web][j][i])) this.tabs[k][i][j] = new ResearchConnector(i,j,nodeType);
                     else if (nodeType == ".") this.tabs[k][i][j] = new RealityWall(i,j);
                     else this.tabs[k][i][j] = new ResearchNode(i,j,researchpage["Web"+web][j][i],k);
                 }

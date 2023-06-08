@@ -978,6 +978,7 @@ class ResearchConnector extends Floor{
             "+" : 119,
             "K" : 127,
             "Y" : 128,
+            "J" : 127,
         }
         this.sprite = conn[type];
         this.lore = description["Floor"];
@@ -987,6 +988,11 @@ class ResearchConnector extends Floor{
 
     setUpResearch(source){
         super.setUpResearch(source);
+        if (this.connectType == "J"){
+            this.tilecon.rotation = Math.PI;
+            this.tilecon.x += 64;
+            this.tilecon.y += 64;
+        }
         let wai = new PIXI.filters.GrayscaleFilter();
         this.tilecon.filters = [wai];
         this.tilecon.alpha = 0.3;
