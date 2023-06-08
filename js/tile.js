@@ -1068,6 +1068,17 @@ class ResearchNode extends Floor{
             this.id = shuffle(casteNodes)[0];
             removeItemOnce(casteNodes,this.id);
         }
+        if (this.id == "CASTE"){
+            const casteTabNum = {
+                1 : "Saintly",
+                2 : "Ordered",
+                3 : "Artistic",
+                4 : "Unhinged",
+                5 : "Feral",
+                6 : "Vile"
+            }
+            this.id = casteTabNum[page];
+        }
         if (Object.keys(nodeloot).includes(this.id)){
             this.axiomComponent = this.id;
             let axiomType = lootPool[this.id][castePages[page]];
