@@ -1052,6 +1052,7 @@ class ResearchNode extends Floor{
         this.sprite = 111;
         this.page = page;
         this.letter = type;
+        this.axiomComponent = false;
         let source = 0;
         if (page > 0) source = 1;
         const castePages = {
@@ -1068,6 +1069,7 @@ class ResearchNode extends Floor{
             removeItemOnce(casteNodes,this.id);
         }
         if (Object.keys(nodeloot).includes(this.id)){
+            this.axiomComponent = this.id;
             let axiomType = lootPool[this.id][castePages[page]];
             this.id = shuffle(lootPool[this.id][castePages[page]])[0];
             removeItemOnce(axiomType,this.id);
@@ -1081,14 +1083,23 @@ class ResearchNode extends Floor{
         if (!this.unlock) this.unlock = researchunlocks["None"];
         this.discovered = false;
         this.completed = false;
-        if (this.id == "Intro") this.discovered = true;
+        if (this.id == "Research") this.discovered = true;
 
         this.contents = inside[this.id];
     }
 
     setUpResearch(source){
         let hai = 7;
-        if (this.id) hai = inside[this.id];
+        if (this.axiomComponent && !this.discovered){
+            const typeSymbols = {
+                "FORM" : 0,
+                "FUNCTION" : 1,
+                "MUTATOR" : 2,
+                "CONTINGENCY" : 3,
+            }
+            hai = typeSymbols[this.axiomComponent];
+        }
+        else if (this.id) hai = inside[this.id];
         let newSprite = new FoxSprite(allsprites.textures['icon'+hai]);
         newSprite.width = 48;
         newSprite.x = 8;
@@ -1096,6 +1107,7 @@ class ResearchNode extends Floor{
         this.tilecon.alpha = 0.3;
         newSprite.height = 48;
         this.tilecon.addChild(newSprite);
+        this.innerSymbol = newSprite;
         super.setUpResearch(source);
         newSprite.eventMode = 'static';
         newSprite.on('pointerover', (event) => {

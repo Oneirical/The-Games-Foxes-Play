@@ -75,6 +75,7 @@ class Research{
                             this.tabs[k][g.x+x[0]][g.y+x[1]].tilecon.alpha = 1;
                             this.tabs[k][g.x+x[0]][g.y+x[1]].discovered = true;
                             this.tabs[k][g.x+x[0]][g.y+x[1]].completed = true;
+                            if (this.tabs[k][g.x+x[0]][g.y+x[1]].axiomComponent) this.tabs[k][g.x+x[0]][g.y+x[1]].innerSymbol.texture = (allsprites.textures['icon'+inside[this.tabs[k][g.x+x[0]][g.y+x[1]].id]]);
                             this.tabs[k][g.x+x[0]][g.y+x[1]].spriteDisplay.texture = allsprites.textures['sprite150'];
                         }
                         else{
@@ -114,6 +115,7 @@ class Research{
                         if (this.tabs[k][g.x+x[0]][g.y+x[1]] instanceof ResearchNode){
                             this.tabs[k][g.x+x[0]][g.y+x[1]].tilecon.alpha = 1;
                             this.tabs[k][g.x+x[0]][g.y+x[1]].discovered = true;
+                            if (this.tabs[k][g.x+x[0]][g.y+x[1]].axiomComponent) this.tabs[k][g.x+x[0]][g.y+x[1]].innerSymbol.texture = (allsprites.textures['icon'+inside[this.tabs[k][g.x+x[0]][g.y+x[1]].id]]);
                             //this.knownspells.push(this.tabs[k][g.x+x[0]][g.y+x[1]].id); //this will have to be restricted to caste pages
                         }
                     }
@@ -168,14 +170,14 @@ class Research{
 
     completeResearch(dis){
         if (this.knownnodes.includes(dis)) return;
-        playSound("learn");
-        this.knownnodes.push(dis);
         for (let k = 0; k<7; k++){
             for(let i=0;i<15;i++){
                 for(let j=0;j<15;j++){
-                    if (this.tabs[k][i][j] instanceof ResearchNode && dis == this.tabs[k][i][j].id){
+                    if (this.tabs[k][i][j] instanceof ResearchNode && dis == this.tabs[k][i][j].id && this.tabs[k][i][j].discovered){
                         this.tabs[k][i][j].completed = true;
                         this.tabs[k][i][j].sprite = 120;
+                        playSound("learn");
+                        this.knownnodes.push(dis);
                         this.goopSpread(k,i,j);
                         break;
                     }
