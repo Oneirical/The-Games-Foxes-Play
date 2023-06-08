@@ -744,6 +744,24 @@ class ButtonsDisplay{
         this.displayCon = new PIXI.Container();
         this.displayCon.y = 32*29;
         drawChainBorder(15,3,this.displayCon);
+        let newSprite = new FoxSprite(allsprites.textures['icon67']);
+        newSprite.x = 0;
+        newSprite.width = 64;
+        newSprite.height = 64;
+        newSprite.eventMode = 'static';
+        newSprite.on('pointerdown', (event) => {
+            toResearchMode();
+        });
+        newSprite.on('pointerover', (event) => {
+            let wai = new PIXI.filters.GlowFilter();
+            wai.outerStrength = 1;
+            newSprite.filters = [wai];
+        });
+        newSprite.on('pointerout', (event) => {
+            newSprite.filters = [];
+        });
+        this.displayCon.addChild(newSprite);
+        drawChainLine(2,88,16,"v",this.displayCon);
         uiDisplayRight.addChild(this.displayCon);
     }
 }
