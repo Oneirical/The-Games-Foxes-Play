@@ -17,6 +17,15 @@ const soulcosts = {
 // In the research menu, these should have "history book" descriptions.
 // EGO - BEAM - PCROSS - XCROSS - 8ADJ - 4ADJ - RANDOM (up to power) - WALL - ALL - PAYLOAD (summon that unleashes targets on death)
 
+const baseAxioms = {
+    "Saintly" : new Axiom([],["PLUS"],[],["HEAL"],"SAINTLY",player),
+    "Ordered" : new Axiom([],["SELF"],[],["PARACEON"],"ORDERED",player),
+    "Artistic" : new Axiom([],["SELF"],["CLICK"],["???"],"ARTISTIC",player),
+    "Unhinged" : new Axiom([],["XCROSS"],[],["HARM"],"UNHINGED",player),
+    "Feral" : new Axiom([],["SELF"],[],["DASH"],"FERAL",player),
+    "Vile" : new Axiom([],["SELF"],["ATKDELAY"],["STAB"],"VILE",player),
+}
+
 targeters = {
     EGO: function(caster){
         return [caster.tile];
