@@ -1120,9 +1120,15 @@ class ResearchNode extends Floor{
         this.tilecon.addChild(newSprite);
         this.innerSymbol = newSprite;
         super.setUpResearch(source);
-        newSprite.eventMode = 'static';
-        newSprite.on('pointerover', (event) => {
+        this.spriteDisplay.eventMode = 'static';
+        this.spriteDisplay.on('pointerover', (event) => {
             research.descriptionBox.getDescription(this);
+            let wai = new PIXI.filters.GlowFilter();
+            wai.outerStrength = 1;
+            this.tilecon.filters = [wai];
+        });
+        this.spriteDisplay.on('pointerout', (event) => {
+            this.tilecon.filters = [];
         });
     }
 

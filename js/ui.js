@@ -550,6 +550,26 @@ class StatusDisplay{
         this.hpCon = new PIXI.Container();
         this.hpCon.x = 8;
         this.hpCon.y = 6;
+        this.statusCon = new PIXI.Container();
+        this.statusCon.x = 166;
+        this.statusCon.y = 6;
+        for (let i = 0; i<2;i++){
+            for (let j = 0; j<6; j++){
+                let newSprite = new FoxSprite(allsprites.textures['icon7']);
+                newSprite.x = i*60;
+                newSprite.y = j*20;
+                newSprite.width = 16;
+                newSprite.height = 16;
+                this.statusCon.addChild(newSprite);
+                const style = new PIXI.TextStyle({
+                    fontFamily: 'Play',
+                    fontSize: 12,
+                    fill: "white",
+                });
+                printOutText("0",10+i*30,j*10,style,this.statusCon);
+            }
+        }
+        this.displayCon.addChild(this.statusCon);
         this.displayCon.addChild(this.hpCon);
         for (let i = 0; i<2;i++){
             for (let j = 0; j<3; j++){
@@ -584,6 +604,17 @@ class StatusDisplay{
         }
         for (let r = count; r<6;r++){
             this.hpCon.children[r].visible = false;
+        }
+        count = 0;
+        for (let e of Object.keys(i.statuseff)){
+            this.statusCon.children[count+1].children[0].text = i.statuseff[e];
+            if (i.statuseff[e] > 0) {
+                this.statusCon.children[count].texture =  allsprites.textures['icon0'];
+                count +=2;
+            }
+            else if (i.statuseff[e] == 0){
+                this.statusCon.children[count].texture =  allsprites.textures['icon7'];
+            }
         }
     }
 }
