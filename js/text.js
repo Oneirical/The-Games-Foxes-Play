@@ -738,16 +738,10 @@ researchequivalences = {
         //breath
     },
     1 : {
-        "a" : "Shattered",
-        "b" : "Subdued",
-        "c" : "Spellcast",
-        "d" : "Estate",
-        "e" : "PCage",
-        "f" : "FUNCTION",
-        "g" : "Craft",
-        "h" : "FUNCTION",
-        "i" : "FORM",
-        "j" : "FORM",
+        "c" : "CONTINGENCY",
+        "f" : "FORM",
+        "s" : "FUNCTION",
+        "m" : "MUTATOR",
     },
     2 : {
         "a" : "MUTATOR",

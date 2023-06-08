@@ -1052,11 +1052,25 @@ class ResearchNode extends Floor{
         this.sprite = 111;
         this.page = page;
         this.letter = type;
-        if (researchequivalences[0][type]) this.id = researchequivalences[0][type];
+        let source = 0;
+        if (page > 0) source = 1;
+        const castePages = {
+            1 : "S",
+            2: "O",
+            3: "A",
+            4 : "U",
+            5 : "F",
+            6: "V"
+        }
+        if (researchequivalences[source][type]) this.id = researchequivalences[source][type];
+        if (this.id == "Caste"){
+            this.id = shuffle(casteNodes)[0];
+            removeItemOnce(casteNodes,this.id);
+        }
         if (Object.keys(nodeloot).includes(this.id)){
-            let source = this.id;
-            this.id = shuffle(nodeloot[this.id])[0];
-            removeItemOnce(nodeloot[source],this.id);
+            let axiomType = lootPool[this.id][castePages[page]];
+            this.id = shuffle(lootPool[this.id][castePages[page]])[0];
+            removeItemOnce(axiomType,this.id);
         }
         this.lore = researchlore[this.id];
         this.name = researchnames[this.id];
@@ -1085,7 +1099,6 @@ class ResearchNode extends Floor{
         super.setUpResearch(source);
         newSprite.eventMode = 'static';
         newSprite.on('pointerover', (event) => {
-            console.log("wai");
             research.descriptionBox.getDescription(this);
         });
     }

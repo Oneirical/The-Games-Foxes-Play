@@ -325,7 +325,6 @@ class NodeDescription{
         newSprite.height = 32;
         this.displayCon.addChild(newSprite);
         for (let i of text){
-            console.log(node);
             if (!i) return;
             let coloring = "white";
             if (i == node.lore) coloring = "plum";

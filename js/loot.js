@@ -23,12 +23,13 @@ commoneq = {
     "SAINTLY" : Saintly,
 }
 
+const casteNodes = ["Saintly","Ordered","Artistic","Unhinged","Feral","Vile"];
+
 var nodeloot = {
     "FORM" : forms.slice(),
     "FUNCTION" : functions.slice(),
     "CONTINGENCY" : contingencies.slice(),
     "MUTATOR" : mutators.slice(),
-    "Caste" : ["Saintly","Ordered","Artistic","Unhinged","Feral","Vile"],
 }
 
 let excludeloot = {

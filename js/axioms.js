@@ -186,7 +186,6 @@ effects = {
     },
     DEBUG: function(target,power,mods){ //if power > X, give frenzy, haste?
         if (target.monster){
-            console.log("hai");
         }
     },
     KASHIA: function(target,power,mods){
