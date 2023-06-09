@@ -30,6 +30,17 @@ class Tile{
         this.tilecon.addChild(newSprite);
         this.spriteDisplay = newSprite;
         //add traps here
+        drawHitbox(tileSize/2, tileSize/2,tileSize,this.tilecon);
+        this.hitBox = this.tilecon.children[this.tilecon.children.length-1];
+        this.spriteDisplay.eventMode = 'static';
+        this.spriteDisplay.on('pointerover', (event) => {
+            this.hitBox.alpha = 0.4;
+        });
+        this.spriteDisplay.on('pointerdown', (event) => {
+        });
+        this.spriteDisplay.on('pointerout', (event) => {
+            this.hitBox.alpha = 0;
+        });
     }
 
     setUpResearch(source){
