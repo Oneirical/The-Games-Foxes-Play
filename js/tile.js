@@ -965,7 +965,7 @@ class HypnoticProjector extends Floor{
 }
 
 class ResearchConnector extends Floor{
-    constructor(x,y,type){
+    constructor(x,y,type,page){
         super(x,y,110, true);
         const conn = {
             "ur" : 116,
@@ -980,6 +980,7 @@ class ResearchConnector extends Floor{
             "Y" : 128,
             "J" : 127,
         }
+        this.page = page;
         this.sprite = conn[type];
         this.lore = description["Floor"];
         this.name = "hai";
@@ -1001,6 +1002,14 @@ class ResearchConnector extends Floor{
 
 const inside = {
     "Research" : 67,
+    "Form" : 68,
+    "Function" : 69,
+    "Mutator" : 70,
+    "Contingency" : 72,
+    "Influence" : 71,
+    "Structures" : 73,
+    "RoseQuest" : 75,
+    "Song" : 76,
     "Cage" : 35,
     "Herald" : 37,
     "Intro" : 36,
@@ -1013,7 +1022,7 @@ const inside = {
     "Shattered" : 49,
     "Estate" : 14,
     "PCage" : 39,
-    "Craft" : 6,
+    "Craft" : 74,
     "Spellcast" : 40,
     "GYVJI" : 27,
     "SENET" : 8,
@@ -1041,6 +1050,7 @@ const inside = {
     "SHIZAPIS" : 20,
     "RASEL" : 25,
     "ABAZON" : 22,
+    "Axioms" : 6,
     
     
     "ZENORIUM" : 65,
@@ -1103,10 +1113,10 @@ class ResearchNode extends Floor{
         let hai = 7;
         if (this.axiomComponent && !this.discovered){
             const typeSymbols = {
-                "FORM" : 0,
-                "FUNCTION" : 1,
-                "MUTATOR" : 2,
-                "CONTINGENCY" : 3,
+                "FORM" : 68,
+                "FUNCTION" : 69,
+                "MUTATOR" : 70,
+                "CONTINGENCY" : 72,
             }
             hai = typeSymbols[this.axiomComponent];
         }

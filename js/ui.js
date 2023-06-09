@@ -61,13 +61,14 @@ class Research{
     }
 
     sereneSpread(){
-        if (this.infectedConnectors.length == 0) this.infectedConnectors.push(this.tabs[7][12]);
+        if (this.infectedConnectors.length == 0) this.infectedConnectors.push(this.tabs[0][7][12]);
 
         const neig = [[-1,0],[1,0],[0,1],[0,-1]];
         let candidates = [];
         for (let g of this.infectedConnectors){
+            let k = g.page;
             for (let x of neig){
-                if (this.tabs[g.x+x[0]] && this.tabs[k][g.x+x[0]][g.y+x[1]]){
+                if (this.tabs[k][g.x+x[0]] && this.tabs[k][g.x+x[0]][g.y+x[1]]){
                     if (!this.tabs[k][g.x+x[0]][g.y+x[1]].fuffified && !(this.tabs[k][g.x+x[0]][g.y+x[1]] instanceof RealityWall)){
                         candidates.push(this.tabs[k][g.x+x[0]][g.y+x[1]]);
                         this.tabs[k][g.x+x[0]][g.y+x[1]].fuffified = true;
@@ -137,7 +138,7 @@ class Research{
                 this.tabs[k][i] = [];
                 for(let j=0;j<15;j++){
                     let nodeType = keyresearch[researchpage["Web"+web][j][i]];
-                    if ("TL)><I-+KYJ".includes(researchpage["Web"+web][j][i])) this.tabs[k][i][j] = new ResearchConnector(i,j,nodeType);
+                    if ("TL)><I-+KYJ".includes(researchpage["Web"+web][j][i])) this.tabs[k][i][j] = new ResearchConnector(i,j,nodeType,k);
                     else if (nodeType == ".") this.tabs[k][i][j] = new RealityWall(i,j);
                     else this.tabs[k][i][j] = new ResearchNode(i,j,researchpage["Web"+web][j][i],k);
                 }
