@@ -886,6 +886,10 @@ researchlore = {
 }
 
 researchunlocks = {
+    "Research" : "Open the Research web to complete this node.",
+    "Intro" : "Interact with any entity to complete this node.",
+    "Herald" : "Slay the Herald to complete this node",
+    //""
     "None" : "Completing this node will not awaken any memories of the Old World.",
     "EGO" : "Completing this node will populate Visions with [g]Self-Erased Monks[w] - resilient casters with a single-minded devotion to one of the six Castes.",
     "GYVJI" : "Completing this node will populate Visions with [a]Humming Paperweavers[w] - usually peaceful artisans who don't take kindly to their work being destroyed.",

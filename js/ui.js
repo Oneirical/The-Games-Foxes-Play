@@ -320,15 +320,15 @@ class NodeDescription{
     getDescription(node){
         this.displayCon.removeChildren();
         drawChainBorder(15,28,this.displayCon);
-        const text = [node.name,node.flags,node.description,node.lore]; //,node.extra
-        const heights = [0,20,60,325];
+        const text = [node.name,node.flags,node.description,node.lore,node.unlock]; //,node.extra
+        const heights = [0,20,60,325,450];
         let newSprite = new FoxSprite(allsprites.textures['icon'+node.contents]);
         newSprite.x = 32*13;
         newSprite.width = 32;
         newSprite.height = 32;
         this.displayCon.addChild(newSprite);
         for (let i of text){
-            if (!i) return;
+            if (!i) continue;
             let coloring = "white";
             if (i == node.lore) coloring = "plum";
             const style = new PIXI.TextStyle({
