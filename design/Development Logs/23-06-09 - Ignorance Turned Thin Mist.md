@@ -3,7 +3,7 @@
 - flavour text of Souvenirs Hauled from Bygone Eras, tutorial node
 
 ## The Games Foxes Play
-*([complete source code](https://github.com/Oneirical/The-Games-Foxes-Play) - [mirror]() | [view all previous posts](https://github.com/Oneirical/The-Games-Foxes-Play/tree/main/design/Development%20Logs) | [play 0.4.3 online in browser on itch.io!](https://oneirical.itch.io/tgfp))*
+*([complete source code](https://github.com/Oneirical/The-Games-Foxes-Play) - [mirror](https://codeberg.org/Oneirical/The-Games-Foxes-Play) | [view all previous posts](https://github.com/Oneirical/The-Games-Foxes-Play/tree/main/design/Development%20Logs) | [play 0.4.3 online in browser on itch.io!](https://oneirical.itch.io/tgfp))*
 
 I have cloned my source code to Codeberg, because as they say, when it comes to backups - one is zero and two is one. Learned that the hard way recently after I casually deleted the backup of my giga-huge DCSS Felid guide a week before the DCSS wiki went splat. It's [back](http://crawl.chaosforge.org/Onei%27s_3-rune_Interdimensional_Feline_Kidnapping_Walkthrough_-_FeSu%5EGozag/Jiyva) now, but that was a bit too close for comfort.
 
