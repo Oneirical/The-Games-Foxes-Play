@@ -5,11 +5,11 @@
 ## The Games Foxes Play
 *([complete source code](https://github.com/Oneirical/The-Games-Foxes-Play) - [mirror]() | [view all previous posts](https://github.com/Oneirical/The-Games-Foxes-Play/tree/main/design/Development%20Logs) | [play 0.4.3 online in browser on itch.io!](https://oneirical.itch.io/tgfp))*
 
-I have cloned my source code to Codeberg, because as they say, when it comes to backups - one is zero and two is one. Learned that the hard way recently after I casually deleted the backup of my giga-huge DCSS Felid guide a week before the DCSS wiki went splat. It's [back]() now, but that was a bit too close for comfort.
+I have cloned my source code to Codeberg, because as they say, when it comes to backups - one is zero and two is one. Learned that the hard way recently after I casually deleted the backup of my giga-huge DCSS Felid guide a week before the DCSS wiki went splat. It's [back](http://crawl.chaosforge.org/Onei%27s_3-rune_Interdimensional_Feline_Kidnapping_Walkthrough_-_FeSu%5EGozag/Jiyva) now, but that was a bit too close for comfort.
 
 # Dissipate the Mists of Ignorance
 
-The research screen remake continues, and now looks [snazzier than it ever was before](). Animated tab selectors, removal of annoying scrolling, and sprawling skill trees!
+The research screen remake continues, and now looks [snazzier than it ever was before](https://webmshare.com/play/GeVZa). Animated tab selectors, removal of annoying scrolling, and sprawling skill trees!
 
 In the original version, the code determining the unlock order and prerequisites was a simple database: 
 
@@ -31,7 +31,7 @@ I have a question. For the JS gods. *Why?*
 
 In the end, my final implementation is very sad. It literally writes the text normally all in a single color, then locates all words from a "special words list" and places new Text elements on top with a different color. This basically means that I can't ever have bold text without messing everything up. Oh well.
 
-There is also a mysterious cyan variant of the "liquid flow" unlocking algorithm, which [spreads very rapidly]() across the entire network and unveils truths as if they had been obvious since the very beginning of our protagonist's journey. I hope to build an entire core mechanic around this peculiar infection - and I believe the moment where it finally gets translated from my design document into code will be the big turning point between an amateurish experiment and an actually promising potential game. Over a year later, about time.
+There is also a mysterious cyan variant of the "liquid flow" unlocking algorithm, which [spreads very rapidly](https://webmshare.com/play/Y7rGG) across the entire network and unveils truths as if they had been obvious since the very beginning of our protagonist's journey. I hope to build an entire core mechanic around this peculiar infection - and I believe the moment where it finally gets translated from my design document into code will be the big turning point between an amateurish experiment and an actually promising potential game. Over a year later, about time.
 
 # Arcane Researchers Toil Alone
 
