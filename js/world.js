@@ -173,6 +173,7 @@ class Universe{
     }
 
     passDown(layer, spawnx, spawny){
+        uiDisplayLeft.removeChild(world.displayCon);
         if (this.worlds[layer].rooms[spawnx][spawny].corridor){
             shakeAmount = 5;
             return;
@@ -203,9 +204,12 @@ class Universe{
             research.completeResearch("Estate");
         }
         player.hp = maxHp;
+        world.setUpSprites();
+        uiDisplayLeft.addChild(world.displayCon);
     }
 
     passUp(layer,origin){
+        uiDisplayLeft.removeChild(world.displayCon);
         player.tile.monster = null;
         world.saveRoom(world.getRoom());
         const scale = {
@@ -264,6 +268,8 @@ class Universe{
             "Caste" : [],
         }
         world.cage.legendCheck();
+        world.setUpSprites();
+        uiDisplayLeft.addChild(world.displayCon);
     }
 
     playRandomWorld(oldWorld){

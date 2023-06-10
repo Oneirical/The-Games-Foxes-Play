@@ -17,7 +17,6 @@ function summonExits(){
 }
 
 function toResearchMode(){
-    research.completeResearch("Research");
     inResearch = !inResearch;
     inInventory = false;
     inMap = false;

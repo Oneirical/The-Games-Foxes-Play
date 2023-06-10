@@ -58,6 +58,7 @@ class Research{
         this.descriptionBox = new NodeDescription();
         this.descriptionBox.setUpSprites();
         this.selectCaste(this.currentpage);
+        this.completeResearch("Research");
     }
 
     sereneSpread(){

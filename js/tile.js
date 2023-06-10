@@ -62,6 +62,7 @@ class Tile{
 
     replace(newTileType){
         tiles[this.x][this.y] = new newTileType(this.x, this.y);
+        tiles[this.x][this.y].setUpSprite();
         return tiles[this.x][this.y];
     }
 
