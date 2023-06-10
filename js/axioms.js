@@ -190,7 +190,7 @@ effects = {
     },
     SENET: function(target,power,mods){ //if power > X, give frenzy, haste?
         if (target.monster){
-            target.monster.giveEffect("Persuasive",power*3,mods);
+            target.monster.giveEffect("Charm",power*3,mods);
         }
     },
     DEBUG: function(target,power,mods){ //if power > X, give frenzy, haste?

@@ -1,18 +1,24 @@
 ## This is a chaotic canvas on which I launch all the random things I come up with while going about my day and bugs I notice throughout playtesting. It is not meant to be comprehensible.
 
-* Add automatic large room integration.
-* Does para REALLY prevent casting or drawing?
-* Constrict softlock allow the player to tick it down
-* Fix haste (timesnapped)
+
+
+
 * Add Form grid (range targeters) images in their descriptions for clarity
 * A better ui for descriptions, with definitions for each keyword like 'exhale' or 'targets' or the status effects, StS style
 * Senet should become pure charm
 * Try to remove fishOutSoul()
 * Autoharvest subdueds on entering cage room
 
+**Status Effects**
+
+* Does para REALLY prevent casting or drawing?
+* Fix haste (timesnapped)
+* Constrict softlock allow the player to tick it down
+
 **Influential Dungeons**
 
 Make it so there are only a couple of possible rooms, but each one has a variant for each caste that can appear if you reach certain influence thresholds.
+* Add automatic large room integration.
 
 **Everyone Is Legendary**
 
