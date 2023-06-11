@@ -795,6 +795,26 @@ class ButtonsDisplay{
         });
         this.displayCon.addChild(newSprite);
         drawChainLine(2,88,16,"v",this.displayCon);
+
+        let axiomButton = new FoxSprite(allsprites.textures['icon6']);
+        axiomButton.x = 90;
+        axiomButton.width = 64;
+        axiomButton.height = 64;
+        axiomButton.eventMode = 'static';
+        axiomButton.on('pointerdown', (event) => {
+            toAxiomMode();
+        });
+        axiomButton.on('pointerover', (event) => {
+            let wai = new PIXI.filters.GlowFilter();
+            wai.outerStrength = 1;
+            axiomButton.filters = [wai];
+        });
+        axiomButton.on('pointerout', (event) => {
+            axiomButton.filters = [];
+        });
+        this.displayCon.addChild(axiomButton);
+        drawChainLine(2,178,16,"v",this.displayCon);
+
         uiDisplayRight.addChild(this.displayCon);
     }
 }
@@ -1415,6 +1435,7 @@ class Inventory{
             axiomslot.height = 32;
             axiomslot.x = xcoords[i];
             axiomslot.y = ycoords[i];
+            axiomslot.alpha = 0.7;
             this.axiomCon.addChild(axiomslot);
         }
 

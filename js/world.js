@@ -416,6 +416,17 @@ class World{
         //    }
         //}
         //if (this.currentroom.visited) drawPixel(9,4*7+x*size,4*7+y*size,14);
+
+        this.playerMarker = new FoxSprite(allsprites.textures["sprite0"]);
+        this.playerMarker.width = 112/9;
+        this.playerMarker.height = 112/9;
+        this.mapCon.addChild(this.playerMarker);
+    }
+
+    tickMap(){
+        this.playerMarker.x = player.tile.x*112/9+world.getRoom().index[0]*112+(2*(112/9));
+        this.playerMarker.y = player.tile.y*112/9+world.getRoom().index[1]*112+(2*(112/9));
+
     }
 
     miniMap(){

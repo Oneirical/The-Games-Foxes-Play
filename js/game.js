@@ -46,6 +46,51 @@ function toResearchMode(){
     }
 }
 
+function toAxiomMode(){
+    inInventory = !inInventory;
+    inResearch = false;
+    inMap = false;
+    if (inInventory){
+        tilesDisplay.eventMode = 'static';
+        drawPixel("black",0,0,112*9,tilesDisplay);
+        tilesDisplay.addChild(player.axioms.displayCon);
+        player.axioms.displayCon.x = 0;
+        player.axioms.displayCon.y = 0;
+        player.axioms.axiomCon.width = 112*9;
+        player.axioms.axiomCon.height = 112*9;
+        player.axioms.axiomCon.x = 8;
+        for (let i of player.axioms.displayCon.children){
+            if (i instanceof PIXI.ParticleContainer) player.axioms.displayCon.removeChild(i);
+        }
+        uiDisplayLeft.removeChild(areaname.displayCon);
+        uiDisplayLeft.removeChild(statuses.displayCon);
+        uiDisplayLeft.removeChild(world.displayCon);
+        uiDisplayLeft.removeChild(player.axioms.displayCon);
+        uiDisplayRight.removeChild(wheel.displayCon);
+        uiDisplayRight.removeChild(log.displayCon);
+        uiDisplayRight.addChild(research.descriptionBox.displayCon);
+    }
+    else{
+        tilesDisplay.eventMode = 'passive';
+        drawChainBorder(10,11,player.axioms.displayCon);
+        player.axioms.displayCon.y = 32*21;
+        player.axioms.axiomCon.x = -8;
+        player.axioms.axiomCon.y = 10;
+        player.axioms.axiomCon.width = (resolutionSize+12)*16;
+        player.axioms.axiomCon.height = (resolutionSize+12)*16;
+        tilesDisplay.removeChild(player.axioms.displayCon);
+        tilesDisplay.removeChildAt(tilesDisplay.children.length-1);
+        uiDisplayLeft.addChild(areaname.displayCon);
+        uiDisplayLeft.addChild(statuses.displayCon);
+        uiDisplayLeft.addChild(world.displayCon);
+        uiDisplayLeft.addChild(player.axioms.displayCon);
+        uiDisplayRight.addChild(wheel.displayCon);
+        uiDisplayRight.addChild(log.displayCon);
+        uiDisplayRight.removeChild(research.descriptionBox.displayCon);
+    }
+}
+
+
 function beginTurn(){
     for(let k=monsters.length;k>=0;k--){
         let activeeffects = [];
@@ -185,6 +230,7 @@ function tick(){
     tickTiles();
     wheel.tickWheel();
     statuses.updateDisplay();
+    world.tickMap();
 }
 
 //let bosstitle = ["-Last of the Saints-","-Supreme Ordered General-","-the Unfaltering Wheel-","-Grand Harmonic Maestra-"];

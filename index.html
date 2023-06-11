@@ -96,10 +96,7 @@
             showTitle();                                      
         }else if(gameState == "running"){
             if (e.key == "l"){
-                inInventory = !inInventory;
-                inMap = false;
-                inResearch = false;
-                cursormode = false;
+                toAxiomMode();
             }
             if (e.key == "k") toggleFullScreen();
             if(e.key=="a"&&inInventory) if (player.axioms.describepage > 0) player.axioms.describepage--;

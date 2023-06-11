@@ -1,11 +1,7 @@
 ## This is a chaotic canvas on which I launch all the random things I come up with while going about my day and bugs I notice throughout playtesting. It is not meant to be comprehensible.
 
-
-
-
 * Add Form grid (range targeters) images in their descriptions for clarity
 * A better ui for descriptions, with definitions for each keyword like 'exhale' or 'targets' or the status effects, StS style
-* Senet should become pure charm
 * Try to remove fishOutSoul()
 * Autoharvest subdueds on entering cage room
 
