@@ -697,6 +697,8 @@ class Terminal extends Monster{
         this.assignAxiom([],["EGO"],[],["PARACEON"],"ORDERED");
 
         this.assignAxiom([],["XCROSS"],[],["HARM"],"UNHINGED");
+
+        this.assignAxiom([],["SMOOCH"],["ATKDELAY"],["HARM"],"VILE");
     }
 
     revivify(){

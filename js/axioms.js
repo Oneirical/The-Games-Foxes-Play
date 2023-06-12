@@ -23,7 +23,7 @@ const soulcosts = {
 //    "Artistic" : new Axiom([],["EGO"],["CLICK"],["???"],"ARTISTIC",player),
 //    "Unhinged" : new Axiom([],["XCROSS"],[],["HARM"],"UNHINGED",player),
 //    "Feral" : new Axiom([],["EGO"],[],["DASH"],"FERAL",player),
-//    "Vile" : new Axiom([],["EGO"],["ATKDELAY"],["STAB"],"VILE",player),
+//    "Vile" : new Axiom([],["SMOOCH"],["ATKDELAY"],["HARM"],"VILE",player),
 //}
 
 targeters = {
