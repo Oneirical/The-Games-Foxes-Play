@@ -253,6 +253,7 @@ function startGame(){
     universe.start(startingHp);
     world.cage.equateWorld();
     gameState = "running";
+    player.grantStarters();
 }
 
 function summonMonster(x,y,type){

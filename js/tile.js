@@ -41,6 +41,16 @@ class Tile{
         this.spriteDisplay.on('pointerout', (event) => {
             this.hitBox.alpha = 0;
         });
+        this.effect = false;
+        app.ticker.add(() => {
+            if (this.effect){
+                this.effect.alpha -= 0.02;
+                if (this.effect.alpha <= 0){
+                    this.tilecon.removeChild(this.effect);
+                    this.effect = false;
+                }
+            }
+        });
     }
 
     setUpResearch(source){
@@ -212,10 +222,13 @@ class Tile{
         }
     }
 
-    setEffect(effectSprite, time){                                  
-        this.effect = effectSprite;
-        this.effectCounter = time;
+    setEffect(effectSprite){                                  
+        this.effect = new FoxSprite(allsprites.textures["sprite"+effectSprite]);
+        this.effect.width = 112;
+        this.effect.height = 112;
+        this.tilecon.addChild(this.effect);
     }
+
     checkDirection(room){
         if (room.size == 9){
             if (this.y == 0) this.direction = "N";

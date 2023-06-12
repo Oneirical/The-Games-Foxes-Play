@@ -1051,7 +1051,7 @@ researchexpl = {
     
     "STOP" : "[o]Function[w]: all [r]Targets[w] obtain [o]Paralyzed[w].\n\n[o]Paralyzed[w]: Prevents all turn actions.\n\nDuration of [o]Paralyzed[w]: [g]Potency[w] x 1 turns.",
     "APIS" : "[o]Function[w]: all [r]Targets[w] obtain [y]Constricted[w].\n\n[y]Constricted[w]: Prevents step actions.\n\nDuration of [o]Constricted[w]: [g]Potency[w] x 1 turns.",
-    "HEAL" : "[o]Function[w]: all [r]Targets[w] are healed for [g]Potency[w] x 1 health points.",
+    "HEAL" : "[o]Function[w]: all [r]Targets[w] are healed for [g]Potency[w] x 0.5 health points, rounded down.",
     "THRASH" : "[o]Function[w]: all [r]Targets[w] obtain [s]Thrashing[w].\n\n[s]Thrashing[w]: All step actions are reoriented in random directions.\n\nDuration of [s]Thrashing[w]: [g]Potency[w] x 1 turns.",
     "HASTE" : "[o]Function[w]: all [r]Targets[w] obtain [g]Timesnapped[w].\n\n[g]Timesnapped[w]: This turn, take bonus actions equal to the amount of [g]Timesnapped[w] stacks, then remove [g]Timesnapped[w].\n\nStacks of [g]Timesnapped[w] granted: [g]Potency[w] x 1 stacks.",
     "DEVOUR" : "[k]Mutator[w]: On each [r]Target[w], if its tile is destructible, destroy it and gain 1 [g]Potency[w].",

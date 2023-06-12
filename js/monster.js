@@ -129,6 +129,7 @@ class Monster{
         if (this.isInvincible || this.order >= 0) hp = 0;
         for (let i of this.creaturecon.children[1].children){
             if (hp <= 0) i.visible = false;
+            else i.visible = true;
             hp--;
         }
     }
@@ -689,6 +690,10 @@ class Terminal extends Monster{
         this.fov = 0;
         this.wheel = new SoulBreathing();
         this.souldropped = true;
+    }
+
+    grantStarters(){
+        this.assignAxiom([],["PLUS"],[],["HEAL"],"SAINTLY");
     }
 
     revivify(){

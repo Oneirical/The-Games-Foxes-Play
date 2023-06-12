@@ -229,7 +229,7 @@ effects = {
     },
     HEAL: function(target,power,mods){
         if (target.monster){
-            target.monster.heal(power);
+            target.monster.heal(Math.floor(power/2));
         }
     },
     THRASH: function(target,power,mods){
