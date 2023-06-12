@@ -6,6 +6,11 @@ Zennith - music
 
 # Code, libraries and dependencies
 
+Line interpolation algorithm
+Copyright (c) 2023 Amit Patel
+Line interpolation algorithm is licensed under the MIT License.
+http://www.opensource.org/licenses/mit-license
+
 Broughlike Tutorial
 Copyright (c) 2019 Jeremiah Reid
 Broughlike Tutorial is licensed under the MIT License.
@@ -20,3 +25,8 @@ GreenSock
 Copyright (c) 2023 GreenSock
 GreenSock is licensed under a custom no-commercial use license.
 https://greensock.com/standard-license/
+
+Glitch animation
+Copyright (c) 2022 Supremo Web Design
+Glitch animation is licensed under the MIT License.
+http://www.opensource.org/licenses/mit-license

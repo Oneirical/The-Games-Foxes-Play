@@ -14,6 +14,38 @@ function sameTile(tile1,tile2){
     return tile1.x == tile2.x && tile1.y == tile2.y;
 }
 
+function testLineEffect(p0,p1){
+    let targets =  line(p0, p1);
+    for (let i of targets) i.setEffect(0);
+}
+
+function line(p0, p1) {
+    let points = [];
+    let N = diagonal_distance(p0, p1);
+    for (let step = 0; step <= N; step++) {
+        let t = N === 0? 0.0 : step / N;
+        points.push(round_point(lerp_point(p0, p1, t)));
+    }
+    return points;
+}
+
+function diagonal_distance(p0, p1) {
+    let dx = p1.x - p0.x, dy = p1.y - p0.y;
+    return Math.max(Math.abs(dx), Math.abs(dy));
+}
+
+function round_point(p) {
+    return tiles[Math.round(p[0])][Math.round(p[1])];
+}
+
+function lerp_point(p0, p1, t) {
+    return [lerp(p0.x, p1.x, t), lerp(p0.y, p1.y, t)];
+}
+
+function lerp(start, end, t) {
+    return start * (1.0 - t) + t * end;
+}
+
 function generateWalls(){
     let passableTiles=0;
     for(let i=world.getRoom().extreme["W"]+1;i<world.getRoom().extreme["E"];i++){
