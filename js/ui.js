@@ -1688,6 +1688,22 @@ class Axiom extends Soul{
         return totalSpell;
     }
 
+    castAxiom(caster){
+        let praxes = this.dividePraxes();
+        let data = {
+            "caster" : caster,
+            "casterOriPos" : caster.tile,
+            "casterCurrentPos" : caster.tile,
+            "trapMode" : false,
+            "praxes" : praxes,
+        };
+        for (let i of praxes) data = this.castPraxis(i,data);
+    }
+
+    castPraxis(praxis,data){
+
+    }
+
     legendCast(caster){
         let targets = [];
         let power = 99;
