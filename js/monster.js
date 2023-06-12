@@ -694,6 +694,7 @@ class Terminal extends Monster{
 
     grantStarters(){
         this.assignAxiom([],["PLUS"],[],["HEAL"],"SAINTLY");
+        this.assignAxiom([],["EGO"],[],["PARACEON"],"ORDERED");
     }
 
     revivify(){

@@ -797,7 +797,7 @@ class ButtonsDisplay{
         drawChainLine(2,88,16,"v",this.displayCon);
 
         let axiomButton = new FoxSprite(allsprites.textures['icon6']);
-        axiomButton.x = 90;
+        axiomButton.x = 88;
         axiomButton.width = 64;
         axiomButton.height = 64;
         axiomButton.eventMode = 'static';
@@ -813,7 +813,7 @@ class ButtonsDisplay{
             axiomButton.filters = [];
         });
         this.displayCon.addChild(axiomButton);
-        drawChainLine(2,178,16,"v",this.displayCon);
+        drawChainLine(2,176,16,"v",this.displayCon);
 
         uiDisplayRight.addChild(this.displayCon);
     }

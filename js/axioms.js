@@ -1,5 +1,5 @@
 const powerratings = {
-    "EGO" : 4,
+    "EGO" : 2,
     "BEAM" : 3,
     "SMOOCH" : 5,
     "XCROSS" : 2,
@@ -204,7 +204,7 @@ effects = {
     },
     PARACEON: function(target,power,mods){
         if (target.monster){
-            target.monster.giveEffect("Invincible",power,mods);
+            target.monster.giveEffect("Invincible",Math.floor(power/2),mods);
         }
     },
     STOP: function(target,power,mods){
