@@ -19,11 +19,11 @@ const soulcosts = {
 
 //const baseAxioms = {
 //    "Saintly" : new Axiom([],["PLUS"],[],["HEAL"],"SAINTLY",player),
-//    "Ordered" : new Axiom([],["SELF"],[],["PARACEON"],"ORDERED",player),
-//    "Artistic" : new Axiom([],["SELF"],["CLICK"],["???"],"ARTISTIC",player),
+//    "Ordered" : new Axiom([],["EGO"],[],["PARACEON"],"ORDERED",player),
+//    "Artistic" : new Axiom([],["EGO"],["CLICK"],["???"],"ARTISTIC",player),
 //    "Unhinged" : new Axiom([],["XCROSS"],[],["HARM"],"UNHINGED",player),
-//    "Feral" : new Axiom([],["SELF"],[],["DASH"],"FERAL",player),
-//    "Vile" : new Axiom([],["SELF"],["ATKDELAY"],["STAB"],"VILE",player),
+//    "Feral" : new Axiom([],["EGO"],[],["DASH"],"FERAL",player),
+//    "Vile" : new Axiom([],["EGO"],["ATKDELAY"],["STAB"],"VILE",player),
 //}
 
 targeters = {
@@ -230,6 +230,11 @@ effects = {
     HEAL: function(target,power,mods){
         if (target.monster){
             target.monster.heal(Math.floor(power/2));
+        }
+    },
+    HARM: function(target,power,mods){
+        if (target.monster){
+            target.monster.hit(power);
         }
     },
     THRASH: function(target,power,mods){

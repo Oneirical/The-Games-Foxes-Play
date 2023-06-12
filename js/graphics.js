@@ -51,6 +51,21 @@ function setupPixi(){
     app.stage.addChild(uiDisplayRight);
     startGame();
     setUpUI();
+
+    const style = new PIXI.TextStyle({
+        fontFamily: 'Play',
+        fontSize: 18,
+        fill: "yellow",
+    });
+    console.log(uiDisplayLeft.children.length);
+    printOutText("60",10,40,style,uiDisplayLeft);
+    console.log(uiDisplayLeft.children.length);
+
+    let count = 0;
+    app.ticker.add(() => {
+        count++;
+        if (count == 10) {uiDisplayLeft.children[uiDisplayLeft.children.length-1].children[0].text = app.ticker.FPS; count = 0;}
+    });
 }
 
 function drawChainLine(l,x,y,dir,source){
