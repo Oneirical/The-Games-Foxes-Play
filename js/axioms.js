@@ -20,10 +20,14 @@ const soulcosts = {
 //const baseAxioms = {
 //    "Saintly" : new Axiom([],["PLUS"],[],["HEAL"],"SAINTLY",player),
 //    "Ordered" : new Axiom([],["EGO"],[],["PARACEON"],"ORDERED",player),
-//    "Artistic" : new Axiom([],["EGO"],["CLICK"],["???"],"ARTISTIC",player),
-//    "Unhinged" : new Axiom([],["XCROSS"],[],["HARM"],"UNHINGED",player),
-//    "Feral" : new Axiom([],["EGO"],[],["DASH"],"FERAL",player),
+//    "Artistic" : new Axiom([],["EGO"],["CLICK"],["???"],"ARTISTIC",player), // EGO, CLICK (should be function now) EGO, PLUSCROSS, PIERCE, HARM
+//    "Unhinged" : new Axiom([],["XCROSS"],[],["HARM"],"UNHINGED",player), also add PIERCE here
+//    "Feral" : new Axiom([],["EGO"],[],["DASH"],"FERAL",player), EGO, BLINK, TRAIL (new form), SPREAD (new mutator), IGNORECASTER, HARM
 //    "Vile" : new Axiom([],["SMOOCH"],["ATKDELAY"],["HARM"],"VILE",player),
+// TRAIL : for each target of previous praxis, draw trail between origin and current position
+// SPREAD: for each target, expand to adjacent
+// 
+// 
 //}
 
 targeters = {
