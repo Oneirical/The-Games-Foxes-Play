@@ -236,10 +236,10 @@ for (let i of Object.keys(spellpatterns)){
         }
     }
     lootPool[spellpatterns[i]["type"].toUpperCase()][caste].push(i);
-    if (spellpatterns[i]["type"] == "Contingency") contingencies.push(i);
-    else if (spellpatterns[i]["type"] == "Form") forms.push(i);
-    else if (spellpatterns[i]["type"] == "Mutator") mutators.push(i);
-    else if (spellpatterns[i]["type"] == "Function") functions.push(i);
+    //if (spellpatterns[i]["type"] == "Contingency") contingencies.push(i);
+    //else if (spellpatterns[i]["type"] == "Form") forms.push(i);
+    //else if (spellpatterns[i]["type"] == "Mutator") mutators.push(i);
+    //else if (spellpatterns[i]["type"] == "Function") functions.push(i);
 }
 
 var researchpage = {

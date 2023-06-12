@@ -90,6 +90,15 @@ function toAxiomMode(){
     }
 }
 
+function isForm(str){
+    if (axiomRepertoire["Forms"].includes(str)) return true;
+    else return false;
+}
+
+function isFunction(str){
+    if (axiomRepertoire["Functions"].includes(str)) return true;
+    else return false;
+}
 
 function beginTurn(){
     for(let k=monsters.length;k>=0;k--){

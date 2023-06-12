@@ -307,6 +307,13 @@ effects = {
     }
 }
 
+const axiomRepertoire = {
+    "Forms" : Object.keys(targeters),
+    "Functions" : Object.keys(effects),
+    "Contingencies" : ["STEP","TURNEND","ATTACK"],
+    "Mutators" : Object.keys(modifiers),
+}
+
 function targetBoltTravel(direction, effect, location){
     let newTile = location;
     let targets = [];

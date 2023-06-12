@@ -1662,13 +1662,30 @@ class Axiom extends Soul{
         this.mutators = mutators;
         this.functions = functions;
         this.contingencies = contingencies;
-        this.icon = inside[this.functions[0]];
+        //this.icon = inside[this.functions[0]];
         this.caste = caste;
         this.basepower = 99;
         this.basecost = 0;
         this.caster = owner;
-        this.alllore = this.contingencies.concat(this.forms.concat(this.mutators.concat(this.functions)));
-        calculatePower(this.contingencies,this.forms)
+        //this.alllore = this.contingencies.concat(this.forms.concat(this.mutators.concat(this.functions)));
+        //calculatePower(this.contingencies,this.forms)
+    }
+
+    dividePraxes(){
+        let totalSpell = [];
+        let prax = [];
+        let functionFound = false;
+        for (let i of this.sequence){
+            if (isFunction(i)) functionFound = true;
+            if (isForm(i) && functionFound) {
+                totalSpell.push(prax);
+                prax = [];
+                functionFound = false;
+            }
+            prax.push(i);
+        }
+        totalSpell.push(prax);
+        return totalSpell;
     }
 
     legendCast(caster){
