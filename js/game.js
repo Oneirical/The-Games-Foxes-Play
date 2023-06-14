@@ -106,10 +106,10 @@ function beginTurn(){
         let con;
         if (k == monsters.length) con = player;
         else con = monsters[k];
-        for (let i of Object.keys(con.statuseff)){
-            if (con.statuseff[i] > 0) activeeffects.push(i);
-            con.statuseff[i] = Math.max(0,con.statuseff[i]-1);
-            if (con.statuseff[i] > 0 && activeeffects.includes(i)) removeItemOnce(activeeffects,i);
+        for (let i of Object.keys(con.statusEff)){
+            if (con.statusEff[i] > 0) activeeffects.push(i);
+            con.statusEff[i] = Math.max(0,con.statusEff[i]-1);
+            if (con.statusEff[i] > 0 && activeeffects.includes(i)) removeItemOnce(activeeffects,i);
         }
         con.effectsExpire(activeeffects);
     }

@@ -489,10 +489,10 @@ class Cursor{
                 printOutText(this.tile.monster.soul, 18, 590, 70, "white", 20, 350);
                 printOutText(this.tile.monster.name, 18, 590, 30, "white", 20, 350);
                 printOutText(this.tile.monster.ability, 18, 10, 630+((this.tile.monster.lore.length/100)*20), "pink", 20, 690);
-                for (let i of Object.keys(this.tile.monster.statuseff)){
-                    if (this.tile.monster.statuseff[i] > 0){
-                        printOutText(i, 18, 590, 130+Object.keys(this.tile.monster.statuseff).indexOf(i)*10, "white", 20, 690);
-                        printOutText(this.tile.monster.statuseff[i].toString(), 18, 750, 130+Object.keys(this.tile.monster.statuseff).indexOf(i)*10, "white", 20, 690);
+                for (let i of Object.keys(this.tile.monster.statusEff)){
+                    if (this.tile.monster.statusEff[i] > 0){
+                        printOutText(i, 18, 590, 130+Object.keys(this.tile.monster.statusEff).indexOf(i)*10, "white", 20, 690);
+                        printOutText(this.tile.monster.statusEff[i].toString(), 18, 750, 130+Object.keys(this.tile.monster.statusEff).indexOf(i)*10, "white", 20, 690);
                     }
                 }
             }
@@ -608,13 +608,13 @@ class StatusDisplay{
             this.hpCon.children[r].visible = false;
         }
         count = 0;
-        for (let e of Object.keys(i.statuseff)){
-            this.statusCon.children[count+1].children[0].text = i.statuseff[e];
-            if (i.statuseff[e] > 0) {
+        for (let e of Object.keys(i.statusEff)){
+            this.statusCon.children[count+1].children[0].text = i.statusEff[e];
+            if (i.statusEff[e] > 0) {
                 this.statusCon.children[count].texture =  allsprites.textures['icon0'];
                 count +=2;
             }
-            else if (i.statuseff[e] == 0){
+            else if (i.statusEff[e] == 0){
                 this.statusCon.children[count].texture =  allsprites.textures['icon7'];
             }
         }
@@ -1456,7 +1456,7 @@ class Inventory{
     castContin(word, caster){
         for (let i of this.active){
             if (i.contingencies && i.contingencies.includes(word)){
-                if (soulcosts[word] && caster.isPlayer && caster.statuseff["Transformed"] == 0){
+                if (soulcosts[word] && caster.isPlayer && caster.statusEff["Transformed"] == 0){
                     if (wheel.ipseity < soulcosts[word]){
                         shakeAmount = 5;
                         log.addLog("NoShards");
@@ -1641,20 +1641,6 @@ class Soul{
     }
 }
 
-function calculatePower(triggers,targeter,modifier,effect){
-    let basecost = 0;
-    let basepower = 99;
-    for (let i of targeter){
-        basepower = Math.min(powerratings[i],basepower);
-    }
-    for (let i of triggers){
-        if (powerratings[i]) basepower+=powerratings[i];
-        if (soulcosts[i]) basecost+=soulcosts[i];
-    }
-    if (basepower == 99) basepower = 0;
-    return [basepower,basecost];
-}
-
 class Axiom extends Soul{
     constructor(sequence,caste){
         super("FLEXIBLE");
@@ -1667,6 +1653,7 @@ class Axiom extends Soul{
     }
 
     dividePraxes(){
+        if (this.sequence[0] instanceof Array) return this.sequence;
         let totalSpell = [];
         let prax = [];
         let functionFound = false;
@@ -1695,8 +1682,12 @@ class Axiom extends Soul{
                 "targets" : [],
                 "power" : 99,
                 "flags" : [],
+                "currentPrax" : 0,
+                "skip" : false,
             };
+            this.data["currentPrax"] = praxes.indexOf(i);
             this.castPraxis(i);
+            if (this.data["skip"]) break; //what happens if there is an atkdelay inside an atkdelay?
         }
     }
 
@@ -1715,12 +1706,13 @@ class Axiom extends Soul{
             if (isFunction(i)) for (let j of this.data["targets"]){
                 axiomEffects[i](j,this.data["power"],this.data);
                 j.setEffect(14,30);
+                if (["CLICK","ATKDELAY"].includes(i)) this.data["skip"] = true;
             }
             else this.data = axiomEffects[i](this.data);
         }
     }
 
-    legendCast(caster){
+    legendCast(caster){ //THIS IS NOW USELESS, REMOVE
         let targets = [];
         let power = 99;
         this.caster = caster;

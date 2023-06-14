@@ -692,7 +692,7 @@ modulename = {
 }
 
 const specialWords = {
-    "Charm" : "pink",
+    "Charmed" : "pink",
     "Target" : "orangered",
     "Targets" : "orangered",
     "Potency" : "lightsteelblue",
@@ -947,6 +947,7 @@ researchflags = {
     "DEVOUR" : "Mutator",
     "PLUS" : "Form",
     "TURNEND" : "Contingency",
+    "ATKDELAY" : "Function",
     "ATTACK" : "Contingency",
     "Null" : "Locked",
     "Intro" : "Data",

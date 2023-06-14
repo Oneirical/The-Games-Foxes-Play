@@ -12,6 +12,19 @@ class ClickTrap{
     }
 }
 
+class DelayedAttack{
+    constructor(data){
+        this.praxes = [];
+        for (let i = data["currentPrax"]+1; i < data["praxes"].length; i++){
+            this.praxes.push(data["praxes"][i]);
+        }
+    }
+    trigger(caster){
+        let blast = new Axiom(this.praxes,"VILE");
+        blast.castAxiom(caster);
+    }
+}
+
 class DroppedSoul{
     constructor(tile, type, attach){
         this.move(tile);

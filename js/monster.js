@@ -30,9 +30,9 @@ class Monster{
         this.axioms = new Inventory();
         this.wheel = false;
         this.soullink;
-        this.storedattacks = [];
+        this.storedAttack = false;
         this.dialoguecount = 0;
-        this.statuseff = {
+        this.statusEff = {
             "Transformed" : 0,
             "Charmed" : 0,
             "Constricted" : 0,
@@ -44,6 +44,7 @@ class Monster{
             "Paralyzed" : 0,
             "Hasted" : 0,
             "Thrashing" : 0,
+            "Infused" : 0,
         }
 
         this.permacharm = false;
@@ -66,8 +67,8 @@ class Monster{
 
     playerMove(dx, dy){
         if (gameState != "running") return;
-        if (this.statuseff["Paralyzed"] > 0){
-            lose(this.statuseff["Paralyzed"],1);
+        if (this.statusEff["Paralyzed"] > 0){
+            lose(this.statusEff["Paralyzed"],1);
             beginTurn();
             tick();
             return;
@@ -140,8 +141,8 @@ class Monster{
                 if (x instanceof Epsilon) x.hp = Math.min(33, x.hp+damage);
             }
         }
-        else if (this.statuseff["Dissociated"] == 0) this.hp = Math.min(maxHp, this.hp+damage);
-        else if (this.statuseff["Dissociated"] > 0) this.falsehp = Math.min(maxHp, this.falsehp+(damage*2));
+        else if (this.statusEff["Dissociated"] == 0) this.hp = Math.min(maxHp, this.hp+damage);
+        else if (this.statusEff["Dissociated"] > 0) this.falsehp = Math.min(maxHp, this.falsehp+(damage*2));
         this.axioms.queueContin("ONHEAL",this);
         this.updateHp();
     }
@@ -154,7 +155,7 @@ class Monster{
 
     giveEffect(effect, duration,mods){
         if (mods["flags"].includes("ephemeral")) duration = 1;
-        this.statuseff[effect] += duration;
+        this.statusEff[effect] += duration;
         if (effect == "Dissociated") this.falsehp = this.hp;
     }
 
@@ -177,10 +178,13 @@ class Monster{
         if (expired.includes("Transformed")){
             this.endTransformation();
         }
+        if (expired.includes("Infused")){
+            this.storedAttack = false;
+        }
     }
 
     update(){
-        if (this.statuseff["Paralyzed"] > 0) this.stunned = true;
+        if (this.statusEff["Paralyzed"] > 0) this.stunned = true;
         this.teleportCounter--;
         if (this.soulless) return;
         if (this.soulstun > 2){
@@ -196,7 +200,7 @@ class Monster{
             if (!this.nostun) return;
         }
         if(this.paralyzed) return;
-        if(this.statuseff["Charmed"] > 0 && monsters.length < 2 && !this.permacharm) this.statuseff["Charmed"] = 0;
+        if(this.statusEff["Charmed"] > 0 && monsters.length < 2 && !this.permacharm) this.statusEff["Charmed"] = 0;
         if (!this.isPlayer) this.doStuff();
         this.axioms.queueContin("TURNEND",this);
         for (let i of this.queuedcontin) this.axioms.castContin(i,this);      
@@ -206,20 +210,20 @@ class Monster{
     doStuff(){
        let neighbors = this.tile.getAdjacentPassableNeighbors();
        
-       if (this.statuseff["Charmed"] > 0 && !this.name.includes("Rendfly")) neighbors = neighbors.filter(t => !t.monster || !t.monster.isPlayer || !t.monster.statuseff["Marked"] > 0 || !(t.monster.statuseff["Charmed"] > 0));
-       else if (this.statuseff["Charmed"] > 0) neighbors = neighbors.filter(t => !t.monster || !t.monster.isPlayer || !t.monster.statuseff["Marked"] > 0 || !(t.monster.statuseff["Charmed"] > 0));
-       else neighbors = neighbors.filter(t => !t.monster || t.monster.isPlayer || t.monster.statuseff["Marked"] > 0 || t.monster instanceof Box);
+       if (this.statusEff["Charmed"] > 0 && !this.name.includes("Rendfly")) neighbors = neighbors.filter(t => !t.monster || !t.monster.isPlayer || !t.monster.statusEff["Marked"] > 0 || !(t.monster.statusEff["Charmed"] > 0));
+       else if (this.statusEff["Charmed"] > 0) neighbors = neighbors.filter(t => !t.monster || !t.monster.isPlayer || !t.monster.statusEff["Marked"] > 0 || !(t.monster.statusEff["Charmed"] > 0));
+       else neighbors = neighbors.filter(t => !t.monster || t.monster.isPlayer || t.monster.statusEff["Marked"] > 0 || t.monster instanceof Box);
 
        if(neighbors.length){
             let markcheck = false;
             let enemy = player;
             monsters.forEach(function(entity){
-               if (entity.statuseff["Marked"] > 0){
+               if (entity.statusEff["Marked"] > 0){
                    markcheck = true;
                    enemy = entity;
                }
             });
-            if (this.statuseff["Charmed"] > 0){
+            if (this.statusEff["Charmed"] > 0){
                 
                 let testresult = [];
                 monsters.forEach(function(entity){
@@ -232,12 +236,12 @@ class Monster{
                     testresult.forEach(function(t){
                         if (option[0].x <= t.x && option[0].y <= t.y) valid = true;
                     });
-                    if (entity.statuseff["Charmed"] > 0 || entity instanceof Box) valid = false;
+                    if (entity.statusEff["Charmed"] > 0 || entity instanceof Box) valid = false;
                     if (valid) enemy = entity;
                     
                 });
             }
-            if ((markcheck && !this.statuseff["Marked"] > 0||this.statuseff["Charmed"] > 0)){ //
+            if ((markcheck && !this.statusEff["Marked"] > 0||this.statusEff["Charmed"] > 0)){ //
                 neighbors.sort((a,b) => a.dist(enemy.tile) - b.dist(enemy.tile));
             }
             else{
@@ -252,7 +256,7 @@ class Monster{
            this.tryMove(newTile.x - this.tile.x, newTile.y - this.tile.y);
            this.previousdir =this.tile;
        }
-       if (this.statuseff["Hasted"] > 0 && !this.hastedthisturn){
+       if (this.statusEff["Hasted"] > 0 && !this.hastedthisturn){
             this.hastedthisturn = true;
             this.doStuff();
             return;
@@ -360,21 +364,21 @@ class Monster{
                 );
             }
         }
-        if (this.statuseff["Marked"] > 0){
+        if (this.statusEff["Marked"] > 0){
             drawSprite(
                 35,
                 this.getDisplayX(),
                 this.getDisplayY()
             );
         }
-        if (this.statuseff["Persuasive"] > 0||this.statuseff["Charmed"] > 0 && !this.name.includes("Rendfly")){
+        if (this.statusEff["Persuasive"] > 0||this.statusEff["Charmed"] > 0 && !this.name.includes("Rendfly")){
             drawSprite(
                 36,
                 this.getDisplayX(),
                 this.getDisplayY()
             )
         }
-        if ((this.statuseff["Invincible"] > 1 && this.isPlayer)||(this.statuseff["Invincible"] > 0 && !this.isPlayer)){
+        if ((this.statusEff["Invincible"] > 1 && this.isPlayer)||(this.statusEff["Invincible"] > 0 && !this.isPlayer)){
             drawSprite(
                 48,
                 this.getDisplayX(),
@@ -395,7 +399,7 @@ class Monster{
                 this.getDisplayY()
             )
         }
-        if (this.statuseff["Dissociated"] > 0){
+        if (this.statusEff["Dissociated"] > 0){
             drawSprite(
                 53,
                 this.getDisplayX(),
@@ -410,7 +414,7 @@ class Monster{
             this.playerMove(dx,dy);
             return;
         } 
-        if (this.statuseff["Thrashing"] > 0){
+        if (this.statusEff["Thrashing"] > 0){
             let neighbors = this.tile.getAdjacentPassableNeighbors();
             if(neighbors.length){
                 dx = neighbors[0].x - this.tile.x;
@@ -433,10 +437,10 @@ class Monster{
         }
         if(newTile.passable){
             this.lastMove = [dx,dy];
-            if(!newTile.monster || (newTile.monster && newTile.monster instanceof Harmonizer)){ //||(newTile.monster.statuseff["Charmed"] > 0&&(this.isPlayer||this.statuseff["Charmed"] > 0))||newTile.monster.isPassive
+            if(!newTile.monster || (newTile.monster && newTile.monster instanceof Harmonizer)){ //||(newTile.monster.statusEff["Charmed"] > 0&&(this.isPlayer||this.statusEff["Charmed"] > 0))||newTile.monster.isPassive
                 let boxpull = false;
                 if (this.tile.getNeighbor(-dx,-dy).monster && this.tile.getNeighbor(-dx,-dy).monster.pushable && this.isPlayer) boxpull = this.tile;
-                if (this.statuseff["Constricted"]>0){
+                if (this.statusEff["Constricted"]>0){
                     log.addLog("Constricted");
                     shakeAmount = 5;
                     return false;
@@ -450,7 +454,7 @@ class Monster{
             }else{
                 let crit;
                 research.completeResearch("Intro");
-                if(((this.isPlayer != newTile.monster.isPlayer)||newTile.monster.statuseff["Marked"] > 0||(this.statuseff["Charmed"] > 0 && !newTile.monster.isPlayer && !newTile.monster.statuseff["Charmed"] > 0))&&!this.isPassive && !newTile.monster.isGuide &&!newTile.monster.pushable && !(this.statuseff["Charmed"] > 0&&newTile.monster.isPlayer)){
+                if(((this.isPlayer != newTile.monster.isPlayer)||newTile.monster.statusEff["Marked"] > 0||(this.statusEff["Charmed"] > 0 && !newTile.monster.isPlayer && !newTile.monster.statusEff["Charmed"] > 0))&&!this.isPassive && !newTile.monster.isGuide &&!newTile.monster.pushable && !(this.statusEff["Charmed"] > 0&&newTile.monster.isPlayer)){
                     this.attackedThisTurn = true;
                     let bonusAttack = this.bonusAttack;
                     this.bonusAttack = 0;
@@ -467,14 +471,15 @@ class Monster{
                     }
                     if (newTile.monster){
                         this.axioms.queueContin("ATTACK",this);
-                        for (let i of this.storedattacks){
-                            i.trigger(this);
-                            removeItemOnce(this.storedattacks,i);
+                        if (this.storedAttack) {
+                            this.storedAttack.trigger(this);
+                            this.storedAttack = false;
+                            this.statusEff["Infused"] = 0;
                         }
                     }
-                    if ((this.statuseff["Persuasive"] > 0) && newTile.monster){
-                        newTile.monster.statuseff["Charmed"] += 25;
-                        this.statuseff["Persuasive"] = lose(this.statuseff["Persuasive"],5);
+                    if ((this.statusEff["Persuasive"] > 0) && newTile.monster){
+                        newTile.monster.statusEff["Charmed"] += 25;
+                        this.statusEff["Persuasive"] = lose(this.statusEff["Persuasive"],5);
                     }
                     if (this.specialAttack == "Harmony" && newTile.monster &&!newTile.monster.isPlayer&&!newTile.monster.loveless){
                         removeItemOnce(monsters, newTile.monster);
@@ -488,8 +493,8 @@ class Monster{
                         this.specialAttack = "";
                     }
                     if (this.specialAttack == "DDelay" && newTile.monster){
-                        if (newTile.monster.statuseff["Dissociated"] == 0) newTile.monster.falsehp = newTile.monster.hp;
-                        newTile.monster.statuseff["Dissociated"] = 2;
+                        if (newTile.monster.statusEff["Dissociated"] == 0) newTile.monster.falsehp = newTile.monster.hp;
+                        newTile.monster.statusEff["Dissociated"] = 2;
                         
                     }
                     if (this.specialAttack == "Constrict" && newTile.monster && newTile.monster.isPlayer){
@@ -605,15 +610,15 @@ class Monster{
 
     hit(damage){  
         if (damage <= 0) return;          
-        if(this.statuseff["Invincible"]>0 || (this.isInvincible && this.order < 0)){           
+        if(this.statusEff["Invincible"]>0 || (this.isInvincible && this.order < 0)){           
             return;                                                             
         }
         else if (this.isInvincible && this.order >= 0){
             playSound("epsitink");
             return;
         }
-        if (this.statuseff["Dissociated"] > 0) this.falsehp -= damage;
-        else if (this.statuseff["Dissociated"] == 0 && !(this instanceof Tail)) this.hp -= damage;
+        if (this.statusEff["Dissociated"] > 0) this.falsehp -= damage;
+        else if (this.statusEff["Dissociated"] == 0 && !(this instanceof Tail)) this.hp -= damage;
         else if (this instanceof Tail){
             for (let x of monsters){
                 if (x instanceof Epsilon) x.hp -= damage;
@@ -636,7 +641,7 @@ class Monster{
     die(){
         this.dead = true;
         this.tile.monster = 0;
-        if (this.statuseff["Puppeteered"] > 0 && !this.tile.siphon && !this.respawned){
+        if (this.statusEff["Puppeteered"] > 0 && !this.tile.siphon && !this.respawned){
             let husk = new Husk(this.tile);
             monsters.push(husk);
         }
@@ -647,7 +652,7 @@ class Monster{
             if (sun == "Ordered" || sun == "Artistic" || sun == "Unhinged") n = "n ";
             felid.soul = "Animated by a"+n+sun+" ("+basic.indexOf(this.lootid)+") soul.";
             felid.loot = this.loot;
-            if (this.statuseff["Charmed"] > 0 && !this.name.includes("Vermin")) felid.statuseff["Charmed"] += this.statuseff["Charmed"];
+            if (this.statusEff["Charmed"] > 0 && !this.name.includes("Vermin")) felid.statusEff["Charmed"] += this.statusEff["Charmed"];
             monsters.push(felid);
             this.tile.siphon = false;
             this.noloot = true;
@@ -697,7 +702,7 @@ class Terminal extends Monster{
         //add artistic here
         this.assignAxiom(["XCROSS","HARM"],"UNHINGED");
         this.assignAxiom(["EGO","BLINK"],"FERAL"); // this must get the rest
-        this.assignAxiom(["SMOOCH","ATKDELAY","HARM"],"VILE"); //this must be remade with atkdelay proper
+        this.assignAxiom(["EGO","ATKDELAY","SMOOCH","HARM"],"VILE"); //this must be remade with atkdelay proper
     }
 
     revivify(){
@@ -865,7 +870,7 @@ class BattleFluffy extends Monster{
         this.teleportCounter = 0;
         this.soul = "Animated by a Serene (?) soul.";
         this.name = "Serene Peacemaker";
-        this.statuseff["Charmed"] += 999;
+        this.statusEff["Charmed"] += 999;
         this.isFluffy = true;
         this.ability = "";
         this.noloot = true;
@@ -967,14 +972,14 @@ class AbazonSummon extends Monster{
         super(tile, 28, 5, "ABAZON", description["Abazon"]);
         this.teleportCounter = 0;
         this.noloot = true;
-        this.statuseff["Charmed"] = 999;
+        this.statusEff["Charmed"] = 999;
         this.canmove = false;
         this.soul = "Animated by Abazon, the Immovable";
         this.name = "Terracotta Sentry";
         this.isInvincible = true;
         this.permacharm = true;
         this.savet = savet;
-        this.statuseff["Decaying"] = power;
+        this.statusEff["Decaying"] = power;
     }
 
     die(){
@@ -1018,7 +1023,7 @@ class Husk extends Monster{
         this.name = "Crawling Husk";
         this.ability = monabi["Husk"];
         this.teleportCounter = 0;
-        this.statuseff["Charmed"] = 999;
+        this.statusEff["Charmed"] = 999;
         this.permacharm = true;
         this.noloot = true;
     }
@@ -1045,7 +1050,7 @@ class Ragemaw extends Monster{
         this.respawned = false;
     }
     die(){
-        let moncount = monsters.filter(mon => mon.name != "Midnight Ragemaw" && !mon.statuseff["Charmed"] > 0);
+        let moncount = monsters.filter(mon => mon.name != "Midnight Ragemaw" && !mon.statusEff["Charmed"] > 0);
         if (moncount.length >= 1 && !this.respawned){
             let respawn = new Ragemaw(randomPassableTile());
             monsters.push(respawn);
@@ -1147,7 +1152,7 @@ class Rendfly extends Monster{
         this.name = "Rendfly Vermin";
         this.ability = monabi["Rendfly"];
         this.permacharm = true;
-        this.statuseff["Charmed"] = 999;
+        this.statusEff["Charmed"] = 999;
         this.dmg = 0;
         this.abitimer = 0;
     }
