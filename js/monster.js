@@ -701,7 +701,7 @@ class Terminal extends Monster{
         this.assignAxiom(["EGO","PARACEON"],"ORDERED");
         this.assignAxiom(["EGO","CLICK","EGO","PLUSCROSS","HARM"],"ARTISTIC");
         this.assignAxiom(["XCROSS","HARM"],"UNHINGED");
-        this.assignAxiom(["EGO","BLINK"],"FERAL"); // this must get the rest. get INFINITEPOWER and also add power scaling to BLINK
+        this.assignAxiom(["EGO","BLINK","TRAIL","SPREAD","IGNORECASTER","HARM"],"FERAL"); // this must get the rest. get INFINITEPOWER and also add power scaling to BLINK
         this.assignAxiom(["EGO","ATKDELAY","SMOOCH","HARM"],"VILE");
     }
 

@@ -100,6 +100,22 @@ axiomEffects = {
     //
     ///////////////
 
+    SPREAD : function(data){
+        let extraTar = [];
+        let targets = data["targets"];
+        for (let o of targets){
+            let nei = o.getAdjacentNeighbors();
+            for (let f of nei){
+                if (!targets.includes(f) && !extraTar.includes(f)){
+                    tiles[f.x][f.y].setEffect(13);
+                    extraTar.push(f);
+                }
+            }
+        }
+        for (let o of extraTar) data["targets"].push(o);
+        return data;
+    },
+
     SACRIFICE: function(data){
         let bonus = 0;
         for (let i = 0; i<wheel.wheel.length;i++){

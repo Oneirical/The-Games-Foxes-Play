@@ -950,6 +950,7 @@ researchflags = {
     "ATKDELAY" : "Function",
     "ATTACK" : "Contingency",
     "PLUSCROSS" : "Form",
+    "SPREAD" : "Mutator",
     "Null" : "Locked",
     "Intro" : "Data",
     "Herald" : "Data",
