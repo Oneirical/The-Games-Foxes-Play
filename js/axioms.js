@@ -7,6 +7,7 @@ const powerRatings = {
     "TURNEND" : -4,
     "ATTACK" : -2,
     "PLUS" : 2,
+    "PLUSCROSS" : 2,
 }
 // In the research menu, these should have "history book" descriptions.
 // EGO - BEAM - PCROSS - XCROSS - 8ADJ - 4ADJ - RANDOM (up to power) - WALL - ALL - PAYLOAD (summon that unleashes targets on death)
@@ -79,6 +80,19 @@ axiomEffects = {
         }
         return data;
     },
+    PLUSCROSS : function(data){
+        const directions = [
+            [-1, 0],
+            [0, 1],
+            [1, 0],
+            [0, -1]
+        ];
+        let caster = data["caster"];
+        for(let k=0;k<directions.length;k++){
+            for (let i of targetBoltTravel(directions[k], 14, caster.tile)) data["targets"].push(i);
+        }
+        return data;
+    },
 
     ///////////////
     //
@@ -137,7 +151,7 @@ axiomEffects = {
     ///////////////
     //
     //   FUNCTIONS
-    // TODO: Click, Atkdelay, divide up aspha in "random blink" and "target casts next praxes", make gyvji react to motion instead of just doing it
+    // TODO: Click, divide up aspha in "random blink" and "target casts next praxes", make gyvji react to motion instead of just doing it
     ///////////////
 
     ATKDELAY : function(target,power,data){
@@ -146,6 +160,11 @@ axiomEffects = {
             target.monster.storedAttack = delayAtk;
             target.monster.giveEffect("Infused",power*2,data);
         }
+    },
+
+    CLICK : function(target,power,data){
+        let trap = new ClickTrap(target,power*3,data);
+        target.clickTrap = trap;
     },
 
     SENET: function(target,power,data){ //if power > X, give frenzy, haste?

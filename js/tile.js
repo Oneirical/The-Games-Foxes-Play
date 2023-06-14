@@ -13,7 +13,7 @@ class Tile{
         this.recallpoint = false;
         this.souls = [];
         this.fuffified = false;
-        this.clicktrap = false;
+        this.clickTrap = false;
         this.spellDirection = false;
         this.tilecon = new PIXI.Container();
     }
@@ -69,6 +69,13 @@ class Tile{
 
     tickTile(newTex){
         this.spriteDisplay.texture = newTex;
+        if (this.clickTrap){
+            this.clickTrap.lifetime--;
+            if (this.clickTrap.lifetime <= 0){
+                this.clickTrap.destroy();
+                this.clickTrap = false; 
+            }
+        }
     }
 
     replace(newTileType){
@@ -178,7 +185,7 @@ class Tile{
 
     draw(){
         drawSprite(this.sprite, this.x, this.y);
-        if (this.clicktrap){
+        if (this.clickTrap){
             drawSprite(69,this.x,this.y);
         }
         if(this.trap){                      
@@ -262,9 +269,9 @@ class Floor extends Tile{
 
     stepOn(monster){
         let trapsafe = true;
-        if (this.clicktrap){
-            this.clicktrap.trigger();
-            this.clicktrap = false;
+        if (this.clickTrap){
+            this.clickTrap.trigger();
+            this.clickTrap = false;
         }
         if (monster.isPlayer){
             trapsafe = player.activemodule != "Hover";

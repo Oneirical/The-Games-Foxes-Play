@@ -699,10 +699,10 @@ class Terminal extends Monster{
     grantStarters(){
         this.assignAxiom(["EGO","PLUS","HEAL"],"SAINTLY");
         this.assignAxiom(["EGO","PARACEON"],"ORDERED");
-        //add artistic here
+        this.assignAxiom(["EGO","CLICK","EGO","PLUSCROSS","HARM"],"ARTISTIC");
         this.assignAxiom(["XCROSS","HARM"],"UNHINGED");
-        this.assignAxiom(["EGO","BLINK"],"FERAL"); // this must get the rest
-        this.assignAxiom(["EGO","ATKDELAY","SMOOCH","HARM"],"VILE"); //this must be remade with atkdelay proper
+        this.assignAxiom(["EGO","BLINK"],"FERAL"); // this must get the rest. get INFINITEPOWER and also add power scaling to BLINK
+        this.assignAxiom(["EGO","ATKDELAY","SMOOCH","HARM"],"VILE");
     }
 
     revivify(){

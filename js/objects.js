@@ -1,14 +1,30 @@
 class ClickTrap{
-    constructor(tile,functions,power){
-        this.functions = functions.slice();
-        this.power = power;
+    constructor(tile,lifetime,data){
+        this.praxes = [];
+        for (let i = data["currentPrax"]+1; i < data["praxes"].length; i++){
+            this.praxes.push(data["praxes"][i]);
+        }
+        this.lifetime = lifetime;
         this.tile = tile;
+        this.setUpSprite();
+    }
+
+    setUpSprite(){
+        this.trapImg = new FoxSprite(allsprites.textures["sprite12"]);
+        this.trapImg.width = 112;
+        this.trapImg.height = 112;
+        this.tile.tilecon.addChild(this.trapImg);
+    }
+
+    destroy(){
+        this.tile.tilecon.removeChild(this.trapImg);
     }
 
     trigger(){
-        for (let i of this.functions){
-            effects[i](this.tile,this.power);
-        }
+        let caster = this.tile.monster;
+        let blast = new Axiom(this.praxes,"ARTISTIC");
+        blast.castAxiom(caster);
+        this.destroy();
     }
 }
 
@@ -20,7 +36,7 @@ class DelayedAttack{
         }
     }
     trigger(caster){
-        let blast = new Axiom(this.praxes,"VILE");
+        let blast = new Axiom(this.praxes,"ARTISTIC");
         blast.castAxiom(caster);
     }
 }
