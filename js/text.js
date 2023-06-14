@@ -996,6 +996,8 @@ researchflags = {
     "JOLTZAZON" : "Mutator",
     "ABAZON" : "Function",
     "EPHEMERAL" : "Mutator",
+    "HARM" : "Function",
+    "BLINK" : "Function, Directional",
 }
 
 researchexpl = {

@@ -201,7 +201,7 @@ axiomEffects = {
     HEAL: function(target,power,data){
         //console.log(power);
         if (target.monster){
-            target.monster.heal(Math.floor(power/2),data);
+            target.monster.heal(power,data);
         }
     },
     HARM: function(target,power,data){
@@ -220,7 +220,7 @@ axiomEffects = {
         let testTile = newTile;
         let target = testTile.monster;
         while(target){
-            testTile = newTile.getNeighbor(targeti.spellDirection);
+            testTile = newTile.getNeighbor(targeti.spellDirection[0],targeti.spellDirection[0]);
             if(testTile.passable && !testTile.monster){
                 newTile.setEffect(target.sprite,30);
                 newTile = testTile;
@@ -271,6 +271,24 @@ axiomEffects = {
             tiles[t.x][t.y] = new AbazonWall(t.x,t.y)
             let monster = new AbazonSummon(t,save,power*2);
             monsters.push(monster);
+        }
+    },
+    BLINK : function(target,power,data){
+        if (!target.monster) return;
+        let newTile = target;
+        let testTile = newTile;
+        let affected = testTile.monster;
+        while(target){
+            testTile = newTile.getNeighbor(target.spellDirection[0],target.spellDirection[1]);
+            if(testTile.passable && !testTile.monster){
+                //newTile.setEffect(affected.sprite); //this causes a strange bug where an after image stays forever
+                newTile = testTile;
+            }else{
+                break;
+            }
+        }
+        if(affected && affected.tile != newTile){
+            affected.move(newTile);
         }
     }
 
@@ -554,10 +572,18 @@ effects = {
 }
 
 const axiomRepertoire = {
-    "Forms" : Object.keys(targeters),
-    "Functions" : Object.keys(effects),
-    "Contingencies" : ["STEP","TURNEND","ATTACK"],
-    "Mutators" : Object.keys(modifiers),
+    "Forms" : [],
+    "Functions" : [],
+    "Contingencies" : [],
+    "Mutators" : [],
+}
+
+for (let i of Object.keys(researchflags)){
+    let scan = researchflags[i];
+    if (scan.includes("Form")) axiomRepertoire["Forms"].push(i);
+    else if (scan.includes("Contingency")) axiomRepertoire["Contingencies"].push(i);
+    else if (scan.includes("Function")) axiomRepertoire["Functions"].push(i);
+    else if (scan.includes("Mutator")) axiomRepertoire["Mutators"].push(i);
 }
 
 function targetBoltTravel(direction, effect, location){

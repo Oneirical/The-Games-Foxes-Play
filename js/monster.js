@@ -33,7 +33,6 @@ class Monster{
         this.storedattacks = [];
         this.dialoguecount = 0;
         this.statuseff = {
-            "Persuasive" : 0,
             "Transformed" : 0,
             "Charmed" : 0,
             "Constricted" : 0,
@@ -695,10 +694,10 @@ class Terminal extends Monster{
     grantStarters(){
         this.assignAxiom(["EGO","PLUS","HEAL"],"SAINTLY");
         this.assignAxiom(["EGO","PARACEON"],"ORDERED");
-
+        //add artistic here
         this.assignAxiom(["XCROSS","HARM"],"UNHINGED");
-
-        this.assignAxiom(["SMOOCH","ATKDELAY","HARM"],"VILE");
+        this.assignAxiom(["EGO","BLINK"],"FERAL"); // this must get the rest
+        this.assignAxiom(["SMOOCH","ATKDELAY","HARM"],"VILE"); //this must be remade with atkdelay proper
     }
 
     revivify(){

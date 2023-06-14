@@ -300,6 +300,15 @@ function getSouls(noturb){
     }
 }
 
+function getCastableSpells(){
+    wheel.wheel[0] = new Saintly();
+    wheel.wheel[1] = new Ordered();
+    wheel.wheel[2] = new Artistic();
+    wheel.wheel[3] = new Unhinged();
+    wheel.wheel[4] = new Feral();
+    wheel.wheel[5] = new Vile();
+}
+
 function reviver(_, value) {
     if(value instanceof Object && Object.prototype.hasOwnProperty.call(value, '__type')) {
         clazz = eval(`${value.__type}`);
