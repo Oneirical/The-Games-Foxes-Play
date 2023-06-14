@@ -14,6 +14,7 @@ class Tile{
         this.souls = [];
         this.fuffified = false;
         this.clicktrap = false;
+        this.spellDirection = false;
         this.tilecon = new PIXI.Container();
     }
 

@@ -1317,7 +1317,7 @@ class SoulBreathing{
             if (spellName){
                 beginTurn();
                 if (spellName == "FLEXIBLE"){
-                    player.axioms.active[num].legendCast(player);
+                    player.axioms.active[num].castAxiom(player);
                     this.exhaustedSouls.push(this.wheel[slot]);
                     this.wheel[slot] = new Empty();
                     playSound("spell");
@@ -1464,7 +1464,7 @@ class Inventory{
                     }
                     wheel.ipseity-=soulcosts[word];
                 }
-                i.legendCast(caster);
+                i.castAxiom(caster);
             }
         }
     }
@@ -1656,17 +1656,12 @@ function calculatePower(triggers,targeter,modifier,effect){
 }
 
 class Axiom extends Soul{
-    constructor(contingencies,forms,mutators,functions,caste,owner){
+    constructor(sequence,caste){
         super("FLEXIBLE");
-        this.forms = forms;
-        this.mutators = mutators;
-        this.functions = functions;
-        this.contingencies = contingencies;
+
         //this.icon = inside[this.functions[0]];
         this.caste = caste;
-        this.basepower = 99;
-        this.basecost = 0;
-        this.caster = owner;
+        this.sequence = sequence;
         //this.alllore = this.contingencies.concat(this.forms.concat(this.mutators.concat(this.functions)));
         //calculatePower(this.contingencies,this.forms)
     }
@@ -1690,18 +1685,39 @@ class Axiom extends Soul{
 
     castAxiom(caster){
         let praxes = this.dividePraxes();
-        let data = {
-            "caster" : caster,
-            "casterOriPos" : caster.tile,
-            "casterCurrentPos" : caster.tile,
-            "trapMode" : false,
-            "praxes" : praxes,
-        };
-        for (let i of praxes) data = this.castPraxis(i,data);
+        for (let i of praxes){
+            this.data = {
+                "caster" : caster,
+                "casterOriPos" : caster.tile,
+                "casterCurrentPos" : caster.tile,
+                "trapMode" : false,
+                "praxes" : praxes,
+                "targets" : [],
+                "power" : 99,
+                "flags" : [],
+            };
+            this.castPraxis(i);
+        }
     }
 
-    castPraxis(praxis,data){
-
+    castPraxis(praxis){
+        for (let i of praxis){
+            if (!isForm(i)) continue;
+            let power = powerRatings[i];
+            if (!power) power = 0;
+            console.log(i);
+            console.log(power);
+            if (this.data["power"] > power) this.data["power"] = power;
+            console.log(this.data["power"]);
+        }
+        for (let i of praxis) {
+            if (powerRatings[i] && !isForm(i)) this.data["power"] += powerRatings[i];
+            if (isFunction(i)) for (let j of this.data["targets"]){
+                axiomEffects[i](j,this.data["power"],this.data);
+                j.setEffect(14,30);
+            }
+            else this.data = axiomEffects[i](this.data);
+        }
     }
 
     legendCast(caster){

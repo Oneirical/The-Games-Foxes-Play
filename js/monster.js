@@ -147,8 +147,8 @@ class Monster{
         this.updateHp();
     }
 
-    assignAxiom(co,fo,mu,fu,ca){
-        let axiom = new Axiom(co,fo,mu,fu,ca,this);
+    assignAxiom(seq,caste){
+        let axiom = new Axiom(seq,caste);
         this.axioms.addAxiom(axiom);
         this.axioms.activateAxiom(0);
     }
@@ -693,12 +693,12 @@ class Terminal extends Monster{
     }
 
     grantStarters(){
-        this.assignAxiom([],["PLUS"],[],["HEAL"],"SAINTLY");
-        this.assignAxiom([],["EGO"],[],["PARACEON"],"ORDERED");
+        this.assignAxiom(["EGO","PLUS","HEAL"],"SAINTLY");
+        this.assignAxiom(["EGO","PARACEON"],"ORDERED");
 
-        this.assignAxiom([],["XCROSS"],[],["HARM"],"UNHINGED");
+        this.assignAxiom(["XCROSS","HARM"],"UNHINGED");
 
-        this.assignAxiom([],["SMOOCH"],["ATKDELAY"],["HARM"],"VILE");
+        this.assignAxiom(["SMOOCH","ATKDELAY","HARM"],"VILE");
     }
 
     revivify(){
@@ -739,7 +739,7 @@ class Shrike extends Monster{
         this.name = "Starpaper Shrike";
         this.ability = monabi["Shrike"];
         this.speed = 2;
-        this.assignAxiom(["TURNEND"],["EGO"],[],["HASTE"],"FERAL");
+        this.assignAxiom(["TURNEND","EGO","EPHEMERAL","HASTE"],"FERAL");
     }
 }
 
@@ -749,7 +749,7 @@ class Apiarist extends Monster{
         this.soul = "Animated by an Ordered (5) soul.";
         this.name = "Brass Apiarist";
         this.ability = monabi["Apiarist"];
-        this.assignAxiom(["STEP"],["EGO"],["EPHEMERAL"],["STOP"],"ORDERED");
+        this.assignAxiom(["STEP","EGO","EPHEMERAL","STOP"],"ORDERED");
     }
 }
 
@@ -759,8 +759,8 @@ class Second extends Monster{
         this.soul = "Animated by a Vile (1) soul.";
         this.name = "Second Emblem of Sin";
         this.ability = monabi["Second"];
-        this.assignAxiom(["TURNEND"],["PLUS"],["NEUTER","DEVOUR"],["HEAL"],"VILE");
-        this.assignAxiom(["ONHEAL"],["EGO"],["CRIPPLE"],["STOP"],"ORDERED");
+        this.assignAxiom(["TURNEND","EGO","PLUS","DEVOUR","HEAL"],"VILE"); //should be turnstart
+        this.assignAxiom(["ONHEAL","EGO","EPHEMERAL","STOP"],"ORDERED");
     }
 }
 
@@ -770,7 +770,7 @@ class Tinker extends Monster{
         this.soul = "Animated by an Artistic (4) soul.";
         this.name = "Frenzied Dream-Tinker";
         this.ability = monabi["Tinker"];
-        this.assignAxiom(["TURNEND"],["EGO"],[],["THRASH"],"FERAL");
+        this.assignAxiom(["TURNEND","EGO","THRASH"],"FERAL"); //should be turnstart
     }
 }
 
@@ -1031,8 +1031,8 @@ class Slug extends Monster{
         this.soul = "Animated by an Ordered (5) soul.";
         this.name = "Shackle-Slug";
         this.ability = monabi["Slug"];
-        this.assignAxiom(["STEP"],["EGO"],["NEUTER"],["STOP"],"ORDERED");
-        this.assignAxiom(["TURNEND"],["EGO"],["BUFF","CLICK"],["STOP"],"SAINTLY");
+        this.assignAxiom(["STEP","EGO","EPHEMERAL","STOP"],"ORDERED");
+        this.assignAxiom(["TURNEND","EGO","CLICK","EGO","STOP"],"SAINTLY");
     }
 }
 
@@ -1526,7 +1526,7 @@ class Apis extends Monster{
         this.soul = "Animated by a Feral (2) soul.";
         this.name = "Messenger of Aculeo";
         this.ability = monabi["Apis"];
-        this.assignAxiom(["ATTACK"],["SMOOCH"],["EPHEMERAL"],["APIS"],"UNHINGED");
+        this.assignAxiom(["ATTACK","SMOOCH","EPHEMERAL","APIS"],"UNHINGED");
     }
 }
 

@@ -57,10 +57,7 @@ function setupPixi(){
         fontSize: 18,
         fill: "yellow",
     });
-    console.log(uiDisplayLeft.children.length);
     printOutText("60",10,40,style,uiDisplayLeft);
-    console.log(uiDisplayLeft.children.length);
-
     let count = 0;
     app.ticker.add(() => {
         count++;
