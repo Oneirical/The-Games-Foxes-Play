@@ -1000,7 +1000,7 @@ researchflags = {
     "ABAZON" : "Function",
     "EPHEMERAL" : "Mutator",
     "HARM" : "Function",
-    "BLINK" : "Function, Directional",
+    "BLINK" : "Function, Directional, Motion",
 }
 
 researchexpl = {

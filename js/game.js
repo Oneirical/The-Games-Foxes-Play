@@ -16,6 +16,26 @@ function summonExits(){
     world.fighting = false;
 }
 
+function teleport(target,destination,data){
+    let initialPoint = target.tile;
+    target.move(destination);
+    let finalPoint = target.tile;
+    if (data["flags"].has("trailing")) {
+        let dx = finalPoint.x - initialPoint.x;
+        let dy = finalPoint.y - initialPoint.y;
+        let direction;
+        let trail = line(initialPoint,finalPoint);
+        for (let r = 1; r<trail.length-1; r++){
+            let i = trail[r];
+            if (Math.abs(dx) >= Math.abs(dy)) direction = [0,shuffle([-1,1])[0]];
+            else direction = [shuffle([-1,1])[0],0];
+            i.spellDirection = direction;
+            data.targets.add(i);
+        }
+    }
+    return data;
+}
+
 function toResearchMode(){
     inResearch = !inResearch;
     inInventory = false;
@@ -285,10 +305,6 @@ function unlockAllSpells(){
     for (let i of Object.keys(spellpatterns)){
         research.knownspells.push(i);
     }
-}
-
-function createSpell(contin,form,mod,func){
-    return new Axiom([contin],[form],[mod],[func],"VILE","me");
 }
 
 function getSouls(noturb){

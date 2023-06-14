@@ -4,6 +4,7 @@ class ClickTrap{
         for (let i = data["currentPrax"]+1; i < data["praxes"].length; i++){
             this.praxes.push(data["praxes"][i]);
         }
+        this.power = data.power;
         this.lifetime = lifetime;
         this.tile = tile;
         this.setUpSprite();
@@ -22,7 +23,7 @@ class ClickTrap{
 
     trigger(){
         let caster = this.tile.monster;
-        let blast = new Axiom(this.praxes,"ARTISTIC");
+        let blast = new Axiom(this.praxes,"ARTISTIC",this.power);
         blast.castAxiom(caster);
         this.destroy();
     }
@@ -31,12 +32,13 @@ class ClickTrap{
 class DelayedAttack{
     constructor(data){
         this.praxes = [];
+        this.power = data.power;
         for (let i = data["currentPrax"]+1; i < data["praxes"].length; i++){
             this.praxes.push(data["praxes"][i]);
         }
     }
     trigger(caster){
-        let blast = new Axiom(this.praxes,"ARTISTIC");
+        let blast = new Axiom(this.praxes,"ARTISTIC",this.power);
         blast.castAxiom(caster);
     }
 }

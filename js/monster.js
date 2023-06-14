@@ -147,14 +147,14 @@ class Monster{
         this.updateHp();
     }
 
-    assignAxiom(seq,caste){
-        let axiom = new Axiom(seq,caste);
+    assignAxiom(seq,caste,pow){
+        let axiom = new Axiom(seq,caste,pow);
         this.axioms.addAxiom(axiom);
         this.axioms.activateAxiom(0);
     }
 
     giveEffect(effect, duration,mods){
-        if (mods["flags"].includes("ephemeral")) duration = 1;
+        if (mods["flags"].has("ephemeral")) duration = 1;
         this.statusEff[effect] += duration;
         if (effect == "Dissociated") this.falsehp = this.hp;
     }
@@ -697,12 +697,12 @@ class Terminal extends Monster{
     }
 
     grantStarters(){
-        this.assignAxiom(["EGO","PLUS","HEAL"],"SAINTLY");
-        this.assignAxiom(["EGO","PARACEON"],"ORDERED");
-        this.assignAxiom(["EGO","CLICK","EGO","PLUSCROSS","HARM"],"ARTISTIC");
-        this.assignAxiom(["XCROSS","HARM"],"UNHINGED");
-        this.assignAxiom(["EGO","BLINK","TRAIL","SPREAD","IGNORECASTER","HARM"],"FERAL"); // this must get the rest. get INFINITEPOWER and also add power scaling to BLINK
-        this.assignAxiom(["EGO","ATKDELAY","SMOOCH","HARM"],"VILE");
+        this.assignAxiom(["EGO","PLUS","HEAL"],"SAINTLY",2);
+        this.assignAxiom(["EGO","PARACEON"],"ORDERED",2);
+        this.assignAxiom(["EGO","CLICK","EGO","PLUSCROSS","HARM"],"ARTISTIC",3);
+        this.assignAxiom(["XCROSS","HARM"],"UNHINGED",3);
+        this.assignAxiom(["EGO","TRAIL","BLINK","SPREAD","IGNORECASTER","HARM"],"FERAL",5); // this must get the rest. get INFINITEPOWER and also add power scaling to BLINK
+        this.assignAxiom(["EGO","ATKDELAY","SMOOCH","HARM"],"VILE",5);
     }
 
     revivify(){

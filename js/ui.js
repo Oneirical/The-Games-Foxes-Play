@@ -1642,17 +1642,19 @@ class Soul{
 }
 
 class Axiom extends Soul{
-    constructor(sequence,caste){
+    constructor(sequence,caste,power){
         super("FLEXIBLE");
 
         //this.icon = inside[this.functions[0]];
         this.caste = caste;
         this.sequence = sequence;
+        this.power = power;
+        if (!power) this.power = 0;
         //this.alllore = this.contingencies.concat(this.forms.concat(this.mutators.concat(this.functions)));
         //calculatePower(this.contingencies,this.forms)
     }
 
-    dividePraxes(){
+    dividePraxes(){ //possibly unused
         if (this.sequence[0] instanceof Array) return this.sequence;
         let totalSpell = [];
         let prax = [];
@@ -1671,45 +1673,37 @@ class Axiom extends Soul{
     }
 
     castAxiom(caster){
-        let praxes = this.dividePraxes();
-        for (let i of praxes){
-            this.data = {
-                "caster" : caster,
-                "casterOriPos" : caster.tile,
-                "casterCurrentPos" : caster.tile,
-                "trapMode" : false,
-                "praxes" : praxes,
-                "targets" : [],
-                "power" : 99,
-                "flags" : [],
-                "currentPrax" : 0,
-                "skip" : false,
-            };
-            this.data["currentPrax"] = praxes.indexOf(i);
+        //let praxes = this.dividePraxes();
+        this.data = {
+            "caster" : caster,
+            "casterOriPos" : caster.tile,
+            "casterCurrentPos" : caster.tile,
+            "trapMode" : false,
+            "praxes" : this.sequence,
+            "targets" : new Set(),
+            "power" : this.power,
+            "flags" : new Set(),
+            "currentPrax" : 0,
+            "skip" : false,
+        };
+        for (let i of this.sequence){
+            this.data["currentPrax"] = this.sequence.indexOf(i);
             this.castPraxis(i);
             if (this.data["skip"]) break; //what happens if there is an atkdelay inside an atkdelay?
         }
     }
 
     castPraxis(praxis){
-        for (let i of praxis){
-            if (!isForm(i)) continue;
-            let power = powerRatings[i];
-            if (!power) power = 0;
-            console.log(i);
-            console.log(power);
-            if (this.data["power"] > power) this.data["power"] = power;
-            console.log(this.data["power"]);
-        }
-        for (let i of praxis) {
-            if (powerRatings[i] && !isForm(i)) this.data["power"] += powerRatings[i];
-            if (isFunction(i)) for (let j of this.data["targets"]){
-                axiomEffects[i](j,this.data["power"],this.data);
+        if (powerRatings[praxis]) this.data["power"] += powerRatings[praxis];
+        if (isFunction(praxis)) {
+            for (let j of this.data["targets"]){
+                if (this.data.flags.has("ignoreCaster") && sameTile(this.data.caster.tile,j)) continue;
+                this.data = axiomEffects[praxis](j,this.data["power"],this.data);
                 j.setEffect(14,30);
-                if (["CLICK","ATKDELAY"].includes(i)) this.data["skip"] = true;
             }
-            else this.data = axiomEffects[i](this.data);
         }
+        else this.data = axiomEffects[praxis](this.data);
+        if (["CLICK","ATKDELAY"].includes(praxis)) this.data["skip"] = true;
     }
 
     legendCast(caster){ //THIS IS NOW USELESS, REMOVE

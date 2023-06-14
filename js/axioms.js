@@ -1,13 +1,8 @@
 const powerRatings = {
-    "EGO" : 2,
-    "BEAM" : 3,
-    "SMOOCH" : 4,
-    "XCROSS" : 2,
     "STEP" : -3,
     "TURNEND" : -4,
     "ATTACK" : -2,
-    "PLUS" : 2,
-    "PLUSCROSS" : 2,
+    "IGNORECASTER" : -2,
 }
 // In the research menu, these should have "history book" descriptions.
 // EGO - BEAM - PCROSS - XCROSS - 8ADJ - 4ADJ - RANDOM (up to power) - WALL - ALL - PAYLOAD (summon that unleashes targets on death)
@@ -35,7 +30,7 @@ axiomEffects = {
 
     EGO: function(data){
         data["caster"].tile.spellDirection = data["caster"].lastMove;
-        data["targets"].push(data["caster"].tile);
+        data["targets"].add(data["caster"].tile);
         return data;
     },
     SMOOCH : function(data){
@@ -43,7 +38,7 @@ axiomEffects = {
         let newTile = caster.tile;
         newTile = newTile.getNeighbor(caster.lastMove[0],caster.lastMove[1]);
         newTile.spellDirection = [caster.lastMove];
-        data["targets"].push(newTile);
+        data["targets"].add(newTile);
         return data;
     },
     PLUS : function (data){
@@ -58,13 +53,13 @@ axiomEffects = {
         for (let i of directions){
             let tarTile = newTile.getNeighbor(i[0],i[1]);
             tarTile.spellDirection = i;
-            data["targets"].push(tarTile);
+            data["targets"].add(tarTile);
         }
         return data;
     },
     BEAM : function(data){
         let caster = data["caster"];
-        for (let i of targetBoltTravel(caster.lastMove, 15 + Math.abs(caster.lastMove[1]), caster.tile)) data["targets"].push(i);
+        for (let i of targetBoltTravel(caster.lastMove, 15 + Math.abs(caster.lastMove[1]), caster.tile)) data["targets"].add(i);
         return data;
     },
     XCROSS : function(data){
@@ -76,7 +71,7 @@ axiomEffects = {
         ];
         let caster = data["caster"];
         for(let k=0;k<directions.length;k++){
-            for (let i of targetBoltTravel(directions[k], 14, caster.tile)) data["targets"].push(i);
+            for (let i of targetBoltTravel(directions[k], 14, caster.tile)) data["targets"].add(i);
         }
         return data;
     },
@@ -89,7 +84,7 @@ axiomEffects = {
         ];
         let caster = data["caster"];
         for(let k=0;k<directions.length;k++){
-            for (let i of targetBoltTravel(directions[k], 14, caster.tile)) data["targets"].push(i);
+            for (let i of targetBoltTravel(directions[k], 14, caster.tile)) data["targets"].add(i);
         }
         return data;
     },
@@ -101,18 +96,15 @@ axiomEffects = {
     ///////////////
 
     SPREAD : function(data){
-        let extraTar = [];
+        let extraTar = new Set();
         let targets = data["targets"];
         for (let o of targets){
             let nei = o.getAdjacentNeighbors();
             for (let f of nei){
-                if (!targets.includes(f) && !extraTar.includes(f)){
-                    tiles[f.x][f.y].setEffect(13);
-                    extraTar.push(f);
-                }
+                extraTar.add(f);
             }
         }
-        for (let o of extraTar) data["targets"].push(o);
+        for (let o of extraTar) data["targets"].add(o);
         return data;
     },
 
@@ -133,16 +125,16 @@ axiomEffects = {
         for (let o of targets){
             let nei = o.getAdjacentNeighbors();
             for (let f of nei){
-                if (f.monster && !targets.includes(f) && !sameTile(f,data["caster"].tile)){
+                if (f.monster && !sameTile(f,data["caster"].tile)){
                     tiles[f.x][f.y].setEffect(32,45);
-                    targets.push(f);
+                    targets.add(f);
                 }
             }
         }
         return data;
     },
     EPHEMERAL: function(data){
-        data["flags"].push("ephemeral");
+        data["flags"].add("ephemeral");
         return data;
     },
     BUFF: function(data){
@@ -164,6 +156,16 @@ axiomEffects = {
         return data;
     },
 
+    TRAIL: function(data){
+        data.flags.add("trailing");
+        return data;
+    },
+
+    IGNORECASTER: function(data){
+        data.flags.add("ignoreCaster");
+        return data;
+    },
+
     ///////////////
     //
     //   FUNCTIONS
@@ -176,17 +178,20 @@ axiomEffects = {
             target.monster.storedAttack = delayAtk;
             target.monster.giveEffect("Infused",power*2,data);
         }
+        return data;
     },
 
     CLICK : function(target,power,data){
         let trap = new ClickTrap(target,power*3,data);
         target.clickTrap = trap;
+        return data;
     },
 
     SENET: function(target,power,data){ //if power > X, give frenzy, haste?
         if (target.monster){
             target.monster.giveEffect("Charmed",power*3,data);
         }
+        return data;
     },
     ZENORIUM: function(target,power,data){
         //probably obsolete
@@ -210,52 +215,62 @@ axiomEffects = {
             target.monster.giveEffect("Transformed",power*3,data);
             poly.monster.giveEffect("Transformed",power*3,data);
         }
+        return data;
     },
     KASHIA: function(target,power,data){
         if (target.monster){
             target.monster.giveEffect("Dissociated",power*2,data);
         }
+        return data;
     },
     PARACEON: function(target,power,data){
         if (target.monster){
             target.monster.giveEffect("Invincible",Math.floor(power/2),data);
         }
+        return data;
     },
     STOP: function(target,power,data){
         if (target.monster){
             target.monster.giveEffect("Paralyzed",power,data);
         }
+        return data;
     },
     RASEL: function(target,power,data){
         if (target.monster){
             target.monster.giveEffect("Puppeteered",power*2,data);
         }
+        return data;
     },
     APIS: function(target,power,data){
         if (target.monster){
             target.monster.giveEffect("Constricted",power,data);
         }
+        return data;
     },
     HASTE: function(target,power,data){
         if (target.monster){
             target.monster.giveEffect("Hasted",power*2,data);
         }
+        return data;
     },
     HEAL: function(target,power,data){
         //console.log(power);
         if (target.monster){
             target.monster.heal(power,data);
         }
+        return data;
     },
     HARM: function(target,power,data){
         if (target.monster){
             target.monster.hit(power,data);
         }
+        return data;
     },
     THRASH: function(target,power,data){
         if (target.monster){
             target.monster.giveEffect("Thrashing",power*2,data);
         }
+        return data;
     },
     GYVJI: function(targeti,power,data){
         let newTile = targeti;
@@ -272,7 +287,7 @@ axiomEffects = {
             }
         }
         if(target && target.tile != newTile){
-            target.move(newTile);
+            teleport(target,newTile,data);
             playSound("explosion");
             target.tile.setEffect(14,30);
             target.hit(power);
@@ -290,6 +305,7 @@ axiomEffects = {
             }
             shakeAmount = 20 + power*5;
         }
+        return data;
     },
     ASPHA: function(target,power,data){ // make this random blink, then another function that casts the following praxis?
         let tper;
@@ -297,7 +313,7 @@ axiomEffects = {
         else if (target.monster && target.monster.isPlayer) tper = player;
         else return;
         for (let i = 0; i<power; i++){
-            tper.move(randomPassableTile());
+            teleport(tper,randomPassableTile(),data);
             tper.tile.getAllNeighbors().forEach(function(t){
                 t.setEffect(14, 30);
                 if(t.monster){
@@ -305,6 +321,7 @@ axiomEffects = {
                 }
             });
         }
+        return data;
     },
     ABAZON : function(target,power,data){
         let t = target;
@@ -315,14 +332,17 @@ axiomEffects = {
             let monster = new AbazonSummon(t,save,power*2);
             monsters.push(monster);
         }
+        return data;
     },
     BLINK : function(target,power,data){
-        if (!target.monster) return;
+        if (!target.monster) return data;
         let newTile = target;
         let testTile = newTile;
         let affected = testTile.monster;
-        while(target){
+        let powCount = power;
+        while(powCount > 0){
             testTile = newTile.getNeighbor(target.spellDirection[0],target.spellDirection[1]);
+            powCount--;
             if(testTile.passable && !testTile.monster){
                 //newTile.setEffect(affected.sprite); //this causes a strange bug where an after image stays forever
                 newTile = testTile;
@@ -331,8 +351,9 @@ axiomEffects = {
             }
         }
         if(affected && affected.tile != newTile){
-            affected.move(newTile);
+            teleport(affected,newTile,data);
         }
+        return data;
     }
 
 }
@@ -361,11 +382,11 @@ for (let i of Object.keys(researchflags)){
 
 function targetBoltTravel(direction, effect, location){
     let newTile = location;
-    let targets = [];
+    let targets = new Set();
     while(true){
         let testTile = newTile.getNeighbor(direction[0], direction[1]);
         testTile.spellDirection = direction;
-        targets.push(testTile);
+        targets.add(testTile);
         if(testTile.passable){
             newTile = testTile;
             if(newTile.monster) break;
