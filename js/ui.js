@@ -1213,7 +1213,6 @@ class SoulBreathing{
             if (k instanceof Empty){
                 let slot = this.wheel.indexOf(k);
                 this.wheel[slot] = this.subduedSouls[0];
-                research.completeResearch("Breath");
                 break;
             } 
         }
@@ -1316,24 +1315,12 @@ class SoulBreathing{
             if (player.fuffified > 0) spellName = "SERENE";
             if (spellName){
                 beginTurn();
-                if (spellName == "FLEXIBLE"){
-                    player.axioms.active[num].castAxiom(player);
-                    this.exhaustedSouls.push(this.wheel[slot]);
-                    this.wheel[slot] = new Empty();
-                    playSound("spell");
-                    tick();
-                }
-                else{
-                    if (basic.includes(spellName) && area == "Spire") spellName = spellName+"S";
-                    if (player.axioms.active[num].influence != "I") player.axioms.active[num].talk();
-                    else log.addLog(spellName);
-                    spells[spellName](player, player.axioms.active[num]);
-                    if (player.axioms.active[num].influence == "C") spells[player.axioms.active[num].caste](player);
-                    this.exhaustedSouls.push(this.wheel[slot]);
-                    this.wheel[slot] = new Empty();
-                    playSound("spell");
-                    tick();
-                }
+                player.axioms.active[num].castAxiom(player);
+                this.exhaustedSouls.push(this.wheel[slot]);
+                this.wheel[slot] = new Empty();
+                playSound("spell");
+                research.completeResearch("Breath");
+                tick();
             }
         }
     }
