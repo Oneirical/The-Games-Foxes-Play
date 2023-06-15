@@ -201,49 +201,40 @@ function tick(){
     if(player.dead){
         if (player.rosetox < 10) playSound("death");
         else playSound("toxicdeath");
-        if(truehp < 1){
-            gameState = "dead";
-            pauseAllMusic();
-            playSound("falsity");
+        if (!(world.getRoom() instanceof EpsilonArena) && !(world.getRoom() instanceof WorldSeed)) {
+            gameState = "contemplation";
+            if (area == "Faith" && player.rosetox < 10) log.addLog("Agony");
+            else if (area == "Serene"){
+                log.addLog("Fallen");
+            }
+            else if (player.rosetox > 9){
+                log.addLog("Rosified");
+            }
+            //for(let k=monsters.length-1;k>=0;k--){
+            //    monsters.splice(k,1);
+            //}
         }
         else{
-            if (!(world.getRoom() instanceof EpsilonArena) && !(world.getRoom() instanceof WorldSeed)) {
-                gameState = "contemplation";
-                truehp -= deadcheck;
-                agony = deadcheck;
-                if (area == "Faith" && player.rosetox < 10) log.addLog("Agony");
-                else if (area == "Serene"){
-                    log.addLog("Fallen");
-                }
-                else if (player.rosetox > 9){
-                    log.addLog("Rosified");
-                }
-                //for(let k=monsters.length-1;k>=0;k--){
-                //    monsters.splice(k,1);
-                //}
+            wheel.ipseity = lose(wheel.ipseity,5);
+            if(wheel.ipseity <= 0){
+                gameState = "dead";
+                pauseAllMusic();
+                playSound("falsity");
+                log.addLog("EpsilonDeath");
             }
             else{
-                wheel.ipseity = lose(wheel.ipseity,5);
-                if(wheel.ipseity <= 0){
-                    gameState = "dead";
-                    pauseAllMusic();
-                    playSound("falsity");
-                    log.addLog("EpsilonDeath");
-                }
-                else{
-                    player.hp = maxHp;
-                    rosetoxin = 0;
-                    player.rosetox = 0;
-                    for (let x of monsters) x.sprite = x.spritesave;
-                    if (wheel.ipseity > 5) log.addLog("EpsilonTaunt");
-                    else  log.addLog("EpsilonOneChance");
-                    player.dead = false;
-                    player.tile.setEffect(1, 30);
-                    spells["WOOP"](player);
-                    player.sprite = 0;
-                    player.fuffified = 0;
-                    wheel.reshuffle();
-                }
+                player.hp = maxHp;
+                rosetoxin = 0;
+                player.rosetox = 0;
+                for (let x of monsters) x.sprite = x.spritesave;
+                if (wheel.ipseity > 5) log.addLog("EpsilonTaunt");
+                else  log.addLog("EpsilonOneChance");
+                player.dead = false;
+                player.tile.setEffect(1, 30);
+                spells["WOOP"](player);
+                player.sprite = 0;
+                player.fuffified = 0;
+                wheel.reshuffle();
             }
         }
         

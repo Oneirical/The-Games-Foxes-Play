@@ -110,7 +110,7 @@ class CageTemplate{
             "Function" : [],
             "Caste" : [],
         }
-        this.legendCheck();
+        //this.legendCheck();
         this.pocketworld.confirmWorld();
 
     }
@@ -267,7 +267,7 @@ class Universe{
             "Function" : [],
             "Caste" : [],
         }
-        world.cage.legendCheck();
+        //world.cage.legendCheck();
         world.setUpSprites();
         uiDisplayLeft.addChild(world.displayCon);
     }
