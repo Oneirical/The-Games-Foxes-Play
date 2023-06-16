@@ -1,6 +1,7 @@
 class CageTemplate{
     constructor(){
         this.slots = [];
+        this.tier = 0;
         this.build();
         this.pocketworld;
         this.size = 0;
@@ -104,15 +105,68 @@ class CageTemplate{
     generateWorld(){
         this.displayon = true;
         this.pocketworld.reward = {
-            "Contingency" : [],
-            "Form" : [],
-            "Mutator" : [],
-            "Function" : [],
-            "Caste" : [],
+            "Sequence" : [],
+            "Caste" : "",
+            "Potency" : 0,
         }
-        //this.legendCheck();
+        this.buildAxiom();
         this.pocketworld.confirmWorld();
+    }
 
+    buildAxiom(){
+        let allSouls = [];
+        let potency = 0;
+        let praxes = [];
+        for(let j=0;j<9;j++){
+            for(let i=0;i<9;i++){
+                if (!(this.slots[i][j] instanceof Empty)){
+                    allSouls.push(this.slots[i][j].id);
+                    let origin = this.slots[i][j];
+                    let spreading = new Set();
+                    spreading.add(origin);
+                    let itSpread = true;
+                    while (itSpread){
+                        itSpread = false;
+                        for (let e of spreading){
+                            for (let r of this.getAdjacentNeighbors(e.cageX,e.cageY)){
+                                if (r.id == origin.id){
+                                    if (!spreading.has(r)) itSpread = true;
+                                    spreading.add(r);
+                                }
+                            }
+                        }
+                    }
+                    let maxX = 0;
+                    let maxY = 0;
+                    let minX = 9;
+                    let minY = 9;
+                    for (let q of spreading){
+                        if (q.cageX > maxX) maxX = q.cageX;
+                        if (q.cageX < minX) minX = q.cageX;
+                    }
+                    for (let q of spreading){
+                        if (q.cageY > maxY) maxY = q.cageY;
+                        if (q.cageY < minY) minY = q.cageY;
+                    }
+                    const patternSize = Math.max(maxY-minY,maxX-minX);
+                    console.log(patternSize);
+                    console.log(spreading);
+                    let blueprint = {};
+                    for (let q = 0; q<=patternSize; q++){
+                        blueprint[q] = ".".repeat(patternSize+1);
+                    }
+                    console.log(blueprint);
+                }
+                else{
+                    switch(this.tier){
+                        case 0:
+                            if (between(i,2,6) && between(j,2,6)) potency++;
+                            break;
+                    }
+                }
+            }
+        }
+        this.pocketworld.reward["Caste"] = mode(allSouls);
     }
 
     legendCheck(){
@@ -532,7 +586,7 @@ class World{
                     let bannedsquares = [];
                     //if ((j == 8 && i == 4) || (j == 4 && i == 8) ||(j == 0 && i == 4) ||(j == 4 && i == 0)) roomType = EmptyFaith;
                     //else if (j == 4 && i == 4) roomType = PlateGenerator;
-                    if (this.reward["Form"].includes("EPSILON") && j < 8 && i < 8 && worldgen[i+1][j].passable && worldgen[i][j+1].passable && worldgen[i+1][j+1].passable && !isArrayInArray(bannedsquares,[i+1,j]) && !isArrayInArray(bannedsquares,[i+1,j+1]) && !isArrayInArray(bannedsquares,[i,j+1])){
+                    if (j < 8 && i < 8 && worldgen[i+1][j].passable && worldgen[i][j+1].passable && worldgen[i+1][j+1].passable && !isArrayInArray(bannedsquares,[i+1,j]) && !isArrayInArray(bannedsquares,[i+1,j+1]) && !isArrayInArray(bannedsquares,[i,j+1])){
                         if (!placedboss){
                             roomType = EpsilonArena;
                             placedboss = true; // temporary

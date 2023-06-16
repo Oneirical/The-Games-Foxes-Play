@@ -1326,6 +1326,8 @@ class SoulBreathing{
                 this.retrieveSoul(override);
             }
             removeItemOnce(this.turbulentSouls,soul);
+            soul.cageX = override.x;
+            soul.cageY = override.y;
             world.cage.slots[override.x][override.y] = soul;
             world.cage.size++;
             if(world.cage.size > 0) world.cage.generateWorld();
