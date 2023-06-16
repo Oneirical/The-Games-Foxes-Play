@@ -141,6 +141,11 @@ function between(x, min, max) {
     return x > min && x < max;
 }
 
+function setCharAt(str,index,chr) {
+  if(index > str.length-1) return str;
+  return str.substring(0,index) + chr + str.substring(index+1);
+}
+
 function inTriangle(pt, v1, v2, v3){
     b1 = sign(pt, v1, v2) < 0.0;
     b2 = sign(pt, v2, v3) < 0.0;

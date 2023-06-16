@@ -127,6 +127,7 @@ class CageTemplate{
                 if (!(this.slots[i][j] instanceof Empty) && !this.slots[i][j].patternFound){
                     allSouls.push(this.slots[i][j].id);
                     let origin = this.slots[i][j];
+                    origin.patternFound = true;
                     let spreading = new Set();
                     spreading.add(origin);
                     let itSpread = true;
@@ -137,6 +138,7 @@ class CageTemplate{
                                 if (r.id == origin.id){
                                     if (!spreading.has(r)) itSpread = true;
                                     spreading.add(r);
+                                    r.patternFound = true;
                                 }
                             }
                         }
@@ -156,12 +158,12 @@ class CageTemplate{
                     const patternSize = Math.max(maxY-minY+1,maxX-minX+1);
                     console.log(patternSize);
                     console.log(spreading);
-                    let blueprint = {writable: true};
+                    let blueprint = {};
                     for (let q = 0; q<patternSize; q++){
                         blueprint[q] = ".".repeat(patternSize);
                     }
                     for (let q of spreading){
-                        blueprint[maxX-q.cageX][maxY-q.cageY] = q.id[0];
+                        blueprint[patternSize-1-(maxY-q.cageY)] = setCharAt(blueprint[patternSize-1-(maxY-q.cageY)],patternSize-1-(maxX-q.cageX),q.id[0]);
                     }
                     console.log(blueprint);
                     for (let k of research.knownspells){
@@ -189,7 +191,7 @@ class CageTemplate{
         }
         this.pocketworld.reward["Caste"] = mode(allSouls);
         this.pocketworld.reward["Sequence"] = praxes;
-        this.pocketworld.reward["Caste"] = potency;
+        this.pocketworld.reward["Potency"] = potency;
         console.log(this.pocketworld.reward);
     }
 

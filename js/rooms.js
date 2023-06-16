@@ -79,13 +79,13 @@ var spellpatterns = {
     },
     "STEP" : {
         0: "S.S",
-        1: "...",
-        2: "..S",
+        1: ".S.",
+        2: ".S.",
         "type" : "Contingency",
     },
     "STOP" : {
-        0: "S.",
-        1: "S.",
+        0: ".S",
+        1: ".S",
         "type" : "Function",
     },
     "SACRIFICE" : {
@@ -101,8 +101,8 @@ var spellpatterns = {
         "type" : "Function",
     },
     "ASPHA" : {
-        0: "OO",
-        1: "..",
+        0: "..",
+        1: "OO",
         "type" : "Function",
     },
     "ABAZON" : {
@@ -125,9 +125,8 @@ var spellpatterns = {
     //Artistic
 
     "GYVJI" : {
-        0: "A.A",
-        1: "...",
-        2: "...",
+        0: "AA",
+        1: "..",
         "type" : "Function",
     },
 
@@ -151,15 +150,15 @@ var spellpatterns = {
         "type" : "Form",
     },
     "XCROSS" : {
-        0: "U..",
-        1: ".U.",
-        2: "U..",
+        0: ".U.",
+        1: "..U",
+        2: ".U.",
         "type" : "Form",
     },
     "JOLTZAZON" : {
-        0: "U.U",
-        1: "...",
-        2: "...",
+        0: "...",
+        1: ".U.",
+        2: "U.U",
         "type" : "Mutator",
     },
 
@@ -168,8 +167,8 @@ var spellpatterns = {
     //Vile
 
     "SMOOCH" : {
-        0: "VV",
-        1: "..",
+        0: "..",
+        1: "VV",
         "type" : "Form",
     },
     "SENET" : {
@@ -178,9 +177,9 @@ var spellpatterns = {
         "type" : "Function",
     },
     "RASEL" : {
-        0: "V..",
-        1: ".V.",
-        2: ".V.",
+        0: ".V.",
+        1: "..V",
+        2: "..V",
         "type" : "Function",
     },
 }
