@@ -114,12 +114,17 @@ class CageTemplate{
     }
 
     buildAxiom(){
+        for(let j=0;j<9;j++){
+            for(let i=0;i<9;i++){
+                this.slots[i][j].patternFound = false;
+            }
+        }
         let allSouls = [];
         let potency = 0;
         let praxes = [];
         for(let j=0;j<9;j++){
             for(let i=0;i<9;i++){
-                if (!(this.slots[i][j] instanceof Empty)){
+                if (!(this.slots[i][j] instanceof Empty) && !this.slots[i][j].patternFound){
                     allSouls.push(this.slots[i][j].id);
                     let origin = this.slots[i][j];
                     let spreading = new Set();
@@ -148,14 +153,30 @@ class CageTemplate{
                         if (q.cageY > maxY) maxY = q.cageY;
                         if (q.cageY < minY) minY = q.cageY;
                     }
-                    const patternSize = Math.max(maxY-minY,maxX-minX);
+                    const patternSize = Math.max(maxY-minY+1,maxX-minX+1);
                     console.log(patternSize);
                     console.log(spreading);
-                    let blueprint = {};
-                    for (let q = 0; q<=patternSize; q++){
-                        blueprint[q] = ".".repeat(patternSize+1);
+                    let blueprint = {writable: true};
+                    for (let q = 0; q<patternSize; q++){
+                        blueprint[q] = ".".repeat(patternSize);
+                    }
+                    for (let q of spreading){
+                        blueprint[maxX-q.cageX][maxY-q.cageY] = q.id[0];
                     }
                     console.log(blueprint);
+                    for (let k of research.knownspells){
+                        if (spellpatterns[k][0].length != patternSize) continue;
+                        let ok = true;
+                        for (let q = 0; q<patternSize; q++){
+                            if (blueprint[q] != spellpatterns[k][q]) ok = false;
+                        }
+                        if (!ok) continue;
+                        else {
+                            praxes.push(k);
+                            for (let q of spreading) q.patternFound = true;
+                            break;
+                        }
+                    }
                 }
                 else{
                     switch(this.tier){
@@ -167,6 +188,9 @@ class CageTemplate{
             }
         }
         this.pocketworld.reward["Caste"] = mode(allSouls);
+        this.pocketworld.reward["Sequence"] = praxes;
+        this.pocketworld.reward["Caste"] = potency;
+        console.log(this.pocketworld.reward);
     }
 
     legendCheck(){
