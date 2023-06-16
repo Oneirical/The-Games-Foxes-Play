@@ -309,6 +309,23 @@ function showCatalogue(type){
     drawSymbol(inside[type], 890, 20, 64);
 }
 
+class Tooltip{
+    constructor(){
+        this.displayCon = new PIXI.Container();
+        const graphics = new PIXI.Graphics();
+        graphics.beginFill("black");
+        graphics.drawRect(-16, -16, 15*32-2, 20*32-2);
+        graphics.endFill();
+        this.displayCon.addChild(graphics);
+        drawChainBorder(15,20,this.displayCon);
+        app.ticker.add(() => {
+            const mousePos = getMouse();
+            this.displayCon.x = mousePos[0]+8;
+            this.displayCon.y = mousePos[1]+8;
+        });
+    }
+}
+
 class NodeDescription{
     constructor(){
     }
@@ -319,11 +336,18 @@ class NodeDescription{
     }
 
     getDescription(node){
+        if (!node) return;
+        if (node instanceof ResearchNode) node = node.id;
         this.displayCon.removeChildren();
+        const graphics = new PIXI.Graphics();
+        graphics.beginFill("black");
+        graphics.drawRect(-8, -8, 14*32, 28*32-16);
+        graphics.endFill();
+        this.displayCon.addChild(graphics);
         drawChainBorder(15,28,this.displayCon);
-        const text = [node.name,node.flags,node.description,node.lore,node.unlock]; //,node.extra
+        const text = [researchnames[node],researchflags[node], researchexpl[node],researchlore[node],researchunlocks[node]]; //,node.extra
         const heights = [0,20,60,325,450];
-        let newSprite = new FoxSprite(allsprites.textures['icon'+node.contents]);
+        let newSprite = new FoxSprite(allsprites.textures['icon'+inside[node]]);
         newSprite.x = 32*13;
         newSprite.width = 32;
         newSprite.height = 32;
@@ -331,7 +355,7 @@ class NodeDescription{
         for (let i of text){
             if (!i) continue;
             let coloring = "white";
-            if (i == node.lore) coloring = "plum";
+            if (i == researchlore[node]) coloring = "plum";
             const style = new PIXI.TextStyle({
                 fontFamily: 'Play',
                 fontSize: 18,
@@ -768,6 +792,61 @@ class ComponentsDisplay{
     }
 }
 
+class CatalogueDisplay{
+    constructor(){
+        this.setUpSprites();
+    }
+
+    setUpSprites(){
+        this.displayCon = new PIXI.Container();
+        this.displayCon.y = 32*16;
+        this.catalogueCon = new PIXI.Container();
+        this.displayCon.addChild(this.catalogueCon);
+        this.catalogueCon.x = 8;
+        this.catalogueCon.y = 8;
+        drawChainBorder(15,12,this.displayCon);
+        for (let i = 0; i<7; i++){
+            for (let j = 0; j<9; j++){
+                const currentSpell = research.knownspells[j+i*8];
+                let sprite = inside[currentSpell];
+                if (!sprite) sprite = 7;
+                let newSprite = new FoxSprite(allsprites.textures['icon'+sprite]);
+                newSprite.x = j*48;
+                newSprite.y = i*48;
+                newSprite.width = 48;
+                newSprite.height = 48;
+                newSprite.eventMode = 'static';
+                this.descriptionBox = new NodeDescription();
+                this.descriptionBox.setUpSprites();
+                this.descriptionBox.displayCon.x = -15*32;
+                this.descriptionBox.displayCon.y = 32;
+                uiDisplayRight.addChild(this.descriptionBox.displayCon);
+                this.descriptionBox.displayCon.visible = false;
+                const graphics = new PIXI.Graphics();
+                graphics.beginFill("black");
+                graphics.drawRect(-8, -8, 14*32, 28*32-16);
+                graphics.endFill();
+                this.descriptionBox.displayCon.addChild(graphics);
+                newSprite.on('pointerdown', (event) => {
+                });
+                newSprite.on('pointerover', (event) => {
+                    this.descriptionBox.displayCon.visible = true;
+                    this.descriptionBox.getDescription(currentSpell)
+                    let wai = new PIXI.filters.GlowFilter();
+                    wai.outerStrength = 1;
+                    newSprite.filters = [wai];
+                });
+                newSprite.on('pointerout', (event) => {
+                    this.descriptionBox.displayCon.visible = false;
+                    newSprite.filters = [];
+                });
+                this.catalogueCon.addChild(newSprite);
+
+            }
+        }
+    }
+}
+
 class ButtonsDisplay{
     constructor(){
 
@@ -955,6 +1034,9 @@ class SoulBreathing{
     }
 
     toPaintMode(){
+        uiDisplayRight.removeChild(log.displayCon);
+        this.catalogue = new CatalogueDisplay();
+        uiDisplayRight.addChild(this.catalogue.displayCon);
         for (let i = 0; i< 8;  i++){
             let hai = (i-1+58);
             if (i == 0) hai = 7;
@@ -999,6 +1081,8 @@ class SoulBreathing{
     }
 
     toNormalMode(){
+        uiDisplayRight.removeChild(this.catalogue.displayCon);
+        uiDisplayRight.addChild(log.displayCon);
         if (this.selectedCan != null) this.selectCan(this.selectedCan);
         this.selectedCan = null;
         for (let i = 0; i< 8;  i++){
