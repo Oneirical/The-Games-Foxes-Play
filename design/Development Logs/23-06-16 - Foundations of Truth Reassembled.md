@@ -1,6 +1,6 @@
-*""*
+*"When a new thoughtform births, it already prods at the world around it before its first breath, latching onto symbols and patterns. Such primordial ideas are a delicacy among the upper castes."*
 
-- 
+- flavour text introducing the player to the Feral caste
 
 ## The Games Foxes Play
 *([complete source code](https://github.com/Oneirical/The-Games-Foxes-Play) - [mirror](https://codeberg.org/Oneirical/The-Games-Foxes-Play) | [view all previous posts](https://github.com/Oneirical/The-Games-Foxes-Play/tree/main/design/Development%20Logs) | [play 0.4.3 online in browser on itch.io!](https://oneirical.itch.io/tgfp))*
@@ -50,7 +50,7 @@ Let's work this through step by step.
 
 Here's [how it looks]() in game! Simply put, dash, then strike all creatures near the dash!
 
-There are now 30 different Axiom components (named "Praxes" in game) available for mix-and-matching, with many more already designed and coming along. So many exciting contraptions await...!
+There are now 30 different Axiom components (named "Praxes" in game) available for mix-and-matching, with many more already designed and coming along. So many exciting contraptions await...! I've already started [reworking]() the spell crafting room with a whole new algorithm, but that is unfinished and will be featured in next week's post.
 
 # Thick Smoke Shrouds Understanding
 

@@ -792,6 +792,29 @@ class ComponentsDisplay{
     }
 }
 
+class CraftingDisplay{
+    constructor(){
+        this.displayCon = new PIXI.Container();
+        this.displayCon.y = 32*15;  
+        this.displayCon.x = 17*15; 
+        this.craftCon = new PIXI.Container();
+        this.displayCon.addChild(this.craftCon);
+        drawChainBorder(2,17,this.displayCon);
+        for (let i = 0; i<8; i++){
+            const currentSpell = "EGO";
+            let sprite = inside[currentSpell];
+            if (!sprite) sprite = 7;
+            let newSprite = new FoxSprite(allsprites.textures['icon'+sprite]);
+            newSprite.y = i*58;
+            newSprite.x = -8;
+            newSprite.width = 48;
+            newSprite.height = 48;
+            newSprite.eventMode = 'static';
+            this.craftCon.addChild(newSprite);
+        }
+    }
+}
+
 class CatalogueDisplay{
     constructor(){
         this.setUpSprites();
@@ -1037,6 +1060,10 @@ class SoulBreathing{
         uiDisplayRight.removeChild(log.displayCon);
         this.catalogue = new CatalogueDisplay();
         uiDisplayRight.addChild(this.catalogue.displayCon);
+        uiDisplayLeft.removeChild(player.axioms.displayCon);
+        uiDisplayLeft.removeChild(statuses.displayCon);
+        this.craftShow = new CraftingDisplay();
+        uiDisplayLeft.addChild(this.craftShow.displayCon);
         for (let i = 0; i< 8;  i++){
             let hai = (i-1+58);
             if (i == 0) hai = 7;
@@ -1083,6 +1110,9 @@ class SoulBreathing{
     toNormalMode(){
         uiDisplayRight.removeChild(this.catalogue.displayCon);
         uiDisplayRight.addChild(log.displayCon);
+        uiDisplayLeft.addChild(player.axioms.displayCon);
+        uiDisplayLeft.addChild(statuses.displayCon);
+        uiDisplayLeft.removeChild(this.craftShow.displayCon);
         if (this.selectedCan != null) this.selectCan(this.selectedCan);
         this.selectedCan = null;
         for (let i = 0; i< 8;  i++){
