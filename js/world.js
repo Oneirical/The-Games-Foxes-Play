@@ -111,6 +111,7 @@ class CageTemplate{
         }
         this.buildAxiom();
         this.pocketworld.confirmWorld();
+        wheel.craftShow.updateDisplay();
     }
 
     buildAxiom(){
@@ -175,7 +176,7 @@ class CageTemplate{
                         if (!ok) continue;
                         else {
                             praxes.push(k);
-                            for (let q of spreading) q.patternFound = true;
+                            for (let q of spreading) q.patternFound = k;
                             break;
                         }
                     }
@@ -341,11 +342,9 @@ class Universe{
             world.cage.size = 1;
         }
         world.cage.pocketworld.reward = {
-            "Contingency" : [],
-            "Form" : [],
-            "Mutator" : [],
-            "Function" : [],
-            "Caste" : [],
+            "Sequence" : [],
+            "Caste" : "",
+            "Potency" : 0,
         }
         //world.cage.legendCheck();
         world.setUpSprites();
@@ -426,11 +425,9 @@ class World{
         this.cage = new CageTemplate();
         this.layer;
         this.reward = {
-            "Contingency" : [],
-            "Form" : [],
-            "Mutator" : [],
-            "Function" : [],
-            "Caste" : [],
+            "Sequence" : [],
+            "Caste" : "",
+            "Potency" : 0,
         };
         this.exppage = new ComponentsDisplay();
         this.soulex;

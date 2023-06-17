@@ -796,21 +796,63 @@ class CraftingDisplay{
     constructor(){
         this.displayCon = new PIXI.Container();
         this.displayCon.y = 32*15;  
-        this.displayCon.x = 17*15; 
+        this.displayCon.x = 32*7; 
         this.craftCon = new PIXI.Container();
         this.displayCon.addChild(this.craftCon);
-        drawChainBorder(2,17,this.displayCon);
+        drawChainBorder(3,17,this.displayCon);
         for (let i = 0; i<8; i++){
-            const currentSpell = "EGO";
+            let newSprite = new FoxSprite(allsprites.textures['icon7']);
+            newSprite.y = i*64;
+            newSprite.x = 0;
+            newSprite.width = 64;
+            newSprite.height = 64;
+            newSprite.eventMode = 'static';
+            newSprite.assignedPraxis = "EMPTY";
+            newSprite.on('pointerover', (event) => {
+                this.findMatching(newSprite.assignedPraxis);
+                let wai = new PIXI.filters.GlowFilter();
+                wai.outerStrength = 1;
+                newSprite.filters = [wai];
+            });
+            newSprite.on('pointerout', (event) => {
+                this.resetShadows();
+                newSprite.filters = [];
+            });
+            this.craftCon.addChild(newSprite);
+        }
+    }
+
+    updateDisplay(){
+        for (let i = 0; i<8; i++){
+            const currentSpell = world.cage.pocketworld.reward["Sequence"][i];
             let sprite = inside[currentSpell];
             if (!sprite) sprite = 7;
-            let newSprite = new FoxSprite(allsprites.textures['icon'+sprite]);
-            newSprite.y = i*58;
-            newSprite.x = -8;
-            newSprite.width = 48;
-            newSprite.height = 48;
-            newSprite.eventMode = 'static';
-            this.craftCon.addChild(newSprite);
+            this.craftCon.children[i].texture = allsprites.textures['icon'+sprite];
+            this.craftCon.children[i].assignedPraxis = currentSpell;
+        }
+    }
+
+    resetShadows(){
+        for (let i = 0; i<numTiles; i++){
+            for (let j = 0; j<numTiles; j++){
+                if (tiles[i][j] instanceof CageContainer){
+                    tiles[i][j].tilecon.alpha = 1;
+                }
+            }
+        }
+    }
+
+    findMatching(praxis){
+        if (!praxis) return;
+        for (let i = 0; i<numTiles; i++){
+            for (let j = 0; j<numTiles; j++){
+                if (tiles[i][j] instanceof CageContainer && world.cage.slots[i][j].patternFound != praxis){
+                    tiles[i][j].tilecon.alpha = 0.3;
+                }
+                else if (tiles[i][j] instanceof CageContainer && world.cage.slots[i][j].patternFound === praxis){
+                    tiles[i][j].tilecon.alpha = 1;
+                }
+            }
         }
     }
 }
@@ -1064,6 +1106,7 @@ class SoulBreathing{
         uiDisplayLeft.removeChild(statuses.displayCon);
         this.craftShow = new CraftingDisplay();
         uiDisplayLeft.addChild(this.craftShow.displayCon);
+        this.craftShow.updateDisplay();
         for (let i = 0; i< 8;  i++){
             let hai = (i-1+58);
             if (i == 0) hai = 7;
