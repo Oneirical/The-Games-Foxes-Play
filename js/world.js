@@ -313,7 +313,7 @@ class Universe{
             }
         }
         let reward = false;
-        if (world.reward["Form"].length > 0 && world.reward["Function"].length > 0 && receivereward) reward = new Axiom(world.reward["Contingency"],world.reward["Form"],world.reward["Mutator"],world.reward["Function"],shuffle(world.reward["Caste"])[0],"me");
+        if (false) reward = new Axiom(world.reward["Contingency"],world.reward["Form"],world.reward["Mutator"],world.reward["Function"],shuffle(world.reward["Caste"])[0],"me");
         if (reward){
             research.completeResearch("Craft");
             for (let i of Object.keys(world.reward)){

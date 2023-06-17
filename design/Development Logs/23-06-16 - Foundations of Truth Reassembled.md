@@ -11,7 +11,7 @@ I even played some Cogmind for, ahem, game development research purposes, yes. I
 
 # Reassemble the Foundations of Truth
 
-Something very ironic about my ["research web"]() is how much it helps me develop my game. Every time I am wondering what to work on next, I just play my game filling it out until I hit a void of incomplete content preventing me from progressing in it. Then, I fill in the gap with Content™ and proceed to the next node. It really makes me feel like I am learning the arts of soul-weaving alongside my protagonist.
+Something very ironic about my ["research web"](https://cdn.discordapp.com/attachments/504088568084561930/1119416024106795098/rWBIjpR.png) is how much it helps me develop my game. Every time I am wondering what to work on next, I just play my game filling it out until I hit a void of incomplete content preventing me from progressing in it. Then, I fill in the gap with Content™ and proceed to the next node. It really makes me feel like I am learning the arts of soul-weaving alongside my protagonist.
 
 This time, the aforementioned gap required me to redirect my current focus towards a more fun part of programming than UI design: awesome spells. First things first, all of the 6 starter spells offered to the player were still running on the old system - just a big block of code working through arbitrary effects. This is simply unacceptable: I *must* show new players a glimpse of all the reality-shattering incantations they might be able to build with some creativity.
 
@@ -32,7 +32,7 @@ So, the spell just plops down a trap under your feet with "EGO, PLUSCROSS, HARM"
 * PLUSCROSS: Also select all tiles in a cross formation, like firing a laser beam in all 4 cardinal directions.
 * HARM: Deal damage to all entities in selected tiles.
 
-So, not only does the trap damage the one who steps on it, it also explodes and deals significant collateral damage! [See it in game]() for yourself.
+So, not only does the trap damage the one who steps on it, it also explodes and deals significant collateral damage! 
 
 What I just described is the Artistic starter spell (or "Axiom", as they are called in game). I have made 5 others, all with their own themed sequences. Let me show you the Feral one:
 
@@ -48,9 +48,11 @@ Let's work this through step by step.
 * IGNORECASTER: From now on, the caster of this Axiom will not be affected by any effects of this Axiom.
 * HARM: All entities on selected tiles take damage (except the caster, due to IGNORECASTER).
 
-Here's [how it looks]() in game! Simply put, dash, then strike all creatures near the dash!
+Simply put, dash, then strike all creatures near the dash!
 
-There are now 30 different Axiom components (named "Praxes" in game) available for mix-and-matching, with many more already designed and coming along. So many exciting contraptions await...! I've already started [reworking]() the spell crafting room with a whole new algorithm, but that is unfinished and will be featured in next week's post.
+Here's how [both of these spells look](https://vid.puffyan.us/embed/M-IFFOaRxxo) in game!
+
+There are now 30 different Axiom components (named "Praxes" in game) available for mix-and-matching, with many more already designed and coming along. So many exciting contraptions await...! I've already started reworking the spell crafting room with a whole new algorithm, but that is unfinished and will be featured in next week's post.
 
 # Thick Smoke Shrouds Understanding
 
