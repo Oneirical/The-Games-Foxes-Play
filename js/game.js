@@ -37,19 +37,16 @@ function teleport(target,destination,data){
 }
 
 function toResearchMode(){
+    if (inInventory) toAxiomMode();
+    if (inMap) toMapMode();
     inResearch = !inResearch;
-    inInventory = false;
-    inMap = false;
     if (inResearch){
         tilesDisplay.eventMode = 'static';
+        uiDisplayLeft.removeChildren();
+        uiDisplayRight.removeChildren();
         tilesDisplay.addChild(research.displayCon);
         uiDisplayLeft.addChild(research.tabContainer);
-        uiDisplayLeft.removeChild(areaname.displayCon);
-        uiDisplayLeft.removeChild(statuses.displayCon);
-        uiDisplayLeft.removeChild(world.displayCon);
-        uiDisplayLeft.removeChild(player.axioms.displayCon);
-        uiDisplayRight.removeChild(wheel.displayCon);
-        uiDisplayRight.removeChild(log.displayCon);
+        uiDisplayRight.addChild(buttons.displayCon);
         uiDisplayRight.addChild(research.descriptionBox.displayCon);
     }
     else{
@@ -63,15 +60,22 @@ function toResearchMode(){
         uiDisplayLeft.addChild(player.axioms.displayCon);
         uiDisplayRight.addChild(wheel.displayCon);
         uiDisplayRight.addChild(log.displayCon);
+        if (world.getRoom() instanceof SoulCage) wheel.toPaintMode();
     }
 }
 
+function toMapMode(){
+
+}
+
 function toAxiomMode(){
+    if (inResearch) toResearchMode();
+    if (inMap) toMapMode();
     inInventory = !inInventory;
-    inResearch = false;
-    inMap = false;
     if (inInventory){
         tilesDisplay.eventMode = 'static';
+        uiDisplayLeft.removeChildren();
+        uiDisplayRight.removeChildren();
         drawPixel("black",0,0,112*9,tilesDisplay);
         tilesDisplay.addChild(player.axioms.displayCon);
         player.axioms.displayCon.x = 0;
@@ -82,13 +86,8 @@ function toAxiomMode(){
         for (let i of player.axioms.displayCon.children){
             if (i instanceof PIXI.ParticleContainer) player.axioms.displayCon.removeChild(i);
         }
-        uiDisplayLeft.removeChild(areaname.displayCon);
-        uiDisplayLeft.removeChild(statuses.displayCon);
-        uiDisplayLeft.removeChild(world.displayCon);
-        uiDisplayLeft.removeChild(player.axioms.displayCon);
-        uiDisplayRight.removeChild(wheel.displayCon);
-        uiDisplayRight.removeChild(log.displayCon);
         uiDisplayRight.addChild(research.descriptionBox.displayCon);
+        uiDisplayRight.addChild(buttons.displayCon);
     }
     else{
         tilesDisplay.eventMode = 'passive';
@@ -107,6 +106,7 @@ function toAxiomMode(){
         uiDisplayRight.addChild(wheel.displayCon);
         uiDisplayRight.addChild(log.displayCon);
         uiDisplayRight.removeChild(research.descriptionBox.displayCon);
+        if (world.getRoom() instanceof SoulCage) wheel.toPaintMode();
     }
 }
 

@@ -67,6 +67,7 @@ Universal law that can be changed: default: when room begins, on all enemies, ap
 
 * Random target with fat power. Feral.
 * something that travels across every adjacent wall and adjacent floors to those walls
+* orbital laser form, hits 50 % whole screen in stripes
 
 **Mutators**
 
