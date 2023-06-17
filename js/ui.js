@@ -346,7 +346,7 @@ class NodeDescription{
         this.displayCon.addChild(graphics);
         drawChainBorder(15,28,this.displayCon);
         const text = [researchnames[node],researchflags[node], researchexpl[node],researchlore[node],researchunlocks[node]]; //,node.extra
-        const heights = [0,20,60,325,450];
+        let height = 0;
         let newSprite = new FoxSprite(allsprites.textures['icon'+inside[node]]);
         newSprite.x = 32*13;
         newSprite.width = 32;
@@ -364,14 +364,28 @@ class NodeDescription{
                 wordWrapWidth: resolutionSize*16*16-(resolutionSize*9*16+(resolutionSize+12)*16+10)-20,
                 lineJoin: 'round',
             });
-            textWithoutCringe(i,0,heights[text.indexOf(i)],style,this.displayCon);
-            if (text.indexOf(i) > 1) drawChainLine(12,50,heights[text.indexOf(i)],"h",this.displayCon);
-            //let newText = new PIXI.Text(i,style);
-            //if (i != node.name){
-            //    newText.y = PIXI.TextMetrics.measureText(text[text.indexOf(i)-1],style).height + accy;
-            //    accy += PIXI.TextMetrics.measureText(text[text.indexOf(i)],style).height
-            //}
-            //this.displayCon.addChild(newText);
+            let bumpValue = textWithoutCringe(i,0,height,style,this.displayCon);
+            if (text.indexOf(i) > 0) bumpValue+=40;
+            height+= bumpValue;
+            if (text.indexOf(i) > 0) drawChainLine(14,16,height-7,"h",this.displayCon);
+        }
+        if (spellpatterns[node]){
+            this.craftRecipe = new PIXI.Container();
+            this.craftRecipe.y = height;
+            this.displayCon.addChild(this.craftRecipe);
+            const textures = ["S","O","A","U","F","V"];
+            for (let i = 0; i<spellpatterns[node][0].length; i++){
+                for (let j = 0; j<spellpatterns[node][0].length; j++){
+                    let craftSprite = 7;
+                    if (spellpatterns[node][j][i] != ".") craftSprite = textures.indexOf(spellpatterns[node][j][i]);
+                    let craftSoul = new FoxSprite(allsprites.textures['icon'+craftSprite]);
+                    craftSoul.x = i*64;
+                    craftSoul.y = j*64;
+                    craftSoul.width = 64;
+                    craftSoul.height = 64;
+                    this.craftRecipe.addChild(craftSoul);
+                }
+            }
         }
     }
 }

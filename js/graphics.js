@@ -276,7 +276,8 @@ function textWithoutCringe(text,x,y,style,source){ // here lies my sanity - june
             colorText.y = allLines.indexOf(i)*23;
             textBlock.addChild(colorText);
         }
-    }    
+    }
+    return PIXI.TextMetrics.measureText(removeColorTags(text),style).height;
 }
 
 function printOutText(text,x,y,style,source){
