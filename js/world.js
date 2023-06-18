@@ -151,14 +151,10 @@ class CageTemplate{
                     for (let q of spreading){
                         if (q.cageX > maxX) maxX = q.cageX;
                         if (q.cageX < minX) minX = q.cageX;
-                    }
-                    for (let q of spreading){
                         if (q.cageY > maxY) maxY = q.cageY;
                         if (q.cageY < minY) minY = q.cageY;
                     }
                     const patternSize = Math.max(maxY-minY+1,maxX-minX+1);
-                    console.log(patternSize);
-                    console.log(spreading);
                     let blueprint = {};
                     for (let q = 0; q<patternSize; q++){
                         blueprint[q] = ".".repeat(patternSize);
@@ -166,7 +162,6 @@ class CageTemplate{
                     for (let q of spreading){
                         blueprint[patternSize-1-(maxY-q.cageY)] = setCharAt(blueprint[patternSize-1-(maxY-q.cageY)],patternSize-1-(maxX-q.cageX),q.id[0]);
                     }
-                    console.log(blueprint);
                     for (let k of research.knownspells){
                         if (spellpatterns[k][0].length != patternSize) continue;
                         let ok = true;
