@@ -1150,7 +1150,10 @@ class ResearchNode extends Floor{
         this.discovered = true;
         if (this.axiomComponent) this.innerSymbol.texture = (allsprites.textures['icon'+inside[this.id]]);
         if (this.page > 0 && !research.knownSpells.includes(this.id)) research.knownSpells.push(this.id);
-        if (["Saintly","Ordered","Artistic","Unhinged","Feral","Vile"].includes(this.id)) research.tabs[["Saintly","Ordered","Artistic","Unhinged","Feral","Vile"].indexOf(this.id)+1][7][7].discoverNode();
+        if (["Saintly","Ordered","Artistic","Unhinged","Feral","Vile"].includes(this.id)){
+            research.tabs[["Saintly","Ordered","Artistic","Unhinged","Feral","Vile"].indexOf(this.id)+1][7][7].discoverNode();
+            research.tabContainer.children[["Saintly","Ordered","Artistic","Unhinged","Feral","Vile"].indexOf(this.id)+1].visible = true;
+        }
     }
 
     completeNode(){

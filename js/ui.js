@@ -53,6 +53,7 @@ class Research{
             selector.casteNum = i;
             selector.displayCon.y = i*112+16;
             selector.displayCon.x = 252;
+            if (i > 0) selector.displayCon.visible = false;
             this.tabContainer.addChild(selector.displayCon);
         }
         this.descriptionBox = new NodeDescription();
@@ -111,7 +112,6 @@ class Research{
                 }
                 const neig = [[-1,0],[1,0],[0,1],[0,-1]];
                 for (let x of neig){
-                    if (x[1] == -1 && ["t","ur","ul"].includes(g.connectType)) continue; // that weird edge case in Fundamentals at the top, maybe make this better eventually
                     if (this.tabs[k][g.x+x[0]] && this.tabs[k][g.x+x[0]][g.y+x[1]]){
                         goo.push(this.tabs[k][g.x+x[0]][g.y+x[1]]);
                         if (this.tabs[k][g.x+x[0]][g.y+x[1]] instanceof ResearchNode){
