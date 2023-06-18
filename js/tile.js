@@ -1112,14 +1112,14 @@ class ResearchNode extends Floor{
             this.id = shuffle(casteNodes)[0];
             removeItemOnce(casteNodes,this.id);
         }
-        if (this.id == "CASTE"){
+        if (this.id == "INITIAL"){
             const casteTabNum = {
-                1 : "Saintly",
-                2 : "Ordered",
-                3 : "Artistic",
-                4 : "Unhinged",
-                5 : "Feral",
-                6 : "Vile"
+                1 : "EGO",
+                2 : "PARACEON",
+                3 : "GYVJI",
+                4 : "BEAM",
+                5 : "BLINK",
+                6 : "HARM"
             }
             this.id = casteTabNum[page];
         }
@@ -1141,6 +1141,21 @@ class ResearchNode extends Floor{
         if (this.id == "Research") this.discovered = true;
 
         this.contents = inside[this.id];
+    }
+
+    discoverNode(){
+        if (this.id == "Vision" && !(research.knownnodes.includes("Seed") && research.knownnodes.includes("Brush"))) return;
+        else if (this.id == "Axioms" && !(research.knownnodes.includes("Form") && research.knownnodes.includes("Function"))) return;
+        this.tilecon.alpha = 1;
+        this.discovered = true;
+        if (this.axiomComponent) this.innerSymbol.texture = (allsprites.textures['icon'+inside[this.id]]);
+        if (this.page > 0 && !research.knownSpells.includes(this.id)) research.knownSpells.push(this.id);
+        if (["Saintly","Ordered","Artistic","Unhinged","Feral","Vile"].includes(this.id)) research.tabs[["Saintly","Ordered","Artistic","Unhinged","Feral","Vile"].indexOf(this.id)+1][7][7].discoverNode();
+    }
+
+    completeNode(){
+        this.completed = true;
+        this.sprite = 120;
     }
 
     setUpResearch(source){

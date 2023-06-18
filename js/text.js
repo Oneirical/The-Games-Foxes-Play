@@ -751,7 +751,7 @@ researchequivalences = {
         "f" : "FORM",
         "s" : "FUNCTION",
         "m" : "MUTATOR",
-        "a" : "CASTE",
+        "a" : "INITIAL",
     },
     2 : {
         "a" : "MUTATOR",

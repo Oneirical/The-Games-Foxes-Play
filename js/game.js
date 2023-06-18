@@ -294,7 +294,7 @@ function playerTransformTest(type){
 
 function unlockAllSpells(){
     for (let i of Object.keys(spellpatterns)){
-        research.knownspells.push(i);
+        research.knownSpells.push(i);
     }
 }
 

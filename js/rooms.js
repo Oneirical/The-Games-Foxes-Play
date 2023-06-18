@@ -235,6 +235,15 @@ for (let i of Object.keys(spellpatterns)){
         }
     }
     lootPool[spellpatterns[i]["type"].toUpperCase()][caste].push(i);
+    const equi = {
+        "S" : "Saintly",
+        "O" : "Ordered",
+        "A" : "Artistic",
+        "U" : "Unhinged",
+        "F" : "Feral",
+        "V" : "Vile",
+    }
+    spellpatterns[i]["caste"] = equi[caste];
     //if (spellpatterns[i]["type"] == "Contingency") contingencies.push(i);
     //else if (spellpatterns[i]["type"] == "Form") forms.push(i);
     //else if (spellpatterns[i]["type"] == "Mutator") mutators.push(i);
@@ -312,9 +321,9 @@ var researchpage = {
         3 :  "f-c-s..I..m-s-s",
         4 :  "..I....f....I..",
         5 :  "..m-f..I..c-f..",
-        6 :  "....I.aaa.I....",
-        7 :  "....s-aaa-s....",
-        8 :  "....I.aaa.I....",
+        6 :  "....I..I..I....",
+        7 :  "....Ks-a-sJ....",
+        8 :  "....I..I..I....",
         9 :  "....m..I..m....",
         10 : ".......f.......",
         11 : ".......I.......",
@@ -323,19 +332,19 @@ var researchpage = {
         14 : "......Lc)......",
     },
     "Web0" : {
-        0 :  "C-D----A----T-C",
-        1 :  "..I...>Y<...I..",
-        2 :  "C-J.O-FTU-M.C..",
-        3 :  "..I....I.......",
-        4 :  "N-).n--o----T-C",
+        0 :  "C-D----T----T-C",
+        1 :  "..I....I....I..",
+        2 :  "C-J...>A<...C..",
+        3 :  "..I...I.I......",
+        4 :  "N-).O-FTU-M.C..",
         5 :  "I......I....I..",
-        6 :  "I......l....C..",
-        7 :  "I......I.......",
-        8 :  "S..>---f--T-g-H",
-        9 :  "I..i...I..I...I",
-        10 : "I..L-T-d..k...g",
-        11 : "I....c.........",
-        12 : "L-r..L-b-<.....",
+        6 :  "I.o-lT-Y--T-Y-C",
+        7 :  "I....I....I....",
+        8 :  "S..>-f-<..K-g-H",
+        9 :  "I..I...I..I...I",
+        10 : "I..i-T-d..k...g",
+        11 : "I....I.........",
+        12 : "L-r..c-b-<.....",
         13 : ".........a.....",
         14 : ".......z-).....",
     },

@@ -4,7 +4,7 @@ class Research{
         this.page;
         this.currentpage = 0;
         this.knownnodes = [];
-        this.knownspells = [];
+        this.knownSpells = [];
         this.buildTabs();
         this.looking = false;
         this.exppage = new TutorialDisplay();
@@ -111,14 +111,11 @@ class Research{
                 }
                 const neig = [[-1,0],[1,0],[0,1],[0,-1]];
                 for (let x of neig){
-                    if (x[1] == -1 && g.connectType == "t") continue; // that weird edge case in Fundamentals at the top, maybe make this better eventually
+                    if (x[1] == -1 && ["t","ur","ul"].includes(g.connectType)) continue; // that weird edge case in Fundamentals at the top, maybe make this better eventually
                     if (this.tabs[k][g.x+x[0]] && this.tabs[k][g.x+x[0]][g.y+x[1]]){
                         goo.push(this.tabs[k][g.x+x[0]][g.y+x[1]]);
                         if (this.tabs[k][g.x+x[0]][g.y+x[1]] instanceof ResearchNode){
-                            this.tabs[k][g.x+x[0]][g.y+x[1]].tilecon.alpha = 1;
-                            this.tabs[k][g.x+x[0]][g.y+x[1]].discovered = true;
-                            if (this.tabs[k][g.x+x[0]][g.y+x[1]].axiomComponent) this.tabs[k][g.x+x[0]][g.y+x[1]].innerSymbol.texture = (allsprites.textures['icon'+inside[this.tabs[k][g.x+x[0]][g.y+x[1]].id]]);
-                            //this.knownspells.push(this.tabs[k][g.x+x[0]][g.y+x[1]].id); //this will have to be restricted to caste pages
+                            this.tabs[k][g.x+x[0]][g.y+x[1]].discoverNode();
                         }
                     }
                 }
@@ -176,8 +173,7 @@ class Research{
             for(let i=0;i<15;i++){
                 for(let j=0;j<15;j++){
                     if (this.tabs[k][i][j] instanceof ResearchNode && dis == this.tabs[k][i][j].id && this.tabs[k][i][j].discovered){
-                        this.tabs[k][i][j].completed = true;
-                        this.tabs[k][i][j].sprite = 120;
+                        this.tabs[k][i][j].completeNode();
                         playSound("learn");
                         this.knownnodes.push(dis);
                         this.goopSpread(k,i,j);
@@ -886,7 +882,7 @@ class CatalogueDisplay{
         drawChainBorder(15,12,this.displayCon);
         for (let i = 0; i<7; i++){
             for (let j = 0; j<9; j++){
-                const currentSpell = research.knownspells[j+i*8];
+                const currentSpell = research.knownSpells[j+i*8];
                 let sprite = inside[currentSpell];
                 if (!sprite) sprite = 7;
                 let newSprite = new FoxSprite(allsprites.textures['icon'+sprite]);
@@ -909,8 +905,10 @@ class CatalogueDisplay{
                 newSprite.on('pointerdown', (event) => {
                 });
                 newSprite.on('pointerover', (event) => {
-                    this.descriptionBox.displayCon.visible = true;
-                    this.descriptionBox.getDescription(currentSpell)
+                    if (currentSpell){
+                        this.descriptionBox.displayCon.visible = true;
+                        this.descriptionBox.getDescription(currentSpell);
+                    }
                     let wai = new PIXI.filters.GlowFilter();
                     wai.outerStrength = 1;
                     newSprite.filters = [wai];

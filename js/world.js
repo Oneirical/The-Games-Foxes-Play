@@ -162,7 +162,7 @@ class CageTemplate{
                     for (let q of spreading){
                         blueprint[patternSize-1-(maxY-q.cageY)] = setCharAt(blueprint[patternSize-1-(maxY-q.cageY)],patternSize-1-(maxX-q.cageX),q.id[0]);
                     }
-                    for (let k of research.knownspells){
+                    for (let k of research.knownSpells){
                         if (spellpatterns[k][0].length != patternSize) continue;
                         let ok = true;
                         for (let q = 0; q<patternSize; q++){
@@ -203,7 +203,7 @@ class CageTemplate{
             for(let i=0;i<9;i++){
                 if (!(this.slots[i][j] instanceof Empty)){
                     allsouls.push(this.slots[i][j].id);
-                    for (let k of research.knownspells){
+                    for (let k of research.knownSpells){
                         if (addedpatterns.includes(k)) continue;
                         if (this.checkConflict(i,j,k) && !this.pocketworld.reward[spellpatterns[k]["type"]].includes(k)){
                             this.pocketworld.reward[spellpatterns[k]["type"]].push(k);
@@ -309,11 +309,13 @@ class Universe{
             }
         }
         let reward = false;
-        if (world.reward && receivereward) reward = new Axiom(world.reward["Sequence"],shuffle(world.reward["Caste"])[0],world.reward["Potency"]);
+        if (world.reward["Sequence"].length > 0 && receivereward) reward = new Axiom(world.reward["Sequence"],shuffle(world.reward["Caste"])[0],world.reward["Potency"]);
         if (reward){
             research.completeResearch("Craft");
             for (let i of world.reward["Sequence"]){
                 research.completeResearch(i);
+                research.completeResearch(spellpatterns[i]["type"]);
+                research.completeResearch(spellpatterns[i]["caste"]);
             }
         }
         this.currentworld = layer;
