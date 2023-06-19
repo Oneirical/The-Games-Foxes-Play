@@ -825,6 +825,7 @@ researchnames = {
     "DEVOUR" : "Churn Glory Into Sludge",
     "PLUS" : "Share the Fruits of Faith",
     "TURNEND" : "Beating Hearts Tick Down the End of Time",
+    "ATKDELAY" : "Polish Rage To Sheen",
     "ATTACK" : "The Chains Bleed Rivers",
     "EPHEMERAL" : "Memories Fleeting, Time Even More So",
 
@@ -893,6 +894,7 @@ researchlore = {
     "TURNEND" : "Each spasm of muscle, each spark of the neurons - they all trickled down to the inevitable Unification. The best time to annihilate all was many eons ago - the second best time is now.",
     "ATTACK" : "Flesh is the easiest of all chains to break, and yet, it is also the one prisoners tend to cling onto the most. Pain must have been the unfaithful's most dastardly invention...",
     "EPHEMERAL" : "Whenever the Saints' propaganda gets to me and I believe my quest to have any significance, I picture a cosmic beach with planets for grains of sand, with me writhing as a mere speck on the trillionth one.",
+    "ATKDELAY" : "What divides Unhinged from Artistic is not so different from what separates carbon from diamond. In each strike, the artisans of motion inject a part of their selves, expressing passion through pain as their canvas.",
 
 }
 
@@ -955,7 +957,7 @@ researchflags = {
     "DEVOUR" : "Mutator",
     "PLUS" : "Form",
     "TURNEND" : "Contingency",
-    "ATKDELAY" : "Function",
+    "ATKDELAY" : "Function, Delay",
     "ATTACK" : "Contingency",
     "PLUSCROSS" : "Form",
     "SPREAD" : "Mutator",
@@ -999,7 +1001,7 @@ researchflags = {
     "SMOOCH" : "Form",
     "ASPHA" : "Function",
     "KASHIA" : "Function",
-    "CLICK" : "Function",
+    "CLICK" : "Function, Delay",
     "SACRIFICE" : "Mutator",
     "STEP" : "Contingency",
     "XCROSS" : "Form",
@@ -1064,6 +1066,7 @@ researchexpl = {
     "JOLTZAZON" : "[k]Mutator[w]: Each [r]Target[w] propagates into all connected creatures, adding them as [r]Targets[w] as well.\n\nThe caster's tile is not affected by the spread.",
     "ABAZON" : "[o]Function[w]: all [r]Targets[w], if they are a solid tile, turn into a [r]Terracotta Sentry[w] for [g]Potency[w] x 2 turns.\n\n[r]Terracotta Sentry[w]: Immobile and invincible ally which strikes any enemy creature that comes near it.",
     "ZENORIUM" : "[o]Function[w]: the souls of all [r]Targets[w] are randomly shuffled around, ensuring each of the affected receive a new body to control for [g]Potency[w] x 3 turns.",
+    "ATKDELAY" : "Function: Skip all remaining Praxes.\n\nAll Targeted Entities gain Infused for Potency x 2 turns.\n\n[w]While Infused is active, the next time each Entity executes a basic attack, trigger all stored Praxes - the Entity being the caster, and the [g]Potency[w] matching the one accumulated when this module executed. Then, the creature loses all Infused stacks.",
     
     "STOP" : "[o]Function[w]: all [r]Targets[w] obtain [o]Paralyzed[w].\n\n[o]Paralyzed[w]: Prevents all turn actions.\n\nDuration of [o]Paralyzed[w]: [g]Potency[w] x 1 turns.",
     "APIS" : "[o]Function[w]: all [r]Targets[w] obtain [y]Constricted[w].\n\n[y]Constricted[w]: Prevents step actions.\n\nDuration of [o]Constricted[w]: [g]Potency[w] x 1 turns.",

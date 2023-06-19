@@ -1487,6 +1487,7 @@ class SoulBreathing{
             if (spellName){
                 beginTurn();
                 player.axioms.active[num].castAxiom(player);
+                if (player.axioms.active[num].id == "ARTIFICIAL") research.completeResearch("Axioms");
                 this.exhaustedSouls.push(this.wheel[slot]);
                 this.wheel[slot] = new Empty();
                 playSound("spell");

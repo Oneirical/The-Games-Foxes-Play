@@ -129,11 +129,16 @@ var spellpatterns = {
         1: "..",
         "type" : "Function",
     },
+    "ATKDELAY" : {
+        0: ".A",
+        1: ".A",
+        "type" : "Function",
+    },
 
     "ZENORIUM" : {
-        0: "A.A",
-        1: ".A.",
-        2: "...",
+        0: "...",
+        1: "A.A",
+        2: ".A.",
         "type" : "Function",
     },
     
