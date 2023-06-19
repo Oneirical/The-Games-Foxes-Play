@@ -1607,6 +1607,16 @@ class Inventory{
         }
     }
 
+    updateAxioms(){
+        if (!this.axiomCon) return;
+        for (let i = 0; i<6; i++){
+            this.axiomCon.children[i].texture = allsprites.textures['icon'+this.active[i].icon];
+        }
+        for (let i = 0; i<4; i++){
+            this.axiomCon.children[i+6].texture = allsprites.textures['icon'+this.storage[i].icon];
+        }
+    }
+
     queueContin(word,caster){
         caster.queuedcontin.push(word);
     }
@@ -1641,6 +1651,7 @@ class Inventory{
         }
         this.storeSoul(caste, this.active[caste]);
         this.active[caste] = soul;
+        this.updateAxioms();
     }
 
     hasSoul(type){
@@ -1663,6 +1674,7 @@ class Inventory{
             }
             else noroom++;
         }
+        this.updateAxioms();
         return true;
     }
 
@@ -1681,6 +1693,7 @@ class Inventory{
             }
             if (noroom != this.storage.length) this.active[slot] = this.castesclass[slot];
         }
+        this.updateAxioms();
     }
 }
 
@@ -1803,7 +1816,7 @@ class Axiom extends Soul{
     constructor(sequence,caste,power){
         super("FLEXIBLE");
 
-        //this.icon = inside[this.functions[0]];
+        this.icon = inside[shuffle(sequence)[0]];
         this.caste = caste;
         this.sequence = sequence;
         this.power = power;
@@ -1862,57 +1875,6 @@ class Axiom extends Soul{
         }
         else this.data = axiomEffects[praxis](this.data);
         if (["CLICK","ATKDELAY"].includes(praxis)) this.data["skip"] = true;
-    }
-
-    legendCast(caster){ //THIS IS NOW USELESS, REMOVE
-        let targets = [];
-        let power = 99;
-        this.caster = caster;
-        for (let i of this.forms){
-            let obtainta = targeters[i](this.caster);
-            for (let g of obtainta) targets.push(g);
-            power = Math.min(powerratings[i],power)
-        }
-        for (let i of this.contingencies){
-            if (powerratings[i]) power+=powerratings[i];
-        }
-        let mods = {
-            "targets" : targets,
-            "power" : power,
-            "functions" : this.functions,
-            "caster" : this.caster,
-            "continue" : true,
-            "mutators" : this.mutators,
-            "forms" : this.forms,
-            "flags" : [],
-        }
-        for (let i of this.mutators){
-            let edit = modifiers[i](mods);
-            mods = edit;
-            if (!edit["continue"]) return false;
-        }
-        for (let i of this.functions){
-            for (let y of mods["targets"]){
-                y.setEffect(14,30);
-                effects[i](y,mods["power"],mods);
-            }   
-        }
-        return false;
-    }
-
-    describe(){
-        let description = researchexpl[this.alllore[player.axioms.describepage]];
-        if (powerratings[this.alllore[player.axioms.describepage]]){
-            if (powerratings[this.alllore[player.axioms.describepage]] > 0) description += "\n[g]Gain " + powerratings[this.alllore[player.axioms.describepage]] + " Potency.[w]";
-            else description += "\n[r]Lose " + Math.abs(powerratings[this.alllore[player.axioms.describepage]]) + " Potency.[w]";
-        }
-        if (soulcosts[this.alllore[player.axioms.describepage]]){
-            description += "\n[p]Triggering this Contingency will consume "+soulcosts[this.alllore[player.axioms.describepage]]+ " Ipseity Shards.";
-        }
-        printOutText(description, 18, 590, 105, "white", 20, 6*64-35);
-        printOutText(toTitleCase(this.caste) + " Caste", 18, 590, 30, colours[this.caste], 20, 6*64-35);
-        printOutText(researchnames[this.alllore[player.axioms.describepage]], 18, 590, 50, "white", 20, 6*64-100);
-        player.axioms.exppage = new ComponentsDisplay(this.contingencies,this.forms,this.mutators,this.functions,this.basepower,this.basecost, this.caste);
     }
 }
 

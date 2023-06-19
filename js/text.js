@@ -912,7 +912,7 @@ researchunlocks = {
     "Function" : "Use a Function in the making of an Axiom to complete this node.",
     "Mutator" : "Use a Mutator in the making of an Axiom to complete this node.",
     "Contingency" : "Use a Contingency in the making of an Axiom to complete this node.",
-    "Axioms" : "Exhale a Soul commanded by an Axiom to complete this node.",
+    "Axioms" : "Exhale a Soul commanded by an artifical Axiom to complete this node.",
     "Saintly" : "Use a Saintly Praxis in the making of an Axiom to complete this node.",
     "Ordered" : "Use an Ordered Praxis in the making of an Axiom to complete this node.",
     "Artistic" : "Use an Artistic Praxis in the making of an Axiom to complete this node.",
