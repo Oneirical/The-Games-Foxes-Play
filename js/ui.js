@@ -386,6 +386,91 @@ class NodeDescription{
     }
 }
 
+class AxiomList{
+    constructor(){
+        this.setUpSprites();
+    }
+
+    fillInRows(entity){
+        this.axiomRows.removeChildren();
+        const source = entity.axioms;
+        for (let i =0 ; i<10; i++){
+            const maxSize = 18;
+            let slot;
+            if (i < 6) slot = source.active[i];
+            else slot = source.storage[i-6];
+            console.log(slot);
+            for (let j = 0; j<maxSize; j++){
+                let spriteID = inside[slot.sequence[j]];
+                if (!spriteID) spriteID = 7;
+                let praxisSprite = new FoxSprite(allsprites.textures["icon"+spriteID]);
+                if (i < 6) praxisSprite.y = source.active.indexOf(slot)*87+7;
+                else praxisSprite.y = (6+source.storage.indexOf(slot))*87+7;
+                if (j>maxSize/2) praxisSprite.y += 32;
+                praxisSprite.x = (j+1)*32+52;
+                if (j>maxSize/2) praxisSprite.x -= (maxSize/2+1)*32;
+                praxisSprite.width = 32;
+                praxisSprite.height = 32;
+                const currentSpell = slot.sequence[j];
+                praxisSprite.eventMode = 'static';
+                this.descriptionBox = new NodeDescription();
+                this.descriptionBox.setUpSprites();
+                this.descriptionBox.displayCon.x = -15*32;
+                this.descriptionBox.displayCon.y = 32;
+                uiDisplayRight.addChild(this.descriptionBox.displayCon);
+                this.descriptionBox.displayCon.visible = false;
+                const graphics = new PIXI.Graphics();
+                graphics.beginFill("black");
+                graphics.drawRect(-8, -8, 14*32, 28*32-16);
+                graphics.endFill();
+                this.descriptionBox.displayCon.addChild(graphics);
+                praxisSprite.on('pointerdown', (event) => {
+                });
+                praxisSprite.on('pointerover', (event) => {
+                    if (currentSpell){
+                        this.descriptionBox.displayCon.visible = true;
+                        this.descriptionBox.getDescription(currentSpell);
+                    }
+                    let wai = new PIXI.filters.GlowFilter();
+                    wai.outerStrength = 1;
+                    praxisSprite.filters = [wai];
+                });
+                praxisSprite.on('pointerout', (event) => {
+                    this.descriptionBox.displayCon.visible = false;
+                    praxisSprite.filters = [];
+                });
+
+                this.axiomRows.addChild(praxisSprite);
+            }
+        }
+    }
+
+    setUpSprites(){
+        this.displayCon = new PIXI.Container();
+        drawChainBorder(15,28,this.displayCon);
+        this.axiomRows = new PIXI.Container();
+        const rowColors = ["lime","orangered","orange","yellow","yellowgreen","plum","white","white","white","white"];
+        for (let i = 0; i<10; i++){
+            const graphics = new PIXI.Graphics();
+            graphics.lineStyle(5, rowColors[i], 1);
+            graphics.beginFill("black");
+            graphics.drawRect(80, i*87, 370, 77);
+            graphics.endFill();
+            this.displayCon.addChild(graphics);
+        }
+        for (let i = 0; i<10; i++){
+            let spriteID = i;
+            if (spriteID > 5) spriteID = 7;
+            let casteSprite = new FoxSprite(allsprites.textures["icon"+spriteID]);
+            casteSprite.y = i*87+8;
+            casteSprite.width = 64;
+            casteSprite.height = 64;
+            this.displayCon.addChild(casteSprite);
+        }
+        this.displayCon.addChild(this.axiomRows);
+    }
+}
+
 class CasteTab{
     constructor(caste){
         this.caste = caste;
@@ -1562,7 +1647,7 @@ class Inventory{
         for (let i of this.mstorecoords){
             i[0]+=push;
         }
-        this.exppage = new ComponentsDisplay();
+        this.axiomList = new AxiomList();
         this.describepage = 0;
     }
 
@@ -1652,6 +1737,7 @@ class Inventory{
         for (let i = 0; i<4; i++){
             this.axiomCon.children[i+6].texture = allsprites.textures['icon'+this.storage[i].icon];
         }
+        if (inInventory) this.axiomList.fillInRows(player);
     }
 
     queueContin(word,caster){
@@ -1927,6 +2013,7 @@ class Empty extends Soul{
         this.gicon = 7;
         this.hicon = 7;
         this.caste = "NO";
+        this.sequence = [];
         this.lore = "The Annihilationists seared their flesh, insulted each other for hours on end while sitting in a circle, and refused all companionship all in the name of expunging their own soul. The most radical of them all would even try their luck with a home-made lobotomy. For Terminal, these cultists' reason to be is simply the natural state of things.";
         this.subdescript = "This central chamber can store up to four inactive Legendary Souls for future use.";
         this.name = "Empty Slot";

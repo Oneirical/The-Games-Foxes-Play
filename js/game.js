@@ -86,8 +86,10 @@ function toAxiomMode(){
         for (let i of player.axioms.displayCon.children){
             if (i instanceof PIXI.ParticleContainer) player.axioms.displayCon.removeChild(i);
         }
-        uiDisplayRight.addChild(research.descriptionBox.displayCon);
+        //uiDisplayRight.addChild(research.descriptionBox.displayCon);
         uiDisplayRight.addChild(buttons.displayCon);
+        uiDisplayRight.addChild(player.axioms.axiomList.displayCon);
+        player.axioms.axiomList.fillInRows(player);
     }
     else{
         tilesDisplay.eventMode = 'passive';
@@ -106,6 +108,7 @@ function toAxiomMode(){
         uiDisplayRight.addChild(wheel.displayCon);
         uiDisplayRight.addChild(log.displayCon);
         uiDisplayRight.removeChild(research.descriptionBox.displayCon);
+        uiDisplayRight.removeChild(player.axioms.axiomList.displayCon);
         if (world.getRoom() instanceof SoulCage) wheel.toPaintMode();
     }
 }
