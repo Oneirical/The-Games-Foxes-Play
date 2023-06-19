@@ -127,7 +127,7 @@
                 getMouse();
             }
             if (inInventory){
-                if (e.key >= 1 && e.key <= 6) player.axioms.storeSoul(e.key-1);
+                if (e.key >= 1 && e.key <= 6) player.axioms.storeAxiom(e.key-1);
                 if (e.key >= 7 && e.key <= 9) player.axioms.activateAxiom(e.key-7);
                 if (e.key == 0) player.axioms.activateAxiom(3);
             }

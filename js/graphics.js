@@ -65,6 +65,11 @@ function setupPixi(){
     // });
 }
 
+function debugCommands(){
+    let hai = new Axiom(["EGO","PARACEON"],"SAINTLY",4);
+    player.axioms.addAxiom(hai);
+}
+
 function drawChainLine(l,x,y,dir,source){
     let chaincon = new PIXI.ParticleContainer();
     chaincon.x = x;

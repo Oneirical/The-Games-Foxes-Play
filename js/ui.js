@@ -1528,12 +1528,23 @@ class SoulBreathing{
 
 class Inventory{
     constructor(){
-        this.active = [new Vile(),new Feral(),new Unhinged(),new Artistic(),new Ordered(),new Saintly()];
+        this.active = [new Empty(),new Empty(),new Empty(),new Empty(), new Empty(), new Empty()];
         this.storage = [new Empty(),new Empty(),new Empty(),new Empty()];
         this.actcoords = [[148, 76],[366, 76],[76, 256],[437, 256],[148, 438],[366, 438]];
         this.actcoords.reverse();//don't feel like re-writing these in the correct order lmao
         this.castes = ["VILE","FERAL","UNHINGED","ARTISTIC","ORDERED","SAINTLY","SERENE"];
-        this.castesclass = [new Vile(),new Feral(),new Unhinged(),new Artistic(),new Ordered(),new Saintly()];
+        this.castesclass = [
+            new Axiom(["EGO","PLUS","HEAL"],"SAINTLY",2),
+            new Axiom(["EGO","PARACEON"],"ORDERED",2),
+            new Axiom(["EGO","CLICK","EGO","PLUSCROSS","HARM"],"ARTISTIC",3),
+            new Axiom(["XCROSS","HARM"],"UNHINGED",3),
+            new Axiom(["EGO","TRAIL","BLINK","SPREAD","IGNORECASTER","HARM"],"FERAL",5),
+            new Axiom(["EGO","ATKDELAY","SMOOCH","HARM"],"VILE",5),
+        ];
+        for (let i of this.castesclass){
+            i.id = "STARTER";
+            i.icon = this.castesclass.indexOf(i);
+        }
         this.storecoords = [[257, 154],[257, 154+68],[257, 154+138],[257, 154+138+68]];
         this.mactcoords = [[1504,488],[1408,488],[1536,408],[1376,408],[1504,328],[1408,328]];
         let push = 192;
@@ -1563,11 +1574,6 @@ class Inventory{
         this.axiomCon.x = -8;
         this.axiomCon.y = 10;
         this.displayCon.addChild(this.axiomCon);
-        let newSprite = new FoxSprite(allsprites.textures['icon6']);
-        newSprite.width = (resolutionSize+12)*16;
-        newSprite.height = (resolutionSize+12)*16;
-        
-        this.axiomCon.addChild(newSprite);
 
         const xcoords = {
             0: 79,
@@ -1595,6 +1601,18 @@ class Inventory{
             axiomslot.y = ycoords[i];
             axiomslot.alpha = 0.7;
             this.axiomCon.addChild(axiomslot);
+            axiomslot.eventMode = 'static';
+            axiomslot.on('pointerdown', (event) => {
+                this.storeAxiom(i);
+            });
+            axiomslot.on('pointerover', (event) => {
+                let wai = new PIXI.filters.GlowFilter();
+                wai.outerStrength = 1;
+                axiomslot.filters = [wai];
+            });
+            axiomslot.on('pointerout', (event) => {
+                axiomslot.filters = [];
+            });
         }
 
         for (let i = 0; i<4; i++){
@@ -1604,13 +1622,31 @@ class Inventory{
             axiomslot.x = (79+193)/2;
             axiomslot.y = 82+i*36;
             this.axiomCon.addChild(axiomslot);
+            axiomslot.eventMode = 'static';
+            axiomslot.on('pointerdown', (event) => {
+                this.activateAxiom(i);
+            });
+            axiomslot.on('pointerover', (event) => {
+                let wai = new PIXI.filters.GlowFilter();
+                wai.outerStrength = 1;
+                axiomslot.filters = [wai];
+            });
+            axiomslot.on('pointerout', (event) => {
+                axiomslot.filters = [];
+            });
         }
+        let newSprite = new FoxSprite(allsprites.textures['icon6']);
+        newSprite.width = (resolutionSize+12)*16;
+        newSprite.height = (resolutionSize+12)*16;
+        this.axiomCon.addChild(newSprite);
     }
 
     updateAxioms(){
         if (!this.axiomCon) return;
         for (let i = 0; i<6; i++){
             this.axiomCon.children[i].texture = allsprites.textures['icon'+this.active[i].icon];
+            if (this.active[i].icon > 5) this.axiomCon.children[i].alpha = 1;
+            else this.axiomCon.children[i].alpha = 0.7;
         }
         for (let i = 0; i<4; i++){
             this.axiomCon.children[i+6].texture = allsprites.textures['icon'+this.storage[i].icon];
@@ -1641,15 +1677,12 @@ class Inventory{
         let soul = this.storage[slot];
         if (soul instanceof Empty) return;
         let caste;
-        caste = this.castes.indexOf(this.storage[slot].caste);
+        caste = 5-this.castes.indexOf(this.storage[slot].caste);
         this.storage[slot] = new Empty();
-        if (caste == 6){
-            while (true){ //this will cause an infinite loop when all 6 slots are filled, rework serenes
-                caste = randomRange(0,5);
-                if (basic.includes(this.active[caste].id)) break;
-            }
+        if (caste == -1){
+            //make serenes work
         }
-        this.storeSoul(caste, this.active[caste]);
+        this.storeAxiom(caste, this.active[caste]);
         this.active[caste] = soul;
         this.updateAxioms();
     }
@@ -1678,20 +1711,19 @@ class Inventory{
         return true;
     }
 
-    storeSoul(slot){
+    storeAxiom(slot){
         let soul = this.active[slot];
-        if (basic.includes(this.active[slot].id)) return;
+        let noRoom = true;
+        if (this.active[slot].id == "STARTER") return;
         else{
-            let noroom = 0;
             for (let i of this.storage){
-                if (noroom == this.storage.length) return;
-                else if (i instanceof Empty){
+                if (i instanceof Empty){
                     this.storage[this.storage.indexOf(i)] = soul;
+                    noRoom = false;
                     break;
                 }
-                else noroom++;
             }
-            if (noroom != this.storage.length) this.active[slot] = this.castesclass[slot];
+            if (!noRoom) this.active[slot] = this.castesclass[slot];
         }
         this.updateAxioms();
     }
@@ -1814,7 +1846,7 @@ class Soul{
 
 class Axiom extends Soul{
     constructor(sequence,caste,power){
-        super("FLEXIBLE");
+        super("ARTIFICIAL");
 
         this.icon = inside[shuffle(sequence)[0]];
         this.caste = caste;
