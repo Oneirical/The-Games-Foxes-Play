@@ -20,6 +20,7 @@
 * Make it possible to pass the time when dead and only respawn when you truly want it. Useful with felidol passive
 * The "on death" contingency should be serene to stop it from being mega op.
 * Make it so contingencies grab the respective soul and autocast it instead of whatever I was trying to do with shattereds. 
+* put question marks in the craft recipe indicator if you don't know that one yet (say, while looking at an enemy)
 - Lore is that Terminal needs vessels that believes in those caste-respective axioms so he doesn't brainwash himself.
 
 **Brushstroke Crafting**

@@ -88,6 +88,11 @@ var spellpatterns = {
         1: ".S",
         "type" : "Function",
     },
+    "HEAL" : {
+        0: "..",
+        1: "SS",
+        "type" : "Function",
+    },
     "SACRIFICE" : {
         0: "S.",
         1: ".S",
