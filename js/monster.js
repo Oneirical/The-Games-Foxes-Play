@@ -76,9 +76,6 @@ class Monster{
         if(this.tryMove(dx,dy,true)){
             beginTurn();
             player.axioms.queueContin("STEP",this);
-            if (world.getRoom() instanceof SoulCage && this.tile instanceof CageContainer && wheel.currentbrush != 8){
-                fishOutSoul(this.tile);
-            }
             tick();
         }
         if (area == "Spire" && this.activemodule != "Hover" && !(this.tile.getNeighbor(0,1) instanceof Platform || this.tile.getNeighbor(0,1) instanceof Ladder || this.tile instanceof Ladder || this.tile.getNeighbor(0,1).monster)){

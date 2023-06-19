@@ -2,8 +2,6 @@
 
 * Add Form grid (range targeters) images in their descriptions for clarity
 * A better ui for descriptions, with definitions for each keyword like 'exhale' or 'targets' or the status effects, StS style
-* Try to remove fishOutSoul()
-* Autoharvest subdueds on entering cage room
 
 **Status Effects**
 
@@ -13,12 +11,11 @@
 
 **Influential Dungeons**
 
-Make it so there are only a couple of possible rooms, but each one has a variant for each caste that can appear if you reach certain influence thresholds.
+* Make basic enemies themed around animal species (mollusk thoughtform) and dynamically swap them according to caste influences.
 * Add automatic large room integration.
 
 **Everyone Is Legendary**
 
-* Relay up the data transfer better. generic functions to add: teleport()
 * second rewrite lore to feed others. Also their contin should be on turnstart.
 * Make it possible to pass the time when dead and only respawn when you truly want it. Useful with felidol passive
 * The "on death" contingency should be serene to stop it from being mega op.
@@ -30,7 +27,6 @@ Make it so there are only a couple of possible rooms, but each one has a variant
 * Become able to place a whole pattern in one shot by selecting from catalogue
 * make it so the caste icon in componentsdisplay shows ties
 * highlight the paintcans when mousing over them
-* top left corner patterns only? find the cause
 * Maybe censor Serene in the brush UI until harmony is discovered
 
 **"Serene Collective" design**
