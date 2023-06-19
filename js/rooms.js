@@ -143,7 +143,10 @@ var spellpatterns = {
     },
     
     //Unhinged
-
+    "HARM" : {
+        0: "U",
+        "type" : "Function",
+    },
     "KASHIA" : {
         0: "U.",
         1: ".U",
@@ -168,7 +171,11 @@ var spellpatterns = {
     },
 
     //Feral
-
+    "BLINK" : {
+        0: "..",
+        1: "FF",
+        "type" : "Function",
+    },
     //Vile
 
     "SMOOCH" : {

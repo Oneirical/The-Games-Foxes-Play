@@ -163,6 +163,7 @@ class CageTemplate{
                         blueprint[patternSize-1-(maxY-q.cageY)] = setCharAt(blueprint[patternSize-1-(maxY-q.cageY)],patternSize-1-(maxX-q.cageX),q.id[0]);
                     }
                     for (let k of research.knownSpells){
+                        if (!spellpatterns[k]) throw 'Pattern does not exist: '+k;
                         if (spellpatterns[k][0].length != patternSize) continue;
                         let ok = true;
                         for (let q = 0; q<patternSize; q++){

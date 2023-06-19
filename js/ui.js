@@ -1477,7 +1477,7 @@ class SoulBreathing{
         }                    
         else{
             //if (soul.id == "SERENE") make this
-            let num = player.axioms.castes.indexOf(soul.id);
+            let num = 5-player.axioms.castes.indexOf(soul.id);
             let spellName = soul.id;
             if (player.axioms.active[num].influence == "C" || player.axioms.active[num].influence == "A"){
                 spellName = player.axioms.active[num].id;
@@ -1848,8 +1848,8 @@ class Soul{
 class Axiom extends Soul{
     constructor(sequence,caste,power){
         super("ARTIFICIAL");
-
-        this.icon = inside[shuffle(sequence)[0]];
+        const r = randomRange(0,sequence.length-1);
+        this.icon = inside[sequence[r]];
         this.caste = caste;
         this.sequence = sequence;
         this.power = power;
