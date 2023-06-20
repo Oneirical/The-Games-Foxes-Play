@@ -887,6 +887,43 @@ class ComponentsDisplay{
     }
 }
 
+class InfluenceDisplay{
+    constructor(){
+        this.displayCon = new PIXI.Container();
+        this.displayCon.y = 32*15;  
+        this.inflCon = new PIXI.Container();
+        this.displayCon.addChild(this.inflCon);
+        drawChainBorder(7,17,this.displayCon);
+        for (let i = 0; i<6; i++){
+            let chSprite = 'icon'+i;
+            let newSprite = new FoxSprite(allsprites.textures[chSprite]);
+            newSprite.y = i*50;
+            newSprite.x = 0;
+            newSprite.width = 48;
+            newSprite.height = 48;
+            this.inflCon.addChild(newSprite);
+        }
+        drawChainLine(6,16,7*50-32,"h",this.inflCon);
+        for (let i = 0; i<2; i++){
+            let chSprite = 'icon7';
+            if (i == 1) chSprite = 'sprite26';
+            let newSprite = new FoxSprite(allsprites.textures[chSprite]);
+            newSprite.y = (i+6)*50+16;
+            newSprite.x = 0;
+            newSprite.width = 48;
+            newSprite.height = 48;
+            this.inflCon.addChild(newSprite);
+        }
+        drawChainLine(6,16,9*50-12,"h",this.inflCon);
+        let newSprite = new FoxSprite(allsprites.textures['icon13']);
+        newSprite.y = 9*50;
+        newSprite.x = 0;
+        newSprite.width = 48;
+        newSprite.height = 48;
+        this.inflCon.addChild(newSprite);
+    }
+}
+
 class CraftingDisplay{
     constructor(){
         this.displayCon = new PIXI.Container();
@@ -1203,7 +1240,9 @@ class SoulBreathing{
         uiDisplayLeft.removeChild(player.axioms.displayCon);
         uiDisplayLeft.removeChild(statuses.displayCon);
         this.craftShow = new CraftingDisplay();
+        this.inflShow = new InfluenceDisplay();
         uiDisplayLeft.addChild(this.craftShow.displayCon);
+        uiDisplayLeft.addChild(this.inflShow.displayCon);
         this.craftShow.updateDisplay();
         for (let i = 0; i< 8;  i++){
             let hai = (i-1+58);
