@@ -44,64 +44,6 @@ class CageTemplate{
         ];
     }
 
-    getGridNeighbor(k, x,y, dx, dy){
-        let ret = spellpatterns[k][x+dy];
-        if (!ret) return ".";
-        let ret2 = ret[y+dx];
-        if (!ret2) return ".";
-        else return ret2;
-    }
-
-    getAdjacentGridNeighbors(k,x,y){
-        return [
-            this.getGridNeighbor(k,x,y,0, 0),
-            this.getGridNeighbor(k,x,y,0, -1),
-            this.getGridNeighbor(k,x,y,0, 1),
-            this.getGridNeighbor(k,x,y,-1, 0),
-            this.getGridNeighbor(k,x,y,1, 0),
-            this.getGridNeighbor(k,x,y,1, 1),
-            this.getGridNeighbor(k,x,y,-1, -1),
-            this.getGridNeighbor(k,x,y,-1, 1),
-            this.getGridNeighbor(k,x,y,1, -1),
-        ];
-    }
-
-    checkConflict(i,j,k){
-        let rele = false;
-        let currenttype;
-        for (let o =0; o<spellpatterns[k][0].length;o++){
-            for (let p =0; p<spellpatterns[k][0].length;p++){
-                if (spellpatterns[k][o][p] != "." && (this.slots[i][j] instanceof keyspells[spellpatterns[k][o][p]])) {
-                    rele = true;
-                    currenttype = this.slots[i][j].id;
-                    i -= o;
-                    j -= p;
-                    break;
-                }
-            }
-            if (rele) break;
-        }
-        if (!rele) return false;
-        let confirmed = [];
-        for (let o =0; o<spellpatterns[k][0].length;o++){
-            for (let p =0; p<spellpatterns[k][0].length;p++){
-                if (spellpatterns[k][o][p] != "."){
-                    let c1 = this.getAdjacentNeighbors(i+p,j+o);
-                    let c2 = this.getAdjacentGridNeighbors(k,o,p);
-                    confirmed.push(c1[0]);
-                    for (let u = 0; u < c1.length; u++){
-                        if (c1[u].id == currenttype && c1[u].turbulent) c1[u] = c1[u].id[0];
-                        else if (!c1[u].turbulent && !(c1[u] instanceof Empty)) c1[u] = "#"; // handle turbulent/subdued better
-                        else c1[u] = ".";
-                    }
-                    if(!arraysEqual(c1,c2)) return false;
-                }
-            }
-        }
-        for (let r of confirmed) r.discpatt.push(k);
-        return true;
-    }
-
     generateWorld(){
         this.displayon = true;
         this.pocketworld.reward = {
@@ -191,39 +133,13 @@ class CageTemplate{
         this.pocketworld.reward["Potency"] = potency;
         console.log(this.pocketworld.reward);
     }
-
-    legendCheck(){
-        for(let j=0;j<9;j++){
-            for(let i=0;i<9;i++){
-                this.slots[i][j].discpatt = [];
-            }
-        }
-        let allsouls = [];
-        let addedpatterns = [];
-        for(let j=0;j<9;j++){
-            for(let i=0;i<9;i++){
-                if (!(this.slots[i][j] instanceof Empty)){
-                    allsouls.push(this.slots[i][j].id);
-                    for (let k of research.knownSpells){
-                        if (addedpatterns.includes(k)) continue;
-                        if (this.checkConflict(i,j,k) && !this.pocketworld.reward[spellpatterns[k]["type"]].includes(k)){
-                            this.pocketworld.reward[spellpatterns[k]["type"]].push(k);
-                            addedpatterns.push(k);
-                        }
-                    }
-                }
-            }
-        }
-        this.pocketworld.reward["Caste"] = mode(allsouls);
-        world.exppage = new ComponentsDisplay(this.pocketworld.reward["Contingency"],this.pocketworld.reward["Form"],this.pocketworld.reward["Mutator"],this.pocketworld.reward["Function"],calculatePower(this.pocketworld.reward["Contingency"],this.pocketworld.reward["Form"])[0],calculatePower(this.pocketworld.reward["Contingency"],this.pocketworld.reward["Form"])[1],this.pocketworld.reward["Caste"]);
-        world.soulex = new Axiom(this.pocketworld.reward["Contingency"],this.pocketworld.reward["Form"],this.pocketworld.reward["Mutator"],this.pocketworld.reward["Function"],this.pocketworld.reward["Caste"],"me");
-    }
 }
 
 class Universe{
     constructor(){
         this.worlds = [];
         this.currentworld = 0;
+        this.layeredInfluence = [];
     }
 
     display(){
@@ -425,8 +341,15 @@ class World{
             "Caste" : "",
             "Potency" : 0,
         };
-        this.exppage = new ComponentsDisplay();
-        this.soulex;
+        this.influence = {
+            "Saintly" : 0,
+            "Ordered" : 0,
+            "Artistic" : 0,
+            "Unhinged" : 0,
+            "Feral" : 0,
+            "Vile" : 0,
+            "Serene" : 0,
+        }
     }
 
     setUpSprites(){

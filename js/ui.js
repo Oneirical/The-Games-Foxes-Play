@@ -894,6 +894,7 @@ class InfluenceDisplay{
         this.inflCon = new PIXI.Container();
         this.displayCon.addChild(this.inflCon);
         drawChainBorder(7,17,this.displayCon);
+        const colors = ["lime","orangered","orange","yellow","yellowgreen","plum"];
         for (let i = 0; i<6; i++){
             let chSprite = 'icon'+i;
             let newSprite = new FoxSprite(allsprites.textures[chSprite]);
@@ -902,6 +903,12 @@ class InfluenceDisplay{
             newSprite.width = 48;
             newSprite.height = 48;
             this.inflCon.addChild(newSprite);
+            const style = new PIXI.TextStyle({
+                fontFamily: 'Play',
+                fontSize: 18,
+                fill: colors[i],
+            });
+            textWithoutCringe("0",70,i*50+12,style,this.inflCon);
         }
         drawChainLine(6,16,7*50-32,"h",this.inflCon);
         for (let i = 0; i<2; i++){
@@ -913,6 +920,13 @@ class InfluenceDisplay{
             newSprite.width = 48;
             newSprite.height = 48;
             this.inflCon.addChild(newSprite);
+            const sumCol = ["white","cyan"];
+            const style = new PIXI.TextStyle({
+                fontFamily: 'Play',
+                fontSize: 18,
+                fill: sumCol[i],
+            });
+            textWithoutCringe("0",70,i*50+328,style,this.inflCon);
         }
         drawChainLine(6,16,9*50-12,"h",this.inflCon);
         let newSprite = new FoxSprite(allsprites.textures['icon13']);
@@ -921,6 +935,12 @@ class InfluenceDisplay{
         newSprite.width = 48;
         newSprite.height = 48;
         this.inflCon.addChild(newSprite);
+        const style = new PIXI.TextStyle({
+            fontFamily: 'Play',
+            fontSize: 18,
+            fill: "lightblue",
+        });
+        textWithoutCringe("0",70,462,style,this.inflCon);
     }
 }
 
@@ -1862,7 +1882,6 @@ class Soul{
         this.offsetY = 0;
         this.spinSpeed = 0.05;
         this.thrashcounter = 0;
-        this.discpatt = [];
         this.x = 0;
         this.y = 0;
         this.speed = 0.01;
