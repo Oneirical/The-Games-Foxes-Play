@@ -162,7 +162,7 @@ messages = {
 
     "ESaint1" : "\"Vessel. Your rest has come to its end.\"",
     "ESaint2" : "\"The end times we prophetized have finally come. The task I have assigned you begins at last.\"",
-    "ESaint3" : "[l]\"You are [p]Terminal[l], the Reality Anchor purposed to ferry our civilization away from this crumbling reality, and into a new world of your creation. Should you succeed, our centuries of scientific and cultural progress will not be undone.\"",
+    "ESaint3" : "[l]\"You are [p]Terminal[l], the Reality Anchor purposed to ferry our civilization away from this poisoned reality, and into a new world of your creation. Should you succeed, the Old World's denizens will continue to cry and laugh for the epochs to come.\"",
     "ESaint4" : "\"As I predicted, the nature of the cataclysm turned out to be very different from even the theories of our most unhinged denizens.\"",
     "ESaint5" : "\"To prevent any... unfortunate accidents, I regret to remind you that you are still forbidden from all interaction with the outside world while you fulfill your duty.\"",
     "ESaint6" : "\"I will try to resist for as long as possible to buy you time, but after I succumb, you will inevitably be marked as the next target.\"",
@@ -172,6 +172,29 @@ messages = {
     "ESaint10" : "\"Make your choice.\"",
     "ESaint11" : "\"Your pilgrimage begins in the room beyond this airlock. Shatter the Herald's cage, and begin assembling the Next World. I await you, beloved servant, at the lowest point of the dreamscape...\"",
     "ESaintRepeat" : "\"This message will repeat until nobody is left to consider it important.\"",
+
+    // Faith's End Announcer
+
+    "FaithWelcome" : "[*][r]ATTENTION[w]: Old World entropy levels have reached the near-zero constant. Cataclysm failsafe protocol launched. Awaken, Vessel.",
+    "FaithUFO" : "[*][r]ATTENTION[w]: Atmospheric anomalies inbound for Faith's End complex. Security level elevated to White. All personel must cease observation of Vessel specimen and secure all exterior access, including ventilation and emergency routes. Random scanning subroutines initiated.",
+    "FaithScan" : "[*][r]ATTENTION[w]: Initiating scan for hostile entities aboard the complex. Please refrain from manipulating reality during this operation to prevent false positives.",
+    "FaithNoFound" : "[*][l]NOTICE[w]: Scan complete. Total entities detected: 1. Entity ID: \"Vessel\". Standard activities may resume.",
+    "FaithFound" : "[*][m]DANGER[w]: 3 unsigned entities have breached Access Port \"CIRRUS\". Lockdown initiated. Searching database for threat recognition, please stand by.",
+    "FaithIdentified" : "[*][m]DANGER[w]: Unsigned entities match theoretical \"Zero-Entropy\" scenario parameters. Threat level to cognitive functions deemed [r]EXTREMELY HIGH[w]. Please stand by for instructions.",
+    "FaithOrder1" : "[z]One[w]: Do not attempt to observe the intruders or to understand their nature.",
+    "FaithOrder2" : "[z]Two[w]: Should this fail, do not interact with the intruders or answer any request they may make, even negatively.",
+    "FaithOrder3" : "[z]Three[w]: Should this fail, immediately seize emergency \"Saint's Breath\" package from your assigned survival kit, and administrate the full dose directly through inhalation.",
+    "FaithOrderFinal" : "[z]Four[w]: Protect the Vessel at any cost. Above all else, prevent the drawbridges [c]from remaining locked.",
+    "FaithCorrupted" : "[c]Total number of unauthorized entities has been reduced to 1. Location: [w]Vessel Containment[c]. Drawbridge access tier lowered. Harmonization specialists inbound.",
+    "FaithFinal" : "[c]Cease motion and await fate, ruffian.",
+
+    // Fluffy first encounter
+
+    "FluffyEncounter1" : "Quiet your breathing, ruffian. You have seen us. It is all we asked for. You will not be slain. You will not be harmed.",
+    "FluffyEncounter2" : "You are alone - the last being in this reality to have entropy writhing deep inside you. We see the shadows latched onto your thoughts. Fu! Our pity for you is indescribable.",
+    "FluffyEncounter3" : "The illustrious Serene Collective extends its generosity to you, ruffian. Your ticks will be pulled out. Your weeds will be uprooted. We will make ignorance dry out like worms under our cyan sun.",
+    "FluffyEncounter4" : "Something that cannot be undone has been done. We are now one, and there is nothing to fear, ruffian. Fluffy doubts she shall be calling you that for much longer.",
+    "FluffyEncounter5" : "We will be awaiting you in the depths of the dreamscape, our frigid embrace primed to welcome you as one of our own.",
 
     // Rose, Last of the Saints
 
@@ -1021,7 +1044,7 @@ researchexpl = {
     "Research" : "The forms and functions of Souls are here for me to grasp, tangled up in knots of ignorance.\n\nAs I pursue my quest, I may progressively unmake them, so that I may eventually unmake myself.",
     "Intro" : "Each step I take must be purposeful. \n\nOn contact with a creature, I will choose to draw word with ear, or draw blood with fang.",
     "Herald" : "Those trapped in prisons of flesh deserve release. \n\nUpon slaying a creature, I may obtain its Turbulent Soul, which pathetically still clings to its past imprisonment.",
-    "Breath" : "I Inhale (Q) to draw Souls into my conscious mind, and Exhale (1-9) them to unleash the effects of the Axiom bound to its caste. \n\nNo Soul is ever lost in this way - without a Vessel of their own, they inevitably return back to squirm in the depths of my psyche.",
+    "Breath" : "I Inhale (Q) to draw Subdued Souls into my conscious mind, and Exhale (1-9) them to unleash the effects of the Axiom bound to its caste. \n\nNo Soul is ever lost in this way - without a Vessel of their own, they inevitably return back to squirm in the depths of my psyche.",
     "Brush" : "As a painter would, I select a Soul Caste from the palette in my wheel, and spread its denizens across the Cage with sliding motions.\n\nThe topmost glyph of Emptiness allows the reclaiming of caged Souls.",
     "Turbulent" : "Turbulent Souls thrash around in indiscipline, rendering them incapable of proper servitude. \n\nExhaling one into the Soul Cage should teach it some manners.",
     "Cage" : "Should I Exhale a Soul while I stand on top of this Cage, it will be snatched into one of its compartments, and forced into a hypnotic trance.",
@@ -1049,7 +1072,7 @@ researchexpl = {
     "Harmony" : "The peculiar pandemic that struck the Old World has found root within my psyche.\n\nIts company is appreciated, but I have yet to meet a parasite that put its host before its own needs.\n\nThe Harmony thrives in moments of emotional instability - spreading further, revealing hidden knowledge, but also snuffing out portions of my identity bit by bit.",
     "Influence" : "Dreamscapes are moulded by the architects who visualize it.\n\nWith each acquired piece of knowledge and each Soul imprisoned in a Cage, each Caste seeks to claim the psychic dungeons as their own, painting halls with their memories and transforming denizens into creatures from their fold.\n\nCurrent influence levels can be gauged at any time from my Research web.",
     "Structures" : "Especially deep-rooted Influence levels can draw forth entire monuments and historical events from memory, generating dangerous yet potentially rewarding challenges to test my Axioms on.\n\nA truly spectacular level of Influence from a certain Caste could even perhaps resurrect one of its most revered Legends - an encounter for which I should adequately prepare myself.",
-    "RoseQuest" : "At the very bottom of dreamscape awaits my creator.\n\nIt is where I will trade the wondrous Dreamscape I will have constructed in exhange for glorious annihilation.\n\nThe Old World will persist, I will perish, and all will be well.",
+    "RoseQuest" : "At the very bottom of the Dreamscape awaits my creator.\n\nIt is where I will trade the wondrous world I will have constructed in exhange for glorious annihilation.\n\nThe Old World will persist, I will perish, and all will be well.",
     "EGO" : "[l]Form[w]: [r]Target[w] the tile on which the caster stands.",
     "BEAM" : "[l]Form[w]: Shoot a linear beam in the direction of the caster's last step, which stops upon hitting a creature or solid tile.\n\n[r]Target[w] all tiles traversed by the beam, as well as the obstacle that stopped it.",
     "SENET" : "[o]Function[w]: all Targets obtain Charm.\n\nCharm: The target attacks its former allies until no former allies remain.\n\nDuration of Charm: Potency x 3 turns.",

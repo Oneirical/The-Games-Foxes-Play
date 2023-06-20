@@ -1080,7 +1080,7 @@ class MessageLog{
         });
         PIXI.Assets.loadBundle('fonts');
 
-        //log.addLog("MapDebug"); //remove later
+        log.addLog("FaithWelcome");
     }
 
     addLog(message){
@@ -1094,6 +1094,7 @@ class MessageLog{
         else if (message.includes("Rose")) coloring = "lightpink";
         else if (message.includes("Epsilon")) coloring = "orangered";
         else if (message.includes("Saint")) coloring = "lime";
+        else if (message.includes("Faith")) coloring = "white";
         else if (message.includes("Error")) coloring = "yellow";
         const style = new PIXI.TextStyle({
             fontFamily: 'Play',
@@ -1520,22 +1521,7 @@ class SoulBreathing{
 
     castSoul(slot){
         if (world.getRoom() instanceof SoulCage){
-            if (slot == 8){
-                this.turbstatus = !this.turbstatus;
-                return;
-            }
-            else if (slot == this.currentbrush) slot = 8;
-            if (this.currentbrush != 8 && this.currentbrush != 0){
-                for (let o of this.paintcans[this.currentbrush-1]){
-                    o.speed = 0.01;
-                }
-            }
-            this.currentbrush = slot;
-            if (slot != 0 && slot != 8){
-                for (let o of this.paintcans[slot-1]){
-                    o.speed = 0.1;
-                }
-            }
+            this.selectCan(slot);
             return;
         }
         if (slot > 7){
@@ -1598,7 +1584,6 @@ class SoulBreathing{
                     if (soul instanceof Serene) agony -= 3;
                     else agony--;
                     this.exhaustedSouls[slot] = new Empty();
-                    resolvebonus++;
                     if (falseagony){
                         gameState = "running";
                         falseagony = false;

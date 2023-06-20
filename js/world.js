@@ -775,7 +775,6 @@ class World{
             level++;
             world.fighting = true;
             room.visited = true;
-            wheel.resolve = 3+Math.floor(resolvebonus/2);
             player.hp = Math.min(maxHp, player.hp+1);
         }
         else{
@@ -815,7 +814,6 @@ class World{
             level++;
             world.fighting = true;
             room.visited = true;
-            wheel.resolve = 3+Math.floor(resolvebonus/2);
             player.hp = Math.min(maxHp, player.hp+1);
         }
         else{
