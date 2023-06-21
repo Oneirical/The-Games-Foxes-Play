@@ -54,6 +54,15 @@ class CageTemplate{
         this.buildAxiom();
         this.pocketworld.confirmWorld();
         wheel.craftShow.updateDisplay();
+        this.pocketworld.influence = {
+            "Saintly" : 0,
+            "Ordered" : 0,
+            "Artistic" : 0,
+            "Unhinged" : 0,
+            "Feral" : 0,
+            "Vile" : 0,
+            "Serene" : 0,
+        };
     }
 
     buildAxiom(){
@@ -237,7 +246,7 @@ class Universe{
     }
 
     passUp(layer,origin){
-        this.layeredInfluence.remove(world.influence);
+        this.layeredInfluence.delete(world.influence);
         uiDisplayLeft.removeChild(world.displayCon);
         player.tile.monster = null;
         world.saveRoom(world.getRoom());
