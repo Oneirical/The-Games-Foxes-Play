@@ -8,3 +8,6 @@
 # Perfectly Planned Paintings
 
 The Soul Cage room, where TGFP's core crafting mechanic takes stage, has regained all of its auxiliary UI panels! The player may view all kinds of craftable Praxes in a sidebar catalogue, consult the current state of the Axiom being crafted, and pinpoint the location of all placed patterns. [Demonstration!]().
+
+After an Axiom has been crafted, it may be equipped in this work-in-progress but overhauled [inventory screen](). On the sidebar, all Praxes inside each Axiom are listed, and can be described on a simple mouseover.
+
