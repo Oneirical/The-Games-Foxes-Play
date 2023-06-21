@@ -23,6 +23,7 @@ commoneq = {
     "SAINTLY" : Saintly,
 }
 
+// DO NOT USE THIS AS A LIST IT GETS WIPED EACH TIME
 const casteNodes = ["Saintly","Ordered","Artistic","Unhinged","Feral","Vile"];
 
 var nodeloot = {

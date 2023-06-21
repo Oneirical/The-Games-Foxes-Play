@@ -922,7 +922,8 @@ class InfluenceDisplay{
                 fontSize: 18,
                 fill: colors[i],
             });
-            textWithoutCringe(universe.totalInfluence[casteNodes[i]].toString(),70,i*50+12,style,this.inflCon);
+            const castes = ["Saintly","Ordered","Artistic","Unhinged","Feral","Vile"];
+            textWithoutCringe(universe.totalInfluence[castes[i]].toString(),70,i*50+12,style,this.inflCon);
         }
         drawChainLine(6,16,7*50-32,"h",this.inflCon);
         for (let i = 0; i<2; i++){
@@ -941,7 +942,9 @@ class InfluenceDisplay{
                 fill: sumCol[i],
             });
             const types = ["Serene","Total"];
+            const multi = ["/ 2","/ 10"];
             textWithoutCringe(universe.totalInfluence[types[i]].toString(),70,i*50+328,style,this.inflCon);
+            textWithoutCringe(multi[i],130,i*50+328,style,this.inflCon);
         }
         drawChainLine(6,16,9*50-12,"h",this.inflCon);
         let newSprite = new FoxSprite(allsprites.textures['icon13']);
@@ -1328,6 +1331,7 @@ class SoulBreathing{
         uiDisplayLeft.addChild(player.axioms.displayCon);
         uiDisplayLeft.addChild(statuses.displayCon);
         uiDisplayLeft.removeChild(this.craftShow.displayCon);
+        uiDisplayLeft.removeChild(this.inflShow.displayCon);
         if (this.selectedCan != null) this.selectCan(this.selectedCan);
         this.selectedCan = null;
         for (let i = 0; i< 8;  i++){
@@ -1683,7 +1687,7 @@ class Inventory{
             new Axiom(["EGO","PARACEON"],"ORDERED",2),
             new Axiom(["EGO","CLICK","EGO","PLUSCROSS","HARM"],"ARTISTIC",3),
             new Axiom(["XCROSS","HARM"],"UNHINGED",3),
-            new Axiom(["EGO","TRAIL","BLINK","SPREAD","IGNORECASTER","HARM"],"FERAL",5),
+            new Axiom(["EGO","TRAIL","BLINK","SPREAD","IGNORECASTER","HARM"],"FERAL",3),
             new Axiom(["EGO","ATKDELAY","SMOOCH","HARM"],"VILE",5),
         ];
         for (let i of this.castesclass){

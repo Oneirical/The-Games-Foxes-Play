@@ -698,7 +698,7 @@ class Terminal extends Monster{
         this.assignAxiom(["EGO","PARACEON"],"ORDERED",2);
         this.assignAxiom(["EGO","CLICK","EGO","PLUSCROSS","HARM"],"ARTISTIC",3);
         this.assignAxiom(["XCROSS","HARM"],"UNHINGED",3);
-        this.assignAxiom(["EGO","TRAIL","BLINK","SPREAD","IGNORECASTER","HARM"],"FERAL",5); // this must get the rest. get INFINITEPOWER and also add power scaling to BLINK
+        this.assignAxiom(["EGO","TRAIL","BLINK","SPREAD","IGNORECASTER","HARM"],"FERAL",3); // this must get the rest. get INFINITEPOWER and also add power scaling to BLINK
         this.assignAxiom(["EGO","ATKDELAY","SMOOCH","HARM"],"VILE",5);
         for (let i of player.axioms.active){
             i.id = "STARTER";

@@ -4,21 +4,8 @@ const powerRatings = {
     "ATTACK" : -2,
     "IGNORECASTER" : -2,
 }
-// In the research menu, these should have "history book" descriptions.
-// EGO - BEAM - PCROSS - XCROSS - 8ADJ - 4ADJ - RANDOM (up to power) - WALL - ALL - PAYLOAD (summon that unleashes targets on death)
 
-//const baseAxioms = {
-//    "Saintly" : new Axiom([],["PLUS"],[],["HEAL"],"SAINTLY",player),
-//    "Ordered" : new Axiom([],["EGO"],[],["PARACEON"],"ORDERED",player),
-//    "Artistic" : new Axiom([],["EGO"],["CLICK"],["???"],"ARTISTIC",player), // EGO, CLICK (should be function now) EGO, PLUSCROSS, PIERCE, HARM
-//    "Unhinged" : new Axiom([],["XCROSS"],[],["HARM"],"UNHINGED",player), also add PIERCE here
-//    "Feral" : new Axiom([],["EGO"],[],["DASH"],"FERAL",player), EGO, BLINK, TRAIL (new form), SPREAD (new mutator), IGNORECASTER, HARM
-//    "Vile" : new Axiom([],["SMOOCH"],["ATKDELAY"],["HARM"],"VILE",player),
-// TRAIL : for each target of previous praxis, draw trail between origin and current position
-// SPREAD: for each target, expand to adjacent
-// 
-// 
-//}
+//8ADJ - 4ADJ - RANDOM (up to power) - WALL - ALL - PAYLOAD (summon that unleashes targets on death)
 
 axiomEffects = {
 
@@ -339,7 +326,7 @@ axiomEffects = {
         let newTile = target;
         let testTile = newTile;
         let affected = testTile.monster;
-        let powCount = power;
+        let powCount = power*2;
         while(powCount > 0){
             testTile = newTile.getNeighbor(target.spellDirection[0],target.spellDirection[1]);
             powCount--;

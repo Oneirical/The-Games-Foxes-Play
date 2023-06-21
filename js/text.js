@@ -852,6 +852,9 @@ researchnames = {
     "ATTACK" : "The Chains Bleed Rivers",
     "EPHEMERAL" : "Memories Fleeting, Time Even More So",
     "HARM" : "Distress Signals Turned Celebration",
+    "TRAIL" : "Mark History Where One Passes",
+    "IGNORECASTER" : "Law Stands Above Law",
+    "BLINK" : "Places on a Map, Pawns on a Board",
 
     "RANDOM" : "Erratic Pulse of Prey's Hearts",
 }
@@ -920,6 +923,9 @@ researchlore = {
     "EPHEMERAL" : "Whenever the Saints' propaganda gets to me and I believe my quest to have any significance, I picture a cosmic beach with planets for grains of sand, with me writhing as a mere speck on the trillionth one.",
     "ATKDELAY" : "What divides Unhinged from Artistic is not so different from what separates carbon from diamond. In each strike, the artisans of motion inject a part of their selves, expressing passion through pain as their canvas.",
     "HARM" : "Pain is an illusion - like seeing or touching. The Unhinged, who feared it most, distorted it into a pleasant - though equally false - sensation. One can try to criticize their choices, but it is hard to do anything but beg to become like them when their knives inch closer to one's flesh.",
+    "TRAIL" : "As Saints turned the impossible to the always-has-been with each new desire, Old World historians struggled to trace back each ruin, each monument and each ideology to its origin. In the end, they accepted that time is not a line, nor a circle, but a tangled knot of pure chaos.",
+    "IGNORECASTER" : "As the Vile found out, the simplest way to exclude oneself from a rule was to be the one to write it. All it took was a couple of souls who loved the feeling of subservience, and the gears of oppression had already started to turn.", //I wonder what they would think of the Harmony today
+    "BLINK" : "As primitive as they were, the Feral quickly learned that choosing the pocket of spacetime their body would occupy bore some strategical importance. Perhaps, if one moves fast enough, one can blitz past thought itself, and live free of influence?",
 
 }
 
@@ -1036,6 +1042,8 @@ researchflags = {
     "ABAZON" : "Function",
     "EPHEMERAL" : "Mutator",
     "HARM" : "Function",
+    "TRAIL" : "Mutator",
+    "IGNORECASTER" : "Mutator",
     "BLINK" : "Function, Directional, Motion",
 }
 
@@ -1102,7 +1110,11 @@ researchexpl = {
     "PLUS" : "[l]Form[w]: [r]Target[w] the tile on which the caster stands, as well as all tiles orthogonal to it.",
     "TURNEND" : "[z]Contingency[w]: When a turn ends, cast this Axiom.",
     "ATTACK" : "[z]Contingency[w]: When the caster attacks a foe, cast this Axiom.",
+    "TRAIL" : "[k]Mutator[w]: Until this Axiom ends, all Targeted Entities will leave behind a linear trail when they Blink.\n\nAll tiles in the trail's path become Targets.",
     "EPHEMERAL" : "[k]Mutator[w]: If this Axiom would apply a status effect, the effect duration becomes 1, no matter the [g]Potency[w].",
+    "IGNORECASTER" : "[k]Mutator[w]: If the Caster of this Axiom stands on a Target, remove that Target.",
+    "BLINK" : "Function: All Targeted Entities blink a distance of Potency x 2 tiles in the Direction given to them by their Target.",
+
 }
 
 researchflagcolour = {

@@ -98,6 +98,11 @@ var spellpatterns = {
         1: ".S",
         "type" : "Mutator",
     },
+    "TRAIL" : {
+        0: ".S",
+        1: "S.",
+        "type" : "Mutator",
+    },
 
     //Ordered
 
