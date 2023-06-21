@@ -191,7 +191,11 @@ function tick(){
     if (deadcheck == 0 && area == "Faith"){
         //gener8 sortie si every1 est ded
         if (world.fighting){
-            if(world.getRoom().hostile) universe.worlds[universe.currentworld-1].cage.slots[world.getRoom().index[0]][world.getRoom().index[1]].turbulent = false;
+            if(world.getRoom().hostile){
+                universe.worlds[universe.currentworld-1].cage.slots[world.getRoom().index[0]][world.getRoom().index[1]].turbulent = false;
+                world.influence[toTitleCase(universe.worlds[universe.currentworld-1].cage.slots[world.getRoom().index[0]][world.getRoom().index[1]].id)]++;
+                universe.getTotalInfluence();
+            }
             summonExits();
             if (player.falsehp < 1){
                 player.falsehp = 1;

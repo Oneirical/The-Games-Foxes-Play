@@ -139,17 +139,51 @@ class Universe{
     constructor(){
         this.worlds = [];
         this.currentworld = 0;
-        this.layeredInfluence = [];
-    }
-
-    display(){
-        drawFilter(blackfilter);
-        //change between layers...
+        this.layeredInfluence = new Set();
+        this.totalInfluence = {
+            "Saintly" : 0,
+            "Ordered" : 0,
+            "Artistic" : 0,
+            "Unhinged" : 0,
+            "Feral" : 0,
+            "Vile" : 0,
+            "Serene" : 0,
+            "Total" : 0,
+        }
     }
 
     getDepth(){
         if (this.currentworld == 0) return "Faith's End";
         else return ("Vision " + this.currentworld);
+    }
+
+    calculatePotency(){
+        return Math.floor(this.totalInfluence["Total"]*0.1) + Math.floor(this.totalInfluence["Serene"]*0.5)+1;
+    }
+
+    getTotalInfluence(){
+        this.totalInfluence = {
+            "Saintly" : 0,
+            "Ordered" : 0,
+            "Artistic" : 0,
+            "Unhinged" : 0,
+            "Feral" : 0,
+            "Vile" : 0,
+            "Serene" : 0,
+            "Total" : 0,
+        }
+        for (let i of Object.keys(research.influence)){
+            this.totalInfluence[i] = research.influence[i];
+        }
+        for (let i of this.layeredInfluence){
+            for (let j of Object.keys(i)){
+                this.totalInfluence[j] += i[j];
+            }
+        }
+        for (let i of Object.keys(this.totalInfluence)){
+            if (i != "Total") this.totalInfluence["Total"] += this.totalInfluence[i];
+        }
+        return this.totalInfluence;
     }
 
     start(startingHp){
@@ -199,9 +233,11 @@ class Universe{
         player.hp = maxHp;
         world.setUpSprites();
         uiDisplayLeft.addChild(world.displayCon);
+        this.layeredInfluence.add(world.influence);
     }
 
     passUp(layer,origin){
+        this.layeredInfluence.remove(world.influence);
         uiDisplayLeft.removeChild(world.displayCon);
         player.tile.monster = null;
         world.saveRoom(world.getRoom());

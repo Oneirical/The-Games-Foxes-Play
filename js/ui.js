@@ -10,6 +10,15 @@ class Research{
         this.exppage = new TutorialDisplay();
         this.monsterpool = [Apis, Second, Tinker, Slug, Scion, Shrike, Apiarist];
         this.infectedConnectors = [];
+        this.influence = {
+            "Saintly" : 0,
+            "Ordered" : 0,
+            "Artistic" : 0,
+            "Unhinged" : 0,
+            "Feral" : 0,
+            "Vile" : 0,
+            "Serene" : 0,
+        }
     }
 
     selectCaste(num){
@@ -78,6 +87,8 @@ class Research{
                             this.tabs[k][g.x+x[0]][g.y+x[1]].tilecon.alpha = 1;
                             this.tabs[k][g.x+x[0]][g.y+x[1]].discovered = true;
                             this.tabs[k][g.x+x[0]][g.y+x[1]].completed = true;
+                            this.influence["Serene"]++;
+                            universe.getTotalInfluence();
                             if (this.tabs[k][g.x+x[0]][g.y+x[1]].axiomComponent) this.tabs[k][g.x+x[0]][g.y+x[1]].innerSymbol.texture = (allsprites.textures['icon'+inside[this.tabs[k][g.x+x[0]][g.y+x[1]].id]]);
                             this.tabs[k][g.x+x[0]][g.y+x[1]].spriteDisplay.texture = allsprites.textures['sprite150'];
                         }
@@ -174,6 +185,8 @@ class Research{
                 for(let j=0;j<15;j++){
                     if (this.tabs[k][i][j] instanceof ResearchNode && dis == this.tabs[k][i][j].id && this.tabs[k][i][j].discovered){
                         this.tabs[k][i][j].completeNode();
+                        if (k > 0) this.influence[Object.keys(this.influence)[k-1]]++;
+                        universe.getTotalInfluence();
                         playSound("learn");
                         this.knownnodes.push(dis);
                         this.goopSpread(k,i,j);
@@ -889,6 +902,7 @@ class ComponentsDisplay{
 
 class InfluenceDisplay{
     constructor(){
+        universe.getTotalInfluence();
         this.displayCon = new PIXI.Container();
         this.displayCon.y = 32*15;  
         this.inflCon = new PIXI.Container();
@@ -908,25 +922,26 @@ class InfluenceDisplay{
                 fontSize: 18,
                 fill: colors[i],
             });
-            textWithoutCringe("0",70,i*50+12,style,this.inflCon);
+            textWithoutCringe(universe.totalInfluence[casteNodes[i]].toString(),70,i*50+12,style,this.inflCon);
         }
         drawChainLine(6,16,7*50-32,"h",this.inflCon);
         for (let i = 0; i<2; i++){
             let chSprite = 'icon7';
-            if (i == 1) chSprite = 'sprite26';
+            if (i == 0) chSprite = 'sprite26';
             let newSprite = new FoxSprite(allsprites.textures[chSprite]);
             newSprite.y = (i+6)*50+16;
             newSprite.x = 0;
             newSprite.width = 48;
             newSprite.height = 48;
             this.inflCon.addChild(newSprite);
-            const sumCol = ["white","cyan"];
+            const sumCol = ["cyan","white"];
             const style = new PIXI.TextStyle({
                 fontFamily: 'Play',
                 fontSize: 18,
                 fill: sumCol[i],
             });
-            textWithoutCringe("0",70,i*50+328,style,this.inflCon);
+            const types = ["Serene","Total"];
+            textWithoutCringe(universe.totalInfluence[types[i]].toString(),70,i*50+328,style,this.inflCon);
         }
         drawChainLine(6,16,9*50-12,"h",this.inflCon);
         let newSprite = new FoxSprite(allsprites.textures['icon13']);
@@ -940,7 +955,7 @@ class InfluenceDisplay{
             fontSize: 18,
             fill: "lightblue",
         });
-        textWithoutCringe("0",70,462,style,this.inflCon);
+        textWithoutCringe(universe.calculatePotency().toString(),70,462,style,this.inflCon);
     }
 }
 
