@@ -186,12 +186,27 @@ var spellpatterns = {
         1: "FF",
         "type" : "Function",
     },
+    "PLUSCROSS" : {
+        0: ".F",
+        1: ".F",
+        "type" : "Form",
+    },
+    "SPREAD" : {
+        0: "F.",
+        1: "FF",
+        "type" : "Mutator",
+    },
     //Vile
 
     "SMOOCH" : {
         0: "..",
         1: "VV",
         "type" : "Form",
+    },
+    "IGNORECASTER" : {
+        0: ".V",
+        1: "V.",
+        "type" : "Mutator",
     },
     "SENET" : {
         0: "VV",

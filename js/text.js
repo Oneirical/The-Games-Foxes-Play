@@ -855,6 +855,8 @@ researchnames = {
     "TRAIL" : "Mark History Where One Passes",
     "IGNORECASTER" : "Law Stands Above Law",
     "BLINK" : "Places on a Map, Pawns on a Board",
+    "PLUSCROSS" : "",
+    "SPREAD" : "",
 
     "RANDOM" : "Erratic Pulse of Prey's Hearts",
 }
