@@ -73,7 +73,7 @@ Universal law that can be changed: default: when room begins, on all enemies, ap
 * Get power for damaged units (not at max hp) shroud of silent mist style
 * Extra power if includes a function with a status effect. Status effect becomes random.
 * Make effect appliers cleanse that effect instead
-* A mutator that nullifies spellcraft.
+* A mutator that nullifies spellcraft. OR JUST DON'T CLEAR THE WHOLE FLOOR
 * Serene Concordance: massive power if all components are of the same caste or serene. even bigger if only serene
 
 * NOT: inverts all targets, what was now isn't and what wasn't now is
