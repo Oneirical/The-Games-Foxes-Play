@@ -135,8 +135,8 @@ var spellpatterns = {
     //Artistic
 
     "GYVJI" : {
-        0: "AA",
-        1: "..",
+        0: "..",
+        1: "AA",
         "type" : "Function",
     },
     "ATKDELAY" : {
