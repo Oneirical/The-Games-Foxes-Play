@@ -23,6 +23,8 @@
 * put question marks in the craft recipe indicator if you don't know that one yet (say, while looking at an enemy)
 - Lore is that Terminal needs vessels that believes in those caste-respective axioms so he doesn't brainwash himself.
 
+* Serene function that lets you reprogram a creature on the spot
+
 **Brushstroke Crafting**
 
 * Become able to place a whole pattern in one shot by selecting from catalogue
@@ -52,7 +54,7 @@ Universal law that can be changed: default: when room begins, on all enemies, ap
 
 **Contingencies**
 
-* On death: revives you if positive HP at the end of the spell.
+* On death: revives you if positive HP at the end of the spell. that latter part is kind of op, maybe make it a serene mutator that lets you heal at 0 hp?
 
 **Functions**
 

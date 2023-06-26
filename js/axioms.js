@@ -1,8 +1,8 @@
 const powerRatings = {
-    "STEP" : -3,
-    "TURNEND" : -4,
-    "ATTACK" : -2,
-    "IGNORECASTER" : -2,
+    // "STEP" : -3,
+    // "TURNEND" : -4,
+    // "ATTACK" : -2,
+    // "IGNORECASTER" : -2,
 }
 
 //8ADJ - 4ADJ - RANDOM (up to power) - WALL - ALL - PAYLOAD (summon that unleashes targets on death)
@@ -169,7 +169,7 @@ axiomEffects = {
     },
 
     CLICK : function(target,power,data){
-        let trap = new ClickTrap(target,power*3,data);
+        let trap = new ClickTrap(target,power*5,data);
         target.clickTrap = trap;
         return data;
     },
@@ -236,7 +236,7 @@ axiomEffects = {
     },
     HASTE: function(target,power,data){
         if (target.monster){
-            target.monster.giveEffect("Hasted",power*2,data);
+            target.monster.giveEffect("Hasted",power,data);
         }
         return data;
     },

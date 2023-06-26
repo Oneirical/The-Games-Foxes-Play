@@ -1803,22 +1803,11 @@ class Inventory{
         if (inInventory) this.axiomList.fillInRows(player);
     }
 
-    queueContin(word,caster){
-        caster.queuedcontin.push(word);
-    }
-
     castContin(word, caster){
         for (let i of this.active){
-            if (i.contingencies && i.contingencies.includes(word)){
-                if (soulcosts[word] && caster.isPlayer && caster.statusEff["Transformed"] == 0){
-                    if (wheel.ipseity < soulcosts[word]){
-                        shakeAmount = 5;
-                        log.addLog("NoShards");
-                        return;
-                    }
-                    wheel.ipseity-=soulcosts[word];
-                }
-                i.castAxiom(caster);
+            if (i.sequence.includes(word)){
+                let startPoint = i.sequence.indexOf(word);
+                i.castAxiom(caster,startPoint);
             }
         }
     }
@@ -2024,8 +2013,8 @@ class Axiom extends Soul{
         return totalSpell;
     }
 
-    castAxiom(caster){
-        //let praxes = this.dividePraxes();
+    castAxiom(caster, startPoint){
+        if (!startPoint) startPoint = 0;
         this.data = {
             "caster" : caster,
             "casterOriPos" : caster.tile,
@@ -2040,6 +2029,7 @@ class Axiom extends Soul{
         };
         for (let i of this.sequence){
             this.data["currentPrax"] = this.sequence.indexOf(i);
+            if (this.data["currentPrax"] < startPoint) continue; 
             this.castPraxis(i);
             if (this.data["skip"]) break; //what happens if there is an atkdelay inside an atkdelay?
         }
@@ -2047,6 +2037,7 @@ class Axiom extends Soul{
 
     castPraxis(praxis){
         if (powerRatings[praxis]) this.data["power"] += powerRatings[praxis];
+        if (!axiomEffects[praxis]) return; //prevent contingencies from executing
         if (isFunction(praxis)) {
             for (let j of this.data["targets"]){
                 if (this.data.flags.has("ignoreCaster") && sameTile(this.data.caster.tile,j)) continue;

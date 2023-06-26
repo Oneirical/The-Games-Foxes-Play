@@ -124,32 +124,33 @@ function isFunction(str){
 }
 
 function beginTurn(){
-    for(let k=monsters.length;k>=0;k--){
-        let activeeffects = [];
-        let con;
-        if (k == monsters.length) con = player;
-        else con = monsters[k];
-        for (let i of Object.keys(con.statusEff)){
-            if (con.statusEff[i] > 0) activeeffects.push(i);
-            con.statusEff[i] = Math.max(0,con.statusEff[i]-1);
-            if (con.statusEff[i] > 0 && activeeffects.includes(i)) removeItemOnce(activeeffects,i);
-        }
-        con.effectsExpire(activeeffects);
-    }
+    // for(let k=monsters.length;k>=0;k--){
+    //     let activeeffects = [];
+    //     let con;
+    //     if (k == monsters.length) con = player;
+    //     else con = monsters[k];
+    //     for (let i of Object.keys(con.statusEff)){
+    //         if (con.statusEff[i] > 0) activeeffects.push(i);
+    //         con.statusEff[i] = Math.max(0,con.statusEff[i]-1);
+    //         if (con.statusEff[i] > 0 && activeeffects.includes(i)) removeItemOnce(activeeffects,i);
+    //     }
+    //     con.effectsExpire(activeeffects);
+    // }
 
-    for(let k=monsters.length;k>=0;k--){
-        let con;
-        if (k == monsters.length) con = player;
-        else con = monsters[k];
-        if (con.soullink && con.soullink instanceof Tile){
-            con.move(con.soullink);
-            con.soullink = null;
-        }
-    }
+    // for(let k=monsters.length;k>=0;k--){
+    //     let con;
+    //     if (k == monsters.length) con = player;
+    //     else con = monsters[k];
+    //     if (con.soullink && con.soullink instanceof Tile){
+    //         con.move(con.soullink);
+    //         con.soullink = null;
+    //     }
+    // }
 }
 
 function tick(){
     player.update();
+    player.endTurn();
     deadcheck = 0;
     if (world.getRoom() instanceof EpsilonArena && !monsters[0].dead){
         monsters[0].update();
@@ -179,6 +180,7 @@ function tick(){
         if (monsters[k].doomed && !monsters[k].isPlayer) monsters[k].hit(99);
         if(!monsters[k].dead && monsters[k].order < 0){
             monsters[k].update();
+            monsters[k].endTurn();
             if (k >= monsters.length) break;
             if (!monsters[k].permacharm || monsters[k].name.includes("Vermin")) deadcheck++
         }else if (monsters[k].order < 0){

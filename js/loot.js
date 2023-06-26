@@ -44,6 +44,39 @@ for (let i of Object.keys(excludeloot)){
     for (let j of excludeloot[i]) removeItemOnce(nodeloot[i],j);
 }
 
+const influenceShop = {
+    "Furred" : { // Forests of Fur Tangled In Claws
+        FurSpirit : "0A",
+        Tinker : "1A",
+        Apis : "1F",
+        Oracle : "2U",
+        Felidol : "3V",
+    },
+    "Glossy" : { // Pulsing Hearts Under Glossy Membranes
+        GlossySpirit : "0A",
+        Third : "1V",
+        Slug : "1O",
+        Weaver : "2A",
+        Brute : "3U",
+        Snail : "3O",
+        Embalmer : "3S",
+    },
+    "Aerial" : { // Brushes of Motion Across the Air
+        FlySpirit : "0A",
+        Shrike: "1F",
+        Scion : "2S",
+        Ashsoul : "2U",
+        Ragemaw : "3F",
+    },
+    "Swarm" : { // A Million Thoughts Forge A Soul
+        SwarmSpirit : "0A",
+        Second : "1V",
+        Apiarist : "1O",
+        Monk : "3A",
+    }
+
+};
+
 //Monsters
 
 //Typeless
