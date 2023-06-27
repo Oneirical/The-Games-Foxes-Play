@@ -55,6 +55,7 @@ Universal law that can be changed: default: when room begins, on all enemies, ap
 **Contingencies**
 
 * On death: revives you if positive HP at the end of the spell. that latter part is kind of op, maybe make it a serene mutator that lets you heal at 0 hp?
+* Prevent infinite loops (on tele, blink) in some way
 
 **Functions**
 

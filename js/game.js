@@ -33,6 +33,7 @@ function teleport(target,destination,data){
             data.targets.add(i);
         }
     }
+    target.axioms.castContin("ONTELE",target);
     return data;
 }
 

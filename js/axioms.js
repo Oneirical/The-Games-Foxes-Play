@@ -352,6 +352,7 @@ axiomEffects = {
         }
         if(affected && affected.tile != newTile){
             teleport(affected,newTile,data);
+            affected.lastMove = target.spellDirection;
         }
         return data;
     }

@@ -1015,16 +1015,16 @@ class Snail extends Monster{ // BATTLESNAIL, GET IN THERE!
         this.ability = monabi["Snail"];
         this.canmove = false;
         this.isPassive = true;
-        this.assignAxiom(["TURNEND","EGO","RANDDIR","BLINK","BEAM","IGNORECASTER","HARM"],"ARTISTIC",2); //maybe boost up blink potency
-        this.assignAxiom(["TURNEND","EGO","STOP"],"ORDERED",3);
+        this.assignAxiom(["TURNEND","EGO","STOP","RANDDIR","BLINK"],"ARTISTIC",2); //maybe boost up blink potency
+        this.assignAxiom(["ONTELE","BEAM","HARM"],"UNHINGED",1);
     }
-    doStuff(){
-        let directions = [[-1,0],[1,0],[0,-1],[0,1]];
-        let indexx = randomRange(0,3);
-        this.lastMove = directions[indexx]
-        spells["SNAILLASER"](this);
-        super.doStuff();
-    }
+    // doStuff(){
+    //     let directions = [[-1,0],[1,0],[0,-1],[0,1]];
+    //     let indexx = randomRange(0,3);
+    //     this.lastMove = directions[indexx]
+    //     spells["SNAILLASER"](this);
+    //     super.doStuff();
+    // }
 }
 
 class Husk extends Monster{

@@ -1048,6 +1048,7 @@ researchflags = {
     "IGNORECASTER" : "Mutator",
     "BLINK" : "Function, Directional, Motion",
     "RANDDIR" : "Mutator",
+    "ONTELE" : "Contingency",
 }
 
 researchexpl = {
