@@ -77,6 +77,8 @@ const influenceShop = {
 
 };
 
+// it should be, FELIDOL, APIS, SHRIKE, SNAIL, SLUG, TINKER
+
 //Monsters
 
 //Typeless

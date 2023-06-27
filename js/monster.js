@@ -1015,6 +1015,8 @@ class Snail extends Monster{ // BATTLESNAIL, GET IN THERE!
         this.ability = monabi["Snail"];
         this.canmove = false;
         this.isPassive = true;
+        this.assignAxiom(["TURNEND","EGO","RANDDIR","BLINK","BEAM","IGNORECASTER","HARM"],"ARTISTIC",2); //maybe boost up blink potency
+        this.assignAxiom(["TURNEND","EGO","STOP"],"ORDERED",3);
     }
     doStuff(){
         let directions = [[-1,0],[1,0],[0,-1],[0,1]];
@@ -1102,13 +1104,8 @@ class Felidol extends Monster{
         this.soul = "Animated by a Vile (1) soul.";
         this.name = "Greedswept Felidol";
         this.ability = monabi["Felidol"];
-    }
-    die(){
-        
-        super.die();
-        this.tile.siphon = true;
-    }
-    
+        this.assignAxiom(["ONDEATH","EGO","DEATHCLICK","CLICK","EGO","SUMMFELIDOL"],"VILE",2); //remove decay of traps?
+    }    
 }
 
 class Weaver extends Monster{

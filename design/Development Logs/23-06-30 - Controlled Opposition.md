@@ -17,6 +17,10 @@ I have to retain some humility and remember what my game is really about: the Ax
 
 It is after a deep introspection session while I was turned into a floor puddle and listening to new age music that a revelation came to me: *Why do work when you can have the player do it for you?* Tongue in cheek, I attest, but this design philosophy has served me well so far - I wasn't sure how to make interesting dungeons, so I allowed the player to design their own layouts, and I wasn't sure how to mass produce interesting spells, so I devised this entire magic-crafting system ("Axioms") that has now wormed its way into "Core Mechanic" status.
 
+First, I've cut down the amount of different enemies down to a measly 6. It was a tough choice choosing which would be the chosen ones, but I ultimately settled on a mix of some of my favourites, alongside some simple ones which I judged would make a good introduction to the game's mechanics.
+
+Then...
+
 # Controlled Opposition
 
 It was only a matter of time with the way my development was headed, but the player can now craft their own enemies. The UI for this is far from complete, but the code is there.

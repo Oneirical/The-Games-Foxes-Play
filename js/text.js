@@ -1047,6 +1047,7 @@ researchflags = {
     "TRAIL" : "Mutator",
     "IGNORECASTER" : "Mutator",
     "BLINK" : "Function, Directional, Motion",
+    "RANDDIR" : "Mutator",
 }
 
 researchexpl = {

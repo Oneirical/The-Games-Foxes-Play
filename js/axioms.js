@@ -24,7 +24,7 @@ axiomEffects = {
         let caster = data["caster"];
         let newTile = caster.tile;
         newTile = newTile.getNeighbor(caster.lastMove[0],caster.lastMove[1]);
-        newTile.spellDirection = [caster.lastMove];
+        newTile.spellDirection = caster.lastMove;
         data["targets"].add(newTile);
         return data;
     },
@@ -81,6 +81,19 @@ axiomEffects = {
     //   MUTATORS
     //
     ///////////////
+
+    RANDDIR : function(data){
+        const directions = [
+            [-1, 0],
+            [0, 1],
+            [1, 0],
+            [0, -1]
+        ];
+        for (let o of data["targets"]){
+            o.spellDirection = directions[randomRange(0,3)];
+        }
+        return data;
+    },
 
     SPREAD : function(data){
         let extraTar = new Set();
