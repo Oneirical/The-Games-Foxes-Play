@@ -754,12 +754,12 @@ class Scion extends Monster{
 
 class Shrike extends Monster{
     constructor(tile){
-        super(tile, 5, 1, "FERAL", description["Shrike"]);
+        super(tile, 5, 1, "UNHINGED", description["Shrike"]);
         this.soul = "Animated by a Feral (2) soul.";
         this.name = "Starpaper Shrike";
         this.ability = monabi["Shrike"];
         this.speed = 2;
-        this.assignAxiom(["TURNEND","EGO","HASTE"],"FERAL",1);
+        this.assignAxiom(["TURNEND","EGO","HASTE"],"UNHINGED",1);
     }
 }
 
@@ -785,11 +785,11 @@ class Second extends Monster{
 
 class Tinker extends Monster{
     constructor(tile){
-        super(tile, 8, 2, "ARTISTIC", description["Tinker"]);
+        super(tile, 8, 2, "SAINTLY", description["Tinker"]);
         this.soul = "Animated by an Artistic (4) soul.";
         this.name = "Frenzied Dream-Tinker";
         this.ability = monabi["Tinker"];
-        this.assignAxiom(["TURNEND","EGO","THRASH"],"FERAL",2); //should be turnstart
+        this.assignAxiom(["TURNEND","EGO","THRASH"],"SAINTLY",2); //should be turnstart
     }
 }
 
@@ -1015,7 +1015,7 @@ class Oracle extends Monster{
 
 class Snail extends Monster{ // BATTLESNAIL, GET IN THERE!
     constructor(tile){
-        super(tile, 41, 2, "ORDERED", description["Snail"]);
+        super(tile, 41, 2, "ARTISTIC", description["Snail"]);
         this.soul = "Animated by an Ordered (5) soul.";
         this.name = "Shelled Electromedic";
         this.ability = monabi["Snail"];

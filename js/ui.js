@@ -8,7 +8,7 @@ class Research{
         this.buildTabs();
         this.looking = false;
         this.exppage = new TutorialDisplay();
-        this.monsterpool = [Apis, Second, Tinker, Slug, Scion, Shrike, Apiarist];
+        this.monsterpool = [Apis, Snail, Tinker, Slug, Shrike, Felidol];
         this.infectedConnectors = [];
         this.influence = {
             "Saintly" : 0,
