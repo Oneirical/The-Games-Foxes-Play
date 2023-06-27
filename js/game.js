@@ -11,6 +11,9 @@ function summonExits(){
                 tiles[px][py].setUpSprite();
                 tiles[px][py].id = id;
             }
+            if (y.clickTrap){
+                y.clickTrap = false;
+            }
         }
     }
     world.fighting = false;
