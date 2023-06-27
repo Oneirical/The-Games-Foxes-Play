@@ -1049,6 +1049,9 @@ researchflags = {
     "BLINK" : "Function, Directional, Motion",
     "RANDDIR" : "Mutator",
     "ONTELE" : "Contingency",
+    "ONDEATH" : "Contingency",
+    "SUMMFELIDOL" : "Function",
+    "DEATHCLICK" : "Mutator",
 }
 
 researchexpl = {

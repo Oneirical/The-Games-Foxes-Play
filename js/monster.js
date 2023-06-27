@@ -646,7 +646,12 @@ class Monster{
 
     die(){
         this.dead = true;
-        this.tile.monster = 0;
+        if (this.tile.clickTrap && this.tile.clickTrap.triggerType == "DEATH"){
+            this.tile.clickTrap.trigger();
+            this.tile.clickTrap = false;
+        }
+        this.axioms.castContin("ONDEATH",this);
+        if (this.tile.monster == this) this.tile.monster = null;
         if (this.statusEff["Puppeteered"] > 0 && !this.tile.siphon && !this.respawned){
             let husk = new Husk(this.tile);
             monsters.push(husk);
@@ -673,11 +678,12 @@ class Monster{
         if (area != "Spire") this.sprite = 1;
         else this.sprite = 83;
         tilesDisplay.removeChild(this.creaturecon);
+        if (this.tile.monster) this.tile.monster.setUpSprite(); // have a feeling this is weird, it's for the felidols
     }
 
     move(tile){
         if(this.tile){
-            this.tile.monster = 0;
+            this.tile.monster = null;
             this.offsetX = this.tile.x - tile.x;    
             this.offsetY = this.tile.y - tile.y;
             this.anispeed = 1/9*(Math.abs(this.offsetX)+Math.abs(this.offsetY));

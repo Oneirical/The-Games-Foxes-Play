@@ -5,6 +5,7 @@ class ClickTrap{
             this.praxes.push(data["praxes"][i]);
         }
         this.power = data.power;
+        this.triggerType = data["clickTrigger"];
         this.lifetime = lifetime;
         this.tile = tile;
         this.setUpSprite();

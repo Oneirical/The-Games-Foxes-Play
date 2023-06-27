@@ -69,13 +69,13 @@ class Tile{
 
     tickTile(newTex){
         this.spriteDisplay.texture = newTex;
-        if (this.clickTrap){
-            this.clickTrap.lifetime--;
-            if (this.clickTrap.lifetime <= 0){
-                this.clickTrap.destroy();
-                this.clickTrap = false; 
-            }
-        }
+        // if (this.clickTrap){
+        //     this.clickTrap.lifetime--;
+        //     if (this.clickTrap.lifetime <= 0){
+        //         this.clickTrap.destroy();
+        //         this.clickTrap = false; 
+        //     }
+        // }
     }
 
     replace(newTileType){
@@ -270,7 +270,7 @@ class Floor extends Tile{
 
     stepOn(monster){
         let trapsafe = true;
-        if (this.clickTrap){
+        if (this.clickTrap && this.clickTrap.triggerType == "STEP"){
             this.clickTrap.trigger();
             this.clickTrap = false;
         }
@@ -491,7 +491,7 @@ class MapExit extends Tile{
     stepOn(monster){
         if(monster.isPlayer){
             playSound("newLevel");
-            this.monster = 0;
+            this.monster = null;
             world.saveRoom(world.getRoom());
             world.enterRoom(this.direction);
             log.allgrey = true;
@@ -517,7 +517,7 @@ class AscendExit extends Tile{
     stepOn(monster){
         if(monster.isPlayer){
             playSound("newLevel");
-            this.monster = 0;
+            this.monster = null;
             world.saveRoom(world.getRoom());
             universe.passUp(universe.currentworld-1,this.direction);
         }

@@ -82,6 +82,11 @@ axiomEffects = {
     //
     ///////////////
 
+    DEATHCLICK : function(data){
+        data["clickTrigger"] = "DEATH";
+        return data;
+    },
+
     RANDDIR : function(data){
         const directions = [
             [-1, 0],
@@ -330,6 +335,15 @@ axiomEffects = {
             let save = tiles[t.x][t.y];
             tiles[t.x][t.y] = new AbazonWall(t.x,t.y)
             let monster = new AbazonSummon(t,save,power*2);
+            monsters.push(monster);
+        }
+        return data;
+    },
+    SUMMFELIDOL : function(target,power,data){ //scale power somehow, maybe get different felidol types (vinyl, jade...)
+        let t = target;
+        let test = t.passable;
+        if (test){
+            let monster = new Felidol(t);
             monsters.push(monster);
         }
         return data;

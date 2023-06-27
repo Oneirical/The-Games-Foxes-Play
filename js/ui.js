@@ -2026,6 +2026,7 @@ class Axiom extends Soul{
             "flags" : new Set(),
             "currentPrax" : 0,
             "skip" : false,
+            "clickTrigger" : "STEP",
         };
         for (let i of this.sequence){
             this.data["currentPrax"] = this.sequence.indexOf(i);

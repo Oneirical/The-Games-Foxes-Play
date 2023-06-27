@@ -1148,7 +1148,7 @@ class WorldSeed extends DefaultVaultRoom{
     progressTutorial(stage){
         for (let i of tiles){
             for (let j of i){
-                if (j.monster) j.monster = 0;
+                if (j.monster) j.monster = null;
             }
         }
         player.move(getTile(4,6));
