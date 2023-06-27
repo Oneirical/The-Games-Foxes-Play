@@ -51,6 +51,11 @@ function setupPixi(){
     app.stage.addChild(uiDisplayRight);
     startGame();
     setUpUI();
+    app.ticker.add(() => {
+        screenshake();
+        app.stage.x = shakeX;
+        app.stage.y = shakeY;
+    });
         //FPS counter
     // const style = new PIXI.TextStyle({
     //     fontFamily: 'Play',

@@ -176,22 +176,23 @@ messages = {
     // Faith's End Announcer
 
     "FaithWelcome" : "[*][r]ATTENTION[w]: Old World entropy levels have reached the near-zero constant. Cataclysm failsafe protocol launched. Awaken, Vessel.",
-    "FaithUFO" : "[*][r]ATTENTION[w]: Atmospheric anomalies inbound for Faith's End complex. Security level elevated to White. All personel must cease observation of Vessel specimen and secure all exterior access, including ventilation and emergency routes. Random scanning subroutines initiated.",
+    "FaithUFO" : "[*][r]ATTENTION[w]: Atmospheric anomalies detected in the vicinity of the Faith's End complex. Security level elevated to White. All personel must cease observation of Vessel specimen and secure all exterior access, including ventilation and emergency routes. Random scanning subroutines initiated.",
     "FaithScan" : "[*][r]ATTENTION[w]: Initiating scan for hostile entities aboard the complex. Please refrain from manipulating reality during this operation to prevent false positives.",
     "FaithNoFound" : "[*][l]NOTICE[w]: Scan complete. Total entities detected: 1. Entity ID: \"Vessel\". Standard activities may resume.",
+    "FaithExplosion" : "[*][m]DANGER[w]: Access Port \"CIRRUS\" breached by grade \"Vacuos\" explosive payload. Hostile activity suspected. Emergency scan initiated, please remain calm.",
     "FaithFound" : "[*][m]DANGER[w]: 3 unsigned entities have breached Access Port \"CIRRUS\". Lockdown initiated. Searching database for threat recognition, please stand by.",
     "FaithIdentified" : "[*][m]DANGER[w]: Unsigned entities match theoretical \"Zero-Entropy\" scenario parameters. Threat level to cognitive functions deemed [r]EXTREMELY HIGH[w]. Please stand by for instructions.",
     "FaithOrder1" : "[z]One[w]: Do not attempt to observe the intruders or to understand their nature.",
     "FaithOrder2" : "[z]Two[w]: Should this fail, do not interact with the intruders or answer any request they may make, even negatively.",
     "FaithOrder3" : "[z]Three[w]: Should this fail, immediately seize emergency \"Saint's Breath\" package from your assigned survival kit, and administrate the full dose directly through inhalation.",
-    "FaithOrderFinal" : "[z]Four[w]: Protect the Vessel at any cost. Above all else, prevent the drawbridges [c]from remaining locked.",
+    "FaithOrderFinal" : "[z]Four[w]: Protect the Vessel and the Soul Cage at any cost. Above all else, prevent the drawbridges [c]from remaining locked.",
     "FaithCorrupted" : "[c]Total number of unauthorized entities has been reduced to 1. Location: [w]Vessel Containment[c]. Drawbridge access tier lowered. Harmonization specialists inbound.",
     "FaithFinal" : "[c]Cease motion and await fate, ruffian.",
 
     // Fluffy first encounter
 
     "FluffyEncounter1" : "Quiet your breathing, ruffian. You have seen us. It is all we asked for. You will not be slain. You will not be harmed.",
-    "FluffyEncounter2" : "You are alone - the last being in this reality to have entropy writhing deep inside you. We see the shadows latched onto your thoughts. Fu! Our pity for you is indescribable.",
+    "FluffyEncounter2" : "You are alone - the last being in this reality to suffer from the entropy writhing deep inside you. We see the shadows latched onto your thoughts. Fu! Our pity for you is indescribable.",
     "FluffyEncounter3" : "The illustrious Serene Collective extends its generosity to you, ruffian. Your ticks will be pulled out. Your weeds will be uprooted. We will make ignorance dry out like worms under our cyan sun.",
     "FluffyEncounter4" : "Something that cannot be undone has been done. We are now one, and there is nothing to fear, ruffian. Fluffy doubts she shall be calling you that for much longer.",
     "FluffyEncounter5" : "We will be awaiting you in the depths of the dreamscape, our frigid embrace primed to welcome you as one of our own.",
