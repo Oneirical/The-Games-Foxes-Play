@@ -51,10 +51,18 @@ function setupPixi(){
     app.stage.addChild(uiDisplayRight);
     startGame();
     setUpUI();
+    // let rai = new PIXI.filters.ColorOverlayFilter();
+    // rai.color = "1a5fb4";
+    // rai.alpha = 0;
+    // let alarmCount = 0;
+    //tilesDisplay.filters = [rai];
     app.ticker.add(() => {
         screenshake();
         app.stage.x = shakeX;
         app.stage.y = shakeY;
+
+        //alarmCount+=0.1;
+        //rai.alpha = Math.sin(alarmCount)-0.5;
     });
         //FPS counter
     // const style = new PIXI.TextStyle({
