@@ -56,6 +56,8 @@ function setupPixi(){
     tilesChains.x = (1920-16*16*resolutionSize)/2+(resolutionSize+12)*16+8;
     tilesChains.y = (1080-16*9*resolutionSize)/2+8;
     drawChainBorder(32,32,tilesChains);
+    drawPixel("black",(1920-16*16*resolutionSize)/2+(resolutionSize+12)*16,(1080-16*9*resolutionSize)/2,112*9,app.stage); // this is for the zoom in effect
+    app.stage.children[app.stage.children.length-1].alpha = 0;
     // let rai = new PIXI.filters.ColorOverlayFilter();
     // rai.color = "1a5fb4";
     // rai.alpha = 0;

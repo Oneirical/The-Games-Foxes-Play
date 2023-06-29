@@ -212,8 +212,6 @@ class Universe{
         universe.zooming = true;
         this.zoomAnim = new PIXI.Ticker;
         this.zoomAnim.start();
-        drawPixel("black",(1920-16*16*resolutionSize)/2+(resolutionSize+12)*16,(1080-16*9*resolutionSize)/2,112*9,app.stage);
-        app.stage.children[app.stage.children.length-1].alpha = 0;
         tilesDisplay.mask = app.stage.children[app.stage.children.length-1];
         const saves = [tilesDisplay.x,tilesDisplay.y,tilesDisplay.width,tilesDisplay.height];
         this.zoomAnim.add(() => {
@@ -222,6 +220,8 @@ class Universe{
             tilesDisplay.width += 10*16;
             tilesDisplay.height += 10*16;
             if (tilesDisplay.width >= 112*9*9){
+                console.log(tilesDisplay.x);
+                console.log(tilesDisplay.y);
                 this.handleDescent(layer, spawnx, spawny);
                 tilesDisplay.x = saves[0];
                 tilesDisplay.y = saves[1];
@@ -332,6 +332,30 @@ class Universe{
         //world.cage.legendCheck();
         world.setUpSprites();
         uiDisplayLeft.addChild(world.displayCon);
+        world.cage.pocketworld.hypnoDisplay();
+        universe.zooming = true;
+        this.zoomAnim = new PIXI.Ticker;
+        this.zoomAnim.start();
+        tilesDisplay.mask = app.stage.children[app.stage.children.length-1];
+        const saves = [tilesDisplay.x,tilesDisplay.y,tilesDisplay.width,tilesDisplay.height];
+        tilesDisplay.x = -3664;
+        tilesDisplay.y = -3996;
+        tilesDisplay.width = 112*9*9;
+        tilesDisplay.height = 112*9*9;
+        this.zoomAnim.add(() => {
+            tilesDisplay.x += 10*18*4/9;
+            tilesDisplay.y += 10*18*4/9; //the /3 at the end is relative to the cage size (length of a side)
+            tilesDisplay.width -= 10*16;
+            tilesDisplay.height -= 10*16;
+            if (tilesDisplay.width <= 112*9){
+                tilesDisplay.x = saves[0];
+                tilesDisplay.y = saves[1];
+                tilesDisplay.width = saves[2];
+                tilesDisplay.height = saves[3];
+                universe.zooming = false;
+                this.zoomAnim.destroy();
+            }
+        });
     }
 
     playRandomWorld(oldWorld){
