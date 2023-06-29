@@ -212,13 +212,21 @@ class Universe{
         universe.zooming = true;
         this.zoomAnim = new PIXI.Ticker;
         this.zoomAnim.start();
+        drawPixel("black",(1920-16*16*resolutionSize)/2+(resolutionSize+12)*16,(1080-16*9*resolutionSize)/2,112*9,app.stage);
+        app.stage.children[app.stage.children.length-1].alpha = 0;
+        tilesDisplay.mask = app.stage.children[app.stage.children.length-1];
+        const saves = [tilesDisplay.x,tilesDisplay.y,tilesDisplay.width,tilesDisplay.height];
         this.zoomAnim.add(() => {
-            world.cage.pocketworld.hypnosis.x -= 18*4;
-            world.cage.pocketworld.hypnosis.y -= 18*4; //the /3 at the end is relative to the cage size (length of a side)
-            world.cage.pocketworld.hypnosis.width += 16;
-            world.cage.pocketworld.hypnosis.height += 16;
-            if (world.cage.pocketworld.hypnosis.width >= 112*9){
+            tilesDisplay.x -= 10*18*4/9;
+            tilesDisplay.y -= 10*18*4/9; //the /3 at the end is relative to the cage size (length of a side)
+            tilesDisplay.width += 10*16;
+            tilesDisplay.height += 10*16;
+            if (tilesDisplay.width >= 112*9*9){
                 this.handleDescent(layer, spawnx, spawny);
+                tilesDisplay.x = saves[0];
+                tilesDisplay.y = saves[1];
+                tilesDisplay.width = saves[2];
+                tilesDisplay.height = saves[3];
                 universe.zooming = false;
                 this.zoomAnim.destroy();
             }

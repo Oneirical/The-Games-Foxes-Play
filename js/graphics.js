@@ -51,6 +51,11 @@ function setupPixi(){
     app.stage.addChild(uiDisplayRight);
     startGame();
     setUpUI();
+    let tilesChains = new PIXI.Container();
+    app.stage.addChild(tilesChains);
+    tilesChains.x = (1920-16*16*resolutionSize)/2+(resolutionSize+12)*16+8;
+    tilesChains.y = (1080-16*9*resolutionSize)/2+8;
+    drawChainBorder(32,32,tilesChains);
     // let rai = new PIXI.filters.ColorOverlayFilter();
     // rai.color = "1a5fb4";
     // rai.alpha = 0;
@@ -219,7 +224,6 @@ function drawTiles(){
             tiles[i][j].setUpSprite();
         }
     }
-    drawChainBorder(32,32,tilesDisplay);
 }
 
 
