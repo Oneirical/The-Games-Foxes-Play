@@ -33,3 +33,6 @@ In this case, why not just create some hilariously suicidal creatures with thoug
 
 This ties in with the Harmony core mechanic - making creatures attack other things than the player is already a feature, through the charm/summoning magic effects. My idea would be that some Harmonic agents pursue you across the dungeon, and are slowed down by the enemies you have triumphed over, now respawned and working for you. If you only make utter weaklings, the Harmony will easily power through the opposition and reach your position in little time. If you make death machines, well, you will be the one to enter a die-and-retry loop while the Harmony spawn-camps you.
 
+# Daydream Vertigo
+
+Not only are Dreamscapes now directly accessible from the Soul Cage (the room they used to be in, the World Seed, will probably be removed), there is now a [dizzying]() zoom animation for entering them! Initially, [only the hologram would enlarge](), which looked quite poor. Thank you #roguelikedev on the Discord for the much superior suggestion!
