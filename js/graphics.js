@@ -425,10 +425,11 @@ function screenshake(){ // SHAKE SHAKE SHAKE
 
 class GlitchSprite {
   
-    constructor(glitch,time) {
+    constructor(glitch,time, onlyOnce) {
     
       this.img = glitch;
       this.time = time;
+      this.onlyOnce = onlyOnce;
   
       this.img.filters = [new PIXI.filters.RGBSplitFilter(), new PIXI.filters.GlitchFilter()]
   
@@ -444,6 +445,7 @@ class GlitchSprite {
       
       this.anim = this.anim.bind(this)
       this.anim()
+      this.complete = false;
       
     }
     
@@ -452,13 +454,26 @@ class GlitchSprite {
     }
     
     anim() {
-  
+      if (this.complete) {
+        this.img.filters = [];
+        return;
+      }
       const THAT = this
-      
-      const tl = gsap.timeline({
-        delay: this.randomIntFromInterval(3, this.time),
-        onComplete: this.anim
-      })
+      let tl;
+      if (this.onlyOnce){
+        tl = gsap.timeline({
+            delay: 0,
+            onComplete: this.anim
+          })
+        this.complete = true;
+      }
+      else {
+        tl = gsap.timeline({
+            delay: this.randomIntFromInterval(3, this.time),
+            onComplete: this.anim
+          })
+      }
+
   
       tl.to(this.img.filters[0].red, {
         duration: 0.2,

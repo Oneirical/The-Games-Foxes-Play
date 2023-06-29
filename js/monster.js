@@ -126,6 +126,10 @@ class Monster{
             }
         });
         this.updateHp();
+        console.log(universe.zooming);
+        if (universe.zooming){
+            new GlitchSprite(this.creaturecon,3,true);
+        } 
         //remember when you looked for 2 hours for that one bug that made you drop 1 FPS every time Terminal passed a door and it turned
         //out to be that one tiny line under here that caused literal thousands of StatusDisplay to stack on top of each other? Now that was funny
     }

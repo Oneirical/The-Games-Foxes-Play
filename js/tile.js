@@ -68,6 +68,7 @@ class Tile{
     }
 
     tickTile(newTex){
+        if (!newTex) return;
         this.spriteDisplay.texture = newTex;
         // if (this.clickTrap){
         //     this.clickTrap.lifetime--;
@@ -967,6 +968,20 @@ class CageContainer extends Altar{
 
     stepOn(monster){
         super.stepOn(monster);
+        if(monster.isPlayer && world.cage.displayon){
+            if (world.cage.pocketworld.rooms[this.x][this.y].corridor){
+                player.move(getTile(player.tile.x - player.lastMove[0],player.tile.y - player.lastMove[1]));
+                player.offsetX = 0;
+                player.offsetY = 0;
+            } 
+            else if (world.cage.slots[this.x][this.y].id != "EMPTY") universe.passDown(world.depth+1, this.x, this.y);
+        }
+    }
+
+    turnOnProjector(){
+        if (world.cage.displayon){
+            world.cage.pocketworld.hypnoDisplay(); //this shouldn't be a tile func, it should be a room func
+        }
     }
 }
 

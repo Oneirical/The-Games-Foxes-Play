@@ -4,7 +4,7 @@ class CageTemplate{
         this.tier = 0;
         this.build();
         this.pocketworld;
-        this.size = 0;
+        this.size = 1;
     }
 
     build(){
@@ -209,6 +209,24 @@ class Universe{
     }
 
     passDown(layer, spawnx, spawny){
+        universe.zooming = true;
+        this.zoomAnim = new PIXI.Ticker;
+        this.zoomAnim.start();
+        this.zoomAnim.add(() => {
+            world.cage.pocketworld.hypnosis.x -= 18*4;
+            world.cage.pocketworld.hypnosis.y -= 18*4; //the /3 at the end is relative to the cage size (length of a side)
+            world.cage.pocketworld.hypnosis.width += 16;
+            world.cage.pocketworld.hypnosis.height += 16;
+            if (world.cage.pocketworld.hypnosis.width >= 112*9){
+                this.handleDescent(layer, spawnx, spawny);
+                universe.zooming = false;
+                this.zoomAnim.destroy();
+            }
+        });
+    }
+
+    handleDescent(layer, spawnx, spawny){
+        
         uiDisplayLeft.removeChild(world.displayCon);
         if (this.worlds[layer].rooms[spawnx][spawny].corridor){
             shakeAmount = 5;
@@ -283,7 +301,7 @@ class Universe{
         this.currentworld = layer;
         this.worlds[layer+1] = world;
         world = this.worlds[layer];
-        world.currentroom = [4, 4];
+        world.currentroom = [4, 5]; // this will have to be replaced with the cage location
         //world.cage.displayon = false;
         world.appearRoom(locspawn);
         player.offsetX = -motionsave[0];
@@ -506,6 +524,7 @@ class World{
                     this.rooms[x][y].displayCon.y = y*112;
                     this.hypnosis.addChild(this.rooms[x][y].displayCon);
                 }
+                //else if (betweenIncl(x,4-this.cage.size,4+this.cage.size) && betweenIncl(y,4-this.cage.size,4+this.cage.size)) drawPixel("black",x*112,y*112,112,this.hypnosis);
             }
         }
     }

@@ -13,6 +13,7 @@ function summonExits(){
             }
             if (y.clickTrap){
                 y.clickTrap = false;
+                y.tilecon.removeChild(y.clickTrap.trapImg);
             }
         }
     }
