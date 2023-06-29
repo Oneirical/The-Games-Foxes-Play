@@ -3,6 +3,14 @@
 * Add Form grid (range targeters) images in their descriptions for clarity
 * A better ui for descriptions, with definitions for each keyword like 'exhale' or 'targets' or the status effects, StS style
 
+* Roadmap
+
+- Make it possible to simulate multiple rooms at the same time
+- Make it possible for harmonists to pathfind across multiple rooms
+- Do the intro encounter
+- Harmonic Painter - make the player craft their first Axiom
+- Do the "planning, clearing, defense" phase
+
 **Status Effects**
 
 * Does para REALLY prevent casting or drawing?
@@ -244,3 +252,16 @@ kind of sad all that epic code was thrown away but it is what it is
 * Thus, the undisciplined player will find their character becoming corrupted from the inside by their own inventory, at an exponential rate that should prove difficult to stop. Desperate for a cure, they may become the victim of swindlers across the dungeon charging exorbitant prices - paid in Souls, of course - for pruning Serene Souls.
 
 * Should the player have all 6 of their Castes infested, then the Harmony will have succeeded in its devious plan, and enlisted you to join their side. At this point, I'd like the game to continue with a kit fully reliant on summoning extremely buffed-up Harmonizers, and to potentially change the game's ending if I were to ever make a proper one.
+
+
+# Controlled Opposition
+
+It was only a matter of time with the way my development was headed, but the player can now craft their own enemies. The UI for this is far from complete, but the code is there.
+
+Saying it out loud sounds insane (and it very well might be), but it's more straightforward than it appears. Every TGFP enemy is a blank slate with some HP points and an AI that tells it to move and bump attack. That's it. All their special abilities come from the Axioms implanted in them, which create all kinds of programming-inspired logic blocks: "When taking a step, on self, stop for one turn, then place down a trap which, when stepped on, paralyses the creature that stepped on it".
+
+The player was already crafting their own Axioms to cast spells. You might see where I am going with this: just let the player whip up some creative Axioms, implant those in a basic enemy, then spread clones of this new creature across the dungeon.
+
+In this case, why not just create some hilariously suicidal creatures with thought-provoking Axioms such as "do nothing, then perish" or "heal your enemies every millisecond", then proceed to win the game without a trace of challenge? 
+
+This ties in with the Harmony core mechanic - making creatures attack other things than the player is already a feature, through the charm/summoning magic effects. My idea would be that some Harmonic agents pursue you across the dungeon, and are slowed down by the enemies you have triumphed over, now respawned and working for you. If you only make utter weaklings, the Harmony will easily power through the opposition and reach your position in little time. If you make death machines, well, you will be the one to enter a die-and-retry loop while the Harmony spawn-camps you.
