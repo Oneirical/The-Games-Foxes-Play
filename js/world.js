@@ -595,6 +595,7 @@ class World{
                 if (this.rooms[i][j].tangible) this.spreadExits(i,j);
                 this.rooms[i][j].layer = this.layer;
                 this.rooms[i][j].setUpSprites();
+                if (this.rooms[i][j] instanceof HugeMap) this.giga = this.rooms[i][j];
             }
         }
     }
@@ -1542,6 +1543,39 @@ class RoseicCogArena extends Room{
     initializeRoom(){
         this.playerspawn = getTile(8,8);
         super.initializeRoom();
+    }
+}
+
+class HugeMap extends DefaultVaultRoom{
+    constructor(index){
+        super(index);
+        this.name = "Beeg";
+        this.size = 81;
+        this.id = "Beeg";
+        for (let i=0; i<81; i++){
+            rooms[this.id][i] = ".".repeat(81);
+        }
+
+    }
+
+    formWorld(){
+        let coords = [-1,-1];
+        for (let r of world.rooms){
+            coords[0]++;
+            for (let o of r){
+                coords[1]++;
+                if (!o.tiles || o == this) continue;
+                for (let x of o.tiles){
+                    for (let y of x){
+                        if (!y){
+                            console.log(x)
+                        };
+                        //if (y instanceof MapExit || y instanceof BExit) y = new Floor(y.x+9*coords[0],y.y+9*coords[1]);
+                        this.tiles[y.x+9*coords[0]][y.y+9*coords[1]]= y;
+                    }
+                }
+            }
+        }
     }
 }
 

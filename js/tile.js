@@ -69,6 +69,7 @@ class Tile{
 
     tickTile(newTex){
         if (!newTex) return;
+        if (!this.spriteDisplay) this.setUpSprite();
         this.spriteDisplay.texture = newTex;
         // if (this.clickTrap){
         //     this.clickTrap.lifetime--;
@@ -487,7 +488,8 @@ class MapExit extends Tile{
             "W" : 87,
             "E" : 88
         }
-        this.sprite = this.textures[this.direction[0]];
+        if (!this.direction) this.sprite = 89;
+        else this.sprite = this.textures[this.direction[0]];
     }
     stepOn(monster){
         if(monster.isPlayer){

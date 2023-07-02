@@ -33,7 +33,7 @@ var keyroom = {
     "s" : BigRoomVoid,
     "e" : BigRoomVoid,
     "w" : BigRoomVoid,
-    "6" : SixfoldStand,
+    "6" : HugeMap,
     "T" : TCross,
     "A" : SpawnRoom,
     "N" : AnnounceCorridor,
@@ -490,8 +490,8 @@ var genstruct = {
         4 : "V...W...V",
         5 : "EHL.B.RHE",
         6 : "V...P...V",
-        7 : "GHL.N.RHG",
-        8 : "....A....",
+        7 : "GHL.N6eHG",
+        8 : "....Aws..",
     }
 }
 
@@ -905,6 +905,10 @@ var rooms = {
         15: "..................",
         16: "..................",
         17: "....E........E....",
+        "tags" : ["randomgen"],
+    },
+    "Beeg" : {
+        // this gets autocompleted in world.js
         "tags" : ["randomgen"],
     },
     "Sixfold" : {
