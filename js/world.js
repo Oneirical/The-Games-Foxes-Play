@@ -206,6 +206,7 @@ class Universe{
         world.currentroom = [4,8];
         world.tranquil = true;
         world.playRoom(world.rooms[4][8],startingHp);
+        //world.rooms[4][7] = world.playSpace;
     }
 
     passDown(layer, spawnx, spawny){
@@ -484,7 +485,7 @@ class World{
         this.mapCon.addChild(this.roomsInMap);
         for(let y = 0; y<9;y++){
             for(let x = 0; x<9;x++){
-                if (this.rooms[x][y].tangible){
+                if (this.rooms[x][y].tangible && this.rooms[x][y].displayCon){
                     this.rooms[x][y].displayCon.x = x*size;
                     this.rooms[x][y].displayCon.y = y*size;
                     this.roomsInMap.addChild(this.rooms[x][y].displayCon);
@@ -611,6 +612,7 @@ class World{
                 if (this.rooms[i][j] instanceof HugeMap) this.giga = this.rooms[i][j];
             }
         }
+        this.playSpace = new HugeMap([0,0]);
     }
 
     confirmWorld(){
@@ -779,7 +781,8 @@ class World{
         animationTick.destroy();
         animationTick = new PIXI.Ticker;
         animationTick.start();
-        drawTiles();
+        //drawTiles();
+        drawProjectors();
         drawSprites();
         if (areaname.displayCon) areaname.update();
         wheel.reshuffle();
@@ -1577,25 +1580,16 @@ class HugeMap extends DefaultVaultRoom{
         for (let i=0; i<81; i++){
             rooms[this.id][i] = ".".repeat(81);
         }
+        this.tiles = world.depositTiles;
 
     }
 
-    formWorld(){
-        let coords = [-1,-1];
-        for (let r of world.rooms){
-            coords[0]++;
-            for (let o of r){
-                coords[1]++;
-                if (!o.tiles || o == this) continue;
-                for (let x of o.tiles){
-                    for (let y of x){
-                        if (!y){
-                            console.log(x)
-                        };
-                        //if (y instanceof MapExit || y instanceof BExit) y = new Floor(y.x+9*coords[0],y.y+9*coords[1]);
-                        this.tiles[y.x+9*coords[0]][y.y+9*coords[1]]= y;
-                    }
-                }
+    initializeRoom(){
+        super.initializeRoom();
+        for (let i=0; i<81; i++){
+            for (let j=0; j<81; j++){
+                tiles[i][j].x = i;
+                tiles[i][j].y = j;
             }
         }
     }

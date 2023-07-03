@@ -100,6 +100,10 @@ class Monster{
         tilesDisplay.addChild(this.creaturecon);
         this.creaturecon.x = this.getDisplayX()*tileSize;
         this.creaturecon.y = this.getDisplayY()*tileSize;
+        if (player === this){
+            this.creaturecon.x = 8*tileSize;
+            this.creaturecon.y = 8*tileSize;
+        }
         let hai = this.sprite;
         let newSprite = new FoxSprite(allsprites.textures['sprite'+hai]);
         newSprite.width = tileSize;
@@ -116,11 +120,12 @@ class Monster{
             hpcon.addChild(bai);
         }
         animationTick.add((delta) => {
+            if (player === this) return;
             if (this.offsetX != 0 || this.offsetY != 0){
                 if (this.offsetX >= 0) this.offsetX = Math.max(this.offsetX - Math.sign(this.offsetX)*(this.anispeed),0);
                 else this.offsetX = Math.min(this.offsetX - Math.sign(this.offsetX)*(this.anispeed),0);
                 if (this.offsetY >= 0) this.offsetY = Math.max(this.offsetY - Math.sign(this.offsetY)*(this.anispeed),0);
-                else this.offsetY = Math.min(this.offsetY - Math.sign(this.offsetY)*(this.anispeed),0);  
+                else this.offsetY = Math.min(this.offsetY - Math.sign(this.offsetY)*(this.anispeed),0);
                 this.creaturecon.x = this.getDisplayX()*tileSize;
                 this.creaturecon.y = this.getDisplayY()*tileSize; 
             }

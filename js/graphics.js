@@ -58,6 +58,9 @@ function setupPixi(){
     drawChainBorder(32,32,tilesChains);
     drawPixel("black",(1920-16*16*resolutionSize)/2+(resolutionSize+12)*16,(1080-16*9*resolutionSize)/2,112*9,app.stage); // this is for the zoom in effect
     app.stage.children[app.stage.children.length-1].alpha = 0;
+    drawProjectors();
+    world.rooms[4][7] = world.playSpace;
+    world.enterRoom("N");
     // let rai = new PIXI.filters.ColorOverlayFilter();
     // rai.color = "1a5fb4";
     // rai.alpha = 0;
@@ -219,11 +222,49 @@ function setUpUI(){
     research.setUpSprites();
 }
 
+function drawProjectors(){
+    tilesDisplay.mask = app.stage.children[app.stage.children.length-1];
+    drawTiles();
+    let projectorDisplay = new PIXI.Container();
+    projectorDisplay.x = -450;
+    projectorDisplay.y = -450;
+    tilesDisplay.addChild(projectorDisplay);
+    tilesDisplay.projectorDisplay = projectorDisplay;
+    zoom = 15;
+    tileSize = 96*2/3;
+    projectorDisplay.projectors = [];
+    for(let i=0;i<zoom*2;i++){
+        projectorDisplay.projectors[i] = [];
+        for(let j=0;j<zoom*2;j++){
+            let projector = new PIXI.Container();
+            projector.x = i*tileSize;
+            projector.y = j*tileSize;
+            if (tiles[i-zoom+player.tile.x] && tiles[i-zoom+player.tile.x][j-zoom+player.tile.y]) projector.referenceTile = tiles[i-zoom+player.tile.x][j-zoom+player.tile.y];
+            if (projector.referenceTile) projector.addChild(projector.referenceTile.tilecon);
+            projectorDisplay.addChild(projector);
+            projectorDisplay.projectors[i][j] = projector;
+        }
+    }
+    drawSprites();
+}
+
+function tickProjectors(){
+    for(let i=0;i<zoom*2;i++){
+        for(let j=0;j<zoom*2;j++){
+            let projector = tilesDisplay.projectorDisplay.projectors[i][j];
+            projector.removeChildren();
+            if (tiles[i-zoom+player.tile.x] && tiles[i-zoom+player.tile.x][j-zoom+player.tile.y]) projector.referenceTile = tiles[i-zoom+player.tile.x][j-zoom+player.tile.y];
+            else projector.referenceTile = null;
+            if (projector.referenceTile) projector.addChild(projector.referenceTile.tilecon);
+        }
+    }
+}
+
 function drawTiles(){
-    tileSize = ((resolutionSize)*16)/(world.getRoom().size/9);
+    tileSize = 96*2/3;
     for(let i=0;i<numTiles;i++){
         for(let j=0;j<numTiles;j++){
-            tiles[i][j].setUpSprite();
+            if (tiles[i] && tiles[i][j]) tiles[i][j].setUpSprite();
         }
     }
 }

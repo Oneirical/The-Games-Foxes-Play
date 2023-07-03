@@ -20,9 +20,9 @@ class Tile{
 
     setUpSprite(){
         this.tilecon = new PIXI.Container();
-        tilesDisplay.addChild(this.tilecon);
-        this.tilecon.x = this.x*tileSize;
-        this.tilecon.y = this.y*tileSize;
+        //tilesDisplay.addChild(this.tilecon);
+        //this.tilecon.x = (96*2/3*8)-(player.tile.x-this.x)*tileSize;
+        //this.tilecon.y = (96*2/3*8)-(player.tile.y-this.y)*tileSize;
         let hai = this.sprite;
         let newSprite = new FoxSprite(allsprites.textures['sprite'+hai]);
         newSprite.width = tileSize;
@@ -492,6 +492,7 @@ class MapExit extends Tile{
         else this.sprite = this.textures[this.direction[0]];
     }
     stepOn(monster){
+        return;
         if(monster.isPlayer){
             playSound("newLevel");
             this.monster = null;
@@ -679,7 +680,7 @@ class Altar extends Floor{
             this.hitBox.alpha = 0;
         });
         animationTick.add((delta) => {//This is technically adding tons of ticker statements on each room entry.
-            if (Math.random() > 0.97 && world.cage.slots[this.x][this.y].turbulent) soulcon.shakeAmount = 5;
+            if (Math.random() > 0.97 && world.cage.slots[0][0].turbulent) soulcon.shakeAmount = 5; // REMOVE the 0-0 here and adapt
             if(soulcon.shakeAmount){
                 soulcon.shakeAmount--;
             }
