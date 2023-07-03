@@ -243,8 +243,9 @@ function inBounds(x,y){
 }
 
 function getTile(x, y){
-    if (x > numTiles-1 ||x < 0 || y < 0 || y > numTiles-1) return new RoseWall(x,y);
-    else return tiles[x][y];
+    //if (x > numTiles-1 ||x < 0 || y < 0 || y > numTiles-1) return new RoseWall(x,y);
+    if (tiles[x] && tiles[x][y]) return tiles[x][y];
+    else return new Floor(x,y);
 }
 
 function randomExcluded(min, max, excluded) {

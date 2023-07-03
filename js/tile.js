@@ -692,6 +692,7 @@ class Altar extends Floor{
     }
 
     tickTile(newTex){
+        return // THIS MUST BE FIXED LATER
         super.tickTile(newTex);
         let hai = world.cage.slots[this.x][this.y].icon;
         this.soulCon.texture = allsprites.textures['icon'+hai];

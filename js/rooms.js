@@ -490,8 +490,8 @@ var genstruct = {
         4 : "V...W...V",
         5 : "EHL.B.RHE",
         6 : "V...P...V",
-        7 : "GHL.N6eHG",
-        8 : "....Aws..",
+        7 : "GHL.N.RHG",
+        8 : "....A....",
     }
 }
 

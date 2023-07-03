@@ -586,13 +586,26 @@ class World{
                 if (flip) flipRoom(this.rooms[i][j].id,this.rooms[i][j].size,0);
             }
         }
+        this.depositTiles = [];
+        for(let i=0;i<81;i++){
+            this.depositTiles[i] = [];
+        }
         for(let i=0;i<9;i++){
             for(let j=0;j<9;j++){
                 if ("Facility" == "Facility"){//replace this if more vaults get added
                     if (this.rooms[i][j] instanceof WorldSeed) this.rooms[i][j].filler = TermiWall;
                     else this.rooms[i][j].filler = Wall;
                 }
-                if (this.rooms[i][j].tangible) this.spreadExits(i,j);
+                if (this.rooms[i][j].tangible){
+                    this.spreadExits(i,j);
+                }
+                for(let x=0;x<this.rooms[i][j].size;x++){
+                    for(let y=0;y<this.rooms[i][j].size;y++){
+                        //this.rooms[i][j].tiles[x][y].x = i*9+x;
+                        //this.rooms[i][j].tiles[x][y].y = j*9+y;
+                        this.depositTiles[i*9+x][j*9+y] = this.rooms[i][j].tiles[x][y];
+                    }
+                }
                 this.rooms[i][j].layer = this.layer;
                 this.rooms[i][j].setUpSprites();
                 if (this.rooms[i][j] instanceof HugeMap) this.giga = this.rooms[i][j];
@@ -671,11 +684,20 @@ class World{
                 else this.rooms[i][j] = new VoidRoom([i,j]);
             }
         }
+        this.depositTiles = [];
+        for(let i=0;i<81;i++){
+            this.depositTiles[i] = [];
+        }
         for(let i=0;i<9;i++){
             for(let j=0;j<9;j++){
                 if (this.rooms[i][j].tangible){
                     this.spreadExits(i,j);
                     this.rooms[i][j].setUpSprites();
+                }
+                for(let x=0;x<this.rooms[i][j].size;x++){
+                    for(let y=0;y<this.rooms[i][j].size;y++){
+                        this.depositTiles[i*9+x][j*9+y] = this.rooms[i][j].tiles[x][y];
+                    }
                 }
                 this.rooms[i][j].layer = this.layer;
             }

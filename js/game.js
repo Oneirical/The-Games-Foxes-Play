@@ -1,6 +1,8 @@
 function summonExits(){
+    //return;
     for (let x of tiles){
         for (let y of x){
+            if (!y) continue;
             if (y instanceof BExit || y instanceof BAscendExit){
                 let id = y.id;
                 let px = y.x;
@@ -18,6 +20,19 @@ function summonExits(){
         }
     }
     world.fighting = false;
+}
+
+function makeItFunny(){
+    for(let i=0;i<81;i++){
+        for(let j=0;j<81;j++){
+            world.depositTiles[i][j].x = i;
+            world.depositTiles[i][j].y = j;
+        }
+    }
+    world.rooms[4][7].size = 81;
+    world.rooms[4][7].tiles = world.depositTiles;
+    //numTiles = 81;
+    //drawSprites();
 }
 
 function teleport(target,destination,data){
