@@ -562,7 +562,12 @@ class Monster{
 
                     shakeAmount = 5;
                     if (crit) shakeAmount = 15;
-
+                    if (this.animating && this === player){
+                        tickProjectors();
+                        this.animating = false;
+                        tilesDisplay.projectorDisplay.x = -450;
+                        tilesDisplay.projectorDisplay.y = -450;
+                    }
                     this.offsetX = (newTile.x - this.tile.x)/2;    
                     this.offsetY = (newTile.y - this.tile.y)/2;  
                     this.originalOffsetX = this.offsetX;
@@ -716,6 +721,12 @@ class Monster{
     move(tile){
         if(this.tile){
             this.tile.monster = null;
+            if (this.animating && this === player){
+                tickProjectors();
+                this.animating = false;
+                tilesDisplay.projectorDisplay.x = -450;
+                tilesDisplay.projectorDisplay.y = -450;
+            }
             this.offsetX = this.tile.x - tile.x;
             this.offsetY = this.tile.y - tile.y;
             this.originalOffsetX = this.offsetX;
