@@ -120,14 +120,35 @@ class Monster{
             hpcon.addChild(bai);
         }
         animationTick.add((delta) => {
-            if (player === this) return;
             if (this.offsetX != 0 || this.offsetY != 0){
-                if (this.offsetX >= 0) this.offsetX = Math.max(this.offsetX - Math.sign(this.offsetX)*(this.anispeed),0);
-                else this.offsetX = Math.min(this.offsetX - Math.sign(this.offsetX)*(this.anispeed),0);
-                if (this.offsetY >= 0) this.offsetY = Math.max(this.offsetY - Math.sign(this.offsetY)*(this.anispeed),0);
-                else this.offsetY = Math.min(this.offsetY - Math.sign(this.offsetY)*(this.anispeed),0);
-                this.creaturecon.x = this.getDisplayX()*tileSize;
-                this.creaturecon.y = this.getDisplayY()*tileSize; 
+                if (player === this){
+                    this.animating = true;
+                    if (this.offsetX == this.originalOffsetX) this.offsetX = 0;
+                    if (this.offsetY == this.originalOffsetY) this.offsetY = 0;
+                    if (this.originalOffsetX >= 0) this.offsetX = Math.min(this.offsetX + this.anispeed,this.originalOffsetX);
+                    else this.offsetX = Math.max(this.offsetX - this.anispeed,this.originalOffsetX);
+                    if (this.originalOffsetY >= 0) this.offsetY = Math.min(this.offsetY + this.anispeed,this.originalOffsetY);
+                    else this.offsetY = Math.max(this.offsetY - this.anispeed,this.originalOffsetY);
+                    tilesDisplay.projectorDisplay.x = -450+(this.offsetX*tileSize);
+                    tilesDisplay.projectorDisplay.y = -450+(this.offsetY*tileSize);
+                    if (this.offsetX == this.originalOffsetX && this.offsetY == this.originalOffsetY){
+                        tickProjectors();
+                        this.animating = false;
+                        tilesDisplay.projectorDisplay.x = -450;
+                        tilesDisplay.projectorDisplay.y = -450;
+                        this.offsetX = 0;
+                        this.offsetY = 0;
+                    }
+                }
+                else {
+                    if (this.offsetX >= 0) this.offsetX = Math.max(this.offsetX - this.anispeed,0);
+                    else this.offsetX = Math.min(this.offsetX + this.anispeed,0);
+                    if (this.offsetY >= 0) this.offsetY = Math.max(this.offsetY - this.anispeed,0);
+                    else this.offsetY = Math.min(this.offsetY + this.anispeed,0);
+                    this.creaturecon.x = this.getDisplayX()*tileSize;
+                    this.creaturecon.y = this.getDisplayY()*tileSize; 
+                }
+
             }
         });
         this.updateHp();
@@ -542,8 +563,10 @@ class Monster{
                     shakeAmount = 5;
                     if (crit) shakeAmount = 15;
 
-                    this.offsetX = (newTile.x - this.tile.x)/2;         
-                    this.offsetY = (newTile.y - this.tile.y)/2;   
+                    this.offsetX = (newTile.x - this.tile.x)/2;    
+                    this.offsetY = (newTile.y - this.tile.y)/2;  
+                    this.originalOffsetX = this.offsetX;
+                    this.originalOffsetY = this.offsetY; 
                 }
                 else if(this.isPlayer && newTile.monster.isGuide && newTile.monster.dialoguecount < newTile.monster.diamax){
                     log.addLog(newTile.monster.dialogue[newTile.monster.dialoguecount]);
@@ -693,8 +716,10 @@ class Monster{
     move(tile){
         if(this.tile){
             this.tile.monster = null;
-            this.offsetX = this.tile.x - tile.x;    
+            this.offsetX = this.tile.x - tile.x;
             this.offsetY = this.tile.y - tile.y;
+            this.originalOffsetX = this.offsetX;
+            this.originalOffsetY = this.offsetY;
             this.anispeed = 1/9*(Math.abs(this.offsetX)+Math.abs(this.offsetY));
         }
         this.tile = tile;

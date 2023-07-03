@@ -276,7 +276,7 @@ function tick(){
         //}
         
     }
-    tickProjectors();
+    //tickProjectors();
     wheel.tickWheel();
     statuses.updateDisplay();
     world.tickMap();
