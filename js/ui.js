@@ -1509,7 +1509,7 @@ class SoulBreathing{
     }
 
     tickWheel(){
-        if (world.getRoom() instanceof SoulCage) return;
+        if (!world.fighting) return;
         for (let k of this.wheelCon.children){
             if (k instanceof FoxSprite){
                 k.texture = this.wheel[this.wheelCon.children.indexOf(k)].displayIcon.texture;
