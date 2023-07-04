@@ -420,6 +420,7 @@ class EmptyWorld{
 class World{
     constructor(depth){
         this.depth = depth;
+        this.cageCorner = [36,45];
         this.roompool = [];
         this.isAccessible = false;
         this.finishedspread = false;
@@ -689,7 +690,11 @@ class World{
                     if (corridor && flip) this.rooms[i][j].verticality = "side";
                     else if (corridor) this.rooms[i][j].verticality = "up";
                 }
-                else this.rooms[i][j] = new VoidRoom([i,j]);
+                else{
+                    this.rooms[i][j] = new VoidRoom([i,j]);
+                    this.rooms[i][j].setUp();
+                    this.rooms[i][j].insertRoom();
+                }
             }
         }
         this.depositTiles = [];

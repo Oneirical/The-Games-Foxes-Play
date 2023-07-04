@@ -61,7 +61,8 @@ function setupPixi(){
     drawProjectors();
     world.rooms[4][7] = world.playSpace;
     world.enterRoom("N");
-    tilesDisplay.addChild(player.creaturecon)
+    tilesDisplay.addChild(player.creaturecon);
+    wheel.toPaintMode();
     // let rai = new PIXI.filters.ColorOverlayFilter();
     // rai.color = "1a5fb4";
     // rai.alpha = 0;

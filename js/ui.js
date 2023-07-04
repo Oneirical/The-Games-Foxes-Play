@@ -1272,16 +1272,18 @@ class SoulBreathing{
     }
 
     toPaintMode(){
-        uiDisplayRight.removeChild(log.displayCon);
+        this.inPaint = true;
         this.catalogue = new CatalogueDisplay();
-        uiDisplayRight.addChild(this.catalogue.displayCon);
-        uiDisplayLeft.removeChild(player.axioms.displayCon);
-        uiDisplayLeft.removeChild(statuses.displayCon);
         this.craftShow = new CraftingDisplay();
         this.inflShow = new InfluenceDisplay();
-        uiDisplayLeft.addChild(this.craftShow.displayCon);
-        uiDisplayLeft.addChild(this.inflShow.displayCon);
-        this.craftShow.updateDisplay();
+        // add "if in harmony paint" statement here
+        //uiDisplayRight.removeChild(log.displayCon);
+        //uiDisplayRight.addChild(this.catalogue.displayCon);
+        //uiDisplayLeft.removeChild(player.axioms.displayCon);
+        //uiDisplayLeft.removeChild(statuses.displayCon);
+        //uiDisplayLeft.addChild(this.craftShow.displayCon);
+        //uiDisplayLeft.addChild(this.inflShow.displayCon);
+        //this.craftShow.updateDisplay();
         for (let i = 0; i< 8;  i++){
             let hai = (i-1+58);
             if (i == 0) hai = 7;
@@ -1326,6 +1328,7 @@ class SoulBreathing{
     }
 
     toNormalMode(){
+        this.inPaint = false;
         uiDisplayRight.removeChild(this.catalogue.displayCon);
         uiDisplayRight.addChild(log.displayCon);
         uiDisplayLeft.addChild(player.axioms.displayCon);
@@ -1421,6 +1424,17 @@ class SoulBreathing{
         loot.displayIcon.trspeed = 5;
         loot.displayIcon.caste = caste;
         this.bouncySouls.addChild(loot.displayIcon);
+        if (this.inPaint) {
+            let can = loot.displayIcon;
+            can.bounceborder = 32;
+            can.x = 16;
+            can.y = 16;
+            can.width = 16;
+            can.height = 16;
+            can.alpha = 0.5;
+            can.trspeed = 2;
+            this.wheelCon.children[6-can.caste].paintCan.addChild(can);
+        }
         app.ticker.add(() => {
             if (loot.displayIcon.x > loot.displayIcon.bounceborder) loot.displayIcon.dirx = -Math.abs(loot.displayIcon.dirx);
             else if (loot.displayIcon.x < -6) loot.displayIcon.dirx = Math.abs(loot.displayIcon.dirx);
@@ -1433,10 +1447,12 @@ class SoulBreathing{
     }
 
     retrieveSoul(override){
-        if (world.cage.slots[override.x][override.y] instanceof Empty) return;
-        if (world.cage.slots[override.x][override.y] instanceof Shattered){
+        let measureX = override.x - world.cageCorner[0];
+        let measureY = override.y - world.cageCorner[1];
+        if (world.cage.slots[measureX][measureY] instanceof Empty) return;
+        if (world.cage.slots[measureX][measureY] instanceof Shattered){
             this.ipseity+= 10;
-            world.cage.slots[override.x][override.y] = new Empty();
+            world.cage.slots[measureX][measureY] = new Empty();
             world.cage.size--;
             if(world.cage.size > 0) world.cage.generateWorld();
             else world.cage.displayon = false;
@@ -1444,12 +1460,12 @@ class SoulBreathing{
             return;
         }
         let retrievesuccess = true;
-        if (!world.cage.slots[override.x][override.y].turbulent)research.completeResearch("Subdued");
-        if (basic.includes(world.cage.slots[override.x][override.y].id)){
-            if (world.cage.slots[override.x][override.y].turbulent){
-                this.turbulentSouls.push(world.cage.slots[override.x][override.y]);
-                this.wheelCon.children[7-basic.indexOf(world.cage.slots[override.x][override.y].id)].paintCan.addChild(world.cage.slots[override.x][override.y].displayIcon);
-                let can = world.cage.slots[override.x][override.y].displayIcon; //oh so NOW you assign a variable to that. Fu!
+        if (!world.cage.slots[measureX][measureY].turbulent)research.completeResearch("Subdued");
+        if (basic.includes(world.cage.slots[measureX][measureY].id)){
+            if (world.cage.slots[measureX][measureY].turbulent){
+                this.turbulentSouls.push(world.cage.slots[measureX][measureY]);
+                this.wheelCon.children[7-basic.indexOf(world.cage.slots[measureX][measureY].id)].paintCan.addChild(world.cage.slots[measureX][measureY].displayIcon);
+                let can = world.cage.slots[measureX][measureY].displayIcon; //oh so NOW you assign a variable to that. Fu!
                 can.bounceborder = 32;
                 can.x = 16;
                 can.y = 16;
@@ -1457,13 +1473,13 @@ class SoulBreathing{
                 can.height = 16;
                 can.alpha = 0.5;
                 can.trspeed = 2;
-                if (7-basic.indexOf(world.cage.slots[override.x][override.y].id) == this.selectedCan){
+                if (7-basic.indexOf(world.cage.slots[measureX][measureY].id) == this.selectedCan){
                     can.trspeed = 5;
                     can.alpha = 0.8;
                 }
             }
             else{
-                this.subduedSouls.push(world.cage.slots[override.x][override.y]);
+                this.subduedSouls.push(world.cage.slots[measureX][measureY]);
                 let newSoul = this.subduedSouls[this.subduedSouls.length-1].displayIcon;
                 let startangle = 0;
                 if (this.subduedSouls.length > 1) startangle = this.subduedSouls[this.subduedSouls.length-2].displayIcon.calAngle + 0.1;
@@ -1480,10 +1496,10 @@ class SoulBreathing{
                 this.spinningPile.addChild(newSoul);
             } 
         }
-        else retrievesuccess = player.axioms.addAxiom(world.cage.slots[override.x][override.y]);
+        else retrievesuccess = player.axioms.addAxiom(world.cage.slots[measureX][measureY]);
         if (retrievesuccess) {
-            world.cage.slots[override.x][override.y] = new Empty();
-            tiles[override.x][override.y].tickTile(allsprites.textures['sprite110']);
+            world.cage.slots[measureX][measureY] = new Empty();
+            tiles[measureX][measureY].tickTile(allsprites.textures['sprite110']);
             world.cage.size--;
         }
         if(world.cage.size > 0) world.cage.generateWorld();
@@ -1559,6 +1575,8 @@ class SoulBreathing{
 
     cageSoul(slot, override){
         if (!override) override = player.tile;
+        let measureX = override.x - world.cageCorner[0];
+        let measureY = override.y - world.cageCorner[1];
         const choices = [Saintly, Ordered, Artistic, Unhinged, Feral, Vile, Serene];
         let soulType = choices[slot-1];
         let soul;
@@ -1571,19 +1589,19 @@ class SoulBreathing{
             break;
         }
         if (soul){
-            if (!(world.cage.slots[override.x][override.y] instanceof Empty)){
+            if (!(world.cage.slots[measureX][measureY] instanceof Empty)){
                 this.retrieveSoul(override);
             }
             removeItemOnce(this.turbulentSouls,soul);
-            soul.cageX = override.x;
-            soul.cageY = override.y;
-            world.cage.slots[override.x][override.y] = soul;
+            soul.cageX = measureX;
+            soul.cageY = measureY;
+            world.cage.slots[measureX][measureY] = soul;
             world.cage.size++;
             if(world.cage.size > 0) world.cage.generateWorld();
             research.completeResearch("Turbulent");
             research.completeResearch("Brush");
             if (this.wheelCon.children[slot].paintCan.children.length > 0) this.wheelCon.children[slot].paintCan.removeChildAt(0);
-            tiles[override.x][override.y].tickTile(allsprites.textures['sprite110']);
+            override.tickTile();
         }
     }
 

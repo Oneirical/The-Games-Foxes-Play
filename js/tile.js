@@ -692,10 +692,8 @@ class Altar extends Floor{
         }); 
     }
 
-    tickTile(newTex){
-        return // THIS MUST BE FIXED LATER
-        super.tickTile(newTex);
-        let hai = world.cage.slots[this.x][this.y].icon;
+    tickTile(){
+        let hai = world.cage.slots[this.x-world.cageCorner[0]][this.y-world.cageCorner[1]].icon;
         this.soulCon.texture = allsprites.textures['icon'+hai];
         //if (world.cage.slots[this.x][this.y].turbulent) new GlitchSprite(this.soulCon,0);
     }
