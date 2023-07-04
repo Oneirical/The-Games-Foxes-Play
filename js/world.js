@@ -588,6 +588,7 @@ class World{
             }
         }
         this.depositTiles = [];
+        this.depositCreatures = [];
         for(let i=0;i<81;i++){
             this.depositTiles[i] = [];
         }
@@ -606,6 +607,11 @@ class World{
                         //this.rooms[i][j].tiles[x][y].y = j*9+y;
                         this.depositTiles[i*9+x][j*9+y] = this.rooms[i][j].tiles[x][y];
                     }
+                }
+                for (let u of this.rooms[i][j].creatures){
+                    u.tile = getTile(u.tile.x+i*this.rooms[i][j].size,u.tile.y+j*this.rooms[i][j].size);
+                    this.depositCreatures.push(u);
+                    this.depositTiles[u.tile.x][u.tile.y].monster = u; 
                 }
                 this.rooms[i][j].layer = this.layer;
                 this.rooms[i][j].setUpSprites();
@@ -853,7 +859,7 @@ class World{
         tileSize = (9/numTiles)*64;
         tiles = room.tiles;
         room.playerlastmove = shifts[direction[0]];
-        if (!room.playerspawn) room.playerspawn = this.selectPlayerExit(direction[0]);
+        if (!room.playerspawn) room.playerspawn = [40,76];
         room.populateRoom();
         if (!room.visited){
             level++;
@@ -971,15 +977,10 @@ class Room{
         player.hp = hp;
         player.tile = getTile(this.playerspawn[0], this.playerspawn[1]);
         if (this.hostile && !this.visited) generateMonsters();
-        if (creaturespawn[this.creatures] && !this.visited) {
-            for(let j=0;j<9;j++){
-                for(let i=0;i<9;i++){
-                    if (creaturespawn[this.creatures][i][j] != ".") {
-                        let tile = getTile(j,i);
-                        let monster = new keycreature[creaturespawn[this.creatures][i][j]](tile);
-                        monsters.push(monster);
-                    }
-                }
+        if (this.monsters.length && !this.visited) {
+            for (let i of this.monsters){
+                monsters.push(i);
+                i.setUpSprite();
             }
         } 
     }
@@ -1312,7 +1313,7 @@ class AnnounceCorridor extends DefaultVaultRoom{
     constructor(index){
         super(index);
         this.id = "Announce";
-        this.creatures = "Announce";
+        this.creatures = [new Hologram(getTile(4,4))];
     }
     populateRoom(){
         super.populateRoom();
@@ -1396,7 +1397,7 @@ class PlateGenerator extends DefaultVaultRoom{
     constructor(index){
         super(index);
         this.id = "Storage";
-        this.creatures = "Storage";
+        this.creatures = [new Cage(getTile(4,4))];
         this.name = "Sacred Offering";
     }
 }
@@ -1581,6 +1582,7 @@ class HugeMap extends DefaultVaultRoom{
             rooms[this.id][i] = ".".repeat(81);
         }
         this.tiles = world.depositTiles;
+        this.monsters = world.depositCreatures;
 
     }
 
@@ -1592,6 +1594,8 @@ class HugeMap extends DefaultVaultRoom{
                 tiles[i][j].y = j;
             }
         }
+        summonExits();
+        tickProjectors();
     }
 }
 

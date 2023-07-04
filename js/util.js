@@ -161,6 +161,10 @@ function reverseString(str) {
     return str.split( '' ).reverse( ).join( '' );
 }
 
+function last(n){
+  return n[n.length-1];
+}
+
 
 function firstDigit(n)
 	{

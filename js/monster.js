@@ -97,10 +97,8 @@ class Monster{
 
     setUpSprite(){
         this.creaturecon = new PIXI.Container();
-        tilesDisplay.addChild(this.creaturecon);
-        this.creaturecon.x = this.getDisplayX()*tileSize;
-        this.creaturecon.y = this.getDisplayY()*tileSize;
-        if (player === this){
+        if (this === player){
+            tilesDisplay.addChild(this.creaturecon);
             this.creaturecon.x = 8*tileSize;
             this.creaturecon.y = 8*tileSize;
         }
@@ -129,30 +127,48 @@ class Monster{
                     else this.offsetX = Math.max(this.offsetX - this.anispeed,this.originalOffsetX);
                     if (this.originalOffsetY >= 0) this.offsetY = Math.min(this.offsetY + this.anispeed,this.originalOffsetY);
                     else this.offsetY = Math.max(this.offsetY - this.anispeed,this.originalOffsetY);
-                    tilesDisplay.projectorDisplay.x = -450+(this.offsetX*tileSize);
-                    tilesDisplay.projectorDisplay.y = -450+(this.offsetY*tileSize);
+                    tilesDisplay.projectorDisplay.x = -448+(this.offsetX*tileSize);
+                    tilesDisplay.projectorDisplay.y = -448+(this.offsetY*tileSize);
                     if (this.offsetX == this.originalOffsetX && this.offsetY == this.originalOffsetY){
-                        tickProjectors();
                         this.animating = false;
-                        tilesDisplay.projectorDisplay.x = -450;
-                        tilesDisplay.projectorDisplay.y = -450;
                         this.offsetX = 0;
                         this.offsetY = 0;
+                        this.originalOffsetX = 0;
+                        this.originalOffsetY = 0;
+                        let check = true;
+                        for (let i of monsters){
+                            if (i.offsetX != 0 || i.offsetY != 0) check = false;
+                        }
+                        if (check){
+                            tickProjectors();
+                            tilesDisplay.projectorDisplay.x = -448;
+                            tilesDisplay.projectorDisplay.y = -448;
+                        }
                     }
                 }
-                else {
+                else if (!player.animating){
                     if (this.offsetX >= 0) this.offsetX = Math.max(this.offsetX - this.anispeed,0);
                     else this.offsetX = Math.min(this.offsetX + this.anispeed,0);
                     if (this.offsetY >= 0) this.offsetY = Math.max(this.offsetY - this.anispeed,0);
                     else this.offsetY = Math.min(this.offsetY + this.anispeed,0);
-                    this.creaturecon.x = this.getDisplayX()*tileSize;
-                    this.creaturecon.y = this.getDisplayY()*tileSize; 
+                    this.creaturecon.x = -(Math.sign(this.offsetX)*tileSize-this.offsetX*tileSize);
+                    this.creaturecon.y = -(Math.sign(this.offsetY)*tileSize-this.offsetY*tileSize);
+                    let check = true;
+                    for (let i of monsters){
+                        if (i.offsetX != 0 || i.offsetY != 0) check = false;
+                    }
+                    if (check){
+                        tickProjectors();
+                        tilesDisplay.projectorDisplay.x = -448;
+                        tilesDisplay.projectorDisplay.y = -448;
+                        this.offsetX = 0;
+                        this.offsetY = 0;
+                    }
                 }
 
             }
         });
         this.updateHp();
-        console.log(universe.zooming);
         if (universe.zooming){
             new GlitchSprite(this.creaturecon,3,true);
         } 
@@ -565,8 +581,8 @@ class Monster{
                     if (this.animating && this === player){
                         tickProjectors();
                         this.animating = false;
-                        tilesDisplay.projectorDisplay.x = -450;
-                        tilesDisplay.projectorDisplay.y = -450;
+                        tilesDisplay.projectorDisplay.x = -448;
+                        tilesDisplay.projectorDisplay.y = -448;
                     }
                     this.offsetX = (newTile.x - this.tile.x)/2;    
                     this.offsetY = (newTile.y - this.tile.y)/2;  
@@ -720,12 +736,13 @@ class Monster{
 
     move(tile){
         if(this.tile){
+            if (this.representativeProjector) tilesDisplay.projectorDisplay.swapChildren(this.representativeProjector,last(last(tilesDisplay.projectorDisplay.projectors)));
             this.tile.monster = null;
             if (this.animating && this === player){
                 tickProjectors();
                 this.animating = false;
-                tilesDisplay.projectorDisplay.x = -450;
-                tilesDisplay.projectorDisplay.y = -450;
+                tilesDisplay.projectorDisplay.x = -448;
+                tilesDisplay.projectorDisplay.y = -448;
             }
             this.offsetX = this.tile.x - tile.x;
             this.offsetY = this.tile.y - tile.y;
