@@ -119,6 +119,7 @@ class Monster{
         }
         animationTick.add((delta) => {
             if (this.offsetX != 0 || this.offsetY != 0){
+                //this.anispeed = 0.01;
                 if (player === this){
                     this.animating = true;
                     if (this.offsetX == this.originalOffsetX) this.offsetX = 0;
@@ -129,21 +130,19 @@ class Monster{
                     else this.offsetY = Math.max(this.offsetY - this.anispeed,this.originalOffsetY);
                     tilesDisplay.projectorDisplay.x = -448+(this.offsetX*tileSize);
                     tilesDisplay.projectorDisplay.y = -448+(this.offsetY*tileSize);
+                    tilesDisplay.creatureDisplay.x = -448+(this.offsetX*tileSize);
+                    tilesDisplay.creatureDisplay.y = -448+(this.offsetY*tileSize);
                     if (this.offsetX == this.originalOffsetX && this.offsetY == this.originalOffsetY){
                         this.animating = false;
                         this.offsetX = 0;
                         this.offsetY = 0;
                         this.originalOffsetX = 0;
                         this.originalOffsetY = 0;
-                        let check = true;
-                        for (let i of monsters){
-                            if (i.offsetX != 0 || i.offsetY != 0) check = false;
-                        }
-                        if (check){
-                            tickProjectors();
-                            tilesDisplay.projectorDisplay.x = -448;
-                            tilesDisplay.projectorDisplay.y = -448;
-                        }
+                        tickProjectors();
+                        tilesDisplay.projectorDisplay.x = -448;
+                        tilesDisplay.projectorDisplay.y = -448;
+                        tilesDisplay.creatureDisplay.x = -448;
+                        tilesDisplay.creatureDisplay.y = -448;
                     }
                 }
                 else if (!player.animating){
@@ -151,19 +150,8 @@ class Monster{
                     else this.offsetX = Math.min(this.offsetX + this.anispeed,0);
                     if (this.offsetY >= 0) this.offsetY = Math.max(this.offsetY - this.anispeed,0);
                     else this.offsetY = Math.min(this.offsetY + this.anispeed,0);
-                    this.creaturecon.x = -(Math.sign(this.offsetX)*tileSize-this.offsetX*tileSize);
-                    this.creaturecon.y = -(Math.sign(this.offsetY)*tileSize-this.offsetY*tileSize);
-                    let check = true;
-                    for (let i of monsters){
-                        if (i.offsetX != 0 || i.offsetY != 0) check = false;
-                    }
-                    if (check){
-                        tickProjectors();
-                        tilesDisplay.projectorDisplay.x = -448;
-                        tilesDisplay.projectorDisplay.y = -448;
-                        this.offsetX = 0;
-                        this.offsetY = 0;
-                    }
+                    this.creaturecon.x = this.creaturecon.originalX + this.offsetX*tileSize;
+                    this.creaturecon.y = this.creaturecon.originalY +  this.offsetY*tileSize;
                 }
 
             }
@@ -584,8 +572,8 @@ class Monster{
                         tilesDisplay.projectorDisplay.x = -448;
                         tilesDisplay.projectorDisplay.y = -448;
                     }
-                    this.offsetX = (newTile.x - this.tile.x)/2;    
-                    this.offsetY = (newTile.y - this.tile.y)/2;  
+                    this.offsetX = -(newTile.x - this.tile.x)/2;    
+                    this.offsetY = -(newTile.y - this.tile.y)/2;  
                     this.originalOffsetX = this.offsetX;
                     this.originalOffsetY = this.offsetY; 
                 }
@@ -736,7 +724,6 @@ class Monster{
 
     move(tile){
         if(this.tile){
-            if (this.representativeProjector) tilesDisplay.projectorDisplay.swapChildren(this.representativeProjector,last(last(tilesDisplay.projectorDisplay.projectors)));
             this.tile.monster = null;
             if (this.animating && this === player){
                 tickProjectors();

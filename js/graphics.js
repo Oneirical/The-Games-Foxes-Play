@@ -229,7 +229,12 @@ function drawProjectors(){
     projectorDisplay.x = -448;
     projectorDisplay.y = -448;
     tilesDisplay.addChild(projectorDisplay);
+    let creatureDisplay = new PIXI.Container();
+    creatureDisplay.x = -448;
+    creatureDisplay.y = -448;
+    tilesDisplay.addChild(creatureDisplay);
     tilesDisplay.projectorDisplay = projectorDisplay;
+    tilesDisplay.creatureDisplay = creatureDisplay;
     zoom = 15;
     tileSize = 96*2/3;
     projectorDisplay.projectors = [];
@@ -251,6 +256,7 @@ function drawProjectors(){
 }
 
 function tickProjectors(){
+    tilesDisplay.creatureDisplay.removeChildren();
     for(let i=0;i<zoom*2;i++){
         for(let j=0;j<zoom*2;j++){
             let projector = tilesDisplay.projectorDisplay.projectors[i][j];
@@ -260,8 +266,12 @@ function tickProjectors(){
             if (projector.referenceTile){
                 projector.addChild(projector.referenceTile.tilecon);
                 if (projector.referenceTile.monster && player != projector.referenceTile.monster){
-                    projector.addChild(projector.referenceTile.monster.creaturecon);
-                    projector.referenceTile.monster.representativeProjector = projector;
+                    tilesDisplay.creatureDisplay.addChild(projector.referenceTile.monster.creaturecon);
+                    projector.referenceTile.monster.creaturecon.originalX = i*tileSize;
+                    projector.referenceTile.monster.creaturecon.originalY = j*tileSize;
+                    projector.referenceTile.monster.creaturecon.x = i*tileSize;
+                    projector.referenceTile.monster.creaturecon.y = j*tileSize;
+                    //tilesDisplay.projectorDisplay.swapChildren(projector,tilesDisplay.projectorDisplay.projectors[zoom*2-1][zoom*2-1]);
                 }
             }
         }
