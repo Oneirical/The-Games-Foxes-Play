@@ -98,7 +98,6 @@ class Monster{
     setUpSprite(){
         this.creaturecon = new PIXI.Container();
         if (this === player){
-            tilesDisplay.addChild(this.creaturecon);
             this.creaturecon.x = 8*tileSize;
             this.creaturecon.y = 8*tileSize;
         }
@@ -108,14 +107,14 @@ class Monster{
         newSprite.height = tileSize;
         
         this.creaturecon.addChild(newSprite);
-        let hpcon = new PIXI.Container();
-        this.creaturecon.addChild(hpcon);
+        this.hpcon = new PIXI.Container();
+        this.creaturecon.addChild(this.hpcon);
         for(let i=0; i<6; i++){
             let bai = new FoxSprite(allsprites.textures['sprite9']);
-            bai.x = i*19;
+            bai.x = i*11;
             bai.width = tileSize;
             bai.height = tileSize;
-            hpcon.addChild(bai);
+            this.hpcon.addChild(bai);
         }
         animationTick.add((delta) => {
             if (this.offsetX != 0 || this.offsetY != 0){
@@ -167,7 +166,7 @@ class Monster{
     updateHp(){
         let hp = this.hp;
         if (this.isInvincible || this.order >= 0) hp = 0;
-        for (let i of this.creaturecon.children[1].children){
+        for (let i of this.hpcon.children){
             if (hp <= 0) i.visible = false;
             else i.visible = true;
             hp--;

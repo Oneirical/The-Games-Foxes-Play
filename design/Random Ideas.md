@@ -49,6 +49,9 @@ The infection starts with "drawbridge unauthorized access" while you are in a Vi
 The reason the player can't attack the intruder is because spells only work against those who believe in them.
 Serene components should force the whole axiom to be serene.
 Using a serene soul directly should imply some form of risk reward.
+The soul quarry is "unrealized potential" to the harmony
+Each death/failure makes the harmony wonder if you are making the challenges hard intentionally to betray them, which makes them spread the cyan light inside you to ensure your loyalty.
+Harmonists can only be hurt by axioms no melee attacks
 
 **Estate upgrades**
 
