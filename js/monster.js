@@ -570,6 +570,8 @@ class Monster{
                         this.animating = false;
                         tilesDisplay.projectorDisplay.x = -448;
                         tilesDisplay.projectorDisplay.y = -448;
+                        tilesDisplay.creatureDisplay.x = -448;
+                        tilesDisplay.creatureDisplay.y = -448;
                     }
                     this.offsetX = -(newTile.x - this.tile.x)/2;    
                     this.offsetY = -(newTile.y - this.tile.y)/2;  
@@ -729,6 +731,8 @@ class Monster{
                 this.animating = false;
                 tilesDisplay.projectorDisplay.x = -448;
                 tilesDisplay.projectorDisplay.y = -448;
+                tilesDisplay.creatureDisplay.x = -448;
+                tilesDisplay.creatureDisplay.y = -448;
             }
             this.offsetX = this.tile.x - tile.x;
             this.offsetY = this.tile.y - tile.y;

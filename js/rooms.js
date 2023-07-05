@@ -487,7 +487,7 @@ var genstruct = {
         1 : "V.V.E.V.V",
         2 : "V.V...V.V",
         3 : "V.E.S.E.V",
-        4 : "V...W...V",
+        4 : "V...V...V",
         5 : "EHL.B.RHE",
         6 : "V...P...V",
         7 : "GHL.N.RHG",

@@ -215,15 +215,15 @@ class Universe{
         this.zoomAnim.start();
         tilesDisplay.mask = app.stage.children[app.stage.children.length-1];
         const saves = [tilesDisplay.notPlayerTiles.x,tilesDisplay.notPlayerTiles.y,tilesDisplay.notPlayerTiles.width,tilesDisplay.notPlayerTiles.height];
-        //tilesDisplay.notPlayerTiles.x -= 48;
-        //tilesDisplay.notPlayerTiles.y -= 48;
+        tilesDisplay.notPlayerTiles.x -= 34;
+        tilesDisplay.notPlayerTiles.y -= 34;
         this.zoomAnim.add(() => {
-            let animSpeed = 4;
+            let animSpeed = 10;
             tilesDisplay.notPlayerTiles.x -= animSpeed*18*4/16;
             tilesDisplay.notPlayerTiles.y -= animSpeed*18*4/16; //the /3 at the end is relative to the cage size (length of a side)
             tilesDisplay.notPlayerTiles.width += animSpeed*16;
             tilesDisplay.notPlayerTiles.height += animSpeed*16;
-            if (tilesDisplay.notPlayerTiles.width >= 64*15*15){
+            if (tilesDisplay.notPlayerTiles.width >= 64*15*17){
                 this.handleDescent(layer, spawnx, spawny);
                 tilesDisplay.notPlayerTiles.x = saves[0];
                 tilesDisplay.notPlayerTiles.y = saves[1];
@@ -292,7 +292,8 @@ class Universe{
             "E2" : [1,1],
             "S2" : [1,1],
         }
-        let locspawn = [world.currentroom[0] + player.lastMove[0] + scale[origin][0], world.currentroom[1] + player.lastMove[1] + scale[origin][1]];
+        //let locspawn = [world.currentroom[0] + player.lastMove[0] + scale[origin][0], world.currentroom[1] + player.lastMove[1] + scale[origin][1]];
+        let locspawn = [4,4];
         let motionsave = player.lastMove;
         let receivereward = true;
         for(let j=0;j<9;j++){
