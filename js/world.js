@@ -216,11 +216,12 @@ class Universe{
         tilesDisplay.mask = app.stage.children[app.stage.children.length-1];
         const saves = [tilesDisplay.x,tilesDisplay.y,tilesDisplay.width,tilesDisplay.height];
         this.zoomAnim.add(() => {
-            tilesDisplay.x -= 10*18*4/9;
-            tilesDisplay.y -= 10*18*4/9; //the /3 at the end is relative to the cage size (length of a side)
-            tilesDisplay.width += 10*16;
-            tilesDisplay.height += 10*16;
-            if (tilesDisplay.width >= 112*9*9){
+            let animSpeed = 0.5;
+            tilesDisplay.x -= animSpeed*18*4/16;
+            tilesDisplay.y -= animSpeed*18*4/16; //the /3 at the end is relative to the cage size (length of a side)
+            tilesDisplay.width += animSpeed*16;
+            tilesDisplay.height += animSpeed*16;
+            if (tilesDisplay.width >= 64*15*15){
                 console.log(tilesDisplay.x);
                 console.log(tilesDisplay.y);
                 this.handleDescent(layer, spawnx, spawny);
@@ -237,7 +238,7 @@ class Universe{
     handleDescent(layer, spawnx, spawny){
         
         uiDisplayLeft.removeChild(world.displayCon);
-        if (this.worlds[layer].rooms[spawnx][spawny].corridor){
+        if (this.worlds[layer].rooms[spawnx-world.cageCorner[0]][spawny-world.cageCorner[1]].corridor){
             shakeAmount = 5;
             return;
         }
@@ -246,8 +247,9 @@ class Universe{
         world.saveRoom(world.getRoom());
         this.currentworld = layer;
         this.worlds[layer-1] = world;
+        let spawnCoords = [spawnx-world.cageCorner[0], spawny-world.cageCorner[1]];
         world = this.worlds[layer];
-        world.currentroom = [spawnx, spawny];
+        world.currentroom = spawnCoords;
         let locspawn;
         if (player.lastMove[0] == -1) locspawn = [7,4];
         else if (player.lastMove[0] == 1) locspawn = [1,4];
@@ -270,6 +272,7 @@ class Universe{
         world.setUpSprites();
         uiDisplayLeft.addChild(world.displayCon);
         this.layeredInfluence.add(world.influence);
+        tilesDisplay.addChild(player.creaturecon);
     }
 
     passUp(layer,origin){
@@ -554,9 +557,10 @@ class World{
         for(let y = 0; y<9;y++){
             for(let x = 0; x<9;x++){
                 if (this.rooms[x][y].tangible){
-                    this.rooms[x][y].displayCon.x = x*112;
-                    this.rooms[x][y].displayCon.y = y*112;
-                    this.hypnosis.addChild(this.rooms[x][y].displayCon);
+                    this.rooms[x][y].displayCon.width = 64;
+                    this.rooms[x][y].displayCon.height = 64;
+                    new GlitchSprite(this.rooms[x][y].displayCon,3);
+                    tiles[world.cageCorner[0]+x][world.cageCorner[1]+y].tilecon.addChild(this.rooms[x][y].displayCon);
                 }
                 //else if (betweenIncl(x,4-this.cage.size,4+this.cage.size) && betweenIncl(y,4-this.cage.size,4+this.cage.size)) drawPixel("black",x*112,y*112,112,this.hypnosis);
             }
@@ -619,7 +623,7 @@ class World{
                 if (this.rooms[i][j] instanceof HugeMap) this.giga = this.rooms[i][j];
             }
         }
-        this.playSpace = new HugeMap([0,0]);
+        this.playSpace = new HugeMap([0,0],this);
     }
 
     confirmWorld(){
@@ -712,9 +716,16 @@ class World{
                         this.depositTiles[i*9+x][j*9+y] = this.rooms[i][j].tiles[x][y];
                     }
                 }
+                for (let u of this.rooms[i][j].creatures){
+                    u.tile = getTile(u.tile.x+i*this.rooms[i][j].size,u.tile.y+j*this.rooms[i][j].size);
+                    this.depositCreatures.push(u);
+                    this.depositTiles[u.tile.x][u.tile.y].monster = u; 
+                }
                 this.rooms[i][j].layer = this.layer;
             }
-        }        this.generated = true;
+        }        
+        this.generated = true;
+        this.playSpace = new HugeMap([0,0],this);
     }
 
     spreadExits(i,j){
@@ -812,6 +823,7 @@ class World{
 
     appearRoom(spawnl){
         let room = this.rooms[this.currentroom[0]][this.currentroom[1]];
+        room = world.playSpace;
         let spawnhandledflag = false;
         if (room instanceof BigRoomVoid){
             let direction;
@@ -825,7 +837,7 @@ class World{
         numTiles = room.size;
         tileSize = (9/numTiles)*64;
         tiles = room.tiles;
-        if (!spawnhandledflag) room.playerspawn = spawnl;
+        if (!spawnhandledflag) room.playerspawn = [40,40]; //used to be "spawnl"
         room.populateRoom();
         if (!room.visited){
             level++;
@@ -1578,16 +1590,18 @@ class RoseicCogArena extends Room{
 }
 
 class HugeMap extends DefaultVaultRoom{
-    constructor(index){
+    constructor(index,myWorld){
         super(index);
         this.name = "Beeg";
         this.size = 81;
         this.id = "Beeg";
+        this.world = myWorld;
         for (let i=0; i<81; i++){
             rooms[this.id][i] = ".".repeat(81);
         }
-        this.tiles = world.depositTiles;
-        this.monsters = world.depositCreatures;
+        this.tiles = this.world.depositTiles;
+        this.monsters = this.world.depositCreatures;
+        if (!this.monsters) this.monsters = [];
 
     }
 

@@ -516,7 +516,7 @@ class AscendExit extends Tile{
             "W" : 92,
             "E" : 93
         }
-        this.sprite = this.textures[this.direction[0]];
+        this.sprite = this.textures["N"]; // TODO USED TO BE this.direction[0]
     }
     stepOn(monster){
         if(monster.isPlayer){
@@ -971,12 +971,12 @@ class CageContainer extends Altar{
     stepOn(monster){
         super.stepOn(monster);
         if(monster.isPlayer && world.cage.displayon){
-            if (world.cage.pocketworld.rooms[this.x][this.y].corridor){
+            if (world.cage.pocketworld.rooms[this.x-world.cageCorner[0]][this.y-world.cageCorner[1]].corridor){
                 player.move(getTile(player.tile.x - player.lastMove[0],player.tile.y - player.lastMove[1]));
                 player.offsetX = 0;
                 player.offsetY = 0;
             } 
-            else if (world.cage.slots[this.x][this.y].id != "EMPTY") universe.passDown(world.depth+1, this.x, this.y);
+            else if (world.cage.slots[this.x-world.cageCorner[0]][this.y-world.cageCorner[1]].id != "EMPTY") universe.passDown(world.depth+1, this.x, this.y);
         }
     }
 
