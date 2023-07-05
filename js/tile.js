@@ -658,8 +658,8 @@ class Altar extends Floor{
     setUpSprite(){
         super.setUpSprite();
         let soulcon = new FoxSprite(allsprites.textures['icon7']);
-        soulcon.width = tileSize*0.8-20*0.8;
-        soulcon.height = tileSize*0.8-20*0.8;
+        soulcon.width = 48;
+        soulcon.height = 48;
         soulcon.x = tileSize/2;
         soulcon.y = tileSize/2;
         soulcon.anchor.set(0.5);
@@ -680,7 +680,7 @@ class Altar extends Floor{
             this.hitBox.alpha = 0;
         });
         animationTick.add((delta) => {//This is technically adding tons of ticker statements on each room entry.
-            if (Math.random() > 0.97 && world.cage.slots[0][0].turbulent) soulcon.shakeAmount = 5; // REMOVE the 0-0 here and adapt
+            if (Math.random() > 0.97 && world.cage.slots[this.x-world.cageCorner[0]][this.y-world.cageCorner[1]].turbulent) soulcon.shakeAmount = 5; // REMOVE the 0-0 here and adapt
             if(soulcon.shakeAmount){
                 soulcon.shakeAmount--;
             }
