@@ -20,7 +20,7 @@ class Tile{
 
     setUpSprite(){
         this.tilecon = new PIXI.Container();
-        //tilesDisplay.addChild(this.tilecon);
+        //tilesDisplay.notPlayerTiles.addChild(this.tilecon);
         //this.tilecon.x = (96*2/3*8)-(player.tile.x-this.x)*tileSize;
         //this.tilecon.y = (96*2/3*8)-(player.tile.y-this.y)*tileSize;
         let hai = this.sprite;

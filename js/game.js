@@ -64,7 +64,7 @@ function toResearchMode(){
         tilesDisplay.eventMode = 'static';
         uiDisplayLeft.removeChildren();
         uiDisplayRight.removeChildren();
-        tilesDisplay.addChild(research.displayCon);
+        tilesDisplay.notPlayerTiles.addChild(research.displayCon);
         uiDisplayLeft.addChild(research.tabContainer);
         uiDisplayRight.addChild(buttons.displayCon);
         uiDisplayRight.addChild(research.descriptionBox.displayCon);
@@ -97,7 +97,7 @@ function toAxiomMode(){
         uiDisplayLeft.removeChildren();
         uiDisplayRight.removeChildren();
         drawPixel("black",0,0,112*9,tilesDisplay);
-        tilesDisplay.addChild(player.axioms.displayCon);
+        tilesDisplay.notPlayerTiles.addChild(player.axioms.displayCon);
         player.axioms.displayCon.x = 0;
         player.axioms.displayCon.y = 0;
         player.axioms.axiomCon.width = 112*9;

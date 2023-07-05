@@ -45,6 +45,10 @@ function setupPixi(){
     tilesDisplay.x = (1920-16*16*resolutionSize)/2+(resolutionSize+12)*16;
     tilesDisplay.y = (1080-16*9*resolutionSize)/2;
     app.stage.addChild(tilesDisplay);
+    tilesDisplay.notPlayerTiles = new PIXI.Container();
+    tilesDisplay.addChild(tilesDisplay.notPlayerTiles);
+    tilesDisplay.x += -40;
+    tilesDisplay.y += -40;
     uiDisplayRight = new PIXI.Container();
     uiDisplayRight.x = 372+32*32+28;
     uiDisplayRight.y = 44;
@@ -230,11 +234,11 @@ function drawProjectors(){
     let projectorDisplay = new PIXI.Container();
     projectorDisplay.x = -448;
     projectorDisplay.y = -448;
-    tilesDisplay.addChild(projectorDisplay);
+    tilesDisplay.notPlayerTiles.addChild(projectorDisplay);
     let creatureDisplay = new PIXI.Container();
     creatureDisplay.x = -448;
     creatureDisplay.y = -448;
-    tilesDisplay.addChild(creatureDisplay);
+    tilesDisplay.notPlayerTiles.addChild(creatureDisplay);
     tilesDisplay.projectorDisplay = projectorDisplay;
     tilesDisplay.creatureDisplay = creatureDisplay;
     zoom = 15;

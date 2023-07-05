@@ -214,21 +214,21 @@ class Universe{
         this.zoomAnim = new PIXI.Ticker;
         this.zoomAnim.start();
         tilesDisplay.mask = app.stage.children[app.stage.children.length-1];
-        const saves = [tilesDisplay.x,tilesDisplay.y,tilesDisplay.width,tilesDisplay.height];
+        const saves = [tilesDisplay.notPlayerTiles.x,tilesDisplay.notPlayerTiles.y,tilesDisplay.notPlayerTiles.width,tilesDisplay.notPlayerTiles.height];
+        //tilesDisplay.notPlayerTiles.x -= 48;
+        //tilesDisplay.notPlayerTiles.y -= 48;
         this.zoomAnim.add(() => {
-            let animSpeed = 0.5;
-            tilesDisplay.x -= animSpeed*18*4/16;
-            tilesDisplay.y -= animSpeed*18*4/16; //the /3 at the end is relative to the cage size (length of a side)
-            tilesDisplay.width += animSpeed*16;
-            tilesDisplay.height += animSpeed*16;
-            if (tilesDisplay.width >= 64*15*15){
-                console.log(tilesDisplay.x);
-                console.log(tilesDisplay.y);
+            let animSpeed = 4;
+            tilesDisplay.notPlayerTiles.x -= animSpeed*18*4/16;
+            tilesDisplay.notPlayerTiles.y -= animSpeed*18*4/16; //the /3 at the end is relative to the cage size (length of a side)
+            tilesDisplay.notPlayerTiles.width += animSpeed*16;
+            tilesDisplay.notPlayerTiles.height += animSpeed*16;
+            if (tilesDisplay.notPlayerTiles.width >= 64*15*15){
                 this.handleDescent(layer, spawnx, spawny);
-                tilesDisplay.x = saves[0];
-                tilesDisplay.y = saves[1];
-                tilesDisplay.width = saves[2];
-                tilesDisplay.height = saves[3];
+                tilesDisplay.notPlayerTiles.x = saves[0];
+                tilesDisplay.notPlayerTiles.y = saves[1];
+                tilesDisplay.notPlayerTiles.width = saves[2];
+                tilesDisplay.notPlayerTiles.height = saves[3];
                 universe.zooming = false;
                 this.zoomAnim.destroy();
             }
@@ -553,7 +553,7 @@ class World{
     hypnoDisplay(){
         this.hypnosis = new PIXI.Container();
         new GlitchSprite(this.hypnosis,3);
-        tilesDisplay.addChild(this.hypnosis);
+        tilesDisplay.notPlayerTiles.addChild(this.hypnosis);
         for(let y = 0; y<9;y++){
             for(let x = 0; x<9;x++){
                 if (this.rooms[x][y].tangible){
@@ -799,6 +799,8 @@ class World{
         tiles = room.tiles;
         if (room instanceof WorldSeed && level == 1) room.populateRoom();
         tilesDisplay.removeChildren();
+        tilesDisplay.notPlayerTiles.removeChildren();
+        tilesDisplay.addChild(tilesDisplay.notPlayerTiles);
         room.initializeRoom();
         animationTick.destroy();
         animationTick = new PIXI.Ticker;
