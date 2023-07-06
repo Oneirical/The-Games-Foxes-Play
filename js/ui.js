@@ -224,98 +224,6 @@ class Research{
         if (match == candidate.length) return true;
         else return false;
     }
-
-    display(tab){
-        ctx.beginPath();
-        ctx.moveTo(canvas.height+32, canvas.height);
-        ctx.lineTo(canvas.height+32, 0);
-        ctx.stroke();  
-        for (let i = 0; i<7;i++){
-            ctx.beginPath();
-            ctx.moveTo(canvas.height+128+32, 32+(135*i));
-            ctx.lineTo(canvas.height+128+32, 32+(135*i)+112);
-            ctx.stroke();
-            ctx.beginPath();
-            ctx.moveTo(canvas.height+32, 32+(135*i));
-            ctx.lineTo(canvas.height+128+32, 32+(135*i));
-            ctx.stroke();  
-            ctx.beginPath();
-            ctx.moveTo(canvas.height+32, 32+(135*i)+112);
-            ctx.lineTo(canvas.height+128+32, 32+(135*i)+112);
-            ctx.stroke();
-            if (i == 0) drawSymbol(35,canvas.height+64,32+(135*i)+16,80);
-            else drawSymbol(i-1,canvas.height+64,32+(135*i)+16,80);
-        }
-        drawFilter(blackfilter);
-        for(let i=0;i<9;i++){
-            for(let j=0;j<9;j++){
-                this.tabs[tab][i][j].draw();
-            }
-        }
-        this.exppage.display();
-        //drawSymbol(49, 590, 130, 64);
-        //drawSymbol(0, 590, 230, 64);
-        //drawSymbol(1, 590, 330, 64);
-        //drawSymbol(2, 590, 430, 64);
-        //drawSymbol(3, 880, 130, 64);
-        //drawSymbol(4, 880, 230, 64);
-        //drawSymbol(5, 880, 330, 64);
-        //drawSymbol(21, 880, 430, 64);
-        //printOutText("Ordered",18, 664, 368, "orangered",20,350);
-        //printOutText("Shattered",18, 664, 168, "cornflowerblue",20,350);
-        //printOutText("Saintly",18, 664, 268, "lime",20,350);
-        //printOutText("Artistic",18, 664, 468, "orange",20,350);
-        //printOutText("Serene",18, 810, 468, "cyan",20,350);
-        //printOutText("Vile",18, 835, 368, "plum",20,350);
-        //printOutText("Feral",18, 825, 268, "yellowgreen",20,350);
-        //printOutText("Unhinged",18, 790, 168, "yellow",20,350);
-    }
-
-    displayNode(cx, cy){
-        //let colour = "lightgray";
-        if (research.page[cx][cy].discovered){
-            printOutText(research.page[cx][cy].lore, 18, canvas.height+128+52, 600, "#cda4f2", 20, 560);
-            printOutText(research.page[cx][cy].unlock, 18, canvas.height+128+52, 480, "white", 20, 390);
-            printOutText(research.page[cx][cy].name, 18, canvas.height+128+52, 30, "white", 20, 350);
-            if (research.page[cx][cy].unlockdata) drawSpriteFreeform(research.page[cx][cy].unlockdata.sprite,0,0,canvas.width-80,464,64);
-            drawSymbol((research.page[cx][cy].contents), canvas.width-80, 20, 64);
-            printOutText(research.page[cx][cy].flags, 18, canvas.height+128+52, 55, researchflagcolour[research.page[cx][cy].flags], 20, 6*64-35);
-            let description = research.page[cx][cy].capsule;
-            if (powerratings[research.page[cx][cy].id]){
-                if (powerratings[research.page[cx][cy].id] > 0) description += "\n[g]Gain " + powerratings[research.page[cx][cy].id] + " Potency.[w]";
-                else description += "\n[r]Lose " + Math.abs(powerratings[research.page[cx][cy].id]) + " Potency.[w]";
-            }
-            if (soulcosts[research.page[cx][cy].id]){
-                description += "\n[p]Triggering this Contingency will consume "+soulcosts[research.page[cx][cy].id]+ " Ipseity Shards.";
-            }
-            printOutText(description, 18, canvas.height+128+52, 105, "white", 20, 500);
-            if (!this.looking) this.exppage = new TutorialDisplay(research.page[cx][cy].id);
-            this.looking = true;
-        }
-        else{
-            printOutText(researchlore["Null"], 18, canvas.height+128+52, 720, "#cda4f2", 20, 560);
-            printOutText(researchnames["Null"], 18, canvas.height+128+52, 30, "white", 20, 350);
-            drawSymbol(7, canvas.width-80, 20, 64);
-            printOutText(researchflags["Null"], 18, canvas.height+128+52, 55, researchflagcolour[researchflags["Null"]], 20, 6*64-35);
-            printOutText(researchexpl["Null"], 18, canvas.height+128+52, 105, "white", 20, 6*64-35);
-        }
-    }
-    
-}
-
-function showCatalogue(type){
-    if (!type) return;
-    let description = researchexpl[type];
-    if (powerratings[type]){
-        if (powerratings[type] > 0) description += "\n[g]Gain " + powerratings[type] + " Potency.[w]";
-        else description += "\n[r]Lose " + Math.abs(powerratings[type]) + " Potency.[w]";
-    }
-    if (soulcosts[type]){
-        description += "\n[p]Triggering this Contingency will consume "+soulcosts[type]+ " Ipseity Shards.";
-    }
-    printOutText(description, 18, 590, 105, "white", 20, 6*64-35);
-    printOutText(researchnames[type], 18, 590, 50, "white", 20, 6*64-100);
-    drawSymbol(inside[type], 890, 20, 64);
 }
 
 class Tooltip{
@@ -595,52 +503,6 @@ class Cursor{
         this.tile.cursor = null;
         this.sprite = 99999;
     }
-    info(){
-        if (inResearch){
-            if (research.page[this.tile.x][this.tile.y] instanceof ResearchNode){
-                let cx = this.tile.x;
-                let cy = this.tile.y;
-                research.displayNode(cx, cy);
-            }
-            else printOutText(researchlore["Awaiting"], 18, canvas.height+128+52, 30, "#cda4f2", 20, 560);
-            return;
-        }
-        if (this.tile.monster){
-            if (rosetoxin > 0){
-                printOutText(description["Rose"], 18, 10, 600, "pink", 20, 690);
-                printOutText("Rose Rose Rose", 18, 590, 70, "pink", 20, 350);
-                printOutText("Rose", 18, 590, 30, "pink", 20, 350);
-            }
-            else if (this.tile.monster.teleportCounter > 0){
-                printOutText(description["Warp"], 18, 10, 600, "white", 20, 690);
-                printOutText("The details of this soul are not clear to you yet.", 18, 590, 70, "white", 20, 350);
-                printOutText("Warp-wisp", 18, 590, 30, "white", 20, 350);
-            }
-            else{
-                printOutText(this.tile.monster.lore, 18, 10, 600, "white", 20, 690);
-                printOutText(this.tile.monster.soul, 18, 590, 70, "white", 20, 350);
-                printOutText(this.tile.monster.name, 18, 590, 30, "white", 20, 350);
-                printOutText(this.tile.monster.ability, 18, 10, 630+((this.tile.monster.lore.length/100)*20), "pink", 20, 690);
-                for (let i of Object.keys(this.tile.monster.statusEff)){
-                    if (this.tile.monster.statusEff[i] > 0){
-                        printOutText(i, 18, 590, 130+Object.keys(this.tile.monster.statusEff).indexOf(i)*10, "white", 20, 690);
-                        printOutText(this.tile.monster.statusEff[i].toString(), 18, 750, 130+Object.keys(this.tile.monster.statusEff).indexOf(i)*10, "white", 20, 690);
-                    }
-                }
-            }
-        }
-        else{
-            let colour = "lightgray";
-            if (this.tile.sprite == 61 || this.tile.sprite == 62) colour = "white";
-            printOutText(this.tile.lore, 18, 10, 600, colour, 20, 690);
-            printOutText(this.tile.name, 18, 590, 30, colour, 20, 350);
-        }
-        
-
-    }
-    debug(){
-        console.log(this.tile.id);
-    }
 }
 
 class LocationDisplay{
@@ -779,15 +641,6 @@ class TutorialDisplay{
             }
         }
     }
-
-    display(){
-        for(let i=0;i<this.cage.length;i++){
-            for(let j=0;j<this.cage.length;j++){
-                let size = 48;
-                if (!(this.cage[i][j].sprite == 2)) this.cage[i][j].drawFreeform(canvas.width-208-size/2*(this.cage.length-3),canvas.height-208-size/2*(this.cage.length-3),size);
-            }
-        }
-    }
 }
 
 var maxseq = 0;
@@ -867,36 +720,6 @@ class ComponentsDisplay{
             }
         }
         maxseq = seq-1;
-    }
-
-    display(){
-        if (!this.power) this.power = 0;
-        if (!this.cost) this.cost = 0;
-        for(let i=0;i<this.cage.length;i++){
-            for(let j=0;j<this.cage.length-1;j++){
-                let size = 80;
-                if (this.cage[i][j].seq && this.cage[i][j].seq == player.axioms.describepage+1 && (inInventory)){
-                    this.cage[i][j].sprite = 126;
-                    drawSymbol(this.cage[i][j].value.icon, 890, 20, 64);
-                }
-                else if (this.cage[i][j].seq != null) this.cage[i][j].sprite = this.cage[i][j].spritesave;
-                if (!(this.cage[i][j].sprite == 2)) this.cage[i][j].drawFreeform(canvas.height-16,canvas.height-256-224+32,size);
-                drawSymbol(12, canvas.height+64, canvas.height-256-210, 64);
-                printOutText(this.power+"",40, canvas.height+150, canvas.height-256-166, "lightsteelblue",20,350); //
-                drawSymbol(49, canvas.height+64+80*4+(80-64), canvas.height-256-210, 64);
-                printOutText(this.cost+"",40, canvas.height+256+96, canvas.height-256-166, "plum",20,350); //add for shattered energy
-                const hijack = {
-                    "VILE" : 5,
-                    "FERAL" : 4,
-                    "UNHINGED" : 3,
-                    "ARTISTIC" : 2,
-                    "ORDERED" : 1,
-                    "SAINTLY" : 0
-                }
-                const index = hijack[this.caste];
-                drawSymbol(index, ((673-size/2*(this.cage.length-3)+89+64*4)+673-size/2*(this.cage.length-3)+40)/2, 46+546-size/2*(this.cage.length-3), 64);
-            }
-        }
     }
 }
 

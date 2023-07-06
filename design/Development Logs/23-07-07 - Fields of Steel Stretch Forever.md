@@ -21,3 +21,4 @@ Then, to actually display the giga-map, I thought "let us just render every sing
 
 Finally, I settled for a 30x30 grid of "projectors" which dynamically update every turn to reflect all tiles in range 15 of the player.
 
+Following this implementation, I struggled very hard to bring back the [zooming animation]() from last week - and while it is back in some form, it is skewed and has an annoying lag spike at the end. I worked 5 hours to fix it, butchered my game completely beyond repair and had to undo all changes. Fun. You remain undefeated for now, Twin Seconds of Computer Freezing, but you will get your comeuppance soon enough.
