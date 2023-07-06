@@ -215,10 +215,10 @@ class Universe{
         this.zoomAnim.start();
         tilesDisplay.mask = app.stage.children[app.stage.children.length-1];
         const saves = [tilesDisplay.notPlayerTiles.x,tilesDisplay.notPlayerTiles.y,tilesDisplay.notPlayerTiles.width,tilesDisplay.notPlayerTiles.height];
-        tilesDisplay.notPlayerTiles.x -= 34;
-        tilesDisplay.notPlayerTiles.y -= 34;
+        tilesDisplay.notPlayerTiles.x -= 32;
+        tilesDisplay.notPlayerTiles.y -= 32;
         this.zoomAnim.add(() => {
-            let animSpeed = 10;
+            let animSpeed = 20;
             tilesDisplay.notPlayerTiles.x -= animSpeed*18*4/16;
             tilesDisplay.notPlayerTiles.y -= animSpeed*18*4/16; //the /3 at the end is relative to the cage size (length of a side)
             tilesDisplay.notPlayerTiles.width += animSpeed*16;
@@ -255,7 +255,7 @@ class Universe{
         else if (player.lastMove[0] == 1) locspawn = [1,4];
         else if (player.lastMove[1] == 1) locspawn = [4,1];
         else locspawn = [4,7];
-        world.appearRoom(locspawn);
+        world.appearRoom([player.tile.x-world.cageCorner[0],player.tile.y-world.cageCorner[1]]);
         if(!world.getRoom().hostile) summonExits();
         for(let i=0;i<wheel.wheel.length;i++){
             if (wheel.wheel[i].turbulent){
@@ -833,14 +833,14 @@ class World{
             if (spawnl[0] == 7) direction = "W";
             else if (spawnl[0] == 1) direction = "E";
             else if (spawnl[1] == 1) direction = "S";
-            else direction = "N";;
+            else direction = "N";
             room = this.handleBigRoom(room,direction);
             spawnhandledflag = true;
         }
         numTiles = room.size;
         tileSize = (9/numTiles)*64;
         tiles = room.tiles;
-        if (!spawnhandledflag) room.playerspawn = [40,40]; //used to be "spawnl"
+        if (!spawnhandledflag) room.playerspawn = [40+(spawnl[0]-4)*9,40+(spawnl[1]-4)*9];
         room.populateRoom();
         if (!room.visited){
             level++;

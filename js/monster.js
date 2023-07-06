@@ -118,7 +118,7 @@ class Monster{
         }
         animationTick.add((delta) => {
             if (this.offsetX != 0 || this.offsetY != 0){
-                //this.anispeed = 0.01;
+                this.anispeed = 0.01;
                 if (player === this){
                     this.animating = true;
                     if (this.offsetX == this.originalOffsetX) this.offsetX = 0;
