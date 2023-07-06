@@ -224,11 +224,11 @@ class Universe{
             tilesDisplay.notPlayerTiles.width += animSpeed*16;
             tilesDisplay.notPlayerTiles.height += animSpeed*16;
             if (tilesDisplay.notPlayerTiles.width >= 64*15*17){
-                this.handleDescent(layer, spawnx, spawny);
                 tilesDisplay.notPlayerTiles.x = saves[0];
                 tilesDisplay.notPlayerTiles.y = saves[1];
                 tilesDisplay.notPlayerTiles.width = saves[2];
                 tilesDisplay.notPlayerTiles.height = saves[3];
+                this.handleDescent(layer, spawnx, spawny);
                 universe.zooming = false;
                 this.zoomAnim.destroy();
             }

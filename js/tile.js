@@ -24,10 +24,18 @@ class Tile{
         //this.tilecon.x = (96*2/3*8)-(player.tile.x-this.x)*tileSize;
         //this.tilecon.y = (96*2/3*8)-(player.tile.y-this.y)*tileSize;
         let hai = this.sprite;
-        let newSprite = new FoxSprite(allsprites.textures['sprite'+hai]);
-        newSprite.width = tileSize;
-        newSprite.height = tileSize;
-        
+        let newSprite;
+        if (this.sprite == 2){
+            newSprite = new PIXI.Graphics();
+            newSprite.beginFill("black");
+            newSprite.drawRect(0, 0, tileSize, tileSize);
+            newSprite.endFill();
+        }
+        else {
+            newSprite = new FoxSprite(allsprites.textures['sprite'+hai]);
+            newSprite.width = tileSize;
+            newSprite.height = tileSize;
+        }        
         this.tilecon.addChild(newSprite);
         this.spriteDisplay = newSprite;
         //add traps here
