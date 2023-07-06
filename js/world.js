@@ -225,9 +225,12 @@ class Universe{
             tilesDisplay.notPlayerTiles.width += animSpeed;
             tilesDisplay.notPlayerTiles.height += animSpeed; //the /3 at the end is relative to the cage size (length of a side)
             scale = tilesDisplay.notPlayerTiles.width/saves[2];
-            tilesDisplay.notPlayerTiles.x = -(counter*animSpeed/2-64*4*scale/9);
-            tilesDisplay.notPlayerTiles.y = -(counter*animSpeed/2-64*4*scale/9);
+            tilesDisplay.notPlayerTiles.x = -(counter*animSpeed/2-64*4*scale/9+64*(1/scale-1/9));
+            tilesDisplay.notPlayerTiles.y = -(counter*animSpeed/2-64*4*scale/9+64*(1/scale-1/9));
             if (scale >= 9){
+                console.log(counter);
+                console.log(tilesDisplay.notPlayerTiles.width);
+                console.log(tilesDisplay.notPlayerTiles.x);
                 tilesDisplay.notPlayerTiles.x = saves[0];
                 tilesDisplay.notPlayerTiles.y = saves[1];
                 tilesDisplay.notPlayerTiles.width = saves[2];
@@ -347,20 +350,26 @@ class Universe{
         this.zoomAnim.start();
         tilesDisplay.mask = app.stage.children[app.stage.children.length-1];
         const saves = [tilesDisplay.x,tilesDisplay.y,tilesDisplay.width,tilesDisplay.height];
-        tilesDisplay.x = -3664;
-        tilesDisplay.y = -3996;
-        tilesDisplay.width = 112*9*9;
-        tilesDisplay.height = 112*9*9;
+        tilesDisplay.x = -4391.868775779224;
+        tilesDisplay.y = -4391.868775779224;
+        tilesDisplay.width = 10452;
+        tilesDisplay.height = 10452;
+        let counter = 93;
+        let zoomScale = 1;
+        let animSpeed = 100;
         this.zoomAnim.add(() => {
-            tilesDisplay.x += 10*18*4/9;
-            tilesDisplay.y += 10*18*4/9; //the /3 at the end is relative to the cage size (length of a side)
-            tilesDisplay.width -= 10*16;
-            tilesDisplay.height -= 10*16;
-            if (tilesDisplay.width <= 112*9){
-                tilesDisplay.x = saves[0];
-                tilesDisplay.y = saves[1];
-                tilesDisplay.width = saves[2];
-                tilesDisplay.height = saves[3];
+            counter--;
+            tilesDisplay.notPlayerTiles.width -= animSpeed;
+            tilesDisplay.notPlayerTiles.height -= animSpeed; //the /3 at the end is relative to the cage size (length of a side)
+            zoomScale = tilesDisplay.notPlayerTiles.width/saves[2];
+            tilesDisplay.notPlayerTiles.x = -(counter*animSpeed/2-64*4*zoomScale/9+64*(1/zoomScale-1/9));
+            tilesDisplay.notPlayerTiles.y = -(counter*animSpeed/2-64*4*zoomScale/9+64*(1/zoomScale-1/9));
+            if (zoomScale >= 9){
+                tilesDisplay.notPlayerTiles.x = saves[0];
+                tilesDisplay.notPlayerTiles.y = saves[1];
+                tilesDisplay.notPlayerTiles.width = saves[2];
+                tilesDisplay.notPlayerTiles.height = saves[3];
+                this.handleDescent(layer, spawnx, spawny);
                 universe.zooming = false;
                 this.zoomAnim.destroy();
             }
