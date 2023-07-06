@@ -118,7 +118,7 @@ class Monster{
         }
         animationTick.add((delta) => {
             if (this.offsetX != 0 || this.offsetY != 0){
-                this.anispeed = 0.01;
+                //this.anispeed = 0.01;
                 if (player === this){
                     this.animating = true;
                     if (this.offsetX == this.originalOffsetX) this.offsetX = 0;
@@ -142,6 +142,7 @@ class Monster{
                         tilesDisplay.projectorDisplay.y = -448;
                         tilesDisplay.creatureDisplay.x = -448;
                         tilesDisplay.creatureDisplay.y = -448;
+                        if (world.cage.slots[this.tile.x-world.cageCorner[0]][this.tile.y-world.cageCorner[1]] && world.cage.slots[this.tile.x-world.cageCorner[0]][this.tile.y-world.cageCorner[1]].id != "EMPTY") universe.passDown(world.depth+1, this.tile.x, this.tile.y);
                     }
                 }
                 else if (!player.animating){

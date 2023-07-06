@@ -215,15 +215,19 @@ class Universe{
         this.zoomAnim.start();
         tilesDisplay.mask = app.stage.children[app.stage.children.length-1];
         const saves = [tilesDisplay.notPlayerTiles.x,tilesDisplay.notPlayerTiles.y,tilesDisplay.notPlayerTiles.width,tilesDisplay.notPlayerTiles.height];
-        tilesDisplay.notPlayerTiles.x -= 32;
-        tilesDisplay.notPlayerTiles.y -= 32;
+        let counter = 0;
+        let scale = 1;
+        let animSpeed = 100;
         this.zoomAnim.add(() => {
-            let animSpeed = 20;
-            tilesDisplay.notPlayerTiles.x -= animSpeed*18*4/16;
-            tilesDisplay.notPlayerTiles.y -= animSpeed*18*4/16; //the /3 at the end is relative to the cage size (length of a side)
-            tilesDisplay.notPlayerTiles.width += animSpeed*16;
-            tilesDisplay.notPlayerTiles.height += animSpeed*16;
-            if (tilesDisplay.notPlayerTiles.width >= 64*15*17){
+            counter++;
+            console.log(tilesDisplay.notPlayerTiles.width + "hai");
+            console.log(tilesDisplay.notPlayerTiles.height + "bai");
+            tilesDisplay.notPlayerTiles.width += animSpeed;
+            tilesDisplay.notPlayerTiles.height += animSpeed; //the /3 at the end is relative to the cage size (length of a side)
+            scale = tilesDisplay.notPlayerTiles.width/saves[2];
+            tilesDisplay.notPlayerTiles.x = -(counter*animSpeed/2-64*4*scale/9);
+            tilesDisplay.notPlayerTiles.y = -(counter*animSpeed/2-64*4*scale/9);
+            if (scale >= 9){
                 tilesDisplay.notPlayerTiles.x = saves[0];
                 tilesDisplay.notPlayerTiles.y = saves[1];
                 tilesDisplay.notPlayerTiles.width = saves[2];

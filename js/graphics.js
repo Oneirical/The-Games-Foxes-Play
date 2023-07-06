@@ -241,18 +241,25 @@ function drawProjectors(){
     tilesDisplay.notPlayerTiles.addChild(creatureDisplay);
     tilesDisplay.projectorDisplay = projectorDisplay;
     tilesDisplay.creatureDisplay = creatureDisplay;
-    zoom = 15;
-    tileSize = 96*2/3;
+    zoom = 9;
+    tileSize = 64;
     projectorDisplay.projectors = [];
     for(let i=0;i<zoom*2;i++){
         projectorDisplay.projectors[i] = [];
         for(let j=0;j<zoom*2;j++){
             let projector = new PIXI.Container();
-            projector.x = i*tileSize;
-            projector.y = j*tileSize;
+            projector.x = i*tileSize+64*(15-zoom);
+            projector.y = j*tileSize+64*(15-zoom);
             if (tiles[i-zoom+player.tile.x] && tiles[i-zoom+player.tile.x][j-zoom+player.tile.y]) projector.referenceTile = tiles[i-zoom+player.tile.x][j-zoom+player.tile.y];
             if (projector.referenceTile){
                 projector.addChild(projector.referenceTile.tilecon);
+            }
+            else{
+                newSprite = new PIXI.Graphics();
+                newSprite.beginFill("black");
+                newSprite.drawRect(0, 0, tileSize, tileSize);
+                newSprite.endFill();
+                projector.addChild(newSprite);
             }
             projectorDisplay.addChild(projector);
             projectorDisplay.projectors[i][j] = projector;
@@ -269,16 +276,23 @@ function tickProjectors(){
             projector.removeChildren();
             if (tiles[i-zoom+player.tile.x] && tiles[i-zoom+player.tile.x][j-zoom+player.tile.y]) projector.referenceTile = tiles[i-zoom+player.tile.x][j-zoom+player.tile.y];
             else projector.referenceTile = null;
-            if (projector.referenceTile){
+            if (projector.referenceTile && !(projector.referenceTile instanceof RealityWall)){
                 projector.addChild(projector.referenceTile.tilecon);
                 if (projector.referenceTile.monster && player != projector.referenceTile.monster){
                     tilesDisplay.creatureDisplay.addChild(projector.referenceTile.monster.creaturecon);
-                    projector.referenceTile.monster.creaturecon.originalX = i*tileSize;
-                    projector.referenceTile.monster.creaturecon.originalY = j*tileSize;
-                    projector.referenceTile.monster.creaturecon.x = i*tileSize;
-                    projector.referenceTile.monster.creaturecon.y = j*tileSize;
+                    projector.referenceTile.monster.creaturecon.originalX = i*tileSize+64*(15-zoom);
+                    projector.referenceTile.monster.creaturecon.originalY = j*tileSize+64*(15-zoom);
+                    projector.referenceTile.monster.creaturecon.x = i*tileSize+64*(15-zoom);
+                    projector.referenceTile.monster.creaturecon.y = j*tileSize+64*(15-zoom);
                     //tilesDisplay.projectorDisplay.swapChildren(projector,tilesDisplay.projectorDisplay.projectors[zoom*2-1][zoom*2-1]);
                 }
+            }
+            else{
+                newSprite = new PIXI.Graphics();
+                newSprite.beginFill("black");
+                newSprite.drawRect(0, 0, tileSize, tileSize);
+                newSprite.endFill();
+                projector.addChild(newSprite);
             }
         }
     }

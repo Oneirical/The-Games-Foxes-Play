@@ -984,7 +984,6 @@ class CageContainer extends Altar{
                 player.offsetX = 0;
                 player.offsetY = 0;
             } 
-            else if (world.cage.slots[this.x-world.cageCorner[0]][this.y-world.cageCorner[1]].id != "EMPTY") universe.passDown(world.depth+1, this.x, this.y);
         }
     }
 
