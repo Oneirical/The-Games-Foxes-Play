@@ -300,7 +300,7 @@ class Universe{
             "S2" : [1,1],
         }
         //let locspawn = [world.currentroom[0] + player.lastMove[0] + scale[origin][0], world.currentroom[1] + player.lastMove[1] + scale[origin][1]];
-        let locspawn = [4,4];
+        let locspawn = [4,5];
         let motionsave = player.lastMove;
         let receivereward = true;
         for(let j=0;j<9;j++){
@@ -350,13 +350,13 @@ class Universe{
         this.zoomAnim.start();
         tilesDisplay.mask = app.stage.children[app.stage.children.length-1];
         const saves = [tilesDisplay.x,tilesDisplay.y,tilesDisplay.width,tilesDisplay.height];
-        tilesDisplay.x = -4391.868775779224;
-        tilesDisplay.y = -4391.868775779224;
-        tilesDisplay.width = 10452;
-        tilesDisplay.height = 10452;
+        //tilesDisplay.x = -4391.868775779224;
+        //tilesDisplay.y = -4391.868775779224;
+        //tilesDisplay.width = 10452;
+        //tilesDisplay.height = 10452;
         let counter = 93;
         let zoomScale = 1;
-        let animSpeed = 100;
+        let animSpeed = 1;
         this.zoomAnim.add(() => {
             counter--;
             tilesDisplay.notPlayerTiles.width -= animSpeed;
@@ -369,7 +369,6 @@ class Universe{
                 tilesDisplay.notPlayerTiles.y = saves[1];
                 tilesDisplay.notPlayerTiles.width = saves[2];
                 tilesDisplay.notPlayerTiles.height = saves[3];
-                this.handleDescent(layer, spawnx, spawny);
                 universe.zooming = false;
                 this.zoomAnim.destroy();
             }
