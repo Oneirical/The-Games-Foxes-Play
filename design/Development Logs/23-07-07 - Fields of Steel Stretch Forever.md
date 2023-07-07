@@ -13,7 +13,7 @@ I couldn't tolerate this any longer.
 
 # Fields of Steel Stretch Forever
 
-This has been quite the neuron-frying rework, but TGFP now has full-floor, interconnected maps! The layout is still based off square rooms linked with each other, but the most important feature is that **entities other than the player can now move wherever they please**.
+This has been quite the neuron-frying rework, but TGFP now has [full-floor, interconnected maps](https://vid.puffyan.us/embed/X0H_527_edQ)! The layout is still based off square rooms linked with each other, but the most important feature is that **entities other than the player can now move wherever they please**.
 
 The implementation proved quite challenging. First, to properly generate a unified map, I randomly generate a 9x9 grid of "walls" and "floors" with no isolated floors, then pave each "floor" with a prefabricated vault, chosen at random among multiple possibilities. Finally, I scrape the data from each "vault" and build a single giga-room (>6000 tiles!) from the extracted data. I was expecting this process to turn my 128 MB VRAM, 8 GB RAM laptop into a miniaturized sun, but everything somehow remained perfectly fluid!
 
@@ -21,7 +21,7 @@ Then, to actually display the giga-map, I thought "let us just render every sing
 
 Finally, I settled for a 30x30 grid of "projectors" which dynamically update every turn to reflect all tiles in range 15 of the player. It's just like DCSS - the player always remains at the centre, fully enabling any narcissistic tendencies the user may have!
 
-Following this implementation, I struggled very hard to bring back the [zooming animation]() from last week. Initially, it was skewed and caused an annoying lag spike at the end. I worked 5 hours to fix it, butchered my game completely beyond repair and had to undo all changes. Fun. 
+Following this implementation, I struggled very hard to bring back the zooming animation from last week. Initially, it was skewed and caused an annoying lag spike at the end. I worked 5 hours to fix it, butchered my game completely beyond repair and had to undo all changes. Fun. 
 
 In the end, some performance testing revealed that the big memory-hog was the function assigning sprites to every single tile, *including the black space between the rooms*. All it took to fix the lag was a single line of code in the graphics engine: "if tile is not in play area, return".
 
