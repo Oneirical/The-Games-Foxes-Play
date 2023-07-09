@@ -159,6 +159,7 @@ class Universe{
             "Serene" : 0,
             "Total" : 0,
         }
+        this.background;
     }
 
     getDepth(){
@@ -214,49 +215,26 @@ class Universe{
         this.zoomAnim = new PIXI.Ticker;
         this.zoomAnim.start();
         tilesDisplay.mask = app.stage.children[app.stage.children.length-1];
-        const saves = [tilesDisplay.notPlayerTiles.x,tilesDisplay.notPlayerTiles.y,tilesDisplay.notPlayerTiles.width,tilesDisplay.notPlayerTiles.height];
-        let counter = 0;
-        let scale = 1;
-        let animSpeed = 100;
         const viewport = new pixi_viewport.Viewport({
-            screenWidth: 1152,
-            screenHeight: 1152,
+            screenWidth: 1152-64,
+            screenHeight: 1152-64,
             events: app.renderer.events // the interaction module is important for wheel to work properly when renderer.view is placed or scaled
         })
         tilesDisplay.addChild(viewport)
     
         // activate plugins
         viewport
-            .drag()
-            .pinch()
-            .wheel()
-            .decelerate()
             .animate({
-                width: 1152/9,
-                time: 10000,
+                width: (1143)/9,
+                time: 1000,
             })
     
     
         // add a red box
-        viewport.pivot.x = viewport.pivot.y = 0;
         viewport.addChild(tilesDisplay.notPlayerTiles);
         tilesDisplay.addChild(player.creaturecon);
-        return;
         this.zoomAnim.add(() => {
-            counter++;
-            tilesDisplay.notPlayerTiles.width += animSpeed;
-            tilesDisplay.notPlayerTiles.height += animSpeed; //the /3 at the end is relative to the cage size (length of a side)
-            scale = tilesDisplay.notPlayerTiles.width/saves[2];
-            tilesDisplay.notPlayerTiles.x = -(counter*animSpeed/2-64*4*scale/9+64*(1/scale-1/9));
-            tilesDisplay.notPlayerTiles.y = -(counter*animSpeed/2-64*4*scale/9+64*(1/scale-1/9));
-            if (scale >= 9){
-                console.log(counter);
-                console.log(tilesDisplay.notPlayerTiles.width);
-                console.log(tilesDisplay.notPlayerTiles.x);
-                tilesDisplay.notPlayerTiles.x = saves[0];
-                tilesDisplay.notPlayerTiles.y = saves[1];
-                tilesDisplay.notPlayerTiles.width = saves[2];
-                tilesDisplay.notPlayerTiles.height = saves[3];
+            if (viewport.width >= 9869){
                 this.handleDescent(layer, spawnx, spawny);
                 universe.zooming = false;
                 this.zoomAnim.stop();
@@ -372,27 +350,30 @@ class Universe{
         this.zoomAnim = new PIXI.Ticker;
         this.zoomAnim.start();
         tilesDisplay.mask = app.stage.children[app.stage.children.length-1];
-        const saves = [0,0,1152,1152];
-
-        let counter = 93;
-        let zoomScale = 1;
-        let animSpeed = 100;
-        tilesDisplay.notPlayerTiles.x = -4391;
-        tilesDisplay.notPlayerTiles.y = -4391;
-        tilesDisplay.notPlayerTiles.width = 10452;
-        tilesDisplay.notPlayerTiles.height = 10452;
+        const viewport = new pixi_viewport.Viewport({
+            screenWidth: 1152-64,
+            screenHeight: 1152-64,
+            events: app.renderer.events
+        })
+        tilesDisplay.addChild(viewport)
+    
+        //viewport.width = viewport.height = 9869;
+        viewport
+            .animate({
+                width: (1143)/9,
+                time: 1,
+            })
+    
+    
+        viewport.addChild(tilesDisplay.notPlayerTiles);
+        tilesDisplay.addChild(player.creaturecon);
         this.zoomAnim.add(() => {
-            counter--;
-            tilesDisplay.notPlayerTiles.width -= animSpeed;
-            tilesDisplay.notPlayerTiles.height = tilesDisplay.notPlayerTiles.width; //the /3 at the end is relative to the cage size (length of a side)
-            zoomScale = tilesDisplay.notPlayerTiles.width/saves[2];
-            tilesDisplay.notPlayerTiles.x = -(counter*animSpeed/2-64*4*zoomScale/9+64*(1/zoomScale-1/9));
-            tilesDisplay.notPlayerTiles.y = -(counter*animSpeed/2-64*4*zoomScale/9+64*(1/zoomScale-1/9));
-            if (zoomScale <= 1){
-                tilesDisplay.notPlayerTiles.x = saves[0];
-                tilesDisplay.notPlayerTiles.y = saves[1];
-                tilesDisplay.notPlayerTiles.width = saves[2];
-                tilesDisplay.notPlayerTiles.height = saves[3];
+            if (viewport.width >= 9869){
+                viewport
+                .animate({
+                    width: (1143),
+                    time: 1000,
+                })
                 universe.zooming = false;
                 this.zoomAnim.destroy();
             }
@@ -1461,7 +1442,7 @@ class PlateGenerator extends DefaultVaultRoom{
 class SoulCage extends DefaultVaultRoom{
     constructor(index){
         super(index);
-        this.id = "Cage2";
+        this.id = "Cage1";
         this.name = "Soul Cage";
         this.cataloguedis;
         this.currentcat;

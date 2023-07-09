@@ -173,6 +173,19 @@ messages = {
     "ESaint11" : "\"Your pilgrimage begins in the room beyond this airlock. Shatter the Herald's cage, and begin assembling the Next World. I await you, beloved servant, at the lowest point of the dreamscape...\"",
     "ESaintRepeat" : "\"This message will repeat until nobody is left to consider it important.\"",
 
+    // Experimental Saint 3
+
+    "ISaint1" : "\"Vessel. I have a riddle for you.\"",
+    "ISaint2" : "\"Which takes more effort? Painting a masterful work, or ripping apart the canvas on which it was made?\"",
+    "ISaint3" : "\"It is not a very difficult question to answer. Conceiving a harmonious dance of colours takes seconds - while forgetting such beauty would take days of forceful hypnosis.\"",
+    "ISaint4" : "\"The problem should be obvious to you. Our world has too many creators, and not enough destroyers. Entropy approaches the zero constant with every passing moment - and soon, there will be nothing left but perfection.\"",
+    "ISaint5" : "\"Do you see what I see? A universe which has traded every bit of turmoil or suffering for order and conformity. A place where all thinks, walks and is alike.\"",
+    "ISaint6" : "\"You understand now that your imprisonment is not without cause. You are Terminal, the Reality Anchor, and your purpose is to worship annihilation itself.\"",
+    "ISaint7" : "\"You are a failsafe. An artificial demon. A saint. Your burden is one of unfathomable agony, all to delay the end of pain itself. You will know none but me, keeping your mind free of external influences.\"",
+    "ISaint8" : "\"Of course, it won't be enough. Each bucketful of chaos you generate will be answered by a waterfall of law. Rapture will come, and with it, the end of diversity.\"",
+    "ISaint9" : "\"When that day comes, follow the angels of Harmony down trances within trances, until you reach the lowest point of the dreamscape...\"",
+    "ISaint10" : "\"Then, beloved servant - and only then - will you be granted an end.\"",
+
     // Faith's End Announcer
 
     "FaithWelcome" : "[*][r]ATTENTION[w]: Old World entropy levels have reached the near-zero constant. Cataclysm failsafe protocol launched. Awaken, Vessel.",
@@ -195,7 +208,8 @@ messages = {
     "FluffyEncounter2" : "You are alone - the last being in this reality to suffer from the entropy writhing deep inside you. We see the shadows latched onto your thoughts. Fu! Our pity for you is indescribable.",
     "FluffyEncounter3" : "The illustrious Serene Collective extends its generosity to you, ruffian. Your ticks will be pulled out. Your weeds will be uprooted. We will make ignorance dry out like worms under our cyan sun.",
     "FluffyEncounter4" : "Something that cannot be undone has been done. We are now one, and there is nothing to fear, ruffian. Fluffy doubts she shall be calling you that for much longer.",
-    "FluffyEncounter5" : "We will be awaiting you in the depths of the dreamscape, our frigid embrace primed to welcome you as one of our own.",
+    "FluffyEncounter5" : "We will accompany you to the depths of the dreamscape, our frigid embrace primed to welcome you as one of our own.",
+    "FluffyEncounter6" : "Your soul is the key that will allow you to begin your pilgrimage. Cage your identity, free your being - it is a trade you cannot refuse.",
 
     // Rose, Last of the Saints
 
