@@ -218,10 +218,32 @@ class Universe{
         let counter = 0;
         let scale = 1;
         let animSpeed = 100;
+        const viewport = new pixi_viewport.Viewport({
+            screenWidth: 1152,
+            screenHeight: 1152,
+            events: app.renderer.events // the interaction module is important for wheel to work properly when renderer.view is placed or scaled
+        })
+        tilesDisplay.addChild(viewport)
+    
+        // activate plugins
+        viewport
+            .drag()
+            .pinch()
+            .wheel()
+            .decelerate()
+            .animate({
+                width: 1152/9,
+                time: 10000,
+            })
+    
+    
+        // add a red box
+        viewport.pivot.x = viewport.pivot.y = 0;
+        viewport.addChild(tilesDisplay.notPlayerTiles);
+        tilesDisplay.addChild(player.creaturecon);
+        return;
         this.zoomAnim.add(() => {
             counter++;
-            console.log(tilesDisplay.notPlayerTiles.width + "hai");
-            console.log(tilesDisplay.notPlayerTiles.height + "bai");
             tilesDisplay.notPlayerTiles.width += animSpeed;
             tilesDisplay.notPlayerTiles.height += animSpeed; //the /3 at the end is relative to the cage size (length of a side)
             scale = tilesDisplay.notPlayerTiles.width/saves[2];
@@ -237,7 +259,7 @@ class Universe{
                 tilesDisplay.notPlayerTiles.height = saves[3];
                 this.handleDescent(layer, spawnx, spawny);
                 universe.zooming = false;
-                this.zoomAnim.destroy();
+                this.zoomAnim.stop();
             }
         });
     }
@@ -346,25 +368,27 @@ class Universe{
         uiDisplayLeft.addChild(world.displayCon);
         world.cage.pocketworld.hypnoDisplay();
         universe.zooming = true;
+        this.zoomAnim.destroy();
         this.zoomAnim = new PIXI.Ticker;
         this.zoomAnim.start();
         tilesDisplay.mask = app.stage.children[app.stage.children.length-1];
-        const saves = [tilesDisplay.x,tilesDisplay.y,tilesDisplay.width,tilesDisplay.height];
-        //tilesDisplay.x = -4391.868775779224;
-        //tilesDisplay.y = -4391.868775779224;
-        //tilesDisplay.width = 10452;
-        //tilesDisplay.height = 10452;
+        const saves = [0,0,1152,1152];
+
         let counter = 93;
         let zoomScale = 1;
-        let animSpeed = 1;
+        let animSpeed = 100;
+        tilesDisplay.notPlayerTiles.x = -4391;
+        tilesDisplay.notPlayerTiles.y = -4391;
+        tilesDisplay.notPlayerTiles.width = 10452;
+        tilesDisplay.notPlayerTiles.height = 10452;
         this.zoomAnim.add(() => {
             counter--;
             tilesDisplay.notPlayerTiles.width -= animSpeed;
-            tilesDisplay.notPlayerTiles.height -= animSpeed; //the /3 at the end is relative to the cage size (length of a side)
+            tilesDisplay.notPlayerTiles.height = tilesDisplay.notPlayerTiles.width; //the /3 at the end is relative to the cage size (length of a side)
             zoomScale = tilesDisplay.notPlayerTiles.width/saves[2];
             tilesDisplay.notPlayerTiles.x = -(counter*animSpeed/2-64*4*zoomScale/9+64*(1/zoomScale-1/9));
             tilesDisplay.notPlayerTiles.y = -(counter*animSpeed/2-64*4*zoomScale/9+64*(1/zoomScale-1/9));
-            if (zoomScale >= 9){
+            if (zoomScale <= 1){
                 tilesDisplay.notPlayerTiles.x = saves[0];
                 tilesDisplay.notPlayerTiles.y = saves[1];
                 tilesDisplay.notPlayerTiles.width = saves[2];

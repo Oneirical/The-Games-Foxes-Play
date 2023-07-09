@@ -65,7 +65,6 @@ function setupPixi(){
     drawProjectors();
     world.rooms[4][7] = world.playSpace;
     world.enterRoom("N");
-    tilesDisplay.addChild(player.creaturecon);
     wheel.toPaintMode();
     // let rai = new PIXI.filters.ColorOverlayFilter();
     // rai.color = "1a5fb4";
@@ -80,6 +79,7 @@ function setupPixi(){
         //alarmCount+=0.1;
         //rai.alpha = Math.sin(alarmCount)-0.5;
     });
+    tilesDisplay.addChild(player.creaturecon);
         //FPS counter
     // const style = new PIXI.TextStyle({
     //     fontFamily: 'Play',
