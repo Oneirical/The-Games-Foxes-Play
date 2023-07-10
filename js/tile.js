@@ -50,6 +50,9 @@ class Tile{
             this.hitBox.alpha = 0.4;
         });
         this.spriteDisplay.on('pointerdown', (event) => {
+            if (wheel.summonMode){
+                if (between(wheel.selectedCan,0,6)) summonMonster(this.x,this.y,research.monsterpool[wheel.selectedCan+1])
+            }
         });
         this.spriteDisplay.on('pointerout', (event) => {
             this.hitBox.alpha = 0;

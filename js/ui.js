@@ -8,7 +8,7 @@ class Research{
         this.buildTabs();
         this.looking = false;
         this.exppage = new TutorialDisplay();
-        this.monsterpool = [Apis, Snail, Tinker, Slug, Shrike, Felidol];
+        this.monsterpool = [Tinker, Slug, Snail, Shrike, Apis, Felidol];
         this.infectedConnectors = [];
         this.influence = {
             "Saintly" : 0,
@@ -1125,6 +1125,24 @@ class SoulBreathing{
             can.alpha = 0.5;
             can.trspeed = 2;
             this.wheelCon.children[6-can.caste].paintCan.addChild(can);
+        }
+    }
+
+    toSummonMode(){
+        this.summonMode = true;
+        for (let i = 0; i< 8;  i++){
+            let hai = {
+                0 : 0,
+                1 : 8,
+                2 : 29,
+                3 : 41,
+                4 : 5,
+                5 : 70,
+                6 : 49,
+                7 : 2,
+            };
+            this.wheelCon.children[i].texture = allsprites.textures['sprite'+hai[i]];
+            this.wheelCon.children[i].alpha = 0.5;
         }
     }
 

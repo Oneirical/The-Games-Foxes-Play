@@ -280,6 +280,8 @@ class Universe{
         uiDisplayLeft.addChild(world.displayCon);
         this.layeredInfluence.add(world.influence);
         tilesDisplay.addChild(player.creaturecon);
+        player.creaturecon.alpha = 0.6;
+        wheel.toSummonMode();
     }
 
     passUp(layer,origin){
