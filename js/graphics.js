@@ -302,7 +302,7 @@ function drawTiles(){
     tileSize = 96*2/3;
     for(let i=0;i<numTiles;i++){
         for(let j=0;j<numTiles;j++){
-            if (tiles[i] && tiles[i][j] && !(tiles[i][j] instanceof RealityWall)) tiles[i][j].setUpSprite();
+            if (tiles[i] && tiles[i][j] && !(tiles[i][j] instanceof RealityWall) && !((tiles[i][j] instanceof LayerBackground) && tiles[i][j].sprite == 2)) tiles[i][j].setUpSprite();
         }
     }
 }

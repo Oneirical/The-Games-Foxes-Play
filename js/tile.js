@@ -35,6 +35,10 @@ class Tile{
             newSprite = new FoxSprite(allsprites.textures['sprite'+hai]);
             newSprite.width = tileSize;
             newSprite.height = tileSize;
+            if (this instanceof LayerBackground){
+                newSprite.width *= 9;
+                newSprite.height *= 9;
+            }
         }        
         this.tilecon.addChild(newSprite);
         this.spriteDisplay = newSprite;
@@ -552,6 +556,15 @@ class RealityWall extends Wall{
         this.name = "Nonexistent Nullspace";
         this.sprite = 2;
         this.quadrant = quadrant;
+    }
+}
+
+class LayerBackground extends Floor{
+    constructor(x,y, sourceRoom){
+        super(x,y);
+        if (sourceRoom.depth == 0) return;
+        let previousWorld = universe.worlds[universe.currentworld];
+        this.sprite = previousWorld.depositTiles[previousWorld.cageCorner[0]+sourceRoom.index[0]][previousWorld.cageCorner[1]+sourceRoom.index[1]].sprite;
     }
 }
 

@@ -213,17 +213,18 @@ class Universe{
     passDown(layer, spawnx, spawny){
         universe.zooming = true;
         this.zoomAnim = new PIXI.Ticker;
+        this.currentworld = layer;
         this.zoomAnim.start();
         tilesDisplay.mask = app.stage.children[app.stage.children.length-1];
-        const viewport = new pixi_viewport.Viewport({
+        this.viewport = new pixi_viewport.Viewport({
             screenWidth: 1152-64,
             screenHeight: 1152-64,
             events: app.renderer.events // the interaction module is important for wheel to work properly when renderer.view is placed or scaled
         })
-        tilesDisplay.addChild(viewport)
+        tilesDisplay.addChild(this.viewport)
     
         // activate plugins
-        viewport
+        this.viewport
             .animate({
                 width: (1143)/9,
                 time: 1000,
@@ -231,10 +232,10 @@ class Universe{
     
     
         // add a red box
-        viewport.addChild(tilesDisplay.notPlayerTiles);
+        this.viewport.addChild(tilesDisplay.notPlayerTiles);
         tilesDisplay.addChild(player.creaturecon);
         this.zoomAnim.add(() => {
-            if (viewport.width >= 9869){
+            if (this.viewport.width >= 9869){
                 this.handleDescent(layer, spawnx, spawny);
                 universe.zooming = false;
                 this.zoomAnim.stop();
@@ -252,7 +253,6 @@ class Universe{
         level = 0;
         player.tile.monster = null;
         world.saveRoom(world.getRoom());
-        this.currentworld = layer;
         this.worlds[layer-1] = world;
         let spawnCoords = [spawnx-world.cageCorner[0], spawny-world.cageCorner[1]];
         world = this.worlds[layer];
@@ -606,7 +606,7 @@ class World{
                 else this.rooms[i][j] = new roomType([i,j],genstruct["Facility"][j][i]);
                 if (flip) flipRoom(this.rooms[i][j].id,this.rooms[i][j].size,0);
                 this.rooms[i][j].setUp();
-                this.rooms[i][j].insertRoom();
+                this.rooms[i][j].insertRoom(this.depth);
                 if (flip) flipRoom(this.rooms[i][j].id,this.rooms[i][j].size,0);
             }
         }
@@ -707,7 +707,7 @@ class World{
                     if (rooms[this.rooms[i][j].id]["tags"].includes("randomflip") && !corridor) flip = true;
                     if (flip) flipRoom(this.rooms[i][j].id,this.rooms[i][j].size,times);
                     this.rooms[i][j].setUp();
-                    this.rooms[i][j].insertRoom();
+                    this.rooms[i][j].insertRoom(this.depth);
                     if (flip) flipRoom(this.rooms[i][j].id,this.rooms[i][j].size,times);
                     if (corridor && flip) this.rooms[i][j].verticality = "side";
                     else if (corridor) this.rooms[i][j].verticality = "up";
@@ -715,7 +715,7 @@ class World{
                 else{
                     this.rooms[i][j] = new VoidRoom([i,j]);
                     this.rooms[i][j].setUp();
-                    this.rooms[i][j].insertRoom();
+                    this.rooms[i][j].insertRoom(this.depth);
                 }
             }
         }
@@ -844,20 +844,20 @@ class World{
     appearRoom(spawnl){
         let room = this.rooms[this.currentroom[0]][this.currentroom[1]];
         room = world.playSpace;
-        let spawnhandledflag = false;
-        if (room instanceof BigRoomVoid){
-            let direction;
-            if (spawnl[0] == 7) direction = "W";
-            else if (spawnl[0] == 1) direction = "E";
-            else if (spawnl[1] == 1) direction = "S";
-            else direction = "N";
-            room = this.handleBigRoom(room,direction);
-            spawnhandledflag = true;
-        }
+        // let spawnhandledflag = false;
+        // if (room instanceof BigRoomVoid){
+        //     let direction;
+        //     if (spawnl[0] == 7) direction = "W";
+        //     else if (spawnl[0] == 1) direction = "E";
+        //     else if (spawnl[1] == 1) direction = "S";
+        //     else direction = "N";
+        //     room = this.handleBigRoom(room,direction);
+        //     spawnhandledflag = true;
+        // }
         numTiles = room.size;
         tileSize = (9/numTiles)*64;
         tiles = room.tiles;
-        if (!spawnhandledflag) room.playerspawn = [40+(spawnl[0]-4)*9,40+(spawnl[1]-4)*9];
+        room.playerspawn = [40+(spawnl[0]-4)*9,40+(spawnl[1]-4)*9];
         room.populateRoom();
         if (!room.visited){
             level++;
@@ -972,7 +972,7 @@ class Room{
         this.creatures = "";
         this.vault = true;
         this.name = "Bugtopia";
-        this.filler = BAscendExit;
+        this.filler = NoBreakWall;
         this.vault = false;
         this.extreme = {
             "N" : 0,
@@ -1051,6 +1051,7 @@ class DefaultVaultRoom extends Room{
         this.entrancepoints;
         this.name = "Bleak Corridors";
         this.music = "malform";
+        this.depth = 0;
         if (level > 5) this.music = "max";
         else if (level > 10) this.music = "quarry";
     }
@@ -1132,7 +1133,8 @@ class DefaultVaultRoom extends Room{
         }
     }
 
-    insertRoom(){
+    insertRoom(depth){
+        this.depth = depth;
         this.tiles = [];
         let vault = rooms[this.id];
         for(let i=0;i<this.size;i++){
