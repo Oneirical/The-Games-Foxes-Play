@@ -1,8 +1,6 @@
-*"Which takes more effort? Painting a masterful work, or ripping apart the canvas on which it was made?*
+*"In truth, my artificial axioms are an anomaly. Most natural ideologies are more reactive than active, responding with hatred and love at the sight of harmless symbols."*
 
-*It is not a very difficult question to answer. Conceiving a harmonious dance of colours takes seconds - while forgetting such beauty would take days of forceful hypnosis."*
-
-- A message from the Last Saint, viewable in the first few rooms of the game
+- flavour text of the tutorial node explaining Contingencies
 
 ## The Games Foxes Play
 *([complete source code](https://github.com/Oneirical/The-Games-Foxes-Play) - [mirror](https://codeberg.org/Oneirical/The-Games-Foxes-Play) | [view all previous posts](https://github.com/Oneirical/The-Games-Foxes-Play/tree/main/design/Development%20Logs) | [play 0.4.3 online in browser on itch.io!](https://oneirical.itch.io/tgfp))*
