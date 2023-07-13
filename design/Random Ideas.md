@@ -3,13 +3,17 @@
 * Add Form grid (range targeters) images in their descriptions for clarity
 * A better ui for descriptions, with definitions for each keyword like 'exhale' or 'targets' or the status effects, StS style
 
-* Roadmap
+* Lowest Scope Roadmap
 
-- Make it possible to simulate multiple rooms at the same time
-- Make it possible for harmonists to pathfind across multiple rooms
-- Do the intro encounter
-- Harmonic Painter - make the player craft their first Axiom
-- Do the "planning, clearing, defense" phase
+- BREAK the herald
+- MAKE a cool world
+- CLAP everything in there
+- RETURN upwards
+- MAKE Axioms
+- GET broken op stuff
+- CHALLENGE Epsilon to a heroic duel
+
+- make the zoom up work
 
 **Status Effects**
 

@@ -285,6 +285,7 @@ class Universe{
     }
 
     passUp(layer,origin){
+        universe.zooming = true;
         this.layeredInfluence.delete(world.influence);
         uiDisplayLeft.removeChild(world.displayCon);
         player.tile.monster = null;
@@ -347,31 +348,27 @@ class Universe{
         world.setUpSprites();
         uiDisplayLeft.addChild(world.displayCon);
         world.cage.pocketworld.hypnoDisplay();
-        universe.zooming = true;
         this.zoomAnim.destroy();
         this.zoomAnim = new PIXI.Ticker;
         this.zoomAnim.start();
         tilesDisplay.mask = app.stage.children[app.stage.children.length-1];
-        const viewport = new pixi_viewport.Viewport({
+        this.viewport = new pixi_viewport.Viewport({
             screenWidth: 1152-64,
             screenHeight: 1152-64,
             events: app.renderer.events
         })
-        tilesDisplay.addChild(viewport)
+        tilesDisplay.addChild(this.viewport)
     
-        //viewport.width = viewport.height = 9869;
-        viewport
-            .animate({
-                width: (1143)/9,
-                time: 1,
-            })
+        this.viewport.animate({
+            width: (1143)/9,
+            time: 0,
+        })
     
-    
-        viewport.addChild(tilesDisplay.notPlayerTiles);
+        this.viewport.addChild(tilesDisplay.notPlayerTiles);
         tilesDisplay.addChild(player.creaturecon);
         this.zoomAnim.add(() => {
-            if (viewport.width >= 9869){
-                viewport
+            if (this.viewport.width >= 9869){
+                this.viewport
                 .animate({
                     width: (1143),
                     time: 1000,
@@ -974,7 +971,7 @@ class Room{
         this.creatures = "";
         this.vault = true;
         this.name = "Bugtopia";
-        this.filler = NoBreakWall;
+        this.filler = BAscendExit;
         this.vault = false;
         this.extreme = {
             "N" : 0,

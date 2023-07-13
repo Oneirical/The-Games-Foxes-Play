@@ -7,7 +7,9 @@
 ## The Games Foxes Play
 *([complete source code](https://github.com/Oneirical/The-Games-Foxes-Play) - [mirror](https://codeberg.org/Oneirical/The-Games-Foxes-Play) | [view all previous posts](https://github.com/Oneirical/The-Games-Foxes-Play/tree/main/design/Development%20Logs) | [play 0.4.3 online in browser on itch.io!](https://oneirical.itch.io/tgfp))*
 
-So much to do in life, so little time. While the function of programming is glamorous, the form of the work - sitting in front of a monitor - absolutely isn't. I suppose I can be glad my bread-maker isn't so motionless, I don't know if I could keep the desire to work on this project if I were to start a career in technology.
+The overscope is real. I keep having these utterly insane, giga-mass-redesign everything visions of epic proportions, and then come up to the computer only to hit a wall of design problems or programming difficulties. Last Thursday, I quite literally stared into the void for 4 continuous hours, phased out of reality, thinking about all kinds of things I could do.
+
+I hope I have learned my lesson now. I need humility, and the comfort that I'll always be able to build onto what I already have.
 
 # Architect of Strife
 
