@@ -52,7 +52,7 @@ class CageTemplate{
             "Potency" : 0,
         }
         this.buildAxiom();
-        this.pocketworld.confirmWorld();
+        this.pocketworld.confirmWorldFromVault();
         wheel.craftShow.updateDisplay();
         this.pocketworld.influence = {
             "Saintly" : 0,
@@ -280,8 +280,6 @@ class Universe{
         uiDisplayLeft.addChild(world.displayCon);
         this.layeredInfluence.add(world.influence);
         tilesDisplay.addChild(player.creaturecon);
-        player.creaturecon.alpha = 0.6;
-        wheel.toSummonMode();
     }
 
     passUp(layer,origin){
@@ -576,7 +574,7 @@ class World{
                 if (this.rooms[x][y].tangible){
                     this.rooms[x][y].displayCon.width = 64;
                     this.rooms[x][y].displayCon.height = 64;
-                    new GlitchSprite(this.rooms[x][y].displayCon,3);
+                    //new GlitchSprite(this.rooms[x][y].displayCon,3);
                     tiles[world.cageCorner[0]+x][world.cageCorner[1]+y].tilecon.addChild(this.rooms[x][y].displayCon);
                 }
                 //else if (betweenIncl(x,4-this.cage.size,4+this.cage.size) && betweenIncl(y,4-this.cage.size,4+this.cage.size)) drawPixel("black",x*112,y*112,112,this.hypnosis);
