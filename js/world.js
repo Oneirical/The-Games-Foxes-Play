@@ -440,7 +440,7 @@ class EmptyWorld{
 class World{
     constructor(depth){
         this.depth = depth;
-        this.cageCorner = [36,45];
+        this.cageCorner = [36,25];
         this.roompool = [];
         this.isAccessible = false;
         this.finishedspread = false;
@@ -1391,6 +1391,48 @@ class StarFaith extends DefaultVaultRoom{
     constructor(index){
         super(index);
         this.id = "Star";
+    }
+}
+
+class Tele1 extends DefaultVaultRoom{
+    constructor(index){
+        super(index);
+        this.id = "Tele1";
+    }
+}
+
+class Tele2 extends DefaultVaultRoom{
+    constructor(index){
+        super(index);
+        this.id = "Tele2";
+    }
+}
+
+class Tele3 extends DefaultVaultRoom{
+    constructor(index){
+        super(index);
+        this.id = "Tele3";
+    }
+}
+
+class Tele4 extends DefaultVaultRoom{
+    constructor(index){
+        super(index);
+        this.id = "Tele4";
+    }
+}
+
+class Tele5 extends DefaultVaultRoom{
+    constructor(index){
+        super(index);
+        this.id = "Tele5";
+    }
+}
+
+class Tele6 extends DefaultVaultRoom{
+    constructor(index){
+        super(index);
+        this.id = "Tele6";
     }
 }
 
