@@ -142,7 +142,7 @@ class Monster{
                         tilesDisplay.projectorDisplay.y = -448;
                         tilesDisplay.creatureDisplay.x = -448;
                         tilesDisplay.creatureDisplay.y = -448;
-                        if (!universe.zooming && this.tile instanceof CageContainer && world.cage.slots[this.tile.x-world.cageCorner[0]][this.tile.y-world.cageCorner[1]].id != "EMPTY") universe.passDown(world.depth+1, this.tile.x, this.tile.y);
+                        if (!universe.zooming && this.tile instanceof CageContainer && world.cage.slots[this.tile.x-world.cageCorner[0]][this.tile.y-world.cageCorner[1]].id != "EMPTY") universe.passDown(0, this.tile.x, this.tile.y);
                     }
                 }
                 else if (!player.animating){
@@ -157,7 +157,7 @@ class Monster{
             }
         });
         this.updateHp();
-        if (universe.zooming){
+        if (universe.zooming && this instanceof Terminal){
             new GlitchSprite(this.creaturecon,3,true);
         } 
         //remember when you looked for 2 hours for that one bug that made you drop 1 FPS every time Terminal passed a door and it turned

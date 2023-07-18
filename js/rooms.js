@@ -34,6 +34,7 @@ var keyroom = {
     "s" : BigRoomVoid,
     "e" : BigRoomVoid,
     "w" : BigRoomVoid,
+    "O" : TriangleFaith,
     "1" : Tele1,
     "2" : Tele2,
     "3" : Tele3,

@@ -977,8 +977,6 @@ class MessageLog{
             Play: 'Play-Regular.ttf',
         });
         PIXI.Assets.loadBundle('fonts');
-
-        log.addLog("FaithWelcome");
     }
 
     addLog(message){

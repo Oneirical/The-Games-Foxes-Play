@@ -994,6 +994,7 @@ class CageContainer extends Altar{
 
     stepOn(monster){
         super.stepOn(monster);
+        return;
         if(monster.isPlayer && world.cage.displayon){
             if (world.cage.pocketworld.rooms[this.x-world.cageCorner[0]][this.y-world.cageCorner[1]].corridor){
                 player.move(getTile(player.tile.x - player.lastMove[0],player.tile.y - player.lastMove[1]));

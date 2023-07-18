@@ -281,9 +281,6 @@ function tick(){
     statuses.updateDisplay();
     world.tickMap();
     gameTurns++;
-    if (gameTurns == 100) log.addLog("FaithUFO");
-    else if (gameTurns > 100 && gameTurns%100 == 10) log.addLog("FaithScan");
-    else if (gameTurns > 100 && gameTurns%100 == 20) log.addLog("FaithNoFound");
 }
 
 //let bosstitle = ["-Last of the Saints-","-Supreme Ordered General-","-the Unfaltering Wheel-","-Grand Harmonic Maestra-"];

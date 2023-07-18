@@ -52,7 +52,8 @@ class CageTemplate{
             "Potency" : 0,
         }
         this.buildAxiom();
-        this.pocketworld.confirmWorldFromVault();
+        console.log(this.pocketworld.rooms);
+        //if (!this.pocketworld.rooms) this.pocketworld.confirmWorldFromVault();
         wheel.craftShow.updateDisplay();
         this.pocketworld.influence = {
             "Saintly" : 0,
@@ -568,14 +569,17 @@ class World{
     hypnoDisplay(){
         this.hypnosis = new PIXI.Container();
         new GlitchSprite(this.hypnosis,3);
-        tilesDisplay.notPlayerTiles.addChild(this.hypnosis);
+        tilesDisplay.addChild(this.hypnosis);
         for(let y = 0; y<9;y++){
             for(let x = 0; x<9;x++){
                 if (this.rooms[x][y].tangible){
-                    this.rooms[x][y].displayCon.width = 64;
-                    this.rooms[x][y].displayCon.height = 64;
+                    this.rooms[x][y].hypnoCon.width = 64;
+                    this.rooms[x][y].hypnoCon.height = 64;
+                    this.rooms[x][y].hypnoCon.x = 0;
+                    this.rooms[x][y].hypnoCon.y = 0;
                     //new GlitchSprite(this.rooms[x][y].displayCon,3);
-                    tiles[world.cageCorner[0]+x][world.cageCorner[1]+y].tilecon.addChild(this.rooms[x][y].displayCon);
+                    //
+                    tiles[world.cageCorner[0]+x][world.cageCorner[1]+y].tilecon.addChild(this.rooms[x][y].hypnoCon);
                 }
                 //else if (betweenIncl(x,4-this.cage.size,4+this.cage.size) && betweenIncl(y,4-this.cage.size,4+this.cage.size)) drawPixel("black",x*112,y*112,112,this.hypnosis);
             }
@@ -839,8 +843,7 @@ class World{
     }
 
     appearRoom(spawnl){
-        let room = this.rooms[this.currentroom[0]][this.currentroom[1]];
-        room = world.playSpace;
+        let room = world.playSpace;
         // let spawnhandledflag = false;
         // if (room instanceof BigRoomVoid){
         //     let direction;
@@ -889,6 +892,9 @@ class World{
         }
         let room = this.rooms[this.currentroom[0]][this.currentroom[1]];
         if (room instanceof BigRoomVoid) room = this.handleBigRoom(room,direction[0]);
+
+        room = world.playSpace;
+
         numTiles = room.size;
         tileSize = (9/numTiles)*64;
         tiles = room.tiles;
@@ -998,6 +1004,21 @@ class Room{
                 newSprite.x = i*(112/9);
                 newSprite.y = j*(112/9);
                 this.displayCon.addChild(newSprite);
+                
+                //if (!(this.tiles[i][j] instanceof RealityWall)) drawPixel(checkPixel(this.tiles[i][j]),i*brush,j*brush,14,this.displayCon);
+            }
+        }
+        this.hypnoCon = new PIXI.Container();
+        size = 64;
+        for(let i = 0; i<this.size;i++){
+            for (let j = 0; j<this.size; j++){
+                let hai = this.tiles[i][j].sprite;
+                let newSprite = new FoxSprite(allsprites.textures['sprite'+hai]);
+                newSprite.width = 64/9;
+                newSprite.height = 64/9;
+                newSprite.x = i*(64/9);
+                newSprite.y = j*(64/9);
+                this.hypnoCon.addChild(newSprite);
                 //if (!(this.tiles[i][j] instanceof RealityWall)) drawPixel(checkPixel(this.tiles[i][j]),i*brush,j*brush,14,this.displayCon);
             }
         }

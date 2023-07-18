@@ -63,7 +63,7 @@ function setupPixi(){
     drawPixel("black",(1920-16*16*resolutionSize)/2+(resolutionSize+12)*16,(1080-16*9*resolutionSize)/2,112*9,app.stage); // this is for the zoom in effect
     app.stage.children[app.stage.children.length-1].alpha = 0;
     drawProjectors();
-    world.rooms[4][7] = world.playSpace;
+    //world.rooms[4][7] = world.playSpace;
     world.enterRoom("N");
     wheel.toPaintMode();
     // let rai = new PIXI.filters.ColorOverlayFilter();
@@ -539,7 +539,7 @@ class GlitchSprite {
     }
     
     anim() {
-      if (this.complete) {
+      if (this.complete || this.img.filters.length == 0) {
         this.img.filters = [];
         return;
       }
