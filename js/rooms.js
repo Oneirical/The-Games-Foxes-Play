@@ -478,17 +478,6 @@ var researchpage = {
 //spawns: N - W - E - S
 
 var genstruct = {
-    "Facility1" : {
-        0 : "GHHHGHHHG",
-        1 : "V...V...V",
-        2 : "V...V...V",
-        3 : "V..PBS..V",
-        4 : "V...W...V",
-        5 : "V.......V",
-        6 : "V...G...V",
-        7 : "6e..V...V",
-        8 : "wsHHGHHHG",
-    },
     "Facility" : {
         0 : "GHEHTHEHG",
         1 : "V.V.E.V.V",
@@ -499,6 +488,32 @@ var genstruct = {
         6 : "V...P...V",
         7 : "GHL.N.RHG",
         8 : "....A....",
+        keys: {
+            "G" : EmptyFaith,
+            "E" : EmptyFaith,
+            "P" : PlateGenerator,
+            "B" : SoulCage,
+            "W" : WorldSeed,
+            "." : VoidRoom,
+            "H" : NarrowFaith,
+            "V" : NarrowFaith,
+            "S" : EmptyFaith,
+            "s" : BigRoomVoid,
+            "e" : BigRoomVoid,
+            "w" : BigRoomVoid,
+            "O" : TriangleFaith,
+            "1" : Tele1,
+            "2" : Tele2,
+            "3" : Tele3,
+            "4" : Tele4,
+            "5" : Tele5,
+            "6" : Tele6,
+            "T" : TCross,
+            "A" : SpawnRoom,
+            "N" : AnnounceCorridor,
+            "L" : StareL,
+            "R" : StareR,
+        }
     },
     "Epsilon" : {
         0 : ".G.....TT",
@@ -509,7 +524,28 @@ var genstruct = {
         5 : "V.V.V..V.", // factories produce axioms, research tests to see if they are safe
         6 : "XHMHR..S.", // malfunction room accumulates dangerous specimen
         7 : "V.V.V..CG", // security checkpoints lead into the production sector
-        8 : "WHXHF..G.", // X checkpoints detect harmonic intrusions
+        8 : "WHXHA..G.", // X checkpoints detect harmonic intrusions
+        keys: {
+            W: SoulCage,
+            A: SpawnRoom, //delete
+            V: NarrowFaith,
+            H: NarrowFaith,
+            X: EmptyFaith,
+            F: EmptyFaith,
+            R: EmptyFaith,
+            P: EmptyFaith,
+            G: EmptyFaith,
+            C: EmptyFaith,
+            S: EmptyFaith,
+            Z: EmptyFaith, //zap the scarabs
+            T: EmptyFaith,
+            M: EmptyFaith, //malfunction
+            1: Epsilon1,
+            2: Epsilon2,
+            3: Epsilon3,
+            4: Epsilon4,
+            ".": VoidRoom,
+        }
     }
 }
 
@@ -681,6 +717,54 @@ var rooms = {
         5 : "#.......#",
         6 : "#.......#",
         7 : "#.......#",
+        8 : "####E####",
+        "tags": ["randomgen"],
+    },
+    "Epsilon1" : {
+        0 : "####E####",
+        1 : "#........",
+        2 : "#........",
+        3 : "#........",
+        4 : "E........",
+        5 : "#........",
+        6 : "#........",
+        7 : "#........",
+        8 : "#........",
+        "tags": ["randomgen"],
+    },
+    "Epsilon2" : {
+        0 : "####E####",
+        1 : "........#",
+        2 : "........#",
+        3 : "........#",
+        4 : "........E",
+        5 : "........#",
+        6 : "........#",
+        7 : "........#",
+        8 : "........#",
+        "tags": ["randomgen"],
+    },
+    "Epsilon4" : {
+        0 : "........#",
+        1 : "........#",
+        2 : "........#",
+        3 : "........#",
+        4 : "........E",
+        5 : "........#",
+        6 : "........#",
+        7 : "........#",
+        8 : "####E####",
+        "tags": ["randomgen"],
+    },
+    "Epsilon3" : {
+        0 : "#........",
+        1 : "#........",
+        2 : "#........",
+        3 : "#........",
+        4 : "E........",
+        5 : "#........",
+        6 : "#........",
+        7 : "#........",
         8 : "####E####",
         "tags": ["randomgen"],
     },

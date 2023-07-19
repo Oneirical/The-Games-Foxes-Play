@@ -1,10 +1,3 @@
-const powerRatings = {
-    // "STEP" : -3,
-    // "TURNEND" : -4,
-    // "ATTACK" : -2,
-    // "IGNORECASTER" : -2,
-}
-
 //8ADJ - 4ADJ - RANDOM (up to power) - WALL - ALL - PAYLOAD (summon that unleashes targets on death)
 
 axiomEffects = {

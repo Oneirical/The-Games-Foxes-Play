@@ -595,16 +595,21 @@ class World{
         else this.roompool = [StandardFaith,BloxFaith,EmptyFaith,HideFaith,PipesFaith,TriangleFaith,StarFaith]; //GrandHallFaith,BridgeFaith,HideFaith,PipesFaith,GrandHallFaith,,TriangleFaith,NarrowFaith
     }
 
-    confirmWorldFromVault(){
+    confirmWorldFromVault(vault){
+        if (!vault) vault = "Epsilon";
         this.rooms = [];
         for(let i=0;i<9;i++){
             this.rooms[i] = [];
             for(let j=0;j<9;j++){
                 let flip = false;
-                let roomType = keyroom[genstruct["Facility"][j][i]];
-                if (genstruct["Facility"][j][i] == "H") flip = true;
-                if (!"wes".includes(genstruct["Facility"][j][i])) this.rooms[i][j] = new roomType([i,j]);
-                else this.rooms[i][j] = new roomType([i,j],genstruct["Facility"][j][i]);
+                let roomType;
+                if (genstruct[vault]["keys"]) roomType = genstruct[vault]["keys"][genstruct[vault][j][i]];
+                else roomType = keyroom[genstruct[vault][j][i]];
+                if (genstruct[vault][j][i] == "H") flip = true;
+                try{
+                    this.rooms[i][j] = new roomType([i,j]);
+                }
+                catch (err) {throw new Error("Unknown room glyph: "+ genstruct[vault][j][i])}
                 if (flip) flipRoom(this.rooms[i][j].id,this.rooms[i][j].size,0);
                 this.rooms[i][j].setUp();
                 this.rooms[i][j].insertRoom(this.depth);
@@ -1452,6 +1457,34 @@ class Tele6 extends DefaultVaultRoom{
     constructor(index){
         super(index);
         this.id = "Tele6";
+    }
+}
+
+class Epsilon1 extends DefaultVaultRoom{
+    constructor(index){
+        super(index);
+        this.id = "Epsilon1";
+    }
+}
+
+class Epsilon2 extends DefaultVaultRoom{
+    constructor(index){
+        super(index);
+        this.id = "Epsilon2";
+    }
+}
+
+class Epsilon3 extends DefaultVaultRoom{
+    constructor(index){
+        super(index);
+        this.id = "Epsilon3";
+    }
+}
+
+class Epsilon4 extends DefaultVaultRoom{
+    constructor(index){
+        super(index);
+        this.id = "Epsilon4";
     }
 }
 
