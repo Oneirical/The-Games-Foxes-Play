@@ -52,8 +52,7 @@ class CageTemplate{
             "Potency" : 0,
         }
         this.buildAxiom();
-        console.log(this.pocketworld.rooms);
-        //if (!this.pocketworld.rooms) this.pocketworld.confirmWorldFromVault();
+        this.pocketworld.confirmWorldFromVault("Epsilon");
         wheel.craftShow.updateDisplay();
         this.pocketworld.influence = {
             "Saintly" : 0,
@@ -596,7 +595,7 @@ class World{
     }
 
     confirmWorldFromVault(vault){
-        if (!vault) vault = "Epsilon";
+        if (!vault) vault = "Facility";
         this.rooms = [];
         for(let i=0;i<9;i++){
             this.rooms[i] = [];

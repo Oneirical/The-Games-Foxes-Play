@@ -3,17 +3,12 @@
 * Add Form grid (range targeters) images in their descriptions for clarity
 * A better ui for descriptions, with definitions for each keyword like 'exhale' or 'targets' or the status effects, StS style
 
-* Lowest Scope Roadmap
-
-- BREAK the herald
-- MAKE a cool world
-- CLAP everything in there
-- RETURN upwards
-- MAKE Axioms
-- GET broken op stuff
-- CHALLENGE Epsilon to a heroic duel
-
-- make the zoom up work
+Saintly: 
+Ordered: the factory tests and crafts random axioms
+Artistic:
+Unhinged: aggressive squads outright raid other planes to get axioms
+Feral: the forest causes extreme battle royales to find the best axiom
+Vile: there is no passive progress, the player is challenged with the lure of gain to get their axioms
 
 **Status Effects**
 

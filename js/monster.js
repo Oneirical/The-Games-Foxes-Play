@@ -142,7 +142,7 @@ class Monster{
                         tilesDisplay.projectorDisplay.y = -448;
                         tilesDisplay.creatureDisplay.x = -448;
                         tilesDisplay.creatureDisplay.y = -448;
-                        if (!universe.zooming && this.tile instanceof CageContainer && world.cage.slots[this.tile.x-world.cageCorner[0]][this.tile.y-world.cageCorner[1]].id != "EMPTY") universe.passDown(0, this.tile.x, this.tile.y);
+                        if (!universe.zooming && this.tile instanceof CageContainer && world.cage.slots[this.tile.x-world.cageCorner[0]][this.tile.y-world.cageCorner[1]].id != "EMPTY") universe.passDown(1, this.tile.x, this.tile.y);
                     }
                 }
                 else if (!player.animating){
