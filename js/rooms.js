@@ -499,8 +499,21 @@ var genstruct = {
         6 : "V...P...V",
         7 : "GHL.N.RHG",
         8 : "....A....",
+    },
+    "Epsilon" : {
+        0 : ".G.....TT",
+        1 : "GCSHZH12T", // epsilon in top right, consumes the treadmill scarabs
+        2 : "....V.34.",
+        3 : "....V..V.",
+        4 : "FHRHPHHZ.", //"hacker" at the centre
+        5 : "V.V.V..V.", // factories produce axioms, research tests to see if they are safe
+        6 : "XHMHR..S.", // malfunction room accumulates dangerous specimen
+        7 : "V.V.V..CG", // security checkpoints lead into the production sector
+        8 : "WHXHF..G.", // X checkpoints detect harmonic intrusions
     }
 }
+
+// anisychia should be natural selection
 
 var creaturespawn = {
     "Basic" : {
