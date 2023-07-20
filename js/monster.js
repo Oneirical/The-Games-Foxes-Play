@@ -1739,6 +1739,15 @@ class Psydrone extends Monster{
     }
 }
 
+class Scarab extends Monster{
+    constructor(tile){
+        super(tile, 76, 1, "ORDERED", description["Scarab"]);
+        this.name = "Plated Thought-Ferry";
+        this.paralyzed = true;
+        this.assignAxiom(["TURNEND",new Identifer("Dir","N"),"MOVE"],"ORDERED",1);
+    }
+}
+
 class Exploder extends Monster{
     constructor(tile){
         super(tile, 77, 1, "NOTHING", description["Exploder"]);

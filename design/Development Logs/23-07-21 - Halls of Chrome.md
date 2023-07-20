@@ -5,7 +5,7 @@
 ## The Games Foxes Play
 *([complete source code](https://github.com/Oneirical/The-Games-Foxes-Play) - [mirror](https://codeberg.org/Oneirical/The-Games-Foxes-Play) | [view all previous posts](https://github.com/Oneirical/The-Games-Foxes-Play/tree/main/design/Development%20Logs) | [play 0.4.3 online in browser on itch.io!](https://oneirical.itch.io/tgfp))*
 
-I am reaching the negative side of the perfect sine function that characterizes my level of discipline in regards to this project in relation to time since I started. I would like to take a moment to equally celebrate and blame the hard work of the DCSS developers for making their latest "Talisman" rework way too awesome and siphoning away the limited free time I can afford to spend in front of a screen.
+I am reaching the negative side of the perfect sine function that characterizes my level of discipline in relation to time since I started. I would like to take a moment to equally celebrate and blame the hard work of the DCSS developers for making their latest "Talisman" rework way too awesome and siphoning away the limited free time I can afford to spend in front of a screen.
 
 That being said, I have done a few things.
 

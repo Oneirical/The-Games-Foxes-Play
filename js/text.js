@@ -872,6 +872,7 @@ researchnames = {
     "BLINK" : "Places on a Map, Pawns on a Board",
     "PLUSCROSS" : "",
     "SPREAD" : "",
+    "DIRID" : "Four Ways, Yet All Paths Converge",
 
     "RANDOM" : "Erratic Pulse of Prey's Hearts",
 }
@@ -943,6 +944,7 @@ researchlore = {
     "TRAIL" : "As Saints turned the impossible to the always-has-been with each new desire, Old World historians struggled to trace back each ruin, each monument and each ideology to its origin. In the end, they accepted that time is not a line, nor a circle, but a tangled knot of pure chaos.",
     "IGNORECASTER" : "As the Vile found out, the simplest way to exclude oneself from a rule was to be the one to write it. All it took was a couple of souls who loved the feeling of subservience, and the gears of oppression had already started to turn.", //I wonder what they would think of the Harmony today
     "BLINK" : "As primitive as they were, the Feral quickly learned that choosing the pocket of spacetime their body would occupy bore some strategical importance. Perhaps, if one moves fast enough, one can blitz past thought itself, and live free of influence?",
+    "DIRID" : "A being may always trade some Time to modify their Space... But what purpose does it serve, if said being will inevitably return to the same Space, without regaining any lost Time? Perhaps the Vile were correct in petrifying their own bodies.",
 
 }
 
@@ -1067,6 +1069,7 @@ researchflags = {
     "ONDEATH" : "Contingency",
     "SUMMFELIDOL" : "Function",
     "DEATHCLICK" : "Mutator",
+    "DIRID" : "Identifier",
 }
 
 researchexpl = {
@@ -1136,6 +1139,7 @@ researchexpl = {
     "EPHEMERAL" : "[k]Mutator[w]: If this Axiom would apply a status effect, the effect duration becomes 1, no matter the [g]Potency[w].",
     "IGNORECASTER" : "[k]Mutator[w]: If the Caster of this Axiom stands on a Target, remove that Target.",
     "BLINK" : "Function: All Targeted Entities blink a distance of Potency x 2 tiles in the Direction given to them by their Target.",
+    "DIRID" : "Identifier: Can store one cardinal Direction - North, South, West or East."
 
 }
 
