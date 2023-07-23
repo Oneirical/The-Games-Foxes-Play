@@ -246,15 +246,15 @@ class Universe{
     handleDescent(layer, spawnx, spawny){
         
         uiDisplayLeft.removeChild(world.displayCon);
-        if (this.worlds[layer].rooms[spawnx-world.cageCorner[0]][spawny-world.cageCorner[1]].corridor){
-            shakeAmount = 5;
-            return;
-        }
+        // if (this.worlds[layer].rooms[spawnx-world.cageCorner[0]][spawny-world.cageCorner[1]].corridor){
+        //     shakeAmount = 5;
+        //     return;
+        // }
         level = 0;
         player.tile.monster = null;
         world.saveRoom(world.getRoom());
         this.worlds[layer-1] = world;
-        let spawnCoords = [spawnx-world.cageCorner[0], spawny-world.cageCorner[1]];
+        let spawnCoords = [spawnx, spawny];
         world = this.worlds[layer];
         world.currentroom = spawnCoords;
         let locspawn;
@@ -262,7 +262,7 @@ class Universe{
         else if (player.lastMove[0] == 1) locspawn = [1,4];
         else if (player.lastMove[1] == 1) locspawn = [4,1];
         else locspawn = [4,7];
-        world.appearRoom([player.tile.x-world.cageCorner[0],player.tile.y-world.cageCorner[1]]);
+        world.appearRoom([spawnx,spawny]);
         if(!world.getRoom().hostile) summonExits();
         for(let i=0;i<wheel.wheel.length;i++){
             if (wheel.wheel[i].turbulent){
@@ -438,7 +438,8 @@ class EmptyWorld{
 class World{
     constructor(depth){
         this.depth = depth;
-        this.cageCorner = [36,25];
+        this.cageCorner = [35,44];
+        this.cageLocation = [4,4];
         this.roompool = [];
         this.isAccessible = false;
         this.finishedspread = false;
@@ -569,19 +570,23 @@ class World{
         this.hypnosis = new PIXI.Container();
         new GlitchSprite(this.hypnosis,3);
         tilesDisplay.addChild(this.hypnosis);
-        for(let y = 0; y<9;y++){
-            for(let x = 0; x<9;x++){
+        let xindic = 4;
+        let yindic = 4;
+        for(let y = this.cageLocation[1]-1; y<this.cageLocation[1]+2;y++){
+            for(let x = this.cageLocation[0]-1; x<this.cageLocation[0]+2;x++){
+                drawPixel("black",0,0,64,tiles[world.cageCorner[0]+xindic][world.cageCorner[1]+yindic].tilecon);
                 if (this.rooms[x][y].tangible){
                     this.rooms[x][y].hypnoCon.width = 64;
                     this.rooms[x][y].hypnoCon.height = 64;
                     this.rooms[x][y].hypnoCon.x = 0;
                     this.rooms[x][y].hypnoCon.y = 0;
-                    //new GlitchSprite(this.rooms[x][y].displayCon,3);
-                    //
-                    tiles[world.cageCorner[0]+x][world.cageCorner[1]+y].tilecon.addChild(this.rooms[x][y].hypnoCon);
+                    tiles[world.cageCorner[0]+xindic][world.cageCorner[1]+yindic].tilecon.addChild(this.rooms[x][y].hypnoCon);                    
                 }
+                xindic++;
                 //else if (betweenIncl(x,4-this.cage.size,4+this.cage.size) && betweenIncl(y,4-this.cage.size,4+this.cage.size)) drawPixel("black",x*112,y*112,112,this.hypnosis);
             }
+            yindic++;
+            xindic = 4;
         }
     }
 
@@ -596,6 +601,10 @@ class World{
 
     confirmWorldFromVault(vault){
         if (!vault) vault = "Facility";
+        if (vault == "Epsilon"){
+            this.cageLocation = [2,6];
+            this.cageCorner = [this.cageLocation[0]*9,this.cageLocation[1]*9];
+        }
         this.rooms = [];
         for(let i=0;i<9;i++){
             this.rooms[i] = [];
@@ -1536,7 +1545,7 @@ class PlateGenerator extends DefaultVaultRoom{
 class SoulCage extends DefaultVaultRoom{
     constructor(index){
         super(index);
-        this.id = "Cage1";
+        this.id = "Cage2";
         this.name = "Soul Cage";
         this.cataloguedis;
         this.currentcat;

@@ -481,10 +481,10 @@ var genstruct = {
     "Facility" : {
         0 : "GHEHTHEHG",
         1 : "V.V.E.V.V",
-        2 : "V.V123V.V",
-        3 : "V.E456E.V",
+        2 : "V.V...V.V",
+        3 : "V.E.G.E.V",
         4 : "V...V...V",
-        5 : "EHL.G.RHE",
+        5 : "EHL.B.RHE",
         6 : "V...P...V",
         7 : "GHL.N.RHG",
         8 : "....A....",
@@ -522,7 +522,7 @@ var genstruct = {
         3 : "....V..V.",
         4 : "FHRHPHHZ.", //"hacker" at the centre
         5 : "V.V.V..V.", // factories produce axioms, research tests to see if they are safe
-        6 : "XHMHR..S.", // malfunction room accumulates dangerous specimen
+        6 : "XHWHR..S.", // malfunction room accumulates dangerous specimen
         7 : "V.V.V..CG", // security checkpoints lead into the production sector
         8 : "WHXHA..G.", // X checkpoints detect harmonic intrusions
         keys: {
@@ -806,13 +806,13 @@ var rooms = {
     },
     "Cage1" : {
         0 : "####E####",
-        1 : "#.......#",
-        2 : "#.......#",
-        3 : "#...n...#",
-        4 : "E..woe..E",
-        5 : "#...s...#",
-        6 : "#.......#",
-        7 : "#.......#",
+        1 : "#.nnnnn.#",
+        2 : "#woooooe#",
+        3 : "#woooooe#",
+        4 : "EwoooooeE",
+        5 : "#woooooe#",
+        6 : "#woooooe#",
+        7 : "#.sssss.#",
         8 : "####E####",
         "tags": ["randomgen"],
     },
