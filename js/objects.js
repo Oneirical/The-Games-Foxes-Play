@@ -1,3 +1,10 @@
+class Identifer{
+    constructor(type, contents){
+        this.contents = contents;
+        this.type = type;
+    }
+}
+
 class ClickTrap{
     constructor(tile,lifetime,data){
         this.praxes = [];
