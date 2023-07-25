@@ -300,7 +300,6 @@ function startGame(){
     universe = new Universe();
     log = new MessageLog();
     universe.start(startingHp);
-    world.cage.equateWorld();
     gameState = "running";
     player.grantStarters();
 }

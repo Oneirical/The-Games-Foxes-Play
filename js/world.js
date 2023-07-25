@@ -17,11 +17,6 @@ class CageTemplate{
         this.displayon = false;
     }
 
-    equateWorld(){
-        universe.worlds[1] = new World(1);
-        this.pocketworld = universe.worlds[1];
-    }
-
     getNeighbor(x,y, dx, dy){
         let ret = this.slots[x+dx];
         if (!ret) return "Any";
@@ -45,6 +40,8 @@ class CageTemplate{
     }
 
     generateWorld(){
+        if (universe.currentworld == 1) this.pocketworld = universe.worlds[0];
+        else this.pocketworld = universe.worlds[1];
         this.displayon = true;
         this.pocketworld.reward = {
             "Sequence" : [],
@@ -52,7 +49,7 @@ class CageTemplate{
             "Potency" : 0,
         }
         this.buildAxiom();
-        this.pocketworld.confirmWorldFromVault("Epsilon");
+        //this.pocketworld.confirmWorldFromVault("Epsilon");
         wheel.craftShow.updateDisplay();
         this.pocketworld.influence = {
             "Saintly" : 0,
@@ -200,10 +197,12 @@ class Universe{
         tiles = [];
         monsters = [];
         this.worlds[0] = new World(0);
+        this.worlds[1] = new World(1);
         this.currentworld = 0;
         world = this.worlds[this.currentworld];
         world.layer = 0;
         world.confirmWorldFromVault();
+        this.worlds[1].confirmWorldFromVault("Epsilon");
         world.currentroom = [4,8];
         world.tranquil = true;
         world.playRoom(world.rooms[4][8],startingHp);
@@ -438,8 +437,8 @@ class EmptyWorld{
 class World{
     constructor(depth){
         this.depth = depth;
-        this.cageCorner = [35,44];
-        this.cageLocation = [4,4];
+        this.cageCorner;
+        this.cageLocation = [4,5];
         this.roompool = [];
         this.isAccessible = false;
         this.finishedspread = false;
@@ -570,8 +569,8 @@ class World{
         this.hypnosis = new PIXI.Container();
         new GlitchSprite(this.hypnosis,3);
         tilesDisplay.addChild(this.hypnosis);
-        let xindic = 4;
-        let yindic = 4;
+        let xindic = 3;
+        let yindic = 3;
         for(let y = this.cageLocation[1]-1; y<this.cageLocation[1]+2;y++){
             for(let x = this.cageLocation[0]-1; x<this.cageLocation[0]+2;x++){
                 drawPixel("black",0,0,64,tiles[world.cageCorner[0]+xindic][world.cageCorner[1]+yindic].tilecon);
@@ -586,7 +585,7 @@ class World{
                 //else if (betweenIncl(x,4-this.cage.size,4+this.cage.size) && betweenIncl(y,4-this.cage.size,4+this.cage.size)) drawPixel("black",x*112,y*112,112,this.hypnosis);
             }
             yindic++;
-            xindic = 4;
+            xindic = 3;
         }
     }
 
@@ -603,8 +602,8 @@ class World{
         if (!vault) vault = "Facility";
         if (vault == "Epsilon"){
             this.cageLocation = [2,6];
-            this.cageCorner = [this.cageLocation[0]*9,this.cageLocation[1]*9];
         }
+        this.cageCorner = [this.cageLocation[0]*9,this.cageLocation[1]*9];
         this.rooms = [];
         for(let i=0;i<9;i++){
             this.rooms[i] = [];
@@ -852,7 +851,6 @@ class World{
         monsters = [];
         let pkeys = Object.keys(player);
         for (let i of pkeys) pdata[i] = player[i];
-        room.exitRoom();
     }
 
     appearRoom(spawnl){
@@ -998,10 +996,6 @@ class Room{
         }
         this.visited = false;
         this.layer;
-    }
-
-    exitRoom(){
-        //placeholder
     }
 
     setUpSprites(){
@@ -1559,10 +1553,6 @@ class SoulCage extends DefaultVaultRoom{
             }
         }
         wheel.toPaintMode();
-    }
-
-    exitRoom(){
-        wheel.toNormalMode();
     }
 }
 

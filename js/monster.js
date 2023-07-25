@@ -144,7 +144,7 @@ class Monster{
                         tilesDisplay.creatureDisplay.y = -448;
                         let destination = 1;
                         if (universe.currentworld == 1) destination = 0;
-                        if (!universe.zooming && this.tile instanceof CageContainer && world.cage.slots[this.tile.x-world.cageCorner[0]][this.tile.y-world.cageCorner[1]].id != "EMPTY") universe.passDown(destination, world.cage.pocketworld.cageLocation[0], world.cage.pocketworld.cageLocation[1]);
+                        if (!universe.zooming && this.tile instanceof CageContainer &&  this.tile.x == world.cageCorner[0] + 4 && this.tile.y == world.cageCorner[1] + 4) universe.passDown(destination, world.cage.pocketworld.cageLocation[0], world.cage.pocketworld.cageLocation[1]);
                     }
                 }
                 else if (!player.animating){
