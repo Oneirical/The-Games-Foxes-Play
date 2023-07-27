@@ -1077,6 +1077,27 @@ class SoulBreathing{
             this.wheelCon.children[i].on('click', (event) => {
                 this.selectCan(i);
             });
+            this.wheelCon.children[i].on('pointerover', (event) => {
+                if (this.teleMode){
+                    this.destinationText.text = areaNames[i];
+                    const areaStyles = {
+                        1: "lime",
+                        2: "orangered",
+                        3: "orange",
+                        4: "yellow",
+                        5: "yellowgreen",
+                        6: "plum",
+                        7: "cyan",
+                    }
+                    this.destinationText.style.fill = areaStyles[i];
+                }
+            });
+            this.wheelCon.children[i].on('pointerout', (event) => {
+                if (this.teleMode){
+                    this.destinationText.text = areaNames["Select"];
+                    this.destinationText.style.fill = "white";
+                }
+            });
             newSprite.paintCan = new PIXI.Container();
             newSprite.paintCan.eventMode = 'none';
             newSprite.paintCan.x = newSprite.x-22;
@@ -1093,6 +1114,7 @@ class SoulBreathing{
     }
 
     toPaintMode(){
+        this.displayCon.removeChild(this.destinationText);
         this.inPaint = true;
         this.catalogue = new CatalogueDisplay();
         this.craftShow = new CraftingDisplay();
@@ -1126,22 +1148,24 @@ class SoulBreathing{
         }
     }
 
-    toSummonMode(){
-        this.summonMode = true;
-        for (let i = 0; i< 8;  i++){
-            let hai = {
-                0 : 0,
-                1 : 8,
-                2 : 29,
-                3 : 41,
-                4 : 5,
-                5 : 70,
-                6 : 49,
-                7 : 2,
-            };
-            this.wheelCon.children[i].texture = allsprites.textures['sprite'+hai[i]];
+    toTeleMode(){
+        this.teleMode = true;
+        for (let i = 1; i< 8;  i++){
+            if (i == 7) this.wheelCon.children[i].texture = allsprites.textures['sprite'+26];
+            else this.wheelCon.children[i].texture = allsprites.textures['icon'+(i-1)];
             this.wheelCon.children[i].alpha = 0.5;
+            this.wheelCon.children[i].paintCan.visible = false;
         }
+        const style = new PIXI.TextStyle({
+            fontFamily: 'Play',
+            fontSize: 18,
+            fill: "white",
+        });
+        this.destinationText = new PIXI.Text(areaNames["Select"],style);
+        this.destinationText.anchor.set(0.5);
+        this.destinationText.x = 220;
+        this.destinationText.y = 400;
+        this.displayCon.addChild(this.destinationText);
     }
 
     selectCan(i){
@@ -1150,7 +1174,7 @@ class SoulBreathing{
                 s.trspeed = 2;
                 s.alpha = 0.5;
             }
-            if (this.selectedCan != 0) this.wheelCon.children[this.selectedCan].alpha = 0.25;
+            if (this.selectedCan != 0 && !this.teleMode) this.wheelCon.children[this.selectedCan].alpha = 0.25;
             else this.wheelCon.children[this.selectedCan].alpha = 0.5;
         }
         if (i == this.selectedCan){
@@ -1158,11 +1182,16 @@ class SoulBreathing{
             return;
         }
         this.selectedCan = i;
-        if (this.selectedCan != 0) this.wheelCon.children[i].alpha = 0.5;
+        if (this.selectedCan != 0 && !this.teleMode) this.wheelCon.children[i].alpha = 0.5;
         else this.wheelCon.children[i].alpha = 1;
         for (let s of this.wheelCon.children[i].paintCan.children){
             s.trspeed = 5;
             s.alpha = 0.8;
+        }
+        if (this.teleMode){
+            world.cage.generateWorld()
+            world.cage.pocketworld.hypnoDisplay();
+            player.move(getTile(world.cageCorner[0]+4,world.cageCorner[1]+4))
         }
     }
 

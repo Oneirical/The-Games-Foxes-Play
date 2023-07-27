@@ -51,9 +51,7 @@ class Tile{
             this.hitBox.alpha = 0.4;
         });
         this.spriteDisplay.on('pointerdown', (event) => {
-            if (wheel.summonMode){
-                if (between(wheel.selectedCan,0,6)) summonMonster(this.x,this.y,research.monsterpool[wheel.selectedCan+1])
-            }
+
         });
         this.spriteDisplay.on('pointerout', (event) => {
             this.hitBox.alpha = 0;
@@ -938,6 +936,11 @@ class CageWall extends Floor{
         else if (this.direction == "n") this.sprite += 1;
         else if (this.direction == "s") this.sprite -= 1;
     };
+    stepOn(monster){
+        if (monster.isPlayer){
+            wheel.toPaintMode();
+        }
+    }
 }
 
 class FloorSoul extends Floor{ //unused
@@ -997,13 +1000,8 @@ class CageContainer extends Altar{
 
     stepOn(monster){
         super.stepOn(monster);
-        return;
-        if(monster.isPlayer && world.cage.displayon){
-            if (world.cage.pocketworld.rooms[this.x-world.cageCorner[0]][this.y-world.cageCorner[1]].corridor){
-                player.move(getTile(player.tile.x - player.lastMove[0],player.tile.y - player.lastMove[1]));
-                player.offsetX = 0;
-                player.offsetY = 0;
-            } 
+        if(monster.isPlayer){
+            wheel.toTeleMode();
         }
     }
 

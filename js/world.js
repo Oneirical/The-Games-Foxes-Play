@@ -1026,7 +1026,7 @@ class Room{
         this.creatures = "";
         this.vault = true;
         this.name = "Bugtopia";
-        this.filler = NoBreakWall;
+        this.filler = BAscendExit;
         this.vault = false;
         this.extreme = {
             "N" : 0,

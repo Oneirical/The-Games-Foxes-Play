@@ -443,6 +443,17 @@ colours = {
     "NONE" : "cyan",
 }
 
+const areaNames = {
+    "7" : "Harmonic Containment Chambers",
+    "1" : "The Last Saint's Gardens",
+    "2" : "Industrial Apex",
+    "3" : "Space Between Worlds",
+    "4" : "Pit of Needles",
+    "5" : "Crimson Forest",
+    "6" : "Jade Vaults",    
+    "Select" : "Select a destination..."
+}
+
 description = {
     // Creatures
     "Terminal" : "An artificial deity, kept captive in the Faith's End facility in prevision for the cataclysm prophetized to shatter reality. Until this moment, the Vessel waited. He engraved sigils into the metal with his claws, trying to imagine what the outside world even looks like. He ripped out chunks of steel in fits of rage, with only the inflexible silence answering his pleas for annihilation.",

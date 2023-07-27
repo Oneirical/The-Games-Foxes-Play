@@ -299,8 +299,7 @@ function tickProjectors(){
 }
 
 function drawTiles(){
-    tileSize = 96*2/3;
-
+    tileSize = 64;
     for (let r of universe.worlds){
         for(let i=0;i<numTiles;i++){
             for(let j=0;j<numTiles;j++){
