@@ -1745,8 +1745,14 @@ class Scarab extends Monster{
     constructor(tile){
         super(tile, 76, 1, "ORDERED", description["Scarab"]);
         this.name = "Plated Thought-Ferry";
-        this.paralyzed = true;
-        this.assignAxiom(["TURNEND",new Identifer("Dir","N"),"MOVE"],"ORDERED",1);
+        //this.paralyzed = true;
+        //this.assignAxiom(["TURNEND",new Identifer("Dir","N"),"MOVE"],"ORDERED",1);
+    }
+    doStuff(){
+        let path = astair(this.tile,player.tile);
+        if(path.length == 0) return;
+        let dir = [path[0].x-this.tile.x,path[0].y-this.tile.y];
+        this.tryMove(dir[0],dir[1]);
     }
 }
 

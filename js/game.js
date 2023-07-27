@@ -320,6 +320,29 @@ function playerTransformTest(type){
     player.setUpSprite();
 }
 
+function astair(start,dest){
+    let graph = [];
+    for (let i =0; i<numTiles; i++){
+        graph[i] = [];
+        for (let j = 0; j<numTiles; j++){
+            if (tiles[i][j] == start || tiles[i][j] == dest || (tiles[i][j].passable && tiles[i][j].monster == null)) graph[i][j] = 1;
+            else graph[i][j] = 0;
+            //complete astar and credit mit
+        }
+    }
+    console.log(graph);
+    pathfind = new Graph(graph);
+    let beg = pathfind.grid[start.x][start.y];
+    let end = pathfind.grid[dest.x][dest.y];
+    let result = astar.search(pathfind, beg, end);
+    let foundTiles = [];
+    for (let i of result){
+        foundTiles.push(tiles[i.x][i.y]);
+    }
+    console.log(foundTiles);
+    return foundTiles;
+}
+
 function unlockAllSpells(){
     for (let i of Object.keys(spellpatterns)){
         research.knownSpells.push(i);
