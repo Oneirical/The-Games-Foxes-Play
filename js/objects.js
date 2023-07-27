@@ -1,4 +1,4 @@
-class Identifer{
+class Form{
     constructor(type, contents){
         this.contents = contents;
         this.type = type;

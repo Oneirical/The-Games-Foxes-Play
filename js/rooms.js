@@ -477,6 +477,20 @@ var researchpage = {
 
 //spawns: N - W - E - S
 
+const logicMaps = {
+    "Terminal" : {
+        0 : "WNMT....A",
+        1 : "........W",
+        2 : "D.......M",
+        3 : "E.......T",
+        4 : "M........",
+        5 : "T.......S",
+        6 : "........S",
+        7 : "........M",
+        8 : "AEH1....T", //attacked ego harmself
+    }
+}
+
 var genstruct = {
     "Facility" : {
         0 : "GHEHTHEHG",
