@@ -1026,7 +1026,7 @@ class Room{
         this.creatures = "";
         this.vault = true;
         this.name = "Bugtopia";
-        this.filler = BAscendExit;
+        this.filler = NoBreakWall;
         this.vault = false;
         this.extreme = {
             "N" : 0,
@@ -1206,6 +1206,7 @@ class DefaultVaultRoom extends Room{
             this.tiles[i] = [];
             for(let j=0;j<this.size;j++){
                 let tile = keytile[vault[j][i]];
+                if (depth == 1 && (tile == Wall || tile == NoBreakWall)) tile = RoseWall;
                 if ("nswe".includes(vault[j][i])){
                     let dir;
                     dir = vault[j][i];
