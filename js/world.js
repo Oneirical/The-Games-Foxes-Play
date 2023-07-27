@@ -202,7 +202,7 @@ class Universe{
         world = this.worlds[this.currentworld];
         world.layer = 0;
         world.confirmWorldFromVault();
-        this.worlds[1].confirmWorldFromVault("Epsilon");
+        this.worlds[1].confirmWorld();
         world.currentroom = [4,8];
         world.tranquil = true;
         world.playRoom(world.rooms[4][8],startingHp);
@@ -658,15 +658,15 @@ class World{
     }
 
     confirmWorld(){
-        //tryTo('generate a world', function(){
-            //return world.generateWorld() == randomPassableRoom().getConnectedRooms().length;
-        //});
+        tryTo('generate a world', function(){
+            return world.generateWorld() == randomPassableRoom().getConnectedRooms().length;
+        });
 
-        if (world.generateCage() != randomPassableRoom().getConnectedRooms().length){
-            //log.addLog("WrongCageError");
-            world.cage.displayon = false;
-            return;
-        }
+        // if (world.generateCage() != randomPassableRoom().getConnectedRooms().length){
+        //     //log.addLog("WrongCageError");
+        //     world.cage.displayon = false;
+        //     return;
+        // }
 
         this.rooms = [];
         this.selectRooms();
@@ -674,20 +674,30 @@ class World{
         for(let i=0;i<9;i++){
             this.rooms[i] = [];
             for(let j=0;j<9;j++){
-                if (worldgen[i][j] instanceof RealityWall) this.rooms[i][j] = new BigRoomVoid([i,j],worldgen[i][j].quadrant);
-                else if (worldgen[i][j].passable){
+                if (worldgen[i][j].passable || worldgen[i][j] instanceof RealityWall){
                     let roomType;
                     let flip = false;
                     let corridor = false;
                     let bannedsquares = [];
+                    if (worldgen[i][j] instanceof RealityWall){
+                        switch (worldgen[i][j].quadrant){
+                            case "e":
+                                roomType = Epsilon2;
+                                break;
+                            case "w":
+                                roomType = Epsilon3;
+                                break;
+                            case "s":
+                                roomType = Epsilon4;
+                                break;
+                        }
+                        
+                    }
                     //if ((j == 8 && i == 4) || (j == 4 && i == 8) ||(j == 0 && i == 4) ||(j == 4 && i == 0)) roomType = EmptyFaith;
                     //else if (j == 4 && i == 4) roomType = PlateGenerator;
-                    if (j < 8 && i < 8 && worldgen[i+1][j].passable && worldgen[i][j+1].passable && worldgen[i+1][j+1].passable && !isArrayInArray(bannedsquares,[i+1,j]) && !isArrayInArray(bannedsquares,[i+1,j+1]) && !isArrayInArray(bannedsquares,[i,j+1])){
-                        if (!placedboss){
-                            roomType = EpsilonArena;
-                            placedboss = true; // temporary
-                        }
-                        else roomType = shuffle([RogueFaith,GrandHallFaith])[0];
+                    else if (j < 8 && i < 8 && worldgen[i+1][j].passable && worldgen[i][j+1].passable && worldgen[i+1][j+1].passable){
+                        roomType = Epsilon1;
+                        placedboss = true;
                         worldgen[i+1][j] = new RealityWall(i+1,j,"e");
                         worldgen[i][j+1] = new RealityWall(i,j+1,"w");
                         worldgen[i+1][j+1] = new RealityWall(i+1,j+1,"s");
