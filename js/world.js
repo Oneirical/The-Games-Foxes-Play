@@ -661,6 +661,24 @@ class World{
         this.playSpace = new HugeMap([0,0],this);
     }
 
+    blessRooms(){
+        tryTo('bless rooms', function(){
+            let coords = [randomRange(0,8),randomRange(0,8)];
+            let success;
+            if (worldgen[coords[0]][coords[1]].name.includes("Floor")){
+                success = coords;
+                coords = [randomRange(0,7),randomRange(0,7)];
+                if (worldgen[coords[0]][coords[1]].name.includes("Floor")){
+                    worldgen[success[0]][success[1]] = new CageWall(success[0],success[1]);
+                    worldgen[coords[0]][coords[1]] = new CageContainer(coords[0],coords[1]);
+                    return true;
+                }
+                else return false;
+            }
+            else return false;
+        });
+    }
+
     confirmWorld(){
         tryTo('generate a world', function(){
             return world.generateWorld() == randomPassableRoom().getConnectedRooms().length;
@@ -674,6 +692,7 @@ class World{
 
         this.rooms = [];
         this.selectRooms();
+        this.blessRooms();
         let placedboss = false;
         let placedcage = false;
         for(let i=0;i<9;i++){
@@ -683,7 +702,6 @@ class World{
                     let roomType;
                     let flip = false;
                     let corridor = false;
-                    let bannedsquares = [];
                     if (worldgen[i][j] instanceof RealityWall){
                         switch (worldgen[i][j].quadrant){
                             case "e":
@@ -700,12 +718,18 @@ class World{
                     }
                     //if ((j == 8 && i == 4) || (j == 4 && i == 8) ||(j == 0 && i == 4) ||(j == 4 && i == 0)) roomType = EmptyFaith;
                     //else if (j == 4 && i == 4) roomType = PlateGenerator;
-                    else if (j < 8 && i < 8 && worldgen[i+1][j].passable && worldgen[i][j+1].passable && worldgen[i+1][j+1].passable && !placedboss){
+                    else if (worldgen[i][j] instanceof CageContainer){
                         roomType = Epsilon1;
                         placedboss = true;
                         worldgen[i+1][j] = new RealityWall(i+1,j,"e");
                         worldgen[i][j+1] = new RealityWall(i,j+1,"w");
                         worldgen[i+1][j+1] = new RealityWall(i+1,j+1,"s");
+                    }
+                    else if (worldgen[i][j] instanceof CageWall){
+                        roomType = SoulCage;
+                        placedcage = true;
+                        this.cageLocation = [i,j];
+                        this.cageCorner = [this.cageLocation[0]*9,this.cageLocation[1]*9];
                     }
                     else if (j < 8 && j > 0 && worldgen[i][j+1].passable && worldgen[i][j-1].passable){
                         if ((i == 8 || !worldgen[i+1][j].passable) && (i == 0 || !worldgen[i-1][j].passable)){
@@ -727,12 +751,6 @@ class World{
                     //else if (Math.random() < 0.3 && (i+1 == 9 || !worldgen[i+1][j].passable) + (i-1 == -1 || !worldgen[i-1][j].passable) + (j+1 == 9 || !worldgen[i][j+1].passable) + (j-1 == -1 || !worldgen[i][j-1].passable == 3)){
                     //    roomType = HarmonyRelay;
                     //}
-                    else if (!placedcage){
-                        roomType = SoulCage;
-                        placedcage = true;
-                        this.cageLocation = [i,j];
-                        this.cageCorner = [this.cageLocation[0]*9,this.cageLocation[1]*9];
-                    }
                     else roomType = shuffle(this.roompool)[0];
                     this.rooms[i][j] = new roomType([i,j]);
                     if (universe.worlds[universe.currentworld].cage.slots[i][j].turbulent) this.rooms[i][j].hostile = true;
@@ -1007,7 +1025,7 @@ class Room{
         this.creatures = "";
         this.vault = true;
         this.name = "Bugtopia";
-        this.filler = BAscendExit;
+        this.filler = NoBreakWall;
         this.vault = false;
         this.extreme = {
             "N" : 0,
