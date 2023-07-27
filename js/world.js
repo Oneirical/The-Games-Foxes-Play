@@ -574,6 +574,10 @@ class World{
         for(let y = this.cageLocation[1]-1; y<this.cageLocation[1]+2;y++){
             for(let x = this.cageLocation[0]-1; x<this.cageLocation[0]+2;x++){
                 drawPixel("black",0,0,64,tiles[world.cageCorner[0]+xindic][world.cageCorner[1]+yindic].tilecon);
+                if (!this.rooms[x] || !this.rooms[x][y]){
+                    xindic++;
+                    continue;
+                } 
                 if (this.rooms[x][y].tangible){
                     this.rooms[x][y].hypnoCon.width = 64;
                     this.rooms[x][y].hypnoCon.height = 64;
@@ -671,6 +675,7 @@ class World{
         this.rooms = [];
         this.selectRooms();
         let placedboss = false;
+        let placedcage = false;
         for(let i=0;i<9;i++){
             this.rooms[i] = [];
             for(let j=0;j<9;j++){
@@ -695,7 +700,7 @@ class World{
                     }
                     //if ((j == 8 && i == 4) || (j == 4 && i == 8) ||(j == 0 && i == 4) ||(j == 4 && i == 0)) roomType = EmptyFaith;
                     //else if (j == 4 && i == 4) roomType = PlateGenerator;
-                    else if (j < 8 && i < 8 && worldgen[i+1][j].passable && worldgen[i][j+1].passable && worldgen[i+1][j+1].passable){
+                    else if (j < 8 && i < 8 && worldgen[i+1][j].passable && worldgen[i][j+1].passable && worldgen[i+1][j+1].passable && !placedboss){
                         roomType = Epsilon1;
                         placedboss = true;
                         worldgen[i+1][j] = new RealityWall(i+1,j,"e");
@@ -722,6 +727,12 @@ class World{
                     //else if (Math.random() < 0.3 && (i+1 == 9 || !worldgen[i+1][j].passable) + (i-1 == -1 || !worldgen[i-1][j].passable) + (j+1 == 9 || !worldgen[i][j+1].passable) + (j-1 == -1 || !worldgen[i][j-1].passable == 3)){
                     //    roomType = HarmonyRelay;
                     //}
+                    else if (!placedcage){
+                        roomType = SoulCage;
+                        placedcage = true;
+                        this.cageLocation = [i,j];
+                        this.cageCorner = [this.cageLocation[0]*9,this.cageLocation[1]*9];
+                    }
                     else roomType = shuffle(this.roompool)[0];
                     this.rooms[i][j] = new roomType([i,j]);
                     if (universe.worlds[universe.currentworld].cage.slots[i][j].turbulent) this.rooms[i][j].hostile = true;
