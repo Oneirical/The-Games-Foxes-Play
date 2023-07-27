@@ -265,7 +265,7 @@ function drawProjectors(){
             projectorDisplay.projectors[i][j] = projector;
         }
     }
-    drawSprites();
+    //drawSprites();
 }
 
 function tickProjectors(){
@@ -300,9 +300,12 @@ function tickProjectors(){
 
 function drawTiles(){
     tileSize = 96*2/3;
-    for(let i=0;i<numTiles;i++){
-        for(let j=0;j<numTiles;j++){
-            if (tiles[i] && tiles[i][j] && !(tiles[i][j] instanceof RealityWall) && !((tiles[i][j] instanceof LayerBackground) && tiles[i][j].sprite == 2)) tiles[i][j].setUpSprite();
+
+    for (let r of universe.worlds){
+        for(let i=0;i<numTiles;i++){
+            for(let j=0;j<numTiles;j++){
+                if (r.playSpace.tiles[i] && r.playSpace.tiles[i][j] && !r.playSpace.tiles[i][j].graphicsReady && !(r.playSpace.tiles[i][j] instanceof RealityWall) && !((r.playSpace.tiles[i][j] instanceof LayerBackground) && r.playSpace.tiles[i][j].sprite == 2)) r.playSpace.tiles[i][j].setUpSprite();
+            }
         }
     }
 }

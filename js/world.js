@@ -207,6 +207,7 @@ class Universe{
         world.tranquil = true;
         world.playRoom(world.rooms[4][8],startingHp);
         //world.rooms[4][7] = world.playSpace;
+        drawTiles();
     }
 
     passDown(layer, spawnx, spawny){
@@ -599,7 +600,7 @@ class World{
 
     selectRooms(){
         if (this.serene) this.roompool = [StandardSpire];
-        else this.roompool = [StandardFaith,BloxFaith,EmptyFaith,HideFaith,PipesFaith,TriangleFaith,StarFaith]; //GrandHallFaith,BridgeFaith,HideFaith,PipesFaith,GrandHallFaith,,TriangleFaith,NarrowFaith
+        else this.roompool = [StandardFaith,]; //BloxFaith,EmptyFaith,HideFaith,PipesFaith,TriangleFaith,StarFaith
     }
 
     confirmWorldFromVault(vault){
@@ -875,7 +876,7 @@ class World{
         animationTick.destroy();
         animationTick = new PIXI.Ticker;
         animationTick.start();
-        //drawTiles();
+        
         drawProjectors();
         drawSprites();
         if (areaname.displayCon) areaname.update();

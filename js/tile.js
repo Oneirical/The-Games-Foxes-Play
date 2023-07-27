@@ -16,6 +16,7 @@ class Tile{
         this.clickTrap = false;
         this.spellDirection = false;
         this.tilecon = new PIXI.Container();
+        this.graphicsReady = false;
     }
 
     setUpSprite(){
@@ -67,6 +68,7 @@ class Tile{
                 }
             }
         });
+        this.graphicsReady = true;
     }
 
     setUpResearch(source){
