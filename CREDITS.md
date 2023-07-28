@@ -16,6 +16,11 @@ Copyright (c) 2019 Jeremiah Reid
 Broughlike Tutorial is licensed under the MIT License.
 http://www.opensource.org/licenses/mit-license
 
+A* Algorithm
+Copyright (c) Brian Grinstead, http://briangrinstead.com
+A* Algorithm is licensed under the MIT License.
+http://www.opensource.org/licenses/mit-license
+
 PIXI.js
 Copyright (c) 2013-2023 Mathew Groves, Chad Engler
 pixi.js is licensed under the MIT License.
