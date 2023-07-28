@@ -1784,6 +1784,16 @@ class Soul{
         this.setUpSprites();
     }
 
+    setUpAxioms(){
+        this.axioms = [];
+        for (let i = 0; i<9; i++){
+            this.axioms[i] = [];
+            for (let j = 0; j<9; j++){
+                this.axioms[i][j] = new Axiom();
+            }
+        }
+    }
+
     setUpSprites(){
         if (basic.includes(this.id)) this.displayIcon = new FoxSprite(allsprites.textures['icon'+(6-basic.indexOf(this.id))]);
         else if (this.id == "EMPTY") this.displayIcon = new FoxSprite(allsprites.textures['icon7']);

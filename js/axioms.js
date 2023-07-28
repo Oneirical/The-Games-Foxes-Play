@@ -1,5 +1,39 @@
 //8ADJ - 4ADJ - RANDOM (up to power) - WALL - ALL - PAYLOAD (summon that unleashes targets on death)
 
+class AxiomTemp{
+    constructor(){
+        this.contingency = false;
+    }
+}
+
+class ContinKeypress extends AxiomTemp{
+    constructor(key){
+        super();
+        this.key = key;
+        this.contingency = true;
+    }
+}
+
+class FormDir extends AxiomTemp{
+    constructor(dir){
+        super();
+        this.dir = dir;
+    }
+
+    act(){
+        
+    }
+}
+
+class AxiomFunction extends AxiomTemp{
+    constructor(type){
+        super();
+        this.type = type;
+    }
+}
+
+
+
 axiomEffects = {
 
     ///////////////

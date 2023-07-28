@@ -480,14 +480,28 @@ var researchpage = {
 const logicMaps = {
     "Terminal" : {
         0 : "WNMT....A",
-        1 : "........W",
+        1 : "........O",
         2 : "D.......M",
         3 : "E.......T",
         4 : "M........",
         5 : "T.......S",
-        6 : "........S",
+        6 : "........s",
         7 : "........M",
-        8 : "AEH1....T", //attacked ego harmself
+        8 : "........T", //attacked ego harmself
+        "keys" : {
+            "W" : new ContinKeypress("W"),
+            "A" : new ContinKeypress("A"),
+            "S" : new ContinKeypress("S"),
+            "D" : new ContinKeypress("D"),
+            //"C" : new ContinKeypress("Click"),
+            //"F" : new FormTile()
+            "N" : new FormDir("N"),
+            "O" : new FormDir("W"),
+            "E" : new FormDir("E"),
+            "s" : new FormDir("S"),
+            "M" : new AxiomFunction("MOVE"),
+            "T" : new AxiomFunction("ENDTURN"),
+        }
     }
 }
 

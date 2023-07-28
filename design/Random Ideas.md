@@ -10,6 +10,10 @@ Unhinged: aggressive squads outright raid other planes to get axioms
 Feral: the forest causes extreme battle royales to find the best axiom
 Vile: there is no passive progress, the player is challenged with the lure of gain to get their axioms
 
+Souls = axiom matrix
+"install" souls in the wheel
+you can install anything
+
 **Status Effects**
 
 * Does para REALLY prevent casting or drawing?
