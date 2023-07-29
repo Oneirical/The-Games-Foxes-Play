@@ -241,7 +241,7 @@ function drawProjectors(){
     tilesDisplay.notPlayerTiles.addChild(creatureDisplay);
     tilesDisplay.projectorDisplay = projectorDisplay;
     tilesDisplay.creatureDisplay = creatureDisplay;
-    zoom = 9;
+    zoom = 11;
     tileSize = 64;
     projectorDisplay.projectors = [];
     for(let i=0;i<zoom*2;i++){

@@ -501,6 +501,7 @@ const logicMaps = {
             "s" : new FormDir("S"),
             "M" : new AxiomFunction("MOVE"),
             "T" : new AxiomFunction("ENDTURN"),
+            "." : new EmptyAxiom(),
         }
     }
 }

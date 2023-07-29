@@ -85,7 +85,6 @@ class Monster{
         if(this.tryMove(dx,dy,true)){
             beginTurn();
             player.axioms.castContin("STEP",this);
-            tick();
         }
         if (area == "Spire" && this.activemodule != "Hover" && !(this.tile.getNeighbor(0,1) instanceof Platform || this.tile.getNeighbor(0,1) instanceof Ladder || this.tile instanceof Ladder || this.tile.getNeighbor(0,1).monster)){
             this.fall++;
@@ -741,7 +740,7 @@ class Monster{
             this.offsetY = this.tile.y - tile.y;
             this.originalOffsetX = this.offsetX;
             this.originalOffsetY = this.offsetY;
-            this.anispeed = 1/9*(Math.abs(this.offsetX)+Math.abs(this.offsetY));
+            this.anispeed = 1/6*(Math.abs(this.offsetX)+Math.abs(this.offsetY));
         }
         this.tile = tile;
         tile.monster = this;                             
@@ -755,7 +754,8 @@ class Terminal extends Monster{
         this.isPlayer = true;
         this.teleportCounter = 0;
         this.name = "Terminal, the Reality Anchor";
-        this.soul = "Does not have a soul of its own -- is merely the combination of its many passengers.";
+        this.id = "Terminal";
+        this.soul = new Soul("SOULLESS",this);
         this.ability = "";
         this.noloot = true;
         this.fov = 0;

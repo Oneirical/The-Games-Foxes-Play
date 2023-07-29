@@ -22,6 +22,13 @@ function summonExits(){
     world.fighting = false;
 }
 
+function trigger(key){
+    player.soul.trigger(key); //this is a temporary measure
+    for (let i of monsters){
+        if (i.soul instanceof Soul) i.soul.trigger(key);
+    }
+}
+
 function makeItFunny(){
     for(let i=0;i<81;i++){
         for(let j=0;j<81;j++){

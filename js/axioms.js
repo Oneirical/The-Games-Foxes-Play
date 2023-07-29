@@ -3,13 +3,25 @@
 class AxiomTemp{
     constructor(){
         this.contingency = false;
+        this.x;
+        this.y;
+        this.empty = false;
+        this.soul;
+    }
+    act(data){return data;};
+}
+
+class EmptyAxiom extends AxiomTemp{
+    constructor(){
+        super();
+        this.empty = true;
     }
 }
 
 class ContinKeypress extends AxiomTemp{
     constructor(key){
         super();
-        this.key = key;
+        this.event = key;
         this.contingency = true;
     }
 }
@@ -20,8 +32,15 @@ class FormDir extends AxiomTemp{
         this.dir = dir;
     }
 
-    act(){
-        
+    act(data){
+        const directions = {
+            "N" : [0,-1],
+            "W" : [-1,0],
+            "E" : [1,0],
+            "S" : [0,1],
+        }
+        data["targets"].push(getTile(data["caster"].tile.x+directions[this.dir][0],data["caster"].tile.y+directions[this.dir][1]));
+        return data;
     }
 }
 
@@ -30,11 +49,35 @@ class AxiomFunction extends AxiomTemp{
         super();
         this.type = type;
     }
+
+    act(data){
+        axiomEffects[this.type](data);
+    }
 }
 
 
 
 axiomEffects = {
+
+    MOVE: function(data){
+        let targets = data["targets"].slice(0);
+        let chosen = shuffle(targets)[0];
+        let currentTile = data["caster"].tile;
+        if (Math.abs(chosen.x-currentTile.x) <= 1 && Math.abs(chosen.y-currentTile.y) <= 1 && Math.abs(chosen.x-currentTile.x) + Math.abs(chosen.y-currentTile.y) != 2){
+            data["caster"].tryMove(chosen.x-currentTile.x,chosen.y-currentTile.y);
+            return data;
+        }
+        let path = astair(currentTile,chosen);
+        if(path.length == 0) return;
+        let dir = [path[0].x-data["caster"].tile.x,path[0].y-data["caster"].tile.y];
+        data["caster"].tryMove(dir[0],dir[1]);
+        return data;
+    },
+
+    ENDTURN: function(data){
+        tick();
+        return data;
+    },
 
     ///////////////
     //

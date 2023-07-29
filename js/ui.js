@@ -1755,7 +1755,7 @@ class Inventory{
 }
 
 class Soul{
-    constructor(name){
+    constructor(name,owner){
         this.id = name;
         this.name = soulname[name];
         this.icon;
@@ -1782,14 +1782,67 @@ class Soul{
         this.angle = 0;
         if (basic.includes(name)) this.alpha = 0.55;
         this.setUpSprites();
+
+        this.contingencies = [];
+        this.axioms = [];
+        this.owner = owner;
+        if (!this.owner) return;
+        this.setUpAxioms();
+        this.findContingencies();
     }
 
     setUpAxioms(){
-        this.axioms = [];
         for (let i = 0; i<9; i++){
             this.axioms[i] = [];
             for (let j = 0; j<9; j++){
-                this.axioms[i][j] = new Axiom();
+                const hai = logicMaps[this.owner.id]["keys"];
+                this.axioms[i][j] = Object.create(hai[logicMaps[this.owner.id][i][j]]);
+                this.axioms[i][j].x = i;
+                this.axioms[i][j].y = j;
+                this.axioms[i][j].soul = this;
+            }
+        }
+    }
+
+    findContingencies(){
+        for (let i = 0; i<9; i++){
+            for (let j = 0; j<9; j++){
+                if(this.axioms[i][j].contingency) this.contingencies.push(this.axioms[i][j]);
+            }
+        }
+    }
+
+    getLogicNeighbours(axiom){
+        let results = [];
+        const neig = [[-1,0],[1,0],[0,1],[0,-1]];
+        for (let i of neig){
+            let fou;
+            if (between(axiom.x+i[0],-1,9) && between(axiom.y+i[1],-1,9)) fou = this.axioms[axiom.x+i[0]][axiom.y+i[1]];
+            else continue;
+            if (!fou.empty && !(axiom.sourceX == fou.x && axiom.sourceY == fou.y)){
+                fou.sourceX = axiom.x;
+                fou.sourceY = axiom.y;
+                results.push(fou);
+            }
+        }
+        return results;
+    }
+
+    trigger(event){
+        for (let i of this.contingencies) if (i.event == event) this.pulse(i);
+    }
+
+    pulse(source){
+        let synapses = [source];
+        let data = {
+            "targets" : [],
+            "caster" : this.owner,
+        };
+        while(synapses.length != 0){
+            for (let i of synapses){
+                data = i.act(data);
+                for (let r of this.getLogicNeighbours(i)) synapses.push(r);
+                removeItemOnce(synapses,i);
             }
         }
     }
