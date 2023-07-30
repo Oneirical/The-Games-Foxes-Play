@@ -37,6 +37,28 @@ class RadioReceiver extends AxiomTemp{
     }
 }
 
+class BooleanGate extends AxiomTemp{
+    constructor(boo){
+        super();
+        this.boo = boo;
+    }
+    act(data){
+        if (!this.boo) data["break"] = true;
+        return data;
+    }
+}
+
+class BooleanFlip extends AxiomTemp{
+    constructor(boo){
+        super();
+    }
+    act(data){
+        let surr = this.soul.getLogicNeighbours(this);
+        for (let i of surr) if (i instanceof BooleanGate) i.boo = !i.boo;
+        return data;
+    }
+}
+
 class FormDir extends AxiomTemp{
     constructor(dir){
         super();
@@ -76,7 +98,8 @@ class AxiomFunction extends AxiomTemp{
     }
 
     act(data){
-        axiomEffects[this.type](data);
+        data = axiomEffects[this.type](data);
+        return data;
     }
 }
 

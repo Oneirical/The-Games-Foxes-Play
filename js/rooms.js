@@ -493,8 +493,8 @@ const logicMaps = {
     },
     "Epsilon" : {
         0 : "R........", // receive broadcast
-        1 : "P........", // towards player
-        2 : "M........",
+        1 : "FBPM.....", // flip boolean stop
+        2 : ".........",
         3 : ".........",
         4 : ".........",
         5 : ".........",
@@ -505,6 +505,8 @@ const logicMaps = {
             "R" : new RadioReceiver("EON"),
             "M" : new AxiomFunction("MOVE"),
             "P" : new FormEntity("Player"), // just testing for now, no player targeters later
+            "F" : new BooleanFlip(),
+            "B" : new BooleanGate(true),
 
         }
     },

@@ -1838,12 +1838,14 @@ class Soul{
         let data = {
             "targets" : [],
             "caster" : this.owner,
+            "break" : false,
         };
         while(synapses.length != 0){
             for (let i of synapses){
                 data = i.act(data);
                 for (let r of this.getLogicNeighbours(i)) synapses.push(r);
                 removeItemOnce(synapses,i);
+                if (data["break"]) synapses = [];
             }
         }
     }
