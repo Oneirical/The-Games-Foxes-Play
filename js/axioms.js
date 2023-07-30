@@ -37,6 +37,54 @@ class RadioReceiver extends AxiomTemp{
     }
 }
 
+class VoidTargets extends AxiomTemp{
+    constructor(){
+        super();
+    }
+    act(data){
+        data["targets"] = [];
+        return data;
+    }
+}
+
+class ClearPaint extends AxiomTemp{
+    constructor(){
+        super();
+    }
+    act(data){
+        for (let i of data["targets"]){
+            i.paint = false;
+        }
+        return data;
+    }
+}
+
+class PaintTile extends AxiomTemp{
+    constructor(colour){
+        super();
+        this.colour = colour;
+    }
+    act(data){
+        for (let i of data["targets"]){
+            i.paint = this.colour;
+        }
+        return data;
+    }
+}
+
+class PaintFilter extends AxiomTemp{
+    constructor(colour){
+        super();
+        this.colour = colour;
+    }
+    act(data){
+        for (let i of data["targets"]){
+            if (i.paint != i.colour) removeItemAll(data["targets"],i);
+        }
+        return data;
+    }
+}
+
 class BooleanGate extends AxiomTemp{
     constructor(boo){
         super();
@@ -103,11 +151,24 @@ class AxiomFunction extends AxiomTemp{
     }
 }
 
+class StandardForm extends AxiomTemp{
+    constructor(type){
+        super();
+        this.type = type;
+    }
+
+    act(data){
+        data = axiomEffects[this.type](data);
+        return data;
+    }
+}
+
 
 
 axiomEffects = {
 
     MOVE: function(data){
+        if (data["targets"].length == 0) return data;
         let targets = data["targets"].slice(0);
         let chosen = shuffle(targets)[0];
         let currentTile = data["caster"].tile;
@@ -122,11 +183,6 @@ axiomEffects = {
         return data;
     },
 
-    ENDTURN: function(data){
-        tick();
-        return data;
-    },
-
     ///////////////
     //
     //   FORMS
@@ -134,8 +190,8 @@ axiomEffects = {
     ///////////////
 
     EGO: function(data){
-        data["caster"].tile.spellDirection = data["caster"].lastMove;
-        data["targets"].add(data["caster"].tile);
+        //data["caster"].tile.spellDirection = data["caster"].lastMove;
+        data["targets"].push(data["caster"].tile);
         return data;
     },
     SMOOCH : function(data){
@@ -157,8 +213,8 @@ axiomEffects = {
         ];
         for (let i of directions){
             let tarTile = newTile.getNeighbor(i[0],i[1]);
-            tarTile.spellDirection = i;
-            data["targets"].add(tarTile);
+            //tarTile.spellDirection = i;
+            data["targets"].push(tarTile);
         }
         return data;
     },

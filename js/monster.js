@@ -1345,28 +1345,11 @@ class EpsilonHead extends Monster{
     }
 }
 
-class EpsilonTail1 extends Monster{
+class EpsilonTail extends Monster{
     constructor(tile){
         super(tile, 68, 3, "ORDERED", description["Epsilon"]);
-        this.soul = "Animated by an Ordered (5) soul.";
-        this.name = "Epsilon, Supreme Ordered General";
-        this.ability = monabi["Epsilon"];
-    }
-}
-
-class EpsilonTail2 extends Monster{
-    constructor(tile){
-        super(tile, 68, 3, "ORDERED", description["Epsilon"]);
-        this.soul = "Animated by an Ordered (5) soul.";
-        this.name = "Epsilon, Supreme Ordered General";
-        this.ability = monabi["Epsilon"];
-    }
-}
-
-class EpsilonTail3 extends Monster{
-    constructor(tile){
-        super(tile, 68, 3, "ORDERED", description["Epsilon"]);
-        this.soul = "Animated by an Ordered (5) soul.";
+        this.id = "Tail";
+        this.soul = new Soul("ORDERED",this);
         this.name = "Epsilon, Supreme Ordered General";
         this.ability = monabi["Epsilon"];
     }

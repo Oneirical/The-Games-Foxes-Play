@@ -337,7 +337,6 @@ function astair(start,dest){
             //complete astar and credit mit
         }
     }
-    console.log(graph);
     pathfind = new Graph(graph);
     let beg = pathfind.grid[start.x][start.y];
     let end = pathfind.grid[dest.x][dest.y];
@@ -346,7 +345,6 @@ function astair(start,dest){
     for (let i of result){
         foundTiles.push(tiles[i.x][i.y]);
     }
-    console.log(foundTiles);
     return foundTiles;
 }
 

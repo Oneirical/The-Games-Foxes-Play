@@ -492,8 +492,8 @@ const logicMaps = {
         }
     },
     "Epsilon" : {
-        0 : "R........", // receive broadcast
-        1 : "FBPM.....", // flip boolean stop
+        0 : "RFBCSVPMN", // receive broadcast
+        1 : ".........", // flip boolean stop
         2 : ".........",
         3 : ".........",
         4 : ".........",
@@ -508,6 +508,32 @@ const logicMaps = {
             "F" : new BooleanFlip(),
             "B" : new BooleanGate(true),
 
+            "C" : new StandardForm("EGO"),
+            "S" : new PaintTile("Red"),
+            "V" : new VoidTargets(),
+            "N" : new RadioBroadcaster("SLITHER")
+
+        }
+    },
+    "Tail" : {
+        0 : "RCSVPFMN.",
+        1 : ".........", 
+        2 : ".........",
+        3 : ".........",
+        4 : ".........",
+        5 : ".........",
+        6 : ".........",
+        7 : ".........",
+        8 : ".........",
+        "keys" : {
+            "R" : new RadioReceiver("SLITHER"),
+            "P" : new StandardForm("PLUS"),
+            "F" : new PaintFilter("Red"),
+            "M" : new AxiomFunction("MOVE"),
+            "N" : new ClearPaint(),
+            "C" : new StandardForm("EGO"),
+            "S" : new PaintTile("Red"),
+            "V" : new VoidTargets(),
         }
     },
     "Terminal" : {
@@ -749,17 +775,15 @@ var rooms = {
         1 : "#........",
         2 : "#...1....",
         3 : "#...2....",
-        4 : "E...3....",
-        5 : "#...4....",
-        6 : "#........",
+        4 : "E...2....",
+        5 : "#...2....",
+        6 : "#...2....",
         7 : "#........",
         8 : "#........",
         "tags": ["randomgen"],
         "creatures" : {
             "1" : EpsilonHead,
-            "2" : EpsilonTail1,
-            "3" : EpsilonTail2,
-            "4" : EpsilonTail3,
+            "2" : EpsilonTail,
         }
     },
     "Epsilon2" : {
@@ -967,16 +991,17 @@ var rooms = {
     "Storage" : {
         0 : "####E####",
         1 : "#.......#",
-        2 : "|.WW.WW.|",
-        3 : "|.W...W.|",
-        4 : "|...C...|",
-        5 : "|.W...W.|",
-        6 : "|.WW.WW.|",
+        2 : "|....1..|",
+        3 : "|....2..|",
+        4 : "|.......|",
+        5 : "|.......|",
+        6 : "|.......|",
         7 : "#.......#",
         8 : "####E####",
         "tags": ["randomgen"],
         "creatures" : {
-            "C" : Cage,
+            "1" : EpsilonHead,
+            "2" : EpsilonTail,
         }
     },
     "Star" : {

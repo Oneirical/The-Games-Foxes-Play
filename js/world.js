@@ -649,10 +649,8 @@ class World{
                         this.depositTiles[i*9+x][j*9+y] = this.rooms[i][j].tiles[x][y];
                     }
                 }
-                for (let u of this.rooms[i][j].creatures){
-                    u.tile = getTile(u.tile.x+i*this.rooms[i][j].size,u.tile.y+j*this.rooms[i][j].size);
+                for (let u of this.rooms[i][j].monsters){
                     this.depositCreatures.push(u);
-                    this.depositTiles[u.tile.x][u.tile.y].monster = u; 
                 }
                 this.rooms[i][j].layer = this.layer;
                 this.rooms[i][j].setUpSprites();
@@ -789,9 +787,7 @@ class World{
                     }
                 }
                 for (let u of this.rooms[i][j].monsters){
-                    u.tile = getTile(u.tile.x+i*this.rooms[i][j].size,u.tile.y+j*this.rooms[i][j].size);
                     this.depositCreatures.push(u);
-                    this.depositTiles[u.tile.x][u.tile.y].monster = u; 
                 }
                 this.rooms[i][j].layer = this.layer;
             }

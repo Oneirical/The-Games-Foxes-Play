@@ -17,6 +17,7 @@ class Tile{
         this.spellDirection = false;
         this.tilecon = new PIXI.Container();
         this.graphicsReady = false;
+        this.paint = false;
     }
 
     setUpSprite(){
