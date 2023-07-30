@@ -14,6 +14,8 @@ Souls = axiom matrix
 "install" souls in the wheel
 you can install anything
 
+cage can still not place in apex - fix it
+
 **Status Effects**
 
 * Does para REALLY prevent casting or drawing?

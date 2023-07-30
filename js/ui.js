@@ -1796,7 +1796,8 @@ class Soul{
             this.axioms[i] = [];
             for (let j = 0; j<9; j++){
                 const hai = logicMaps[this.owner.id]["keys"];
-                this.axioms[i][j] = Object.create(hai[logicMaps[this.owner.id][i][j]]);
+                if (logicMaps[this.owner.id][i][j] == ".") this.axioms[i][j] = new EmptyAxiom();
+                else this.axioms[i][j] = Object.create(hai[logicMaps[this.owner.id][i][j]]);
                 this.axioms[i][j].x = i;
                 this.axioms[i][j].y = j;
                 this.axioms[i][j].soul = this;

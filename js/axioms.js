@@ -18,7 +18,18 @@ class EmptyAxiom extends AxiomTemp{
     }
 }
 
-class ContinKeypress extends AxiomTemp{
+class RadioBroadcaster extends AxiomTemp{
+    constructor(message){
+        super();
+        this.message = message;
+    }
+    act(data){
+        trigger(this.message);
+        return data;
+    }
+}
+
+class RadioReceiver extends AxiomTemp{
     constructor(key){
         super();
         this.event = key;
@@ -40,6 +51,20 @@ class FormDir extends AxiomTemp{
             "S" : [0,1],
         }
         data["targets"].push(getTile(data["caster"].tile.x+directions[this.dir][0],data["caster"].tile.y+directions[this.dir][1]));
+        return data;
+    }
+}
+
+class FormEntity extends AxiomTemp{
+    constructor(entity){
+        super();
+        this.entity = entity;
+    }
+    act(data){
+        let dest;
+        if (this.entity == "Player") dest = player.tile;
+        else dest = this.entity.tile;
+        data["targets"].push(dest);
         return data;
     }
 }

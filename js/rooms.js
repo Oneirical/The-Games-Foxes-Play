@@ -478,6 +478,36 @@ var researchpage = {
 //spawns: N - W - E - S
 
 const logicMaps = {
+    "Empty" : {
+        0 : ".........",
+        1 : ".........",
+        2 : ".........",
+        3 : ".........",
+        4 : ".........",
+        5 : ".........",
+        6 : ".........",
+        7 : ".........",
+        8 : ".........",
+        "keys" : {
+        }
+    },
+    "Epsilon" : {
+        0 : "R........", // receive broadcast
+        1 : "P........", // towards player
+        2 : "M........",
+        3 : ".........",
+        4 : ".........",
+        5 : ".........",
+        6 : ".........",
+        7 : ".........",
+        8 : ".........",
+        "keys" : {
+            "R" : new RadioReceiver("EON"),
+            "M" : new AxiomFunction("MOVE"),
+            "P" : new FormEntity("Player"), // just testing for now, no player targeters later
+
+        }
+    },
     "Terminal" : {
         0 : "WNMT....A",
         1 : "........O",
@@ -487,12 +517,12 @@ const logicMaps = {
         5 : "T.......S",
         6 : "........s",
         7 : "........M",
-        8 : "........T", //attacked ego harmself
+        8 : "........T",
         "keys" : {
-            "W" : new ContinKeypress("W"),
-            "A" : new ContinKeypress("A"),
-            "S" : new ContinKeypress("S"),
-            "D" : new ContinKeypress("D"),
+            "W" : new RadioReceiver("W"),
+            "A" : new RadioReceiver("A"),
+            "S" : new RadioReceiver("S"),
+            "D" : new RadioReceiver("D"),
             //"C" : new ContinKeypress("Click"),
             //"F" : new FormTile()
             "N" : new FormDir("N"),
@@ -500,8 +530,7 @@ const logicMaps = {
             "E" : new FormDir("E"),
             "s" : new FormDir("S"),
             "M" : new AxiomFunction("MOVE"),
-            "T" : new AxiomFunction("ENDTURN"),
-            "." : new EmptyAxiom(),
+            "T" : new RadioBroadcaster("EON"),
         }
     }
 }
@@ -579,42 +608,6 @@ var genstruct = {
 }
 
 // anisychia should be natural selection
-
-var creaturespawn = {
-    "Basic" : {
-        0 : ".........",
-        1 : ".........",
-        2 : ".........",
-        3 : ".........",
-        4 : ".........",
-        5 : ".........",
-        6 : ".........",
-        7 : ".........",
-        8 : ".........",
-    },
-    "Storage" : {
-        0 : ".........",
-        1 : ".........",
-        2 : ".........",
-        3 : ".........",
-        4 : "....C....",
-        5 : ".........",
-        6 : ".........",
-        7 : ".........",
-        8 : ".........",
-    },
-    "Announce" : {
-        0 : ".........",
-        1 : ".........",
-        2 : ".........",
-        3 : ".........",
-        4 : "....H....",
-        5 : ".........",
-        6 : ".........",
-        7 : ".........",
-        8 : ".........",
-    },
-}
 
 var rooms = {
     "Tutorial" : {
@@ -752,14 +745,20 @@ var rooms = {
     "Epsilon1" : {
         0 : "####E####",
         1 : "#........",
-        2 : "#........",
-        3 : "#........",
-        4 : "E........",
-        5 : "#........",
+        2 : "#...1....",
+        3 : "#...2....",
+        4 : "E...3....",
+        5 : "#...4....",
         6 : "#........",
         7 : "#........",
         8 : "#........",
         "tags": ["randomgen"],
+        "creatures" : {
+            "1" : EpsilonHead,
+            "2" : EpsilonTail1,
+            "3" : EpsilonTail2,
+            "4" : EpsilonTail3,
+        }
     },
     "Epsilon2" : {
         0 : "####E####",
@@ -875,13 +874,16 @@ var rooms = {
         1 : "AA#.,.#AA",
         2 : "AA|...|AA",
         3 : "AA|...|AA",
-        4 : "AA|...|AA",
+        4 : "AA|.H.|AA",
         5 : "AA|...|AA",
         6 : "AA|...|AA",
         7 : "AA#.,.#AA",
         8 : "AA##E##AA",
         "tags": ["randomgen","randomflip"],
         "vertical" : true,
+        "creatures" : {
+            "H" : Hologram,
+        }
     },
     "Narrow" : {
         0 : "AA##E##AA",
@@ -965,12 +967,15 @@ var rooms = {
         1 : "#.......#",
         2 : "|.WW.WW.|",
         3 : "|.W...W.|",
-        4 : "|.......|",
+        4 : "|...C...|",
         5 : "|.W...W.|",
         6 : "|.WW.WW.|",
         7 : "#.......#",
         8 : "####E####",
         "tags": ["randomgen"],
+        "creatures" : {
+            "C" : Cage,
+        }
     },
     "Star" : {
         0 : "AAA#E#AAA",

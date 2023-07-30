@@ -773,6 +773,7 @@ class World{
             }
         }
         this.depositTiles = [];
+        this.depositCreatures = [];
         for(let i=0;i<81;i++){
             this.depositTiles[i] = [];
         }
@@ -787,7 +788,7 @@ class World{
                         this.depositTiles[i*9+x][j*9+y] = this.rooms[i][j].tiles[x][y];
                     }
                 }
-                for (let u of this.rooms[i][j].creatures){
+                for (let u of this.rooms[i][j].monsters){
                     u.tile = getTile(u.tile.x+i*this.rooms[i][j].size,u.tile.y+j*this.rooms[i][j].size);
                     this.depositCreatures.push(u);
                     this.depositTiles[u.tile.x][u.tile.y].monster = u; 
@@ -1076,6 +1077,7 @@ class Room{
         if(player) hp = player.hp;
         player = new Terminal(getTile(this.playerspawn[0], this.playerspawn[1]));
         for (let i of Object.keys(pdata)) player[i] = pdata[i];
+        player.soul.owner = player;
         player.hp = hp;
         player.tile = getTile(this.playerspawn[0], this.playerspawn[1]);
         if (this.hostile && !this.visited) generateMonsters();
@@ -1205,14 +1207,21 @@ class DefaultVaultRoom extends Room{
         for(let i=0;i<this.size;i++){
             this.tiles[i] = [];
             for(let j=0;j<this.size;j++){
-                let tile = keytile[vault[j][i]];
-                if (depth == 1 && (tile == Wall || tile == NoBreakWall)) tile = RoseWall;
+                let tile;
+                if (!keytile[vault[j][i]] || (vault["creatures"] && vault["creatures"][vault[j][i]])) tile = Floor;
+                else tile = keytile[vault[j][i]];
+                //if (depth == 1 && (tile == Wall || tile == NoBreakWall)) tile = RoseWall;
                 if ("nswe".includes(vault[j][i])){
                     let dir;
                     dir = vault[j][i];
                     this.tiles[i][j] = new tile(i,j,dir);
                 }
                 else this.tiles[i][j] = new tile(i,j,this);
+                if (vault["creatures"] && vault["creatures"][vault[j][i]]){
+                    let entity = new vault["creatures"][vault[j][i]](this.tiles[i][j]);
+                    this.monsters.push(entity);
+                    entity.setUpSprite();
+                }
             }
         }
     }
@@ -1418,7 +1427,6 @@ class AnnounceCorridor extends DefaultVaultRoom{
     constructor(index){
         super(index);
         this.id = "Announce";
-        this.creatures = [new Hologram(getTile(4,4))];
     }
     populateRoom(){
         super.populateRoom();
@@ -1572,7 +1580,6 @@ class PlateGenerator extends DefaultVaultRoom{
     constructor(index){
         super(index);
         this.id = "Storage";
-        this.creatures = [new Cage(getTile(4,4))];
         this.name = "Sacred Offering";
     }
 }
