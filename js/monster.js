@@ -1348,7 +1348,9 @@ class EpsilonHead extends Monster{
 class EpsilonTail extends Monster{
     constructor(tile){
         super(tile, 68, 3, "ORDERED", description["Epsilon"]);
-        this.id = "Tail";
+        this.number = 1;
+        for (let i of monsters) if (i instanceof EpsilonTail) this.number++;
+        this.id = "Tail"+this.number;
         this.soul = new Soul("ORDERED",this);
         this.name = "Epsilon, Supreme Ordered General";
         this.ability = monabi["Epsilon"];

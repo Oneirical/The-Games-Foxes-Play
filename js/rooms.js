@@ -492,7 +492,7 @@ const logicMaps = {
         }
     },
     "Epsilon" : {
-        0 : "RFBCSVPMN", // receive broadcast
+        0 : "RFBCSVPMN", // ego, store targets, 
         1 : ".........", // flip boolean stop
         2 : ".........",
         3 : ".........",
@@ -511,12 +511,11 @@ const logicMaps = {
             "C" : new StandardForm("EGO"),
             "S" : new PaintTile("Red"),
             "V" : new VoidTargets(),
-            "N" : new RadioBroadcaster("SLITHER")
-
+            "N" : new RadioBroadcaster("SLITHER1"),
         }
     },
-    "Tail" : {
-        0 : "RCSVPFMN.",
+    "Tail1" : {
+        0 : "RCSVPFMXN",
         1 : ".........", 
         2 : ".........",
         3 : ".........",
@@ -526,7 +525,73 @@ const logicMaps = {
         7 : ".........",
         8 : ".........",
         "keys" : {
-            "R" : new RadioReceiver("SLITHER"),
+            "R" : new RadioReceiver("SLITHER1"),
+            "P" : new StandardForm("PLUS"),
+            "F" : new PaintFilter("Red"),
+            "M" : new AxiomFunction("MOVE"),
+            "X" : new ClearPaint(),
+            "C" : new StandardForm("EGO"),
+            "S" : new PaintTile("Red"),
+            "V" : new VoidTargets(),
+            "N" : new RadioBroadcaster("SLITHER2"),
+        }
+    },
+    "Tail2" : {
+        0 : "RCSVPFMXN",
+        1 : ".........", 
+        2 : ".........",
+        3 : ".........",
+        4 : ".........",
+        5 : ".........",
+        6 : ".........",
+        7 : ".........",
+        8 : ".........",
+        "keys" : {
+            "R" : new RadioReceiver("SLITHER2"),
+            "P" : new StandardForm("PLUS"),
+            "F" : new PaintFilter("Red"),
+            "M" : new AxiomFunction("MOVE"),
+            "X" : new ClearPaint(),
+            "C" : new StandardForm("EGO"),
+            "S" : new PaintTile("Red"),
+            "V" : new VoidTargets(),
+            "N" : new RadioBroadcaster("SLITHER3"),
+        }
+    },
+    "Tail3" : {
+        0 : "RCSVPFMXN",
+        1 : ".........", 
+        2 : ".........",
+        3 : ".........",
+        4 : ".........",
+        5 : ".........",
+        6 : ".........",
+        7 : ".........",
+        8 : ".........",
+        "keys" : {
+            "R" : new RadioReceiver("SLITHER3"),
+            "P" : new StandardForm("PLUS"),
+            "F" : new PaintFilter("Red"),
+            "M" : new AxiomFunction("MOVE"),
+            "X" : new ClearPaint(),
+            "C" : new StandardForm("EGO"),
+            "S" : new PaintTile("Red"),
+            "V" : new VoidTargets(),
+            "N" : new RadioBroadcaster("SLITHER4"),
+        }
+    },
+    "Tail4" : {
+        0 : "RPFXM....",
+        1 : ".........", 
+        2 : ".........",
+        3 : ".........",
+        4 : ".........",
+        5 : ".........",
+        6 : ".........",
+        7 : ".........",
+        8 : ".........",
+        "keys" : {
+            "R" : new RadioReceiver("SLITHER4"),
             "P" : new StandardForm("PLUS"),
             "F" : new PaintFilter("Red"),
             "M" : new AxiomFunction("MOVE"),
@@ -993,9 +1058,9 @@ var rooms = {
         1 : "#.......#",
         2 : "|....1..|",
         3 : "|....2..|",
-        4 : "|.......|",
-        5 : "|.......|",
-        6 : "|.......|",
+        4 : "|....2..|",
+        5 : "|....2..|",
+        6 : "|....2..|",
         7 : "#.......#",
         8 : "####E####",
         "tags": ["randomgen"],
