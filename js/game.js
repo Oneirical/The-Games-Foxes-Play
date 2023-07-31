@@ -23,9 +23,11 @@ function summonExits(){
 }
 
 function trigger(key){
-    player.soul.trigger(key); //this is a temporary measure
+    for (let i of player.souls) i.trigger(key); //this is a temporary measure
     for (let i of monsters){
-        if (i.soul instanceof Soul) i.soul.trigger(key);
+        for (let j of i.souls){
+            if (j instanceof Soul) j.trigger(key);
+        }
     }
 }
 

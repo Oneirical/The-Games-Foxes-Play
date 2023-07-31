@@ -62,6 +62,7 @@ class Monster{
         if (tile == "disabled") return;
         this.move(tile);
         this.adjacentmon = this.tile.getAdjacentNeighbors().filter(t => t.monster && !t.monster.isPlayer).length;
+        this.souls = [];
     }
 
     endTurn(){
@@ -752,6 +753,7 @@ class Terminal extends Monster{
         this.name = "Terminal, the Reality Anchor";
         this.id = "Terminal";
         this.soul = new Soul("SOULLESS",this);
+        this.souls = [this.soul];
         this.ability = "";
         this.noloot = true;
         this.fov = 0;
@@ -1336,6 +1338,7 @@ class EpsilonHead extends Monster{
         super(tile, 67, 3, "ORDERED", description["Epsilon"]);
         this.id = "Epsilon";
         this.soul = new Soul("ORDERED",this);
+        this.souls = [this.soul];
         this.name = "Epsilon, Supreme Ordered General";
         this.ability = monabi["Epsilon"];
     }
@@ -1349,6 +1352,7 @@ class EpsilonTail extends Monster{
         //for (let i of monsters) if (i instanceof EpsilonTail) this.number++;
         this.id = "Tail"+EpsilonTail.number;
         this.soul = new Soul("ORDERED",this);
+        this.souls = [this.soul];
         EpsilonTail.number++;
         if (EpsilonTail.number == 5) EpsilonTail.number = 1;
         this.name = "Epsilon, Supreme Ordered General";
