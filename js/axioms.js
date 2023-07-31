@@ -25,7 +25,6 @@ class RadioBroadcaster extends AxiomTemp{
     }
     act(data){
         trigger(this.message);
-        console.log("message sent:" + this.message);
         return data;
     }
 }
@@ -37,7 +36,6 @@ class RadioReceiver extends AxiomTemp{
         this.contingency = true;
     }
     act(data){
-        console.log("message received:" + this.event);
         return data;
     }
 }
@@ -59,7 +57,6 @@ class ClearPaint extends AxiomTemp{
     act(data){
         for (let i of data["targets"]){
             i.paint = false;
-            console.log("tile cleared:" + i.x + " and " + i.y);
         }
         return data;
     }
@@ -73,8 +70,6 @@ class PaintTile extends AxiomTemp{
     act(data){
         for (let i of data["targets"]){
             i.paint = this.colour;
-            console.log("tile painted:" + i.x + " and " + i.y);
-            i.setEffect(0);
         }
         return data;
     }
@@ -90,7 +85,6 @@ class PaintFilter extends AxiomTemp{
             let r = data["targets"][i];
             if (r.paint != this.colour) removeItemAll(data["targets"],r);
         }
-        console.log(data["targets"]);
         return data;
     }
 }

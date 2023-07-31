@@ -1346,12 +1346,15 @@ class EpsilonHead extends Monster{
 }
 
 class EpsilonTail extends Monster{
+    static number = 1;
     constructor(tile){
         super(tile, 68, 3, "ORDERED", description["Epsilon"]);
-        this.number = 1;
-        for (let i of monsters) if (i instanceof EpsilonTail) this.number++;
-        this.id = "Tail"+this.number;
+       
+        //for (let i of monsters) if (i instanceof EpsilonTail) this.number++;
+        this.id = "Tail"+EpsilonTail.number;
         this.soul = new Soul("ORDERED",this);
+        EpsilonTail.number++;
+        if (EpsilonTail.number == 5) EpsilonTail.number = 1;
         this.name = "Epsilon, Supreme Ordered General";
         this.ability = monabi["Epsilon"];
     }

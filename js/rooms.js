@@ -595,7 +595,7 @@ const logicMaps = {
             "P" : new StandardForm("PLUS"),
             "F" : new PaintFilter("Red"),
             "M" : new AxiomFunction("MOVE"),
-            "N" : new ClearPaint(),
+            "X" : new ClearPaint(),
             "C" : new StandardForm("EGO"),
             "S" : new PaintTile("Red"),
             "V" : new VoidTargets(),

@@ -32,14 +32,9 @@ function trigger(key){
 function makeItFunny(){
     for(let i=0;i<81;i++){
         for(let j=0;j<81;j++){
-            world.depositTiles[i][j].x = i;
-            world.depositTiles[i][j].y = j;
+            if (tiles[i][j].paint) console.log(tiles[i][j]);
         }
     }
-    world.rooms[4][7].size = 81;
-    world.rooms[4][7].tiles = world.depositTiles;
-    //numTiles = 81;
-    //drawSprites();
 }
 
 function teleport(target,destination,data){
