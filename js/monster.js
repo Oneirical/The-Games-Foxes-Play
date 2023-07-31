@@ -451,10 +451,6 @@ class Monster{
     }   
 
     tryMove(dx, dy, antiloop){
-        if (this.isPlayer && !antiloop){
-            this.playerMove(dx,dy);
-            return;
-        } 
         if (this.statusEff["Thrashing"] > 0){
             let neighbors = this.tile.getAdjacentPassableNeighbors();
             if(neighbors.length){

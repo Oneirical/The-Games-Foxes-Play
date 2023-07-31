@@ -177,7 +177,7 @@ axiomEffects = {
         let chosen = shuffle(targets)[0];
         let currentTile = data["caster"].tile;
         if (Math.abs(chosen.x-currentTile.x) <= 1 && Math.abs(chosen.y-currentTile.y) <= 1 && Math.abs(chosen.x-currentTile.x) + Math.abs(chosen.y-currentTile.y) != 2){
-            data["caster"].tryMove(chosen.x-currentTile.x,chosen.y-currentTile.y);
+            if (!data["caster"].tryMove(chosen.x-currentTile.x,chosen.y-currentTile.y)) data["break"] = true;
             return data;
         }
         let path = astair(currentTile,chosen);
