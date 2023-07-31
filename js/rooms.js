@@ -491,6 +491,40 @@ const logicMaps = {
         "keys" : {
         }
     },
+    "EpsilonControl" : {
+        0 : "wCSVnMN..", // ego, store targets, RFBCSVPMN
+        1 : ".........", // flip boolean stop
+        2 : "aCSVoMN..",
+        3 : ".........",
+        4 : "sCSVuMN..",
+        5 : ".........",
+        6 : "dCSVeMN..",
+        7 : ".........",
+        8 : ".........",
+        "keys" : {
+            "R" : new RadioReceiver("EON"),
+            "M" : new AxiomFunction("MOVE"),
+            "P" : new FormEntity("Player"), // just testing for now, no player targeters later
+            "F" : new BooleanFlip(),
+            "B" : new BooleanGate(true),
+
+            "C" : new StandardForm("EGO"),
+            "S" : new PaintTile("Red"),
+            "V" : new VoidTargets(),
+            "N" : new RadioBroadcaster("SLITHER1"),
+
+            "w" : new RadioReceiver("W"),
+            "a" : new RadioReceiver("A"),
+            "s" : new RadioReceiver("S"),
+            "d" : new RadioReceiver("D"),
+            //"C" : new ContinKeypress("Click"),
+            //"F" : new FormTile()
+            "n" : new FormDir("N"),
+            "o" : new FormDir("W"),
+            "e" : new FormDir("E"),
+            "u" : new FormDir("S"),            
+        }
+    },
     "Epsilon" : {
         0 : "RFBCSVPMN", // ego, store targets, 
         1 : ".........", // flip boolean stop

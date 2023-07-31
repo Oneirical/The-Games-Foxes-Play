@@ -1336,7 +1336,7 @@ class KnockbackBot extends Monster{
 class EpsilonHead extends Monster{
     constructor(tile){
         super(tile, 67, 3, "ORDERED", description["Epsilon"]);
-        this.id = "Epsilon";
+        this.id = "EpsilonControl";
         this.soul = new Soul("ORDERED",this);
         this.souls = [this.soul];
         this.name = "Epsilon, Supreme Ordered General";
