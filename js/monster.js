@@ -147,13 +147,19 @@ class Monster{
                         if (!universe.zooming && this.tile instanceof CageContainer &&  this.tile.x == world.cageCorner[0] + 4 && this.tile.y == world.cageCorner[1] + 4) universe.passDown(destination, world.cage.pocketworld.cageLocation[0], world.cage.pocketworld.cageLocation[1]);
                     }
                 }
-                else if (!player.animating){
+                else if (!player.animating || this.partOfPlayer){
                     if (this.offsetX >= 0) this.offsetX = Math.max(this.offsetX - this.anispeed,0);
                     else this.offsetX = Math.min(this.offsetX + this.anispeed,0);
                     if (this.offsetY >= 0) this.offsetY = Math.max(this.offsetY - this.anispeed,0);
                     else this.offsetY = Math.min(this.offsetY + this.anispeed,0);
                     this.creaturecon.x = this.creaturecon.originalX + this.offsetX*tileSize;
                     this.creaturecon.y = this.creaturecon.originalY +  this.offsetY*tileSize;
+                    if (this.partOfPlayer){
+                        if (this.offsetX > 0) this.creaturecon.x -= 64;
+                        else if (this.offsetX < 0) this.creaturecon.x += 64;
+                        if (this.offsetY > 0) this.creaturecon.y -= 64;
+                        else if (this.offsetY < 0) this.creaturecon.y += 64;
+                    }
                 }
 
             }

@@ -32,11 +32,13 @@ function trigger(key){
 }
 
 function makeItFunny(){
-    for(let i=0;i<81;i++){
-        for(let j=0;j<81;j++){
-            if (tiles[i][j].paint) console.log(tiles[i][j]);
-        }
-    }
+    tilesDisplay.removeChild(player.creaturecon);
+    player = monsters[0];
+    tilesDisplay.addChild(player.creaturecon);
+    player.creaturecon.x = 8*tileSize;
+    player.creaturecon.y = 8*tileSize;
+    removeItemOnce(monsters,player);
+    for (let i of monsters) i.partOfPlayer = true;
 }
 
 function teleport(target,destination,data){
