@@ -1,7 +1,7 @@
 var keytile = {
     "W" : Wall,
     "." : Floor,
-    "E" : BExit, //replace this with an airlock
+    "E" : Airlock, //replace this with an airlock
     "#" : NoBreakWall,
     "A" : RealityWall,
     "L" : LayerBackground,
@@ -19,6 +19,7 @@ var keytile = {
     "o" : CageContainer,
     "H" : HypnoticProjector,
     "|" : Window,
+    "a" : Airlock,
 }
 
 var keyroom = {
@@ -884,6 +885,51 @@ var rooms = {
             "F" : Felidol,
         }
     },
+    "ScarabFactory" : {
+        0 : "####E####",
+        1 : "#.......#",
+        2 : "#.......#",
+        3 : "#.......#",
+        4 : "E.......E",
+        5 : "#..WFW..#",
+        6 : "#..WWW..#",
+        7 : "#.......#",
+        8 : "####E####",
+        "tags": ["randomgen","randomflip"],
+        "creatures" : {
+            "F" : Weaver,
+        }
+    },
+    "ScarabWaypoint" : {
+        0 : "####E####",
+        1 : "#.......#",
+        2 : "#..W.W..#",
+        3 : "#.WW.WW.#",
+        4 : "E.....L.E",
+        5 : "#.WW.WW.#",
+        6 : "#..W.W..#",
+        7 : "#.......#",
+        8 : "####E####",
+        "tags": ["randomgen","randomflip"],
+        "creatures" : {
+            "L" : Apiarist,
+        }
+    },
+    "Garnison" : {
+        0 : "####E####",
+        1 : "#GGG.GGG#",
+        2 : "#G.....G#",
+        3 : "#G.GGG.G#",
+        4 : "E..GWG..E",
+        5 : "#G.GGG.G#",
+        6 : "#G.....G#",
+        7 : "#GGG.GGG#",
+        8 : "####E####",
+        "tags": ["randomgen"],
+        "creatures" : {
+            "G" : Slug,
+        }
+    },
     "Epsilon1" : {
         0 : "####E####",
         1 : "#........",
@@ -1038,6 +1084,22 @@ var rooms = {
         "tags": ["randomgen","randomflip"],
         "vertical" : true,
     },
+    "LaserHall" : {
+        0 : "AA##E##AA",
+        1 : "A##.,.##A",
+        2 : "A#L...L#A",
+        3 : "A#L...L#A",
+        4 : "A#L...L#A",
+        5 : "A#L...L#A",
+        6 : "A#L...L#A",
+        7 : "A##.,.##A",
+        8 : "AA##E##AA",
+        "tags": ["randomgen","randomflip"],
+        "vertical" : true,
+        "creatures" : {
+            "L" : Snail,
+        }
+    },
     "TCross" : {
         0 : "AAAAAAAAA",
         1 : "AAAAAAAAA",
@@ -1107,7 +1169,7 @@ var rooms = {
         1 : "#.......#",
         2 : "|.......|",
         3 : "|.......|",
-        4 : "|.......|",
+        4 : "|...a...|",
         5 : "|.......|",
         6 : "|.......|",
         7 : "#.......#",

@@ -457,7 +457,7 @@ class Monster{
 
     }   
 
-    tryMove(dx, dy, antiloop){
+    tryMove(dx, dy){
         if (this.statusEff["Thrashing"] > 0){
             let neighbors = this.tile.getAdjacentPassableNeighbors();
             if(neighbors.length){
@@ -658,6 +658,9 @@ class Monster{
                 }
             }
             return true;
+        }
+        else if (newTile instanceof Airlock){
+            newTile.open();
         }
     }
 

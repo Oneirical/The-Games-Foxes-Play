@@ -656,6 +656,48 @@ class Booster extends Exit{
     }
 }
 
+class Airlock extends Tile{
+    constructor(x,y){
+        super(x, y, 2, false);
+        this.lore = description["Abazon"];
+        this.name = "Terracotta Sentry";
+        this.eat = false;
+    };
+
+    setUpSprite(){
+        this.doorTiles = new PIXI.Container();
+        super.setUpSprite();
+        this.tilecon.addChild(this.doorTiles);
+        if (this.existSpace[this.x][this.y+1]) console.log(this.existSpace[this.x][this.y+1]);
+        let door;
+        for (let i = 0; i<2; i++){
+            door = new FoxSprite(allsprites.textures['sprite'+(17)]);
+            door.width = tileSize;
+            door.height = tileSize;
+            this.doorTiles.addChild(door);
+        }
+        drawPixel("black",0,0,tileSize,this.tilecon);
+        this.tilecon.children[this.tilecon.children.length-1].alpha = 0;
+        this.tilecon.mask = this.tilecon.children[this.tilecon.children.length-1];
+    }
+
+    open(){
+        let doorAnim = new PIXI.Ticker;
+        doorAnim.start();
+        this.passable = true;
+        animationTick.add(() => {
+            if (this.doorTiles.children[0].x < 50){
+                this.doorTiles.children[0].x ++;
+                this.doorTiles.children[1].x --;
+            }
+        }); 
+    }
+
+    stepOn(){
+
+    }
+}
+
 class Plate extends Floor{ //delete later
     constructor(x, y){
         super(x, y, 75, true);

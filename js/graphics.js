@@ -231,7 +231,7 @@ function setUpUI(){
 function drawProjectors(){
     tilesDisplay.mask = app.stage.children[app.stage.children.length-1];
     drawTiles();
-    let projectorDisplay = new PIXI.Container();
+    projectorDisplay = new PIXI.Container();
     projectorDisplay.x = -448;
     projectorDisplay.y = -448;
     tilesDisplay.notPlayerTiles.addChild(projectorDisplay);
@@ -274,7 +274,10 @@ function tickProjectors(){
         for(let j=0;j<zoom*2;j++){
             let projector = tilesDisplay.projectorDisplay.projectors[i][j];
             projector.removeChildren();
-            if (tiles[i-zoom+player.tile.x] && tiles[i-zoom+player.tile.x][j-zoom+player.tile.y]) projector.referenceTile = tiles[i-zoom+player.tile.x][j-zoom+player.tile.y];
+            if (tiles[i-zoom+player.tile.x] && tiles[i-zoom+player.tile.x][j-zoom+player.tile.y]){
+                projector.referenceTile = tiles[i-zoom+player.tile.x][j-zoom+player.tile.y];
+                tiles[i-zoom+player.tile.x][j-zoom+player.tile.y].projectedBy = projector;
+            }
             else projector.referenceTile = null;
             if (projector.referenceTile && !(projector.referenceTile instanceof RealityWall)){
                 projector.addChild(projector.referenceTile.tilecon);
@@ -303,6 +306,7 @@ function drawTiles(){
     for (let r of universe.worlds){
         for(let i=0;i<numTiles;i++){
             for(let j=0;j<numTiles;j++){
+                r.playSpace.tiles[i][j].existSpace = r.playSpace.tiles;
                 if (r.playSpace.tiles[i] && r.playSpace.tiles[i][j] && !r.playSpace.tiles[i][j].graphicsReady && !(r.playSpace.tiles[i][j] instanceof RealityWall) && !((r.playSpace.tiles[i][j] instanceof LayerBackground) && r.playSpace.tiles[i][j].sprite == 2)) r.playSpace.tiles[i][j].setUpSprite();
             }
         }
