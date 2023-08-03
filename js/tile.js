@@ -20,6 +20,9 @@ class Tile{
         this.paint = false;
     }
 
+    stepOut(){
+    }
+
     setUpSprite(){
         this.tilecon = new PIXI.Container();
         //tilesDisplay.notPlayerTiles.addChild(this.tilecon);
@@ -709,21 +712,45 @@ class Airlock extends Tile{
     }
 
     open(){
-        let doorAnim = new PIXI.Ticker;
-        doorAnim.start();
+        this.doorAnim = new PIXI.Ticker;
+        this.doorAnim.start();
         this.passable = true;
-        animationTick.add(() => {
+        this.doorAnim.add(() => {
             if (this.direction == "N" || this.direction == "S" ){
                 if (this.doorTiles.children[0].x < 90){
-                    this.doorTiles.children[0].x ++;
-                    this.doorTiles.children[1].x --;
+                    this.doorTiles.children[0].x +=3;
+                    this.doorTiles.children[1].x -=3;
                 }
+                else this.doorAnim.stop();
             }
             else if (this.direction == "W" || this.direction == "E" ){
                 if (this.doorTiles.children[0].y < 90){
-                    this.doorTiles.children[0].y ++;
-                    this.doorTiles.children[1].y --;
+                    this.doorTiles.children[0].y +=3;
+                    this.doorTiles.children[1].y -=3;
                 }
+                else this.doorAnim.stop();
+            }
+        }); 
+    }
+
+    stepOut(){
+        this.doorAnim = new PIXI.Ticker;
+        this.doorAnim.start();
+        this.passable = false;
+        this.doorAnim.add(() => {
+            if (this.direction == "N" || this.direction == "S" ){
+                if (this.doorTiles.children[0].x > 32){
+                    this.doorTiles.children[0].x -=3;
+                    this.doorTiles.children[1].x +=3;
+                }
+                else this.doorAnim.stop();
+            }
+            else if (this.direction == "W" || this.direction == "E" ){
+                if (this.doorTiles.children[0].y > 32){
+                    this.doorTiles.children[0].y -=3;
+                    this.doorTiles.children[1].y +=3;
+                }
+                else this.doorAnim.stop();
             }
         }); 
     }

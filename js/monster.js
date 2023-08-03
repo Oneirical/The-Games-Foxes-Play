@@ -733,6 +733,7 @@ class Monster{
 
     move(tile){
         if(this.tile){
+            this.tile.stepOut(this);
             this.tile.monster = null;
             if (this.animating && this === player){
                 tickProjectors();

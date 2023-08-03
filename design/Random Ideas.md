@@ -10,40 +10,18 @@ Unhinged: aggressive squads outright raid other planes to get axioms
 Feral: the forest causes extreme battle royales to find the best axiom
 Vile: there is no passive progress, the player is challenged with the lure of gain to get their axioms
 
-Souls = axiom matrix
-"install" souls in the wheel
-you can install anything
-
 cage can still not place in apex - fix it
-
-**Status Effects**
-
-* Does para REALLY prevent casting or drawing?
-* Fix haste (timesnapped)
-* Constrict softlock allow the player to tick it down
-
-**Influential Dungeons**
-
-* Make basic enemies themed around animal species (mollusk thoughtform) and dynamically swap them according to caste influences.
-* Add automatic large room integration.
 
 **Everyone Is Legendary**
 
 * second rewrite lore to feed others. Also their contin should be on turnstart.
-* Make it possible to pass the time when dead and only respawn when you truly want it. Useful with felidol passive
-* The "on death" contingency should be serene to stop it from being mega op.
-* Make it so contingencies grab the respective soul and autocast it instead of whatever I was trying to do with shattereds. 
+* Make it possible to pass the time when dead and only respawn when you truly want it. Useful with felidol passive 
 * put question marks in the craft recipe indicator if you don't know that one yet (say, while looking at an enemy)
 - Lore is that Terminal needs vessels that believes in those caste-respective axioms so he doesn't brainwash himself.
-
-* Serene function that lets you reprogram a creature on the spot
 
 **Brushstroke Crafting**
 
 * Become able to place a whole pattern in one shot by selecting from catalogue
-* make it so the caste icon in componentsdisplay shows ties
-* highlight the paintcans when mousing over them
-* Maybe censor Serene in the brush UI until harmony is discovered
 
 **"Serene Collective" design**
 
@@ -58,15 +36,9 @@ The soul quarry is "unrealized potential" to the harmony
 Each death/failure makes the harmony wonder if you are making the challenges hard intentionally to betray them, which makes them spread the cyan light inside you to ensure your loyalty.
 Harmonists can only be hurt by axioms no melee attacks
 
-**Estate upgrades**
-
 * Soul Press - convert 10 turbulent into 1 disciplined & 9 waste "pick off the bits and pieces that are primed for submission from the lot"
-* A weird soul that induces a positive effect if your room path is executed in a certain way? This used to be rooms superposing each other...
-* permanently lose access to a caste slot for a fat bonus.
 
-**Estate**
-
-Universal law that can be changed: default: when room begins, on all enemies, apply 2 Paralysis
+Universal laws on tiles, not enemies, who have their own Petrified souls
 
 **Contingencies**
 
