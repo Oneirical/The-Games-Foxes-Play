@@ -683,7 +683,8 @@ class Airlock extends Tile{
             }
         }
         if (!this.direction){
-            this.direction = "N"; // this shouldn't happen
+            this.existSpace[this.x][this.y] = new NoBreakWall(this.x, this.y); // this is a little gory, replace later with "filler" tile
+            this.existSpace[this.x][this.y].setUpSprite();
         }
         let door;
         for (let i = 0; i<2; i++){
