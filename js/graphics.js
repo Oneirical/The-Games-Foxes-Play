@@ -307,6 +307,8 @@ function drawTiles(){
         for(let i=0;i<numTiles;i++){
             for(let j=0;j<numTiles;j++){
                 r.playSpace.tiles[i][j].existSpace = r.playSpace.tiles;
+                r.playSpace.tiles[i][j].x = i;
+                r.playSpace.tiles[i][j].y = j;
                 if (r.playSpace.tiles[i] && r.playSpace.tiles[i][j] && !r.playSpace.tiles[i][j].graphicsReady && !(r.playSpace.tiles[i][j] instanceof RealityWall) && !((r.playSpace.tiles[i][j] instanceof LayerBackground) && r.playSpace.tiles[i][j].sprite == 2)) r.playSpace.tiles[i][j].setUpSprite();
             }
         }

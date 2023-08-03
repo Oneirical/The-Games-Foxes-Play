@@ -668,12 +668,38 @@ class Airlock extends Tile{
         this.doorTiles = new PIXI.Container();
         super.setUpSprite();
         this.tilecon.addChild(this.doorTiles);
-        if (this.existSpace[this.x][this.y+1]) console.log(this.existSpace[this.x][this.y+1]);
+        const directions = {
+            "N" : [0,-1],
+            "W" : [-1,0],
+            "E" : [1,0],
+            "S" : [0,1],
+        };
+        for (let i of Object.keys(directions)){
+            let nextTile;
+            if (this.existSpace[this.x+directions[i][0]] && this.existSpace[this.x+directions[i][0]][this.y+directions[i][1]]) nextTile = this.existSpace[this.x+directions[i][0]][this.y+directions[i][1]];
+            if (nextTile instanceof Airlock){
+                this.direction = i;
+                break;
+            }
+        }
+        if (!this.direction){
+            this.direction = "N"; // this shouldn't happen
+        }
         let door;
         for (let i = 0; i<2; i++){
             door = new FoxSprite(allsprites.textures['sprite'+(17)]);
             door.width = tileSize;
             door.height = tileSize;
+            door.anchor.set(0.5,0.5);
+            door.x = tileSize/2;
+            door.y = tileSize/2;
+            const rotate = {
+                "S" : 0,
+                "W" : Math.PI/2,
+                "E" : 3*Math.PI/2,
+                "N" : Math.PI,
+            }
+            door.rotation = rotate[this.direction];
             this.doorTiles.addChild(door);
         }
         drawPixel("black",0,0,tileSize,this.tilecon);
@@ -686,9 +712,17 @@ class Airlock extends Tile{
         doorAnim.start();
         this.passable = true;
         animationTick.add(() => {
-            if (this.doorTiles.children[0].x < 50){
-                this.doorTiles.children[0].x ++;
-                this.doorTiles.children[1].x --;
+            if (this.direction == "N" || this.direction == "S" ){
+                if (this.doorTiles.children[0].x < 90){
+                    this.doorTiles.children[0].x ++;
+                    this.doorTiles.children[1].x --;
+                }
+            }
+            else if (this.direction == "W" || this.direction == "E" ){
+                if (this.doorTiles.children[0].y < 90){
+                    this.doorTiles.children[0].y ++;
+                    this.doorTiles.children[1].y --;
+                }
             }
         }); 
     }
