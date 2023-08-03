@@ -1,6 +1,6 @@
-""
+"A monolithic mass of pink glass, its monotony broken by a complex maze-like pattern spreading within. Its alluring colours and patterns invite you to find an exit to this impossible, titanic puzzle - an offer to be denied, should you wish to remain fully in control of your destiny."
 
-- 
+- Roseic Blowglass flavour text
 
 ## The Games Foxes Play
 *([complete source code](https://github.com/Oneirical/The-Games-Foxes-Play) - [mirror](https://codeberg.org/Oneirical/The-Games-Foxes-Play) | [view all previous posts](https://github.com/Oneirical/The-Games-Foxes-Play/tree/main/design/Development%20Logs) | [play 0.4.3 online in browser on itch.io!](https://oneirical.itch.io/tgfp))*
@@ -69,6 +69,16 @@ The next tail segment receives the code SLITHER2, and does the exact same proces
 
 **TL;DR: Epsilon's head marks its current position, then moves towards the player. Then, the snake instructs the next tail segment to mark its position, then move to the position marked by the head.** And so on, until the entire snake is dragging its bulky body in the direction of the player, once every other turn!
 
+[Here is it chasing me around]().
+
+Now, [here is what happens if I replace the "EON" trigger with triggers that respond to directional keys...]() I become Epsilon!
+
+Additionally, boring empty doorways have now been replaced by sliding airlocks, as can be seen in these videos. Pshhhh!
+
 # Why Do All This And Not Just Hardcode It Like A Normal Person
 
-My vision has endlessly reshaped itself since I started this project, but now, I am pretty adamant that what I really want is a game that requires you to exploit it to win.
+My vision has endlessly reshaped itself since I started this project, but now, I am pretty adamant that what I really want is a game that requires you to exploit it to win. I think I'll be giving Epsilon, some completely broken logic chain (example: on each turn, heal all surrounding entities - since it's a snake it just means the segments will be healing each other ceaselessly). Then, the player will be tasked to engineer something to counteract the problem making Epsilon invincible - to follow up on this example, just separating the segments would be enough!
+
+To this end, they could craft a Soul that knocks segments of the tail out of the way, they could paint the whole floor in red to throw off Epsilon's pathfinding, they could forcefully inject a Soul inside Epsilon that transforms healing into damage...
+
+To tell you the truth, I have no idea how this will ever be balanced or if this will even make for an interesting game. But I'm having fun doing these things and it beats splatting FeCKs in Dungeon Crawl Stone Soup, so there's that.
