@@ -600,7 +600,7 @@ class World{
 
     selectRooms(){
         if (this.serene) this.roompool = [StandardSpire];
-        else this.roompool = [StandardFaith,]; //BloxFaith,EmptyFaith,HideFaith,PipesFaith,TriangleFaith,StarFaith
+        else this.roompool = [StandardFaith]; //BloxFaith,EmptyFaith,HideFaith,PipesFaith,TriangleFaith,StarFaith
     }
 
     confirmWorldFromVault(vault){
@@ -1264,7 +1264,7 @@ class DefaultVaultRoom extends Room{
 class StandardFaith extends DefaultVaultRoom{
     constructor(index){
         super(index);
-        this.id = "Standard";
+        this.id = shuffle(["Standard","CatsCross"])[0];
     }
 }
 

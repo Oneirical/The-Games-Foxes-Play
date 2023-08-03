@@ -869,6 +869,21 @@ var rooms = {
         8 : "####E####",
         "tags": ["randomgen"],
     },
+    "CatsCross" : {
+        0 : "####E####",
+        1 : "#WF...FW#",
+        2 : "#FF...FF#",
+        3 : "#...F...#",
+        4 : "E..FWF..E",
+        5 : "#...F...#",
+        6 : "#FF...FF#",
+        7 : "#WF...FW#",
+        8 : "####E####",
+        "tags": ["randomgen"],
+        "creatures" : {
+            "F" : Felidol,
+        }
+    },
     "Epsilon1" : {
         0 : "####E####",
         1 : "#........",
