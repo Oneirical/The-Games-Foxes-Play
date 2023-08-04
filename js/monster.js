@@ -730,6 +730,7 @@ class Monster{
         else this.sprite = 83;
         tilesDisplay.removeChild(this.creaturecon);
         if (this.tile.monster) this.tile.monster.setUpSprite(); // have a feeling this is weird, it's for the felidols
+        removeItemOnce(monsters,this);
     }
 
     move(tile){
