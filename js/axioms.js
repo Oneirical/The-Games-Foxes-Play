@@ -239,7 +239,8 @@ class DamageDealer extends AxiomTemp{
     }
     act(data){
         for (let i of data["targets"]){
-            if (i.monster) i.hit(this.dam);
+            if (i.monster) i.monster.hit(this.dam);
+            i.setEffect(0);
         }
         return data;
     }
@@ -258,6 +259,8 @@ class LinkForm extends AxiomTemp{
         const initialPoint = data["caster"].tile;
         const finalPoint = this.link.tile;
         const trail = line(initialPoint,finalPoint);
+        removeItemAll(trail,initialPoint);
+        removeItemAll(trail,finalPoint);
         for (let i of trail) data["targets"].push(i);
         return data;
     }

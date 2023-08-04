@@ -651,6 +651,7 @@ class World{
                     }
                 }
                 for (let u of this.rooms[i][j].monsters){
+                    u.room = this.rooms[i][j];
                     this.depositCreatures.push(u);
                 }
                 this.rooms[i][j].layer = this.layer;
@@ -788,6 +789,7 @@ class World{
                     }
                 }
                 for (let u of this.rooms[i][j].monsters){
+                    u.room = this.rooms[i][j];
                     this.depositCreatures.push(u);
                 }
                 this.rooms[i][j].layer = this.layer;

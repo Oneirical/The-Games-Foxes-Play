@@ -1099,8 +1099,7 @@ class Snail extends Monster{ // BATTLESNAIL, GET IN THERE!
         let linkStore = this.souls[0].findAxioms(LinkForm);
         numberStore[0].num = delay;
         for (let i of playSpace.monsters){
-            const condition = (i.x == this.x && Math.abs(this.y-i.y) == 4) || (i.y == this.y && Math.abs(this.x-i.x) == 4);
-            if (i.generationMark == link && condition) linkStore[0].link = i;
+            if (i.generationMark == link && i.room == this.room) linkStore[0].link = i;
         }
     }
 }
