@@ -172,6 +172,8 @@ class Monster{
         //out to be that one tiny line under here that caused literal thousands of StatusDisplay to stack on top of each other? Now that was funny
     }
 
+    extraConfig(){};
+
     updateHp(){
         let hp = this.hp;
         if (this.isInvincible || this.order >= 0) hp = 0;
@@ -1081,7 +1083,7 @@ class Oracle extends Monster{
 class Snail extends Monster{ // BATTLESNAIL, GET IN THERE!
     constructor(tile){
         super(tile, 41, 2, "ARTISTIC", description["Snail"]);
-        this.soul = "Animated by an Ordered (5) soul.";
+        this.id = "ElectroCoil";
         this.name = "Shelled Electromedic";
         this.ability = monabi["Snail"];
         this.canmove = false;
@@ -1089,13 +1091,18 @@ class Snail extends Monster{ // BATTLESNAIL, GET IN THERE!
         this.assignAxiom(["TURNEND","EGO","STOP","RANDDIR","BLINK"],"ARTISTIC",2); //maybe boost up blink potency
         this.assignAxiom(["ONTELE","BEAM","HARM"],"UNHINGED",1);
     }
-    // doStuff(){
-    //     let directions = [[-1,0],[1,0],[0,-1],[0,1]];
-    //     let indexx = randomRange(0,3);
-    //     this.lastMove = directions[indexx]
-    //     spells["SNAILLASER"](this);
-    //     super.doStuff();
-    // }
+    extraConfig(playSpace){
+        if (!(this.generationMark instanceof Array)) return;
+        const delay = this.generationMark[0];
+        const link = this.generationMark[1];
+        let numberStore = this.souls[0].findAxioms(NumberStorage);
+        let linkStore = this.souls[0].findAxioms(LinkForm);
+        numberStore[0].num = delay;
+        for (let i of playSpace.monsters){
+            const condition = (i.x == this.x && Math.abs(this.y-i.y) == 4) || (i.y == this.y && Math.abs(this.x-i.x) == 4);
+            if (i.generationMark == link && condition) linkStore[0].link = i;
+        }
+    }
 }
 
 class Husk extends Monster{
@@ -1183,8 +1190,6 @@ class Weaver extends Monster{
     constructor(tile){
         super(tile, 27, 2, "ARTISTIC", description["Weaver"]);
         this.id = "ScarabSpawner";
-        this.soul = new Soul("Artistic",this);
-        this.souls = [this.soul];
         this.name = "Humming Paperweaver";
         this.ability = monabi["Weaver"];
         this.isPassive = true;
@@ -1351,8 +1356,6 @@ class EpsilonHead extends Monster{
     constructor(tile){
         super(tile, 67, 3, "ORDERED", description["Epsilon"]);
         this.id = "Epsilon";
-        this.soul = new Soul("ORDERED",this);
-        this.souls = [this.soul];
         this.name = "Epsilon, Supreme Ordered General";
         this.ability = monabi["Epsilon"];
     }
@@ -1365,8 +1368,6 @@ class EpsilonTail extends Monster{
        
         //for (let i of monsters) if (i instanceof EpsilonTail) this.number++;
         this.id = "Tail"+EpsilonTail.number;
-        this.soul = new Soul("ORDERED",this);
-        this.souls = [this.soul];
         EpsilonTail.number++;
         if (EpsilonTail.number == 5) EpsilonTail.number = 1;
         this.name = "Epsilon, Supreme Ordered General";
@@ -1785,8 +1786,6 @@ class Scarab extends Monster{
         super(tile, 76, 1, "ORDERED", description["Scarab"]);
         this.name = "Plated Thought-Ferry";
         this.id = "Scarab";
-        this.soul = new Soul("ORDERED",this);
-        this.souls = [this.soul];
         //this.paralyzed = true;
         //this.assignAxiom(["TURNEND",new Identifer("Dir","N"),"MOVE"],"ORDERED",1);
     }

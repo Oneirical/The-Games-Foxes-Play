@@ -203,6 +203,7 @@ class Universe{
         world.layer = 0;
         world.confirmWorldFromVault();
         this.worlds[1].confirmWorld();
+        assignSouls();
         world.currentroom = [4,8];
         world.tranquil = true;
         world.playRoom(world.rooms[4][8],startingHp);
@@ -1200,6 +1201,11 @@ class DefaultVaultRoom extends Room{
         this.depth = depth;
         this.tiles = [];
         let vault = rooms[this.id];
+        if (vault["creatures"] && vault["creatures"]["NUMBER"]){
+            for (let i = 0; i<10; i++){
+                vault["creatures"][i] = vault["creatures"]["NUMBER"];
+            }
+        }
         for(let i=0;i<this.size;i++){
             this.tiles[i] = [];
             for(let j=0;j<this.size;j++){
@@ -1215,6 +1221,7 @@ class DefaultVaultRoom extends Room{
                 else this.tiles[i][j] = new tile(i,j,this);
                 if (vault["creatures"] && vault["creatures"][vault[j][i]]){
                     let entity = new vault["creatures"][vault[j][i]](this.tiles[i][j]);
+                    if (vault["marks"] && vault["marks"][vault[j][i]]) entity.generationMark = vault["marks"][vault[j][i]];
                     this.monsters.push(entity);
                     entity.setUpSprite();
                 }
@@ -1278,7 +1285,7 @@ class TriangleFaith extends DefaultVaultRoom{
 class NarrowFaith extends DefaultVaultRoom{
     constructor(index){
         super(index);
-        this.id = shuffle(["Narrow","LaserHall"])[0];
+        this.id = shuffle(["LaserHall"])[0]; //"Narrow",
         this.corridor = true;
     }
 }

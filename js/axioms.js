@@ -245,6 +245,24 @@ class DamageDealer extends AxiomTemp{
     }
 }
 
+class LinkForm extends AxiomTemp{
+    constructor(link){
+        super();
+        this.link = link;
+    }
+    act(data){
+        if (!this.link){
+            data["break"] = true;
+            return data;
+        }
+        const initialPoint = data["caster"].tile;
+        const finalPoint = this.link.tile;
+        const trail = line(initialPoint,finalPoint);
+        for (let i of trail) data["targets"].push(i);
+        return data;
+    }
+}
+
 
 
 axiomEffects = {

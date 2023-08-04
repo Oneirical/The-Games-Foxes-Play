@@ -493,9 +493,9 @@ const logicMaps = {
         }
     },
     "ElectroCoil" : {
-        0 : "RINMBFZ..",
-        1 : "C........",
-        2 : "PV.......",
+        0 : "RINMBZ...",
+        1 : ".........",
+        2 : ".........",
         3 : ".........",
         4 : ".........",
         5 : ".........",
@@ -507,12 +507,8 @@ const logicMaps = {
            "I" : new NumberIncrementer(1),
            "N" : new NumberStorage(0),
            "M" : new ModuloGate(7),
-           "B" : new StandardForm("BEAM"),
-           "F" : new PaintFilter("Blue"),
+           "B" : new LinkForm(),
            "Z" : new DamageDealer(1),
-           "C" : new StandardForm("EGO"),
-           "P" : new PaintTile("Blue"),
-           "V" : new VoidTargets(),
         }
     },
     "Scarab" : {
@@ -1149,17 +1145,28 @@ var rooms = {
     "LaserHall" : {
         0 : "AA##E##AA",
         1 : "A##.,.##A",
-        2 : "A#L...L#A",
-        3 : "A#L...L#A",
-        4 : "A#L...L#A",
-        5 : "A#L...L#A",
-        6 : "A#L...L#A",
+        2 : "A#1...6#A",
+        3 : "A#2...7#A",
+        4 : "A#3...8#A",
+        5 : "A#4...9#A",
+        6 : "A#5...0#A",
         7 : "A##.,.##A",
         8 : "AA##E##AA",
         "tags": ["randomgen","randomflip"],
         "vertical" : true,
         "creatures" : {
-            "L" : Snail,
+            "NUMBER" : Snail,
+        },
+        "marks" : {
+            "1" : [0,6],
+            "2" : [1,7],
+            "3" : [2,8],
+            "4" : [3,9],
+            "5" : [4,0],
+            "6" : 6,
+            "7" : 7,
+            "8" : 8,
+            "9" : 9,
         }
     },
     "TCross" : {

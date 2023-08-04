@@ -31,6 +31,17 @@ function trigger(key){
     }
 }
 
+function assignSouls(){
+    for (let r of universe.worlds){
+        for (let i of r.playSpace.monsters){
+            if (i.id) i.souls = [new Soul(i.lootid,i)];
+            if (i.generationMark){
+                i.extraConfig(r.playSpace);
+            }
+        }
+    }
+}
+
 function makeItFunny(){
     tilesDisplay.removeChild(player.creaturecon);
     player = monsters[0];
@@ -313,7 +324,7 @@ function startGame(){
 function summonMonster(x,y,type){
     let tile = getTile(x,y);
     let monster = new type(tile);
-    monster.teleportCounter = 0;
+    if (monster.id) monster.souls = [new Soul(monster.lootid,monster)];
     monsters.push(monster);
     monster.setUpSprite();
 }
