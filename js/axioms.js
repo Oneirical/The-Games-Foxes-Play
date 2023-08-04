@@ -25,6 +25,7 @@ class RadioBroadcaster extends AxiomTemp{
     }
     act(data){
         trigger(this.message);
+        console.log("trigger " + this.message);
         return data;
     }
 }
@@ -57,6 +58,7 @@ class ClearPaint extends AxiomTemp{
     act(data){
         for (let i of data["targets"]){
             i.paint = false;
+            i.tilecon.removeChild(i.paintDisplay);
         }
         return data;
     }
@@ -70,6 +72,8 @@ class PaintTile extends AxiomTemp{
     act(data){
         for (let i of data["targets"]){
             i.paint = this.colour;
+            drawPixel("red",0,0,tileSize,i.tilecon);
+            i.paintDisplay = i.tilecon.children[i.tilecon.children.length-1];
         }
         return data;
     }
@@ -167,23 +171,34 @@ class StandardForm extends AxiomTemp{
     }
 }
 
+class FailCatcher extends AxiomTemp{
+    constructor(key){
+        super();
+    }
+}
+
 
 
 axiomEffects = {
 
     MOVE: function(data){
-        if (data["targets"].length == 0) return data;
+        if (data["targets"].length == 0){
+            data["break"] = true;
+            return data;
+        }
         let targets = data["targets"].slice(0);
         let chosen = shuffle(targets)[0];
         let currentTile = data["caster"].tile;
         if (Math.abs(chosen.x-currentTile.x) <= 1 && Math.abs(chosen.y-currentTile.y) <= 1 && Math.abs(chosen.x-currentTile.x) + Math.abs(chosen.y-currentTile.y) != 2){
-            if (!data["caster"].tryMove(chosen.x-currentTile.x,chosen.y-currentTile.y)) data["break"] = true;
+            if (!data["caster"].tryMove(chosen.x-currentTile.x,chosen.y-currentTile.y)){
+                data["break"] = true;
+            }
             return data;
         }
         let path = astair(currentTile,chosen);
         if(path.length == 0) return;
         let dir = [path[0].x-data["caster"].tile.x,path[0].y-data["caster"].tile.y];
-        data["caster"].tryMove(dir[0],dir[1]);
+        if (!data["caster"].tryMove(dir[0],dir[1])) data["break"] = true;
         return data;
     },
 

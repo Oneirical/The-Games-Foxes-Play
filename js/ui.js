@@ -1841,11 +1841,16 @@ class Soul{
             "break" : false,
         };
         while(synapses.length != 0){
-            for (let i of synapses){
-                data = i.act(data);
-                for (let r of this.getLogicNeighbours(i)) synapses.push(r);
-                removeItemOnce(synapses,i);
-                if (data["break"]) synapses = [];
+            let i = synapses[0];
+            data = i.act(data);
+            for (let r of this.getLogicNeighbours(i)) synapses.push(r);
+            removeItemOnce(synapses,i);
+            if (data["break"]){
+                synapses = [];
+                for (let r of this.getLogicNeighbours(i)) if (r instanceof FailCatcher){
+                    synapses.push(r);
+                    data["break"] = false;
+                }
             }
         }
     }

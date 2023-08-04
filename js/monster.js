@@ -661,6 +661,7 @@ class Monster{
         }
         else if (newTile instanceof Airlock){
             newTile.open();
+            return false;
         }
     }
 

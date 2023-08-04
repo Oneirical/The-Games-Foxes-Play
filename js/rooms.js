@@ -528,10 +528,10 @@ const logicMaps = {
     },
     "Epsilon" : {
         0 : "RFBCSVPMN", // ego, store targets, 
-        1 : ".........", // flip boolean stop
-        2 : ".........",
-        3 : ".........",
-        4 : ".........",
+        1 : ".......0.", // flip boolean stop
+        2 : ".......V.",
+        3 : ".......C.",
+        4 : ".......X.",
         5 : ".........",
         6 : ".........",
         7 : ".........",
@@ -547,6 +547,10 @@ const logicMaps = {
             "S" : new PaintTile("Red"),
             "V" : new VoidTargets(),
             "N" : new RadioBroadcaster("SLITHER1"),
+
+            "0" : new FailCatcher(),
+            "X" : new ClearPaint(),
+
         }
     },
     "Tail1" : {

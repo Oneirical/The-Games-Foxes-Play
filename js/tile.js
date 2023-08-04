@@ -733,7 +733,9 @@ class Airlock extends Tile{
         }); 
     }
 
-    stepOut(){
+    stepOut(monster){
+        let neigh = this.getAdjacentNeighbors();
+        for (let i of neigh) if (i.monster && i.monster != monster) return;
         this.doorAnim = new PIXI.Ticker;
         this.doorAnim.start();
         this.passable = false;
