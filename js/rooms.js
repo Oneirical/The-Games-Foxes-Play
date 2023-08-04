@@ -492,6 +492,41 @@ const logicMaps = {
         "keys" : {
         }
     },
+    "Scarab" : {
+        0 : "RPM......",
+        1 : ".........",
+        2 : ".........",
+        3 : ".........",
+        4 : ".........",
+        5 : ".........",
+        6 : ".........",
+        7 : ".........",
+        8 : ".........",
+        "keys" : {
+            "R" : new RadioReceiver("EON"),
+            "M" : new AxiomFunction("MOVE"),
+            "P" : new FormEntity("Player"),
+        }
+    },
+    "ScarabSpawner" : {
+        0 : "RINMPS...",
+        1 : ".........",
+        2 : ".........",
+        3 : ".........",
+        4 : ".........",
+        5 : ".........",
+        6 : ".........",
+        7 : ".........",
+        8 : ".........",
+        "keys" : {
+            "R" : new RadioReceiver("EON"),
+            "I" : new NumberIncrementer(1),
+            "N" : new NumberStorage(0),
+            "M" : new ModuloGate(10),
+            "P" : new StandardForm("PLUS"),
+            "S" : new SummonCreature(Scarab),
+        }
+    },
     "EpsilonControl" : {
         0 : "wCSVnMN..", // ego, store targets, RFBCSVPMN
         1 : ".........", // flip boolean stop

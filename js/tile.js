@@ -727,7 +727,7 @@ class Airlock extends Tile{
                     this.doorTiles.children[0].y +=3;
                     this.doorTiles.children[1].y -=3;
                 }
-                else if (this.doorTiles.children[0].x > 32 && !this.passable){
+                else if (this.doorTiles.children[0].y > 32 && !this.passable){
                     this.doorTiles.children[0].y -=3;
                     this.doorTiles.children[1].y +=3;
                 }

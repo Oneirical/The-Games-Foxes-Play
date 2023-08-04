@@ -1181,7 +1181,9 @@ class Felidol extends Monster{
 class Weaver extends Monster{
     constructor(tile){
         super(tile, 27, 2, "ARTISTIC", description["Weaver"]);
-        this.soul = "Animated by an Artistic (4) soul.";
+        this.id = "ScarabSpawner";
+        this.soul = new Soul("Artistic",this);
+        this.souls = [this.soul];
         this.name = "Humming Paperweaver";
         this.ability = monabi["Weaver"];
         this.isPassive = true;
@@ -1781,14 +1783,11 @@ class Scarab extends Monster{
     constructor(tile){
         super(tile, 76, 1, "ORDERED", description["Scarab"]);
         this.name = "Plated Thought-Ferry";
+        this.id = "Scarab";
+        this.soul = new Soul("ORDERED",this);
+        this.souls = [this.soul];
         //this.paralyzed = true;
         //this.assignAxiom(["TURNEND",new Identifer("Dir","N"),"MOVE"],"ORDERED",1);
-    }
-    doStuff(){
-        let path = astair(this.tile,player.tile);
-        if(path.length == 0) return;
-        let dir = [path[0].x-this.tile.x,path[0].y-this.tile.y];
-        this.tryMove(dir[0],dir[1]);
     }
 }
 

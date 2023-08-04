@@ -25,7 +25,6 @@ class RadioBroadcaster extends AxiomTemp{
     }
     act(data){
         trigger(this.message);
-        console.log("trigger " + this.message);
         return data;
     }
 }
@@ -109,7 +108,7 @@ class BooleanFlip extends AxiomTemp{
         super();
     }
     act(data){
-        let surr = this.soul.getLogicNeighbours(this);
+        let surr = this.soul.getLogicNeighbours(this,true);
         for (let i of surr) if (i instanceof BooleanGate) i.boo = !i.boo;
         return data;
     }
@@ -172,8 +171,64 @@ class StandardForm extends AxiomTemp{
 }
 
 class FailCatcher extends AxiomTemp{
-    constructor(key){
+    constructor(){
         super();
+    }
+}
+
+class NumberIncrementer extends AxiomTemp{
+    constructor(number){
+        super();
+        this.num = number;
+    }
+    act(data){
+        let surr = this.soul.getLogicNeighbours(this,true);
+        for (let i of surr) if (i instanceof NumberStorage) i.num += this.num;
+        return data;
+    }
+}
+
+class NumberStorage extends AxiomTemp{
+    constructor(number){
+        super();
+        this.num = number;
+    }
+}
+
+class ModuloGate extends AxiomTemp{
+    constructor(number){
+        super();
+        this.num = number;
+    }
+    act(data){
+        let surr = this.soul.getLogicNeighbours(this,true);
+        for (let i of surr) if (i instanceof NumberStorage && i.num%this.num != 0){
+            data["break"] = true;
+        }
+        
+        return data;
+    }
+}
+
+class SummonCreature extends AxiomTemp{
+    constructor(crea){
+        super();
+        this.creature = crea;
+    }
+    act(data){
+        if (data["targets"].length == 0){
+            data["break"] = true;
+            return data;
+        }
+        let works = false;
+        for (let i of data["targets"]){
+            if (i.passable && !i.monster){
+                summonMonster(i.x,i.y,this.creature);
+                works = true;
+            }
+        }
+        if (!works) data["break"] = true;
+        return data;
     }
 }
 
@@ -196,7 +251,7 @@ axiomEffects = {
             return data;
         }
         let path = astair(currentTile,chosen);
-        if(path.length == 0) return;
+        if(path.length == 0) return data;
         let dir = [path[0].x-data["caster"].tile.x,path[0].y-data["caster"].tile.y];
         if (!data["caster"].tryMove(dir[0],dir[1])) data["break"] = true;
         return data;
@@ -452,7 +507,6 @@ axiomEffects = {
         return data;
     },
     HEAL: function(target,power,data){
-        //console.log(power);
         if (target.monster){
             target.monster.heal(power,data);
         }

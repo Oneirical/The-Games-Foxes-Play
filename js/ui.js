@@ -320,7 +320,6 @@ class AxiomList{
             let slot;
             if (i < 6) slot = source.active[i];
             else slot = source.storage[i-6];
-            console.log(slot);
             for (let j = 0; j<maxSize; j++){
                 let spriteID = inside[slot.sequence[j]];
                 if (!spriteID) spriteID = 7;
@@ -1813,16 +1812,19 @@ class Soul{
         }
     }
 
-    getLogicNeighbours(axiom){
+    getLogicNeighbours(axiom, includeSource){
+        if (!includeSource) includeSource = false;
         let results = [];
         const neig = [[-1,0],[1,0],[0,1],[0,-1]];
         for (let i of neig){
             let fou;
             if (between(axiom.x+i[0],-1,9) && between(axiom.y+i[1],-1,9)) fou = this.axioms[axiom.x+i[0]][axiom.y+i[1]];
             else continue;
-            if (!fou.empty && !(axiom.sourceX == fou.x && axiom.sourceY == fou.y)){
-                fou.sourceX = axiom.x;
-                fou.sourceY = axiom.y;
+            if (!fou.empty && (includeSource || !(axiom.sourceX == fou.x && axiom.sourceY == fou.y))){
+                if (!includeSource){
+                    fou.sourceX = axiom.x;
+                    fou.sourceY = axiom.y;
+                }
                 results.push(fou);
             }
         }
@@ -1842,7 +1844,13 @@ class Soul{
         };
         while(synapses.length != 0){
             let i = synapses[0];
+            let dataisHere = true;
+            if (!data) dataisHere = false;
             data = i.act(data);
+            if (dataisHere && !data){
+                console.log(i);
+                throw new Error("function did not return data");
+            }
             for (let r of this.getLogicNeighbours(i)) synapses.push(r);
             removeItemOnce(synapses,i);
             if (data["break"]){
