@@ -506,7 +506,7 @@ const logicMaps = {
            "R" : new RadioReceiver("EON"),
            "I" : new NumberIncrementer(1),
            "N" : new NumberStorage(0),
-           "M" : new ModuloGate(7),
+           "M" : new ModuloGate(5),
            "B" : new LinkForm(),
            "Z" : new DamageDealer(1),
         }
@@ -1149,24 +1149,26 @@ var rooms = {
         3 : "A#2...7#A",
         4 : "A#3...8#A",
         5 : "A#4...9#A",
-        6 : "A#5...0#A",
+        6 : "A#5...a#A",
         7 : "A##.,.##A",
         8 : "AA##E##AA",
         "tags": ["randomgen","randomflip"],
         "vertical" : true,
         "creatures" : {
             "NUMBER" : Snail,
+            "a" : Snail,
         },
         "marks" : {
             "1" : [0,6],
             "2" : [1,7],
             "3" : [2,8],
             "4" : [3,9],
-            "5" : [4,0],
+            "5" : [4,"a"], //this is mega cursed, change to letters only
             "6" : 6,
             "7" : 7,
             "8" : 8,
             "9" : 9,
+            "a" : "a",
         }
     },
     "TCross" : {

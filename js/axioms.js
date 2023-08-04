@@ -240,7 +240,6 @@ class DamageDealer extends AxiomTemp{
     act(data){
         for (let i of data["targets"]){
             if (i.monster) i.monster.hit(this.dam);
-            i.setEffect(0);
         }
         return data;
     }
@@ -261,7 +260,17 @@ class LinkForm extends AxiomTemp{
         const trail = line(initialPoint,finalPoint);
         removeItemAll(trail,initialPoint);
         removeItemAll(trail,finalPoint);
-        for (let i of trail) data["targets"].push(i);
+        let allX = true;
+        let allY = true;
+        let currentX = trail[0].x;
+        let currentY = trail[0].y;
+        for (let i of trail){
+            if (i.x != currentX) allX = false;
+            if (i.y != currentY) allY = false;
+            data["targets"].push(i);
+        }
+        if (allX) for (let i of trail) i.setEffect(16);
+        else if (allY) for (let i of trail) i.setEffect(15);
         return data;
     }
 }

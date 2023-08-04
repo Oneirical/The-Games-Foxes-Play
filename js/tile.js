@@ -253,10 +253,14 @@ class Tile{
         }
     }
 
-    setEffect(effectSprite){                                  
+    setEffect(effectSprite){ 
+        if (this.effect){
+            this.tilecon.removeChild(this.effect);
+            this.effect = false; 
+        }                  
         this.effect = new FoxSprite(allsprites.textures["sprite"+effectSprite]);
-        this.effect.width = 112;
-        this.effect.height = 112;
+        this.effect.width = 64;
+        this.effect.height = 64;
         this.tilecon.addChild(this.effect);
     }
 
