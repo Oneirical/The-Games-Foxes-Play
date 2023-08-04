@@ -271,6 +271,7 @@ class LinkForm extends AxiomTemp{
         }
         if (allX) for (let i of trail) i.setEffect(16);
         else if (allY) for (let i of trail) i.setEffect(15);
+        else for (let i of trail) i.setEffect(14);
         return data;
     }
 }

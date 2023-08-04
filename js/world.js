@@ -1203,9 +1203,9 @@ class DefaultVaultRoom extends Room{
         this.depth = depth;
         this.tiles = [];
         let vault = rooms[this.id];
-        if (vault["creatures"] && vault["creatures"]["NUMBER"]){
-            for (let i = 0; i<10; i++){
-                vault["creatures"][i] = vault["creatures"]["NUMBER"];
+        if (vault["creatures"] && vault["creatures"]["ANY"]){
+            for (let i of "abcdefghijklmnopqrstuvwxyz"){
+                vault["creatures"][i] = vault["creatures"]["ANY"];
             }
         }
         for(let i=0;i<this.size;i++){
