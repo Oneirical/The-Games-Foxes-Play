@@ -57,7 +57,7 @@ Now, [here is what happens if I replace the "EON" trigger with triggers that res
 
 # Why Do All This And Not Just Hardcode It Like A Normal Person
 
-My vision has endlessly reshaped itself since I started this project, but now, I am pretty adamant that what I really want is a game that requires you to exploit it to win. I think I'll be giving Epsilon, some completely broken logic chain (example: on each turn, heal all surrounding entities - since it's a snake it just means the segments will be healing each other ceaselessly). Then, the player will be tasked to engineer something to counteract the problem making Epsilon invincible - to follow up on this example, just separating the segments would be enough!
+My vision has endlessly reshaped itself since I started this project, but now, I am pretty adamant that what I really want is a game that requires you to exploit it to win. I think I'll be giving Epsilon some completely broken logic chain (example: on each turn, heal all surrounding entities - since it's a snake it just means the segments will be healing each other ceaselessly). Then, the player will be tasked to engineer something to counteract the problem making Epsilon invincible - to follow up on this example, just separating the segments would be enough!
 
 To this end, in addition to all the ideas I already presented, they could craft a Soul that knocks segments of the tail out of the way, they could forcefully inject a Soul inside Epsilon that transforms healing into damage...
 
