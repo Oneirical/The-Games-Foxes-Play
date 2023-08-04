@@ -232,6 +232,19 @@ class SummonCreature extends AxiomTemp{
     }
 }
 
+class DamageDealer extends AxiomTemp{
+    constructor(dam){
+        super();
+        this.dam = dam;
+    }
+    act(data){
+        for (let i of data["targets"]){
+            if (i.monster) i.hit(this.dam);
+        }
+        return data;
+    }
+}
+
 
 
 axiomEffects = {

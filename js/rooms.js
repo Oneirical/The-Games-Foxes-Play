@@ -492,6 +492,29 @@ const logicMaps = {
         "keys" : {
         }
     },
+    "ElectroCoil" : {
+        0 : "RINMBFZ..",
+        1 : "C........",
+        2 : "PV.......",
+        3 : ".........",
+        4 : ".........",
+        5 : ".........",
+        6 : ".........",
+        7 : ".........",
+        8 : ".........",
+        "keys" : {
+           "R" : new RadioReceiver("EON"),
+           "I" : new NumberIncrementer(1),
+           "N" : new NumberStorage(0),
+           "M" : new ModuloGate(7),
+           "B" : new StandardForm("BEAM"),
+           "F" : new PaintFilter("Blue"),
+           "Z" : new DamageDealer(1),
+           "C" : new StandardForm("EGO"),
+           "P" : new PaintTile("Blue"),
+           "V" : new VoidTargets(),
+        }
+    },
     "Scarab" : {
         0 : "RPM......",
         1 : ".........",
@@ -522,7 +545,7 @@ const logicMaps = {
             "R" : new RadioReceiver("EON"),
             "I" : new NumberIncrementer(1),
             "N" : new NumberStorage(0),
-            "M" : new ModuloGate(10),
+            "M" : new ModuloGate(25),
             "P" : new StandardForm("PLUS"),
             "S" : new SummonCreature(Scarab),
         }
