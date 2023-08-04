@@ -709,52 +709,42 @@ class Airlock extends Tile{
         drawPixel("black",0,0,tileSize,this.tilecon);
         this.tilecon.children[this.tilecon.children.length-1].alpha = 0;
         this.tilecon.mask = this.tilecon.children[this.tilecon.children.length-1];
-    }
-
-    open(){
-        this.doorAnim = new PIXI.Ticker;
+        this.doorAnim = new PIXI.Ticker();
         this.doorAnim.start();
-        this.passable = true;
         this.doorAnim.add(() => {
             if (this.direction == "N" || this.direction == "S" ){
-                if (this.doorTiles.children[0].x < 90){
+                if (this.doorTiles.children[0].x < 90 && this.passable){
                     this.doorTiles.children[0].x +=3;
                     this.doorTiles.children[1].x -=3;
                 }
-                else this.doorAnim.stop();
+                else if (this.doorTiles.children[0].x > 32 && !this.passable){
+                    this.doorTiles.children[0].x -=3;
+                    this.doorTiles.children[1].x +=3;
+                }
             }
             else if (this.direction == "W" || this.direction == "E" ){
-                if (this.doorTiles.children[0].y < 90){
+                if (this.doorTiles.children[0].y < 90 && this.passable){
                     this.doorTiles.children[0].y +=3;
                     this.doorTiles.children[1].y -=3;
                 }
-                else this.doorAnim.stop();
+                else if (this.doorTiles.children[0].x > 32 && !this.passable){
+                    this.doorTiles.children[0].y -=3;
+                    this.doorTiles.children[1].y +=3;
+                }
             }
         }); 
+    }
+
+    open(){
+
+        this.passable = true;
+
     }
 
     stepOut(monster){
         let neigh = this.getAdjacentNeighbors();
         for (let i of neigh) if (i.monster && i.monster != monster) return;
-        this.doorAnim = new PIXI.Ticker;
-        this.doorAnim.start();
         this.passable = false;
-        this.doorAnim.add(() => {
-            if (this.direction == "N" || this.direction == "S" ){
-                if (this.doorTiles.children[0].x > 32){
-                    this.doorTiles.children[0].x -=3;
-                    this.doorTiles.children[1].x +=3;
-                }
-                else this.doorAnim.stop();
-            }
-            else if (this.direction == "W" || this.direction == "E" ){
-                if (this.doorTiles.children[0].y > 32){
-                    this.doorTiles.children[0].y -=3;
-                    this.doorTiles.children[1].y +=3;
-                }
-                else this.doorAnim.stop();
-            }
-        }); 
     }
 
     stepOn(){
