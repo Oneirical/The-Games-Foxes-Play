@@ -1846,28 +1846,49 @@ class Soul{
     }
 
     pulse(source){
-        let synapses = [source];
-        let data = {
+        let data = [{
+            "synapses" : [source],
             "targets" : [],
             "caster" : this.owner,
             "break" : false,
-        };
-        while(synapses.length != 0){
-            let i = synapses[0];
-            let dataisHere = true;
-            if (!data) dataisHere = false;
-            data = i.act(data);
-            if (dataisHere && !data){
-                console.log(i);
-                throw new Error("function did not return data");
-            }
-            for (let r of this.getLogicNeighbours(i)) synapses.push(r);
-            removeItemOnce(synapses,i);
-            if (data["break"]){
-                synapses = [];
-                for (let r of this.getLogicNeighbours(i)) if (r instanceof FailCatcher){
-                    synapses.push(r);
-                    data["break"] = false;
+        }];
+        while(data.length != 0){
+            for (let currentSynapse of data){
+                let i = currentSynapse["synapses"][0];
+                currentSynapse = i.act(currentSynapse);
+                let additions = [];
+                for (let r of this.getLogicNeighbours(i)) additions.push(r);
+                if (additions.length == 0) currentSynapse["break"] = true;
+                if (additions.length >= 1) currentSynapse["synapses"].push(additions[0]);
+                if (additions.length > 1){
+                    for (let o = 1; o<additions.length; o++){
+                        data.push({
+                            "synapses" : [additions[o]],
+                            "targets" : [],
+                            "caster" : this.owner,
+                            "break" : false,
+                        });
+                    }
+                }
+                removeItemOnce(currentSynapse["synapses"],i);
+                if (currentSynapse["break"]){
+                    let additionsFail = [];
+                    for (let r of this.getLogicNeighbours(i)) {
+                        if (r instanceof FailCatcher) additionsFail.push(r);
+                    }
+                    if (additionsFail.length == 0) removeItemOnce(data,currentSynapse);
+                    else currentSynapse["break"] = false;
+                    if (additionsFail.length >= 1) currentSynapse["synapses"].push(additionsFail[0]);
+                    if (additionsFail.length > 1){
+                        for (let o = 1; o<additionsFail.length; o++){
+                            data.push({
+                                "synapses" : [additionsFail[o]],
+                                "targets" : [],
+                                "caster" : this.owner,
+                                "break" : false,
+                            });
+                        }
+                    }
                 }
             }
         }
