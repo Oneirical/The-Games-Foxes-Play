@@ -1,7 +1,7 @@
 var keytile = {
     "W" : Wall,
     "." : Floor,
-    "E" : Airlock, //replace this with an airlock
+    "E" : Airlock,
     "#" : NoBreakWall,
     "A" : RealityWall,
     "L" : LayerBackground,

@@ -13,8 +13,6 @@ Artistic creates the Axioms from the blueprints.
 Ordered collect Axioms and go insert them in scarab printers.
 Scarabs get to Epsilon and make him OP.
 
-cage can still not place in apex - fix it
-
 **Everyone Is Legendary**
 
 * second rewrite lore to feed others. Also their contin should be on turnstart.

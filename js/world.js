@@ -655,7 +655,7 @@ class World{
                     this.depositCreatures.push(u);
                 }
                 this.rooms[i][j].layer = this.layer;
-                this.rooms[i][j].setUpSprites();
+                //this.rooms[i][j].setUpSprites();
                 if (this.rooms[i][j] instanceof HugeMap) this.giga = this.rooms[i][j];
             }
         }
@@ -676,7 +676,14 @@ class World{
         }
         for (let r of Object.keys(specialTypes)){
             const size = specialTypes[r];
-            let chosen = shuffle(usable)[0];
+            let randomized = shuffle(usable);
+            let chosen;
+            for (let i of randomized){
+                if (i.x+size <= 9 && i.y+size <= 9 && i.x-size >= -1 && i.y-size >= -1){
+                    chosen = i;
+                    break;
+                }
+            }
             const chX = chosen.x;
             const chY = chosen.y;
             for (let i = 0; i<size;i++){
@@ -772,7 +779,7 @@ class World{
             for(let j=0;j<9;j++){
                 if (this.rooms[i][j].tangible){
                     this.spreadExits(i,j);
-                    this.rooms[i][j].setUpSprites();
+                    //this.rooms[i][j].setUpSprites();
                 }
                 for(let x=0;x<this.rooms[i][j].size;x++){
                     for(let y=0;y<this.rooms[i][j].size;y++){

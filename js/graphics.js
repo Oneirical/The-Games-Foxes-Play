@@ -312,6 +312,11 @@ function drawTiles(){
                 if (r.playSpace.tiles[i] && r.playSpace.tiles[i][j] && !r.playSpace.tiles[i][j].graphicsReady && !(r.playSpace.tiles[i][j] instanceof RealityWall) && !((r.playSpace.tiles[i][j] instanceof LayerBackground) && r.playSpace.tiles[i][j].sprite == 2)) r.playSpace.tiles[i][j].setUpSprite();
             }
         }
+        for(let i=0;i<9;i++){
+            for(let j=0;j<9;j++){
+                r.rooms[i][j].setUpSprites();
+            }
+        } 
     }
 }
 
