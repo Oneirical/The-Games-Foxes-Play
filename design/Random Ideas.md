@@ -3,12 +3,15 @@
 * Add Form grid (range targeters) images in their descriptions for clarity
 * A better ui for descriptions, with definitions for each keyword like 'exhale' or 'targets' or the status effects, StS style
 
-Saintly: 
-Ordered: the factory tests and crafts random axioms
-Artistic:
-Unhinged: aggressive squads outright raid other planes to get axioms
-Feral: the forest causes extreme battle royales to find the best axiom
-Vile: there is no passive progress, the player is challenged with the lure of gain to get their axioms
+Lifecycle of an Axiom:
+
+Feral nightmares generate chaotic axiom components.
+Unhinged hunters capture them and dissect them.
+Vile merchants collect and order parts in a treasury and distribute to Artistic.
+Saintly creates blueprints to follow.
+Artistic creates the Axioms from the blueprints.
+Ordered collect Axioms and go insert them in scarab printers.
+Scarabs get to Epsilon and make him OP.
 
 cage can still not place in apex - fix it
 

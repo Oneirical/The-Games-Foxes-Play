@@ -663,21 +663,34 @@ class World{
     }
 
     blessRooms(){
-        tryTo('bless rooms', function(){
-            let coords = [randomRange(0,8),randomRange(0,8)];
-            let success;
-            if (worldgen[coords[0]][coords[1]].name.includes("Floor")){
-                success = coords;
-                coords = [randomRange(0,7),randomRange(0,7)];
-                if (worldgen[coords[0]][coords[1]].name.includes("Floor")){
-                    worldgen[success[0]][success[1]] = new CageWall(success[0],success[1]);
-                    worldgen[coords[0]][coords[1]] = new CageContainer(coords[0],coords[1]);
-                    return true;
-                }
-                else return false;
+        const specialTypes = {
+            "Epsilon" : 2,
+            "HarmonicTransport" : 1,
+            "ScarabWaypoint" : 1,
+        }
+        let usable = [];
+        for (let i of worldgen){
+            for (let j of i){
+                if (j.name == "Eroded Floortiles") usable.push(j);
             }
-            else return false;
-        });
+        }
+        for (let r of Object.keys(specialTypes)){
+            const size = specialTypes[r];
+            let chosen = shuffle(usable)[0];
+            const chX = chosen.x;
+            const chY = chosen.y;
+            for (let i = 0; i<size;i++){
+                for (let j = 0; j<size;j++){
+                    removeItemOnce(usable,worldgen[chX+i][chY+j]);
+                    worldgen[chX+i][chY+j] = new MarkedFloor(chX+i,chY+j,r,i+j*size+1);
+                    if (size == 1) worldgen[chX+i][chY+j].num = 0;
+                    if (r == "HarmonicTransport"){
+                        this.cageLocation = [chX+i,chY+j];
+                        this.cageCorner = [this.cageLocation[0]*9,this.cageLocation[1]*9];
+                    }
+                }
+            }
+        }
     }
 
     confirmWorld(){
@@ -694,44 +707,21 @@ class World{
         this.rooms = [];
         this.selectRooms();
         this.blessRooms();
-        let placedboss = false;
-        let placedcage = false;
         for(let i=0;i<9;i++){
             this.rooms[i] = [];
             for(let j=0;j<9;j++){
-                if (worldgen[i][j].passable || worldgen[i][j] instanceof RealityWall){
+                if (worldgen[i][j].passable){
                     let roomType;
                     let flip = false;
                     let corridor = false;
-                    if (worldgen[i][j] instanceof RealityWall){
-                        switch (worldgen[i][j].quadrant){
-                            case "e":
-                                roomType = Epsilon2;
-                                break;
-                            case "w":
-                                roomType = Epsilon3;
-                                break;
-                            case "s":
-                                roomType = Epsilon4;
-                                break;
-                        }
-                        
+                    if (worldgen[i][j] instanceof MarkedFloor){
+                        const roo = worldgen[i][j];
+                        let place = roo.type;
+                        if (roo.num != 0) place += roo.num;
+                        roomType = new DefaultVaultRoom([i,j],place);
                     }
                     //if ((j == 8 && i == 4) || (j == 4 && i == 8) ||(j == 0 && i == 4) ||(j == 4 && i == 0)) roomType = EmptyFaith;
                     //else if (j == 4 && i == 4) roomType = PlateGenerator;
-                    else if (worldgen[i][j] instanceof CageContainer){
-                        roomType = Epsilon1;
-                        placedboss = true;
-                        worldgen[i+1][j] = new RealityWall(i+1,j,"e");
-                        worldgen[i][j+1] = new RealityWall(i,j+1,"w");
-                        worldgen[i+1][j+1] = new RealityWall(i+1,j+1,"s");
-                    }
-                    else if (worldgen[i][j] instanceof CageWall){
-                        roomType = SoulCage;
-                        placedcage = true;
-                        this.cageLocation = [i,j];
-                        this.cageCorner = [this.cageLocation[0]*9,this.cageLocation[1]*9];
-                    }
                     else if (j < 8 && j > 0 && worldgen[i][j+1].passable && worldgen[i][j-1].passable){
                         if ((i == 8 || !worldgen[i+1][j].passable) && (i == 0 || !worldgen[i-1][j].passable)){
                             roomType = shuffle([NarrowFaith,BridgeFaith])[0];
@@ -753,7 +743,8 @@ class World{
                     //    roomType = HarmonyRelay;
                     //}
                     else roomType = shuffle(this.roompool)[0];
-                    this.rooms[i][j] = new roomType([i,j]);
+                    if (!(worldgen[i][j] instanceof MarkedFloor)) this.rooms[i][j] = new roomType([i,j]); // kind of cursed
+                    else this.rooms[i][j] = roomType;
                     if (universe.worlds[universe.currentworld].cage.slots[i][j].turbulent) this.rooms[i][j].hostile = true;
                     let times = shuffle([-1,0,1])[0];
                     if (corridor) times = 0;
@@ -1110,9 +1101,10 @@ class Room{
 }
 
 class DefaultVaultRoom extends Room{
-    constructor(index){
+    constructor(index,id){
         super(index);
         this.vault = true;
+        this.id = id;
         this.possibleexits;
         this.entrancepoints;
         this.name = "Bleak Corridors";
@@ -1273,7 +1265,7 @@ class DefaultVaultRoom extends Room{
 class StandardFaith extends DefaultVaultRoom{
     constructor(index){
         super(index);
-        this.id = shuffle(["Standard","CatsCross","ScarabFactory","Garnison","ScarabWaypoint"])[0];
+        this.id = shuffle(["Standard","CatsCross","ScarabFactory","Garnison"])[0];
     }
 }
 
@@ -1592,7 +1584,7 @@ class PlateGenerator extends DefaultVaultRoom{
 class SoulCage extends DefaultVaultRoom{
     constructor(index){
         super(index);
-        this.id = "Cage2";
+        this.id = "HarmonicTransport";
         this.name = "Soul Cage";
         this.cataloguedis;
         this.currentcat;

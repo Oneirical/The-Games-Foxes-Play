@@ -1064,7 +1064,7 @@ var rooms = {
         8 : "####E####",
         "tags": ["randomgen"],
     },
-    "Cage2" : {
+    "HarmonicTransport" : {
         0 : "####E####",
         1 : "#.......#",
         2 : "#..nnn..#",

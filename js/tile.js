@@ -284,6 +284,16 @@ class Tile{
     }
 }
 
+class MarkedFloor extends Tile{
+    constructor(x,y,type,num){
+        super(x, y, 2, true);
+        this.mutable = true;
+        this.lore = description["Floor"];
+        this.name = "Marked Tile";
+        this.type = type;
+        this.num = num;
+    };
+}
 
 class Floor extends Tile{
     constructor(x,y){
