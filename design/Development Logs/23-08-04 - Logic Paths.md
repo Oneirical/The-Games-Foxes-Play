@@ -7,6 +7,8 @@
 
 I have hauled myself back from confusion into fanatic creation. And with this state of mind comes insane reworks and reimaginings...
 
+For a quick showcase, **[here is a video showing off pretty much everything in this post.](https://vid.puffyan.us/embed/990epP62SbU)**
+
 # Sparks of Logic Surge Through Synapses
 
 *Yet* again, the game's core "Axiom" mechanic has been rebuilt from the ground up. Each Soul now contains a Logic Map, which is basically a little electrical circuit. Current begins at certain nodes when something happens, and travels through the network, causing various effects, until there is nothing left to trigger.
@@ -45,15 +47,13 @@ Potential ways to "hack" this include:
 * Replace the target (you, the player) with the "nearest creature" to have Epsilon eat his own tail (the segments are considered to be independent creatures)
 * ...or do that, but also filter out Epsilon himself to make him go rage mode and attack everything that comes near.
 
-[Here is it chasing me around]().
-
-Now, [here is what happens if I replace the "EON" trigger with triggers that respond to directional keys...]() I become Epsilon!
+[Here is what happens if I replace the "EON" trigger with triggers that respond to directional keys...](https://vid.puffyan.us/embed/J-1iqbYr7zw) I become Epsilon!
 
 # Perfectly Timed Steps
 
 * Boring empty doorways have now been replaced by sliding airlocks, as can be seen in the above videos. Pshhhh!
 
-* There is now a hallway of lasers which occasionally generates in Epsilon's domain. [Each of these coils]() has a Logic Map of its own, like any other entity in the game. Roughly, they tick down a certain counter and zap the other coil across the hallway when it reaches zero. A funny way to hack it would be changing the "laser link" to yourself instead of the other coil, [causing absolute havoc]().
+* There is now a hallway of lasers which occasionally generates in Epsilon's domain. Each of these coils has a Logic Map of its own, like any other entity in the game. Roughly, they tick down a certain counter and zap the other coil across the hallway when it reaches zero. A funny way to hack it would be changing the "laser link" to yourself instead of the other coil, [causing absolute havoc](https://vid.puffyan.us/embed/NF93UE7s-yg). That's right, every coil on the map is drawing a laser-line between me and itself every time it would fire.
 
 # Why Do All This And Not Just Hardcode It Like A Normal Person
 

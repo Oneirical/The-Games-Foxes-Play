@@ -581,11 +581,11 @@ const logicMaps = {
         }
     },
     "Epsilon" : {
-        0 : "RFBCSVPMN", // ego, store targets, 
-        1 : ".......0.", // flip boolean stop
-        2 : ".......V.",
-        3 : ".......C.",
-        4 : ".......X.",
+        0 : "RFBPMN...", // ego, store targets, 
+        1 : "..C.0....", // flip boolean stop
+        2 : "..S.V....",
+        3 : "....C....",
+        4 : "....X....",
         5 : ".........",
         6 : ".........",
         7 : ".........",
