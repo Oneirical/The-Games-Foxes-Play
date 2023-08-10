@@ -1073,11 +1073,25 @@ class Room{
             for (let j = 0; j<this.size; j++){
                 let hai = this.tiles[i][j].sprite;
                 if (this.tiles[i][j].monster) hai = this.tiles[i][j].monster.sprite;
+                else if (this.tiles[i][j] instanceof Airlock && this.tiles[i][j].direction) hai = 17;
+                else if (this.tiles[i][j] instanceof Airlock) hai = 3;
                 let newSprite = new FoxSprite(allsprites.textures['sprite'+hai]);
                 newSprite.width = 112/9;
                 newSprite.height = 112/9;
                 newSprite.x = i*(112/9);
                 newSprite.y = j*(112/9);
+                if (this.tiles[i][j] instanceof Airlock && this.tiles[i][j].direction){
+                    newSprite.anchor.set(0.5,0.5);
+                    newSprite.x += 112/9/2;
+                    newSprite.y += 112/9/2;
+                    const rotate = {
+                        "S" : 0,
+                        "W" : Math.PI/2,
+                        "E" : 3*Math.PI/2,
+                        "N" : Math.PI,
+                    }
+                    newSprite.rotation = rotate[this.tiles[i][j].direction];
+                }
                 this.displayCon.addChild(newSprite);
                 
                 //if (!(this.tiles[i][j] instanceof RealityWall)) drawPixel(checkPixel(this.tiles[i][j]),i*brush,j*brush,14,this.displayCon);
@@ -1089,11 +1103,25 @@ class Room{
             for (let j = 0; j<this.size; j++){
                 let hai = this.tiles[i][j].sprite;
                 if (this.tiles[i][j].monster) hai = this.tiles[i][j].monster.sprite;
+                else if (this.tiles[i][j] instanceof Airlock && this.tiles[i][j].direction) hai = 17;
+                else if (this.tiles[i][j] instanceof Airlock) hai = 3;
                 let newSprite = new FoxSprite(allsprites.textures['sprite'+hai]);
                 newSprite.width = 64/9;
                 newSprite.height = 64/9;
                 newSprite.x = i*(64/9);
                 newSprite.y = j*(64/9);
+                if (this.tiles[i][j] instanceof Airlock && this.tiles[i][j].direction){
+                    newSprite.anchor.set(0.5,0.5);
+                    newSprite.x += 64/9/2;
+                    newSprite.y += 64/9/2;
+                    const rotate = {
+                        "S" : 0,
+                        "W" : Math.PI/2,
+                        "E" : 3*Math.PI/2,
+                        "N" : Math.PI,
+                    }
+                    newSprite.rotation = rotate[this.tiles[i][j].direction];
+                }
                 this.hypnoCon.addChild(newSprite);
                 //if (!(this.tiles[i][j] instanceof RealityWall)) drawPixel(checkPixel(this.tiles[i][j]),i*brush,j*brush,14,this.displayCon);
             }
