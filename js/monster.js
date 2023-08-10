@@ -167,7 +167,7 @@ class Monster{
             }
         });
         this.updateHp();
-        if (universe.zooming && this instanceof Terminal){
+        if (false && universe.zooming && this instanceof Terminal){ //looks kind of cool but enough is enough
             new GlitchSprite(this.creaturecon,3,true);
         }
         this.graphicsReady = true;

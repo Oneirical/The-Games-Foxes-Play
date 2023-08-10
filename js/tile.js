@@ -681,10 +681,7 @@ class Airlock extends Tile{
         this.eat = false;
     };
 
-    setUpSprite(){
-        this.doorTiles = new PIXI.Container();
-        super.setUpSprite();
-        this.tilecon.addChild(this.doorTiles);
+    findDirection(){
         const directions = {
             "N" : [0,-1],
             "W" : [-1,0],
@@ -701,8 +698,14 @@ class Airlock extends Tile{
         }
         if (!this.direction){
             this.existSpace[this.x][this.y] = new NoBreakWall(this.x, this.y); // this is a little gory, replace later with "filler" tile
-            this.existSpace[this.x][this.y].setUpSprite();
+            //this.existSpace[this.x][this.y].setUpSprite();
         }
+    }
+
+    setUpSprite(){
+        this.doorTiles = new PIXI.Container();
+        super.setUpSprite();
+        this.tilecon.addChild(this.doorTiles);
         let door;
         for (let i = 0; i<2; i++){
             door = new FoxSprite(allsprites.textures['sprite'+(17)]);

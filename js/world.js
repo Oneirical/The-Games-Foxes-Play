@@ -207,7 +207,6 @@ class Universe{
         world.currentroom = [4,8];
         world.tranquil = true;
         world.playRoom(world.rooms[4][8],startingHp);
-        //world.rooms[4][7] = world.playSpace;
         drawTiles();
         drawSprites();
     }
@@ -640,6 +639,7 @@ class World{
         for(let i=0;i<81;i++){
             this.depositTiles[i] = [];
         }
+        let airlocks = [];
         for(let i=0;i<9;i++){
             for(let j=0;j<9;j++){
                 if ("Facility" == "Facility"){//replace this if more vaults get added
@@ -651,8 +651,6 @@ class World{
                 }
                 for(let x=0;x<this.rooms[i][j].size;x++){
                     for(let y=0;y<this.rooms[i][j].size;y++){
-                        //this.rooms[i][j].tiles[x][y].x = i*9+x;
-                        //this.rooms[i][j].tiles[x][y].y = j*9+y;
                         this.depositTiles[i*9+x][j*9+y] = this.rooms[i][j].tiles[x][y];
                     }
                 }
@@ -661,11 +659,23 @@ class World{
                     this.depositCreatures.push(u);
                 }
                 this.rooms[i][j].layer = this.layer;
-                //this.rooms[i][j].setUpSprites();
                 if (this.rooms[i][j] instanceof HugeMap) this.giga = this.rooms[i][j];
             }
         }
         this.playSpace = new HugeMap([0,0],this);
+        for(let i=0;i<81;i++){
+            for(let j=0;j<81;j++){
+                this.playSpace.tiles[i][j].existSpace = this.playSpace.tiles;
+                this.playSpace.tiles[i][j].x = i;
+                this.playSpace.tiles[i][j].y = j;            
+            }
+        }
+        for(let i=0;i<81;i++){
+            for(let j=0;j<81;j++){   
+                if (this.playSpace.tiles[i][j] instanceof Airlock) this.playSpace.tiles[i][j].findDirection();        
+            }
+        }
+
     }
 
     blessRooms(){
@@ -801,7 +811,20 @@ class World{
         }        
         this.generated = true;
         this.playSpace = new HugeMap([0,0],this);
+        for(let i=0;i<81;i++){
+            for(let j=0;j<81;j++){
+                this.playSpace.tiles[i][j].existSpace = this.playSpace.tiles;
+                this.playSpace.tiles[i][j].x = i;
+                this.playSpace.tiles[i][j].y = j;            
+            }
+        }
+        for(let i=0;i<81;i++){
+            for(let j=0;j<81;j++){   
+                if (this.playSpace.tiles[i][j] instanceof Airlock) this.playSpace.tiles[i][j].findDirection();        
+            }
+        }
     }
+
 
     spreadExits(i,j){
         for (let l of this.rooms[i][j].possibleexits){

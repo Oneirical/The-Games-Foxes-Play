@@ -8,6 +8,7 @@ Lifecycle of an Axiom:
 Feral nightmares generate chaotic axiom components.
 Unhinged hunters capture them and dissect them.
 Vile merchants collect and order parts in a treasury and distribute to Artistic.
+* An escherian staircase with Felidols floating around, gaining wealth for the Vile
 Saintly creates blueprints to follow.
 Artistic creates the Axioms from the blueprints.
 Ordered collect Axioms and go insert them in scarab printers.
