@@ -326,7 +326,6 @@ function drawSprites(){
     for (let r of universe.worlds){
         for (let m of r.playSpace.monsters){
             if (!m.graphicsReady && !m.creaturecon) m.setUpSprite();
-            console.log(m.creaturecon.width);
         }
     }
     player.setUpSprite();
