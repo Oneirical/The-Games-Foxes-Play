@@ -1115,7 +1115,7 @@ class CageContainer extends Altar{
     stepOn(monster){
         super.stepOn(monster);
         if(monster.isPlayer){
-            wheel.toTeleMode();
+            //wheel.toTeleMode();
         }
     }
 

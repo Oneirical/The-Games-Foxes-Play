@@ -80,6 +80,8 @@ function setupPixi(){
         //rai.alpha = Math.sin(alarmCount)-0.5;
     });
     tilesDisplay.addChild(player.creaturecon);
+    world.cage.generateWorld()
+    world.cage.pocketworld.hypnoDisplay();
         //FPS counter
     // const style = new PIXI.TextStyle({
     //     fontFamily: 'Play',

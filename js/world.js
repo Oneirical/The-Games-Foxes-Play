@@ -43,23 +43,6 @@ class CageTemplate{
         if (universe.currentworld == 1) this.pocketworld = universe.worlds[0];
         else this.pocketworld = universe.worlds[1];
         this.displayon = true;
-        this.pocketworld.reward = {
-            "Sequence" : [],
-            "Caste" : "",
-            "Potency" : 0,
-        }
-        this.buildAxiom();
-        //this.pocketworld.confirmWorldFromVault("Epsilon");
-        wheel.craftShow.updateDisplay();
-        this.pocketworld.influence = {
-            "Saintly" : 0,
-            "Ordered" : 0,
-            "Artistic" : 0,
-            "Unhinged" : 0,
-            "Feral" : 0,
-            "Vile" : 0,
-            "Serene" : 0,
-        };
     }
 
     buildAxiom(){
@@ -287,6 +270,8 @@ class Universe{
         tilesDisplay.addChild(player.creaturecon);
         tickProjectors();
         animateAll();
+        world.cage.generateWorld()
+        world.cage.pocketworld.hypnoDisplay();
     }
 
     passUp(layer,origin){
