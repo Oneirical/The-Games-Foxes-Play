@@ -209,6 +209,7 @@ class Universe{
         world.playRoom(world.rooms[4][8],startingHp);
         drawTiles();
         drawSprites();
+        animateAll();
     }
 
     passDown(layer, spawnx, spawny){
@@ -285,7 +286,7 @@ class Universe{
         this.layeredInfluence.add(world.influence);
         tilesDisplay.addChild(player.creaturecon);
         tickProjectors();
-
+        animateAll();
     }
 
     passUp(layer,origin){

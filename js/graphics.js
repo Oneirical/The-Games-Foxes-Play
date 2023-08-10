@@ -318,6 +318,12 @@ function drawTiles(){
     }
 }
 
+function animateAll(){
+    for (let i of monsters){
+        i.setUpAnimation();
+    }
+    player.setUpAnimation();
+}
 
 function drawSprites(){
     for (let r of universe.worlds){

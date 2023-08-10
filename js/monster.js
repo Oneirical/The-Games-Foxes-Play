@@ -97,28 +97,11 @@ class Monster{
         }
     }
 
-    setUpSprite(){
-        this.creaturecon = new PIXI.Container();
-        if (this === player){
-            this.creaturecon.x = 8*tileSize;
-            this.creaturecon.y = 8*tileSize;
-        }
-        let hai = this.sprite;
-        let newSprite = new FoxSprite(allsprites.textures['sprite'+hai]);
-        newSprite.width = tileSize;
-        newSprite.height = tileSize;
-        
-        this.creaturecon.addChild(newSprite);
-        this.hpcon = new PIXI.Container();
-        this.creaturecon.addChild(this.hpcon);
-        for(let i=0; i<6; i++){
-            let bai = new FoxSprite(allsprites.textures['sprite9']);
-            bai.x = i*11;
-            bai.width = tileSize;
-            bai.height = tileSize;
-            this.hpcon.addChild(bai);
-        }
-        animationTick.add((delta) => {
+    setUpAnimation(){
+        if (this.animationTick) this.animationTick.destroy();
+        this.animationTick = new PIXI.Ticker;
+        this.animationTick.start();
+        animationTick.add(() => {
             if (this.offsetX != 0 || this.offsetY != 0){
                 //this.anispeed = 0.01;
                 if (player === this){
@@ -166,6 +149,30 @@ class Monster{
 
             }
         });
+    }
+
+    setUpSprite(){
+        this.creaturecon = new PIXI.Container();
+        if (this === player){
+            this.creaturecon.x = 8*tileSize;
+            this.creaturecon.y = 8*tileSize;
+        }
+        let hai = this.sprite;
+        let newSprite = new FoxSprite(allsprites.textures['sprite'+hai]);
+        newSprite.width = tileSize;
+        newSprite.height = tileSize;
+        
+        this.creaturecon.addChild(newSprite);
+        this.hpcon = new PIXI.Container();
+        this.creaturecon.addChild(this.hpcon);
+        for(let i=0; i<6; i++){
+            let bai = new FoxSprite(allsprites.textures['sprite9']);
+            bai.x = i*11;
+            bai.width = tileSize;
+            bai.height = tileSize;
+            this.hpcon.addChild(bai);
+        }
+        if (!this.animationTick) this.setUpAnimation();
         this.updateHp();
         if (false && universe.zooming && this instanceof Terminal){ //looks kind of cool but enough is enough
             new GlitchSprite(this.creaturecon,3,true);
