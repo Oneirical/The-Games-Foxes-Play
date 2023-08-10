@@ -312,9 +312,10 @@ function drawTiles(){
                 if (r.playSpace.tiles[i] && r.playSpace.tiles[i][j] && !r.playSpace.tiles[i][j].graphicsReady && !(r.playSpace.tiles[i][j] instanceof RealityWall) && !((r.playSpace.tiles[i][j] instanceof LayerBackground) && r.playSpace.tiles[i][j].sprite == 2)) r.playSpace.tiles[i][j].setUpSprite();
             }
         }
+        
         for(let i=0;i<9;i++){
             for(let j=0;j<9;j++){
-                r.rooms[i][j].setUpSprites();
+                if (!r.rooms[i][j].graphicsReady) r.rooms[i][j].setUpSprites();
             }
         } 
     }
@@ -322,12 +323,13 @@ function drawTiles(){
 
 
 function drawSprites(){
-    for(let k=monsters.length;k>=0;k--){
-        let con;
-        if (k == monsters.length) con = player;
-        else con = monsters[k];
-        con.setUpSprite();
+    for (let r of universe.worlds){
+        for (let m of r.playSpace.monsters){
+            if (!m.graphicsReady && !m.creaturecon) m.setUpSprite();
+            console.log(m.creaturecon.width);
+        }
     }
+    player.setUpSprite();
 }
 
 function getMouse(){

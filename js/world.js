@@ -209,6 +209,7 @@ class Universe{
         world.playRoom(world.rooms[4][8],startingHp);
         //world.rooms[4][7] = world.playSpace;
         drawTiles();
+        drawSprites();
     }
 
     passDown(layer, spawnx, spawny){
@@ -251,6 +252,7 @@ class Universe{
         //     shakeAmount = 5;
         //     return;
         // }
+        
         level = 0;
         player.tile.monster = null;
         world.saveRoom(world.getRoom());
@@ -277,10 +279,14 @@ class Universe{
             research.completeResearch("Estate");
         }
         player.hp = maxHp;
+        
         world.setUpSprites();
+
         uiDisplayLeft.addChild(world.displayCon);
         this.layeredInfluence.add(world.influence);
         tilesDisplay.addChild(player.creaturecon);
+        tickProjectors();
+
     }
 
     passUp(layer,origin){
@@ -1034,15 +1040,16 @@ class Room{
         }
         this.visited = false;
         this.layer;
+        this.graphicsReady = false;
     }
 
     setUpSprites(){
         this.displayCon = new PIXI.Container();
         let size = 112;
-        let brush = (size/9);
         for(let i = 0; i<this.size;i++){
             for (let j = 0; j<this.size; j++){
                 let hai = this.tiles[i][j].sprite;
+                if (this.tiles[i][j].monster) hai = this.tiles[i][j].monster.sprite;
                 let newSprite = new FoxSprite(allsprites.textures['sprite'+hai]);
                 newSprite.width = 112/9;
                 newSprite.height = 112/9;
@@ -1058,6 +1065,7 @@ class Room{
         for(let i = 0; i<this.size;i++){
             for (let j = 0; j<this.size; j++){
                 let hai = this.tiles[i][j].sprite;
+                if (this.tiles[i][j].monster) hai = this.tiles[i][j].monster.sprite;
                 let newSprite = new FoxSprite(allsprites.textures['sprite'+hai]);
                 newSprite.width = 64/9;
                 newSprite.height = 64/9;
@@ -1067,6 +1075,7 @@ class Room{
                 //if (!(this.tiles[i][j] instanceof RealityWall)) drawPixel(checkPixel(this.tiles[i][j]),i*brush,j*brush,14,this.displayCon);
             }
         }
+        this.graphicsReady = true;
     }
 
     populateRoom(){
@@ -1081,7 +1090,6 @@ class Room{
         if (this.monsters.length && !this.visited) {
             for (let i of this.monsters){
                 monsters.push(i);
-                i.setUpSprite();
             }
         } 
     }
@@ -1224,7 +1232,6 @@ class DefaultVaultRoom extends Room{
                     let entity = new vault["creatures"][vault[j][i]](this.tiles[i][j]);
                     if (vault["marks"] && vault["marks"][vault[j][i]]) entity.generationMark = vault["marks"][vault[j][i]];
                     this.monsters.push(entity);
-                    entity.setUpSprite();
                 }
             }
         }
