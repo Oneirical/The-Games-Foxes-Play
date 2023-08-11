@@ -668,6 +668,7 @@ class Monster{
                     }
                     else return false;
                 }
+                return false;
             }
             return true;
         }

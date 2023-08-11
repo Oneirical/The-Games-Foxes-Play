@@ -1859,8 +1859,8 @@ class Soul{
             let additions = [];
             for (let r of this.getLogicNeighbours(i)) additions.push(r);
             if (additions.length == 0) currentSynapse["break"] = true;
-            if (additions.length >= 1) currentSynapse["synapses"].push(additions[0]);
-            if (additions.length > 1){
+            if (additions.length >= 1 && !currentSynapse["break"]) currentSynapse["synapses"].push(additions[0]);
+            if (additions.length > 1 && !currentSynapse["break"]){
                 for (let o = 1; o<additions.length; o++){
                     data.push({
                         "synapses" : [additions[o]],
