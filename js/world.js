@@ -695,6 +695,9 @@ class World{
                         this.cageLocation = [chX+i,chY+j];
                         this.cageCorner = [this.cageLocation[0]*9,this.cageLocation[1]*9];
                     }
+                    else if (r == "ScarabWaypoint"){
+                        this.waypointLocation = [chX*9-4,chY+j*9-4];
+                    }
                 }
             }
         }
