@@ -287,8 +287,8 @@ function tickProjectors(){
                     tilesDisplay.creatureDisplay.addChild(projector.referenceTile.monster.creaturecon);
                     projector.referenceTile.monster.creaturecon.originalX = i*tileSize+64*(15-zoom);
                     projector.referenceTile.monster.creaturecon.originalY = j*tileSize+64*(15-zoom);
-                    projector.referenceTile.monster.creaturecon.x = i*tileSize+64*(15-zoom);
-                    projector.referenceTile.monster.creaturecon.y = j*tileSize+64*(15-zoom);
+                    projector.referenceTile.monster.creaturecon.x = i*tileSize+64*(15-zoom)+projector.referenceTile.monster.offsetX*tileSize;
+                    projector.referenceTile.monster.creaturecon.y = j*tileSize+64*(15-zoom)+projector.referenceTile.monster.offsetY*tileSize;
                     //tilesDisplay.projectorDisplay.swapChildren(projector,tilesDisplay.projectorDisplay.projectors[zoom*2-1][zoom*2-1]);
                 }
             }
@@ -330,7 +330,10 @@ function animateAll(){
 function drawSprites(){
     for (let r of universe.worlds){
         for (let m of r.playSpace.monsters){
-            if (!m.graphicsReady && !m.creaturecon) m.setUpSprite();
+            if (!m.graphicsReady && !m.creaturecon){
+                m.setUpSprite();
+                m.setUpAnimation();
+            }
         }
     }
     player.setUpSprite();

@@ -192,7 +192,6 @@ class Universe{
         world.playRoom(world.rooms[4][8],startingHp);
         drawTiles();
         drawSprites();
-        animateAll();
     }
 
     passDown(layer, spawnx, spawny){
@@ -269,7 +268,6 @@ class Universe{
         this.layeredInfluence.add(world.influence);
         tilesDisplay.addChild(player.creaturecon);
         tickProjectors();
-        animateAll();
         world.cage.generateWorld()
         world.cage.pocketworld.hypnoDisplay();
     }
@@ -894,6 +892,7 @@ class World{
         drawSprites();
         if (areaname.displayCon) areaname.update();
         wheel.reshuffle();
+        animateAll();
     }
 
     saveRoom(room){
@@ -1118,12 +1117,15 @@ class Room{
     populateRoom(){
         let hp;
         if(player) hp = player.hp;
-        player = new Terminal(getTile(this.playerspawn[0], this.playerspawn[1]));
-        for (let i of Object.keys(pdata)) player[i] = pdata[i];
+        if (!player) player = new Terminal(getTile(this.playerspawn[0], this.playerspawn[1]));
+        else{
+            player.tile = (getTile(this.playerspawn[0], this.playerspawn[1]));
+        }
+        //for (let i of Object.keys(pdata)) player[i] = pdata[i];
         player.soul.owner = player;
         player.hp = hp;
-        player.tile = getTile(this.playerspawn[0], this.playerspawn[1]);
-        if (this.hostile && !this.visited) generateMonsters();
+        //player.tile = getTile(this.playerspawn[0], this.playerspawn[1]);
+        //if (this.hostile && !this.visited) generateMonsters();
         if (this.monsters.length && !this.visited) {
             for (let i of this.monsters){
                 monsters.push(i);

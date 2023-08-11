@@ -138,7 +138,7 @@ class Monster{
                     if (this.offsetY >= 0) this.offsetY = Math.max(this.offsetY - this.anispeed,0);
                     else this.offsetY = Math.min(this.offsetY + this.anispeed,0);
                     this.creaturecon.x = this.creaturecon.originalX + this.offsetX*tileSize;
-                    this.creaturecon.y = this.creaturecon.originalY +  this.offsetY*tileSize;
+                    this.creaturecon.y = this.creaturecon.originalY + this.offsetY*tileSize;
                     if (this.partOfPlayer){
                         if (this.offsetX > 0) this.creaturecon.x -= 64;
                         else if (this.offsetX < 0) this.creaturecon.x += 64;
@@ -757,6 +757,8 @@ class Monster{
                 tilesDisplay.creatureDisplay.x = -448;
                 tilesDisplay.creatureDisplay.y = -448;
             }
+            if (this === player) this.animating = true;
+            else this.firstTime = true;
             this.offsetX = this.tile.x - tile.x;
             this.offsetY = this.tile.y - tile.y;
             this.originalOffsetX = this.offsetX;
