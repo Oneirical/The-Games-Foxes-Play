@@ -759,7 +759,6 @@ class Monster{
                 tilesDisplay.creatureDisplay.y = -448;
             }
             if (this === player) this.animating = true;
-            else this.firstTime = true;
             this.offsetX = this.tile.x - tile.x;
             this.offsetY = this.tile.y - tile.y;
             this.originalOffsetX = this.offsetX;

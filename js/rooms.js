@@ -1116,20 +1116,17 @@ var rooms = {
     "Announce" : {
         0 : "AA##E##AA",
         1 : "AA#.,.#AA",
-        2 : "AA|..e|AA",
-        3 : "AA|..t|AA",
-        4 : "AA|sht|AA",
-        5 : "AA|..t|AA",
-        6 : "AA|..t|AA",
+        2 : "AA|...|AA",
+        3 : "AA|...|AA",
+        4 : "AA|.h.|AA",
+        5 : "AA|...|AA",
+        6 : "AA|...|AA",
         7 : "AA#.,.#AA",
         8 : "AA##E##AA",
         "tags": ["randomgen","randomflip"],
         "vertical" : true,
         "creatures" : {
             "h" : Hologram,
-                "e" : EpsilonHead,
-                "t" : EpsilonTail,
-                "s" : Scarab
         }
     },
     "Narrow" : {

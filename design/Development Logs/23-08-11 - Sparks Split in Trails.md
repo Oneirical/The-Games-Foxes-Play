@@ -9,7 +9,9 @@ I finally [won]() that deranged DCSS meme build I dreamt of succeeding with. Hop
 
 A few things were done this week, though mostly in more discrete areas.
 
-* Performance overhauls once more have been sprinkled across the teleportation pads. I spent a full hour trying to remove all traces of lag, and felt true despair when I went for a playtest and realized nothing had changed. I later remembered I had left a debug "console.log" somewhere, which had instituted itself as the new cause of lag. Rightfully slaying it immediately made everything [flawless]()!
+* Performance overhauls once more have been sprinkled across the teleportation pads. I spent a full hour trying to remove all traces of lag, and felt true despair when I went for a playtest and realized nothing had changed. I later remembered I had left a debug "console.log" somewhere, which had instituted itself as the new cause of lag. Rightfully slaying it immediately made everything [flawless]()! Naturally, these fixes also broke the entire suite of move-animations of every entity, which I spent 2 hours to fix. Amusing.
+
+* Map generation has received some tweaks, namely the ability to customize the rarity of certain prefabricated rooms. Certain areas can therefore be forced to generate only once, very often, in only 10% of cases, or any other such parameter!
 
 * The synapse and logic map mechanic has been partially reworked - data is now only preserved in each "current" respectively. This means that if a branch targets a tile, other branches won't magically start targeting that tile as well.
 
