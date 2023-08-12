@@ -146,6 +146,19 @@ class FormEntity extends AxiomTemp{
     }
 }
 
+class FormTile extends AxiomTemp{
+    constructor(tile){
+        super();
+        this.tile = tile;
+    }
+    act(data){
+        if (this.tile == "ScarabWaypoint") this.tile = getTile(world.waypointLocation[0],world.waypointLocation[1]);
+        let dest = this.tile;
+        data["targets"].push(dest);
+        return data;
+    }
+}
+
 class AxiomFunction extends AxiomTemp{
     constructor(type){
         super();

@@ -524,7 +524,7 @@ const logicMaps = {
         "keys" : {
             "R" : new RadioReceiver("EON"),
             "M" : new AxiomFunction("MOVE"),
-            "P" : new FormEntity("Player"),
+            "P" : new FormTile("ScarabWaypoint"),
         }
     },
     "ScarabSpawner" : {
