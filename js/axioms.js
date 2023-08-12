@@ -301,6 +301,10 @@ axiomEffects = {
         let targets = data["targets"].slice(0);
         let chosen = shuffle(targets)[0];
         let currentTile = data["caster"].tile;
+        if (chosen === currentTile){
+            data["break"] = true;
+            return data;
+        }
         if (Math.abs(chosen.x-currentTile.x) <= 1 && Math.abs(chosen.y-currentTile.y) <= 1 && Math.abs(chosen.x-currentTile.x) + Math.abs(chosen.y-currentTile.y) != 2){
             if (!data["caster"].tryMove(chosen.x-currentTile.x,chosen.y-currentTile.y)){
                 data["break"] = true;
