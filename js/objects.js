@@ -74,7 +74,7 @@ class DroppedSoul{
         return this.tile.x + this.offsetX;
     }
 
-    getDisplayY(){                                                                  
+    getDisplayY(){                                                      
         return this.tile.y + this.offsetY;
     }
 

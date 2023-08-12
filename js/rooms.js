@@ -549,6 +549,23 @@ const logicMaps = {
 
         }
     },
+    "Programmer" : {
+        0 : ".........",
+        1 : ".......E.",
+        2 : ".......P.",
+        3 : ".......M.",
+        4 : ".........",
+        5 : ".........",
+        6 : ".........",
+        7 : ".........",
+        8 : ".........",
+        "keys" : {
+            "E" : new RadioReceiver("EON"),
+            "M" : new AxiomFunction("MOVE"),
+            "P" : new FormEntity(),
+
+        }
+    },
     "ScarabSpawner" : {
         0 : "RINMPS...",
         1 : ".........",
@@ -993,6 +1010,9 @@ var rooms = {
         "tags": ["randomgen","randomflip"],
         "creatures" : {
             "l" : Apiarist,
+        },
+        "marks" : {
+            "l" : "ProgramThis",
         }
     },
     "Garnison" : {
@@ -1097,6 +1117,24 @@ var rooms = {
         7 : "#.......#",
         8 : "####E####",
         "tags": ["randomgen"],
+    },
+    "VileTransport" : {
+        0 : "####E####",
+        1 : "#.......#",
+        2 : "#..nnn..#",
+        3 : "#.woooe.#",
+        4 : "E.wofoe.E",
+        5 : "#.woooe.#",
+        6 : "#..sss..#",
+        7 : "#.......#",
+        8 : "####E####",
+        "tags": ["randomgen"],
+        "creatures" : {
+            "f" : Programmer,
+        },
+        "marks" : {
+            "f" : "LinkToWaypoint",
+        }
     },
     "Cage1" : {
         0 : "####E####",

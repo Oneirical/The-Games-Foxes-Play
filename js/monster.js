@@ -1382,6 +1382,21 @@ class EpsilonHead extends Monster{
     }
 }
 
+class Programmer extends Monster{
+    constructor(tile){
+        super(tile, 49, 3, "VILE", description["Epsilon"]);
+        this.id = "Programmer";
+        this.name = "Epsilon, Supreme Ordered General";
+        this.ability = monabi["Epsilon"];
+    }
+    extraConfig(playSpace){
+        let targetStore = this.souls[0].findAxioms(FormEntity);
+        for (let i of playSpace.monsters){
+            if (i.generationMark == "ProgramThis") targetStore[0].storage = i;
+        }
+    }
+}
+
 class EpsilonTail extends Monster{
     static number = 1;
     constructor(tile){
