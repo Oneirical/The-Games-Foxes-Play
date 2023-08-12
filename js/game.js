@@ -22,12 +22,10 @@ function summonExits(){
     world.fighting = false;
 }
 
-function trigger(key){
-    for (let i of player.souls) i.trigger(key); //this is a temporary measure
+function trigger(key,assi){
+    for (let i of player.souls) i.trigger(key,assi); //this is a temporary measure
     for (let i of monsters){
-        for (let j of i.souls){
-            if (j instanceof Soul) j.trigger(key);
-        }
+            i.trigger(key,assi);
     }
 }
 

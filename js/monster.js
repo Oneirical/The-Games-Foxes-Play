@@ -67,6 +67,15 @@ class Monster{
 
     }
 
+    trigger(event,assi){
+        for (let j of this.souls){
+            if (assi){
+                for (let i of assi) j.axioms[i.x][i.y].storage = i.storage;
+            }
+            if (j instanceof Soul) j.trigger(event);
+        }
+    }
+
     endTurn(){
         let activeeffects = [];
         for (let i of Object.keys(this.statusEff)){
@@ -514,7 +523,7 @@ class Monster{
                     this.attackedThisTurn = true;
                     let bonusAttack = this.bonusAttack;
                     this.bonusAttack = 0;
-                    if (!this.fphit) newTile.monster.hit(this.dmg + Math.floor(bonusAttack));
+                    if (!this.fphit) newTile.monster.hit(this.dmg + Math.floor(bonusAttack),player);
                     else newTile.monster.fp+=this.fphit;
                     if (newTile.monster){
                         if (newTile.monster.fp > 0) {
@@ -678,7 +687,7 @@ class Monster{
         }
     }
 
-    hit(damage){  
+    hit(damage,origin){  
         if (damage <= 0) return;          
         if(this.statusEff["Invincible"]>0 || (this.isInvincible && this.order < 0)){           
             return;                                                             
@@ -687,6 +696,7 @@ class Monster{
             playSound("epsitink");
             return;
         }
+        this.lastDamageCulprit = origin;
         if (this.statusEff["Dissociated"] > 0) this.falsehp -= damage;
         else if (this.statusEff["Dissociated"] == 0 && !(this instanceof Tail)) this.hp -= damage;
         else if (this instanceof Tail){
@@ -714,7 +724,7 @@ class Monster{
             this.tile.clickTrap.trigger();
             this.tile.clickTrap = false;
         }
-        this.axioms.castContin("ONDEATH",this);
+        this.trigger("OBLIVION");
         if (this.tile.monster == this) this.tile.monster = null;
         if (this.statusEff["Puppeteered"] > 0 && !this.tile.siphon && !this.respawned){
             let husk = new Husk(this.tile);
@@ -1109,9 +1119,9 @@ class Snail extends Monster{ // BATTLESNAIL, GET IN THERE!
         const link = this.generationMark[1];
         let numberStore = this.souls[0].findAxioms(NumberStorage);
         let linkStore = this.souls[0].findAxioms(LinkForm);
-        numberStore[0].num = delay;
+        numberStore[0].storage = delay;
         for (let i of playSpace.monsters){
-            if (i.generationMark == link && i.room == this.room) linkStore[0].link = i;
+            if (i.generationMark == link && i.room == this.room) linkStore[0].storage = i;
         }
     }
 }
@@ -1132,7 +1142,7 @@ class Husk extends Monster{
 class Slug extends Monster{
     constructor(tile){
         super(tile, 29, 2, "ORDERED", description["Slug"]);
-        this.soul = "Animated by an Ordered (5) soul.";
+        this.id = "Guard";
         this.name = "Shackle-Slug";
         this.ability = monabi["Slug"];
         this.assignAxiom(["STEP","EGO","STOP","CLICK","EGO","STOP"],"ORDERED",2);

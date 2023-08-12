@@ -512,7 +512,7 @@ const logicMaps = {
         }
     },
     "Scarab" : {
-        0 : "RPM......",
+        0 : "RPM...KLB",
         1 : ".........",
         2 : ".........",
         3 : ".........",
@@ -525,6 +525,28 @@ const logicMaps = {
             "R" : new RadioReceiver("EON"),
             "M" : new AxiomFunction("MOVE"),
             "P" : new FormTile("ScarabWaypoint"),
+            "K" : new ContinKilled(),
+            "L" : new LastDamageSource(),
+            "B" : new AssimilateBroadcast("DANGER"),
+
+        }
+    },
+    "Guard" : {
+        0 : "......MPR",
+        1 : ".......E.",
+        2 : ".........",
+        3 : ".........",
+        4 : ".........",
+        5 : ".........",
+        6 : ".........",
+        7 : ".........",
+        8 : ".........",
+        "keys" : {
+            "E" : new RadioReceiver("EON"),
+            "R" : new RadioReceiver("DANGER"),
+            "M" : new AxiomFunction("MOVE"),
+            "P" : new FormEntity(),
+
         }
     },
     "ScarabSpawner" : {

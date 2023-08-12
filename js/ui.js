@@ -1689,6 +1689,7 @@ class Inventory{
     }
 
     castContin(word, caster){
+        return;
         for (let i of this.active){
             if (i.sequence.includes(word)){
                 let startPoint = i.sequence.indexOf(word);

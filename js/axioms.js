@@ -21,10 +21,10 @@ class EmptyAxiom extends AxiomTemp{
 class RadioBroadcaster extends AxiomTemp{
     constructor(message){
         super();
-        this.message = message;
+        this.storage = message;
     }
     act(data){
-        trigger(this.message);
+        trigger(this.storage);
         return data;
     }
 }
@@ -36,6 +36,28 @@ class RadioReceiver extends AxiomTemp{
         this.contingency = true;
     }
     act(data){
+        return data;
+    }
+}
+
+class ContinKilled extends AxiomTemp{
+    constructor(){
+        super();
+        this.event = "OBLIVION";
+        this.contingency = true;
+    }
+    act(data){
+        return data;
+    }
+}
+
+class LastDamageSource extends AxiomTemp{
+    constructor(entity){
+        super();
+        this.storage = entity;
+    }
+    act(data){
+        this.storage = data["caster"].lastDamageCulprit;
         return data;
     }
 }
@@ -66,11 +88,11 @@ class ClearPaint extends AxiomTemp{
 class PaintTile extends AxiomTemp{
     constructor(colour){
         super();
-        this.colour = colour;
+        this.storage = colour;
     }
     act(data){
         for (let i of data["targets"]){
-            i.paint = this.colour;
+            i.paint = this.storage;
             drawPixel("red",0,0,tileSize,i.tilecon);
             i.paintDisplay = i.tilecon.children[i.tilecon.children.length-1];
         }
@@ -81,12 +103,12 @@ class PaintTile extends AxiomTemp{
 class PaintFilter extends AxiomTemp{
     constructor(colour){
         super();
-        this.colour = colour;
+        this.storage = colour;
     }
     act(data){
         for (let i = data["targets"].length-1; i>=0; i--){
             let r = data["targets"][i];
-            if (r.paint != this.colour) removeItemAll(data["targets"],r);
+            if (r.paint != this.storage) removeItemAll(data["targets"],r);
         }
         return data;
     }
@@ -95,10 +117,10 @@ class PaintFilter extends AxiomTemp{
 class BooleanGate extends AxiomTemp{
     constructor(boo){
         super();
-        this.boo = boo;
+        this.storage = boo;
     }
     act(data){
-        if (!this.boo) data["break"] = true;
+        if (!this.storage) data["break"] = true;
         return data;
     }
 }
@@ -109,7 +131,22 @@ class BooleanFlip extends AxiomTemp{
     }
     act(data){
         let surr = this.soul.getLogicNeighbours(this,true);
-        for (let i of surr) if (i instanceof BooleanGate) i.boo = !i.boo;
+        for (let i of surr) if (i instanceof BooleanGate) i.storage = !i.storage;
+        return data;
+    }
+}
+
+class AssimilateBroadcast extends AxiomTemp{
+    constructor(message){
+        super();
+        this.storage = message;
+        this.surr;
+    }
+    act(data){
+        let surr = this.soul.getLogicNeighbours(this,true);
+        let assi = [];
+        for (let i of surr) assi.push(i);
+        trigger(this.storage,assi);
         return data;
     }
 }
@@ -117,7 +154,7 @@ class BooleanFlip extends AxiomTemp{
 class FormDir extends AxiomTemp{
     constructor(dir){
         super();
-        this.dir = dir;
+        this.storage = dir;
     }
 
     act(data){
@@ -127,7 +164,7 @@ class FormDir extends AxiomTemp{
             "E" : [1,0],
             "S" : [0,1],
         }
-        data["targets"].push(getTile(data["caster"].tile.x+directions[this.dir][0],data["caster"].tile.y+directions[this.dir][1]));
+        data["targets"].push(getTile(data["caster"].tile.x+directions[this.storage][0],data["caster"].tile.y+directions[this.storage][1]));
         return data;
     }
 }
@@ -135,12 +172,13 @@ class FormDir extends AxiomTemp{
 class FormEntity extends AxiomTemp{
     constructor(entity){
         super();
-        this.entity = entity;
+        this.storage = entity;
     }
     act(data){
         let dest;
-        if (this.entity == "Player") dest = player.tile;
-        else dest = this.entity.tile;
+        if (!this.storage) return data;
+        if (this.storage == "Player") dest = player.tile;
+        else dest = this.storage.tile;
         data["targets"].push(dest);
         return data;
     }
@@ -149,11 +187,11 @@ class FormEntity extends AxiomTemp{
 class FormTile extends AxiomTemp{
     constructor(tile){
         super();
-        this.tile = tile;
+        this.storage = tile;
     }
     act(data){
-        if (this.tile == "ScarabWaypoint") this.tile = getTile(world.waypointLocation[0],world.waypointLocation[1]);
-        let dest = this.tile;
+        if (this.storage == "ScarabWaypoint") this.storage = getTile(world.waypointLocation[0],world.waypointLocation[1]);
+        let dest = this.storage;
         data["targets"].push(dest);
         return data;
     }
@@ -192,11 +230,11 @@ class FailCatcher extends AxiomTemp{
 class NumberIncrementer extends AxiomTemp{
     constructor(number){
         super();
-        this.num = number;
+        this.storage = number;
     }
     act(data){
         let surr = this.soul.getLogicNeighbours(this,true);
-        for (let i of surr) if (i instanceof NumberStorage) i.num += this.num;
+        for (let i of surr) if (i instanceof NumberStorage) i.storage += this.storage;
         return data;
     }
 }
@@ -204,18 +242,18 @@ class NumberIncrementer extends AxiomTemp{
 class NumberStorage extends AxiomTemp{
     constructor(number){
         super();
-        this.num = number;
+        this.storage = number;
     }
 }
 
 class ModuloGate extends AxiomTemp{
     constructor(number){
         super();
-        this.num = number;
+        this.storage = number;
     }
     act(data){
         let surr = this.soul.getLogicNeighbours(this,true);
-        for (let i of surr) if (i instanceof NumberStorage && i.num%this.num != 0){
+        for (let i of surr) if (i instanceof NumberStorage && i.storage%this.storage != 0){
             data["break"] = true;
         }
         
@@ -226,7 +264,7 @@ class ModuloGate extends AxiomTemp{
 class SummonCreature extends AxiomTemp{
     constructor(crea){
         super();
-        this.creature = crea;
+        this.storage = crea;
     }
     act(data){
         if (data["targets"].length == 0){
@@ -236,7 +274,7 @@ class SummonCreature extends AxiomTemp{
         let works = false;
         for (let i of data["targets"]){
             if (i.passable && !i.monster){
-                summonMonster(i.x,i.y,this.creature);
+                summonMonster(i.x,i.y,this.storage);
                 works = true;
             }
         }
@@ -248,11 +286,11 @@ class SummonCreature extends AxiomTemp{
 class DamageDealer extends AxiomTemp{
     constructor(dam){
         super();
-        this.dam = dam;
+        this.storage = dam;
     }
     act(data){
         for (let i of data["targets"]){
-            if (i.monster) i.monster.hit(this.dam);
+            if (i.monster) i.monster.hit(this.storage, data["caster"]);
         }
         return data;
     }
@@ -261,15 +299,15 @@ class DamageDealer extends AxiomTemp{
 class LinkForm extends AxiomTemp{
     constructor(link){
         super();
-        this.link = link;
+        this.storage = link;
     }
     act(data){
-        if (!this.link){
+        if (!this.storage){
             data["break"] = true;
             return data;
         }
         const initialPoint = data["caster"].tile;
-        const finalPoint = this.link.tile;
+        const finalPoint = this.storage.tile;
         const trail = line(initialPoint,finalPoint);
         removeItemAll(trail,initialPoint);
         removeItemAll(trail,finalPoint);

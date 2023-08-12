@@ -668,6 +668,7 @@ class World{
             "HarmonicTransport" : 1,
             "ScarabWaypoint" : 1,
             "ScarabFactory" : 1,
+            "Garnison" : 1,
         }
         let usable = [];
         for (let i of worldgen){
@@ -1322,7 +1323,7 @@ class DefaultVaultRoom extends Room{
 class StandardFaith extends DefaultVaultRoom{
     constructor(index){
         super(index);
-        this.id = shuffle(["Standard","CatsCross","Garnison"])[0];
+        this.id = shuffle(["Standard","CatsCross"])[0];
     }
 }
 
