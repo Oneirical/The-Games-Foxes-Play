@@ -1324,7 +1324,7 @@ class DefaultVaultRoom extends Room{
 class StandardFaith extends DefaultVaultRoom{
     constructor(index){
         super(index);
-        this.id = shuffle(["Standard","CatsCross"])[0];
+        this.id = shuffle(["Standard"])[0];
     }
 }
 
