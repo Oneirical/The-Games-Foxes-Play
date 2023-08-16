@@ -865,9 +865,9 @@ class World{
         for(let i=0;i<9;i++){
             worldgen[i] = [];
             for(let j=0;j<9;j++){
-                if((j==8&&i==4)||(j==0&&i==4) || (j==4&&i==8) || (j==4&&i==0) ||(j==4&&i==4)){
-                    worldgen[i][j] = new Floor(i,j); // ridiculous, but ingenious!
-                    passableRooms++;
+                if(betweenIncl(i,0,3) || betweenIncl(j,0,3)){
+                    worldgen[i][j] = new Wall(i,j); // ridiculous, but ingenious!
+                    //passableRooms++;
                 }
                 else if(Math.random() < 0.4){
                     worldgen[i][j] = new Wall(i,j);
