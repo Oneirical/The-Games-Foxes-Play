@@ -247,3 +247,11 @@ The player was already crafting their own Axioms to cast spells. You might see w
 In this case, why not just create some hilariously suicidal creatures with thought-provoking Axioms such as "do nothing, then perish" or "heal your enemies every millisecond", then proceed to win the game without a trace of challenge? 
 
 This ties in with the Harmony core mechanic - making creatures attack other things than the player is already a feature, through the charm/summoning magic effects. My idea would be that some Harmonic agents pursue you across the dungeon, and are slowed down by the enemies you have triumphed over, now respawned and working for you. If you only make utter weaklings, the Harmony will easily power through the opposition and reach your position in little time. If you make death machines, well, you will be the one to enter a die-and-retry loop while the Harmony spawn-camps you.
+
+If you are losing your speed, you should be getting one of two things: either damage huge enough to delete everything before you are oneshotted, or defense huge enough to not be a cat anymore.
+
+Beast Form is good enough to stop D:1-2 splats but quickly should be replaced by ~~Chernobyl~~ Flux Form, which does obscene damage without sacrificing your speed. Manifold Assault applies the radioactive marks remotely, which is hilarious.
+
+Since Blade ~~Hands~~ Paws lost its spellcasting hindrance, it is now the logical upgrade to Flux Form for even more damage.
+
+Maw is passable. The lifesteal is appreciated but Bl
