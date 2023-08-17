@@ -42,7 +42,9 @@ function assignSouls(){
 
 function makeItFunny(){
     tilesDisplay.removeChild(player.creaturecon);
-    player = monsters[0];
+    let epsilon;
+    for (let i of monsters) if (i instanceof EpsilonHead) epsilon = i;
+    player = epsilon;
     tilesDisplay.addChild(player.creaturecon);
     player.creaturecon.x = 8*tileSize;
     player.creaturecon.y = 8*tileSize;
