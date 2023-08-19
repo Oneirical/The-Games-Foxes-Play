@@ -65,7 +65,6 @@ function setupPixi(){
     drawProjectors();
     //world.rooms[4][7] = world.playSpace;
     world.enterRoom("N");
-    wheel.toPaintMode();
     // let rai = new PIXI.filters.ColorOverlayFilter();
     // rai.color = "1a5fb4";
     // rai.alpha = 0;
@@ -312,8 +311,8 @@ function drawTiles(){
             }
         }
         
-        for(let i=0;i<9;i++){
-            for(let j=0;j<9;j++){
+        for(let i=0;i<5;i++){
+            for(let j=0;j<5;j++){
                 if (!r.rooms[i][j].graphicsReady) r.rooms[i][j].setUpSprites();
             }
         } 

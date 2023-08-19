@@ -197,7 +197,7 @@ class Tile{
     }
 
     getRoom(dx, dy){
-        if (this.x + dx > 8 ||this.x + dx < 0 ||this.y + dy < 0 || this.y + dy > 8) return "OOB";
+        if (this.x + dx > 4 ||this.x + dx < 0 ||this.y + dy < 0 || this.y + dy > 4) return "OOB";
         else return worldgen[this.x + dx][this.y + dy];
     }
 

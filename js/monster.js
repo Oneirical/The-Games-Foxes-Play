@@ -787,9 +787,11 @@ class Terminal extends Monster{
         this.isPlayer = true;
         this.teleportCounter = 0;
         this.name = "Terminal, the Reality Anchor";
-        this.id = "Terminal";
+        this.id = "Terminal1";
         this.soul = new Soul("SOULLESS",this);
-        this.souls = [this.soul];
+        this.id = "Terminal2";
+        this.soul2 = new Soul("SOULLESS",this);
+        this.souls = [this.soul,this.soul2];
         this.ability = "";
         this.noloot = true;
         this.fov = 0;
@@ -820,8 +822,8 @@ class Terminal extends Monster{
         areachange = false;
         rosetoxin = 0;
         player.lastMove = [0,0];
-        for(let i=0;i<9;i++){
-            for(let j=0;j<9;j++){
+        for(let i=0;i<5;i++){
+            for(let j=0;j<5;j++){
                 if (universe.worlds[universe.currentworld-1].cage.slots[i][j].id != "EMPTY") universe.worlds[universe.currentworld-1].cage.slots[i][j].shattered = true;
             }
         }
@@ -1376,7 +1378,7 @@ class KnockbackBot extends Monster{
 class EpsilonHead extends Monster{
     constructor(tile){
         super(tile, 67, 3, "ORDERED", description["Epsilon"]);
-        this.id = "EpsilonControl";
+        this.id = "Epsilon";
         this.name = "Epsilon, Supreme Ordered General";
         this.ability = monabi["Epsilon"];
     }

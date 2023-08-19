@@ -8,9 +8,9 @@ class CageTemplate{
     }
 
     build(){
-        for(let i=0;i<9;i++){
+        for(let i=0;i<5;i++){
             this.slots[i] = [];
-            for(let j=0;j<9;j++){
+            for(let j=0;j<5;j++){
                 this.slots[i][j] = new Empty();
             }
         }
@@ -46,16 +46,16 @@ class CageTemplate{
     }
 
     buildAxiom(){
-        for(let j=0;j<9;j++){
-            for(let i=0;i<9;i++){
+        for(let j=0;j<5;j++){
+            for(let i=0;i<5;i++){
                 this.slots[i][j].patternFound = false;
             }
         }
         let allSouls = [];
         let potency = 0;
         let praxes = [];
-        for(let j=0;j<9;j++){
-            for(let i=0;i<9;i++){
+        for(let j=0;j<5;j++){
+            for(let i=0;i<5;i++){
                 if (!(this.slots[i][j] instanceof Empty) && !this.slots[i][j].patternFound){
                     allSouls.push(this.slots[i][j].id);
                     let origin = this.slots[i][j];
@@ -187,9 +187,9 @@ class Universe{
         world.confirmWorldFromVault();
         this.worlds[1].confirmWorld();
         assignSouls();
-        world.currentroom = [4,8];
+        world.currentroom = [0,2];
         world.tranquil = true;
-        world.playRoom(world.rooms[4][8],startingHp);
+        world.playRoom(world.rooms[2][0],startingHp);
         drawTiles();
         drawSprites();
     }
@@ -294,8 +294,8 @@ class Universe{
         let locspawn = [4,5];
         let motionsave = player.lastMove;
         let receivereward = true;
-        for(let j=0;j<9;j++){
-            for(let i=0;i<9;i++){
+        for(let j=0;j<5;j++){
+            for(let i=0;i<5;i++){
                 if (world.rooms[i][j].visited == false && world.rooms[i][j].id != "Void") receivereward = false;
             }
         }
@@ -319,8 +319,8 @@ class Universe{
         player.offsetY = -motionsave[1];
 
         if (reward){
-            for(let j=0;j<9;j++){
-                for(let i=0;i<9;i++){
+            for(let j=0;j<5;j++){
+                for(let i=0;i<5;i++){
                     world.cage.slots[i][j] = new Empty();
                 }
             }
@@ -429,7 +429,7 @@ class World{
     constructor(depth){
         this.depth = depth;
         this.cageCorner;
-        this.cageLocation = [4,5];
+        this.cageLocation = [2,4];
         this.roompool = [];
         this.isAccessible = false;
         this.finishedspread = false;
@@ -456,6 +456,7 @@ class World{
             "Vile" : 0,
             "Serene" : 0,
         }
+        this.name = "World Seed";
     }
 
     setUpSprites(){
@@ -490,11 +491,11 @@ class World{
         this.mapCon = new PIXI.Container();
         let size = 112;
         drawPixel("black",0,0,112*9,this.mapCon);
-        this.mapCon.children[0].alpha = 0.9;
+        this.mapCon.children[0].alpha = 0.0;
         this.roomsInMap = new PIXI.Container();
         this.mapCon.addChild(this.roomsInMap);
-        for(let y = 0; y<9;y++){
-            for(let x = 0; x<9;x++){
+        for(let y = 0; y<5;y++){
+            for(let x = 0; x<5;x++){
                 if (this.rooms[x][y].tangible && this.rooms[x][y].displayCon){
                     this.rooms[x][y].displayCon.x = x*size;
                     this.rooms[x][y].displayCon.y = y*size;
@@ -502,12 +503,11 @@ class World{
                 }
             }
         }
-        this.mapCon.x -= -12; //used to be 8
-        this.mapCon.y -= -12;
         this.roomsInMap.x += 24;
         this.roomsInMap.y += 24;
         //this.roomsInMap.scale.set(0.95,0.95);
-        this.mapCon.scale.set(1/4,1/4);
+        this.mapCon.width = 32*15;
+        this.mapCon.height = 32*15;
         //this.mapCon.pivot.set(1/2,1/2);
         this.displayCon.addChild(this.mapCon);
                     //if (this.rooms[x][y].visited) drawPixel(9,4*7+x*size,4*7+y*size);
@@ -594,15 +594,15 @@ class World{
     }
 
     confirmWorldFromVault(vault){
-        if (!vault) vault = "Facility";
+        if (!vault) vault = "WorldSeed";
         if (vault == "Epsilon"){
             this.cageLocation = [2,6];
         }
         this.cageCorner = [this.cageLocation[0]*9,this.cageLocation[1]*9];
         this.rooms = [];
-        for(let i=0;i<9;i++){
+        for(let i=0;i<5;i++){
             this.rooms[i] = [];
-            for(let j=0;j<9;j++){
+            for(let j=0;j<5;j++){
                 let flip = false;
                 let roomType;
                 if (genstruct[vault]["keys"]) roomType = genstruct[vault]["keys"][genstruct[vault][j][i]];
@@ -620,12 +620,12 @@ class World{
         }
         this.depositTiles = [];
         this.depositCreatures = [];
-        for(let i=0;i<81;i++){
+        for(let i=0;i<45;i++){
             this.depositTiles[i] = [];
         }
         let airlocks = [];
-        for(let i=0;i<9;i++){
-            for(let j=0;j<9;j++){
+        for(let i=0;i<5;i++){
+            for(let j=0;j<5;j++){
                 if ("Facility" == "Facility"){//replace this if more vaults get added
                     if (this.rooms[i][j] instanceof WorldSeed) this.rooms[i][j].filler = TermiWall;
                     else this.rooms[i][j].filler = Wall;
@@ -647,15 +647,15 @@ class World{
             }
         }
         this.playSpace = new HugeMap([0,0],this);
-        for(let i=0;i<81;i++){
-            for(let j=0;j<81;j++){
+        for(let i=0;i<45;i++){
+            for(let j=0;j<45;j++){
                 this.playSpace.tiles[i][j].existSpace = this.playSpace.tiles;
                 this.playSpace.tiles[i][j].x = i;
                 this.playSpace.tiles[i][j].y = j;            
             }
         }
-        for(let i=0;i<81;i++){
-            for(let j=0;j<81;j++){   
+        for(let i=0;i<45;i++){
+            for(let j=0;j<45;j++){   
                 if (this.playSpace.tiles[i][j] instanceof Airlock) this.playSpace.tiles[i][j].findDirection();        
             }
         }
@@ -682,7 +682,7 @@ class World{
             let randomized = shuffle(usable);
             let chosen;
             for (let i of randomized){
-                if (i.x+size <= 9 && i.y+size <= 9 && i.x-size >= -1 && i.y-size >= -1){
+                if (i.x+size <= 5 && i.y+size <= 5 && i.x-size >= -1 && i.y-size >= -1){
                     chosen = i;
                     break;
                 }
@@ -720,9 +720,9 @@ class World{
         this.rooms = [];
         this.selectRooms();
         this.blessRooms();
-        for(let i=0;i<9;i++){
+        for(let i=0;i<5;i++){
             this.rooms[i] = [];
-            for(let j=0;j<9;j++){
+            for(let j=0;j<5;j++){
                 if (worldgen[i][j].passable){
                     let roomType;
                     let flip = false;
@@ -735,16 +735,16 @@ class World{
                     }
                     //if ((j == 8 && i == 4) || (j == 4 && i == 8) ||(j == 0 && i == 4) ||(j == 4 && i == 0)) roomType = EmptyFaith;
                     //else if (j == 4 && i == 4) roomType = PlateGenerator;
-                    else if (j < 8 && j > 0 && worldgen[i][j+1].passable && worldgen[i][j-1].passable){
-                        if ((i == 8 || !worldgen[i+1][j].passable) && (i == 0 || !worldgen[i-1][j].passable)){
+                    else if (j < 4 && j > 0 && worldgen[i][j+1].passable && worldgen[i][j-1].passable){
+                        if ((i == 4 || !worldgen[i+1][j].passable) && (i == 0 || !worldgen[i-1][j].passable)){
                             roomType = shuffle([NarrowFaith,BridgeFaith])[0];
                             corridor = true;
                         }
                         else roomType = shuffle(this.roompool)[0];
                         
                     }
-                    else if (i < 8 && i > 0 && worldgen[i+1][j].passable && worldgen[i-1][j].passable){
-                        if ((j == 8 || !worldgen[i][j+1].passable) && (j == 0 || !worldgen[i][j-1].passable)){
+                    else if (i < 4 && i > 0 && worldgen[i+1][j].passable && worldgen[i-1][j].passable){
+                        if ((j == 4 || !worldgen[i][j+1].passable) && (j == 0 || !worldgen[i][j-1].passable)){
                             roomType = shuffle([NarrowFaith,BridgeFaith])[0];
                             corridor = true;
                         }
@@ -778,11 +778,11 @@ class World{
         }
         this.depositTiles = [];
         this.depositCreatures = [];
-        for(let i=0;i<81;i++){
+        for(let i=0;i<45;i++){
             this.depositTiles[i] = [];
         }
-        for(let i=0;i<9;i++){
-            for(let j=0;j<9;j++){
+        for(let i=0;i<5;i++){
+            for(let j=0;j<5;j++){
                 if (this.rooms[i][j].tangible){
                     this.spreadExits(i,j);
                     //this.rooms[i][j].setUpSprites();
@@ -801,15 +801,15 @@ class World{
         }        
         this.generated = true;
         this.playSpace = new HugeMap([0,0],this);
-        for(let i=0;i<81;i++){
-            for(let j=0;j<81;j++){
+        for(let i=0;i<45;i++){
+            for(let j=0;j<45;j++){
                 this.playSpace.tiles[i][j].existSpace = this.playSpace.tiles;
                 this.playSpace.tiles[i][j].x = i;
                 this.playSpace.tiles[i][j].y = j;            
             }
         }
-        for(let i=0;i<81;i++){
-            for(let j=0;j<81;j++){   
+        for(let i=0;i<45;i++){
+            for(let j=0;j<45;j++){   
                 if (this.playSpace.tiles[i][j] instanceof Airlock) this.playSpace.tiles[i][j].findDirection();        
             }
         }
@@ -846,9 +846,9 @@ class World{
     generateCage(){
         let passableRooms=0;
         worldgen = [];
-        for(let i=0;i<9;i++){
+        for(let i=0;i<5;i++){
             worldgen[i] = [];
-            for(let j=0;j<9;j++){
+            for(let j=0;j<5;j++){
                 if (this.cage.slots[i][j] instanceof Empty) worldgen[i][j] = new Wall(i,j);
                 else{
                     worldgen[i][j] = new Floor(i,j);
@@ -862,10 +862,10 @@ class World{
     generateWorld(){
         let passableRooms=0;
         worldgen = [];
-        for(let i=0;i<9;i++){
+        for(let i=0;i<5;i++){
             worldgen[i] = [];
-            for(let j=0;j<9;j++){
-                if(betweenIncl(i,0,3) || betweenIncl(j,0,3)){
+            for(let j=0;j<5;j++){
+                if(false){
                     worldgen[i][j] = new Wall(i,j); // ridiculous, but ingenious!
                     //passableRooms++;
                 }
@@ -968,7 +968,7 @@ class World{
         tileSize = (9/numTiles)*64;
         tiles = room.tiles;
         room.playerlastmove = shifts[direction[0]];
-        if (!room.playerspawn) room.playerspawn = [40,76];
+        if (!room.playerspawn) room.playerspawn = [22,4];
         room.populateRoom();
         if (!room.visited){
             level++;
@@ -1338,7 +1338,7 @@ class TriangleFaith extends DefaultVaultRoom{
 class NarrowFaith extends DefaultVaultRoom{
     constructor(index){
         super(index);
-        this.id = shuffle(["LaserHall"])[0]; //"Narrow",
+        this.id = shuffle(["Narrow"])[0]; //,"LaserHall"
         this.corridor = true;
     }
 }
@@ -1376,12 +1376,10 @@ class WorldSeed extends DefaultVaultRoom{
     }
 
     initializeRoom(){
-        //world.fighting = false;
-        //super.populateRoom();
+        world.fighting = false;
+        super.populateRoom();
         super.initializeRoom();
         summonExits();
-        if (research.knownnodes.includes("Cage")) research.completeResearch("Seed");
-        //this.startTutorial();
     }
 
     startTutorial(){
@@ -1810,10 +1808,10 @@ class HugeMap extends DefaultVaultRoom{
     constructor(index,myWorld){
         super(index);
         this.name = "Beeg";
-        this.size = 81;
+        this.size = 45;
         this.id = "Beeg";
         this.world = myWorld;
-        for (let i=0; i<81; i++){
+        for (let i=0; i<45; i++){
             rooms[this.id][i] = ".".repeat(81);
         }
         this.tiles = this.world.depositTiles;
@@ -1824,8 +1822,8 @@ class HugeMap extends DefaultVaultRoom{
 
     initializeRoom(){
         super.initializeRoom();
-        for (let i=0; i<81; i++){
-            for (let j=0; j<81; j++){
+        for (let i=0; i<45; i++){
+            for (let j=0; j<45; j++){
                 tiles[i][j].x = i;
                 tiles[i][j].y = j;
             }

@@ -159,9 +159,9 @@ class Research{
     buildTabsOld(){
         for (let k=0; k<Object.keys(researchpage).length-1;k++){
             this.tabs[k] = [];
-            for(let i=0;i<9;i++){
+            for(let i=0;i<5;i++){
                 this.tabs[k][i] = [];
-                for(let j=0;j<9;j++){
+                for(let j=0;j<5;j++){
                     let nodeType = keyresearch[researchpage["Page"+k][j][i]];
                     if ("TL)><I-+KY".includes(researchpage["Page"+k][j][i])) this.tabs[k][i][j] = new ResearchConnector(i,j,nodeType);
                     else if (nodeType == ".") this.tabs[k][i][j] = new Floor(i,j);
@@ -203,8 +203,8 @@ class Research{
             searchpage--;
             letter = letter[1];
         }
-        for(let i=0;i<9;i++){
-            for(let j=0;j<9;j++){
+        for(let i=0;i<5;i++){
+            for(let j=0;j<5;j++){
                 if (this.tabs[searchpage][i][j] instanceof ResearchNode && this.tabs[searchpage][i][j].letter == letter && this.tabs[searchpage][i][j].completed) return true;
             }
         }
@@ -518,7 +518,7 @@ class LocationDisplay{
             fontSize: 40,
             fill: "plum",
         });
-        const richText = new PIXI.Text(world.getRoom().name, style);
+        const richText = new PIXI.Text(world.name, style);
         richText.anchor.set(0.5,0.5);
         richText.x = (335+22)/4+54;
         richText.y = (121+31)/4-8;
@@ -526,7 +526,7 @@ class LocationDisplay{
     }
 
     update(){
-        this.displayCon.children[1].text = world.getRoom().name;
+        this.displayCon.children[1].text = world.name;
     }
 }
 
@@ -863,7 +863,7 @@ class CatalogueDisplay{
         this.catalogueCon.y = 8;
         drawChainBorder(15,12,this.displayCon);
         for (let i = 0; i<7; i++){
-            for (let j = 0; j<9; j++){
+            for (let j = 0; j<5; j++){
                 const currentSpell = research.knownSpells[j+i*8];
                 let sprite = inside[currentSpell];
                 if (!sprite) sprite = 7;
@@ -1792,9 +1792,9 @@ class Soul{
     }
 
     setUpAxioms(){
-        for (let i = 0; i<9; i++){
+        for (let i = 0; i<5; i++){
             this.axioms[i] = [];
-            for (let j = 0; j<9; j++){
+            for (let j = 0; j<5; j++){
                 const hai = logicMaps[this.owner.id]["keys"];
                 if (logicMaps[this.owner.id][i][j] == ".") this.axioms[i][j] = new EmptyAxiom();
                 else this.axioms[i][j] = Object.create(hai[logicMaps[this.owner.id][i][j]]);
@@ -1807,8 +1807,8 @@ class Soul{
 
     findAxioms(type){
         let found = [];
-        for (let i = 0; i<9; i++){
-            for (let j = 0; j<9; j++){
+        for (let i = 0; i<5; i++){
+            for (let j = 0; j<5; j++){
                 if (this.axioms[i][j] instanceof type) found.push(this.axioms[i][j]);
             }
         }
@@ -1816,8 +1816,8 @@ class Soul{
     }
 
     findContingencies(){
-        for (let i = 0; i<9; i++){
-            for (let j = 0; j<9; j++){
+        for (let i = 0; i<5; i++){
+            for (let j = 0; j<5; j++){
                 if(this.axioms[i][j].contingency) this.contingencies.push(this.axioms[i][j]);
             }
         }
@@ -1829,7 +1829,7 @@ class Soul{
         const neig = [[-1,0],[1,0],[0,1],[0,-1]];
         for (let i of neig){
             let fou;
-            if (between(axiom.x+i[0],-1,9) && between(axiom.y+i[1],-1,9)) fou = this.axioms[axiom.x+i[0]][axiom.y+i[1]];
+            if (between(axiom.x+i[0],-1,5) && between(axiom.y+i[1],-1,5)) fou = this.axioms[axiom.x+i[0]][axiom.y+i[1]];
             else continue;
             if (!fou.empty && (includeSource || !(axiom.sourceX == fou.x && axiom.sourceY == fou.y))){
                 if (!includeSource){

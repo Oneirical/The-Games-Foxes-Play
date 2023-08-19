@@ -480,28 +480,20 @@ var researchpage = {
 
 const logicMaps = {
     "Empty" : {
-        0 : ".........",
-        1 : ".........",
-        2 : ".........",
-        3 : ".........",
-        4 : ".........",
-        5 : ".........",
-        6 : ".........",
-        7 : ".........",
-        8 : ".........",
+        0 : ".....",
+        1 : ".....",
+        2 : ".....",
+        3 : ".....",
+        4 : ".....",
         "keys" : {
         }
     },
     "ElectroCoil" : {
-        0 : "RINMBZ...",
-        1 : ".........",
-        2 : ".........",
-        3 : ".........",
-        4 : ".........",
-        5 : ".........",
-        6 : ".........",
-        7 : ".........",
-        8 : ".........",
+        0 : "RINMB",
+        1 : "....Z",
+        2 : ".....",
+        3 : ".....",
+        4 : ".....",
         "keys" : {
            "R" : new RadioReceiver("EON"),
            "I" : new NumberIncrementer(1),
@@ -512,15 +504,11 @@ const logicMaps = {
         }
     },
     "Scarab" : {
-        0 : "RPM...KLB",
-        1 : ".........",
-        2 : ".........",
-        3 : ".........",
-        4 : ".........",
-        5 : ".........",
-        6 : ".........",
-        7 : ".........",
-        8 : ".........",
+        0 : "RPM..",
+        1 : ".....",
+        2 : "KLB..",
+        3 : ".....",
+        4 : ".....",
         "keys" : {
             "R" : new RadioReceiver("EON"),
             "M" : new AxiomFunction("MOVE"),
@@ -532,15 +520,11 @@ const logicMaps = {
         }
     },
     "Guard" : {
-        0 : "......MPR",
-        1 : ".......E.",
-        2 : ".........",
-        3 : ".........",
-        4 : ".........",
-        5 : ".........",
-        6 : ".........",
-        7 : ".........",
-        8 : ".........",
+        0 : ".....",
+        1 : ".....",
+        2 : "MPR..",
+        3 : ".E...",
+        4 : ".....",
         "keys" : {
             "E" : new RadioReceiver("EON"),
             "R" : new RadioReceiver("DANGER"),
@@ -550,15 +534,11 @@ const logicMaps = {
         }
     },
     "Programmer" : {
-        0 : ".........",
-        1 : ".......E.",
-        2 : ".......P.",
-        3 : ".......M.",
-        4 : ".........",
-        5 : ".........",
-        6 : ".........",
-        7 : ".........",
-        8 : ".........",
+        0 : ".....",
+        1 : "...E.",
+        2 : "...P.",
+        3 : "...M.",
+        4 : ".....",
         "keys" : {
             "E" : new RadioReceiver("EON"),
             "M" : new AxiomFunction("MOVE"),
@@ -567,15 +547,11 @@ const logicMaps = {
         }
     },
     "ScarabSpawner" : {
-        0 : "RINMPS...",
-        1 : ".........",
-        2 : ".........",
-        3 : ".........",
-        4 : ".........",
-        5 : ".........",
-        6 : ".........",
-        7 : ".........",
-        8 : ".........",
+        0 : "RINMP",
+        1 : "....S",
+        2 : ".....",
+        3 : ".....",
+        4 : ".....",
         "keys" : {
             "R" : new RadioReceiver("EON"),
             "I" : new NumberIncrementer(1),
@@ -620,15 +596,11 @@ const logicMaps = {
         }
     },
     "Epsilon" : {
-        0 : "RFBPMN...", // ego, store targets, 
-        1 : "..C.0....", // flip boolean stop
-        2 : "..S.V....",
-        3 : "....C....",
-        4 : "....X....",
-        5 : ".........",
-        6 : ".........",
-        7 : ".........",
-        8 : ".........",
+        0 : "R....", // ego, store targets, 
+        1 : "F.N..", // flip boolean stop
+        2 : "BPM0V",
+        3 : "C...C",
+        4 : "S...X",
         "keys" : {
             "R" : new RadioReceiver("EON"),
             "M" : new AxiomFunction("MOVE"),
@@ -647,15 +619,11 @@ const logicMaps = {
         }
     },
     "Tail1" : {
-        0 : "RCSVPFMXN",
-        1 : ".........", 
-        2 : ".........",
-        3 : ".........",
-        4 : ".........",
-        5 : ".........",
-        6 : ".........",
-        7 : ".........",
-        8 : ".........",
+        0 : "RCSVP",
+        1 : "....F", 
+        2 : "....M",
+        3 : "....X",
+        4 : "....N",
         "keys" : {
             "R" : new RadioReceiver("SLITHER1"),
             "P" : new StandardForm("PLUS"),
@@ -669,15 +637,11 @@ const logicMaps = {
         }
     },
     "Tail2" : {
-        0 : "RCSVPFMXN",
-        1 : ".........", 
-        2 : ".........",
-        3 : ".........",
-        4 : ".........",
-        5 : ".........",
-        6 : ".........",
-        7 : ".........",
-        8 : ".........",
+        0 : "RCSVP",
+        1 : "....F", 
+        2 : "....M",
+        3 : "....X",
+        4 : "....N",
         "keys" : {
             "R" : new RadioReceiver("SLITHER2"),
             "P" : new StandardForm("PLUS"),
@@ -691,15 +655,11 @@ const logicMaps = {
         }
     },
     "Tail3" : {
-        0 : "RCSVPFMXN",
-        1 : ".........", 
-        2 : ".........",
-        3 : ".........",
-        4 : ".........",
-        5 : ".........",
-        6 : ".........",
-        7 : ".........",
-        8 : ".........",
+        0 : "RCSVP",
+        1 : "....F", 
+        2 : "....M",
+        3 : "....X",
+        4 : "....N",
         "keys" : {
             "R" : new RadioReceiver("SLITHER3"),
             "P" : new StandardForm("PLUS"),
@@ -713,15 +673,11 @@ const logicMaps = {
         }
     },
     "Tail4" : {
-        0 : "RPFXM....",
-        1 : ".........", 
-        2 : ".........",
-        3 : ".........",
-        4 : ".........",
-        5 : ".........",
-        6 : ".........",
-        7 : ".........",
-        8 : ".........",
+        0 : "RPFXM",
+        1 : ".....", 
+        2 : ".....",
+        3 : ".....",
+        4 : ".....",
         "keys" : {
             "R" : new RadioReceiver("SLITHER4"),
             "P" : new StandardForm("PLUS"),
@@ -733,34 +689,60 @@ const logicMaps = {
             "V" : new VoidTargets(),
         }
     },
-    "Terminal" : {
-        0 : "WNMT....A",
-        1 : "........O",
-        2 : "D.......M",
-        3 : "E.......T",
-        4 : "M........",
-        5 : "T.......S",
-        6 : "........s",
-        7 : "........M",
-        8 : "........T",
+    "Terminal1" : {
+        0 : "W..AO",
+        1 : "NMT.M",
+        2 : "....T",
+        3 : "TMED.",
+        4 : ".....",
+//SsMT
         "keys" : {
             "W" : new RadioReceiver("W"),
             "A" : new RadioReceiver("A"),
-            "S" : new RadioReceiver("S"),
             "D" : new RadioReceiver("D"),
             //"C" : new ContinKeypress("Click"),
             //"F" : new FormTile()
             "N" : new FormDir("N"),
             "O" : new FormDir("W"),
             "E" : new FormDir("E"),
+            "M" : new AxiomFunction("MOVE"),
+            "T" : new RadioBroadcaster("EON"),
+        }
+    },
+    "Terminal2" : {
+        0 : ".....",
+        1 : ".....",
+        2 : ".....",
+        3 : ".....",
+        4 : "SsMT.",
+        "keys" : {
+
+            "S" : new RadioReceiver("S"),
+
             "s" : new FormDir("S"),
             "M" : new AxiomFunction("MOVE"),
             "T" : new RadioBroadcaster("EON"),
         }
-    }
+    },
 }
 
 var genstruct = {
+    "WorldSeed" : {
+        0 : "..W..",
+        1 : "..V..",
+        2 : "EHMHE",
+        3 : "V.V.V",
+        4 : "E.C.E",
+        keys: {
+            "E" : EmptyFaith,
+            "C" : SoulCage,
+            "W" : WorldSeed,
+            "H" : NarrowFaith,
+            "V" : NarrowFaith,
+            "M" : EmptyFaith,
+            "." : VoidRoom,
+        },
+    },
     "Facility" : {
         0 : "GHEHTHEHG",
         1 : "V.V.E.V.V",
@@ -848,12 +830,12 @@ var rooms = {
         "tags": [],
     },
     "Seed" : {
-        0 : "TTTTETTTT",
+        0 : "TTTTTTTTT",
         1 : "T.......T",
         2 : "T.......T",
-        3 : "T..HHH..T",
-        4 : "E..HHH..E",
-        5 : "T..HHH..T",
+        3 : "T.......T",
+        4 : "T.......T",
+        5 : "T.......T",
         6 : "T.......T",
         7 : "T.......T",
         8 : "TTTTETTTT",
