@@ -72,6 +72,25 @@ class VoidTargets extends AxiomTemp{
     }
 }
 
+class SoulInjector extends AxiomTemp{
+    constructor(soul){
+        super();
+        this.storage = soul;
+    }
+    act(data){
+        if (!this.storage) return data;
+        if (typeof this.storage === 'string') this.storage = new Soul("ORDERED","PermaHeal");
+        for (let i of data["targets"]){
+            if (i.monster){
+                let one = i.monster.souls.length;
+                i.monster.souls.push(this.storage);
+                i.monster.souls[one].owner = i.monster;
+            }
+        }
+        return data;
+    }
+}
+
 class ClearPaint extends AxiomTemp{
     constructor(){
         super();
@@ -151,6 +170,22 @@ class AssimilateBroadcast extends AxiomTemp{
     }
 }
 
+class OverwriteBroadcast extends AxiomTemp{
+    constructor(message){
+        super();
+        this.storage = message;
+        this.surr;
+    }
+    act(data){
+        let surr = this.soul.getLogicNeighbours(this,true);
+        let assi = [];
+        for (let i of surr) assi.push(i);
+        assi.push("OVERWRITE");
+        trigger(this.storage,assi);
+        return data;
+    }
+}
+
 class FormDir extends AxiomTemp{
     constructor(dir){
         super();
@@ -178,6 +213,7 @@ class FormEntity extends AxiomTemp{
         let dest;
         if (!this.storage) return data;
         if (this.storage == "Player") dest = player.tile;
+        else if (this.storage instanceof Tile) dest = this.storage;
         else dest = this.storage.tile;
         data["targets"].push(dest);
         return data;
@@ -191,6 +227,8 @@ class FormTile extends AxiomTemp{
     }
     act(data){
         if (this.storage == "ScarabWaypoint") this.storage = getTile(world.waypointLocation[0],world.waypointLocation[1]);
+        if (this.storage instanceof Monster) this.storage = this.storage.tile;
+        else if (!this.storage) return data;
         let dest = this.storage;
         data["targets"].push(dest);
         return data;
@@ -265,6 +303,7 @@ class SummonCreature extends AxiomTemp{
     constructor(crea){
         super();
         this.storage = crea;
+        debugValeur = this;
     }
     act(data){
         if (data["targets"].length == 0){
@@ -291,6 +330,19 @@ class DamageDealer extends AxiomTemp{
     act(data){
         for (let i of data["targets"]){
             if (i.monster) i.monster.hit(this.storage, data["caster"]);
+        }
+        return data;
+    }
+}
+
+class HealProvider extends AxiomTemp{
+    constructor(dam){
+        super();
+        this.storage = dam;
+    }
+    act(data){
+        for (let i of data["targets"]){
+            if (i.monster) i.monster.heal(this.storage, data["caster"]);
         }
         return data;
     }

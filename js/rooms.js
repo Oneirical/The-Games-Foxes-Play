@@ -504,9 +504,9 @@ const logicMaps = {
         }
     },
     "Scarab" : {
-        0 : "RPM..",
-        1 : ".....",
-        2 : "KLB..",
+        0 : "....R",
+        1 : "...MP",
+        2 : "KLB.G",
         3 : ".....",
         4 : ".....",
         "keys" : {
@@ -516,6 +516,7 @@ const logicMaps = {
             "K" : new ContinKilled(),
             "L" : new LastDamageSource(),
             "B" : new AssimilateBroadcast("DANGER"),
+            "G" : new RadioReceiver("INSTALL"),
 
         }
     },
@@ -534,16 +535,47 @@ const logicMaps = {
         }
     },
     "Programmer" : {
-        0 : ".....",
-        1 : "...E.",
-        2 : "...P.",
-        3 : "...M.",
+        0 : ".MXB.",
+        1 : ".P.S.",
+        2 : ".E...", // the moment it fails to move, the hacker instantly gets uploaded, change that
+        3 : ".....",
         4 : ".....",
         "keys" : {
             "E" : new RadioReceiver("EON"),
             "M" : new AxiomFunction("MOVE"),
-            "P" : new FormEntity(),
+            "P" : new FormEntity(), //handled to link to the hacker
+            "X" : new FailCatcher(),
 
+            "S" : new SoulInjector("PermaHeal"),
+            "B" : new AssimilateBroadcast("PAYLOAD"),
+
+        }
+    },
+    "PermaHeal" : {
+        0 : "EPH..",
+        1 : ".....",
+        2 : ".....",
+        3 : ".....",
+        4 : ".....",
+        "keys" : {
+            "E" : new RadioReceiver("TERMINATE"),
+            "P" : new StandardForm("PLUS"),
+            "H" : new HealProvider(1),
+        }
+    },
+    "ScarabHack" : {
+        0 : "...T.",
+        1 : ".EBIP",
+        2 : "....A",
+        3 : ".....",
+        4 : ".....",
+        "keys" : {
+            "E" : new RadioReceiver("EON"),
+            "B" : new LinkForm(),
+            "I" : new SoulInjector(),
+            "A" : new OverwriteBroadcast("INSTALL"),
+            "P" : new FormEntity(),
+            "T" : new RadioReceiver("PAYLOAD"),
         }
     },
     "ScarabSpawner" : {
@@ -596,7 +628,7 @@ const logicMaps = {
         }
     },
     "Epsilon" : {
-        0 : "R....", // ego, store targets, 
+        0 : "RT...", // ego, store targets, 
         1 : "F.N..", // flip boolean stop
         2 : "BPM0V",
         3 : "C...C",
@@ -612,6 +644,7 @@ const logicMaps = {
             "S" : new PaintTile("Red"),
             "V" : new VoidTargets(),
             "N" : new RadioBroadcaster("SLITHER1"),
+            "T" : new RadioBroadcaster("TERMINATE"),
 
             "0" : new FailCatcher(),
             "X" : new ClearPaint(),
@@ -984,17 +1017,18 @@ var rooms = {
         1 : "#.......#",
         2 : "#..W.W..#",
         3 : "#.WW.WW.#",
-        4 : "E.....l.E",
+        4 : "E.r...l.E",
         5 : "#.WW.WW.#",
         6 : "#..W.W..#",
         7 : "#.......#",
         8 : "####E####",
         "tags": ["randomgen","randomflip"],
         "creatures" : {
-            "l" : Apiarist,
+            "ANY" : Apiarist,
         },
         "marks" : {
             "l" : "ProgramThis",
+            "r" : "LinkHere",
         }
     },
     "Garnison" : {

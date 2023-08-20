@@ -1780,7 +1780,6 @@ class Soul{
         this.y = 0;
         this.speed = 0.01;
         this.angle = 0;
-        if (basic.includes(name)) this.alpha = 0.55;
         this.setUpSprites();
 
         this.contingencies = [];
@@ -1792,12 +1791,18 @@ class Soul{
     }
 
     setUpAxioms(){
+        let id;
+        if (typeof this.owner === 'string') id = this.owner;
+        else id = this.owner.id;
         for (let i = 0; i<5; i++){
             this.axioms[i] = [];
             for (let j = 0; j<5; j++){
-                const hai = logicMaps[this.owner.id]["keys"];
-                if (logicMaps[this.owner.id][i][j] == ".") this.axioms[i][j] = new EmptyAxiom();
-                else this.axioms[i][j] = Object.create(hai[logicMaps[this.owner.id][i][j]]);
+                const hai = logicMaps[id]["keys"];
+                if (logicMaps[id][i][j] == ".") this.axioms[i][j] = new EmptyAxiom();
+                else{
+                    if (!hai[logicMaps[id][i][j]]) throw new Error("Component " + logicMaps[id][i][j] +" was not specified in rooms.js");
+                    this.axioms[i][j] = Object.create(hai[logicMaps[id][i][j]]);
+                }
                 this.axioms[i][j].x = i;
                 this.axioms[i][j].y = j;
                 this.axioms[i][j].soul = this;
@@ -1842,8 +1847,17 @@ class Soul{
         return results;
     }
 
-    trigger(event){
-        for (let i of this.contingencies) if (i.event == event) this.pulse(i);
+    trigger(event,assi){
+        for (let i of this.contingencies) if (i.event == event){
+            if (assi){
+                if (assi.includes("OVERWRITE")){
+                    removeItemAll(assi,"OVERWRITE");
+                    for (let i of assi) this.axioms[i.x][i.y] = i;
+                }
+                else for (let i of assi) this.axioms[i.x][i.y].storage = i.storage;
+            }
+            this.pulse(i);
+        }
     }
 
     pulse(source){

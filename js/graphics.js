@@ -1,3 +1,5 @@
+var debugValeur;
+
 function toggleFullScreen() {
     if (!document.fullscreenElement) {
       document.documentElement.requestFullscreen();

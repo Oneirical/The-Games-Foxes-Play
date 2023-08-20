@@ -69,10 +69,7 @@ class Monster{
 
     trigger(event,assi){
         for (let j of this.souls){
-            if (assi){
-                for (let i of assi) j.axioms[i.x][i.y].storage = i.storage;
-            }
-            if (j instanceof Soul) j.trigger(event);
+            if (j instanceof Soul) j.trigger(event,assi);
         }
     }
 
@@ -857,10 +854,19 @@ class Shrike extends Monster{
 class Apiarist extends Monster{
     constructor(tile){
         super(tile, 6, 3, "ORDERED", description["Apiarist"]);
-        this.soul = "Animated by an Ordered (5) soul.";
+        this.id = "ScarabHack";
         this.name = "Brass Apiarist";
         this.ability = monabi["Apiarist"];
         this.assignAxiom(["STEP","EGO","STOP"],"ORDERED",2);
+    }
+    extraConfig(playSpace){
+        if (this.generationMark == "LinkHere") return;
+        let linkStore = this.souls[0].findAxioms(LinkForm);
+        let epsilonStore = this.souls[0].findAxioms(FormEntity);
+        for (let i of playSpace.monsters){
+            if (i.generationMark == "LinkHere" && i.room == this.room) linkStore[0].storage = i;
+            else if (i instanceof EpsilonHead) epsilonStore[0].storage = i;
+        }
     }
 }
 

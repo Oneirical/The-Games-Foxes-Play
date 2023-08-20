@@ -14,6 +14,9 @@ Artistic creates the Axioms from the blueprints.
 Ordered collect Axioms and go insert them in scarab printers.
 Scarabs get to Epsilon and make him OP.
 
+Righteousness, Ever-Upwards
+Left-Pawed Paths, Sinking Down
+
 **Everyone Is Legendary**
 
 * second rewrite lore to feed others. Also their contin should be on turnstart.
