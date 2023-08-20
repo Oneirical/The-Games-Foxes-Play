@@ -507,7 +507,7 @@ const logicMaps = {
         0 : "....R",
         1 : "...MP",
         2 : "KLB.G",
-        3 : ".....",
+        3 : ".....", //why are the scarabs instantly going for epsilon?
         4 : ".....",
         "keys" : {
             "R" : new RadioReceiver("EON"),
