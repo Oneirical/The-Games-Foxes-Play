@@ -682,6 +682,7 @@ class Airlock extends Tile{
     };
 
     findDirection(){
+        if (this.direction) return;
         const directions = {
             "N" : [0,-1],
             "W" : [-1,0],

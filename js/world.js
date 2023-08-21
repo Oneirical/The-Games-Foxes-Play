@@ -1264,8 +1264,10 @@ class DefaultVaultRoom extends Room{
             this.tiles[i] = [];
             for(let j=0;j<this.size;j++){
                 let tile;
+                let airlockDirOverride;
                 if (!keytile[vault[j][i]] || (vault["creatures"] && vault["creatures"][vault[j][i]])) tile = Floor;
                 else tile = keytile[vault[j][i]];
+                if (tile == Airlock && ["V","^","<",">"].includes(vault[j][i])) airlockDirOverride = vault[j][i];
                 //if (depth == 1 && (tile == Wall || tile == NoBreakWall)) tile = RoseWall;
                 if ("nswe".includes(vault[j][i])){
                     let dir;
@@ -1273,6 +1275,15 @@ class DefaultVaultRoom extends Room{
                     this.tiles[i][j] = new tile(i,j,dir);
                 }
                 else this.tiles[i][j] = new tile(i,j,this);
+                if (airlockDirOverride){
+                    const eqs = {
+                        "V" : "S",
+                        "^" : "N",
+                        "<" : "W",
+                        ">" : "E",
+                    }
+                    this.tiles[i][j].direction = eqs[airlockDirOverride];
+                }
                 if (vault["creatures"] && vault["creatures"][vault[j][i]]){
                     let entity = new vault["creatures"][vault[j][i]](this.tiles[i][j]);
                     if (vault["marks"] && vault["marks"][vault[j][i]]) entity.generationMark = vault["marks"][vault[j][i]];

@@ -104,7 +104,17 @@ function flipRoom(id,size,times){
         }
         for (let i = 0; i<size;i++){
             for (let g = 0; g<size;g++){
-                flippedroom[i] += rooms[id][g][i];
+                let add = rooms[id][g][i];
+                if (["V","^","<",">"].includes(add)){
+                    const eqs = {
+                        "V" : ">",
+                        "^" : "<",
+                        ">" : "V",
+                        "^" : "<",
+                    }
+                    add = eqs[add];
+                }
+                flippedroom[i] += add;
             }
         }
         for (let i = 0; i<size;i++){

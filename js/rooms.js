@@ -20,6 +20,10 @@ var keytile = {
     "H" : HypnoticProjector,
     "|" : Window,
     "a" : Airlock,
+    "V" : Airlock,
+    "^" : Airlock,
+    ">" : Airlock,
+    "<" : Airlock,
 }
 
 var keyroom = {
@@ -507,7 +511,7 @@ const logicMaps = {
         0 : "KLB..",
         1 : "....R",
         2 : "...MP",
-        3 : ".....", //why are the scarabs instantly going for epsilon?
+        3 : ".....",
         4 : ".....",
         "keys" : {
             "R" : new RadioReceiver("EON"),
@@ -724,11 +728,11 @@ const logicMaps = {
         }
     },
     "Terminal1" : {
-        0 : "W..AO",
-        1 : "NMT.M",
-        2 : "....T",
-        3 : "TMED.",
-        4 : ".....",
+        0 : "W....",
+        1 : "NMT.A",
+        2 : "....O",
+        3 : "DE..M",
+        4 : ".MT.T",
 //SsMT
         "keys" : {
             "W" : new RadioReceiver("W"),
@@ -745,10 +749,10 @@ const logicMaps = {
     },
     "Terminal2" : {
         0 : ".....",
-        1 : ".....",
-        2 : ".....",
-        3 : ".....",
-        4 : "SsMT.",
+        1 : "....S",
+        2 : "....s",
+        3 : "....M",
+        4 : "....T",
         "keys" : {
 
             "S" : new RadioReceiver("S"),
@@ -1016,11 +1020,11 @@ var rooms = {
     "ScarabWaypoint" : {
         0 : "####E####",
         1 : "#.......#",
-        2 : "#..W.W..#",
+        2 : "#..RVR..#", //replace with danger signs
         3 : "#.WW.WW.#",
         4 : "E.r...l.E",
         5 : "#.WW.WW.#",
-        6 : "#..W.W..#",
+        6 : "#..R^R..#",
         7 : "#.......#",
         8 : "####E####",
         "tags": ["randomgen","randomflip"],
