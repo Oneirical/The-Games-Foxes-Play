@@ -722,7 +722,11 @@ class Monster{
             this.tile.clickTrap = false;
         }
         this.trigger("OBLIVION");
-        if (this.tile.monster == this) this.tile.monster = null;
+        if (this.tile.monster == this){
+            this.tile.monster = null;
+            for (let i of this.souls) this.tile.souls.push(i);
+            this.tile.addSoulsOnFloor();
+        }
         if (this.statusEff["Puppeteered"] > 0 && !this.tile.siphon && !this.respawned){
             let husk = new Husk(this.tile);
             monsters.push(husk);

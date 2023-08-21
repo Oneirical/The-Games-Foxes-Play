@@ -253,6 +253,16 @@ class Tile{
         }
     }
 
+    addSoulsOnFloor(){
+        for (let i of this.souls){
+            i.owner.creaturecon.x = 0;
+            i.owner.creaturecon.y = 0;
+            this.tilecon.addChild(i.owner.creaturecon);
+            i.owner.creaturecon.alpha = 0.5;
+            new GlitchSprite(i.owner.creaturecon,3);
+        }
+    }
+
     setEffect(effectSprite){ 
         if (this.effect){
             this.tilecon.removeChild(this.effect);
@@ -1051,11 +1061,6 @@ class CageWall extends Floor{
         else if (this.direction == "n") this.sprite += 1;
         else if (this.direction == "s") this.sprite -= 1;
     };
-    stepOn(monster){
-        if (monster.isPlayer){
-            wheel.toPaintMode();
-        }
-    }
 }
 
 class FloorSoul extends Floor{ //unused

@@ -1665,7 +1665,7 @@ class SoulCage extends DefaultVaultRoom{
                 wheel.wheel[i] = new Empty();
             }
         }
-        wheel.toPaintMode();
+        //wheel.toPaintMode();
     }
 }
 

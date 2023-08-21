@@ -536,6 +536,9 @@ const logicMaps = {
 
         }
     },
+    "SoulSiphon" : {
+        
+    },
     "Programmer" : {
         0 : "CFABS",
         1 : "E....",
