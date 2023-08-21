@@ -133,6 +133,24 @@ class PaintFilter extends AxiomTemp{
     }
 }
 
+class EntityFilter extends AxiomTemp{
+    constructor(entity){
+        super();
+        this.storage = entity;
+    }
+    act(data){
+        let newTargets = [];
+        for (let i = data["targets"].length-1; i>=0; i--){
+            let r = data["targets"][i];
+            if (!r.monster) continue;
+            else if (!(r.monster instanceof this.storage)) continue;
+            else newTargets.push(r);
+        }
+        data["targets"] = newTargets;
+        return data;
+    }
+}
+
 class BooleanGate extends AxiomTemp{
     constructor(boo){
         super();
@@ -140,6 +158,31 @@ class BooleanGate extends AxiomTemp{
     }
     act(data){
         if (!this.storage) data["break"] = true;
+        return data;
+    }
+}
+
+class IdentityCheck extends AxiomTemp{
+    constructor(iden){
+        super();
+        this.storage = iden;
+    }
+    act(data){
+        let check = false;
+        for (let i of this.storage){
+            if (data["caster"] instanceof i) check = true;
+        }
+        if (!check) data["break"] = true;
+        return data;
+    }
+}
+
+class NoTargetStop extends AxiomTemp{
+    constructor(){
+        super();
+    }
+    act(data){
+        if (data["targets"].length == 0) data["break"] = true;
         return data;
     }
 }
@@ -182,6 +225,28 @@ class OverwriteBroadcast extends AxiomTemp{
         for (let i of surr) assi.push(i);
         assi.push("OVERWRITE");
         trigger(this.storage,assi);
+        return data;
+    }
+}
+
+class OverwriteAdjacent extends AxiomTemp{
+    constructor(){
+        super();
+        this.surr;
+    }
+    act(data){
+        let surr = this.soul.getLogicNeighbours(this,true);
+        let assi = [];
+        for (let i of surr) assi.push(i);
+        for (let i of data["targets"]){
+            if (i.monster){
+                for (let s of i.monster.souls){
+                    for (let a of assi){
+                        s.axioms[a.x][a.y] = a;
+                    }
+                }
+            }
+        }
         return data;
     }
 }
@@ -440,6 +505,7 @@ axiomEffects = {
             let tarTile = newTile.getNeighbor(i[0],i[1]);
             //tarTile.spellDirection = i;
             data["targets"].push(tarTile);
+            tarTile.setEffect(14);
         }
         return data;
     },

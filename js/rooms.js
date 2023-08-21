@@ -504,9 +504,9 @@ const logicMaps = {
         }
     },
     "Scarab" : {
-        0 : "....R",
-        1 : "...MP",
-        2 : "KLB.G",
+        0 : "KLB..",
+        1 : "....R",
+        2 : "...MP",
         3 : ".....", //why are the scarabs instantly going for epsilon?
         4 : ".....",
         "keys" : {
@@ -516,8 +516,6 @@ const logicMaps = {
             "K" : new ContinKilled(),
             "L" : new LastDamageSource(),
             "B" : new AssimilateBroadcast("DANGER"),
-            "G" : new RadioReceiver("INSTALL"),
-
         }
     },
     "Guard" : {
@@ -535,16 +533,18 @@ const logicMaps = {
         }
     },
     "Programmer" : {
-        0 : ".MXB.",
-        1 : ".P.S.",
-        2 : ".E...", // the moment it fails to move, the hacker instantly gets uploaded, change that
-        3 : ".....",
+        0 : "CFAB.",
+        1 : "E..S.",
+        2 : "P....", // the moment it fails to move, the hacker instantly gets uploaded, change that
+        3 : "M....",
         4 : ".....",
         "keys" : {
             "E" : new RadioReceiver("EON"),
             "M" : new AxiomFunction("MOVE"),
             "P" : new FormEntity(), //handled to link to the hacker
-            "X" : new FailCatcher(),
+            "C" : new StandardForm("PLUS"),
+            "F" : new EntityFilter(Apiarist),
+            "A" : new NoTargetStop(),
 
             "S" : new SoulInjector("PermaHeal"),
             "B" : new AssimilateBroadcast("PAYLOAD"),
@@ -552,7 +552,7 @@ const logicMaps = {
         }
     },
     "PermaHeal" : {
-        0 : "EPH..",
+        0 : "EIPH.",
         1 : ".....",
         2 : ".....",
         3 : ".....",
@@ -561,19 +561,20 @@ const logicMaps = {
             "E" : new RadioReceiver("TERMINATE"),
             "P" : new StandardForm("PLUS"),
             "H" : new HealProvider(1),
+            "I" : new IdentityCheck([EpsilonHead,EpsilonTail]),
         }
     },
     "ScarabHack" : {
         0 : "...T.",
-        1 : ".EBIP",
-        2 : "....A",
+        1 : ".EBIA",
+        2 : "....P",
         3 : ".....",
         4 : ".....",
         "keys" : {
             "E" : new RadioReceiver("EON"),
             "B" : new LinkForm(),
             "I" : new SoulInjector(),
-            "A" : new OverwriteBroadcast("INSTALL"),
+            "A" : new OverwriteAdjacent(),
             "P" : new FormEntity(),
             "T" : new RadioReceiver("PAYLOAD"),
         }
