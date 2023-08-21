@@ -537,8 +537,8 @@ const logicMaps = {
         }
     },
     "Programmer" : {
-        0 : "CFAB.",
-        1 : "E..S.",
+        0 : "CFABS",
+        1 : "E....",
         2 : "P....", // the moment it fails to move, the hacker instantly gets uploaded, change that
         3 : "M....",
         4 : ".....",
@@ -569,8 +569,8 @@ const logicMaps = {
         }
     },
     "ScarabHack" : {
-        0 : "...T.",
-        1 : ".EBIA",
+        0 : ".EBTI",
+        1 : "....A",
         2 : "....P",
         3 : ".....",
         4 : ".....",

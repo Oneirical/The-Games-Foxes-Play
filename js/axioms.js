@@ -7,6 +7,7 @@ class AxiomTemp{
         this.y;
         this.empty = false;
         this.soul;
+        this.storage = "NoStorage";
     }
     act(data){return data;};
 }

@@ -1854,7 +1854,7 @@ class Soul{
                     removeItemAll(assi,"OVERWRITE");
                     for (let i of assi) this.axioms[i.x][i.y] = i;
                 }
-                else for (let i of assi) this.axioms[i.x][i.y].storage = i.storage;
+                else for (let i of assi) if (this.axioms[i.x][i.y].storage != "NoStorage" && i.storage != "NoStorage") this.axioms[i.x][i.y].storage = i.storage;
             }
             this.pulse(i);
         }
