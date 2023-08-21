@@ -1867,7 +1867,13 @@ class Soul{
             "caster" : this.owner,
             "break" : false,
         }];
+        let loopNum = 0;
         while(data.length != 0){
+            loopNum++;
+            if (loopNum >= 1000){
+                throw new Error("Infinite loop in "+this.owner.id+".");
+                break;
+            }
             let currentSynapse = data[0];
             let i = currentSynapse["synapses"][0];
             currentSynapse = i.act(currentSynapse);
