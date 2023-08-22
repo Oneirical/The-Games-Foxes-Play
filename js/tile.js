@@ -53,6 +53,7 @@ class Tile{
         this.spriteDisplay.eventMode = 'static';
         this.spriteDisplay.on('pointerover', (event) => {
             this.hitBox.alpha = 0.4;
+            if (this.souls) for (let i of this.souls) i.absorbSoul(this,player); //debug
         });
         this.spriteDisplay.on('pointerdown', (event) => {
 
