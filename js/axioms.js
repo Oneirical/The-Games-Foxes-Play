@@ -33,7 +33,7 @@ class RadioBroadcaster extends AxiomTemp{
 class RadioReceiver extends AxiomTemp{
     constructor(key){
         super();
-        this.event = key;
+        this.storage = key;
         this.contingency = true;
     }
     act(data){
@@ -44,7 +44,18 @@ class RadioReceiver extends AxiomTemp{
 class ContinKilled extends AxiomTemp{
     constructor(){
         super();
-        this.event = "OBLIVION";
+        this.storage = "OBLIVION";
+        this.contingency = true;
+    }
+    act(data){
+        return data;
+    }
+}
+
+class TriggerWatch extends AxiomTemp{
+    constructor(key){
+        super();
+        this.storage = key;
         this.contingency = true;
     }
     act(data){
@@ -69,6 +80,16 @@ class VoidTargets extends AxiomTemp{
     }
     act(data){
         data["targets"] = [];
+        return data;
+    }
+}
+
+class SoulAbsorber extends AxiomTemp{
+    constructor(){
+        super();
+    }
+    act(data){
+        console.log(data["targets"]);
         return data;
     }
 }

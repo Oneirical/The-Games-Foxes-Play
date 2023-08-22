@@ -1848,25 +1848,33 @@ class Soul{
     }
 
     trigger(event,assi){
-        for (let i of this.contingencies) if (i.event == event){
+        let data;
+        for (let i of this.contingencies) if (i.storage == event){
             if (assi){
-                if (assi.includes("OVERWRITE")){
+                if (assi[0]["caster"]){
+                    data = assi;
+                }
+                else if (assi.includes("OVERWRITE")){
                     removeItemAll(assi,"OVERWRITE");
                     for (let i of assi) this.axioms[i.x][i.y] = i;
                 }
                 else for (let i of assi) if (this.axioms[i.x][i.y].storage != "NoStorage" && i.storage != "NoStorage") this.axioms[i.x][i.y].storage = i.storage;
             }
-            this.pulse(i);
+            this.pulse(i,data);
         }
     }
 
-    pulse(source){
+    pulse(source,dataOverwrite){
         let data = [{
             "synapses" : [source],
             "targets" : [],
             "caster" : this.owner,
             "break" : false,
         }];
+        if (dataOverwrite){
+            data = dataOverwrite;
+            for (let i of data) i["synapses"] = [source];
+        }
         let loopNum = 0;
         while(data.length != 0){
             loopNum++;
@@ -1877,6 +1885,7 @@ class Soul{
             let currentSynapse = data[0];
             let i = currentSynapse["synapses"][0];
             currentSynapse = i.act(currentSynapse);
+            this.owner.trigger(i.constructor.name, data); // for triggerwatch contingency
             let additions = [];
             for (let r of this.getLogicNeighbours(i)) additions.push(r);
             if (additions.length == 0) currentSynapse["break"] = true;

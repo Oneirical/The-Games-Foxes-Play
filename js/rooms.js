@@ -537,12 +537,20 @@ const logicMaps = {
         }
     },
     "SoulSiphon" : {
-        
+        0 : ".....",
+        1 : ".DA..",
+        2 : ".....",
+        3 : ".....",
+        4 : ".....",
+        "keys" : {
+            "D" : new TriggerWatch("AxiomFunction"),
+            "A" : new SoulAbsorber(),
+        }
     },
     "Programmer" : {
         0 : "CFABS",
         1 : "E....",
-        2 : "P....", // the moment it fails to move, the hacker instantly gets uploaded, change that
+        2 : "P....",
         3 : "M....",
         4 : ".....",
         "keys" : {

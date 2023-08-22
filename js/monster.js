@@ -792,7 +792,10 @@ class Terminal extends Monster{
         this.soul = new Soul("SOULLESS",this);
         this.id = "Terminal2";
         this.soul2 = new Soul("SOULLESS",this);
-        this.souls = [this.soul,this.soul2];
+
+        this.id = "SoulSiphon";
+        this.soul3 = new Soul("SOULLESS",this);
+        this.souls = [this.soul,this.soul2,this.soul3];
         this.ability = "";
         this.noloot = true;
         this.fov = 0;
