@@ -508,8 +508,8 @@ const logicMaps = {
         }
     },
     "Scarab" : {
-        0 : "KLB..",
-        1 : "....R",
+        0 : "KLB.R",
+        1 : "....I",
         2 : "...MP",
         3 : ".....",
         4 : ".....",
@@ -520,6 +520,7 @@ const logicMaps = {
             "K" : new ContinKilled(),
             "L" : new LastDamageSource(),
             "B" : new AssimilateBroadcast("DANGER"),
+            "I" : new IdentityCheck([Scarab]),
         }
     },
     "Guard" : {
@@ -543,7 +544,7 @@ const logicMaps = {
         3 : ".....",
         4 : ".....",
         "keys" : {
-            "D" : new TriggerWatch("AxiomFunction"),
+            "D" : new TriggerWatch("DamageDealer"),
             "A" : new SoulAbsorber(),
         }
     },
@@ -560,8 +561,9 @@ const logicMaps = {
             "C" : new StandardForm("PLUS"),
             "F" : new EntityFilter(Apiarist),
             "A" : new NoTargetStop(),
+            "V" : new VoidTargets(),
 
-            "S" : new SoulInjector("PermaHeal"),
+            "S" : new SoulInjector("Epsilon"),
             "B" : new AssimilateBroadcast("PAYLOAD"),
 
         }
@@ -643,11 +645,27 @@ const logicMaps = {
             "u" : new FormDir("S"),            
         }
     },
+    "EpsilonStand" : {
+        0 : "RPFDA",
+        1 : ".....", 
+        2 : "TA...",
+        3 : ".....",
+        4 : ".....",
+        "keys" : {
+            "R" : new RadioReceiver("EON"),
+            "P" : new StandardForm("PLUS"),
+            "D" : new DamageDealer(1),
+            "F" : new EntityFilter(Scarab),
+            "T" : new TriggerWatch("DamageDealer"),
+            "A" : new SoulAbsorber(),
+
+        }
+    },
     "Epsilon" : {
-        0 : "RT...", // ego, store targets, 
-        1 : "F.N..", // flip boolean stop
+        0 : "IRT..", // ego, store targets, 
+        1 : "F....", // flip boolean stop
         2 : "BPM0V",
-        3 : "C...C",
+        3 : "C.N.C",
         4 : "S...X",
         "keys" : {
             "R" : new RadioReceiver("EON"),
@@ -655,6 +673,7 @@ const logicMaps = {
             "P" : new FormEntity("Player"), // just testing for now, no player targeters later
             "F" : new BooleanFlip(),
             "B" : new BooleanGate(true),
+            "I" : new IdentityCheck([EpsilonHead,EpsilonTail]),
 
             "C" : new StandardForm("EGO"),
             "S" : new PaintTile("Red"),

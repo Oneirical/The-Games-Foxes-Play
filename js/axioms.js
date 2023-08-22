@@ -93,6 +93,8 @@ class SoulAbsorber extends AxiomTemp{
             if (i.souls){
                 for (let j of i.souls){
                     j.absorbSoul(i,data["caster"]);
+                    j.owner = data["caster"];
+                    data["caster"].souls.push(j);
                 }
             }
         }
@@ -107,7 +109,7 @@ class SoulInjector extends AxiomTemp{
     }
     act(data){
         if (!this.storage) return data;
-        if (typeof this.storage === 'string') this.storage = new Soul("ORDERED","PermaHeal");
+        if (typeof this.storage === 'string') this.storage = new Soul("ORDERED",this.storage);
         for (let i of data["targets"]){
             if (i.monster){
                 let one = i.monster.souls.length;

@@ -758,6 +758,7 @@ class Monster{
     }
 
     move(tile){
+        if (this.dead) return;
         if(this.tile){
             this.tile.stepOut(this);
             this.tile.monster = null;
@@ -1391,7 +1392,7 @@ class KnockbackBot extends Monster{
 class EpsilonHead extends Monster{
     constructor(tile){
         super(tile, 67, 3, "ORDERED", description["Epsilon"]);
-        //this.id = "Epsilon";
+        this.id = "EpsilonStand";
         this.name = "Epsilon, Supreme Ordered General";
         this.ability = monabi["Epsilon"];
     }
