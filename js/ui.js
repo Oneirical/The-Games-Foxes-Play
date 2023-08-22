@@ -1847,6 +1847,12 @@ class Soul{
         return results;
     }
 
+    absorbSoul(start,destination){
+        this.owner.creaturecon.x = tileSize*(8+(start.x-player.tile.x));
+        this.owner.creaturecon.y = tileSize*(8+(start.y-player.tile.y));
+        tilesDisplay.addChild(this.owner.creaturecon);
+    }
+
     trigger(event,assi){
         let data;
         for (let i of this.contingencies) if (i.storage == event){

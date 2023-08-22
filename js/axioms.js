@@ -89,7 +89,13 @@ class SoulAbsorber extends AxiomTemp{
         super();
     }
     act(data){
-        console.log(data["targets"]);
+        for (let i of data["targets"]){
+            if (i.souls){
+                for (let j of i.souls){
+                    j.absorbSoul(i,data["caster"]);
+                }
+            }
+        }
         return data;
     }
 }
