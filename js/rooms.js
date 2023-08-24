@@ -511,10 +511,11 @@ const logicMaps = {
         0 : "KLB.R",
         1 : "....I",
         2 : "...MP",
-        3 : ".....",
+        3 : "....A",
         4 : ".....",
         "keys" : {
             "R" : new RadioReceiver("EON"),
+            "A" : new RadioReceiver("GONOW"),
             "M" : new AxiomFunction("MOVE"),
             "P" : new FormTile("ScarabWaypoint"),
             "K" : new ContinKilled(),
@@ -582,16 +583,16 @@ const logicMaps = {
         }
     },
     "ScarabHack" : {
-        0 : ".EBTI",
+        0 : ".....",
         1 : ".....", //A
         2 : "....P",
-        3 : ".....",
-        4 : ".....",
+        3 : "....A",
+        4 : ".EBTI",
         "keys" : {
             "E" : new RadioReceiver("EON"),
             "B" : new LinkForm(),
             "I" : new SoulInjector(),
-            "A" : new OverwriteAdjacent(),
+            "A" : new OverwriteSlot("ORDERED"),
             "P" : new FormEntity(),
             "T" : new RadioReceiver("PAYLOAD"),
         }

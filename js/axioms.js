@@ -247,36 +247,25 @@ class AssimilateBroadcast extends AxiomTemp{
     }
 }
 
-class OverwriteBroadcast extends AxiomTemp{
-    constructor(message){
+class OverwriteSlot extends AxiomTemp{
+    constructor(slot){
         super();
-        this.storage = message;
+        this.storage = slot;
         this.surr;
     }
     act(data){
         let surr = this.soul.getLogicNeighbours(this,true);
         let assi = [];
-        for (let i of surr) assi.push(i);
-        assi.push("OVERWRITE");
-        trigger(this.storage,assi);
-        return data;
-    }
-}
-
-class OverwriteAdjacent extends AxiomTemp{
-    constructor(){
-        super();
-        this.surr;
-    }
-    act(data){
-        let surr = this.soul.getLogicNeighbours(this,true);
-        let assi = [];
-        for (let i of surr) assi.push(i);
+        for (let i of surr){
+            assi.push(i);
+        }
         for (let i of data["targets"]){
             if (i.monster){
-                for (let s of i.monster.loopThroughSouls()){
-                    for (let a of assi){
-                        s.axioms[a.x][a.y] = a;
+                for (let s of Object.keys(i.monster.souls)){
+                    if (s == this.storage && i.monster.souls[s]){
+                        for (let a of assi){
+                            i.monster.souls[s].axioms[a.x][a.y] = a;
+                        }
                     }
                 }
             }
