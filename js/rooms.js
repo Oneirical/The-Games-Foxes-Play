@@ -584,10 +584,10 @@ const logicMaps = {
     },
     "ScarabHack" : {
         0 : ".....",
-        1 : ".....", //A
+        1 : "....A", //A
         2 : "....P",
-        3 : "....A",
-        4 : ".EBTI",
+        3 : ".EBTI",
+        4 : ".....",
         "keys" : {
             "E" : new RadioReceiver("EON"),
             "B" : new LinkForm(),
