@@ -1869,11 +1869,10 @@ class Soul{
                 if (assi[0]["caster"]){
                     data = assi;
                 }
-                else if (assi.includes("OVERWRITE")){
-                    removeItemAll(assi,"OVERWRITE");
-                    for (let i of assi) this.axioms[i.x][i.y] = i;
+                else for (let j of assi){
+                    let studying = this.axioms[i.x+j.relativeDir[0]][i.y+j.relativeDir[1]];
+                    if (studying.storage != "NoStorage" && j.storage != "NoStorage") studying.storage = j.storage;
                 }
-                else for (let i of assi) if (this.axioms[i.x][i.y].storage != "NoStorage" && i.storage != "NoStorage") this.axioms[i.x][i.y].storage = i.storage;
             }
             this.pulse(i,data);
         }

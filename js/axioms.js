@@ -238,7 +238,10 @@ class AssimilateBroadcast extends AxiomTemp{
     act(data){
         let surr = this.soul.getLogicNeighbours(this,true);
         let assi = [];
-        for (let i of surr) assi.push(i);
+        for (let i of surr){
+            i.relativeDir = [i.x-this.x, i.y-this.y];
+            assi.push(i);
+        }
         trigger(this.storage,assi);
         return data;
     }

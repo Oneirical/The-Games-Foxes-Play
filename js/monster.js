@@ -1243,7 +1243,7 @@ class Felidol extends Monster{
 class Weaver extends Monster{
     constructor(tile){
         super(tile, 27, 2, "ARTISTIC", description["Weaver"]);
-        this.id = "ScarabSpawner";
+        this.souls["ORDERED"] = "ScarabSpawner";
         this.name = "Humming Paperweaver";
         this.ability = monabi["Weaver"];
         this.isPassive = true;
