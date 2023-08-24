@@ -1128,7 +1128,7 @@ class Room{
             player.tile = (getTile(this.playerspawn[0], this.playerspawn[1]));
         }
         //for (let i of Object.keys(pdata)) player[i] = pdata[i];
-        player.soul.owner = player;
+        //player.soul.owner = player;
         player.hp = hp;
         //player.tile = getTile(this.playerspawn[0], this.playerspawn[1]);
         //if (this.hostile && !this.visited) generateMonsters();

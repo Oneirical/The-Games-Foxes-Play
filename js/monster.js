@@ -58,10 +58,6 @@ class Monster{
         this.doomed = false;
         this.previousdir;
         this.lootid = this.loot;
-        if (this.axioms.castes.includes(this.loot)) this.loot = commoneq[this.loot];
-        if (tile == "disabled") return;
-        this.move(tile);
-        this.adjacentmon = this.tile.getAdjacentNeighbors().filter(t => t.monster && !t.monster.isPlayer).length;
         this.souls = {
             "SAINTLY" : false,
             "ORDERED" : false,
@@ -70,6 +66,10 @@ class Monster{
             "FERAL" : false,
             "VILE" : false,
         };
+        if (this.axioms.castes.includes(this.loot)) this.loot = commoneq[this.loot];
+        if (tile == "disabled") return;
+        this.move(tile);
+        this.adjacentmon = this.tile.getAdjacentNeighbors().filter(t => t.monster && !t.monster.isPlayer).length;
         this.graphicsReady = false;
 
     }
@@ -746,7 +746,7 @@ class Monster{
         this.trigger("OBLIVION");
         if (this.tile.monster == this){
             this.tile.monster = null;
-            for (let i of this.loopThroughSouls()) this.tile.souls.push(i);
+            for (let i of this.loopThroughSouls()) if (i) this.tile.souls.push(i);
             this.tile.addSoulsOnFloor();
         }
         if (this.statusEff["Puppeteered"] > 0 && !this.tile.siphon && !this.respawned){

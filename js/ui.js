@@ -1785,9 +1785,7 @@ class Soul{
     }
 
     setUpAxioms(){
-        let id;
-        if (typeof this.owner === 'string') id = this.owner;
-        else id = this.owner.id;
+        let id = this.id;
         for (let i = 0; i<5; i++){
             this.axioms[i] = [];
             for (let j = 0; j<5; j++){

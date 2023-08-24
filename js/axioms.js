@@ -110,7 +110,7 @@ class SoulInjector extends AxiomTemp{
     }
     act(data){
         if (!this.storage) return data;
-        if (typeof this.storage === 'string') this.storage = new Soul("ORDERED",this.storage);
+        if (typeof this.storage === 'string') this.storage = new Soul(this.storage,data["caster"]);
         for (let i of data["targets"]){
             if (i.monster && i.monster.findFirstEmptySlot()){
                 let loc = i.monster.findFirstEmptySlot();
