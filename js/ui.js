@@ -1402,12 +1402,6 @@ class SoulBreathing{
 
     drawSoul(){
         if (world.getRoom() instanceof SoulCage) return;
-        if (player.tile.souls.length > 0){
-            for (let i of player.tile.souls){
-                this.addSoul(i);
-            }
-            return;
-        }
         if (gameState == "contemplation"){
             player.revivify();
             return;

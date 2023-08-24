@@ -62,13 +62,20 @@ class Monster{
         if (tile == "disabled") return;
         this.move(tile);
         this.adjacentmon = this.tile.getAdjacentNeighbors().filter(t => t.monster && !t.monster.isPlayer).length;
-        this.souls = [];
+        this.souls = {
+            "SAINTLY" : false,
+            "ORDERED" : false,
+            "ARTISTIC" : false,
+            "UNHINGED" : false,
+            "FERAL" : false,
+            "VILE" : false,
+        };
         this.graphicsReady = false;
 
     }
 
     trigger(event,assi){
-        for (let j of this.souls){
+        for (let j of this.loopThroughSouls()){
             if (j instanceof Soul) j.trigger(event,assi);
         }
     }
@@ -189,6 +196,21 @@ class Monster{
     }
 
     extraConfig(){};
+
+    loopThroughSouls(){
+        let arr = [];
+        for (let i of Object.keys(this.souls)){
+            arr.push(this.souls[i]);
+        }
+        return arr;
+    }
+
+    findFirstEmptySlot(){
+        for (let i of Object.keys(this.souls)){
+            if (this.souls[i] === false) return i;
+        }
+        return false;
+    }
 
     updateHp(){
         let hp = this.hp;
@@ -724,7 +746,7 @@ class Monster{
         this.trigger("OBLIVION");
         if (this.tile.monster == this){
             this.tile.monster = null;
-            for (let i of this.souls) this.tile.souls.push(i);
+            for (let i of this.loopThroughSouls()) this.tile.souls.push(i);
             this.tile.addSoulsOnFloor();
         }
         if (this.statusEff["Puppeteered"] > 0 && !this.tile.siphon && !this.respawned){
@@ -789,14 +811,9 @@ class Terminal extends Monster{
         this.isPlayer = true;
         this.teleportCounter = 0;
         this.name = "Terminal, the Reality Anchor";
-        this.id = "Terminal1";
-        this.soul = new Soul("SOULLESS",this);
-        this.id = "Terminal2";
-        this.soul2 = new Soul("SOULLESS",this);
-
-        this.id = "SoulSiphon";
-        this.soul3 = new Soul("SOULLESS",this);
-        this.souls = [this.soul,this.soul2,this.soul3];
+        this.souls["SAINTLY"] = new Soul("Terminal1",this);
+        this.souls["VILE"] = new Soul("Terminal2",this);
+        this.souls["UNHINGED"] = new Soul("SoulSiphon",this);
         this.ability = "";
         this.noloot = true;
         this.fov = 0;
@@ -862,15 +879,15 @@ class Shrike extends Monster{
 class Apiarist extends Monster{
     constructor(tile){
         super(tile, 6, 3, "ORDERED", description["Apiarist"]);
-        this.id = "ScarabHack";
+        this.souls["ORDERED"] = "ScarabHack";
         this.name = "Brass Apiarist";
         this.ability = monabi["Apiarist"];
         this.assignAxiom(["STEP","EGO","STOP"],"ORDERED",2);
     }
     extraConfig(playSpace){
         if (this.generationMark == "LinkHere") return;
-        let linkStore = this.souls[0].findAxioms(LinkForm);
-        let epsilonStore = this.souls[0].findAxioms(FormEntity);
+        let linkStore = this.souls["ORDERED"].findAxioms(LinkForm);
+        let epsilonStore = this.souls["ORDERED"].findAxioms(FormEntity);
         for (let i of playSpace.monsters){
             if (i.generationMark == "LinkHere" && i.room == this.room) linkStore[0].storage = i;
             else if (i instanceof EpsilonHead) epsilonStore[0].storage = i;
@@ -1121,7 +1138,7 @@ class Oracle extends Monster{
 class Snail extends Monster{ // BATTLESNAIL, GET IN THERE!
     constructor(tile){
         super(tile, 41, 2, "ARTISTIC", description["Snail"]);
-        this.id = "ElectroCoil";
+        this.souls["ORDERED"] = "ElectroCoil";
         this.name = "Shelled Electromedic";
         this.ability = monabi["Snail"];
         this.canmove = false;
@@ -1133,8 +1150,8 @@ class Snail extends Monster{ // BATTLESNAIL, GET IN THERE!
         if (!(this.generationMark instanceof Array)) return;
         const delay = this.generationMark[0];
         const link = this.generationMark[1];
-        let numberStore = this.souls[0].findAxioms(NumberStorage);
-        let linkStore = this.souls[0].findAxioms(LinkForm);
+        let numberStore = this.souls["ORDERED"].findAxioms(NumberStorage);
+        let linkStore = this.souls["ORDERED"].findAxioms(LinkForm);
         numberStore[0].storage = delay;
         for (let i of playSpace.monsters){
             if (i.generationMark == link && i.room == this.room) linkStore[0].storage = i;
@@ -1158,7 +1175,7 @@ class Husk extends Monster{
 class Slug extends Monster{
     constructor(tile){
         super(tile, 29, 2, "ORDERED", description["Slug"]);
-        this.id = "Guard";
+        this.souls["ORDERED"] = "Guard";
         this.name = "Shackle-Slug";
         this.ability = monabi["Slug"];
         this.assignAxiom(["STEP","EGO","STOP","CLICK","EGO","STOP"],"ORDERED",2);
@@ -1392,7 +1409,7 @@ class KnockbackBot extends Monster{
 class EpsilonHead extends Monster{
     constructor(tile){
         super(tile, 67, 3, "ORDERED", description["Epsilon"]);
-        this.id = "EpsilonStand";
+        this.souls["ORDERED"] = "EpsilonStand";
         this.name = "Epsilon, Supreme Ordered General";
         this.ability = monabi["Epsilon"];
     }
@@ -1401,12 +1418,12 @@ class EpsilonHead extends Monster{
 class Programmer extends Monster{
     constructor(tile){
         super(tile, 49, 3, "VILE", description["Epsilon"]);
-        this.id = "Programmer";
+        this.souls["VILE"] = "Programmer";
         this.name = "Epsilon, Supreme Ordered General";
         this.ability = monabi["Epsilon"];
     }
     extraConfig(playSpace){
-        let targetStore = this.souls[0].findAxioms(FormEntity);
+        let targetStore = this.souls["VILE"].findAxioms(FormEntity);
         for (let i of playSpace.monsters){
             if (i.generationMark == "ProgramThis") targetStore[0].storage = i;
         }
@@ -1419,7 +1436,7 @@ class EpsilonTail extends Monster{
         super(tile, 68, 3, "ORDERED", description["Epsilon"]);
        
         //for (let i of monsters) if (i instanceof EpsilonTail) this.number++;
-        this.id = "Tail"+EpsilonTail.number;
+        this.souls["ORDERED"] = "Tail"+EpsilonTail.number;
         EpsilonTail.number++;
         if (EpsilonTail.number == 5) EpsilonTail.number = 1;
         this.name = "Epsilon, Supreme Ordered General";
@@ -1837,7 +1854,7 @@ class Scarab extends Monster{
     constructor(tile){
         super(tile, 76, 1, "ORDERED", description["Scarab"]);
         this.name = "Plated Thought-Ferry";
-        this.id = "Scarab";
+        this.souls["ORDERED"] = "Scarab";
         //this.paralyzed = true;
         //this.assignAxiom(["TURNEND",new Identifer("Dir","N"),"MOVE"],"ORDERED",1);
     }

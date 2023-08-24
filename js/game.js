@@ -23,7 +23,7 @@ function summonExits(){
 }
 
 function trigger(key,assi){
-    for (let i of player.souls) i.trigger(key,assi); //this is a temporary measure
+    player.trigger(key,assi); //this is a temporary measure
     for (let i of monsters){
             i.trigger(key,assi);
     }
@@ -32,7 +32,9 @@ function trigger(key,assi){
 function assignSouls(){
     for (let r of universe.worlds){
         for (let i of r.playSpace.monsters){
-            if (i.id) i.souls = [new Soul(i.lootid,i)];
+            for (let j of Object.keys(i.souls)){
+                if (i.souls[j]) i.souls[j] = new Soul(i.souls[j],i);
+            }
             if (i.generationMark){
                 i.extraConfig(r.playSpace);
             }

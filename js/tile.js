@@ -56,7 +56,7 @@ class Tile{
             if (this.souls) for (let i of this.souls) i.absorbSoul(this,player); //debug
         });
         this.spriteDisplay.on('pointerdown', (event) => {
-
+            if (this.monster) console.log(this.monster);
         });
         this.spriteDisplay.on('pointerout', (event) => {
             this.hitBox.alpha = 0;

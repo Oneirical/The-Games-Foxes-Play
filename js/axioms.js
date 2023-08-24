@@ -92,9 +92,10 @@ class SoulAbsorber extends AxiomTemp{
         for (let i of data["targets"]){
             if (i.souls){
                 for (let j of i.souls){
+                    if (!data["caster"].findFirstEmptySlot()) break;
                     j.absorbSoul(i,data["caster"]);
                     j.owner = data["caster"];
-                    data["caster"].souls.push(j);
+                    data["caster"].souls[data["caster"].findFirstEmptySlot()] = j;
                 }
             }
         }
@@ -111,10 +112,10 @@ class SoulInjector extends AxiomTemp{
         if (!this.storage) return data;
         if (typeof this.storage === 'string') this.storage = new Soul("ORDERED",this.storage);
         for (let i of data["targets"]){
-            if (i.monster){
-                let one = i.monster.souls.length;
-                i.monster.souls.push(this.storage);
-                i.monster.souls[one].owner = i.monster;
+            if (i.monster && i.monster.findFirstEmptySlot()){
+                let loc = i.monster.findFirstEmptySlot();
+                i.monster.souls[loc] = this.storage;
+                i.monster.souls[loc].owner = i.monster;
             }
         }
         return data;
@@ -270,7 +271,7 @@ class OverwriteAdjacent extends AxiomTemp{
         for (let i of surr) assi.push(i);
         for (let i of data["targets"]){
             if (i.monster){
-                for (let s of i.monster.souls){
+                for (let s of i.monster.loopThroughSouls()){
                     for (let a of assi){
                         s.axioms[a.x][a.y] = a;
                     }
