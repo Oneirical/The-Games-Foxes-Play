@@ -9,7 +9,7 @@ Hopefully that doesn't happen, because I think that what I just did here is quit
 
 # Ideology Delivery
 
-[This]() is Epsilon's Industrial Apex. A lonely factory between the planes. Here's a quick run-down of the layout:
+[This](https://cdn.discordapp.com/attachments/504088568084561930/1144765313976643604/h8jQdOi.png) is Epsilon's Industrial Apex. A lonely factory between the planes. Here's a quick run-down of the (randomly generated) layout:
 
 * A (Yellow) : This is Epsilon's big room. He is the yellow snake. He starts out disabled and completely paralyzed, because he doesn't have his Soul yet, but he continuously radiates an electromagnetic aura.
 * B (Purple) : This is the portal from which the player, named Terminal, comes from. It leads to the player's spawnpoint/starting area.
@@ -30,14 +30,18 @@ Here's how this works.
 
 Additionally, should a Plated Thoughtferry ever be destroyed prematurely, the identity of the one who destroyed it will be broadcasted to all within the facility as a cry for revenge. This will immediately cause the entire garnison of slug-robots to awaken, and seek out the criminal like a swarm of bees.
 
-Currently, there is no filter to give Epsilon the special authorization to destroy these cute scarabs, so as soon as he breaks a single Thoughtferry to collect his Soul, literal civil war begins in the complex in an epic showdown between snake and slug.
+Currently, there is no filter to give Epsilon the special authorization to destroy these cute scarabs, so as soon as he breaks a single Thoughtferry to collect his Soul, civil war begins in the complex in an epic showdown between snake and slug. It's only a matter of time until Epsilon is, quite literally, torn apart.
 
-It's worth mentioning that all this behaviour is coded using Souls, the game's core mechanic. For example, [here's what makes a Plated Thoughtferry tick](). A little ASCII computer chip of sort! When it is slain, ContinKilled triggers, LastDamageSource identifies the culprit, and AssimilateBroadcast overwrites the data of all the slug-robots to pursue "the culprit" instead of "nothing". As for the letter "P", it is linked to the Scarab Waypoint - but the mind-warping beam inside the latter will change that to Epsilon instead.
+[Here's a video showing a complete overview of the process in 1 minute.](https://vid.puffyan.us/embed/3r_Q7G3O-F4)
 
-Making these is a puzzle of its own. For example, [this soul](), used to control Epsilon, genuinely felt like I was playing a logic game trying to connect everything. A snapshot of the challenges which await the player, as they too will be invited to assemble some of these...
+It's worth mentioning that all this behaviour is coded using Souls, the game's core mechanic. For example, [here's what makes a Plated Thoughtferry tick](https://cdn.discordapp.com/attachments/504088568084561930/1144765687185817630/hMG78A5.png). A little ASCII computer chip of sort! When it is slain, ContinKilled triggers, LastDamageSource identifies the culprit, and AssimilateBroadcast overwrites the data of all the slug-robots to pursue "the culprit" instead of "nothing". As for the letter "P", it is linked to the Scarab Waypoint - but the mind-warping beam inside the latter will change that to Epsilon instead.
 
-And yes, should the player be foolish enough to step inside, they too will be reprogrammed in such a way that every time they try to move in the East direction, they will be irresistibly pulled towards Epsilon instead, just like a Thoughtferry would.
+Making these is a puzzle of its own. For example, [this soul](https://cdn.discordapp.com/attachments/504088568084561930/1144765855809417286/7B4XH8V.png), used to control Epsilon, genuinely felt like I was playing a logic game trying to connect everything. A snapshot of the challenges which await the player, as they too will be invited to assemble some of these... with an upcoming in-game UI, naturally.
+
+And yes, should the player be foolish enough to step inside the Scarab Waypoint's beam, they too will be reprogrammed in such a way that every time they try to move in the East direction, they will be irresistibly pulled towards Epsilon instead, just like a Thoughtferry would.
 
 I am most excited by all these possibilities. If you need something dead, why not pop a lonely, innocent Thoughtferry, then Soul-Swap yourself with your foe, so that they get collapsed on by a dozen angry slugs while inside your old body? Why not subtly replace the Felidol Programmer's payload with something noxious, such as "when a turn passes, take 1 damage", so that Epsilon will self-destruct upon absorbing his Soul? Why not free the Soul Injectors from their chambers by giving them a Soul which allows movement, and have them cause havoc around the facility as they reprogram everything, and stunlock Epsilon with the paradoxical "when a turn passes, move towards Epsilon"?
+
+[In this clip](https://vid.puffyan.us/embed/5gdph5uOYZM), I have slain the Scarab right before it could reach its destination. While the slug guards are rushing at my position, I jump into Epsilon's damage aura, and have my own Soul absorbed into the snake-bot. Since the player's Soul is roughly "when keys are pressed, move in those directions", I assume control of Epsilon and can control him! And then I move into my own tail foolishly and break my own body apart. Whoops. Might have to implement a failsafe there. At least the slug-guards will be spending a long time looking around for a culprit that has now been erased from reality.
 
 There's a lot to do. But I like what I see.
