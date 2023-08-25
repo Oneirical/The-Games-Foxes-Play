@@ -614,11 +614,11 @@ const logicMaps = {
         }
     },
     "EpsilonControl1":{
-        0 : "wnMEN",
-        1 : "I....",
+        0 : "wnMIN",
+        1 : "I.E..",
         2 : "CS.SC",
-        3 : "....I",
-        4 : "NEMoa",
+        3 : "..E.I",
+        4 : "NIMoa",
         "keys" : {
             "M" : new AxiomFunction("MOVE"),
 
@@ -632,8 +632,7 @@ const logicMaps = {
             "a" : new RadioReceiver("A"),
             "s" : new RadioReceiver("S"),
             "d" : new RadioReceiver("D"),
-            //"C" : new ContinKeypress("Click"),
-            //"F" : new FormTile()
+
             "n" : new FormDir("N"),
             "o" : new FormDir("W"),
             "e" : new FormDir("E"),
@@ -641,11 +640,11 @@ const logicMaps = {
         }
     },
     "EpsilonControl2":{
-        0 : "deMEN",
-        1 : "I....",
+        0 : "deMIN",
+        1 : "I.E..",
         2 : "CS.SC",
-        3 : "....I",
-        4 : "NEMus",
+        3 : "..E.I",
+        4 : "NIMus",
         "keys" : {
             "M" : new AxiomFunction("MOVE"),
             "E" : new RadioBroadcaster("EON"),
@@ -659,47 +658,11 @@ const logicMaps = {
             "a" : new RadioReceiver("A"),
             "s" : new RadioReceiver("S"),
             "d" : new RadioReceiver("D"),
-            //"C" : new ContinKeypress("Click"),
-            //"F" : new FormTile()
+
             "n" : new FormDir("N"),
             "o" : new FormDir("W"),
             "e" : new FormDir("E"),
             "u" : new FormDir("S"), 
-        }
-    },
-
-    "EpsilonControl" : {
-        0 : "wCSVnMN..", // ego, store targets, RFBCSVPMN
-        1 : ".........", // flip boolean stop
-        2 : "aCSVoMN..",
-        3 : ".........",
-        4 : "sCSVuMN..",
-        5 : ".........",
-        6 : "dCSVeMN..",
-        7 : ".........",
-        8 : ".........",
-        "keys" : {
-            "R" : new RadioReceiver("EON"),
-            "M" : new AxiomFunction("MOVE"),
-            "P" : new FormEntity("Player"), // just testing for now, no player targeters later
-            "F" : new BooleanFlip(),
-            "B" : new BooleanGate(true),
-
-            "C" : new StandardForm("EGO"),
-            "S" : new PaintTile("Red"),
-            "V" : new VoidTargets(),
-            "N" : new RadioBroadcaster("SLITHER1"),
-
-            "w" : new RadioReceiver("W"),
-            "a" : new RadioReceiver("A"),
-            "s" : new RadioReceiver("S"),
-            "d" : new RadioReceiver("D"),
-            //"C" : new ContinKeypress("Click"),
-            //"F" : new FormTile()
-            "n" : new FormDir("N"),
-            "o" : new FormDir("W"),
-            "e" : new FormDir("E"),
-            "u" : new FormDir("S"),            
         }
     },
     "EpsilonStand" : {
