@@ -114,7 +114,7 @@ class SoulInjector extends AxiomTemp{
         for (let i of data["targets"]){
             if (i.monster && i.monster.findFirstEmptySlot()){
                 let loc = i.monster.findFirstEmptySlot();
-                i.monster.souls[loc] = this.storage;
+                i.monster.souls[loc] = Object.create(this.storage);
                 i.monster.souls[loc].owner = i.monster;
             }
         }

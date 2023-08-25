@@ -606,8 +606,8 @@ const logicMaps = {
         "keys" : {
             "R" : new RadioReceiver("EON"),
             "I" : new NumberIncrementer(1),
-            "N" : new NumberStorage(0),
-            "M" : new ModuloGate(25),
+            "N" : new NumberStorage(998),
+            "M" : new ModuloGate(999),
             "P" : new StandardForm("PLUS"),
             "S" : new SummonCreature(Scarab),
         }

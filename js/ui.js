@@ -1840,6 +1840,7 @@ class Soul{
     }
 
     absorbSoul(start,destination){
+        if (!this.owner.dead) return;
         this.owner.creaturecon.x = tileSize*(8+(start.x-player.tile.x));
         this.owner.creaturecon.y = tileSize*(8+(start.y-player.tile.y));
         tilesDisplay.addChild(this.owner.creaturecon);
@@ -1847,15 +1848,16 @@ class Soul{
         const destinationY = tileSize*(8+(destination.tile.y-player.tile.y));
         const oriX = this.owner.creaturecon.x;
         const oriY = this.owner.creaturecon.y;
+        let source = this.owner.creaturecon;
         let wao = new PIXI.Ticker;
         wao.start();
         wao.add(() => {
-            if (!approxEqual(this.owner.creaturecon.x,destinationX,3) && !approxEqual(this.owner.creaturecon.y,destinationY,3)){
-                this.owner.creaturecon.x += (destinationX - oriX)/10;
-                this.owner.creaturecon.y += (destinationY - oriY)/10;
+            if (!approxEqual(source.x,destinationX,3) && !approxEqual(source.y,destinationY,3)){
+                source.x += (destinationX - oriX)/10;
+                source.y += (destinationY - oriY)/10;
             }
             else{
-                tilesDisplay.removeChild(this.owner.creaturecon);
+                tilesDisplay.removeChild(source);
                 wao.destroy();
             }
         });
