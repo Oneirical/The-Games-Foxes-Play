@@ -23,10 +23,26 @@ function summonExits(){
 }
 
 function trigger(key,assi){
-    player.trigger(key,assi); //this is a temporary measure
     for (let i of monsters){
             i.trigger(key,assi);
     }
+}
+
+function locatePlayer(over){
+    if (!over) over = monsters;
+    for (let i of over){
+        let s = i.loopThroughSouls();
+        for (let t of s){
+            let y;
+            if(t instanceof Soul) y = t.findAxioms(RealityAnchor);
+            else y = [];
+            if (y.length > 0){
+                player = i;
+                return true;
+            }
+        }
+    }
+    return false;
 }
 
 function assignSouls(){
@@ -320,7 +336,6 @@ function startGame(){
     log = new MessageLog();
     universe.start(startingHp);
     gameState = "running";
-    player.grantStarters();
 }
 
 function summonMonster(x,y,type){

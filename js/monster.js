@@ -811,48 +811,14 @@ class Terminal extends Monster{
         this.isPlayer = true;
         this.teleportCounter = 0;
         this.name = "Terminal, the Reality Anchor";
-        this.souls["SAINTLY"] = new Soul("Terminal1",this);
-        this.souls["VILE"] = new Soul("Terminal2",this);
-        this.souls["UNHINGED"] = new Soul("SoulSiphon",this);
+        this.souls["SAINTLY"] = "Terminal1";
+        this.souls["VILE"] = "Terminal2";
+        this.souls["UNHINGED"] = "SoulSiphon";
         this.ability = "";
         this.noloot = true;
         this.fov = 0;
         this.wheel = new SoulBreathing();
         this.souldropped = true;
-    }
-
-    grantStarters(){
-        this.assignAxiom(["EGO","PLUS","HEAL"],"SAINTLY",2);
-        this.assignAxiom(["EGO","PARACEON"],"ORDERED",2);
-        this.assignAxiom(["EGO","CLICK","EGO","PLUSCROSS","HARM"],"ARTISTIC",3);
-        this.assignAxiom(["XCROSS","HARM"],"UNHINGED",3);
-        this.assignAxiom(["EGO","TRAIL","BLINK","SPREAD","IGNORECASTER","HARM"],"FERAL",3); // this must get the rest. get INFINITEPOWER and also add power scaling to BLINK
-        this.assignAxiom(["EGO","ATKDELAY","SMOOCH","HARM"],"VILE",5);
-        for (let i of player.axioms.active){
-            i.id = "STARTER";
-            i.icon = player.axioms.active.indexOf(i);
-        }
-    }
-
-    revivify(){
-        gameState = "running"; 
-        playSound("newLevel");
-        level++;
-        let areas = ["Faith","Circus","Spire","Edge"]; // add Edge when it's not bugged "Spire"
-        area = areas[randomRange(0,0)]
-        if (area == "Spire") spirevisited = true;
-        areachange = false;
-        rosetoxin = 0;
-        player.lastMove = [0,0];
-        for(let i=0;i<5;i++){
-            for(let j=0;j<5;j++){
-                if (universe.worlds[universe.currentworld-1].cage.slots[i][j].id != "EMPTY") universe.worlds[universe.currentworld-1].cage.slots[i][j].shattered = true;
-            }
-        }
-        player.hp = maxHp;
-        world.getRoom().visited = false;
-        universe.passUp(universe.currentworld-1,"N");
-        world.cage.displayon = false;
     }
 }
 

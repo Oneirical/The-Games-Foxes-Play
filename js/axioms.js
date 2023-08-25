@@ -19,6 +19,12 @@ class EmptyAxiom extends AxiomTemp{
     }
 }
 
+class RealityAnchor extends AxiomTemp{
+    constructor(){
+        super();
+    }
+}
+
 class RadioBroadcaster extends AxiomTemp{
     constructor(message){
         super();

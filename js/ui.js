@@ -2116,15 +2116,6 @@ class Empty extends Soul{
     }
 }
 
-class RealityAnchor extends Soul{
-    constructor(type){
-        super("SAINTLY");
-        this.type = type;
-        this.icon = inside[type];
-        this.caste = "SAINTLY";
-    }
-} 
-
 class Shattered extends Soul{
     constructor(){
         super("SHATTERED");

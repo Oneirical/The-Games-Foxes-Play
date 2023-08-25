@@ -781,7 +781,7 @@ const logicMaps = {
     "Terminal2" : {
         0 : ".....",
         1 : "....S",
-        2 : "....s",
+        2 : ".R..s",
         3 : "....M",
         4 : "....T",
         "keys" : {
@@ -791,6 +791,7 @@ const logicMaps = {
             "s" : new FormDir("S"),
             "M" : new AxiomFunction("MOVE"),
             "T" : new RadioBroadcaster("EON"),
+            "R" : new RealityAnchor(),
         }
     },
 }
@@ -901,7 +902,7 @@ var rooms = {
     "Seed" : {
         0 : "TTTTTTTTT",
         1 : "T.......T",
-        2 : "T.......T",
+        2 : "T...t...T",
         3 : "T.......T",
         4 : "T.......T",
         5 : "T.......T",
@@ -909,6 +910,9 @@ var rooms = {
         7 : "T.......T",
         8 : "TTTTETTTT",
         "tags": [],
+        "creatures" : {
+            "t" : Terminal,
+        }
     },
     "Void" : {
         0 : "AAAAAAAAA",

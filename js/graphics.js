@@ -325,7 +325,6 @@ function animateAll(){
     for (let i of monsters){
         i.setUpAnimation();
     }
-    player.setUpAnimation();
 }
 
 function drawSprites(){
@@ -337,7 +336,6 @@ function drawSprites(){
             }
         }
     }
-    player.setUpSprite();
 }
 
 function getMouse(){

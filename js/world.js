@@ -247,6 +247,7 @@ class Universe{
         else if (player.lastMove[0] == 1) locspawn = [1,4];
         else if (player.lastMove[1] == 1) locspawn = [4,1];
         else locspawn = [4,7];
+        monsters.push(player);
         world.appearRoom([spawnx,spawny]);
         if(!world.getRoom().hostile) summonExits();
         for(let i=0;i<wheel.wheel.length;i++){
@@ -255,15 +256,8 @@ class Universe{
                 wheel.wheel[i] = new Empty();
             }
         }
-        research.completeResearch("Vision");
-        if(!world.getRoom().hostile){
-            research.completeResearch("Subdued");
-            research.completeResearch("Estate");
-        }
-        player.hp = maxHp;
         
         world.setUpSprites();
-
         uiDisplayLeft.addChild(world.displayCon);
         this.layeredInfluence.add(world.influence);
         tilesDisplay.addChild(player.creaturecon);
@@ -926,17 +920,11 @@ class World{
         numTiles = room.size;
         tileSize = (9/numTiles)*64;
         tiles = room.tiles;
-        room.playerspawn = [40+(spawnl[0]-4)*9,40+(spawnl[1]-4)*9];
+        player.tile = getTile(40+(spawnl[0]-4)*9,40+(spawnl[1]-4)*9);
         room.populateRoom();
-        if (!room.visited){
-            level++;
-            world.fighting = true;
-            room.visited = true;
-            player.hp = Math.min(maxHp, player.hp+1);
-        }
-        else{
-            monsters = room.monsters;
-        }
+        monsters = room.monsters;
+        let playerisIn = locatePlayer();
+        if (!playerisIn) monsters.push(player);
         this.playRoom(room, player.hp);
     }
 
@@ -1121,22 +1109,11 @@ class Room{
     }
 
     populateRoom(){
-        let hp;
-        if(player) hp = player.hp;
-        if (!player) player = new Terminal(getTile(this.playerspawn[0], this.playerspawn[1]));
-        else{
-            player.tile = (getTile(this.playerspawn[0], this.playerspawn[1]));
-        }
-        //for (let i of Object.keys(pdata)) player[i] = pdata[i];
-        //player.soul.owner = player;
-        player.hp = hp;
-        //player.tile = getTile(this.playerspawn[0], this.playerspawn[1]);
-        //if (this.hostile && !this.visited) generateMonsters();
         if (this.monsters.length && !this.visited) {
             for (let i of this.monsters){
                 monsters.push(i);
             }
-        } 
+        }
     }
 
     initializeRoom(){
@@ -1153,9 +1130,7 @@ class Room{
         //    this.playerspawn[1] = randomtile.y;
         //}
         //if (world.getRoom() instanceof EpsilonArena) this.playerspawn = [1,1];
-        if (this.effects.includes("Darkness")) player.fov = 2;
-        player.hp = this.startingplayerHP;
-        player.lastMove = this.playerlastmove;
+        //if (this.effects.includes("Darkness")) player.fov = 2;
         gameState = "running";
     }
 }
@@ -1288,6 +1263,7 @@ class DefaultVaultRoom extends Room{
                     let entity = new vault["creatures"][vault[j][i]](this.tiles[i][j]);
                     if (vault["marks"] && vault["marks"][vault[j][i]]) entity.generationMark = vault["marks"][vault[j][i]];
                     this.monsters.push(entity);
+                    if (entity instanceof Terminal) player = entity;
                 }
             }
         }
