@@ -97,7 +97,8 @@ class SoulAbsorber extends AxiomTemp{
     act(data){
         for (let i of data["targets"]){
             if (i.souls){
-                for (let j of i.souls){
+                while (i.souls.length > 0){
+                    let j = i.souls[0];
                     if (!data["caster"].findFirstEmptySlot()) break;
                     j.absorbSoul(i,data["caster"]);
                     j.owner = data["caster"];
@@ -105,6 +106,7 @@ class SoulAbsorber extends AxiomTemp{
                 }
             }
         }
+        locatePlayer();
         return data;
     }
 }

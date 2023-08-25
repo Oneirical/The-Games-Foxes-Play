@@ -542,11 +542,12 @@ const logicMaps = {
         0 : ".....",
         1 : ".DA..",
         2 : ".....",
-        3 : ".....",
+        3 : ".R...",
         4 : ".....",
         "keys" : {
             "D" : new TriggerWatch("DamageDealer"),
             "A" : new SoulAbsorber(),
+            "R" : new RealityAnchor(),
         }
     },
     "Programmer" : {
@@ -612,6 +613,61 @@ const logicMaps = {
             "S" : new SummonCreature(Scarab),
         }
     },
+    "EpsilonControl1":{
+        0 : "wnMEN",
+        1 : "I....",
+        2 : "CS.SC",
+        3 : "....I",
+        4 : "NEMoa",
+        "keys" : {
+            "M" : new AxiomFunction("MOVE"),
+
+            "C" : new StandardForm("EGO"),
+            "S" : new PaintTile("Red"),
+            "N" : new RadioBroadcaster("SLITHER1"),
+            "I" : new IdentityCheck([EpsilonHead]),
+            "E" : new RadioBroadcaster("EON"),
+
+            "w" : new RadioReceiver("W"),
+            "a" : new RadioReceiver("A"),
+            "s" : new RadioReceiver("S"),
+            "d" : new RadioReceiver("D"),
+            //"C" : new ContinKeypress("Click"),
+            //"F" : new FormTile()
+            "n" : new FormDir("N"),
+            "o" : new FormDir("W"),
+            "e" : new FormDir("E"),
+            "u" : new FormDir("S"), 
+        }
+    },
+    "EpsilonControl2":{
+        0 : "deMEN",
+        1 : "I....",
+        2 : "CS.SC",
+        3 : "....I",
+        4 : "NEMus",
+        "keys" : {
+            "M" : new AxiomFunction("MOVE"),
+            "E" : new RadioBroadcaster("EON"),
+
+            "C" : new StandardForm("EGO"),
+            "S" : new PaintTile("Red"),
+            "N" : new RadioBroadcaster("SLITHER1"),
+            "I" : new IdentityCheck([EpsilonHead]),
+
+            "w" : new RadioReceiver("W"),
+            "a" : new RadioReceiver("A"),
+            "s" : new RadioReceiver("S"),
+            "d" : new RadioReceiver("D"),
+            //"C" : new ContinKeypress("Click"),
+            //"F" : new FormTile()
+            "n" : new FormDir("N"),
+            "o" : new FormDir("W"),
+            "e" : new FormDir("E"),
+            "u" : new FormDir("S"), 
+        }
+    },
+
     "EpsilonControl" : {
         0 : "wCSVnMN..", // ego, store targets, RFBCSVPMN
         1 : ".........", // flip boolean stop
@@ -656,7 +712,7 @@ const logicMaps = {
             "R" : new RadioReceiver("EON"),
             "P" : new StandardForm("PLUS"),
             "D" : new DamageDealer(1),
-            "F" : new EntityFilter(Scarab),
+            "F" : new EntityFilter(Terminal),
             "T" : new TriggerWatch("DamageDealer"),
             "A" : new SoulAbsorber(),
 

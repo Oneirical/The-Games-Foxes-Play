@@ -37,7 +37,18 @@ function locatePlayer(over){
             if(t instanceof Soul) y = t.findAxioms(RealityAnchor);
             else y = [];
             if (y.length > 0){
+                const playerChanged = player !== i;
+                if (playerChanged) tilesDisplay.removeChild(player.creaturecon);
                 player = i;
+                if (playerChanged){
+                    tilesDisplay.addChild(player.creaturecon);
+                    player.creaturecon.x = 8*tileSize; //when soul swapping, the victim's sprite will go in weird places
+                    player.creaturecon.y = 8*tileSize;
+                    tickProjectors();
+                    if (player instanceof EpsilonHead){
+                        for (let m of monsters) if (m instanceof EpsilonTail) m.partOfPlayer = true;
+                    }
+                }
                 return true;
             }
         }
