@@ -16,7 +16,7 @@ Hopefully that doesn't happen, because I think that what I just did here is quit
 * C (Pink) : This is the Scarab Waypoint. Two Soul Injectors perpetually maintain a beam inside the inner chamber, which has been secured by airlocks due to it being a mind-warping hazard.
 * D (Green) : This is the Scarab Fabricator. Every so often, it spits out a Plated Thoughtferry, which is a simple creature which will immediately seek out the Scarab Waypoint.
 * E (Red) : This is the portal from which a Felidol Programmer comes from. It links to a place that doesn't exist yet, but will eventually. The Felidol will also rush to go to the Scarab Waypoint.
-* F (Blue) : This is a garnison of slug-robot guards, on stand-by for any emergencies.
+* F (Blue) : This is a garrison of slug-robot guards, on stand-by for any emergencies.
 
 Here's how this works. 
 
@@ -28,7 +28,7 @@ Here's how this works.
 
 * Now that Epsilon has his Soul, he is activated and begins the pursue the player.
 
-Additionally, should a Plated Thoughtferry ever be destroyed prematurely, the identity of the one who destroyed it will be broadcasted to all within the facility as a cry for revenge. This will immediately cause the entire garnison of slug-robots to awaken, and seek out the criminal like a swarm of bees.
+Additionally, should a Plated Thoughtferry ever be destroyed prematurely, the identity of the one who destroyed it will be broadcasted to all within the facility as a cry for revenge. This will immediately cause the entire garrison of slug-robots to awaken, and seek out the criminal like a swarm of bees.
 
 Currently, there is no filter to give Epsilon the special authorization to destroy these cute scarabs, so as soon as he breaks a single Thoughtferry to collect his Soul, civil war begins in the complex in an epic showdown between snake and slug. It's only a matter of time until Epsilon is, quite literally, torn apart.
 
