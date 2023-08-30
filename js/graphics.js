@@ -332,9 +332,9 @@ function drawSprites(){
             if (!m.graphicsReady && !m.creaturecon){
                 m.setUpSprite();
                 m.setUpAnimation();
+                m.axioms.setUpSprites();
+                m.axioms.updateSlots();
             }
-            m.axioms.setUpSprites();
-            m.axioms.updateSlots();
         }
     }
 }
