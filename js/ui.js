@@ -1553,61 +1553,31 @@ class SoulBreathing{
     }
 }
 
-class Inventory{
+class SoulTree{
     constructor(){
         this.active = [new Empty(),new Empty(),new Empty(),new Empty(), new Empty(), new Empty()];
         this.storage = [new Empty(),new Empty(),new Empty(),new Empty()];
-        this.actcoords = [[148, 76],[366, 76],[76, 256],[437, 256],[148, 438],[366, 438]];
-        this.actcoords.reverse();//don't feel like re-writing these in the correct order lmao
         this.castes = ["VILE","FERAL","UNHINGED","ARTISTIC","ORDERED","SAINTLY","SERENE"];
-        this.castesclass = [
-            new Axiom(["EGO","PLUS","HEAL"],"SAINTLY",2),
-            new Axiom(["EGO","PARACEON"],"ORDERED",2),
-            new Axiom(["EGO","CLICK","EGO","PLUSCROSS","HARM"],"ARTISTIC",3),
-            new Axiom(["XCROSS","HARM"],"UNHINGED",3),
-            new Axiom(["EGO","TRAIL","BLINK","SPREAD","IGNORECASTER","HARM"],"FERAL",3),
-            new Axiom(["EGO","ATKDELAY","SMOOCH","HARM"],"VILE",5),
-        ];
-        for (let i of this.castesclass){
-            i.id = "STARTER";
-            i.icon = this.castesclass.indexOf(i);
-        }
-        this.storecoords = [[257, 154],[257, 154+68],[257, 154+138],[257, 154+138+68]];
-        this.mactcoords = [[1504,488],[1408,488],[1536,408],[1376,408],[1504,328],[1408,328]];
-        let push = 192;
-        for (let i of this.mactcoords){
-            i[0]+=push;
-        }
-        //this.mactcoords = [[]];
-        let store1 = [1456,360];
-        let store2 = 32;
-        this.mstorecoords = [];
-        for (let i = 0; i<4;i++){
-            this.mstorecoords.push([store1[0],store1[1]+store2*i]);
-        }
-        for (let i of this.mstorecoords){
-            i[0]+=push;
-        }
         this.axiomList = new AxiomList();
         this.describepage = 0;
 
-        this.owner;
+        this.trackedEntity;
     }
 
-    updateSlots(){
+    updateSlots(newEntity){
+        if (!newEntity) this.trackedEntity = player; // temporary
+        else this.trackedEntity = newEntity;
         for (let i = 0; i<6; i++){
-            if (this.owner.souls[basic[i+1]] instanceof Soul) console.log("hai");
-            else this.axiomCon.children[i].alpha = 0.2;
+            if (this.trackedEntity.souls[basic[i+1]] instanceof Soul) this.axiomCon.children[i].alpha = 1;
+            else this.axiomCon.children[i].alpha = 0.5;
         }
     }
 
     setUpSprites(){
         this.displayCon = new PIXI.Container();
         this.displayCon.y = 32*21;
-        if (this.owner === player){
             uiDisplayLeft.addChild(this.displayCon);
             console.log("wat");
-        }
         drawChainBorder(10,11,this.displayCon); 
         this.axiomCon = new PIXI.Container();
         this.axiomCon.x = -8;
@@ -1638,12 +1608,13 @@ class Inventory{
             axiomslot.height = 32;
             axiomslot.x = xcoords[i];
             axiomslot.y = ycoords[i];
-            axiomslot.alpha = 0.7;
+            axiomslot.alpha = 1;
             this.axiomCon.addChild(axiomslot);
             axiomslot.eventMode = 'static';
             axiomslot.on('pointerdown', (event) => {
                 //this.storeAxiom(i);
-                wheel.displayCon.addChild(this.owner.souls[basic[i+1]].displayCon);
+                if (!this.trackedEntity.souls[basic[i+1]]) return;
+                wheel.displayCon.addChild(this.trackedEntity.souls[basic[i+1]].displayCon);
                 wheel.displayCon.removeChild(wheel.wheelCon);
             });
             axiomslot.on('pointerover', (event) => {
@@ -1680,6 +1651,7 @@ class Inventory{
         newSprite.width = (resolutionSize+12)*16;
         newSprite.height = (resolutionSize+12)*16;
         this.axiomCon.addChild(newSprite);
+        this.updateSlots();
     }
 
     updateAxioms(){
@@ -1693,16 +1665,6 @@ class Inventory{
             this.axiomCon.children[i+6].texture = allsprites.textures['icon'+this.storage[i].icon];
         }
         if (inInventory) this.axiomList.fillInRows(player);
-    }
-
-    castContin(word, caster){
-        return;
-        for (let i of this.active){
-            if (i.sequence.includes(word)){
-                let startPoint = i.sequence.indexOf(word);
-                i.castAxiom(caster,startPoint);
-            }
-        }
     }
 
     activateAxiom(slot){

@@ -98,7 +98,6 @@ function teleport(target,destination,data){
             data.targets.add(i);
         }
     }
-    target.axioms.castContin("ONTELE",target);
     return data;
 }
 
@@ -343,6 +342,7 @@ function startGame(){
     wheel = new SoulBreathing(); //should belong to entity
     universe = new Universe();
     log = new MessageLog();
+    soulTree = new SoulTree();
     universe.start(startingHp);
     gameState = "running";
 }

@@ -222,7 +222,8 @@ function tickTiles(){
 
 function setUpUI(){
     areaname.setUpSprites();
-    buttons.setUpSprites()
+    buttons.setUpSprites();
+    soulTree.setUpSprites();
     wheel.setUpSprites();
     world.setUpSprites();
     log.setUpLog();
@@ -332,8 +333,6 @@ function drawSprites(){
             if (!m.graphicsReady && !m.creaturecon){
                 m.setUpSprite();
                 m.setUpAnimation();
-                m.axioms.setUpSprites();
-                m.axioms.updateSlots();
             }
         }
     }

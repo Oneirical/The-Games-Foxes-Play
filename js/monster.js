@@ -27,8 +27,6 @@ class Monster{
         this.isFluffy = false;
         this.noloot = false;
         this.canmove = true;
-        this.axioms = new Inventory();
-        this.axioms.owner = this;
         this.wheel = false;
         this.soullink;
         this.storedAttack = false;
@@ -67,7 +65,6 @@ class Monster{
             "FERAL" : false,
             "VILE" : false,
         };
-        if (this.axioms.castes.includes(this.loot)) this.loot = commoneq[this.loot];
         if (tile == "disabled") return;
         this.move(tile);
         this.adjacentmon = this.tile.getAdjacentNeighbors().filter(t => t.monster && !t.monster.isPlayer).length;
@@ -101,7 +98,6 @@ class Monster{
         }
         if(this.tryMove(dx,dy,true)){
             beginTurn();
-            player.axioms.castContin("STEP",this);
         }
         if (area == "Spire" && this.activemodule != "Hover" && !(this.tile.getNeighbor(0,1) instanceof Platform || this.tile.getNeighbor(0,1) instanceof Ladder || this.tile instanceof Ladder || this.tile.getNeighbor(0,1).monster)){
             this.fall++;
@@ -232,14 +228,7 @@ class Monster{
         }
         else if (this.statusEff["Dissociated"] == 0) this.hp = Math.min(maxHp, this.hp+damage);
         else if (this.statusEff["Dissociated"] > 0) this.falsehp = Math.min(maxHp, this.falsehp+(damage*2));
-        this.axioms.castContin("ONHEAL",this);
         this.updateHp();
-    }
-
-    assignAxiom(seq,caste,pow){
-        let axiom = new Axiom(seq,caste,pow);
-        this.axioms.addAxiom(axiom);
-        this.axioms.activateAxiom(0);
     }
 
     giveEffect(effect, duration,mods){
@@ -293,7 +282,6 @@ class Monster{
         if(this.paralyzed) return;
         if(this.statusEff["Charmed"] > 0 && monsters.length < 2 && !this.permacharm) this.statusEff["Charmed"] = 0;
         if (!this.isPlayer) this.doStuff();
-        this.axioms.castContin("TURNEND",this);    
     }
 
     doStuff(){
@@ -532,7 +520,6 @@ class Monster{
                 }
                 if (this.canmove){
                     this.move(newTile);
-                    if (!this.isPlayer) this.axioms.castContin("STEP",this);
                 }
                 if (boxpull) boxpull.getNeighbor(-dx,-dy).monster.move(boxpull);
                 if (this instanceof Oracle) this.bonusAttack += (1/3);
@@ -555,7 +542,6 @@ class Monster{
                         }
                     }
                     if (newTile.monster){
-                        this.axioms.castContin("ATTACK",this);
                         if (this.storedAttack) {
                             this.storedAttack.trigger(this);
                             this.storedAttack = false;
@@ -839,7 +825,6 @@ class Shrike extends Monster{
         this.name = "Starpaper Shrike";
         this.ability = monabi["Shrike"];
         this.speed = 2;
-        this.assignAxiom(["TURNEND","EGO","HASTE"],"UNHINGED",1);
     }
 }
 
@@ -849,7 +834,6 @@ class Apiarist extends Monster{
         this.souls["ORDERED"] = "ScarabHack";
         this.name = "Brass Apiarist";
         this.ability = monabi["Apiarist"];
-        this.assignAxiom(["STEP","EGO","STOP"],"ORDERED",2);
     }
     extraConfig(playSpace){
         if (this.generationMark == "LinkHere") return;
@@ -868,7 +852,6 @@ class Second extends Monster{
         this.soul = "Animated by a Vile (1) soul.";
         this.name = "Second Emblem of Sin";
         this.ability = monabi["Second"];
-        this.assignAxiom(["TURNEND","EGO","PLUS","DEVOUR","HEAL","STOP"],"VILE",0); //should be turnstart
     }
 }
 
@@ -878,7 +861,6 @@ class Tinker extends Monster{
         this.soul = "Animated by an Artistic (4) soul.";
         this.name = "Frenzied Dream-Tinker";
         this.ability = monabi["Tinker"];
-        this.assignAxiom(["TURNEND","EGO","THRASH"],"SAINTLY",2); //should be turnstart
     }
 }
 
@@ -1110,8 +1092,6 @@ class Snail extends Monster{ // BATTLESNAIL, GET IN THERE!
         this.ability = monabi["Snail"];
         this.canmove = false;
         this.isPassive = true;
-        this.assignAxiom(["TURNEND","EGO","STOP","RANDDIR","BLINK"],"ARTISTIC",2); //maybe boost up blink potency
-        this.assignAxiom(["ONTELE","BEAM","HARM"],"UNHINGED",1);
     }
     extraConfig(playSpace){
         if (!(this.generationMark instanceof Array)) return;
@@ -1145,7 +1125,6 @@ class Slug extends Monster{
         this.souls["ORDERED"] = "Guard";
         this.name = "Shackle-Slug";
         this.ability = monabi["Slug"];
-        this.assignAxiom(["STEP","EGO","STOP","CLICK","EGO","STOP"],"ORDERED",2);
     }
 }
 
@@ -1203,7 +1182,6 @@ class Felidol extends Monster{
         this.soul = "Animated by a Vile (1) soul.";
         this.name = "Greedswept Felidol";
         this.ability = monabi["Felidol"];
-        this.assignAxiom(["ONDEATH","EGO","DEATHCLICK","CLICK","EGO","SUMMFELIDOL"],"VILE",2); //remove decay of traps?
     }    
 }
 
@@ -1672,7 +1650,6 @@ class Apis extends Monster{
         this.soul = "Animated by a Feral (2) soul.";
         this.name = "Messenger of Aculeo";
         this.ability = monabi["Apis"];
-        this.assignAxiom(["ATTACK","SMOOCH","APIS"],"FERAL",1);
     }
 }
 
@@ -1822,8 +1799,6 @@ class Scarab extends Monster{
         super(tile, 76, 1, "ORDERED", description["Scarab"]);
         this.name = "Plated Thought-Ferry";
         this.souls["ORDERED"] = "Scarab";
-        //this.paralyzed = true;
-        //this.assignAxiom(["TURNEND",new Identifer("Dir","N"),"MOVE"],"ORDERED",1);
     }
 }
 

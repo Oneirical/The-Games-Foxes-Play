@@ -166,6 +166,8 @@ Anisychia - Feral champion
 * Fluffy should taunt you about how your task is endless and infinite, and how submission to the Harmony is the only sensible course of action.
 * “It is not death we distribute, it is uplifting. All ruffians of this world contain a primordial Fluffy - all we do is permutation of the switches in incorrect positions, while leaving the correct ones in place. Some are more Fluffy than others before our intervention […]” Therefore, the more (narcisstic) you are, the more vulnerable you become.
 
+* Terminal is caged because he needs to be the observer of the whole world for it to continue ticking.
+
 **Insane/overly ambitious stuff**
 
 *absolute madness below*
