@@ -28,6 +28,7 @@ class Monster{
         this.noloot = false;
         this.canmove = true;
         this.axioms = new Inventory();
+        this.axioms.owner = this;
         this.wheel = false;
         this.soullink;
         this.storedAttack = false;

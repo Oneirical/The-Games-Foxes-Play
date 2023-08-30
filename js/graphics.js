@@ -224,7 +224,6 @@ function setUpUI(){
     areaname.setUpSprites();
     buttons.setUpSprites()
     wheel.setUpSprites();
-    player.axioms.setUpSprites();
     world.setUpSprites();
     log.setUpLog();
     statuses.setUpSprites();
@@ -334,6 +333,8 @@ function drawSprites(){
                 m.setUpSprite();
                 m.setUpAnimation();
             }
+            m.axioms.setUpSprites();
+            m.axioms.updateSlots();
         }
     }
 }

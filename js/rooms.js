@@ -675,7 +675,7 @@ const logicMaps = {
             "R" : new RadioReceiver("EON"),
             "P" : new StandardForm("PLUS"),
             "D" : new DamageDealer(1),
-            "F" : new EntityFilter(Terminal),
+            "F" : new EntityFilter(Scarab),
             "T" : new TriggerWatch("DamageDealer"),
             "A" : new SoulAbsorber(),
 

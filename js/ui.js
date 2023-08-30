@@ -1198,7 +1198,6 @@ class SoulBreathing{
         this.inPaint = false;
         uiDisplayRight.removeChild(this.catalogue.displayCon);
         uiDisplayRight.addChild(log.displayCon);
-        uiDisplayLeft.addChild(player.axioms.displayCon);
         uiDisplayLeft.addChild(statuses.displayCon);
         uiDisplayLeft.removeChild(this.craftShow.displayCon);
         uiDisplayLeft.removeChild(this.inflShow.displayCon);
@@ -1591,12 +1590,24 @@ class Inventory{
         }
         this.axiomList = new AxiomList();
         this.describepage = 0;
+
+        this.owner;
+    }
+
+    updateSlots(){
+        for (let i = 0; i<6; i++){
+            if (this.owner.souls[basic[i+1]] instanceof Soul) console.log("hai");
+            else this.axiomCon.children[i].alpha = 0.2;
+        }
     }
 
     setUpSprites(){
         this.displayCon = new PIXI.Container();
         this.displayCon.y = 32*21;
-        uiDisplayLeft.addChild(this.displayCon);
+        if (this.owner === player){
+            uiDisplayLeft.addChild(this.displayCon);
+            console.log("wat");
+        }
         drawChainBorder(10,11,this.displayCon); 
         this.axiomCon = new PIXI.Container();
         this.axiomCon.x = -8;
@@ -1631,7 +1642,9 @@ class Inventory{
             this.axiomCon.addChild(axiomslot);
             axiomslot.eventMode = 'static';
             axiomslot.on('pointerdown', (event) => {
-                this.storeAxiom(i);
+                //this.storeAxiom(i);
+                wheel.displayCon.addChild(this.owner.souls[basic[i+1]].displayCon);
+                wheel.displayCon.removeChild(wheel.wheelCon);
             });
             axiomslot.on('pointerover', (event) => {
                 let wai = new PIXI.filters.GlowFilter();
@@ -1774,7 +1787,6 @@ class Soul{
         this.y = 0;
         this.speed = 0.01;
         this.angle = 0;
-        this.setUpSprites();
 
         this.contingencies = [];
         this.axioms = [];
@@ -1782,6 +1794,23 @@ class Soul{
         if (!this.owner) return;
         this.setUpAxioms();
         this.findContingencies();
+    }
+
+    setUpSprites(){
+        this.displayCon = new PIXI.Container();
+        let size = 80;
+        for (let i = 0; i<5; i++){
+            for (let j = 0; j<5; j++){
+                let icon = 7;
+                if (!this.axioms[i][j].empty) icon = 1;
+                let axiom = new FoxSprite(allsprites.textures['icon'+icon]);
+                axiom.x = i*size+24;
+                axiom.y = j*size+24;
+                axiom.width = size;
+                axiom.height = size;
+                this.displayCon.addChild(axiom);
+            }
+        }
     }
 
     setUpAxioms(){
@@ -1800,6 +1829,7 @@ class Soul{
                 this.axioms[i][j].soul = this;
             }
         }
+        this.setUpSprites();
     }
 
     findAxioms(type){
@@ -1938,17 +1968,6 @@ class Soul{
                 }
             }
         }
-    }
-
-    setUpSprites(){
-        if (basic.includes(this.id)) this.displayIcon = new FoxSprite(allsprites.textures['icon'+(6-basic.indexOf(this.id))]);
-        else if (this.id == "EMPTY") this.displayIcon = new FoxSprite(allsprites.textures['icon7']);
-        else return;
-        this.displayIcon.dirx = Math.random();
-        this.displayIcon.diry = 1 - this.displayIcon.dirx;
-        if (Math.random > 0.5) this.displayIcon.dirx *= -1;
-        if (Math.random > 0.5) this.displayIcon.diry *= -1;
-
     }
 
     describe(){

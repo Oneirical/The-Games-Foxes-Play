@@ -123,7 +123,6 @@ function toResearchMode(){
         uiDisplayLeft.addChild(areaname.displayCon);
         uiDisplayLeft.addChild(statuses.displayCon);
         uiDisplayLeft.addChild(world.displayCon);
-        uiDisplayLeft.addChild(player.axioms.displayCon);
         uiDisplayRight.addChild(wheel.displayCon);
         uiDisplayRight.addChild(log.displayCon);
         if (world.getRoom() instanceof SoulCage) wheel.toPaintMode();
@@ -170,7 +169,6 @@ function toAxiomMode(){
         uiDisplayLeft.addChild(areaname.displayCon);
         uiDisplayLeft.addChild(statuses.displayCon);
         uiDisplayLeft.addChild(world.displayCon);
-        uiDisplayLeft.addChild(player.axioms.displayCon);
         uiDisplayRight.addChild(wheel.displayCon);
         uiDisplayRight.addChild(log.displayCon);
         uiDisplayRight.removeChild(research.descriptionBox.displayCon);

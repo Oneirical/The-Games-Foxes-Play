@@ -151,6 +151,8 @@ Anisychia - Feral champion
 * A rooftop level with walking on walls.
 * A funny moment if you turn yourself into a Felidol and get softlocked into an eternal staring contest with another Felidol. Maybe the stare has some paralyzing property...
 
+* A radioactive vox area that randomly mutates souls, for better or worse.
+
 **Lore & Writing**
 
 * Harmonizers are invincible and ethereal outside the spire, because they can only harm their own. In the Spire you have a bit more power over them, as the influence of the environment makes you a little bit more like them.
