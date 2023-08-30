@@ -95,6 +95,7 @@ function setupPixi(){
     //     count++;
     //     if (count == 10) {uiDisplayLeft.children[uiDisplayLeft.children.length-1].children[0].text = app.ticker.FPS; count = 0;}
     // });
+    app.stage.addChild(sideTooltip.displayCon);
 }
 
 function debugCommands(){
@@ -229,6 +230,7 @@ function setUpUI(){
     log.setUpLog();
     statuses.setUpSprites();
     research.setUpSprites();
+    sideTooltip.setUpSprites();
 }
 
 function drawProjectors(){

@@ -343,6 +343,7 @@ function startGame(){
     universe = new Universe();
     log = new MessageLog();
     soulTree = new SoulTree();
+    sideTooltip = new NodeDescription();
     universe.start(startingHp);
     gameState = "running";
 }

@@ -250,6 +250,14 @@ class NodeDescription{
     setUpSprites(){
         this.displayCon = new PIXI.Container();
         drawChainBorder(15,28,this.displayCon);
+        const graphics = new PIXI.Graphics();
+        graphics.beginFill("black");
+        graphics.drawRect(-8, -8, 14*32+16, 27*32+16);
+        graphics.endFill();
+        this.displayCon.addChild(graphics);
+        this.displayCon.x = 930;
+        this.displayCon.y = 60;
+        this.displayCon.visible = false;
     }
 
     getDescription(node){
@@ -1613,9 +1621,14 @@ class SoulTree{
             axiomslot.eventMode = 'static';
             axiomslot.on('pointerdown', (event) => {
                 //this.storeAxiom(i);
-                if (!this.trackedEntity.souls[basic[i+1]]) return;
+                if (wheel.currentSoulDisplayed) wheel.displayCon.removeChild(wheel.currentSoulDisplayed.displayCon);
+                if (!this.trackedEntity.souls[basic[i+1]]){
+                    wheel.displayCon.addChild(wheel.wheelCon);
+                    return;
+                };
                 wheel.displayCon.addChild(this.trackedEntity.souls[basic[i+1]].displayCon);
                 wheel.displayCon.removeChild(wheel.wheelCon);
+                wheel.currentSoulDisplayed = this.trackedEntity.souls[basic[i+1]];
             });
             axiomslot.on('pointerover', (event) => {
                 let wai = new PIXI.filters.GlowFilter();
@@ -1759,17 +1772,85 @@ class Soul{
     }
 
     setUpSprites(){
+        const inside = {
+            "NumberIncrementer" : 67,
+            "ModuloGate" : 68,
+            "NumberStorage" : 69,
+            "HealProvider" : 70,
+            "Contingency" : 72,
+            "SummonCreature" : 71,
+            "Structures" : 73,
+            "LinkForm" : 75,
+            "Song" : 76,
+            "DamageDealer" : 35,
+            "Herald" : 37,
+            "FormDir" : 36,
+            "Turbulent" : 28,
+            "FormEntity" : 13,
+            "BooleanGate" : 33,
+            "IdentityCheck" : 24,
+            "FormTile" : 26,
+            "Security" : 1,
+            "AssimilateBroadcast" : 49,
+            "OverwriteSlot" : 14,
+            "BooleanFlip" : 39,
+            "AxiomFunction" : 74,
+            "NoTargetStop" : 40,
+            "RadioBroadcaster" : 27,
+            "SENET" : 8,
+            "SoulInjector" : 29,
+            "StandardForm" : 66,
+            "PARACEON" : 41,
+            "SMOOCH" : 17,
+            "LastDamageSource" : 18,
+            "PaintTile" : 30,
+            "FailCatcher" : 43,
+            "TriggerWatch" : 42,
+            "ClearPaint" : 32,
+            "VoidTargets" : 38,
+            "EPSILON" : 44,
+            "Brush" : 65,
+            "SoulAbsorber" : 20,
+            "Saintly" : 0,
+            "Ordered" : 1,
+            "Unhinged" : 3,
+            "Feral" : 4,
+            "Vile" : 5,
+            "Artistic" : 2,
+            "ContinKilled" : 15,
+            "RadioReceiver" : 16,
+            "RealityAnchor" : 20,
+            "PaintFilter" : 25,
+            "EntityFilter" : 22,
+            "Axioms" : 6,
+            
+            
+            "ZENORIUM" : 65,
+        }
         this.displayCon = new PIXI.Container();
         let size = 80;
         for (let i = 0; i<5; i++){
             for (let j = 0; j<5; j++){
                 let icon = 7;
-                if (!this.axioms[i][j].empty) icon = 1;
+                if (!this.axioms[i][j].empty) icon = inside[this.axioms[i][j].constructor.name];
                 let axiom = new FoxSprite(allsprites.textures['icon'+icon]);
+                axiom.eventMode = 'static';
                 axiom.x = i*size+24;
                 axiom.y = j*size+24;
                 axiom.width = size;
                 axiom.height = size;
+                axiom.on('pointerdown', (event) => {
+                });
+                axiom.on('pointerover', (event) => {
+                    sideTooltip.displayCon.visible = true;
+                    let wai = new PIXI.filters.GlowFilter();
+                    wai.outerStrength = 1;
+                    axiom.filters = [wai];
+                });
+                axiom.on('pointerout', (event) => {
+                    sideTooltip.displayCon.visible = false;
+                    axiom.filters = [];
+                });
                 this.displayCon.addChild(axiom);
             }
         }
