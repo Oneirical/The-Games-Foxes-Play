@@ -387,7 +387,7 @@ class ModuloGate extends AxiomTemp{
     }
     act(data){
         let surr = this.soul.getLogicNeighbours(this,true);
-        for (let i of surr) if (i instanceof NumberStorage && i.storage%this.storage != 0){
+        for (let i of surr) if (i instanceof NumberStorage && i.storage%this.storage != 0){ //maybe change this to number type instead of specifically NumberStorage?
             data["break"] = true;
         }
         
@@ -485,7 +485,8 @@ axiomEffects = {
             return data;
         }
         let targets = data["targets"].slice(0);
-        let chosen = shuffle(targets)[0];
+        targets.sort((a,b) => a.dist(data["caster"].tile) - b.dist(data["caster"].tile));
+        let chosen = targets[0];
         let currentTile = data["caster"].tile;
         if (chosen === currentTile){
             data["break"] = true;

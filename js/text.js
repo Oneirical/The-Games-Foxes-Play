@@ -815,6 +815,149 @@ researchequivalences = {
     },
 }
 
+soulData = {
+    "NumberIncrementer" : {
+        "name" : "Memories Fleeting, Time Even More So",
+        "lore" : "hai",
+        "descript" : "On Pulse, all Adjacent Axioms containing Number-type Data are incremented by this Axiom's Data.",
+    },
+    "ModuloGate" : {
+        "name" : "Four Ways, Yet All Paths Converge",
+        "lore" : "hai",
+        "descript" : "On Pulse, for each Adjacent Axiom containing Number-type Data, if dividing that Data by this Axiom's Data leaves any remainders, Sever.", //this isn't true, it's pulling from "numberstorage" only
+    },
+    "NumberStorage" : {
+        "name" : "Chirping Drones, Forever Crystallized",
+        "lore" :  "Not all who joined the Ordered earned the glory of a general. Some stood in crystal caves, scanning every possible pebble for a trace of a Soul, while the chiming of their visors unsettled travellers. Their memories have long been crushed underneath exabytes of analysis data, leaving only the inflexibility of stone.",
+        "descript" : "Stores Number-type Data.",
+    },
+    "HealProvider" : {
+        "name" : "hai",
+        "lore" : "hai",
+        "descript" : "On Pulse, all Targeted Creatures gain Health equal to this Axiom's Data."
+    },
+    "SummonCreature" : {
+        "name" : "hai",
+        "lore" : "hai",
+        "descript" : "On Pulse, all Targets without a Creature are filled with a new Creature of this Axiom's Creature-type Data."
+    },
+    "LinkForm" : {
+        "name" : "hai",
+        "lore" : "hai",
+        "descript" : "On Pulse, all tiles in a line between the Self and this Axiom's Creature-type Data become Targets.",
+    },
+    "DamageDealer" : {
+        "name" : "Distress Signals Turned Celebration",
+        "lore" : "Pain is an illusion - like seeing or touching. The Unhinged, who feared it most, distorted it into a pleasant - though equally false - sensation. One can try to criticize their choices, but it is hard to do anything but beg to become like them when their claws inch closer to one's flesh.",
+        "descript" : "On Pulse, all Targeted Creatures lose Health equal to this Axiom's Data.",
+    },
+    "FormDir" : {
+        "name" : "Four Ways, Yet All Paths Converge",
+        "lore" : "hai",
+        "descript" : "On Pulse, Target the tile adjacent to the Self which is in the Direction-type Data of this Axiom.",
+    },
+    "FormEntity" : 13,
+    "BooleanGate" : {
+        "name" : "hai",
+        "lore" : "hai",
+        "descript" : "On Pulse, if this Axiom's Boolean-type Data is False, Sever.",
+    },
+    "IdentityCheck" : {
+        "name" : "hai",
+        "lore" : "hai",
+        "descript" : "On Pulse, if the Self's Creature type does not match any of this Axiom's Creature-type Data, Sever.",
+    },
+    "FormTile" : 26,
+    "AssimilateBroadcast" : 49,
+    "OverwriteSlot" : 14,
+    "BooleanFlip" : {
+        "name" : "hai",
+        "lore" : "hai",
+        "descript" : "On Pulse, all Adjacent Axioms with Boolean-type Data have their Data flipped.", // once again fix this to not be just booleanstorage
+    },
+    "AxiomFunction" : {
+        "name" : "Steps Shift The Mind",
+        "lore" : "To walk and let the mind wander is a dangerous thing. A thought pulls harder than the rest, one's gait softens into the grace of a Saint, tears turn to bright smiles, and before one knows it, one is no more.",
+        "descript" : "On Pulse, the Self takes a step towards the nearest Target. If motion is impossible, Sever.",
+    },
+    "NoTargetStop" : {
+        "name" : "hai",
+        "lore" : "hai",
+        "descript" : "On Pulse, if there are currently no Targets, Sever.",
+    },
+    "RadioBroadcaster" : {
+        "name" : "hai",
+        "lore" : "hai",
+        "descript" : "On Pulse, all Creatures on the current Plane are sent the Message-type Data of this Axiom.",
+    },
+    "SoulInjector" : {
+        "name" : "In a Blink, Allegiances Shift",
+        "lore" : "Data is shapeless like slime, breeding itself into forms so alien to the original I sometimes wonder if we are not the descendants of one single original thought.",
+        "descript" : "On Pulse, all Targeted Creatures are Injected with this Axiom's Data.",
+    },
+    "StandardForm" : 66,
+    "LastDamageSource" : {
+        "name" : "hai",
+        "lore" : "hai",
+        "descript" : "On Pulse, the Creature which last damaged the Self becomes this Axiom's Creature-type Data.",
+    },
+    "PaintTile" : {
+        "name" : "hai",
+        "lore" : "hai",
+        "descript" : "On Pulse, all Targets are Painted with this Axiom's Colour-type Data.",
+    },
+    "FailCatcher" : {
+        "name" : "hai",
+        "lore" : "hai",
+        "descript" : "When any Adjacent Axioms are Severed, Pulse this Axiom, without returning to the Severed Axiom.",
+    },
+    "TriggerWatch" : {
+        "name" : "hai",
+        "lore" : "hai",
+        "descript" : "When an Axiom of this Axiom's Axiom-type Data is Pulsed, Pulse this Axiom.",
+    },
+    "ClearPaint" : {
+        "name" : "hai",
+        "lore" : "hai",
+        "descript" : "On Pulse, all Targets are no longer Painted.",
+    },
+    "VoidTargets" : {
+        "name" : "hai",
+        "lore" : "hai",
+        "descript" : "On Pulse, all Targets are no longer Targets.",
+    },
+    "SoulAbsorber" : {
+        "name" : "The Servitude of Still Minds",
+        "lore" : "hai",
+        "descript" : "",
+    },
+    "ContinKilled" : {
+        "name" : "hai",
+        "lore" : "hai",
+        "descript" : "When the Self dies, Pulse this Axiom.",
+    },
+    "RadioReceiver" : {
+        "name" : "hai",
+        "lore" : "hai",
+        "descript" : "When this Creatures receives Message-type Data which corresponds to this Axiom's Message-type Data, Pulse this Axiom.",
+    },
+    "RealityAnchor" : {
+        "name" : "hai",
+        "lore" : "hai",
+        "descript" : "Reality always focuses around the Creature holding this Axiom. Should it be destroyed, all is unmade.",
+    },
+    "PaintFilter" : {
+        "name" : "hai",
+        "lore" : "hai",
+        "descript" : "On Pulse, all Targets which are not Painted with this Axiom's Colour-type Data are no longer Targets.",
+    },
+    "EntityFilter" : {
+        "name" : "hai",
+        "lore" : "hai",
+        "descript" : "On Pulse, all Targets which do not contain a Creature corresponding to the Creature-type Data of this Axiom are no longer Targets.",
+    },
+}
+
 researchnames = {
     "Research" : "Ignorance Turned Thin Mist",
     "Intro" : "A Tingling in the Soul",
