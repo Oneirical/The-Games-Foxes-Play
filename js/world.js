@@ -199,7 +199,7 @@ class Universe{
         this.zoomAnim = new PIXI.Ticker;
         this.currentworld = layer;
         this.zoomAnim.start();
-        tilesDisplay.mask = app.stage.children[app.stage.children.length-1];
+        tilesDisplay.mask = tilesDisplay.maskReference;
         this.viewport = new pixi_viewport.Viewport({
             screenWidth: 1152-64,
             screenHeight: 1152-64,
@@ -333,7 +333,7 @@ class Universe{
         this.zoomAnim.destroy();
         this.zoomAnim = new PIXI.Ticker;
         this.zoomAnim.start();
-        tilesDisplay.mask = app.stage.children[app.stage.children.length-1];
+        tilesDisplay.mask = tilesDisplay.maskReference;
         this.viewport = new pixi_viewport.Viewport({
             screenWidth: 1152-64,
             screenHeight: 1152-64,

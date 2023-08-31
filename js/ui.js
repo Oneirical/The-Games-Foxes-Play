@@ -257,16 +257,17 @@ class NodeDescription{
         this.displayCon.addChild(graphics);
         this.displayCon.x = 930;
         this.displayCon.y = 60;
-        this.displayCon.visible = false;
+        this.displayCon.visible = true;
     }
 
     getDescription(node){
         if (!node) return;
         if (node instanceof ResearchNode) node = node.id;
+        node = "Research";
         this.displayCon.removeChildren();
         const graphics = new PIXI.Graphics();
         graphics.beginFill("black");
-        graphics.drawRect(-8, -8, 14*32, 28*32-16);
+        graphics.drawRect(-8, -8, 14*32+16, 27*32+16);
         graphics.endFill();
         this.displayCon.addChild(graphics);
         drawChainBorder(15,28,this.displayCon);
@@ -286,7 +287,7 @@ class NodeDescription{
                 fontSize: 18,
                 fill: coloring,
                 wordWrap: true,
-                wordWrapWidth: resolutionSize*16*16-(resolutionSize*9*16+(resolutionSize+12)*16+10)-20,
+                wordWrapWidth: 13*32,
                 lineJoin: 'round',
             });
             let bumpValue = textWithoutCringe(i,0,height,style,this.displayCon);
@@ -1842,13 +1843,14 @@ class Soul{
                 axiom.on('pointerdown', (event) => {
                 });
                 axiom.on('pointerover', (event) => {
-                    sideTooltip.displayCon.visible = true;
+                    app.stage.addChild(sideTooltip.displayCon);
+                    sideTooltip.getDescription(this.axioms[i][j]);
                     let wai = new PIXI.filters.GlowFilter();
                     wai.outerStrength = 1;
                     axiom.filters = [wai];
                 });
                 axiom.on('pointerout', (event) => {
-                    sideTooltip.displayCon.visible = false;
+                    app.stage.removeChild(sideTooltip.displayCon);
                     axiom.filters = [];
                 });
                 this.displayCon.addChild(axiom);

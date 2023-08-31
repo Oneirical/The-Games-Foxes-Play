@@ -63,7 +63,8 @@ function setupPixi(){
     tilesChains.y = (1080-16*9*resolutionSize)/2+8;
     drawChainBorder(32,32,tilesChains);
     drawPixel("black",(1920-16*16*resolutionSize)/2+(resolutionSize+12)*16,(1080-16*9*resolutionSize)/2,112*9,app.stage); // this is for the zoom in effect
-    app.stage.children[app.stage.children.length-1].alpha = 0;
+    tilesDisplay.maskReference = app.stage.children[app.stage.children.length-1];
+    tilesDisplay.maskReference.alpha = 0;
     drawProjectors();
     //world.rooms[4][7] = world.playSpace;
     world.enterRoom("N");
@@ -95,7 +96,6 @@ function setupPixi(){
     //     count++;
     //     if (count == 10) {uiDisplayLeft.children[uiDisplayLeft.children.length-1].children[0].text = app.ticker.FPS; count = 0;}
     // });
-    app.stage.addChild(sideTooltip.displayCon);
 }
 
 function debugCommands(){
@@ -234,7 +234,7 @@ function setUpUI(){
 }
 
 function drawProjectors(){
-    tilesDisplay.mask = app.stage.children[app.stage.children.length-1];
+    tilesDisplay.mask = tilesDisplay.maskReference;
     drawTiles();
     projectorDisplay = new PIXI.Container();
     projectorDisplay.x = -448;
