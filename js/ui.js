@@ -263,7 +263,6 @@ class NodeDescription{
     getDescription(node){
         if (!node) return;
         if (node instanceof ResearchNode) node = node.id;
-        node = "Research";
         this.displayCon.removeChildren();
         const graphics = new PIXI.Graphics();
         graphics.beginFill("black");
@@ -271,13 +270,14 @@ class NodeDescription{
         graphics.endFill();
         this.displayCon.addChild(graphics);
         drawChainBorder(15,28,this.displayCon);
-        const text = [researchnames[node],researchflags[node], researchexpl[node],researchlore[node],researchunlocks[node]]; //,node.extra
         let height = 0;
-        let newSprite = new FoxSprite(allsprites.textures['icon'+inside[node]]);
+        let newSprite = new FoxSprite(allsprites.textures['icon'+node.icon]);
         newSprite.x = 32*13;
         newSprite.width = 32;
         newSprite.height = 32;
         this.displayCon.addChild(newSprite);
+        node = "Saintly";
+        const text = [researchnames[node],researchflags[node], researchexpl[node],researchlore[node],researchunlocks[node]]; //,node.extra
         for (let i of text){
             if (!i) continue;
             let coloring = "white";
@@ -294,24 +294,6 @@ class NodeDescription{
             if (text.indexOf(i) > 0) bumpValue+=40;
             height+= bumpValue;
             if (text.indexOf(i) > 0) drawChainLine(14,16,height-7,"h",this.displayCon);
-        }
-        if (spellpatterns[node]){
-            this.craftRecipe = new PIXI.Container();
-            this.craftRecipe.y = height;
-            this.displayCon.addChild(this.craftRecipe);
-            const textures = ["S","O","A","U","F","V"];
-            for (let i = 0; i<spellpatterns[node][0].length; i++){
-                for (let j = 0; j<spellpatterns[node][0].length; j++){
-                    let craftSprite = 7;
-                    if (spellpatterns[node][j][i] != ".") craftSprite = textures.indexOf(spellpatterns[node][j][i]);
-                    let craftSoul = new FoxSprite(allsprites.textures['icon'+craftSprite]);
-                    craftSoul.x = i*64;
-                    craftSoul.y = j*64;
-                    craftSoul.width = 64;
-                    craftSoul.height = 64;
-                    this.craftRecipe.addChild(craftSoul);
-                }
-            }
         }
     }
 }
@@ -1577,7 +1559,7 @@ class SoulTree{
         if (!newEntity) this.trackedEntity = player; // temporary
         else this.trackedEntity = newEntity;
         for (let i = 0; i<6; i++){
-            if (this.trackedEntity.souls[basic[i+1]] instanceof Soul) this.axiomCon.children[i].alpha = 1;
+            if (this.trackedEntity.souls[basic[5-i+1]] instanceof Soul) this.axiomCon.children[i].alpha = 1;
             else this.axiomCon.children[i].alpha = 0.5;
         }
     }
@@ -1623,13 +1605,13 @@ class SoulTree{
             axiomslot.on('pointerdown', (event) => {
                 //this.storeAxiom(i);
                 if (wheel.currentSoulDisplayed) wheel.displayCon.removeChild(wheel.currentSoulDisplayed.displayCon);
-                if (!this.trackedEntity.souls[basic[i+1]]){
+                if (!this.trackedEntity.souls[basic[5-i+1]]){
                     wheel.displayCon.addChild(wheel.wheelCon);
                     return;
                 };
-                wheel.displayCon.addChild(this.trackedEntity.souls[basic[i+1]].displayCon);
+                wheel.displayCon.addChild(this.trackedEntity.souls[basic[5-i+1]].displayCon);
                 wheel.displayCon.removeChild(wheel.wheelCon);
-                wheel.currentSoulDisplayed = this.trackedEntity.souls[basic[i+1]];
+                wheel.currentSoulDisplayed = this.trackedEntity.souls[basic[5-i+1]];
             });
             axiomslot.on('pointerover', (event) => {
                 let wai = new PIXI.filters.GlowFilter();
@@ -1834,6 +1816,7 @@ class Soul{
             for (let j = 0; j<5; j++){
                 let icon = 7;
                 if (!this.axioms[i][j].empty) icon = inside[this.axioms[i][j].constructor.name];
+                this.axioms[i][j].icon = icon;
                 let axiom = new FoxSprite(allsprites.textures['icon'+icon]);
                 axiom.eventMode = 'static';
                 axiom.x = i*size+24;
