@@ -816,6 +816,11 @@ researchequivalences = {
 }
 
 soulData = {
+    "EmptyAxiom" : {
+        "name" : "Gnawing Void of Aimless Ones",
+        "lore" : "Newly conceived, barren minds are most coveted by those who would wish to fill them with their own ideas - and deny others the pleasure of doing so.",
+        "descript" : "Empty space which does not conduct impulses from Pulsing Axioms.",
+    },
     "NumberIncrementer" : {
         "name" : "Memories Fleeting, Time Even More So",
         "lore" : "hai",
@@ -856,7 +861,11 @@ soulData = {
         "lore" : "hai",
         "descript" : "On Pulse, Target the tile adjacent to the Self which is in the Direction-type Data of this Axiom.",
     },
-    "FormEntity" : 13,
+    "FormEntity" : {
+        "name" : "hai",
+        "lore" : "hai",
+        "descript" : "hai",
+    },
     "BooleanGate" : {
         "name" : "hai",
         "lore" : "hai",
@@ -867,9 +876,21 @@ soulData = {
         "lore" : "hai",
         "descript" : "On Pulse, if the Self's Creature type does not match any of this Axiom's Creature-type Data, Sever.",
     },
-    "FormTile" : 26,
-    "AssimilateBroadcast" : 49,
-    "OverwriteSlot" : 14,
+    "FormTile" : {
+        "name" : "hai",
+        "lore" : "hai",
+        "descript" : "hai",
+    },
+    "AssimilateBroadcast" : {
+        "name" : "hai",
+        "lore" : "hai",
+        "descript" : "hai",
+    },
+    "OverwriteSlot" : {
+        "name" : "hai",
+        "lore" : "hai",
+        "descript" : "hai",
+    },
     "BooleanFlip" : {
         "name" : "hai",
         "lore" : "hai",
@@ -895,7 +916,11 @@ soulData = {
         "lore" : "Data is shapeless like slime, breeding itself into forms so alien to the original I sometimes wonder if we are not the descendants of one single original thought.",
         "descript" : "On Pulse, all Targeted Creatures are Injected with this Axiom's Data.",
     },
-    "StandardForm" : 66,
+    "StandardForm" : {
+        "name" : "hai",
+        "lore" : "hai",
+        "descript" : "hai",
+    },
     "LastDamageSource" : {
         "name" : "hai",
         "lore" : "hai",

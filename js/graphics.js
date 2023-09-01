@@ -394,12 +394,12 @@ function textWithoutCringe(text,x,y,style,source){ // here lies my sanity - june
             newStyle.fill = specialWords[j];
             const graphics = new PIXI.Graphics();
             graphics.beginFill("black");
-            graphics.drawRect(atX, allLines.indexOf(i)*23, PIXI.TextMetrics.measureText(j,style).width, 23);
+            graphics.drawRect(atX, allLines.indexOf(i)*20, PIXI.TextMetrics.measureText(j,style).width, 20); //it's always 20 or 23 depending on the computer OS, WHY???
             graphics.endFill();
             textBlock.addChild(graphics);
             let colorText = new PIXI.Text(j,newStyle);
             colorText.x = atX;
-            colorText.y = allLines.indexOf(i)*23;
+            colorText.y = allLines.indexOf(i)*20;
             textBlock.addChild(colorText);
         }
     }

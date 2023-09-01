@@ -276,12 +276,12 @@ class NodeDescription{
         newSprite.width = 32;
         newSprite.height = 32;
         this.displayCon.addChild(newSprite);
-        node = "Saintly";
-        const text = [researchnames[node],researchflags[node], researchexpl[node],researchlore[node],researchunlocks[node]]; //,node.extra
+        let tag = soulData[node.nameID];
+        const text = [tag["name"],researchflags["Saintly"], tag["descript"],tag["lore"],researchunlocks["Saintly"]]; //,node.extra
         for (let i of text){
             if (!i) continue;
             let coloring = "white";
-            if (i == researchlore[node]) coloring = "plum";
+            if (i == tag["lore"]) coloring = "plum";
             const style = new PIXI.TextStyle({
                 fontFamily: 'Play',
                 fontSize: 18,

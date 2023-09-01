@@ -8,6 +8,7 @@ class AxiomTemp{
         this.empty = false;
         this.soul;
         this.storage = "NoStorage";
+        this.nameID = this.constructor.name;
     }
     act(data){return data;};
 }
