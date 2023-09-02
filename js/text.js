@@ -816,6 +816,10 @@ researchequivalences = {
 }
 
 soulData = {
+    "DataTypes" : {
+        0 : "This Axiom cannot contain any Data.",
+        1 : "This Axiom can contain %s-type"
+    },
     "EmptyAxiom" : {
         "name" : "Gnawing Void of Aimless Ones",
         "lore" : "Newly conceived, barren minds are most coveted by those who would wish to fill them with their own ideas - and deny others the pleasure of doing so.",

@@ -277,7 +277,12 @@ class NodeDescription{
         newSprite.height = 32;
         this.displayCon.addChild(newSprite);
         let tag = soulData[node.nameID];
-        const text = [tag["name"],researchflags["Saintly"], tag["descript"],tag["lore"],researchunlocks["Saintly"]]; //,node.extra
+        let soulDataTypes;
+        if (node.dataType.length == 0) soulDataTypes = "This Axiom cannot contain any Data.";
+        else if (node.dataType.length == 1) soulDataTypes = "This Axiom can contain "+ node.dataType[0] +"-type Data.";
+        else if (node.dataType.length == 2) soulDataTypes = "This Axiom can contain " + node.dataType[0]+ "-type or " + node.dataType[1] +"-type Data.";
+        // extra case for length > 2?
+        const text = [tag["name"],researchflags["Saintly"], tag["descript"],tag["lore"],soulDataTypes]; //,node.extra
         for (let i of text){
             if (!i) continue;
             let coloring = "white";

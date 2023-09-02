@@ -9,6 +9,7 @@ class AxiomTemp{
         this.soul;
         this.storage = "NoStorage";
         this.nameID = this.constructor.name;
+        this.dataType = [];
     }
     act(data){return data;};
 }
@@ -30,6 +31,7 @@ class RadioBroadcaster extends AxiomTemp{
     constructor(message){
         super();
         this.storage = message;
+        this.dataType = ["Message"];
     }
     act(data){
         trigger(this.storage);
@@ -42,6 +44,7 @@ class RadioReceiver extends AxiomTemp{
         super();
         this.storage = key;
         this.contingency = true;
+        this.dataType = ["Message"];
     }
     act(data){
         return data;
@@ -53,6 +56,7 @@ class ContinKilled extends AxiomTemp{
         super();
         this.storage = "OBLIVION";
         this.contingency = true;
+        this.dataType = ["Message"];
     }
     act(data){
         return data;
@@ -64,6 +68,7 @@ class TriggerWatch extends AxiomTemp{
         super();
         this.storage = key;
         this.contingency = true;
+        this.dataType = ["Axiom"];
     }
     act(data){
         return data;
@@ -74,6 +79,7 @@ class LastDamageSource extends AxiomTemp{
     constructor(entity){
         super();
         this.storage = entity;
+        this.dataType = ["Creature"];
     }
     act(data){
         this.storage = data["caster"].lastDamageCulprit;
@@ -116,6 +122,7 @@ class SoulInjector extends AxiomTemp{
     constructor(soul){
         super();
         this.storage = soul;
+        this.dataType = ["Soul"];
     }
     act(data){
         if (!this.storage) return data;
@@ -148,6 +155,7 @@ class PaintTile extends AxiomTemp{
     constructor(colour){
         super();
         this.storage = colour;
+        this.dataType = ["Colour"];
     }
     act(data){
         for (let i of data["targets"]){
@@ -163,6 +171,7 @@ class PaintFilter extends AxiomTemp{
     constructor(colour){
         super();
         this.storage = colour;
+        this.dataType = ["Colour"];
     }
     act(data){
         for (let i = data["targets"].length-1; i>=0; i--){
@@ -177,6 +186,7 @@ class EntityFilter extends AxiomTemp{
     constructor(entity){
         super();
         this.storage = entity;
+        this.dataType = ["Creature"];
     }
     act(data){
         let newTargets = [];
@@ -195,6 +205,7 @@ class BooleanGate extends AxiomTemp{
     constructor(boo){
         super();
         this.storage = boo;
+        this.dataType = ["Boolean"];
     }
     act(data){
         if (!this.storage) data["break"] = true;
@@ -206,6 +217,7 @@ class IdentityCheck extends AxiomTemp{
     constructor(iden){
         super();
         this.storage = iden;
+        this.dataType = ["Creature"];
     }
     act(data){
         let check = false;
@@ -242,6 +254,7 @@ class AssimilateBroadcast extends AxiomTemp{
     constructor(message){
         super();
         this.storage = message;
+        this.dataType = ["Message"];
         this.surr;
     }
     act(data){
@@ -260,6 +273,7 @@ class OverwriteSlot extends AxiomTemp{
     constructor(slot){
         super();
         this.storage = slot;
+        this.dataType = ["Caste"];
         this.surr;
     }
     act(data){
@@ -287,6 +301,7 @@ class FormDir extends AxiomTemp{
     constructor(dir){
         super();
         this.storage = dir;
+        this.dataType = ["Direction"];
     }
 
     act(data){
@@ -305,6 +320,7 @@ class FormEntity extends AxiomTemp{
     constructor(entity){
         super();
         this.storage = entity;
+        this.dataType = ["Creature","Tile"];
     }
     act(data){
         let dest;
@@ -321,6 +337,7 @@ class FormTile extends AxiomTemp{
     constructor(tile){
         super();
         this.storage = tile;
+        this.dataType = ["Creature","Tile"];
     }
     act(data){
         if (this.storage == "ScarabWaypoint") this.storage = getTile(world.waypointLocation[0],world.waypointLocation[1]);
@@ -366,6 +383,7 @@ class NumberIncrementer extends AxiomTemp{
     constructor(number){
         super();
         this.storage = number;
+        this.dataType = ["Number"];
     }
     act(data){
         let surr = this.soul.getLogicNeighbours(this,true);
@@ -378,6 +396,7 @@ class NumberStorage extends AxiomTemp{
     constructor(number){
         super();
         this.storage = number;
+        this.dataType = ["Number"];
     }
 }
 
@@ -385,6 +404,7 @@ class ModuloGate extends AxiomTemp{
     constructor(number){
         super();
         this.storage = number;
+        this.dataType = ["Number"];
     }
     act(data){
         let surr = this.soul.getLogicNeighbours(this,true);
@@ -400,7 +420,7 @@ class SummonCreature extends AxiomTemp{
     constructor(crea){
         super();
         this.storage = crea;
-        debugValeur = this;
+        this.dataType = ["Creature"];
     }
     act(data){
         if (data["targets"].length == 0){
@@ -423,6 +443,7 @@ class DamageDealer extends AxiomTemp{
     constructor(dam){
         super();
         this.storage = dam;
+        this.dataType = ["Number"];
     }
     act(data){
         for (let i of data["targets"]){
@@ -436,6 +457,7 @@ class HealProvider extends AxiomTemp{
     constructor(dam){
         super();
         this.storage = dam;
+        this.dataType = ["Number"];
     }
     act(data){
         for (let i of data["targets"]){
@@ -449,6 +471,7 @@ class LinkForm extends AxiomTemp{
     constructor(link){
         super();
         this.storage = link;
+        this.dataType = ["Creature"];
     }
     act(data){
         if (!this.storage){
