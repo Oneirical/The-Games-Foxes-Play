@@ -282,7 +282,7 @@ class NodeDescription{
         else if (node.dataType.length == 1) soulDataTypes = "This Axiom can contain "+ node.dataType[0] +"-type Data.";
         else if (node.dataType.length == 2) soulDataTypes = "This Axiom can contain " + node.dataType[0]+ "-type or " + node.dataType[1] +"-type Data.";
         // extra case for length > 2?
-        const text = [tag["name"],researchflags["Saintly"], tag["descript"],tag["lore"],soulDataTypes]; //,node.extra
+        const text = [tag["name"],researchflags["Saintly"], tag["descript"],tag["lore"],soulDataTypes, "This Axiom currently contains:"]; //,node.extra
         for (let i of text){
             if (!i) continue;
             let coloring = "white";
@@ -1856,6 +1856,7 @@ class Soul{
                 else{
                     if (!hai[logicMaps[id][i][j]]) throw new Error("Component " + logicMaps[id][i][j] +" was not specified in rooms.js");
                     this.axioms[i][j] = Object.create(hai[logicMaps[id][i][j]]);
+                    this.axioms[i][j].build();
                 }
                 this.axioms[i][j].x = i;
                 this.axioms[i][j].y = j;

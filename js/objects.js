@@ -1,7 +1,6 @@
-class Form{
-    constructor(type, contents){
-        this.contents = contents;
-        this.type = type;
+class Direction{
+    constructor(direction){
+        this.message = direction;
     }
 }
 

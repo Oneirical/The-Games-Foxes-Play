@@ -12,6 +12,14 @@ class AxiomTemp{
         this.dataType = [];
     }
     act(data){return data;};
+
+    build(){
+        if ("NSWE".includes(this.storage) && this.dataType.includes("Direction")) this.storage = new Direction(this.storage);
+        //colour
+        //boolean
+        //direction
+        //number
+    }
 }
 
 class EmptyAxiom extends AxiomTemp{
@@ -311,7 +319,7 @@ class FormDir extends AxiomTemp{
             "E" : [1,0],
             "S" : [0,1],
         }
-        data["targets"].push(getTile(data["caster"].tile.x+directions[this.storage][0],data["caster"].tile.y+directions[this.storage][1]));
+        data["targets"].push(getTile(data["caster"].tile.x+directions[this.storage.direction][0],data["caster"].tile.y+directions[this.storage.direction][1]));
         return data;
     }
 }
