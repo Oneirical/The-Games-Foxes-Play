@@ -1928,6 +1928,23 @@ class Soul{
         removeItemOnce(start.souls,this);
     }
 
+    checkCompatibility(sourceAxiom, destAxiom){
+        let foundType;
+        if (typeof sourceAxiom.storage === "boolean") foundType = "Boolean";
+        else if (typeof sourceAxiom.storage === "number") foundType = "Number";
+        else if (typeof sourceAxiom.storage === "string") foundType = "Message";
+        else {
+            for (let i of Object.keys(AxiomTemp.storageEquivalences)){
+                if (sourceAxiom.storage instanceof AxiomTemp.storageEquivalences[i]){
+                    foundType = i;
+                    break;
+                }
+            }
+        }
+        if (destAxiom.dataType.includes(foundType)) return true;
+        else return false;
+    }
+
     trigger(event,assi){
         let data;
         for (let i of this.contingencies) if (i.storage == event){
@@ -1937,7 +1954,7 @@ class Soul{
                 }
                 else for (let j of assi){
                     let studying = this.axioms[i.x+j.relativeDir[0]][i.y+j.relativeDir[1]];
-                    if (studying.storage != "NoStorage" && j.storage != "NoStorage") studying.storage = j.storage;
+                    if (this.checkCompatibility(j,studying)) studying.storage = j.storage;
                 }
             }
             this.pulse(i,data);

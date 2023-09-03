@@ -833,7 +833,7 @@ soulData = {
     "ModuloGate" : {
         "name" : "Four Ways, Yet All Paths Converge",
         "lore" : "hai",
-        "descript" : "On Pulse, for each Adjacent Axiom containing Number-type Data, if dividing that Data by this Axiom's Data leaves any remainders, Sever.", //this isn't true, it's pulling from "numberstorage" only
+        "descript" : "On Pulse, for each Adjacent Axiom containing Number-type Data, if dividing that Data by this Axiom's Data leaves any remainders, Sever.",
     },
     "NumberStorage" : {
         "name" : "Chirping Drones, Forever Crystallized",
@@ -898,7 +898,7 @@ soulData = {
     "BooleanFlip" : {
         "name" : "hai",
         "lore" : "hai",
-        "descript" : "On Pulse, all Adjacent Axioms with Boolean-type Data have their Data flipped.", // once again fix this to not be just booleanstorage
+        "descript" : "On Pulse, all Adjacent Axioms with Boolean-type Data have their Data flipped.",
     },
     "AxiomFunction" : {
         "name" : "Steps Shift The Mind",

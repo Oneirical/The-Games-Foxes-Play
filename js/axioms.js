@@ -1,13 +1,22 @@
 //8ADJ - 4ADJ - RANDOM (up to power) - WALL - ALL - PAYLOAD (summon that unleashes targets on death)
 
 class AxiomTemp{
+    static storageEquivalences = {
+        "Creature" : Monster,
+        "Axiom" : AxiomTemp,
+        "Soul" : Soul,
+        "Colour" : Colour,
+        "Direction" : Direction,
+        "Tile" : Tile,
+        "Caste" : Caste,
+    };
     constructor(){
         this.contingency = false;
         this.x;
         this.y;
         this.empty = false;
         this.soul;
-        this.storage = "NoStorage";
+        this.storage;
         this.nameID = this.constructor.name;
         this.dataType = [];
     }
@@ -15,10 +24,8 @@ class AxiomTemp{
 
     build(){
         if ("NSWE".includes(this.storage) && this.dataType.includes("Direction")) this.storage = new Direction(this.storage);
-        //colour
-        //boolean
-        //direction
-        //number
+        else if (Colour.colourTypes.includes(this.storage) && this.dataType.includes("Colour")) this.storage = new Colour(this.storage);
+        else if (Caste.casteTypes.includes(this.storage) && this.dataType.includes("Caste")) this.storage = new Caste(this.storage);
     }
 }
 
@@ -167,8 +174,8 @@ class PaintTile extends AxiomTemp{
     }
     act(data){
         for (let i of data["targets"]){
-            i.paint = this.storage;
-            drawPixel("red",0,0,tileSize,i.tilecon);
+            i.paint = this.storage.colour;
+            drawPixel(this.storage.colour,0,0,tileSize,i.tilecon);
             i.paintDisplay = i.tilecon.children[i.tilecon.children.length-1];
         }
         return data;
@@ -184,7 +191,7 @@ class PaintFilter extends AxiomTemp{
     act(data){
         for (let i = data["targets"].length-1; i>=0; i--){
             let r = data["targets"][i];
-            if (r.paint != this.storage) removeItemAll(data["targets"],r);
+            if (r.paint != this.storage.colour) removeItemAll(data["targets"],r);
         }
         return data;
     }
@@ -248,12 +255,12 @@ class NoTargetStop extends AxiomTemp{
 }
 
 class BooleanFlip extends AxiomTemp{
-    constructor(boo){
+    constructor(){
         super();
     }
     act(data){
         let surr = this.soul.getLogicNeighbours(this,true);
-        for (let i of surr) if (i instanceof BooleanGate) i.storage = !i.storage;
+        for (let i of surr) if (i.dataType.includes["Boolean"]) i.storage = !i.storage;
         return data;
     }
 }
@@ -293,7 +300,7 @@ class OverwriteSlot extends AxiomTemp{
         for (let i of data["targets"]){
             if (i.monster){
                 for (let s of Object.keys(i.monster.souls)){
-                    if (s == this.storage && i.monster.souls[s]){
+                    if (s == this.storage.caste && i.monster.souls[s]){
                         for (let a of assi){
                             i.monster.souls[s].axioms[a.x][a.y] = a;
                         }
@@ -395,7 +402,7 @@ class NumberIncrementer extends AxiomTemp{
     }
     act(data){
         let surr = this.soul.getLogicNeighbours(this,true);
-        for (let i of surr) if (i instanceof NumberStorage) i.storage += this.storage;
+        for (let i of surr) if (i.dataType.includes("Number")) i.storage += this.storage;
         return data;
     }
 }
