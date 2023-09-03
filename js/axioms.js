@@ -81,7 +81,7 @@ class ContinKilled extends AxiomTemp{
 class TriggerWatch extends AxiomTemp{
     constructor(key){
         super();
-        this.storage = key;
+        this.storage = new key();
         this.contingency = true;
         this.dataType = ["Axiom"];
     }
@@ -126,9 +126,9 @@ class SoulAbsorber extends AxiomTemp{
                     j.owner = data["caster"];
                     data["caster"].souls[data["caster"].findFirstEmptySlot()] = j;
                 }
+                locatePlayer();
             }
         }
-        locatePlayer();
         return data;
     }
 }
@@ -138,10 +138,10 @@ class SoulInjector extends AxiomTemp{
         super();
         this.storage = soul;
         this.dataType = ["Soul"];
+        if (typeof this.storage === 'string') this.storage = new Soul(this.storage);
     }
     act(data){
         if (!this.storage) return data;
-        if (typeof this.storage === 'string') this.storage = new Soul(this.storage,data["caster"]);
         for (let i of data["targets"]){
             if (i.monster && i.monster.findFirstEmptySlot()){
                 let loc = i.monster.findFirstEmptySlot();

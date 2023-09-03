@@ -744,6 +744,7 @@ const specialWords = {
     "Charmed" : "pink",
     "Target" : "orangered",
     "Targets" : "orangered",
+    "Targeted" : "orangered",
     "Potency" : "lightsteelblue",
     "Function" : "orange",
     "Data" : "lightsteelblue",
@@ -943,7 +944,7 @@ soulData = {
     "TriggerWatch" : {
         "name" : "hai",
         "lore" : "hai",
-        "descript" : "When an Axiom of this Axiom's Axiom-type Data is Pulsed, Pulse this Axiom.",
+        "descript" : "When an Axiom of this Axiom's Axiom-type Data is Pulsed, Pulse this Axiom, keeping the same Targets.",
     },
     "ClearPaint" : {
         "name" : "hai",

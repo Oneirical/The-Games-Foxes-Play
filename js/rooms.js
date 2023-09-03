@@ -545,7 +545,7 @@ const logicMaps = {
         3 : ".R...",
         4 : ".....",
         "keys" : {
-            "D" : new TriggerWatch("DamageDealer"),
+            "D" : new TriggerWatch(DamageDealer),
             "A" : new SoulAbsorber(),
             "R" : new RealityAnchor(),
         }
@@ -676,7 +676,7 @@ const logicMaps = {
             "P" : new StandardForm("PLUS"),
             "D" : new DamageDealer(1),
             "F" : new EntityFilter(Scarab),
-            "T" : new TriggerWatch("DamageDealer"),
+            "T" : new TriggerWatch(DamageDealer),
             "A" : new SoulAbsorber(),
 
         }

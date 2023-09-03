@@ -378,7 +378,7 @@ function textWithoutCringe(text,x,y,style,source){ // here lies my sanity - june
 
     let allLines = PIXI.TextMetrics.measureText(removeColorTags(text),style).lines;
     for (let i of allLines){
-        for (let j of Object.keys(specialWords)) if (i.includes(j)){
+        for (let j of Object.keys(specialWords)) if (i.includes(j) && style.fill != "plum"){ 
             let regex = new RegExp(".+?(?="+j+")");
             let atX = 0;
             if (i.match(regex))atX = PIXI.TextMetrics.measureText(" "+i.match(regex)[0],style).width;

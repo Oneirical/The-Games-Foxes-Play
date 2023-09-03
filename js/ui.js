@@ -260,6 +260,31 @@ class NodeDescription{
         this.displayCon.visible = true;
     }
 
+    getDataText(dataPoint){
+        if (typeof dataPoint === "string") return "Message: "+dataPoint;
+        else if (typeof dataPoint === "number") return "Number: "+dataPoint;
+        else if (typeof dataPoint === "boolean"){
+            if (dataPoint) return "Boolean: True";
+            else return "Boolean: False";
+        }
+        else if (dataPoint instanceof Tile) return "Tile: "+dataPoint.name+" at X: "+dataPoint.x+" and Y: "+dataPoint.y;
+        else if (dataPoint instanceof Monster) return "Creature: "+dataPoint.name+" at X: "+dataPoint.tile.x+" and Y: "+dataPoint.tile.y;
+        else if (dataPoint instanceof AxiomTemp) return "Axiom: "+soulData[dataPoint.nameID]["name"];
+        else if (dataPoint instanceof Colour) return "Colour: "+dataPoint.colour;
+        else if (dataPoint instanceof Direction){
+            const dirs = {
+                "N" : "North",
+                "S" : "South",
+                "W" : "West",
+                "E" : "East"
+            }
+            return "Direction: "+dirs[dataPoint.direction];
+        }
+        else if (dataPoint instanceof Caste) return "Caste: "+dataPoint.caste;
+        else if (dataPoint instanceof Soul) return "A captive Soul.";
+        else return "Nothing."
+    }
+
     getDescription(node){
         if (!node) return;
         if (node instanceof ResearchNode) node = node.id;
@@ -282,7 +307,7 @@ class NodeDescription{
         else if (node.dataType.length == 1) soulDataTypes = "This Axiom can contain "+ node.dataType[0] +"-type Data.";
         else if (node.dataType.length == 2) soulDataTypes = "This Axiom can contain " + node.dataType[0]+ "-type or " + node.dataType[1] +"-type Data.";
         // extra case for length > 2?
-        const text = [tag["name"],researchflags["Saintly"], tag["descript"],tag["lore"],soulDataTypes, "This Axiom currently contains:"]; //,node.extra
+        const text = [tag["name"],researchflags["Saintly"], tag["descript"],tag["lore"],soulDataTypes, "This Axiom currently contains:\n\n"+this.getDataText(node.storage)]; //,node.extra
         for (let i of text){
             if (!i) continue;
             let coloring = "white";
@@ -1947,7 +1972,7 @@ class Soul{
 
     trigger(event,assi){
         let data;
-        for (let i of this.contingencies) if (i.storage == event){
+        for (let i of this.contingencies) if (i.storage == event || (i.dataType.includes("Axiom") && i.storage.constructor.name == event)){
             if (assi){
                 if (assi[0]["caster"]){
                     data = assi;
