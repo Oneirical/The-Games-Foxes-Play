@@ -777,13 +777,12 @@ const logicMaps = {
             "V" : new VoidTargets(),
         }
     },
-    "Terminal1" : {
-        0 : "W....",
-        1 : "NMT.A",
-        2 : "....O",
-        3 : "DE..M",
-        4 : ".MT.T",
-//SsMT
+    "Terminal" : {
+        0 : "VTMNW",
+        1 : "M....",
+        2 : "OARDE",
+        3 : "....M",
+        4 : "SsMTV",
         "keys" : {
             "W" : new RadioReceiver("W"),
             "A" : new RadioReceiver("A"),
@@ -793,24 +792,13 @@ const logicMaps = {
             "N" : new FormDir("N"),
             "O" : new FormDir("W"),
             "E" : new FormDir("E"),
-            "M" : new AxiomFunction("MOVE"),
-            "T" : new RadioBroadcaster("EON"),
-        }
-    },
-    "Terminal2" : {
-        0 : ".....",
-        1 : "....S",
-        2 : ".R..s",
-        3 : "....M",
-        4 : "....T",
-        "keys" : {
-
             "S" : new RadioReceiver("S"),
+            "V" : new VoidTargets(),
 
             "s" : new FormDir("S"),
+            "R" : new RealityAnchor(),
             "M" : new AxiomFunction("MOVE"),
             "T" : new RadioBroadcaster("EON"),
-            "R" : new RealityAnchor(),
         }
     },
 }

@@ -798,9 +798,9 @@ class Terminal extends Monster{
         this.isPlayer = true;
         this.teleportCounter = 0;
         this.name = "Terminal, the Reality Anchor";
-        this.souls["SAINTLY"] = "EpsilonControl1";
-        this.souls["VILE"] = "EpsilonControl2";
-        this.souls["UNHINGED"] = "SoulSiphon";
+        this.souls["SAINTLY"] = "Terminal";
+        //this.souls["VILE"] = "EpsilonControl2";
+        //this.souls["UNHINGED"] = "SoulSiphon";
         this.ability = "";
         this.noloot = true;
         this.fov = 0;

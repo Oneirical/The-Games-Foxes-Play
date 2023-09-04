@@ -974,7 +974,7 @@ soulData = {
     "RealityAnchor" : {
         "name" : "hai",
         "lore" : "hai",
-        "descript" : "Reality always focuses around the Creature holding this Axiom. Should it be destroyed, all is unmade.",
+        "descript" : "On Pulse, Sever. Reality always focuses around the Creature holding this Axiom. Should it be destroyed, all is unmade.",
     },
     "PaintFilter" : {
         "name" : "hai",

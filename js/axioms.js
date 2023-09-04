@@ -40,6 +40,10 @@ class RealityAnchor extends AxiomTemp{
     constructor(){
         super();
     }
+    act(data){
+        data["break"] = true;
+        return data;
+    }
 }
 
 class RadioBroadcaster extends AxiomTemp{
