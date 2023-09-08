@@ -551,8 +551,8 @@ const logicMaps = {
         }
     },
     "Programmer" : {
-        0 : "CFABS",
-        1 : "E....",
+        0 : "CFA..",
+        1 : "E.VBS",
         2 : "P....",
         3 : "M....",
         4 : ".....",

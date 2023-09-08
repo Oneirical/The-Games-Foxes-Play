@@ -1039,7 +1039,7 @@ class MessageLog{
 
 class SoulBreathing{
     constructor(){
-        this.wheel = [new Empty(),new Empty(),new Empty(),new Empty(),new Empty(),new Empty(),new Empty(),new Empty()];
+        //this.wheel = [new Empty(),new Empty(),new Empty(),new Empty(),new Empty(),new Empty(),new Empty(),new Empty()];
         let center = [(canvas.height+canvas.width-256)/2-40, 195*canvas.height/900]; //256: minimap height
         this.dist = 100*(resolutionSize/7);
         let dist = this.dist;
@@ -1053,7 +1053,7 @@ class SoulBreathing{
         this.turbulentSouls = []; //
         this.exhaustedSouls = [];
         this.resolve = 3; //update this later with the bonus
-        this.castes = [new Saintly(),new Ordered(),new Artistic(),new Unhinged(),new Feral(),new Vile()];
+        //this.castes = [new Saintly(),new Ordered(),new Artistic(),new Unhinged(),new Feral(),new Vile()];
         this.hide = false;
         this.ipseity = 0;
         let first = [587, 420];
@@ -1068,8 +1068,8 @@ class SoulBreathing{
         this.currentbrush = 8;
         this.turbstatus = true;
         this.castecoords = [first,[first[0]+hori,first[1]],[first[0],first[1]+vert],[first[0]+hori,first[1]+vert],[first[0],first[1]+vert*2],[first[0]+hori,first[1]+vert*2]];
-        this.turbulentmarkers = [new Feral(),new Feral()];
-        this.turbulentmarkers[0].turbulent = true;
+        //this.turbulentmarkers = [new Feral(),new Feral()];
+        //this.turbulentmarkers[0].turbulent = true;
     }
 
     setUpSprites(){
@@ -1779,7 +1779,8 @@ class Soul{
         this.contingencies = [];
         this.axioms = [];
         this.owner = owner;
-        if (!this.owner) return;
+        if (!this.owner) this.owner = "None";
+        if (["EMPTY","VILE","FERAL","UNHINGED","ARTISTIC","ORDERED","SAINTLY"].includes(name)) return;
         this.setUpAxioms();
         this.findContingencies();
     }

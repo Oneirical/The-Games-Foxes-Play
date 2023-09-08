@@ -250,13 +250,6 @@ class Universe{
         monsters.push(player);
         world.appearRoom([spawnx,spawny]);
         if(!world.getRoom().hostile) summonExits();
-        for(let i=0;i<wheel.wheel.length;i++){
-            if (wheel.wheel[i].turbulent){
-                wheel.turbulentSouls.push(wheel.wheel[i]);
-                wheel.wheel[i] = new Empty();
-            }
-        }
-        
         world.setUpSprites();
         uiDisplayLeft.addChild(world.displayCon);
         this.layeredInfluence.add(world.influence);
