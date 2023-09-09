@@ -521,7 +521,7 @@ const logicMaps = {
             "K" : new ContinKilled(),
             "L" : new LastDamageSource(),
             "B" : new AssimilateBroadcast("DANGER"),
-            "I" : new IdentityCheck([Scarab]),
+            "I" : new IdentityCheck(Scarab),
         }
     },
     "Guard" : {
@@ -580,7 +580,7 @@ const logicMaps = {
             "E" : new RadioReceiver("TERMINATE"),
             "P" : new StandardForm("PLUS"),
             "H" : new HealProvider(1),
-            "I" : new IdentityCheck([EpsilonHead,EpsilonTail]),
+            "I" : new IdentityCheck(EpsilonTail),
         }
     },
     "ScarabHack" : {
@@ -625,7 +625,7 @@ const logicMaps = {
             "C" : new StandardForm("EGO"),
             "S" : new PaintTile("Red"),
             "N" : new RadioBroadcaster("SLITHER1"),
-            "I" : new IdentityCheck([EpsilonHead]),
+            "I" : new IdentityCheck(EpsilonHead),
             "E" : new RadioBroadcaster("EON"),
 
             "w" : new RadioReceiver("W"),
@@ -652,7 +652,7 @@ const logicMaps = {
             "C" : new StandardForm("EGO"),
             "S" : new PaintTile("Red"),
             "N" : new RadioBroadcaster("SLITHER1"),
-            "I" : new IdentityCheck([EpsilonHead]),
+            "I" : new IdentityCheck(EpsilonHead),
 
             "w" : new RadioReceiver("W"),
             "a" : new RadioReceiver("A"),
@@ -693,7 +693,7 @@ const logicMaps = {
             "P" : new FormEntity("Player"), // just testing for now, no player targeters later
             "F" : new BooleanFlip(),
             "B" : new BooleanGate(true),
-            "I" : new IdentityCheck([EpsilonHead,EpsilonTail]),
+            "I" : new IdentityCheck(EpsilonHead),
 
             "C" : new StandardForm("EGO"),
             "S" : new PaintTile("Red"),

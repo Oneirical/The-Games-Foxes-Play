@@ -131,6 +131,7 @@ class SoulAbsorber extends AxiomTemp{
                     data["caster"].souls[data["caster"].findFirstEmptySlot()] = j;
                 }
                 locatePlayer();
+                soulTree.updateSlots(data["caster"]);
             }
         }
         return data;
@@ -152,6 +153,7 @@ class SoulInjector extends AxiomTemp{
                 let loc = i.monster.findFirstEmptySlot();
                 i.monster.souls[loc] = Object.create(this.storage);
                 i.monster.souls[loc].owner = i.monster;
+                soulTree.updateSlots(i.monster);
             }
         }
         return data;
@@ -240,10 +242,16 @@ class IdentityCheck extends AxiomTemp{
         this.dataType = ["Creature"];
     }
     act(data){
-        let check = false;
-        for (let i of this.storage){
-            if (data["caster"] instanceof i) check = true;
+        if (!(this.storage instanceof Monster)){
+            for (let i of monsters){
+                if (i instanceof this.storage){
+                    this.storage = i;
+                    break;
+                }
+            }
         }
+        let check = false;
+        if (data["caster"] instanceof this.storage.constructor) check = true;
         if (!check) data["break"] = true;
         return data;
     }
@@ -265,7 +273,7 @@ class BooleanFlip extends AxiomTemp{
     }
     act(data){
         let surr = this.soul.getLogicNeighbours(this,true);
-        for (let i of surr) if (i.dataType.includes["Boolean"]) i.storage = !i.storage;
+        for (let i of surr) if (i.dataType.includes("Boolean")) i.storage = !i.storage;
         return data;
     }
 }
