@@ -351,13 +351,18 @@ function startGame(){
 function summonMonster(x,y,type){
     let tile = getTile(x,y);
     let monster = new type(tile);
+    monsters.push(monster);
     for (let j of Object.keys(monster.souls)){
-        if (monster.souls[j]) monster.souls[j] = new Soul(monster.souls[j],monster);
+        if (monster.souls[j]){
+            monster.souls[j] = new Soul(monster.souls[j],monster);
+            for (let r of monster.souls[j].axioms){
+                for (let p of r) p.translate();
+            }
+        } 
     }
     if (monster.generationMark){
         monster.extraConfig(world.playSpace);
     }
-    monsters.push(monster);
     monster.setUpSprite();
 }
 

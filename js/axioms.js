@@ -27,6 +27,8 @@ class AxiomTemp{
         else if (Colour.colourTypes.includes(this.storage) && this.dataType.includes("Colour")) this.storage = new Colour(this.storage);
         else if (Caste.casteTypes.includes(this.storage) && this.dataType.includes("Caste")) this.storage = new Caste(this.storage);
     }
+
+    translate(){};
 }
 
 class EmptyAxiom extends AxiomTemp{
@@ -144,9 +146,13 @@ class SoulInjector extends AxiomTemp{
         this.storage = soul;
         this.dataType = ["Soul"];
     }
+
+    translate(){
+        if (typeof this.storage === 'string') this.storage = new Soul(this.storage);
+    }
+
     act(data){
         if (!this.storage) return data;
-        if (typeof this.storage === 'string') this.storage = new Soul(this.storage);
         if (this.storage.axioms === []) throw new Error("Axioms have been emptied.");
         for (let i of data["targets"]){
             if (i.monster && i.monster.findFirstEmptySlot()){
@@ -210,12 +216,24 @@ class EntityFilter extends AxiomTemp{
         this.storage = entity;
         this.dataType = ["Creature"];
     }
+
+    translate(){
+        if (!(this.storage instanceof Monster)){
+            for (let i of monsters){
+                if (i instanceof this.storage){
+                    this.storage = i;
+                    break;
+                }
+            }
+        }
+    }
+
     act(data){
         let newTargets = [];
         for (let i = data["targets"].length-1; i>=0; i--){
             let r = data["targets"][i];
             if (!r.monster) continue;
-            else if (!(r.monster instanceof this.storage)) continue;
+            else if (!(r.monster instanceof this.storage.constructor)) continue;
             else newTargets.push(r);
         }
         data["targets"] = newTargets;
@@ -241,7 +259,8 @@ class IdentityCheck extends AxiomTemp{
         this.storage = iden;
         this.dataType = ["Creature"];
     }
-    act(data){
+
+    translate(){
         if (!(this.storage instanceof Monster)){
             for (let i of monsters){
                 if (i instanceof this.storage){
@@ -250,6 +269,9 @@ class IdentityCheck extends AxiomTemp{
                 }
             }
         }
+    }
+
+    act(data){
         let check = false;
         if (data["caster"] instanceof this.storage.constructor) check = true;
         if (!check) data["break"] = true;
@@ -350,11 +372,15 @@ class FormEntity extends AxiomTemp{
         this.storage = entity;
         this.dataType = ["Creature","Tile"];
     }
+
+    translate(){
+        if (this.storage == "Player") this.storage = player;
+    }
+
     act(data){
         let dest;
         if (!this.storage) return data;
-        if (this.storage == "Player") dest = player.tile;
-        else if (this.storage instanceof Tile) dest = this.storage;
+        if (this.storage instanceof Tile) dest = this.storage;
         else dest = this.storage.tile;
         data["targets"].push(dest);
         return data;
@@ -367,10 +393,14 @@ class FormTile extends AxiomTemp{
         this.storage = tile;
         this.dataType = ["Creature","Tile"];
     }
-    act(data){
+
+    translate(){
         if (this.storage == "ScarabWaypoint") this.storage = getTile(world.waypointLocation[0],world.waypointLocation[1]);
         if (this.storage instanceof Monster) this.storage = this.storage.tile;
-        else if (!this.storage) return data;
+    }
+
+    act(data){
+        if (!this.storage) return data;
         let dest = this.storage;
         data["targets"].push(dest);
         return data;

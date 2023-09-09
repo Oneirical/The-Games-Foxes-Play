@@ -257,6 +257,17 @@ class Universe{
         tickProjectors();
         world.cage.generateWorld()
         world.cage.pocketworld.hypnoDisplay();
+
+        for (let i of monsters){
+            for (let j of i.loopThroughSouls()){
+                if (!j) continue;
+                for (let r of j.axioms){
+                    for (let p of r){
+                        p.translate();
+                    }
+                }
+            }
+        }
     }
 
     passUp(layer,origin){

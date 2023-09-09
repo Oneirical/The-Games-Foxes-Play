@@ -59,6 +59,8 @@ class Tile{
             if (this.monster){
                 console.log(this.monster);
                 soulTree.updateSlots(this.monster);
+                if (!wheel.displayCon.children.includes(wheel.wheelCon)) wheel.displayCon.addChild(wheel.wheelCon);
+                if (wheel.currentSoulDisplayed) wheel.displayCon.removeChild(wheel.currentSoulDisplayed.displayCon);
             }
         });
         this.spriteDisplay.on('pointerout', (event) => {
