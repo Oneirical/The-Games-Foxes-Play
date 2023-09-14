@@ -912,8 +912,8 @@ soulData = {
         "descript" : "On Pulse, if there are currently no Targets, Sever.",
     },
     "RadioBroadcaster" : {
-        "name" : "hai",
-        "lore" : "hai",
+        "name" : "Signals Sever the Skies",
+        "lore" : "In a world as connected as ours, quarantine and isolation are but distant memories. Weaker souls remain dazed in place, hypnotized by the flow of discourse, entertainment and strife burning their neurons to a crisp.",
         "descript" : "On Pulse, all Creatures on the current Plane are sent the Message-type Data of this Axiom.",
     },
     "SoulInjector" : {
@@ -927,18 +927,18 @@ soulData = {
         "descript" : "hai",
     },
     "LastDamageSource" : {
-        "name" : "hai",
+        "name" : "Scorn Those Who Made Flesh Bleed",
         "lore" : "hai",
         "descript" : "On Pulse, the Creature which last damaged the Self becomes this Axiom's Creature-type Data.",
     },
     "PaintTile" : {
-        "name" : "hai",
-        "lore" : "hai",
+        "name" : "Soaked Tails Trail Across The Soil",
+        "lore" : "Congealed, thought becomes art. Material things become stained with belief, slowly eroding away the beauty of oblivion until everything becomes cursed with meaning.",
         "descript" : "On Pulse, all Targets are Painted with this Axiom's Colour-type Data.",
     },
     "FailCatcher" : {
-        "name" : "hai",
-        "lore" : "hai",
+        "name" : "Where One Sees a Fall, An Ascent",
+        "lore" : "Push the head of an Unhinged in boiling water, tie their limbs in thorns, push needles in their eyes soaked in pepper - you cannot harm that which sees all harm as healing.",
         "descript" : "When any Adjacent Axioms are Severed, Pulse this Axiom, without returning to the Severed Axiom.",
     },
     "TriggerWatch" : {
@@ -947,13 +947,13 @@ soulData = {
         "descript" : "When an Axiom of this Axiom's Axiom-type Data is Pulsed, Pulse this Axiom, keeping the same Targets.",
     },
     "ClearPaint" : {
-        "name" : "hai",
-        "lore" : "hai",
+        "name" : "Stillness of Granite, Returned",
+        "lore" : "There were a few who craved peace, who undid art in search of a moment without meaning. When they realized their zeal for annihilation was Artistic in itself, their cries could be heard even through the walls of Faith's End.",
         "descript" : "On Pulse, all Targets are no longer Painted.",
     },
     "VoidTargets" : {
-        "name" : "hai",
-        "lore" : "hai",
+        "name" : "Void, Lusting To Be Filled",
+        "lore" : "The greatest Saints, after thinking all that was to be thought, refused perfection. They emptied their cups, joining the Feral in a fashion so full of hunger and yearning it would make even the stillest souls crave to be absorbed and entombed within them.",
         "descript" : "On Pulse, all Targets are no longer Targets.",
     },
     "SoulAbsorber" : {
@@ -968,7 +968,7 @@ soulData = {
     },
     "RadioReceiver" : {
         "name" : "hai",
-        "lore" : "hai",
+        "lore" : "We have come to breathe data as well as air. ",
         "descript" : "When this Creatures receives Message-type Data which corresponds to this Axiom's Message-type Data, Pulse this Axiom.",
     },
     "RealityAnchor" : {
