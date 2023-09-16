@@ -282,6 +282,7 @@ class NodeDescription{
         }
         else if (dataPoint instanceof Caste) return "Caste: "+dataPoint.caste;
         else if (dataPoint instanceof Soul) return "A captive Soul.";
+        else if (dataPoint && dataPoint.species) return "Species: "+dataPoint.species;
         else return "Nothing."
     }
 
@@ -1597,8 +1598,7 @@ class SoulTree{
     setUpSprites(){
         this.displayCon = new PIXI.Container();
         this.displayCon.y = 32*21;
-            uiDisplayLeft.addChild(this.displayCon);
-            console.log("wat");
+        uiDisplayLeft.addChild(this.displayCon);
         drawChainBorder(10,11,this.displayCon); 
         this.axiomCon = new PIXI.Container();
         this.axiomCon.x = -8;
@@ -1792,7 +1792,7 @@ class Soul{
             "NumberStorage" : 69,
             "HealProvider" : 70,
             "Contingency" : 72,
-            "SummonCreature" : 71,
+            "CloneCreature" : 71,
             "Structures" : 73,
             "LinkForm" : 75,
             "Song" : 76,
@@ -1802,7 +1802,7 @@ class Soul{
             "Turbulent" : 28,
             "FormEntity" : 13,
             "BooleanGate" : 33,
-            "IdentityCheck" : 24,
+            "SpeciesCheck" : 24,
             "FormTile" : 26,
             "Security" : 1,
             "AssimilateBroadcast" : 49,
@@ -1890,6 +1890,16 @@ class Soul{
             }
         }
         this.setUpSprites();
+    }
+
+    loopThroughAxioms(){
+        let ax = [];
+        for (let i = 0; i<5; i++){
+            for (let j = 0; j<5; j++){
+                ax.push(this.axioms[i][j]);
+            }
+        }
+        return ax;
     }
 
     findAxioms(type){

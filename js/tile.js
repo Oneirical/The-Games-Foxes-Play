@@ -826,10 +826,10 @@ class Altar extends Floor{
         this.spriteDisplay.eventMode = 'static';
         this.spriteDisplay.on('pointerover', (event) => {
             this.hitBox.alpha = 0.7;
-            if (isMouseDown) wheel.cageSoul(wheel.selectedCan,getTile(this.x,this.y));
+            //if (isMouseDown) wheel.cageSoul(wheel.selectedCan,getTile(this.x,this.y));
         });
         this.spriteDisplay.on('pointerdown', (event) => {
-            wheel.cageSoul(wheel.selectedCan,getTile(this.x,this.y));
+            //wheel.cageSoul(wheel.selectedCan,getTile(this.x,this.y));
         });
         this.spriteDisplay.on('pointerout', (event) => {
             this.hitBox.alpha = 0;

@@ -8,6 +8,7 @@
 //saintly = ["ROSE","ZAINT","ASTER"];
 
 basic = ["SERENE","VILE","FERAL","UNHINGED","ARTISTIC","ORDERED","SAINTLY"];
+const soulSlotNames = ["VILE","FERAL","UNHINGED","ARTISTIC","ORDERED","SAINTLY"];
 basicspire = ["VILES","FERALS","UNHINGEDS","ARTISTICS","ORDEREDS","SAINTLYS"];
 smod = ["Alacrity","Selective","Thrusters","Hover","Focus"];
 modulators = ["Alacrity","Selective","Thrusters","Hover","Focus"];

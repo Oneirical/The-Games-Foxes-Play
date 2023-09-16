@@ -1,4 +1,5 @@
 class Monster{
+    static species = "Plated"; //monsterNames[this.name]
     constructor(tile, sprite, hp, loot, lore){
         this.sprite = sprite;
         this.spritesave = sprite;
@@ -196,14 +197,14 @@ class Monster{
 
     loopThroughSouls(){
         let arr = [];
-        for (let i of Object.keys(this.souls)){
+        for (let i of soulSlotNames){
             arr.push(this.souls[i]);
         }
         return arr;
     }
 
     findFirstEmptySlot(){
-        for (let i of Object.keys(this.souls)){
+        for (let i of soulSlotNames){
             if (this.souls[i] === false) return i;
         }
         return false;

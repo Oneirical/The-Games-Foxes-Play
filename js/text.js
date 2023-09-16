@@ -454,6 +454,10 @@ const areaNames = {
     "Select" : "Select a destination..."
 }
 
+const monsterNames = {
+    "Scarab" : "Plated Thought-Ferry",
+}
+
 description = {
     // Creatures
     "Terminal" : "An artificial deity, kept captive in the Faith's End facility in prevision for the cataclysm prophetized to shatter reality. Until this moment, the Vessel waited. He engraved sigils into the metal with his claws, trying to imagine what the outside world even looks like. He ripped out chunks of steel in fits of rage, with only the inflexible silence answering his pleas for annihilation.",
@@ -846,10 +850,10 @@ soulData = {
         "lore" : "hai",
         "descript" : "On Pulse, all Targeted Creatures gain Health equal to this Axiom's Data."
     },
-    "SummonCreature" : {
+    "CloneCreature" : {
         "name" : "hai",
         "lore" : "hai",
-        "descript" : "On Pulse, all Targets without a Creature are filled with a new Creature of this Axiom's Creature-type Data."
+        "descript" : "On Pulse, all Targets without a Creature are filled with a clone of this Axiom's Creature-type Data."
     },
     "LinkForm" : {
         "name" : "hai",
@@ -876,10 +880,10 @@ soulData = {
         "lore" : "hai",
         "descript" : "On Pulse, if this Axiom's Boolean-type Data is False, Sever.",
     },
-    "IdentityCheck" : {
+    "SpeciesCheck" : {
         "name" : "hai",
         "lore" : "hai",
-        "descript" : "On Pulse, if the Self's Creature type does not match any of this Axiom's Creature-type Data, Sever.",
+        "descript" : "On Pulse, if the Self's Creature Species does not match this Axiom's Species-type Data, Sever.",
     },
     "FormTile" : {
         "name" : "hai",

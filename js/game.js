@@ -59,7 +59,7 @@ function locatePlayer(over){
 function assignSouls(){
     for (let r of universe.worlds){
         for (let i of r.playSpace.monsters){
-            for (let j of Object.keys(i.souls)){
+            for (let j of soulSlotNames){
                 if (i.souls[j]) i.souls[j] = new Soul(i.souls[j],i);
             }
             if (i.generationMark){
@@ -348,11 +348,20 @@ function startGame(){
     gameState = "running";
 }
 
-function summonMonster(x,y,type){
+function summonMonster(x,y,type){ // can accept a species or clone a creature
     let tile = getTile(x,y);
-    let monster = new type(tile);
+    let monster;
+    if (type instanceof Monster) monster = new type.constructor(tile);
+    else monster = new type(tile);
     monsters.push(monster);
-    for (let j of Object.keys(monster.souls)){
+    if (type instanceof Monster){
+        monster.souls = Object.create(type.souls);
+        JSON.stringify(type.souls);
+        for (let j of soulSlotNames){
+            if (monster.souls[j]) monster.souls[j].owner = monster;
+        }
+    }
+    else for (let j of soulSlotNames){
         if (monster.souls[j]){
             monster.souls[j] = new Soul(monster.souls[j],monster);
             for (let r of monster.souls[j].axioms){

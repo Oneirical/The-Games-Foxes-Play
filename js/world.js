@@ -668,6 +668,7 @@ class World{
             "ScarabFactory" : 1,
             "Garnison" : 1,
             "VileTransport" : 1,
+            "ScarabSample" : 1,
         }
         let usable = [];
         for (let i of worldgen){

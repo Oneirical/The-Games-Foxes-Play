@@ -521,7 +521,7 @@ const logicMaps = {
             "K" : new ContinKilled(),
             "L" : new LastDamageSource(),
             "B" : new AssimilateBroadcast("DANGER"),
-            "I" : new IdentityCheck(Scarab),
+            "I" : new SpeciesCheck(Scarab),
         }
     },
     "Guard" : {
@@ -580,7 +580,7 @@ const logicMaps = {
             "E" : new RadioReceiver("TERMINATE"),
             "P" : new StandardForm("PLUS"),
             "H" : new HealProvider(1),
-            "I" : new IdentityCheck(EpsilonTail),
+            "I" : new SpeciesCheck(EpsilonTail),
         }
     },
     "ScarabHack" : {
@@ -610,7 +610,7 @@ const logicMaps = {
             "N" : new NumberStorage(998),
             "M" : new ModuloGate(999),
             "P" : new StandardForm("PLUS"),
-            "S" : new SummonCreature(Scarab),
+            "S" : new CloneCreature(Scarab),
         }
     },
     "EpsilonControl1":{
@@ -625,7 +625,7 @@ const logicMaps = {
             "C" : new StandardForm("EGO"),
             "S" : new PaintTile("Red"),
             "N" : new RadioBroadcaster("SLITHER1"),
-            "I" : new IdentityCheck(EpsilonHead),
+            "I" : new SpeciesCheck(EpsilonHead),
             "E" : new RadioBroadcaster("EON"),
 
             "w" : new RadioReceiver("W"),
@@ -652,7 +652,7 @@ const logicMaps = {
             "C" : new StandardForm("EGO"),
             "S" : new PaintTile("Red"),
             "N" : new RadioBroadcaster("SLITHER1"),
-            "I" : new IdentityCheck(EpsilonHead),
+            "I" : new SpeciesCheck(EpsilonHead),
 
             "w" : new RadioReceiver("W"),
             "a" : new RadioReceiver("A"),
@@ -693,7 +693,7 @@ const logicMaps = {
             "P" : new FormEntity("Player"), // just testing for now, no player targeters later
             "F" : new BooleanFlip(),
             "B" : new BooleanGate(true),
-            "I" : new IdentityCheck(EpsilonHead),
+            "I" : new SpeciesCheck(EpsilonHead),
 
             "C" : new StandardForm("EGO"),
             "S" : new PaintTile("Red"),
@@ -1057,6 +1057,21 @@ var rooms = {
         "tags": ["randomgen","randomflip"],
         "creatures" : {
             "f" : Weaver,
+        }
+    },
+    "ScarabSample" : {
+        0 : "####E####",
+        1 : "#.......#",
+        2 : "#.......#",
+        3 : "#..WWW..#",
+        4 : "E..WsW..E",
+        5 : "#..WWW..#",
+        6 : "#.......#",
+        7 : "#.......#",
+        8 : "####E####",
+        "tags": ["randomgen","randomflip"],
+        "creatures" : {
+            "s" : Scarab,
         }
     },
     "ScarabWaypoint" : {

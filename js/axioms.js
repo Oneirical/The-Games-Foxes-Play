@@ -148,7 +148,13 @@ class SoulInjector extends AxiomTemp{
     }
 
     translate(){
-        if (typeof this.storage === 'string') this.storage = new Soul(this.storage);
+        if (typeof this.storage === 'string'){
+            this.storage = new Soul(this.storage);
+            for (let i of this.storage.loopThroughAxioms()){
+                i.translate();
+            }
+        }
+
     }
 
     act(data){
@@ -253,27 +259,16 @@ class BooleanGate extends AxiomTemp{
     }
 }
 
-class IdentityCheck extends AxiomTemp{
+class SpeciesCheck extends AxiomTemp{
     constructor(iden){
         super();
         this.storage = iden;
-        this.dataType = ["Creature"];
-    }
-
-    translate(){
-        if (!(this.storage instanceof Monster)){
-            for (let i of monsters){
-                if (i instanceof this.storage){
-                    this.storage = i;
-                    break;
-                }
-            }
-        }
+        this.dataType = ["Species"];
     }
 
     act(data){
         let check = false;
-        if (data["caster"] instanceof this.storage.constructor) check = true;
+        if (data["caster"] instanceof this.storage) check = true;
         if (!check) data["break"] = true;
         return data;
     }
@@ -334,7 +329,7 @@ class OverwriteSlot extends AxiomTemp{
         }
         for (let i of data["targets"]){
             if (i.monster){
-                for (let s of Object.keys(i.monster.souls)){
+                for (let s of soulSlotNames){
                     if (s == this.storage.caste && i.monster.souls[s]){
                         for (let a of assi){
                             i.monster.souls[s].axioms[a.x][a.y] = a;
@@ -383,6 +378,7 @@ class FormEntity extends AxiomTemp{
         if (this.storage instanceof Tile) dest = this.storage;
         else dest = this.storage.tile;
         data["targets"].push(dest);
+        if (!dest) throw new Error("An undefined tile was pushed to targets.");
         return data;
     }
 }
@@ -403,6 +399,7 @@ class FormTile extends AxiomTemp{
         if (!this.storage) return data;
         let dest = this.storage;
         data["targets"].push(dest);
+        if (!dest) throw new Error("An undefined tile was pushed to targets.");
         return data;
     }
 }
@@ -474,12 +471,24 @@ class ModuloGate extends AxiomTemp{
     }
 }
 
-class SummonCreature extends AxiomTemp{
+class CloneCreature extends AxiomTemp{
     constructor(crea){
         super();
         this.storage = crea;
         this.dataType = ["Creature"];
     }
+
+    translate(){
+        if (!(this.storage instanceof Monster)){
+            for (let i of monsters){
+                if (i instanceof this.storage){
+                    this.storage = i;
+                    break;
+                }
+            }
+        }
+    }
+
     act(data){
         if (data["targets"].length == 0){
             data["break"] = true;
@@ -581,7 +590,10 @@ axiomEffects = {
             return data;
         }
         let path = astair(currentTile,chosen);
-        if(path.length == 0) return data;
+        if(path.length == 0){
+            path = line(currentTile,chosen);
+            path.shift();
+        }
         let dir = [path[0].x-data["caster"].tile.x,path[0].y-data["caster"].tile.y];
         if (!data["caster"].tryMove(dir[0],dir[1])) data["break"] = true;
         return data;
