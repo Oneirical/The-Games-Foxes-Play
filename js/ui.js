@@ -1887,6 +1887,18 @@ class Soul{
         this.setUpSprites();
     }
 
+    cloneSoul(){
+        let newSoul = new Soul("Empty",this.owner);
+        for (let i = 0; i<5; i++){
+            for (let j = 0; j<5; j++){
+                newSoul.axioms[i][j] = Object.create(this.axioms[i][j]); //may cause problems eventually with souls inside souls - maybe ban this and setup "references" to other creatures instead of storing souls
+            }
+        }
+        newSoul.setUpSprites();
+        newSoul.findContingencies();
+        return newSoul;
+    }
+
     loopThroughAxioms(){
         let ax = [];
         for (let i = 0; i<5; i++){

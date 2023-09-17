@@ -105,11 +105,25 @@ World Seed
 Epsilon - Ordered champion
 Senet - Vile champion
 
-F3 - Unhinged Champion
+Ataixa - Unhinged Champion
 Boolean - Artistic Champion
 
 Rose - Saintly champion
 Anisychia - Feral champion
+
+some objectives
+
+Regal Frills and Golden Yellows
+Purple Taint Chokes Out Life
+
+Flaring Orange Burns Away Restraint
+One World, All Black and White
+
+Sickly Sweet Ribbons of Pink
+Bright Red Blood, A Shriek
+
+Surging Cyan Rivers Drown Thought
+
 
 **Various Contingencies**
 
