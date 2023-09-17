@@ -20,8 +20,8 @@ class Tile{
         this.paint = false;
     }
 
-    stepOut(){
-    }
+    stepOut(){};
+    interact(){};
 
     setUpSprite(){
         this.tilecon = new PIXI.Container();
@@ -207,58 +207,6 @@ class Tile{
         else return worldgen[this.x + dx][this.y + dy];
     }
 
-    drawFreeform(x, y, size){
-        drawSpriteFreeform(this.sprite, this.x, this.y, x, y, size);
-    }
-
-    draw(){
-        drawSprite(this.sprite, this.x, this.y);
-        if (this.clickTrap){
-            drawSprite(69,this.x,this.y);
-        }
-        if(this.trap){                      
-            drawSprite(12, this.x, this.y);
-            this.lore = description["Mine"];
-            this.name = "Regret-Powered Mine (friendly)";
-        }
-        if(this.cuff){
-            drawSprite(42,this.x, this.y);
-            this.lore = description["Bundle"];
-            this.name = "Bundle-of-Paws";
-        }
-        if (this.eviltrap){
-            drawSprite(46,this.x, this.y);
-            this.lore = description["HMine"];
-            this.name = "Regret-Powered Mine (hostile)";
-        }
-        if (this.siphon){
-            drawSprite(50,this.x, this.y);
-            this.lore = description["Siphon"];
-            this.name = "Soul Siphon";
-        }
-        if (this.pin){
-            drawSprite(51,this.x, this.y);
-            this.lore = description["Pinwheel"];
-            this.name = "Folded Pinwheel";
-        }
-        if (this.flufftrap){
-            drawSprite(69,this.x,this.y);
-            this.lore = description["FluffTrap"];
-            this.name = "Harmonic Audioplate";
-        }
-        if (this.recallpoint){
-            drawSprite(69,this.x,this.y);
-            this.lore = description["RecallPoint"];
-            this.name = "Identity Anchor";
-        }
-        if(this.effectCounter){                    
-            this.effectCounter--;
-            ctx.globalAlpha = this.effectCounter/30;
-            drawSprite(this.effect, this.x, this.y);
-            ctx.globalAlpha = 1;
-        }
-    }
-
     addSoulsOnFloor(){
         for (let i of this.souls){
             i.owner.creaturecon.x = 0;
@@ -336,27 +284,10 @@ class Floor extends Tile{
                 trapsafe = true;
             }
         }
-        if((!monster.isPlayer&&!monster.statusEff["Charmed"] > 0)&& this.trap){  
-            spells["ARTTRIGGER"](monster.tile);
-            playSound("treasure");            
-            this.trap = false;
-        }
-        if((!monster.isPlayer&&!monster.statusEff["Charmed"] > 0&&!monster.permacharm)&& this.flufftrap){
-            this.flufftrap = false;
-            let fluffy = new BattleFluffy(monster.tile);
-            removeItemOnce(monsters, monster);
-            monsters.push(fluffy);
-            playSound("treasure");      
-        }
         if (monster.isPlayer && this.cuff && trapsafe){
             player.para = 1;
             playSound("fail");
             this.cuff = false;
-        }
-        if ((monster.isPlayer||monster.statusEff["Charmed"] > 0) && this.eviltrap && trapsafe){
-            playSound("fail");
-            spells["ARTTRIGGER"](monster.tile);
-            this.eviltrap = false;
         }
         if ((monster.isPlayer) && this.pin && trapsafe){
             playSound("fail");
@@ -479,12 +410,6 @@ class RoseWall extends Wall{
     };
 
     stepOn(monster){
-    }
-
-    draw(){
-        ctx.globalAlpha = 0.35;
-        super.draw();
-        ctx.globalAlpha = 1;
     }
 }
 
@@ -697,6 +622,10 @@ class Airlock extends Tile{
         this.eat = false;
     };
 
+    interact(){
+        this.open();
+    }
+
     findDirection(){
         if (this.direction) return;
         const directions = {
@@ -888,30 +817,6 @@ class Altar extends Floor{
         }
     }
 
-    draw(){
-        if (world.cage.slots[this.x][this.y].shattered){
-            world.cage.slots[this.x][this.y] = new Shattered();
-            return;
-        }
-        super.draw();
-        if (!world.cage.slots[this.x][this.y].turbulent) drawSymbol(world.cage.slots[this.x][this.y].icon, this.x*tileSize+16, this.y*tileSize+16,80);
-        else{
-            this.thrashcounter++;
-            if (this.thrashcounter > 10 && this.offsetX == 0 && this.offsetY == 0){
-                let rt = randomRange(1,4);
-                if (rt == 1) this.offsetX+= 0.1;
-                else if (rt == 2) this.offsetX-= 0.1;
-                else if (rt == 3)this.offsetY+= 0.1;
-                else if (rt == 4)this.offsetY-= 0.1;
-                this.thrashcounter = 0;
-            }
-            drawSymbol(world.cage.slots[this.x][this.y].icon, this.getDisplayX()*tileSize + shakeX+16,  this.getDisplayY()*tileSize + shakeY+16,80);
-            ctx.globalAlpha = 1;
-            this.offsetX -= Math.sign(this.offsetX)*(this.speed);     
-            this.offsetY -= Math.sign(this.offsetY)*(this.speed);
-        }
-    }
-
     getValue(){
         let number = "?";
         if (this.value instanceof Saintly) number = "6";
@@ -1094,22 +999,6 @@ class FloorSoul extends Floor{ //unused
 
     getDisplayY(){                                                                  
         return this.y + this.offsetY;
-    }
-
-    draw(){
-        this.thrashcounter++;
-        if (this.thrashcounter > 10 && this.offsetX == 0 && this.offsetY == 0){
-            let rt = randomRange(1,4);
-            if (rt == 1) this.offsetX+= 0.1;
-            else if (rt == 2) this.offsetX-= 0.1;
-            else if (rt == 3)this.offsetY+= 0.1;
-            else if (rt == 4)this.offsetY-= 0.1;
-            this.thrashcounter = 0;
-        }
-        drawSymbol(this.sprite, this.getDisplayX()*tileSize + shakeX,  this.getDisplayY()*tileSize + shakeY,tileSize);
-        ctx.globalAlpha = 1;
-        this.offsetX -= Math.sign(this.offsetX)*(this.speed);     
-        this.offsetY -= Math.sign(this.offsetY)*(this.speed);
     }
 }
 
@@ -1303,7 +1192,6 @@ class ResearchNode extends Floor{
         this.flags = researchflags[this.id];
         this.description = researchexpl[this.id];
         this.unlock = researchunlocks[this.id];
-        if (researchunlockdata[this.id]) this.unlockdata = new researchunlockdata[this.id]("disabled");
         if (!this.unlock) this.unlock = researchunlocks["None"];
         this.discovered = false;
         this.completed = false;
@@ -1362,14 +1250,6 @@ class ResearchNode extends Floor{
             this.tilecon.filters = [];
         });
     }
-
-    draw(){
-        if (!this.discovered) ctx.globalAlpha = 0.55;
-        super.draw();
-        if (this.discovered) drawSymbol(this.contents, this.x*112+16, this.y*112+16,80);
-        else drawSymbol(7, this.x*112+16, this.y*112+16,80);
-        if (!this.discovered) ctx.globalAlpha = 1;
-    }
 }
 
 class Window extends Wall{
@@ -1380,17 +1260,10 @@ class Window extends Wall{
         this.mutable = false;
         this.sprite = 129;
     };
-
-    draw(){
-        ctx.globalAlpha = 0.65;
-        super.draw();
-        ctx.globalAlpha = 1;
-    }
 }
 
 function goToCage(){
     tiles[4][0].stepOn(player);
     tiles[4][0].stepOn(player);
-    summonExits();
     tiles[4][0].stepOn(player);
 }

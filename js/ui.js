@@ -497,11 +497,6 @@ class Cursor{
     getDisplayY(){                                                                  
         return this.tile.y;
     }
-    draw(){
-        drawSprite(this.sprite, this.getDisplayX(),  this.getDisplayY());
-        this.offsetX -= Math.sign(this.offsetX)*(1/8);     
-        this.offsetY -= Math.sign(this.offsetY)*(1/8); 
-    }
     tryMove(newTile){
         if (newTile.x < numTiles && newTile.y < numTiles && newTile.x >= 0 && newTile.y >= 0){
             if (inResearch && !(research.page[newTile.x][newTile.y] instanceof ResearchNode ||research.page[newTile.x][newTile.y] instanceof ResearchConnector )) return;

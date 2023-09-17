@@ -102,16 +102,6 @@ class DroppedSoul{
         this.tile.souls.push(this);                       
     }
 
-    draw(){
-        if (this.tile == this.attach.tile && this.offsetX == 0 && this.offsetY == 0) return;
-        ctx.globalAlpha = 0.5;
-        drawSymbol(this.sprite, this.getDisplayX()*tileSize + shakeX,  this.getDisplayY()*tileSize + shakeY,tileSize);
-        ctx.globalAlpha = 1;
-        if (false) speed = 1; // ???
-        this.offsetX -= Math.sign(this.offsetX)*(this.speed);     
-        this.offsetY -= Math.sign(this.offsetY)*(this.speed);
-    }
-
     update(){
         if (this.attach.soulstun <= 3){
             this.move(this.attach.tile);

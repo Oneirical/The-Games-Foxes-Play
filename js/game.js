@@ -1,27 +1,3 @@
-function summonExits(){
-    //return;
-    for (let x of tiles){
-        for (let y of x){
-            if (!y) continue;
-            if (y instanceof BExit || y instanceof BAscendExit){
-                let id = y.id;
-                let px = y.x;
-                let py = y.y;
-                tilesDisplay.removeChild(tiles[px][py].tilecon);
-                if (y instanceof BExit) tiles[px][py] = new MapExit(px,py,world.getRoom());
-                if (y instanceof BAscendExit) tiles[px][py] = new AscendExit(px,py,world.getRoom());
-                tiles[px][py].setUpSprite();
-                tiles[px][py].id = id;
-            }
-            if (y.clickTrap){
-                y.clickTrap = false;
-                y.tilecon.removeChild(y.clickTrap.trapImg);
-            }
-        }
-    }
-    world.fighting = false;
-}
-
 function trigger(key,assi){
     for (let i of monsters){
             i.trigger(key,assi);
@@ -67,18 +43,6 @@ function assignSouls(){
             }
         }
     }
-}
-
-function makeItFunny(){
-    tilesDisplay.removeChild(player.creaturecon);
-    let epsilon;
-    for (let i of monsters) if (i instanceof EpsilonHead) epsilon = i;
-    player = epsilon;
-    tilesDisplay.addChild(player.creaturecon);
-    player.creaturecon.x = 8*tileSize;
-    player.creaturecon.y = 8*tileSize;
-    removeItemOnce(monsters,player);
-    for (let i of monsters) i.partOfPlayer = true;
 }
 
 function teleport(target,destination,data){
@@ -186,150 +150,6 @@ function isFunction(str){
     else return false;
 }
 
-function beginTurn(){
-    // for(let k=monsters.length;k>=0;k--){
-    //     let activeeffects = [];
-    //     let con;
-    //     if (k == monsters.length) con = player;
-    //     else con = monsters[k];
-    //     for (let i of Object.keys(con.statusEff)){
-    //         if (con.statusEff[i] > 0) activeeffects.push(i);
-    //         con.statusEff[i] = Math.max(0,con.statusEff[i]-1);
-    //         if (con.statusEff[i] > 0 && activeeffects.includes(i)) removeItemOnce(activeeffects,i);
-    //     }
-    //     con.effectsExpire(activeeffects);
-    // }
-
-    // for(let k=monsters.length;k>=0;k--){
-    //     let con;
-    //     if (k == monsters.length) con = player;
-    //     else con = monsters[k];
-    //     if (con.soullink && con.soullink instanceof Tile){
-    //         con.move(con.soullink);
-    //         con.soullink = null;
-    //     }
-    // }
-}
-
-function tick(){
-    player.update();
-    player.endTurn();
-    deadcheck = 0;
-    if (world.getRoom() instanceof EpsilonArena && !monsters[0].dead){
-        monsters[0].update();
-        monsters[1].update();
-        monsters[2].update();
-        monsters[3].update();
-        monsters[4].update();
-    }
-    else if (world.getRoom() instanceof EpsilonArena && monsters[0].dead){
-        for (let x of monsters){
-            if (x.order >= 0){
-                x.tile.getAllNeighbors().forEach(function(t){
-                    t.setEffect(1, 30);
-                });
-            }
-            removeItemOnce(monsters,x);
-        }
-        shakeAmount = 40;
-        gameState = "dead";
-        playSound("epsideath");
-        pauseAllMusic();
-        playSound("roseic");
-        log.addLog("EpsilonDefeat");
-        victory = true;
-    }
-    for(let k=monsters.length-1;k>=0;k--){
-        if (monsters[k].doomed && !monsters[k].isPlayer) monsters[k].hit(99);
-        if(!monsters[k].dead && monsters[k].order < 0){
-            monsters[k].update();
-            monsters[k].endTurn();
-            if (k >= monsters.length) break;
-            if (!monsters[k].permacharm || monsters[k].name.includes("Vermin")) deadcheck++
-        }else if (monsters[k].order < 0){
-            monsters.splice(k,1);
-        }
-    }
-    for(let k=droppedsouls.length-1;k>=0;k--){
-        droppedsouls[k].update();
-    }
-    if (deadcheck == 0 && area == "Faith"){
-        //gener8 sortie si every1 est ded
-        if (world.fighting){
-            if(world.getRoom().hostile){
-                universe.worlds[universe.currentworld-1].cage.slots[world.getRoom().index[0]][world.getRoom().index[1]].turbulent = false;
-                world.influence[toTitleCase(universe.worlds[universe.currentworld-1].cage.slots[world.getRoom().index[0]][world.getRoom().index[1]].id)]++;
-                universe.getTotalInfluence();
-            }
-            summonExits();
-            if (player.falsehp < 1){
-                player.falsehp = 1;
-                player.doomed = false;
-            }
-        }
-    }
-    else if (player.doomed) player.hit(99);
-
-    if(player.dead){
-        if (player.rosetox < 10) playSound("death");
-        else playSound("toxicdeath");
-        if (!(world.getRoom() instanceof EpsilonArena) && !(world.getRoom() instanceof WorldSeed)) {
-            gameState = "contemplation";
-            if (area == "Faith" && player.rosetox < 10) log.addLog("Agony");
-            else if (area == "Serene"){
-                log.addLog("Fallen");
-            }
-            else if (player.rosetox > 9){
-                log.addLog("Rosified");
-            }
-            //for(let k=monsters.length-1;k>=0;k--){
-            //    monsters.splice(k,1);
-            //}
-        }
-        else{
-            wheel.ipseity = lose(wheel.ipseity,5);
-            if(wheel.ipseity <= 0){
-                gameState = "dead";
-                pauseAllMusic();
-                playSound("falsity");
-                log.addLog("EpsilonDeath");
-            }
-            else{
-                player.hp = maxHp;
-                rosetoxin = 0;
-                player.rosetox = 0;
-                for (let x of monsters) x.sprite = x.spritesave;
-                if (wheel.ipseity > 5) log.addLog("EpsilonTaunt");
-                else  log.addLog("EpsilonOneChance");
-                player.dead = false;
-                player.tile.setEffect(1, 30);
-                spells["WOOP"](player);
-                player.sprite = 0;
-                player.fuffified = 0;
-                wheel.reshuffle();
-            }
-        }
-        
-        //gener8 exit if u r ded
-        //if (level % 5 != 0 && area == "Faith"){
-        //    tiles[Math.floor((numTiles-1)/2)][numTiles-1] = new Exit(Math.floor((numTiles-1)/2),numTiles-1)
-        //}
-        //else if (area == "Faith"){
-        //    tiles[Math.floor((numTiles-1)/2)][numTiles-1] = new FluffExit(Math.floor((numTiles-1)/2),numTiles-1)
-        //}
-        
-    }
-    //tickProjectors();
-    wheel.tickWheel();
-    statuses.updateDisplay();
-    world.tickMap();
-    gameTurns++;
-}
-
-//let bosstitle = ["-Last of the Saints-","-Supreme Ordered General-","-the Unfaltering Wheel-","-Grand Harmonic Maestra-"];
-
-//let bar = ["⚙⚙","Σ","❄❄","♡♡"];
-
 function startGame(){   
     gameTurns = 0;                    
     level = 1;
@@ -356,7 +176,6 @@ function summonMonster(x,y,type){ // can accept a species or clone a creature
     monsters.push(monster);
     if (type instanceof Monster){
         monster.souls = Object.create(type.souls);
-        JSON.stringify(type.souls);
         for (let j of soulSlotNames){
             if (monster.souls[j]) monster.souls[j].owner = monster;
         }
@@ -373,14 +192,6 @@ function summonMonster(x,y,type){ // can accept a species or clone a creature
         monster.extraConfig(world.playSpace);
     }
     monster.setUpSprite();
-}
-
-function playerTransformTest(type){
-    let tile = getTile(player.tile.x,player.tile.y);
-    let monster = new type(tile);
-    monster.teleportCounter = 0;
-    player = monster;
-    player.setUpSprite();
 }
 
 function astair(start,dest){
@@ -403,12 +214,6 @@ function astair(start,dest){
     return foundTiles;
 }
 
-function unlockAllSpells(){
-    for (let i of Object.keys(spellpatterns)){
-        research.knownSpells.push(i);
-    }
-}
-
 function getSouls(noturb){
     let i = [Saintly,Ordered,Artistic,Unhinged,Feral,Vile];
     for (let r of i){
@@ -416,15 +221,6 @@ function getSouls(noturb){
             wheel.addSoul(r,noturb);
         }
     }
-}
-
-function getCastableSpells(){
-    wheel.wheel[0] = new Saintly();
-    wheel.wheel[1] = new Ordered();
-    wheel.wheel[2] = new Artistic();
-    wheel.wheel[3] = new Unhinged();
-    wheel.wheel[4] = new Feral();
-    wheel.wheel[5] = new Vile();
 }
 
 function reviver(_, value) {

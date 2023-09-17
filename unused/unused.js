@@ -1081,3 +1081,186 @@ spells = {
         }
     },
 };
+
+
+function tryMoveOld(dx, dy){
+    let newTile = this.tile.getNeighbor(dx,dy);
+    if(newTile.passable){
+        this.lastMove = [dx,dy];
+        if(!newTile.monster || (newTile.monster && newTile.monster instanceof Harmonizer)){
+            let boxpull = false;
+            if (this.tile.getNeighbor(-dx,-dy).monster && this.tile.getNeighbor(-dx,-dy).monster.pushable && this.isPlayer) boxpull = this.tile;
+            if (this.canmove){
+                this.move(newTile);
+            }
+            if (boxpull) boxpull.getNeighbor(-dx,-dy).monster.move(boxpull);
+            if (this instanceof Oracle) this.bonusAttack += (1/3);
+        }else{
+            let crit;
+            research.completeResearch("Intro");
+            if(((this.isPlayer != newTile.monster.isPlayer)||newTile.monster.statusEff["Marked"] > 0||(this.statusEff["Charmed"] > 0 && !newTile.monster.isPlayer && !newTile.monster.statusEff["Charmed"] > 0))&&!this.isPassive && !newTile.monster.isGuide &&!newTile.monster.pushable && !(this.statusEff["Charmed"] > 0&&newTile.monster.isPlayer)){
+                this.attackedThisTurn = true;
+                let bonusAttack = this.bonusAttack;
+                this.bonusAttack = 0;
+                if (!this.fphit) newTile.monster.hit(this.dmg + Math.floor(bonusAttack),player);
+                else newTile.monster.fp+=this.fphit;
+                if (newTile.monster){
+                    if (newTile.monster.fp > 0) {
+                        crit = newTile.monster.knockback(newTile.monster.fp, [dx, dy]);
+                        if (world.getRoom() instanceof WorldSeed){
+                            player.fp = 0;
+                            player.hit(1);
+                        }
+                    }
+                }
+                if (newTile.monster){
+                    if (this.storedAttack) {
+                        this.storedAttack.trigger(this);
+                        this.storedAttack = false;
+                        this.statusEff["Infused"] = 0;
+                    }
+                }
+                if ((this.statusEff["Persuasive"] > 0) && newTile.monster){
+                    newTile.monster.statusEff["Charmed"] += 25;
+                    this.statusEff["Persuasive"] = lose(this.statusEff["Persuasive"],5);
+                }
+                if (this.specialAttack == "Harmony" && newTile.monster &&!newTile.monster.isPlayer&&!newTile.monster.loveless){
+                    removeItemOnce(monsters, newTile.monster);
+                    let fluffy = new BattleFluffy(newTile);
+                    monsters.push(fluffy);
+                    this.specialAttack = "";
+                }
+                else if (this.specialAttack == "Harmony" && newTile.monster && newTile.monster.isPlayer){ //fluffification 
+                    let fluffy = new BattleFluffy(newTile);
+                    player = fluffy;
+                    this.specialAttack = "";
+                }
+                if (this.specialAttack == "DDelay" && newTile.monster){
+                    if (newTile.monster.statusEff["Dissociated"] == 0) newTile.monster.falsehp = newTile.monster.hp;
+                    newTile.monster.statusEff["Dissociated"] = 2;
+                    
+                }
+                if (this.specialAttack == "Constrict" && newTile.monster && newTile.monster.isPlayer){
+                    if (!newTile.monster.constrict) log.addLog("Constricted");
+                    newTile.monster.constrict =true;
+                }
+                if (this.specialAttack == "Tox" && newTile.monster && newTile.monster.isPlayer){
+                    newTile.monster.rosetox++;
+                    newTile.monster.toxified = true;
+                }
+                if (this.specialAttack == "Warp" && newTile.monster){
+                    spells["WOOP"](this);
+                    let around = this.tile.getAdjacentPassableNeighbors();
+                    let empty = around.filter(t => !t.monster);
+                    if (empty.length > 0) newTile.monster.move(empty[0]);
+                }
+                if (this.specialAttack == "Trample" && newTile.monster){
+                    let lm = this.lastMove;
+                    let pushTile = getTile(newTile.x+lm[0],newTile.y+lm[1]);
+                    if (inBounds(pushTile.x,pushTile.y) && pushTile.passable){
+                        if (pushTile.monster){
+                            pushTile.monster.move(getTile(pushTile.x+lm[0],pushTile.y+lm[1]));
+                        }
+                        newTile.monster.move(pushTile);
+                        this.move(newTile);
+                    }
+                }
+                //this.bonusAttack = 0; //if (this.isPlayer) this.bonusAttack = 99; //godmode
+
+                shakeAmount = 5;
+                if (crit) shakeAmount = 15;
+                if (this.animating && this === player){
+                    tickProjectors();
+                    this.animating = false;
+                    tilesDisplay.projectorDisplay.x = -448;
+                    tilesDisplay.projectorDisplay.y = -448;
+                    tilesDisplay.creatureDisplay.x = -448;
+                    tilesDisplay.creatureDisplay.y = -448;
+                }
+                this.offsetX = -(newTile.x - this.tile.x)/2;    
+                this.offsetY = -(newTile.y - this.tile.y)/2;  
+                this.originalOffsetX = this.offsetX;
+                this.originalOffsetY = this.offsetY; 
+            }
+            else if(this.isPlayer && newTile.monster.isGuide && newTile.monster.dialoguecount < newTile.monster.diamax){
+                log.addLog(newTile.monster.dialogue[newTile.monster.dialoguecount]);
+                newTile.monster.dialoguecount++;
+            }else if (this.isPlayer && newTile.monster.isGuide && newTile.monster.dialoguecount == newTile.monster.diamax){
+                log.addLog(newTile.monster.dialogue[newTile.monster.dialoguecount]);//message = newTile.monster.dialogue[dialoguecount];
+                newTile.monster.dialoguecount = newTile.monster.diareset;
+            }else if (newTile.monster.pushable){ //this should integrate more cleanly with step code
+                let lm = this.lastMove;
+                let coredevour = false;
+                let abandon = false;
+                let pushTile = getTile(newTile.x+lm[0],newTile.y+lm[1]);
+                if (inBounds(pushTile.x,pushTile.y) && pushTile.passable){
+                    if (pushTile.monster){
+                        if (pushTile.monster instanceof Epsilon){
+                            pushTile.monster.cores++;
+                            for (let x of monsters){
+                                if (x.order == pushTile.monster.cores){
+                                    //NYOM!
+                                    x.sprite = newTile.monster.sprite;
+                                    x.name = newTile.monster.name;
+                                    x.ability = newTile.monster.ability;
+                                    x.lore = newTile.monster.lore;
+                                    x.spritesave = newTile.monster.spritesave;
+                                    x.installed = true;
+                                    pushTile.monster.corelist.push(newTile.monster.type);
+                                }
+                            }
+                            let corecount = 0;
+                            for (let x of monsters){
+                                if (x instanceof Tail && ((x.sprite == 21) || (x.sprite == 20) || (x.sprite == 19) || (x.sprite == 73) || (x.sprite == 22))) corecount++;
+                            }
+                            if (corecount == 4){
+                                pushTile.monster.hastalavista = true;
+                                log.addLog("EpsilonAllForOne");
+                                for (let z of monsters){
+                                    if (z.order > 0) z.triggered = true;
+                                }
+                                pushTile.monster.vulnerability = 99999;
+                            }
+                            coredevour = true;
+                            newTile.monster.hit(99);
+                            removeItemOnce(monsters, newTile.monster);
+                        }
+                        else if (!(pushTile.monster instanceof Box)){
+                            abandon = true;
+                            let neighbors = this.tile.getAdjacentPassableEmptyNeighbors();
+                            if(neighbors.length && !this.isPlayer){
+                                this.tryMove(neighbors[0].x - this.tile.x, neighbors[0].y - this.tile.y);
+                            }
+                            else return false;
+                        }
+                        else return false; //sigh, you used to be able to push multiple objects. idk what happened
+                        //else if (pushTile.monster instanceof Tail) return false;
+                        //else pushTile.monster.tryMove(getTile(lm[0],lm[1]);
+                    }
+                    if (!coredevour && !abandon) newTile.monster.move(pushTile);
+                    if (!abandon) this.move(newTile);
+                }
+                else{
+                    let neighbors = this.tile.getAdjacentPassableEmptyNeighbors();
+                    if(neighbors.length && !this.isPlayer){
+                        this.tryMove(neighbors[0].x - this.tile.x, neighbors[0].y - this.tile.y);
+                    }
+                    else return false;
+                }
+            }
+            else{
+                let neighbors = this.tile.getAdjacentPassableEmptyNeighbors();
+                if(neighbors.length && !this.isPlayer){
+                    this.tryMove(neighbors[0].x - this.tile.x, neighbors[0].y - this.tile.y);
+                }
+                else return false;
+            }
+            return false;
+        }
+        return true;
+    }
+    else if (newTile instanceof Airlock){
+        newTile.open();
+        return false;
+    }
+}

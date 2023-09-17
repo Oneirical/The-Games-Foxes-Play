@@ -249,7 +249,6 @@ class Universe{
         else locspawn = [4,7];
         monsters.push(player);
         world.appearRoom([spawnx,spawny]);
-        if(!world.getRoom().hostile) summonExits();
         world.setUpSprites();
         uiDisplayLeft.addChild(world.displayCon);
         this.layeredInfluence.add(world.influence);
@@ -1352,7 +1351,6 @@ class SpawnRoom extends DefaultVaultRoom{
         world.fighting = false;
         super.populateRoom();
         super.initializeRoom();
-        summonExits();
     }
 }
 
@@ -1371,7 +1369,6 @@ class WorldSeed extends DefaultVaultRoom{
         world.fighting = false;
         super.populateRoom();
         super.initializeRoom();
-        summonExits();
     }
 
     startTutorial(){
@@ -1476,7 +1473,6 @@ class AnnounceCorridor extends DefaultVaultRoom{
     }
     populateRoom(){
         super.populateRoom();
-        summonExits();
     }
 }
 
@@ -1691,27 +1687,12 @@ class HarmonyRelay extends DefaultVaultRoom{
     initializeRoom(){
         world.fighting = false;
         super.initializeRoom();
-        summonExits();
     }
 
     determineLoot(type){
         let lootdrop = new Senet();
         lootdrop = relayPool[type][randomRange(0,relayPool[type].length-1)];
         return lootdrop;
-    }
-
-    draw(){
-        wheel.hide = false;
-        if (player.tile instanceof BetAltar){
-            let commoncheck = false;
-            for (let x of commons){
-                if (player.tile.value instanceof x) commoncheck = true;
-            }
-            if (!commoncheck && !inInventory && !inResearch){
-                player.tile.value.describeAbridged();
-                wheel.hide = true;
-            }
-        }
     }
 
     summonLoot(elegance, slot1, slot2){
@@ -1820,7 +1801,6 @@ class HugeMap extends DefaultVaultRoom{
                 tiles[i][j].y = j;
             }
         }
-        summonExits();
         tickProjectors();
     }
 }

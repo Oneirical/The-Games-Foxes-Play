@@ -1174,16 +1174,6 @@ researchunlocks = {
     "RASEL" : "Completing this node will populate Visions with [f]Midnight Ragemaws[w] - terrifying beasts which require complete silence to die a true death.",
 }
 
-researchunlockdata = {
-    "None" : "",
-    "EGO" : Monk,
-    "GYVJI" : Weaver,
-    "SENET" : Felidol,
-    "BEAM" : Oracle,
-    "PARACEON" : Snail,
-    "RASEL" : Ragemaw,
-}
-
 researchflags = {
     "Research" : "Data",
     "APIS" : "Function",

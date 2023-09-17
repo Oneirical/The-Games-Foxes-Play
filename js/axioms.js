@@ -1,5 +1,3 @@
-//8ADJ - 4ADJ - RANDOM (up to power) - WALL - ALL - PAYLOAD (summon that unleashes targets on death)
-
 class AxiomTemp{
     static storageEquivalences = {
         "Creature" : Monster,
