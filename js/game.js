@@ -175,8 +175,8 @@ function summonMonster(x,y,type){ // can accept a species or clone a creature
     else monster = new type(tile);
     monsters.push(monster);
     if (type instanceof Monster){
-        monster.souls = Object.create(type.souls);
         for (let j of soulSlotNames){
+            if (type.souls[j]) monster.souls[j] = Object.create(type.souls[j]);
             if (monster.souls[j]) monster.souls[j].owner = monster;
         }
     }
