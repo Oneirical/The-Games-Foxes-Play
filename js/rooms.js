@@ -516,7 +516,7 @@ const logicMaps = {
         "keys" : {
             "R" : new RadioReceiver("EON"),
             "A" : new RadioReceiver("GONOW"),
-            "M" : new AxiomFunction("MOVE"),
+            "M" : new MoveFunction(),
             "P" : new FormTile("ScarabWaypoint"),
             "K" : new ContinKilled(),
             "L" : new LastDamageSource(),
@@ -533,7 +533,7 @@ const logicMaps = {
         "keys" : {
             "E" : new RadioReceiver("EON"),
             "R" : new RadioReceiver("DANGER"),
-            "M" : new AxiomFunction("MOVE"),
+            "M" : new MoveFunction(),
             "P" : new FormEntity(),
 
         }
@@ -558,9 +558,9 @@ const logicMaps = {
         4 : ".....",
         "keys" : {
             "E" : new RadioReceiver("EON"),
-            "M" : new AxiomFunction("MOVE"),
+            "M" : new MoveFunction(),
             "P" : new FormEntity(), //handled to link to the hacker
-            "C" : new StandardForm("PLUS"),
+            "C" : new PlusForm(),
             "F" : new EntityFilter(Apiarist),
             "A" : new NoTargetStop(),
             "V" : new VoidTargets(),
@@ -578,7 +578,7 @@ const logicMaps = {
         4 : ".....",
         "keys" : {
             "E" : new RadioReceiver("TERMINATE"),
-            "P" : new StandardForm("PLUS"),
+            "P" : new PlusForm(),
             "H" : new HealProvider(1),
             "I" : new SpeciesCheck(EpsilonTail),
         }
@@ -609,7 +609,7 @@ const logicMaps = {
             "I" : new NumberIncrementer(1),
             "N" : new NumberStorage(998),
             "M" : new ModuloGate(999),
-            "P" : new StandardForm("PLUS"),
+            "P" : new PlusForm(),
             "S" : new CloneCreature(Scarab),
         }
     },
@@ -620,9 +620,9 @@ const logicMaps = {
         3 : "..E.I",
         4 : "NIMoa",
         "keys" : {
-            "M" : new AxiomFunction("MOVE"),
+            "M" : new MoveFunction(),
 
-            "C" : new StandardForm("EGO"),
+            "C" : new EgoForm(),
             "S" : new PaintTile("Red"),
             "N" : new RadioBroadcaster("SLITHER1"),
             "I" : new SpeciesCheck(EpsilonHead),
@@ -646,10 +646,10 @@ const logicMaps = {
         3 : "..E.I",
         4 : "NIMus",
         "keys" : {
-            "M" : new AxiomFunction("MOVE"),
+            "M" : new MoveFunction(),
             "E" : new RadioBroadcaster("EON"),
 
-            "C" : new StandardForm("EGO"),
+            "C" : new EgoForm(),
             "S" : new PaintTile("Red"),
             "N" : new RadioBroadcaster("SLITHER1"),
             "I" : new SpeciesCheck(EpsilonHead),
@@ -673,7 +673,7 @@ const logicMaps = {
         4 : ".....",
         "keys" : {
             "R" : new RadioReceiver("EON"),
-            "P" : new StandardForm("PLUS"),
+            "P" : new PlusForm(),
             "D" : new DamageDealer(1),
             "F" : new EntityFilter(Scarab),
             "T" : new TriggerWatch(DamageDealer),
@@ -689,13 +689,13 @@ const logicMaps = {
         4 : "S...X",
         "keys" : {
             "R" : new RadioReceiver("EON"),
-            "M" : new AxiomFunction("MOVE"),
+            "M" : new MoveFunction(),
             "P" : new FormEntity("Player"), // just testing for now, no player targeters later
             "F" : new BooleanFlip(),
             "B" : new BooleanGate(true),
             "I" : new SpeciesCheck(EpsilonHead),
 
-            "C" : new StandardForm("EGO"),
+            "C" : new EgoForm(),
             "S" : new PaintTile("Red"),
             "V" : new VoidTargets(),
             "N" : new RadioBroadcaster("SLITHER1"),
@@ -714,11 +714,11 @@ const logicMaps = {
         4 : "....N",
         "keys" : {
             "R" : new RadioReceiver("SLITHER1"),
-            "P" : new StandardForm("PLUS"),
+            "P" : new PlusForm(),
             "F" : new PaintFilter("Red"),
-            "M" : new AxiomFunction("MOVE"),
+            "M" : new MoveFunction(),
             "X" : new ClearPaint(),
-            "C" : new StandardForm("EGO"),
+            "C" : new EgoForm(),
             "S" : new PaintTile("Red"),
             "V" : new VoidTargets(),
             "N" : new RadioBroadcaster("SLITHER2"),
@@ -732,11 +732,11 @@ const logicMaps = {
         4 : "....N",
         "keys" : {
             "R" : new RadioReceiver("SLITHER2"),
-            "P" : new StandardForm("PLUS"),
+            "P" : new PlusForm(),
             "F" : new PaintFilter("Red"),
-            "M" : new AxiomFunction("MOVE"),
+            "M" : new MoveFunction(),
             "X" : new ClearPaint(),
-            "C" : new StandardForm("EGO"),
+            "C" : new EgoForm(),
             "S" : new PaintTile("Red"),
             "V" : new VoidTargets(),
             "N" : new RadioBroadcaster("SLITHER3"),
@@ -750,11 +750,11 @@ const logicMaps = {
         4 : "....N",
         "keys" : {
             "R" : new RadioReceiver("SLITHER3"),
-            "P" : new StandardForm("PLUS"),
+            "P" : new PlusForm(),
             "F" : new PaintFilter("Red"),
-            "M" : new AxiomFunction("MOVE"),
+            "M" : new MoveFunction(),
             "X" : new ClearPaint(),
-            "C" : new StandardForm("EGO"),
+            "C" : new EgoForm(),
             "S" : new PaintTile("Red"),
             "V" : new VoidTargets(),
             "N" : new RadioBroadcaster("SLITHER4"),
@@ -768,11 +768,11 @@ const logicMaps = {
         4 : ".....",
         "keys" : {
             "R" : new RadioReceiver("SLITHER4"),
-            "P" : new StandardForm("PLUS"),
+            "P" : new PlusForm(),
             "F" : new PaintFilter("Red"),
-            "M" : new AxiomFunction("MOVE"),
+            "M" : new MoveFunction(),
             "X" : new ClearPaint(),
-            "C" : new StandardForm("EGO"),
+            "C" : new EgoForm(),
             "S" : new PaintTile("Red"),
             "V" : new VoidTargets(),
         }
@@ -797,7 +797,7 @@ const logicMaps = {
 
             "s" : new FormDir("S"),
             "R" : new RealityAnchor(),
-            "M" : new AxiomFunction("MOVE"),
+            "M" : new MoveFunction(),
             "T" : new RadioBroadcaster("EON"),
         }
     },
