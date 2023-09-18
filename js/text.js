@@ -905,7 +905,7 @@ soulData = {
         "lore" : "hai",
         "descript" : "On Pulse, all Adjacent Axioms with Boolean-type Data have their Data flipped.",
     },
-    "AxiomFunction" : {
+    "MoveFunction" : {
         "name" : "Steps Shift The Mind",
         "lore" : "To walk and let the mind wander is a dangerous thing. A thought pulls harder than the rest, one's gait softens into the grace of a Saint, tears turn to bright smiles, and before one knows it, one is no more.",
         "descript" : "On Pulse, the Self takes a step towards the nearest Target. If motion is impossible, Sever.",

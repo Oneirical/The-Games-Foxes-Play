@@ -1803,7 +1803,7 @@ class Soul{
             "AssimilateBroadcast" : 49,
             "OverwriteSlot" : 14,
             "BooleanFlip" : 39,
-            "AxiomFunction" : 74,
+            "MoveFunction" : 74,
             "NoTargetStop" : 40,
             "RadioBroadcaster" : 27,
             "SENET" : 8,

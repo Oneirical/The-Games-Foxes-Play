@@ -63,8 +63,7 @@ class Monster{
                         tilesDisplay.projectorDisplay.y = -448;
                         tilesDisplay.creatureDisplay.x = -448;
                         tilesDisplay.creatureDisplay.y = -448;
-                        let destination = 1;
-                        if (universe.currentworld == 1) destination = 0;
+                        let destination = universe.currentworld + 1;
                         if (!universe.zooming && this.tile instanceof CageContainer &&  this.tile.x == world.cageCorner[0] + 4 && this.tile.y == world.cageCorner[1] + 4) universe.passDown(destination, world.cage.pocketworld.cageLocation[0], world.cage.pocketworld.cageLocation[1]);
                     }
                 }

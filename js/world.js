@@ -41,7 +41,8 @@ class CageTemplate{
 
     generateWorld(){
         if (universe.currentworld == 1) this.pocketworld = universe.worlds[0];
-        else this.pocketworld = universe.worlds[1];
+        else if (universe.currentworld == 2) this.pocketworld = universe.worlds[1];
+        else this.pocketworld = universe.worlds[2];
         this.displayon = true;
     }
 
@@ -179,13 +180,16 @@ class Universe{
     start(startingHp){
         tiles = [];
         monsters = [];
-        this.worlds[0] = new World(0);
-        this.worlds[1] = new World(1);
+        for (let x = 0; x<floors.length; x++){
+            this.worlds[x] = new World(x);
+        }
         this.currentworld = 0;
         world = this.worlds[this.currentworld];
         world.layer = 0;
         world.confirmWorldFromVault();
-        this.worlds[1].confirmWorld();
+        for (let x = 1; x<floors.length; x++){
+            this.worlds[x].confirmWorld();
+        }
         assignSouls();
         world.currentroom = [0,2];
         world.tranquil = true;
