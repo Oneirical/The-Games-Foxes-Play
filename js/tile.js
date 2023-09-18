@@ -1181,12 +1181,12 @@ class ResearchNode extends Floor{
             }
             this.id = casteTabNum[page];
         }
-        if (Object.keys(nodeloot).includes(this.id)){
-            this.axiomComponent = this.id;
-            let axiomType = lootPool[this.id][castePages[page]];
-            this.id = shuffle(lootPool[this.id][castePages[page]])[0];
-            removeItemOnce(axiomType,this.id);
-        }
+        //if (Object.keys(nodeloot).includes(this.id)){
+        //    this.axiomComponent = this.id;
+        //    let axiomType = lootPool[this.id][castePages[page]];
+        //    this.id = shuffle(lootPool[this.id][castePages[page]])[0];
+        //    removeItemOnce(axiomType,this.id);
+        //}
         this.lore = researchlore[this.id];
         this.name = researchnames[this.id];
         this.flags = researchflags[this.id];
