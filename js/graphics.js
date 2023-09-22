@@ -17,6 +17,8 @@ class FoxSprite extends PIXI.Sprite{
   
 
 function setupPixi(){
+    animationTick = new PIXI.Ticker;
+    animationTick.start();
     app = new PIXI.Application({
         view: document.getElementById("pixi-canvas"),
         resolution: window.devicePixelRatio || 1,
@@ -42,8 +44,8 @@ function setupPixi(){
     uiDisplayLeft.y = 44;
     app.stage.addChild(uiDisplayLeft);
     tilesDisplay = new PIXI.Container();
-    tilesDisplay.x = (1920-16*16*resolutionSize)/2+(resolutionSize+12)*16;
-    tilesDisplay.y = (1080-16*9*resolutionSize)/2;
+    tilesDisplay.x = (1920-16*16*7)/2+(7+12)*16;
+    tilesDisplay.y = (1080-16*9*7)/2;
     app.stage.addChild(tilesDisplay);
     tilesDisplay.notPlayerTiles = new PIXI.Container();
     tilesDisplay.addChild(tilesDisplay.notPlayerTiles);
@@ -57,10 +59,10 @@ function setupPixi(){
     setUpUI();
     let tilesChains = new PIXI.Container();
     app.stage.addChild(tilesChains);
-    tilesChains.x = (1920-16*16*resolutionSize)/2+(resolutionSize+12)*16+8;
-    tilesChains.y = (1080-16*9*resolutionSize)/2+8;
+    tilesChains.x = (1920-16*16*7)/2+(7+12)*16+8;
+    tilesChains.y = (1080-16*9*7)/2+8;
     drawChainBorder(32,32,tilesChains);
-    drawPixel("black",(1920-16*16*resolutionSize)/2+(resolutionSize+12)*16,(1080-16*9*resolutionSize)/2,112*9,app.stage); // this is for the zoom in effect
+    drawPixel("black",(1920-16*16*7)/2+(7+12)*16,(1080-16*9*7)/2,112*9,app.stage); // this is for the zoom in effect
     tilesDisplay.maskReference = app.stage.children[app.stage.children.length-1];
     tilesDisplay.maskReference.alpha = 0;
     drawProjectors();

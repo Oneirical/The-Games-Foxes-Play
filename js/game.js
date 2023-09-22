@@ -125,8 +125,8 @@ function toAxiomMode(){
         player.axioms.displayCon.y = 32*21;
         player.axioms.axiomCon.x = -8;
         player.axioms.axiomCon.y = 10;
-        player.axioms.axiomCon.width = (resolutionSize+12)*16;
-        player.axioms.axiomCon.height = (resolutionSize+12)*16;
+        player.axioms.axiomCon.width = (7+12)*16;
+        player.axioms.axiomCon.height = (7+12)*16;
         tilesDisplay.removeChild(player.axioms.displayCon);
         tilesDisplay.removeChildAt(tilesDisplay.children.length-1);
         uiDisplayLeft.addChild(areaname.displayCon);
@@ -164,8 +164,7 @@ function startGame(){
     log = new MessageLog();
     soulTree = new SoulTree();
     sideTooltip = new NodeDescription();
-    universe.start(startingHp);
-    gameState = "running";
+    universe.start();
 }
 
 function summonMonster(x,y,type){ // can accept a species or clone a creature

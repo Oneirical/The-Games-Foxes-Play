@@ -179,6 +179,7 @@ class Research{
     }
 
     completeResearch(dis){
+        return;
         if (this.knownnodes.includes(dis)) return;
         for (let k = 0; k<7; k++){
             for(let i=0;i<15;i++){
@@ -269,7 +270,7 @@ class NodeDescription{
         }
         else if (dataPoint instanceof Tile) return "Tile: "+dataPoint.name+" at X: "+dataPoint.x+" and Y: "+dataPoint.y;
         else if (dataPoint instanceof Monster) return "Creature: "+dataPoint.name+" at X: "+dataPoint.tile.x+" and Y: "+dataPoint.tile.y;
-        else if (dataPoint instanceof AxiomTemp) return "Axiom: "+soulData[dataPoint.nameID]["name"];
+        else if (dataPoint instanceof Axiom) return "Axiom: "+soulData[dataPoint.nameID]["name"];
         else if (dataPoint instanceof Colour) return "Colour: "+dataPoint.colour;
         else if (dataPoint instanceof Direction){
             const dirs = {
@@ -1013,7 +1014,7 @@ class MessageLog{
             fontSize: 18,
             fill: coloring,
             wordWrap: true,
-            wordWrapWidth: resolutionSize*16*16-(resolutionSize*9*16+(resolutionSize+12)*16+10)-20,
+            wordWrapWidth: 7*16*16-(7*9*16+(7+12)*16+10)-20,
             lineJoin: 'round',
         });
         printOutText(messages[message],0,0,style,this.textcon);
@@ -1037,11 +1038,11 @@ class SoulBreathing{
     constructor(){
         //this.wheel = [new Empty(),new Empty(),new Empty(),new Empty(),new Empty(),new Empty(),new Empty(),new Empty()];
         let center = [(canvas.height+canvas.width-256)/2-40, 195*canvas.height/900]; //256: minimap height
-        this.dist = 100*(resolutionSize/7);
+        this.dist = 100*(7/7);
         let dist = this.dist;
         let pi = Math.PI;
         this.wheelcoords = [[center[0], center[1]-dist],[center[0]+Math.cos(pi/4)*dist, center[1]-Math.sin(pi/4)*dist],[center[0]+dist, center[1]],[center[0]+Math.cos(pi/4)*dist, center[1]+Math.sin(pi/4)*dist],[center[0], center[1]+dist],[center[0]-Math.cos(pi/4)*dist, center[1]+Math.sin(pi/4)*dist],[center[0]-dist, center[1]],[center[0]-Math.cos(pi/4)*dist, center[1]-Math.sin(pi/4)*dist]];
-        dist = 45*(resolutionSize/7);
+        dist = 45*(7/7);
         center = [center[0]+28,center[1]+38];
         this.hotkeycoords = [[center[0], center[1]-dist],[center[0]+Math.cos(pi/4)*dist, center[1]-Math.sin(pi/4)*dist],[center[0]+dist, center[1]],[center[0]+Math.cos(pi/4)*dist, center[1]+Math.sin(pi/4)*dist],[center[0], center[1]+dist],[center[0]-Math.cos(pi/4)*dist, center[1]+Math.sin(pi/4)*dist],[center[0]-dist, center[1]],[center[0]-Math.cos(pi/4)*dist, center[1]-Math.sin(pi/4)*dist]];
 
@@ -1056,7 +1057,7 @@ class SoulBreathing{
         let vert = 52;
         let hori = 64*5-5;
         center = [(canvas.height+canvas.width-256)/2-40, 195*canvas.height/900];
-        dist = 100*(resolutionSize/7);
+        dist = 100*(7/7);
         this.circlemotion = {centerX:(canvas.height+canvas.width-256)/2-16, centerY:195*canvas.height/900+24, radius:170};
         this.paintcoords = [[center[0]+Math.cos(pi/4)*dist, center[1]-Math.sin(pi/4)*dist],[center[0]+dist, center[1]],[center[0]+Math.cos(pi/4)*dist, center[1]+Math.sin(pi/4)*dist],[center[0], center[1]+dist],[center[0]-Math.cos(pi/4)*dist, center[1]+Math.sin(pi/4)*dist],[center[0]-dist, center[1]],[center[0]-Math.cos(pi/4)*dist, center[1]-Math.sin(pi/4)*dist]];
         this.paintcir = [];
@@ -1073,17 +1074,17 @@ class SoulBreathing{
         uiDisplayRight.addChild(this.displayCon);
         drawChainBorder(15,15,this.displayCon);
         let center = [(1885-1410)/2-16,(505-30)/2-16];
-        let dist = 100*(resolutionSize/7);
+        let dist = 100*(7/7);
         let pi = Math.PI;
         let wheelcoords = [[center[0], center[1]-dist],[center[0]+Math.cos(pi/4)*dist, center[1]-Math.sin(pi/4)*dist],[center[0]+dist, center[1]],[center[0]+Math.cos(pi/4)*dist, center[1]+Math.sin(pi/4)*dist],[center[0], center[1]+dist],[center[0]-Math.cos(pi/4)*dist, center[1]+Math.sin(pi/4)*dist],[center[0]-dist, center[1]],[center[0]-Math.cos(pi/4)*dist, center[1]-Math.sin(pi/4)*dist]];
-        dist = 45*(resolutionSize/7);
+        dist = 45*(7/7);
         this.wheelCon = new PIXI.Container();
         this.displayCon.addChild(this.wheelCon);
         let paintcans = [];
         for (let i = 0; i<8; i++){
             let newSprite = new FoxSprite(allsprites.textures['icon7']);
-            newSprite.width = (resolutionSize-3)*16;
-            newSprite.height = (resolutionSize-3)*16;
+            newSprite.width = (7-3)*16;
+            newSprite.height = (7-3)*16;
             newSprite.anchor.set(0.5,0.5);
             newSprite.x = wheelcoords[i][0];
             newSprite.y = wheelcoords[i][1];
@@ -1416,40 +1417,6 @@ class SoulBreathing{
         }
     }
 
-    drawSoul(){
-        if (world.getRoom() instanceof SoulCage) return;
-        if (gameState == "contemplation"){
-            player.revivify();
-            return;
-        }
-        if (this.subduedSouls.length <= 0){
-            log.addLog("NoSouls");
-            shakeAmount = 5;
-            return;
-        }
-        let space = 8;
-        for (let k of this.wheel){
-            if (!(k instanceof Empty)) space--;
-        }
-        if (space == 0){
-            this.cycleSouls();
-        }
-        beginTurn();
-        for (let k of this.wheel){
-            if (k instanceof Empty){
-                let slot = this.wheel.indexOf(k);
-                this.wheel[slot] = this.subduedSouls[0];
-                break;
-            } 
-        }
-        this.spinningPile.removeChild(this.subduedSouls[0].displayIcon);
-        for (let i = 1; i< this.spinningPile.children.length; i++){
-            this.spinningPile.children[i].calAngle = this.spinningPile.children[i-1].calAngle+0.1;
-        }
-        this.subduedSouls.shift();
-        tick();
-    }
-
     cageSoul(slot, override){
         if (!override) override = player.tile;
         let measureX = override.x - world.cageCorner[0];
@@ -1490,83 +1457,6 @@ class SoulBreathing{
             if (this.subduedSouls[i].id == type && this.subduedSouls[i].turbulent == turbulent) return ["subduedSouls",i];
         }
         return false;
-    }
-
-    castSoul(slot){
-        if (world.getRoom() instanceof SoulCage){
-            this.selectCan(slot);
-            return;
-        }
-        if (slot > 7){
-            return;
-        }
-        else if (player.tile instanceof CageContainer){
-            this.cageSoul(slot);
-            return;
-        }
-        else if (gameState == "contemplation"){
-            this.removeSoul(slot);
-            return;
-        }
-        let soul = this.wheel[slot];
-        if (soul instanceof Empty){
-            shakeAmount = 5;
-            log.addLog("EmptyCast");
-            return;
-        }
-        if (soul.turbulent){
-            shakeAmount = 5;
-            log.addLog("TurbulentCast");
-            return;
-        }                    
-        else{
-            //if (soul.id == "SERENE") make this
-            let num = 5-player.axioms.castes.indexOf(soul.id);
-            let spellName = soul.id;
-            if (player.axioms.active[num].influence == "C" || player.axioms.active[num].influence == "A"){
-                spellName = player.axioms.active[num].id;
-            }
-            research.completeResearch("Spellcast");
-            if (player.fuffified > 0) spellName = "SERENE";
-            if (spellName){
-                beginTurn();
-                player.axioms.active[num].castAxiom(player);
-                if (player.axioms.active[num].id == "ARTIFICIAL") research.completeResearch("Axioms");
-                this.exhaustedSouls.push(this.wheel[slot]);
-                this.wheel[slot] = new Empty();
-                playSound("spell");
-                research.completeResearch("Breath");
-                tick();
-            }
-        }
-    }
-
-    removeSoul(slot){
-        let soul = this.exhaustedSouls[slot];
-        if (soul instanceof Empty){
-            shakeAmount = 5;
-            log.addLog("EmptyRemove");
-            return;
-        }
-        else{
-            if (agony > 0){
-                if (soul instanceof Serene && agony < 3){
-                    log.addLog("FluffyNoRemoveTaunt");
-                }
-                else{
-                    if (soul instanceof Serene) agony -= 3;
-                    else agony--;
-                    this.exhaustedSouls[slot] = new Empty();
-                    if (falseagony){
-                        gameState = "running";
-                        falseagony = false;
-                    }
-                }
-            }
-            else{
-                log.addLog("AgonyWarning");
-            }
-        }
     }
 }
 
@@ -1669,8 +1559,8 @@ class SoulTree{
             });
         }
         let newSprite = new FoxSprite(allsprites.textures['icon6']);
-        newSprite.width = (resolutionSize+12)*16;
-        newSprite.height = (resolutionSize+12)*16;
+        newSprite.width = (7+12)*16;
+        newSprite.height = (7+12)*16;
         this.axiomCon.addChild(newSprite);
         this.updateSlots();
     }
@@ -1977,8 +1867,8 @@ class Soul{
         else if (typeof sourceAxiom.storage === "number") foundType = "Number";
         else if (typeof sourceAxiom.storage === "string") foundType = "Message";
         else {
-            for (let i of Object.keys(AxiomTemp.storageEquivalences)){
-                if (sourceAxiom.storage instanceof AxiomTemp.storageEquivalences[i]){
+            for (let i of Object.keys(Axiom.storageEquivalences)){
+                if (sourceAxiom.storage instanceof Axiom.storageEquivalences[i]){
                     foundType = i;
                     break;
                 }
@@ -2134,75 +2024,6 @@ class Soul{
 
     talk(){
         log.addLog(this.id);
-    }
-}
-
-class Axiom extends Soul{
-    constructor(sequence,caste,power){
-        super("ARTIFICIAL");
-        const r = randomRange(0,sequence.length-1);
-        this.icon = inside[sequence[r]];
-        this.caste = caste;
-        this.sequence = sequence;
-        this.power = power;
-        if (!power) this.power = 0;
-        //this.alllore = this.contingencies.concat(this.forms.concat(this.mutators.concat(this.functions)));
-        //calculatePower(this.contingencies,this.forms)
-    }
-
-    dividePraxes(){ //possibly unused
-        if (this.sequence[0] instanceof Array) return this.sequence;
-        let totalSpell = [];
-        let prax = [];
-        let functionFound = false;
-        for (let i of this.sequence){
-            if (isFunction(i)) functionFound = true;
-            if (isForm(i) && functionFound) {
-                totalSpell.push(prax);
-                prax = [];
-                functionFound = false;
-            }
-            prax.push(i);
-        }
-        totalSpell.push(prax);
-        return totalSpell;
-    }
-
-    castAxiom(caster, startPoint){
-        if (!startPoint) startPoint = 0;
-        this.data = {
-            "caster" : caster,
-            "casterOriPos" : caster.tile,
-            "casterCurrentPos" : caster.tile,
-            "trapMode" : false,
-            "praxes" : this.sequence,
-            "targets" : new Set(),
-            "power" : this.power,
-            "flags" : new Set(),
-            "currentPrax" : 0,
-            "skip" : false,
-            "clickTrigger" : "STEP",
-        };
-        for (let i of this.sequence){
-            this.data["currentPrax"] = this.sequence.indexOf(i);
-            if (this.data["currentPrax"] < startPoint) continue; 
-            this.castPraxis(i);
-            if (this.data["skip"]) break; //what happens if there is an atkdelay inside an atkdelay?
-        }
-    }
-
-    castPraxis(praxis){
-        if (powerRatings[praxis]) this.data["power"] += powerRatings[praxis];
-        if (!axiomEffects[praxis]) return; //prevent contingencies from executing
-        if (isFunction(praxis)) {
-            for (let j of this.data["targets"]){
-                if (this.data.flags.has("ignoreCaster") && sameTile(this.data.caster.tile,j)) continue;
-                this.data = axiomEffects[praxis](j,this.data["power"],this.data);
-                j.setEffect(14,30);
-            }
-        }
-        else this.data = axiomEffects[praxis](this.data);
-        if (["CLICK","ATKDELAY"].includes(praxis)) this.data["skip"] = true;
     }
 }
 

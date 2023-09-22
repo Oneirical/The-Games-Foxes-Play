@@ -545,26 +545,6 @@ class Exit extends Tile{
         this.sprite = this.textures[this.direction];
         if (world.getRoom() instanceof WorldSeed) this.sprite = 38;
     }
-
-    stepOn(monster){
-        if(monster.isPlayer){
-            playSound("newLevel"); 
-            if(level == numLevels){
-                addScore(score, true); 
-                showTitle();
-            }else{
-                level++;
-                //startLevel(Math.min(maxHp, player.hp+2));
-                sacritotal = "nan";
-                rerolled = false;
-                gameState = "running";
-                rosetoxin = 0;
-                //if (level == 17 && area == "Faith"){
-                //    log.addLog("EpsilonWelcome1");
-                //}
-            }
-        }
-    }
 }
 
 class TermiExit extends Exit{
@@ -589,13 +569,6 @@ class FluffExit extends Exit{
         this.lore = description["HarmonicSeal"];
         this.name = "Harmonic Seal";
         this.sprite = 23;
-    }
-
-    stepOn(monster){
-        super.stepOn(monster);
-        log.addLog("FluffyWelcome");
-        gameState = "fluffy";
-
     }
 }
 

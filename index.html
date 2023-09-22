@@ -43,122 +43,26 @@
 <script src="js/axioms.js"></script>
 <script src="js/rooms.js"></script>
 <script>
-                             
-    gameState = "running";  
 
-    startingHp = 6;
-    maxHp = 6;
     var player;
-
-    victory = false;
-
-    uiWidth = 6;
-    uiHeight = 4;
-    level = 1;
-
-    tileSize = 64;
-    numTiles = 9;
-    isMouseDown = false;
-    var tiles = [];
-    var monsters = [];
-    var droppedsouls = [];
+    var tiles;
+    var monsters;
     var world;
-    var resolutionSize = 7;
-    gameTurns = 0;
-    area = "Faith";
+    var tileSize;
+    var numTiles;
 
     var canvas = {width:1600, height:900};
- 
-    cursormode = false;
-    showboss = false;
 
-    shakeAmount = 0;       //assign these to app.stage
+    shakeAmount = 0;
     shakeX = 0;                 
     shakeY = 0;
 
-    inInventory = false; // get these inside some "gamestate" class
-    inResearch = false;
-    inMap = false;
-
-    inCatalogue = false;
-    showingComponent = false;
-
-    animationTick = new PIXI.Ticker;
-    animationTick.start();
-
-    var pdata = {};
-
-    currenttrack = "none";
-
-    var worldgen; 
-    initSounds();
+    var worldgen;
+    
     setupPixi();
-    //document.addEventListener('contextmenu', event => event.preventDefault());    // disable right click inspect element
-    document.querySelector("html").onkeypress = function(e){              
-        if(gameState == "dead"){                             
-            showTitle();                                      
-        }else if(gameState == "running"){
-            if (e.key == "e"){
-                toAxiomMode();
-            }
+
+    document.querySelector("html").onkeypress = function(e){                                                 
             if (e.key == "k") toggleFullScreen();
-            if(e.key=="a"&&inInventory) if (player.axioms.describepage > 0) player.axioms.describepage--;
-            if(e.key=="d"&&inInventory) if (player.axioms.describepage < maxseq-1) player.axioms.describepage++;
-            if (e.key == 1 && inResearch){
-                research.changeTab(1);
-            }
-            if (e.key == 2 && inResearch){
-                research.changeTab(-1);
-            }
-            if (e.key == "m"){
-                inMap = !inMap;
-                inInventory = false;
-                inResearch = false;
-                cursormode = false;
-            }
-            if (e.key == "r"){
-                toResearchMode();
-            }
-            if (e.key == "o"){ // debug
-                research.sereneSpread();
-            }
-            if (e.key == "p"){ // debug
-                wheel.toTeleMode();
-            }
-            if (e.key == "i"){ // debug
-                getMouse();
-            }
-            if (inInventory){
-                if (e.key >= 1 && e.key <= 6) player.axioms.storeAxiom(e.key-1);
-                if (e.key >= 7 && e.key <= 9) player.axioms.activateAxiom(e.key-7);
-                if (e.key == 0) player.axioms.activateAxiom(3);
-            }
-            if (inInventory || inResearch) return;
-            if(e.key=="c") {
-                if (inMap) return;
-                if (world.getRoom() instanceof SoulCage) return; //too lazy for now
-                cursormode = !cursormode;
-                invmode = false;
-                currentspelldesc = "nan";
-            }
-            if(e.key=="c"&&cursormode) cursor = new Cursor(playerTile());
-            if(e.key=="c"&&!cursormode) cursor.die();
-            if(e.key=="w") trigger("W");//player.tryMove(0, -1);
-            else if(e.key=="s") trigger("S");
-            else if(e.key=="a")  trigger("A");
-            else if(e.key=="d") trigger("D");
-            if(e.key=="w"&&cursormode) cursor.tryMove(0, -1);
-            if(e.key=="s"&&cursormode) cursor.tryMove(0, 1);
-            if(e.key=="a"&&cursormode) cursor.tryMove(-1, 0);
-            if(e.key=="d"&&cursormode) cursor.tryMove(1, 0);
-            if(e.key>=1 && e.key<=9 && !cursormode) wheel.castSoul(e.key-1);
-            if(e.key=="q" && !cursormode) wheel.drawSoul();//player.drawSpell();
-            
-        }else if(gameState == "contemplation"){
-            if(e.key>=1 && e.key<=9 && !cursormode) wheel.castSoul(e.key-1);
-            if(e.key=="q" && !falseagony){
-                player.revivify();
-            }
-        }
+            else trigger(e.key.toUpperCase());
     };
 </script>

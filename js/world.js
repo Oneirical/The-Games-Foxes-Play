@@ -2,41 +2,8 @@ class CageTemplate{
     constructor(){
         this.slots = [];
         this.tier = 0;
-        this.build();
         this.pocketworld;
         this.size = 1;
-    }
-
-    build(){
-        for(let i=0;i<5;i++){
-            this.slots[i] = [];
-            for(let j=0;j<5;j++){
-                this.slots[i][j] = new Empty();
-            }
-        }
-        this.displayon = false;
-    }
-
-    getNeighbor(x,y, dx, dy){
-        let ret = this.slots[x+dx];
-        if (!ret) return "Any";
-        let ret2 = ret[y + dy];
-        if (!ret2) return "Any";
-        else return ret2;
-    }
-
-    getAdjacentNeighbors(x,y){
-        return [
-            this.getNeighbor(x,y,0, 0),
-            this.getNeighbor(x,y,0, -1),
-            this.getNeighbor(x,y,0, 1),
-            this.getNeighbor(x,y,-1, 0),
-            this.getNeighbor(x,y,1, 0),
-            this.getNeighbor(x,y,1, 1),
-            this.getNeighbor(x,y,-1, -1),
-            this.getNeighbor(x,y,-1, 1),
-            this.getNeighbor(x,y,1, -1),
-        ];
     }
 
     generateWorld(){
@@ -45,139 +12,15 @@ class CageTemplate{
         else this.pocketworld = universe.worlds[2];
         this.displayon = true;
     }
-
-    buildAxiom(){
-        for(let j=0;j<5;j++){
-            for(let i=0;i<5;i++){
-                this.slots[i][j].patternFound = false;
-            }
-        }
-        let allSouls = [];
-        let potency = 0;
-        let praxes = [];
-        for(let j=0;j<5;j++){
-            for(let i=0;i<5;i++){
-                if (!(this.slots[i][j] instanceof Empty) && !this.slots[i][j].patternFound){
-                    allSouls.push(this.slots[i][j].id);
-                    let origin = this.slots[i][j];
-                    origin.patternFound = true;
-                    let spreading = new Set();
-                    spreading.add(origin);
-                    let itSpread = true;
-                    while (itSpread){
-                        itSpread = false;
-                        for (let e of spreading){
-                            for (let r of this.getAdjacentNeighbors(e.cageX,e.cageY)){
-                                if (r.id == origin.id){
-                                    if (!spreading.has(r)) itSpread = true;
-                                    spreading.add(r);
-                                    r.patternFound = true;
-                                }
-                            }
-                        }
-                    }
-                    let maxX = 0;
-                    let maxY = 0;
-                    let minX = 9;
-                    let minY = 9;
-                    for (let q of spreading){
-                        if (q.cageX > maxX) maxX = q.cageX;
-                        if (q.cageX < minX) minX = q.cageX;
-                        if (q.cageY > maxY) maxY = q.cageY;
-                        if (q.cageY < minY) minY = q.cageY;
-                    }
-                    const patternSize = Math.max(maxY-minY+1,maxX-minX+1);
-                    let blueprint = {};
-                    for (let q = 0; q<patternSize; q++){
-                        blueprint[q] = ".".repeat(patternSize);
-                    }
-                    for (let q of spreading){
-                        blueprint[patternSize-1-(maxY-q.cageY)] = setCharAt(blueprint[patternSize-1-(maxY-q.cageY)],patternSize-1-(maxX-q.cageX),q.id[0]);
-                    }
-                    for (let k of research.knownSpells){
-                        if (!spellpatterns[k]) throw 'Pattern does not exist: '+k;
-                        if (spellpatterns[k][0].length != patternSize) continue;
-                        let ok = true;
-                        for (let q = 0; q<patternSize; q++){
-                            if (blueprint[q] != spellpatterns[k][q]) ok = false;
-                        }
-                        if (!ok) continue;
-                        else {
-                            praxes.push(k);
-                            for (let q of spreading) q.patternFound = k;
-                            break;
-                        }
-                    }
-                }
-                else{
-                    switch(this.tier){
-                        case 0:
-                            if (between(i,2,6) && between(j,2,6)) potency++;
-                            break;
-                    }
-                }
-            }
-        }
-        this.pocketworld.reward["Caste"] = mode(allSouls);
-        this.pocketworld.reward["Sequence"] = praxes;
-        this.pocketworld.reward["Potency"] = potency;
-        console.log(this.pocketworld.reward);
-    }
 }
 
 class Universe{
     constructor(){
         this.worlds = [];
         this.currentworld = 0;
-        this.layeredInfluence = new Set();
-        this.totalInfluence = {
-            "Saintly" : 0,
-            "Ordered" : 0,
-            "Artistic" : 0,
-            "Unhinged" : 0,
-            "Feral" : 0,
-            "Vile" : 0,
-            "Serene" : 0,
-            "Total" : 0,
-        }
-        this.background;
     }
 
-    getDepth(){
-        if (this.currentworld == 0) return "Faith's End";
-        else return ("Vision " + this.currentworld);
-    }
-
-    calculatePotency(){
-        return Math.floor(this.totalInfluence["Total"]*0.1) + Math.floor(this.totalInfluence["Serene"]*0.5)+1;
-    }
-
-    getTotalInfluence(){
-        this.totalInfluence = {
-            "Saintly" : 0,
-            "Ordered" : 0,
-            "Artistic" : 0,
-            "Unhinged" : 0,
-            "Feral" : 0,
-            "Vile" : 0,
-            "Serene" : 0,
-            "Total" : 0,
-        }
-        for (let i of Object.keys(research.influence)){
-            this.totalInfluence[i] = research.influence[i];
-        }
-        for (let i of this.layeredInfluence){
-            for (let j of Object.keys(i)){
-                this.totalInfluence[j] += i[j];
-            }
-        }
-        for (let i of Object.keys(this.totalInfluence)){
-            if (i != "Total") this.totalInfluence["Total"] += this.totalInfluence[i];
-        }
-        return this.totalInfluence;
-    }
-
-    start(startingHp){
+    start(){
         tiles = [];
         monsters = [];
         for (let x = 0; x<floors.length; x++){
@@ -193,7 +36,7 @@ class Universe{
         assignSouls();
         world.currentroom = [0,2];
         world.tranquil = true;
-        world.playRoom(world.rooms[2][0],startingHp);
+        world.playRoom(world.rooms[2][0]);
         drawTiles();
         drawSprites();
     }
@@ -211,15 +54,13 @@ class Universe{
         })
         tilesDisplay.addChild(this.viewport)
     
-        // activate plugins
         this.viewport
             .animate({
-                width: (1143)/9,
-                time: 1000,
+                width: 1143/9,
+                time: 500,
             })
     
     
-        // add a red box
         this.viewport.addChild(tilesDisplay.notPlayerTiles);
         tilesDisplay.addChild(player.creaturecon);
         this.zoomAnim.add(() => {
@@ -234,28 +75,16 @@ class Universe{
     handleDescent(layer, spawnx, spawny){
         
         uiDisplayLeft.removeChild(world.displayCon);
-        // if (this.worlds[layer].rooms[spawnx-world.cageCorner[0]][spawny-world.cageCorner[1]].corridor){
-        //     shakeAmount = 5;
-        //     return;
-        // }
-        
-        level = 0;
         player.tile.monster = null;
         world.saveRoom(world.getRoom());
         this.worlds[layer-1] = world;
         let spawnCoords = [spawnx, spawny];
         world = this.worlds[layer];
         world.currentroom = spawnCoords;
-        let locspawn;
-        if (player.lastMove[0] == -1) locspawn = [7,4];
-        else if (player.lastMove[0] == 1) locspawn = [1,4];
-        else if (player.lastMove[1] == 1) locspawn = [4,1];
-        else locspawn = [4,7];
         monsters.push(player);
         world.appearRoom([spawnx,spawny]);
         world.setUpSprites();
         uiDisplayLeft.addChild(world.displayCon);
-        this.layeredInfluence.add(world.influence);
         tilesDisplay.addChild(player.creaturecon);
         tickProjectors();
         world.cage.generateWorld()
@@ -367,63 +196,6 @@ class Universe{
             }
         });
     }
-
-    playRandomWorld(oldWorld){
-        this.worlds[world.x][world.y].rooms = oldWorld.rooms;
-        world = this.randomAvailableWorld();
-        this.currentworld = [world.x,world.y];
-        if (!world.generated) world.confirmWorldFromVault();
-        world.currentroom = [4,4];
-        let room = world.rooms[world.currentroom[0]][world.currentroom[1]];
-        if (room instanceof BigRoomVoid) room = world.handleBigRoom(room,direction[0]);
-        numTiles = room.size;
-        tileSize = (9/numTiles)*64;
-        tiles = room.tiles;
-        monsters = room.monsters;
-        room.playerlastmove = [0,-1];
-        let spawn = randomPassableTile();
-        if (!room.playerspawn) room.playerspawn = [spawn.x,spawn.y];
-        world.playRoom(room, 6);
-    }
-
-    shuntWorld(oldWorld,direction){
-        this.worlds[world.x][world.y].rooms = oldWorld.rooms;
-        const shifts = {
-            "N" : [0,-1],
-            "W" : [-1,0],
-            "E" : [1,0],
-            "S" : [0,1],
-        }
-        const spawns = {
-            "N" : [4,8],
-            "W" : [8,4],
-            "E" : [0,4],
-            "S" : [4,0], 
-        }
-        this.currentworld[0] += shifts[direction][0]; // this won't work on the edges
-        this.currentworld[1] += shifts[direction][1];
-        world = this.worlds[this.currentworld[0]][this.currentworld[1]];
-        if (!world.generated) world.confirmWorldFromVault();
-        world.currentroom = spawns[direction];
-        let room = world.rooms[world.currentroom[0]][world.currentroom[1]];
-        if (room instanceof BigRoomVoid) room = world.handleBigRoom(room,direction[0]);
-        numTiles = room.size;
-        tileSize = (9/numTiles)*64;
-        tiles = room.tiles;
-        monsters = room.monsters;
-        room.playerlastmove = shifts[direction[0]];
-        if (!room.playerspawn) room.playerspawn = world.selectPlayerExit(direction[0]);
-        world.playRoom(room, player.hp);
-    }
-}
-
-class EmptyWorld{
-    constructor(x,y){
-        this.x = x;
-        this.y = y;
-    }
-
-
 }
 
 class World{
@@ -443,20 +215,6 @@ class World{
         this.rooms;
         this.cage = new CageTemplate();
         this.layer;
-        this.reward = {
-            "Sequence" : [],
-            "Caste" : "",
-            "Potency" : 0,
-        };
-        this.influence = {
-            "Saintly" : 0,
-            "Ordered" : 0,
-            "Artistic" : 0,
-            "Unhinged" : 0,
-            "Feral" : 0,
-            "Vile" : 0,
-            "Serene" : 0,
-        }
         this.name = "World Seed";
     }
 
@@ -760,7 +518,6 @@ class World{
                     else roomType = shuffle(this.roompool)[0];
                     if (!(worldgen[i][j] instanceof MarkedFloor)) this.rooms[i][j] = new roomType([i,j]); // kind of cursed
                     else this.rooms[i][j] = roomType;
-                    if (universe.worlds[universe.currentworld].cage.slots[i][j].turbulent) this.rooms[i][j].hostile = true;
                     let times = shuffle([-1,0,1])[0];
                     if (corridor) times = 0;
                     if (rooms[this.rooms[i][j].id]["tags"].includes("randomflip") && !corridor) flip = true;
@@ -883,8 +640,7 @@ class World{
         return passableRooms;
     }
 
-    playRoom(room,playerHp){
-        room.startingplayerHP = playerHp;
+    playRoom(room){
         if (!room.playerspawn) room.playerspawn = [4,4];
         tiles = room.tiles;
         if (room instanceof WorldSeed && level == 1) room.populateRoom();
@@ -909,8 +665,6 @@ class World{
         this.rooms[this.currentroom[0]][this.currentroom[1]].tiles = tiles;
         this.rooms[this.currentroom[0]][this.currentroom[1]].visited = room.visited;
         monsters = [];
-        let pkeys = Object.keys(player);
-        for (let i of pkeys) pdata[i] = player[i];
     }
 
     appearRoom(spawnl){
@@ -933,7 +687,7 @@ class World{
         monsters = room.monsters;
         let playerisIn = locatePlayer();
         if (!playerisIn) monsters.push(player);
-        this.playRoom(room, player.hp);
+        this.playRoom(room);
     }
 
     enterRoom(direction){
@@ -951,10 +705,6 @@ class World{
         }
         let shift = shifts[direction];
         this.currentroom = [this.currentroom[0] + shift[0],this.currentroom[1] + shift[1]];
-        if (this.currentroom[0] > 8 || this.currentroom[0] < 0 ||this.currentroom[1] > 8 || this.currentroom[1] < 0){
-            universe.shuntWorld(this,direction);
-            return;
-        }
         let room = this.rooms[this.currentroom[0]][this.currentroom[1]];
         if (room instanceof BigRoomVoid) room = this.handleBigRoom(room,direction[0]);
 
@@ -970,7 +720,6 @@ class World{
             level++;
             world.fighting = true;
             room.visited = true;
-            player.hp = Math.min(maxHp, player.hp+1);
         }
         else{
             monsters = room.monsters;
@@ -1017,7 +766,6 @@ class World{
 class Room{
     constructor(index){
         this.tier = level;
-        this.startingplayerHP = 0;
         this.roseic = false;
         this.size = 9;
         this.entrancepoints;
@@ -1125,11 +873,6 @@ class Room{
     }
 
     initializeRoom(){
-        if (this.music && this.music != currenttrack) {
-            pauseAllMusic();
-            playSound(this.music);
-            currenttrack = this.music;
-        }
         //let randomtile = randomPassableTile();
         if (this.entrymessage) log.addLog(this.entrymessage);
         //if (world.getRoom() instanceof WorldSeed && world.getRoom().generatedexits.length == 0) this.playerspawn = [Math.floor((numTiles-1)/2),Math.floor((numTiles-1)/2)];
@@ -1139,7 +882,6 @@ class Room{
         //}
         //if (world.getRoom() instanceof EpsilonArena) this.playerspawn = [1,1];
         //if (this.effects.includes("Darkness")) player.fov = 2;
-        gameState = "running";
     }
 }
 
@@ -1373,100 +1115,6 @@ class WorldSeed extends DefaultVaultRoom{
         world.fighting = false;
         super.populateRoom();
         super.initializeRoom();
-    }
-
-    startTutorial(){
-        world.getRoom().tiles = tiles;
-        world.getRoom().monsters = monsters;
-        generateVault("Tutorial",this);
-        let monster = new Blehh(getTile(4,2));
-        monster.paralyzed = true;
-        monsters.push(monster);
-    }
-
-    progressTutorial(stage){
-        for (let i of tiles){
-            for (let j of i){
-                if (j.monster) j.monster = null;
-            }
-        }
-        player.move(getTile(4,6));
-        monsters = [];
-        let source;
-        player.hp = 6;
-        let monster = new Blehh(getTile(4,2));
-        monster.stage = stage;
-        wheel.wheel = [new Empty(),new Empty(),new Empty(),new Empty(),new Empty(),new Empty(),new Empty(),new Empty()];
-        switch(stage){
-            case 1:
-                log.addLog("Blehh1");
-                monster.canmove = false;
-                break;
-            case 2:
-                log.addLog("Blehh2");
-                source = new Scion(getTile(4,4));
-                source.hp = 1;
-                source.paralyzed = true;
-                monsters.push(source);
-                monster.canmove = false;
-                player.hp = 1;
-                break;
-                //both of you have 1 hp, heal then hit
-            case 3:
-                log.addLog("Blehh3");
-                source = new Apiarist(getTile(4,4));
-                monsters.push(source);
-                monster.canmove = false;
-                monster.bonusAttack = 10;
-                break;
-                //guard then strike
-            case 5:
-                log.addLog("Blehh5");
-                source = new Tinker(getTile(3,4));
-                monsters.push(source);
-                source = new KnockbackBot(getTile(5,1));
-                monsters.push(source);
-                source = new KnockbackBot(getTile(3,3));
-                monsters.push(source);
-                source = new WalkBot(getTile(5,4));
-                source.isInvincible = true;
-                monster.canmove = false;
-                monsters.push(source);
-                break;
-                //guarded by knockback drones, get the beam to hit zaint
-            case 4:
-                log.addLog("Blehh4");
-                source = new Apis(getTile(4,4));
-                monsters.push(source);
-                source = new KnockbackBot(getTile(5,1));
-                monsters.push(source);
-                source = new KnockbackBot(getTile(3,3));
-                monsters.push(source);
-                monster.canmove = false;
-                //shoot through the diagonal gap
-                break;
-            case 6:
-                log.addLog("Blehh6");
-                monster.canmove = false;
-                player.hp = 5;
-                source = new Shrike(getTile(4,4));
-                monsters.push(source);
-                //perma X and + beams, dash on the side to succeed
-                break;
-            case 7:
-                log.addLog("Blehh7");
-                monster.canmove = false;
-                source = new Second(getTile(6,4));
-                monsters.push(source);
-                monster.hp = 5;
-                player.hp = 3;
-                //tons of felidols weakening you, buff up to 1hit zaint
-                break;
-            case 8:
-                //do epic zhit
-                log.addLog("Blehh8");
-        }
-        monsters.push(monster);
     }
 }
 

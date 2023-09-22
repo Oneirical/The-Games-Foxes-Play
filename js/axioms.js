@@ -1,7 +1,7 @@
-class AxiomTemp{
+class Axiom{
     static storageEquivalences = {
         "Creature" : Monster,
-        "Axiom" : AxiomTemp,
+        "Axiom" : Axiom,
         "Soul" : Soul,
         "Colour" : Colour,
         "Direction" : Direction,
@@ -29,14 +29,14 @@ class AxiomTemp{
     translate(){};
 }
 
-class EmptyAxiom extends AxiomTemp{
+class EmptyAxiom extends Axiom{
     constructor(){
         super();
         this.empty = true;
     }
 }
 
-class RealityAnchor extends AxiomTemp{
+class RealityAnchor extends Axiom{
     constructor(){
         super();
     }
@@ -46,7 +46,7 @@ class RealityAnchor extends AxiomTemp{
     }
 }
 
-class RadioBroadcaster extends AxiomTemp{
+class RadioBroadcaster extends Axiom{
     constructor(message){
         super();
         this.storage = message;
@@ -58,7 +58,7 @@ class RadioBroadcaster extends AxiomTemp{
     }
 }
 
-class RadioReceiver extends AxiomTemp{
+class RadioReceiver extends Axiom{
     constructor(key){
         super();
         this.storage = key;
@@ -70,7 +70,7 @@ class RadioReceiver extends AxiomTemp{
     }
 }
 
-class ContinKilled extends AxiomTemp{
+class ContinKilled extends Axiom{
     constructor(){
         super();
         this.storage = "OBLIVION";
@@ -82,7 +82,7 @@ class ContinKilled extends AxiomTemp{
     }
 }
 
-class TriggerWatch extends AxiomTemp{
+class TriggerWatch extends Axiom{
     constructor(key){
         super();
         this.storage = new key();
@@ -94,7 +94,7 @@ class TriggerWatch extends AxiomTemp{
     }
 }
 
-class LastDamageSource extends AxiomTemp{
+class LastDamageSource extends Axiom{
     constructor(entity){
         super();
         this.storage = entity;
@@ -106,7 +106,7 @@ class LastDamageSource extends AxiomTemp{
     }
 }
 
-class VoidTargets extends AxiomTemp{
+class VoidTargets extends Axiom{
     constructor(){
         super();
     }
@@ -116,7 +116,7 @@ class VoidTargets extends AxiomTemp{
     }
 }
 
-class SoulAbsorber extends AxiomTemp{
+class SoulAbsorber extends Axiom{
     constructor(){
         super();
     }
@@ -138,7 +138,7 @@ class SoulAbsorber extends AxiomTemp{
     }
 }
 
-class SoulInjector extends AxiomTemp{
+class SoulInjector extends Axiom{
     constructor(soul){
         super();
         this.storage = soul;
@@ -170,7 +170,7 @@ class SoulInjector extends AxiomTemp{
     }
 }
 
-class ClearPaint extends AxiomTemp{
+class ClearPaint extends Axiom{
     constructor(){
         super();
     }
@@ -183,7 +183,7 @@ class ClearPaint extends AxiomTemp{
     }
 }
 
-class PaintTile extends AxiomTemp{
+class PaintTile extends Axiom{
     constructor(colour){
         super();
         this.storage = colour;
@@ -199,7 +199,7 @@ class PaintTile extends AxiomTemp{
     }
 }
 
-class PaintFilter extends AxiomTemp{
+class PaintFilter extends Axiom{
     constructor(colour){
         super();
         this.storage = colour;
@@ -214,7 +214,7 @@ class PaintFilter extends AxiomTemp{
     }
 }
 
-class EntityFilter extends AxiomTemp{
+class EntityFilter extends Axiom{
     constructor(entity){
         super();
         this.storage = entity;
@@ -245,7 +245,7 @@ class EntityFilter extends AxiomTemp{
     }
 }
 
-class BooleanGate extends AxiomTemp{
+class BooleanGate extends Axiom{
     constructor(boo){
         super();
         this.storage = boo;
@@ -257,7 +257,7 @@ class BooleanGate extends AxiomTemp{
     }
 }
 
-class SpeciesCheck extends AxiomTemp{
+class SpeciesCheck extends Axiom{
     constructor(iden){
         super();
         this.storage = iden;
@@ -272,7 +272,7 @@ class SpeciesCheck extends AxiomTemp{
     }
 }
 
-class NoTargetStop extends AxiomTemp{
+class NoTargetStop extends Axiom{
     constructor(){
         super();
     }
@@ -282,7 +282,7 @@ class NoTargetStop extends AxiomTemp{
     }
 }
 
-class BooleanFlip extends AxiomTemp{
+class BooleanFlip extends Axiom{
     constructor(){
         super();
     }
@@ -293,7 +293,7 @@ class BooleanFlip extends AxiomTemp{
     }
 }
 
-class AssimilateBroadcast extends AxiomTemp{
+class AssimilateBroadcast extends Axiom{
     constructor(message){
         super();
         this.storage = message;
@@ -312,7 +312,7 @@ class AssimilateBroadcast extends AxiomTemp{
     }
 }
 
-class OverwriteSlot extends AxiomTemp{
+class OverwriteSlot extends Axiom{
     constructor(slot){
         super();
         this.storage = slot;
@@ -340,7 +340,7 @@ class OverwriteSlot extends AxiomTemp{
     }
 }
 
-class FormDir extends AxiomTemp{
+class FormDir extends Axiom{
     constructor(dir){
         super();
         this.storage = dir;
@@ -359,7 +359,7 @@ class FormDir extends AxiomTemp{
     }
 }
 
-class FormEntity extends AxiomTemp{
+class FormEntity extends Axiom{
     constructor(entity){
         super();
         this.storage = entity;
@@ -381,7 +381,7 @@ class FormEntity extends AxiomTemp{
     }
 }
 
-class FormTile extends AxiomTemp{
+class FormTile extends Axiom{
     constructor(tile){
         super();
         this.storage = tile;
@@ -402,7 +402,7 @@ class FormTile extends AxiomTemp{
     }
 }
 
-class MoveFunction extends AxiomTemp{
+class MoveFunction extends Axiom{
     constructor(){
         super();
     }
@@ -437,7 +437,7 @@ class MoveFunction extends AxiomTemp{
     }
 }
 
-class PlusForm extends AxiomTemp{
+class PlusForm extends Axiom{
     constructor(){
         super();
     }
@@ -461,7 +461,7 @@ class PlusForm extends AxiomTemp{
     }
 }
 
-class EgoForm extends AxiomTemp{
+class EgoForm extends Axiom{
     constructor(){
         super();
     }
@@ -472,13 +472,13 @@ class EgoForm extends AxiomTemp{
     }
 }
 
-class FailCatcher extends AxiomTemp{
+class FailCatcher extends Axiom{
     constructor(){
         super();
     }
 }
 
-class NumberIncrementer extends AxiomTemp{
+class NumberIncrementer extends Axiom{
     constructor(number){
         super();
         this.storage = number;
@@ -491,7 +491,7 @@ class NumberIncrementer extends AxiomTemp{
     }
 }
 
-class NumberStorage extends AxiomTemp{
+class NumberStorage extends Axiom{
     constructor(number){
         super();
         this.storage = number;
@@ -499,7 +499,7 @@ class NumberStorage extends AxiomTemp{
     }
 }
 
-class ModuloGate extends AxiomTemp{
+class ModuloGate extends Axiom{
     constructor(number){
         super();
         this.storage = number;
@@ -515,7 +515,7 @@ class ModuloGate extends AxiomTemp{
     }
 }
 
-class CloneCreature extends AxiomTemp{
+class CloneCreature extends Axiom{
     constructor(crea){
         super();
         this.storage = crea;
@@ -550,7 +550,7 @@ class CloneCreature extends AxiomTemp{
     }
 }
 
-class DamageDealer extends AxiomTemp{
+class DamageDealer extends Axiom{
     constructor(dam){
         super();
         this.storage = dam;
@@ -564,7 +564,7 @@ class DamageDealer extends AxiomTemp{
     }
 }
 
-class HealProvider extends AxiomTemp{
+class HealProvider extends Axiom{
     constructor(dam){
         super();
         this.storage = dam;
@@ -578,7 +578,7 @@ class HealProvider extends AxiomTemp{
     }
 }
 
-class LinkForm extends AxiomTemp{
+class LinkForm extends Axiom{
     constructor(link){
         super();
         this.storage = link;
