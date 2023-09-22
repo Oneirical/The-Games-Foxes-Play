@@ -1,12 +1,3 @@
-//List of souls
-
-//vile = ["SENET","RASEL"];
-//feral = ["KILAMI","LASHOL","EZEZZA"];
-//unhinged = ["SHIZAPIS","JOLTZAZON","KASHIA"];
-//artistic = ["PURPIZUG","AUBE","BORERORA", "GYVJI"];
-//ordered = ["ASPHA","ABAZON","NAIA"];
-//saintly = ["ROSE","ZAINT","ASTER"];
-
 basic = ["SERENE","VILE","FERAL","UNHINGED","ARTISTIC","ORDERED","SAINTLY"];
 const soulSlotNames = ["VILE","FERAL","UNHINGED","ARTISTIC","ORDERED","SAINTLY"];
 basicspire = ["VILES","FERALS","UNHINGEDS","ARTISTICS","ORDEREDS","SAINTLYS"];
