@@ -259,7 +259,6 @@ class Cursor{
         this.sprite = 18;
         this.offsetX = 0;                                                   
         this.offsetY = 0;
-        this.lastMove = [-1,0];
         this.isPlayer = false;
     }
     getDisplayX(){                     

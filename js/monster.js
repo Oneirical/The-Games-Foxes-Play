@@ -1,17 +1,10 @@
 class Monster{
     static species = "Plated"; //monsterNames[this.name]
-    constructor(tile, sprite, hp, loot, lore){
+    constructor(tile, sprite, hp){
         this.sprite = sprite;
         this.hp = hp;
         this.offsetX = 0;                                                   
         this.offsetY = 0;
-        this.lastMove = [-1,0]; 
-        this.order = -1;
-        this.infested = 0;
-        this.soulstun = 0;
-        this.doomed = false;
-        this.previousdir;
-        this.lootid = this.loot;
         this.souls = {
             "SAINTLY" : false,
             "ORDERED" : false,
@@ -20,11 +13,7 @@ class Monster{
             "FERAL" : false,
             "VILE" : false,
         };
-        if (tile == "disabled") return;
         this.move(tile);
-        this.adjacentmon = this.tile.getAdjacentNeighbors().filter(t => t.monster && !t.monster.isPlayer).length;
-        this.graphicsReady = false;
-
     }
 
     trigger(event,assi){
@@ -63,7 +52,8 @@ class Monster{
                         tilesDisplay.projectorDisplay.y = -448;
                         tilesDisplay.creatureDisplay.x = -448;
                         tilesDisplay.creatureDisplay.y = -448;
-                        let destination = universe.currentworld + 1;
+                        let destination = 0; 
+                        if (universe.currentworld == 0) destination = 1;
                         if (!universe.zooming && this.tile instanceof CageContainer &&  this.tile.x == world.cageCorner[0] + 4 && this.tile.y == world.cageCorner[1] + 4) universe.passDown(destination, world.cage.pocketworld.cageLocation[0], world.cage.pocketworld.cageLocation[1]);
                     }
                 }
@@ -92,8 +82,7 @@ class Monster{
             this.creaturecon.x = 8*tileSize;
             this.creaturecon.y = 8*tileSize;
         }
-        let hai = this.sprite;
-        let newSprite = new FoxSprite(allsprites.textures['sprite'+hai]);
+        let newSprite = new FoxSprite(allsprites.textures['sprite'+this.sprite]);
         newSprite.width = tileSize;
         newSprite.height = tileSize;
         
@@ -109,9 +98,6 @@ class Monster{
         }
         if (!this.animationTick) this.setUpAnimation();
         this.updateHp();
-        if (false && universe.zooming && this instanceof Terminal){ //looks kind of cool but enough is enough
-            new GlitchSprite(this.creaturecon,3,true);
-        }
         this.graphicsReady = true;
         //remember when you looked for 2 hours for that one bug that made you drop 1 FPS every time Terminal passed a door and it turned
         //out to be that one tiny line under here that caused literal thousands of StatusDisplay to stack on top of each other? Now that was funny
@@ -230,7 +216,6 @@ class Monster{
     tryMove(dx,dy){
         let newTile = this.tile.getNeighbor(dx,dy);
         if(newTile.passable){
-            this.lastMove = [dx,dy];
             if(!newTile.monster){
                 this.move(newTile);
                 return true;
@@ -1299,19 +1284,5 @@ class Exploder extends Monster{
         this.noloot = true;
         this.direction = [];
         this.teleportCounter = 0;
-    }
-    doStuff(){
-        let testTile = getTile(this.tile.x+this.direction[0],this.tile.y+this.direction[1]);
-        if (testTile.monster || !inBounds(testTile.x,testTile.y)){
-            spells["UNHINGEDSTRIGGER"](this);
-            if (testTile.monster) {
-                testTile.monster.fp++;
-                testTile.monster.stunned = true;
-                testTile.monster.knockback(testTile.monster.fp,this.direction,false);
-            }
-            player.move(this.tile);
-            this.hit(99);
-        }
-        else this.tryMove(this.direction[0], this.direction[1]);
     }
 }

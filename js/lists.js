@@ -4,7 +4,7 @@ basicspire = ["VILES","FERALS","UNHINGEDS","ARTISTICS","ORDEREDS","SAINTLYS"];
 smod = ["Alacrity","Selective","Thrusters","Hover","Focus"];
 modulators = ["Alacrity","Selective","Thrusters","Hover","Focus"];
 
-const floors = ["World Seed", "Entertainment Chamber Alpha" , "Industrial Apex"]; // Vox Zone
+const floors = ["World Seed", "Industrial Apex"]; // Vox Zone "Entertainment Chamber Alpha" ,
 
 // DO NOT USE THIS AS A LIST IT GETS WIPED EACH TIME
 const casteNodes = ["Saintly","Ordered","Artistic","Unhinged","Feral","Vile"];

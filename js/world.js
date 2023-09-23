@@ -8,8 +8,7 @@ class CageTemplate{
 
     generateWorld(){
         if (universe.currentworld == 1) this.pocketworld = universe.worlds[0];
-        else if (universe.currentworld == 2) this.pocketworld = universe.worlds[1];
-        else this.pocketworld = universe.worlds[2];
+        else if (universe.currentworld == 0) this.pocketworld = universe.worlds[1];
         this.displayon = true;
     }
 }
@@ -57,7 +56,7 @@ class Universe{
         this.viewport
             .animate({
                 width: 1143/9,
-                time: 500,
+                time: 700,
             })
     
     
@@ -120,9 +119,7 @@ class Universe{
             "E2" : [1,1],
             "S2" : [1,1],
         }
-        //let locspawn = [world.currentroom[0] + player.lastMove[0] + scale[origin][0], world.currentroom[1] + player.lastMove[1] + scale[origin][1]];
         let locspawn = [4,5];
-        let motionsave = player.lastMove;
         let receivereward = true;
         for(let j=0;j<5;j++){
             for(let i=0;i<5;i++){
@@ -316,9 +313,6 @@ class World{
     }
 
     hypnoDisplay(){
-        this.hypnosis = new PIXI.Container();
-        new GlitchSprite(this.hypnosis,3);
-        tilesDisplay.addChild(this.hypnosis);
         let xindic = 3;
         let yindic = 3;
         for(let y = this.cageLocation[1]-1; y<this.cageLocation[1]+2;y++){
@@ -329,14 +323,13 @@ class World{
                     continue;
                 } 
                 if (this.rooms[x][y].tangible){
-                    this.rooms[x][y].hypnoCon.width = 64;
-                    this.rooms[x][y].hypnoCon.height = 64;
-                    this.rooms[x][y].hypnoCon.x = 0;
-                    this.rooms[x][y].hypnoCon.y = 0;
-                    tiles[world.cageCorner[0]+xindic][world.cageCorner[1]+yindic].tilecon.addChild(this.rooms[x][y].hypnoCon);                    
+                    this.rooms[x][y].displayCon.width = 64;
+                    this.rooms[x][y].displayCon.height = 64;
+                    this.rooms[x][y].displayCon.x = 0;
+                    this.rooms[x][y].displayCon.y = 0;
+                    tiles[world.cageCorner[0]+xindic][world.cageCorner[1]+yindic].tilecon.addChild(this.rooms[x][y].displayCon);                    
                 }
                 xindic++;
-                //else if (betweenIncl(x,4-this.cage.size,4+this.cage.size) && betweenIncl(y,4-this.cage.size,4+this.cage.size)) drawPixel("black",x*112,y*112,112,this.hypnosis);
             }
             yindic++;
             xindic = 3;
@@ -675,7 +668,6 @@ class World{
         numTiles = room.size;
         tileSize = (9/numTiles)*64;
         tiles = room.tiles;
-        room.playerlastmove = shifts[direction[0]];
         if (!room.playerspawn) room.playerspawn = [22,4];
         room.populateRoom();
         if (!room.visited){
@@ -737,7 +729,6 @@ class Room{
         this.music = false;
         this.entrymessage = false;
         this.generatedexits = [];
-        this.playerlastmove = [0,-1];
         this.core;
         this.corridor = false;
         this.playerspawn;
