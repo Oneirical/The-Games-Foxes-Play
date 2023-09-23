@@ -372,7 +372,6 @@ class World{
                 }
                 catch (err) {throw new Error("Unknown room glyph: "+ genstruct[vault][j][i])}
                 if (flip) flipRoom(this.rooms[i][j].id,this.rooms[i][j].size,0);
-                this.rooms[i][j].setUp();
                 this.rooms[i][j].insertRoom(this.depth);
                 if (flip) flipRoom(this.rooms[i][j].id,this.rooms[i][j].size,0);
             }
@@ -388,9 +387,6 @@ class World{
                 if ("Facility" == "Facility"){//replace this if more vaults get added
                     if (this.rooms[i][j] instanceof WorldSeed) this.rooms[i][j].filler = TermiWall;
                     else this.rooms[i][j].filler = Wall;
-                }
-                if (this.rooms[i][j].tangible){
-                    this.spreadExits(i,j);
                 }
                 for(let x=0;x<this.rooms[i][j].size;x++){
                     for(let y=0;y<this.rooms[i][j].size;y++){
@@ -522,7 +518,6 @@ class World{
                     if (corridor) times = 0;
                     if (rooms[this.rooms[i][j].id]["tags"].includes("randomflip") && !corridor) flip = true;
                     if (flip) flipRoom(this.rooms[i][j].id,this.rooms[i][j].size,times);
-                    this.rooms[i][j].setUp();
                     this.rooms[i][j].insertRoom(this.depth);
                     if (flip) flipRoom(this.rooms[i][j].id,this.rooms[i][j].size,times);
                     if (corridor && flip) this.rooms[i][j].verticality = "side";
@@ -530,7 +525,6 @@ class World{
                 }
                 else{
                     this.rooms[i][j] = new VoidRoom([i,j]);
-                    this.rooms[i][j].setUp();
                     this.rooms[i][j].insertRoom(this.depth);
                 }
             }
@@ -542,10 +536,6 @@ class World{
         }
         for(let i=0;i<5;i++){
             for(let j=0;j<5;j++){
-                if (this.rooms[i][j].tangible){
-                    this.spreadExits(i,j);
-                    //this.rooms[i][j].setUpSprites();
-                }
                 for(let x=0;x<this.rooms[i][j].size;x++){
                     for(let y=0;y<this.rooms[i][j].size;y++){
                         this.depositTiles[i*9+x][j*9+y] = this.rooms[i][j].tiles[x][y];
@@ -571,34 +561,6 @@ class World{
             for(let j=0;j<45;j++){   
                 if (this.playSpace.tiles[i][j] instanceof Airlock) this.playSpace.tiles[i][j].findDirection();        
             }
-        }
-    }
-
-
-    spreadExits(i,j){
-        for (let l of this.rooms[i][j].possibleexits){
-            const exit = this.rooms[i][j].tiles[l[0]][l[1]];
-            //const spreads = {
-             //   "N" : universe.worlds[this.x][this.y-1] && universe.worlds[this.x][this.y-1].isAccessible,
-            //    "W" : universe.worlds[this.x-1][this.y] && universe.worlds[this.x-1][this.y].isAccessible,
-             //   "E" : universe.worlds[this.x+1][this.y] && universe.worlds[this.x+1][this.y].isAccessible,
-             //   "S" : universe.worlds[this.x][this.y+1] && universe.worlds[this.x][this.y+1].isAccessible,
-            //};
-            //if (i == 4 && j == 8 && l[1] == 8 && spreads["S"]) continue;
-            //else if (i == 4 && j == 0 && l[1] == 0 && spreads["N"]) continue;
-            //else if (i == 8 && j == 4 && l[0] == 8 && spreads["E"]) continue;
-            //else if (i == 0 && j == 4 && l[0] == 0 && spreads["W"]) continue;
-            if (exit.direction == "N" && (j==0 || this.rooms[i][j-1] instanceof VoidRoom)) this.rooms[i][j].tiles[l[0]][l[1]] = new this.rooms[i][j].filler(l[0],l[1],this.rooms[i][j]);
-            else if (exit.direction == "S" && (j==8 || this.rooms[i][j+1] instanceof VoidRoom)) this.rooms[i][j].tiles[l[0]][l[1]] = new this.rooms[i][j].filler(l[0],l[1],this.rooms[i][j]);
-            else if (exit.direction == "W" && (i==0 || this.rooms[i-1][j] instanceof VoidRoom)) this.rooms[i][j].tiles[l[0]][l[1]] = new this.rooms[i][j].filler(l[0],l[1],this.rooms[i][j]);
-            else if (exit.direction == "E" && (i==8 || this.rooms[i+1][j] instanceof VoidRoom)) this.rooms[i][j].tiles[l[0]][l[1]] = new this.rooms[i][j].filler(l[0],l[1],this.rooms[i][j]);
-            else if (exit.direction == "N2" && (j==0 || this.rooms[i+1][j-1] instanceof VoidRoom|| this.rooms[i+1][j-1].verticality == "side")) this.rooms[i][j].tiles[l[0]][l[1]] = new this.rooms[i][j].filler(l[0],l[1],this.rooms[i][j]);
-            else if (exit.direction == "W2" && (i==0 || this.rooms[i-1][j+1] instanceof VoidRoom|| this.rooms[i-1][j+1].verticality == "up")) this.rooms[i][j].tiles[l[0]][l[1]] = new this.rooms[i][j].filler(l[0],l[1],this.rooms[i][j]);
-            else if (exit.direction == "SS" && (j==7 || this.rooms[i][j+2] instanceof VoidRoom|| this.rooms[i][j+2].verticality == "side")) this.rooms[i][j].tiles[l[0]][l[1]] = new this.rooms[i][j].filler(l[0],l[1],this.rooms[i][j]);
-            else if (exit.direction == "S2" && (j==7 || this.rooms[i+1][j+2] instanceof VoidRoom|| this.rooms[i+1][j+2].verticality == "side")) this.rooms[i][j].tiles[l[0]][l[1]] = new this.rooms[i][j].filler(l[0],l[1],this.rooms[i][j]);
-            else if (exit.direction == "EE" && (i==7 || this.rooms[i+2][j] instanceof VoidRoom|| this.rooms[i+2][j].verticality == "up")) this.rooms[i][j].tiles[l[0]][l[1]] = new this.rooms[i][j].filler(l[0],l[1],this.rooms[i][j]);
-            else if (exit.direction == "E2" && (i==7 || this.rooms[i+2][j+1] instanceof VoidRoom|| this.rooms[i+2][j+1].verticality == "up")) this.rooms[i][j].tiles[l[0]][l[1]] = new this.rooms[i][j].filler(l[0],l[1],this.rooms[i][j]);
-            this.rooms[i][j].tiles[l[0]][l[1]].eat = false;
         }
     }
 
@@ -643,7 +605,7 @@ class World{
     playRoom(room){
         if (!room.playerspawn) room.playerspawn = [4,4];
         tiles = room.tiles;
-        if (room instanceof WorldSeed && level == 1) room.populateRoom();
+        if (room instanceof WorldSeed) room.populateRoom();
         tilesDisplay.removeChildren();
         tilesDisplay.notPlayerTiles.removeChildren();
         tilesDisplay.addChild(tilesDisplay.notPlayerTiles);
@@ -872,17 +834,7 @@ class Room{
         }
     }
 
-    initializeRoom(){
-        //let randomtile = randomPassableTile();
-        if (this.entrymessage) log.addLog(this.entrymessage);
-        //if (world.getRoom() instanceof WorldSeed && world.getRoom().generatedexits.length == 0) this.playerspawn = [Math.floor((numTiles-1)/2),Math.floor((numTiles-1)/2)];
-        //else if (this.playerspawn.length == 0){
-        //    this.playerspawn[0] = randomtile.x;
-        //    this.playerspawn[1] = randomtile.y;
-        //}
-        //if (world.getRoom() instanceof EpsilonArena) this.playerspawn = [1,1];
-        //if (this.effects.includes("Darkness")) player.fov = 2;
-    }
+    initializeRoom(){};
 }
 
 class DefaultVaultRoom extends Room{
@@ -890,90 +842,7 @@ class DefaultVaultRoom extends Room{
         super(index);
         this.vault = true;
         this.id = id;
-        this.possibleexits;
-        this.entrancepoints;
-        this.name = "Bleak Corridors";
-        this.music = "malform";
         this.depth = 0;
-        if (level > 5) this.music = "max";
-        else if (level > 10) this.music = "quarry";
-    }
-
-    setUp(){
-        this.possibleexits = locateExits(this.id);
-        if (rooms[this.id]["vertical"] != null){
-            if (rooms[this.id]["vertical"] && this.possibleexits.length == 2){
-                this.extreme = {
-                    "N" : this.possibleexits[0][1],
-                    "S" : this.possibleexits[1][1],
-                }
-                this.entrancepoints = [[this.possibleexits[0][0],this.possibleexits[0][1]+1],[this.possibleexits[1][0],this.possibleexits[1][1]-1]];
-
-            }
-            else if (this.possibleexits.length == 2){
-                this.extreme = {
-                    "W" : this.possibleexits[0][0],
-                    "E" : this.possibleexits[1][0],
-                }
-                this.entrancepoints = [[this.possibleexits[0][0]+1,this.possibleexits[0][1]],[this.possibleexits[1][0]-1,this.possibleexits[1][1]]];
-            }
-        }
-        else{
-            if (this.possibleexits.length == 4){
-                this.extreme = {
-                    "N" : this.possibleexits[0][1],
-                    "W" : this.possibleexits[1][0],
-                    "E" : this.possibleexits[2][0],
-                    "S" : this.possibleexits[3][1],
-                }
-                this.entrancepoints = [[this.possibleexits[0][0],this.possibleexits[0][1]+1],[this.possibleexits[1][0]+1,this.possibleexits[1][1]],[this.possibleexits[2][0]-1,this.possibleexits[2][1]],[this.possibleexits[3][0],this.possibleexits[3][1]-1]];
-            }
-            else if (this.possibleexits.length == 8){
-                this.extreme = {
-                    "N" : this.possibleexits[0][1],
-                    "W" : this.possibleexits[2][0],
-                    "E" : this.possibleexits[4][0],
-                    "S" : this.possibleexits[6][1],
-                }
-                this.entrancepoints = [[this.possibleexits[0][0],this.possibleexits[0][1]+1],[this.possibleexits[1][0],this.possibleexits[1][1]+1],[this.possibleexits[2][0]+1,this.possibleexits[2][1]],[this.possibleexits[3][0]+1,this.possibleexits[3][1]],[this.possibleexits[4][0]-1,this.possibleexits[4][1]],[this.possibleexits[5][0]-1,this.possibleexits[5][1]],[this.possibleexits[6][0],this.possibleexits[6][1]-1],[this.possibleexits[7][0],this.possibleexits[7][1]-1]];
-            }
-        }
-    }
-
-    recheckExits(){
-        let returns = {
-            "N" : "S",
-            "S" : "N",
-            "W" : "E",
-            "E" : "W"
-        }
-        let equiva = {
-            "N" : -10,
-            "S" : 10,
-            "W" : -1,
-            "E" : 1
-        }
-        for (let i of tiles){
-            for (let j of i){
-                if (j instanceof BExit){
-                    this.generatedexits.push(j.direction);
-                    let connect;
-                    let id = j.id;
-                    if (j.id) connect = this.index+j.id;
-                    else connect = this.index + equiva[j.direction];
-                    if (world.roomlist[connect]){
-                        if (world.roomlist[connect].generatedexits.includes(returns[j.direction])){
-                            tiles[j.x][j.y].replace(BReturnExit);
-                            tiles[j.x][j.y].id = id;
-                        }
-                        else{
-                            tiles[j.x][j.y].replace(world.getRoom().filler);
-                            tiles[j.x][j.y].eat = false;
-                        }
-                    }
-                }
-            }
-        }
     }
 
     insertRoom(depth){
@@ -1014,44 +883,6 @@ class DefaultVaultRoom extends Room{
                     if (vault["marks"] && vault["marks"][vault[j][i]]) entity.generationMark = vault["marks"][vault[j][i]];
                     this.monsters.push(entity);
                     if (entity instanceof Terminal) player = entity;
-                }
-            }
-        }
-    }
-
-    buildRoom(connector){
-        generateVault(this.id,this);
-        blockedExits(connector);
-        let returns = {
-            "N" : "S",
-            "S" : "N",
-            "W" : "E",
-            "E" : "W"
-        }
-        let equiva = {
-            "N" : -10,
-            "S" : 10,
-            "W" : -1,
-            "E" : 1
-        }
-        for (let i of tiles){
-            for (let j of i){
-                if (j instanceof BExit){
-                    this.generatedexits.push(j.direction);
-                    let connect;
-                    let id = j.id;
-                    if (j.id) connect = this.index+j.id;
-                    else connect = this.index + equiva[j.direction];
-                    if (world.roomlist[connect]){
-                        if (world.roomlist[connect].generatedexits.includes(returns[j.direction])){
-                            tiles[j.x][j.y].replace(BReturnExit);
-                            tiles[j.x][j.y].id = id;
-                        }
-                        else{
-                            tiles[j.x][j.y].replace(world.getRoom().filler);
-                            tiles[j.x][j.y].eat = false;
-                        }
-                    }
                 }
             }
         }

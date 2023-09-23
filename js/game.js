@@ -66,7 +66,6 @@ function teleport(target,destination,data){
 }
 
 function startGame(){   
-    gameTurns = 0;                    
     level = 1;
     tileSize = 64;
     numTiles = 9;

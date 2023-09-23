@@ -16,7 +16,7 @@ class FoxSprite extends PIXI.Sprite{
 }
   
 
-function setupPixi(){
+function beginEverything(){
     animationTick = new PIXI.Ticker;
     animationTick.start();
     app = new PIXI.Application({
@@ -39,24 +39,36 @@ function setupPixi(){
     );
     allsprites.parse();
     document.body.appendChild(app.view);
+
     uiDisplayLeft = new PIXI.Container();
     uiDisplayLeft.x = 34;
     uiDisplayLeft.y = 44;
     app.stage.addChild(uiDisplayLeft);
+
     tilesDisplay = new PIXI.Container();
-    tilesDisplay.x = (1920-16*16*7)/2+(7+12)*16;
-    tilesDisplay.y = (1080-16*9*7)/2;
+    tilesDisplay.x = 328;
+    tilesDisplay.y = -4;
     app.stage.addChild(tilesDisplay);
+
     tilesDisplay.notPlayerTiles = new PIXI.Container();
     tilesDisplay.addChild(tilesDisplay.notPlayerTiles);
-    tilesDisplay.x += -40;
-    tilesDisplay.y += -40;
+    
     uiDisplayRight = new PIXI.Container();
-    uiDisplayRight.x = 372+32*32+28;
+    uiDisplayRight.x = 1424;
     uiDisplayRight.y = 44;
     app.stage.addChild(uiDisplayRight);
+
     startGame();
-    setUpUI();
+
+    areaname.setUpSprites();
+    buttons.setUpSprites();
+    soulTree.setUpSprites();
+    wheel.setUpSprites();
+    world.setUpSprites();
+    log.setUpLog();
+    statuses.setUpSprites();
+    sideTooltip.setUpSprites();
+
     let tilesChains = new PIXI.Container();
     app.stage.addChild(tilesChains);
     tilesChains.x = (1920-16*16*7)/2+(7+12)*16+8;
@@ -66,7 +78,7 @@ function setupPixi(){
     tilesDisplay.maskReference = app.stage.children[app.stage.children.length-1];
     tilesDisplay.maskReference.alpha = 0;
     drawProjectors();
-    //world.rooms[4][7] = world.playSpace;
+    
     world.enterRoom("N");
     // let rai = new PIXI.filters.ColorOverlayFilter();
     // rai.color = "1a5fb4";
@@ -214,17 +226,6 @@ function tickTiles(){
             //tilesDisplay.children[j+(i*9)].children[0].texture = bai; //extend this to also place traps and caged souls
         }
     }
-}
-
-function setUpUI(){
-    areaname.setUpSprites();
-    buttons.setUpSprites();
-    soulTree.setUpSprites();
-    wheel.setUpSprites();
-    world.setUpSprites();
-    log.setUpLog();
-    statuses.setUpSprites();
-    sideTooltip.setUpSprites();
 }
 
 function drawProjectors(){
