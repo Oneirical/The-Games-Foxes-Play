@@ -2120,3 +2120,221 @@ class Research{
         else return false;
     }
 }
+
+let lootPool = {
+    "CONTINGENCY" : {
+        "S" : [],
+        "O" : [],
+        "A" : [],
+        "U" : [],
+        "F" : [],
+        "V" : [],
+    },
+    "FORM" : {
+        "S" : [],
+        "O" : [],
+        "A" : [],
+        "U" : [],
+        "F" : [],
+        "V" : [],
+    },
+    "FUNCTION" : {
+        "S" : [],
+        "O" : [],
+        "A" : [],
+        "U" : [],
+        "F" : [],
+        "V" : [],
+    },
+    "MUTATOR" : {
+        "S" : [],
+        "O" : [],
+        "A" : [],
+        "U" : [],
+        "F" : [],
+        "V" : [],
+    }
+}
+
+var researchpage = {
+    
+    "Basic" : {
+        0 : ".........",
+        1 : ".........",
+        2 : ".........",
+        3 : ".........",
+        4 : ".........",
+        5 : ".........",
+        6 : ".........",
+        7 : ".........",
+        8 : ".........",
+    },
+    "Web0" : {
+        0 :  "c.............f",
+        1 :  ".>-----------<.",
+        2 :  ".I...........I.",
+        3 :  ".I...........I.",
+        4 :  ".I..>-----<..I.",
+        5 :  ".I..I.....I..I.",
+        6 :  ".I..I.....I..I.",
+        7 :  ".I..I.....I..I.",
+        8 :  ".I..I.....I..I.",
+        9 :  ".a..I.....I..I.",
+        10 : ".I..L--T--)..I.",
+        11:  ".a.....I.....I.",
+        12:  ".I.....I.....I.",
+        13:  ".a.....I-----).",
+        14:  "...............",
+    },
+    "Template" : {
+        0 :  "...............",
+        1 :  "...............",
+        2 :  "...............",
+        3 :  "...............",
+        4 :  "...............",
+        5 :  "...............",
+        6 :  "...............",
+        7 :  "...............",
+        8 :  "...............",
+        9 :  "...............",
+        10:  "...............",
+        11:  "...............",
+        12:  "...............",
+        13:  "...............",
+        14:  "...............",
+    },
+    "Web3" : {//Fundamentals
+        0 :  "..a.........c..", //f for fuffypocalypse
+        1 :  "..I..cTc....I..",//s for spellcraft
+        2 :  "..a...I...m.Kc.",// inhale exhale
+        3 :  "..I...I.s-K.I..", // o and m contin and mut
+        4 :  "..h...n-K.a-K..",//shattereds and subdueds
+        5 :  "..I...I.s-K.I..", // t for structures
+        6 :  "k-+-l-o...o.I..",// dreamscape
+        7 :  "..I.........d..", // d for deeper still, i for influences
+        8 :  "i-f-<.......I..",// paint & seed
+        9 :  "I...d...>-i-+-c", 
+        10:  "c-b-)...I...I..",//herald
+        11:  "..I.....t...c..",
+        12:  "..a.....I......",//move
+        13:  "..I...r-)......",
+        14:  "..z............",//research tree
+    },
+    "Web2" : {
+        0 :  "c.............f",
+        1 :  "L-s-m.....m-c-)",
+        2 :  "....K-sTs-J....",
+        3 :  "f-c-s..I..m-s-s",
+        4 :  "..I....f....I..",
+        5 :  "..m-f..I..c-f..",
+        6 :  "....I..I..I....",
+        7 :  "....Ks-a-sJ....",
+        8 :  "....I..I..I....",
+        9 :  "....m..I..m....",
+        10 : ".......f.......",
+        11 : ".......I.......",
+        12 : "......sYm......",
+        13 : "......I.I......",
+        14 : "......Lc)......",
+    },
+    "Web0" : {
+        0 :  "C-D----T----T-C",
+        1 :  "..I....I....I..",
+        2 :  "C-J...>A<...C..",
+        3 :  "..I...I.I......",
+        4 :  "N-).O-FTU-M.C..",
+        5 :  "I......I....I..",
+        6 :  "I..k-l-o--T-+-C",
+        7 :  "I....I....I.I..",
+        8 :  "S..>-f-<..g.n..",
+        9 :  "I..I...I..I....",
+        10 : "I..i-T-d..H....",
+        11 : "I....I.........",
+        12 : "L-r..c-b-<.....",
+        13 : ".........a.....",
+        14 : ".......z-).....",
+    },
+    "Page0" : {
+        0 : "....I....",
+        1 : ".>--f--<.",
+        2 : ".d.....i.",
+        3 : ".L--c--).",
+        4 : "....I....",
+        5 : "....b--e.",
+        6 : "....I....",
+        7 : "....a....",
+        8 : ".........",
+        "links" : {
+            "a" : [[]],
+            "b" : [["a"]],
+            "c" : [["b"]],
+            "d" : [["c"]],
+            "f" : [["d"],["i"]],
+            "e" : [["b"]],
+            "i" : [["c"]],
+        }
+    },
+    // a - A Tingling In The Soul (intro)
+    // b - The Herald of the Old World (cold storage)
+    // c - Containing the Intangible (soul cage)
+    // d - Synchronized Daydreaming (world seed)
+    // e - Unruly Prey (turbulents)
+    // f - Visions of the Old World (visions)
+    // g - With Prudence Comes Serenity (security)
+    // h - The Song That Stirs Souls (tier 1 harmony)
+    "Page1" : {
+        0 : ".I.I.I...",
+        1 : ".I.iTj...",
+        2 : ".K-<I....", // extend from e at some point
+        3 : ".f.hI....", // and add e, anyhow... right above d
+        4 : ".LT)I....",
+        5 : "..L-cTd..",
+        6 : ".g--)I...",
+        7 : "...aTb...",
+        8 : "....I....",
+        "links" : {
+            "b" : [["<f"]],
+            "a" : [["<f"]],
+            "c" : [["b"]],
+            "d" : [["b"]],
+            //"e" : [["d"]],
+            "j" : [["c"]],
+            "g" : [["c"]],
+            "i" : [["c"]],
+            "f" : [["c"]],
+            "h" : [["c"]],
+        }
+    },
+    // a - Spiritual Sewage (shattered souls)
+    // b - The Servitude of Still Minds (subdued souls)
+    // c - Wear Beings Like Costumes (spellcasting)
+    // d - Estate of Servants' Dreams (subdued souls in cage)
+    // e - The Bottomless Dream-Pit (soul cage pattern)
+    // f - 
+    // g - Reforging Legends Past (spell crafting)
+    // h - 
+    "Page2" : {
+        0 : ".........",
+        1 : "....i....",
+        2 : "..>-+-<..",
+        3 : "..h.f.I..",
+        4 : ".>Y<I.g..",
+        5 : ".e.dLT)..",
+        6 : ".I.I.I...",
+        7 : ".a.b.c...",
+        8 : ".I.I.I...",
+        "links" : {
+            "a" : [["<f","<h"]],
+            "b" : [["<i"]],
+            "c" : [["<j"]],
+            "e" : [["a"]],
+            "h" : [["e","d"]],
+            "d" : [["b"]],
+            "g" : [["c"]],
+            "f" : [["c"]],
+            "i" : [["h","f","g"]],
+        }
+    },
+}
+
+//spawns: N - W - E - S

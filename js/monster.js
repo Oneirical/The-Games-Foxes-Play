@@ -252,9 +252,9 @@ class Monster{
         this.hp -= damage;
         if(this.hp <= 0 && !this.dead) this.die();
         if(this.isPlayer){                                                     
-            playSound("hit1");                                              
+            //playSound("hit1");                                              
         }else{                                                       
-            playSound("hit2");                                              
+            //playSound("hit2");                                              
         }
         this.updateHp();
     }
@@ -483,7 +483,7 @@ class BattleFluffy extends Monster{
             else{
                 log.addLog("FluffyInsufficientPower");
                 player.activemodule = "NONE";
-                playSound("off");
+                //playSound("off");
             }
         }
         else if (!this.attackedThisTurn && player.activemodule == "Thrusters"){
@@ -491,7 +491,7 @@ class BattleFluffy extends Monster{
             else{
                 log.addLog("FluffyInsufficientPower");
                 player.activemodule = "NONE";
-                playSound("off");
+                //playSound("off");
             }
         }
         else if (!this.attackedThisTurn && player.activemodule == "Hover"){
@@ -502,7 +502,7 @@ class BattleFluffy extends Monster{
                 else{
                     log.addLog("FluffyInsufficientPower");
                     player.activemodule = "NONE";
-                    playSound("off");
+                    //playSound("off");
                 }
             }
             else{
@@ -923,7 +923,7 @@ class Epsilon extends Monster{
                     }
                 }
                 if (!this.hastalavista){
-                    playSound("epsivuln");
+                    //playSound("epsivuln");
                     log.addLog("EpsilonRedWeak");
                     removeItemOnce(this.corelist,"Red");
                     for (let z of monsters){
@@ -943,7 +943,7 @@ class Epsilon extends Monster{
             }
         }
         if (dronecount >= 20 && this.corelist.includes("White") && !this.hastalavista){
-            playSound("epsivuln");
+            //playSound("epsivuln");
             log.addLog("EpsilonWhiteWeak");
             this.vulnerability = 25;
             removeItemOnce(this.corelist,"White");
@@ -954,7 +954,7 @@ class Epsilon extends Monster{
         }
         //Pink vuln test
         if (player.rosetox >= 4 && this.corelist.includes("Pink") && !this.hastalavista){
-            playSound("epsivuln");
+            //playSound("epsivuln");
             log.addLog("EpsilonPinkWeak");
             this.vulnerability = 10;
             removeItemOnce(this.corelist,"Pink");
@@ -971,7 +971,7 @@ class Epsilon extends Monster{
                     if (y.monster && this.corelist.includes("Cyan") && !this.hastalavista){
                         if (y.monster instanceof BattleFluffy){
                             log.addLog("EpsilonCyanWeak");
-                            playSound("epsivuln");
+                            //playSound("epsivuln");
                             this.vulnerability = 5;
                             removeItemOnce(this.corelist,"Cyan");
                             for (let z of monsters){
@@ -994,7 +994,7 @@ class Epsilon extends Monster{
         else if (restorecheck == 1){
             this.isInvincible = true;
             log.addLog("EpsilonRestored");
-            playSound("epsirepair");
+            //playSound("epsirepair");
             this.sprite = 67;
             for (let x of monsters){
                 if (x instanceof Tail){
@@ -1015,7 +1015,7 @@ class Epsilon extends Monster{
                 let type = shuffle([Psydrone,Titanic,Paradox,Binary])[0];
                 monsters.push(new type(dest));
             }
-            else playSound("fail");
+            //else //playSound("fail");
         }
         this.attackedThisTurn = false;
         this.lastpos = [this.tile.x,this.tile.y];

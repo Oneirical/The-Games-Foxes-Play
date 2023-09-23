@@ -280,17 +280,17 @@ class Floor extends Tile{
             if (!player.consumeCommon(1,false)) {
                 log.addLog("FluffyInsufficientPower");
                 player.activemodule = "NONE";
-                playSound("off");
+                //playSound("off");
                 trapsafe = true;
             }
         }
         if (monster.isPlayer && this.cuff && trapsafe){
             player.para = 1;
-            playSound("fail");
+            //playSound("fail");
             this.cuff = false;
         }
         if ((monster.isPlayer) && this.pin && trapsafe){
-            playSound("fail");
+            //playSound("fail");
             for (let x of monsters){
                 if (x instanceof Weaver){
                     x.enraged = true;
@@ -337,21 +337,21 @@ class Goop extends Tile{
     stepOn(monster){
         if((!monster.isPlayer&&!monster.statusEff["Charmed"] > 0)&& this.trap){  
             spells["ARTTRIGGER"](monster.tile);
-            playSound("treasure");            
+            //playSound("treasure");            
             this.trap = false;
         }
         if (monster.isPlayer && this.cuff){
             player.para = 1;
-            playSound("fail");
+            //playSound("fail");
             this.cuff = false;
         }
         if ((monster.isPlayer||monster.statusEff["Charmed"] > 0) && this.eviltrap){
-            playSound("fail");
+            //playSound("fail");
             spells["ARTTRIGGER"](monster.tile);
             this.eviltrap = false;
         }
         if ((monster.isPlayer) && this.pin){
-            playSound("fail");
+            //playSound("fail");
             for (let x of monsters){
                 if (x instanceof Weaver){
                     x.enraged = true;
@@ -468,7 +468,7 @@ class MapExit extends Tile{
     stepOn(monster){
         return;
         if(monster.isPlayer){
-            playSound("newLevel");
+            //playSound("newLevel");
             this.monster = null;
             world.saveRoom(world.getRoom());
             world.enterRoom(this.direction);
@@ -494,7 +494,7 @@ class AscendExit extends Tile{
     }
     stepOn(monster){
         if(monster.isPlayer){
-            playSound("newLevel");
+            //playSound("newLevel");
             this.monster = null;
             world.saveRoom(world.getRoom());
             universe.passUp(universe.currentworld-1,this.direction);
@@ -871,21 +871,21 @@ class RoseSpawner extends Tile{
     stepOn(monster){
         if((!monster.isPlayer&&!monster.statusEff["Charmed"] > 0)&& this.trap){  
             spells["ARTTRIGGER"](monster.tile);
-            playSound("treasure");            
+            //playSound("treasure");            
             this.trap = false;
         }
         if (monster.isPlayer && this.cuff){
             player.para = 1;
-            playSound("fail");
+            //playSound("fail");
             this.cuff = false;
         }
         if ((monster.isPlayer||monster.statusEff["Charmed"] > 0) && this.eviltrap){
-            playSound("fail");
+            //playSound("fail");
             spells["ARTTRIGGER"](monster.tile);
             this.eviltrap = false;
         }
         if ((monster.isPlayer) && this.pin){
-            playSound("fail");
+            //playSound("fail");
             for (let x of monsters){
                 if (x instanceof Weaver){
                     x.enraged = true;
@@ -907,21 +907,21 @@ class Mobilizer extends Tile{
     stepOn(monster){
         if((!monster.isPlayer&&!monster.statusEff["Charmed"] > 0)&& this.trap){  
             spells["ARTTRIGGER"](monster.tile);
-            playSound("treasure");            
+            //playSound("treasure");            
             this.trap = false;
         }
         if (monster.isPlayer && this.cuff){
             player.para = 1;
-            playSound("fail");
+            //playSound("fail");
             this.cuff = false;
         }
         if ((monster.isPlayer||monster.statusEff["Charmed"] > 0) && this.eviltrap){
-            playSound("fail");
+            //playSound("fail");
             spells["ARTTRIGGER"](monster.tile);
             this.eviltrap = false;
         }
         if ((monster.isPlayer) && this.pin){
-            playSound("fail");
+            //playSound("fail");
             for (let x of monsters){
                 if (x instanceof Weaver){
                     x.enraged = true;
