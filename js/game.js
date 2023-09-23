@@ -73,7 +73,6 @@ function startGame(){
     areaname = new LocationDisplay();
     statuses = new StatusDisplay();
     buttons = new ButtonsDisplay();
-    research = new Research();
     wheel = new SoulBreathing(); //should belong to entity
     universe = new Universe();
     log = new MessageLog();

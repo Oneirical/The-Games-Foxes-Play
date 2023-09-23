@@ -118,37 +118,6 @@ let lootPool = {
     }
 }
 
-var contingencies = [];
-var forms = [];
-var mutators = [];
-var functions = [];
-for (let i of Object.keys(spellpatterns)){
-    let caste = false;
-    for (let x = 0; x<spellpatterns[i][0].length; x++){
-        for (let y = 0; y<spellpatterns[i][0].length; y++){
-            if (spellpatterns[i][x][y] != "."){
-                caste = spellpatterns[i][x][y];
-                break;
-            }
-            if (caste) break;
-        }
-    }
-    lootPool[spellpatterns[i]["type"].toUpperCase()][caste].push(i);
-    const equi = {
-        "S" : "Saintly",
-        "O" : "Ordered",
-        "A" : "Artistic",
-        "U" : "Unhinged",
-        "F" : "Feral",
-        "V" : "Vile",
-    }
-    spellpatterns[i]["caste"] = equi[caste];
-    //if (spellpatterns[i]["type"] == "Contingency") contingencies.push(i);
-    //else if (spellpatterns[i]["type"] == "Form") forms.push(i);
-    //else if (spellpatterns[i]["type"] == "Mutator") mutators.push(i);
-    //else if (spellpatterns[i]["type"] == "Function") functions.push(i);
-}
-
 var researchpage = {
     
     "Basic" : {

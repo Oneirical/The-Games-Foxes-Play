@@ -1891,3 +1891,232 @@ function toAxiomMode(){
         if (world.getRoom() instanceof SoulCage) wheel.toPaintMode();
     }
 }
+
+class Research{
+    constructor(){
+        this.tabs = [];
+        this.page;
+        this.currentpage = 0;
+        this.knownnodes = [];
+        this.knownSpells = [];
+        this.buildTabs();
+        this.looking = false;
+        this.exppage = new TutorialDisplay();
+        this.monsterpool = [Tinker, Slug, Snail, Shrike, Apis, Felidol];
+        this.infectedConnectors = [];
+        this.influence = {
+            "Saintly" : 0,
+            "Ordered" : 0,
+            "Artistic" : 0,
+            "Unhinged" : 0,
+            "Feral" : 0,
+            "Vile" : 0,
+            "Serene" : 0,
+        }
+    }
+
+    selectCaste(num){
+        this.displayCon.children[this.currentpage+1].visible = false;
+        this.tabContainer.children[this.currentpage].extended = false;
+        this.tabContainer.children[this.currentpage].truePos = 252;
+        this.displayCon.children[num+1].visible = true;
+        this.tabContainer.children[num].extended = true;
+        this.currentpage = num;
+    }
+
+    setUpSprites(){
+        this.displayCon = new PIXI.Container();
+        drawPixel("black",-24,-24,112*9,this.displayCon);
+        this.displayCon.children[0].alpha = 1; //if this is lower the chains show up
+        this.displayCon.x = 24;
+        this.displayCon.y = 24;
+        // let newSprite = new FoxSprite(allsprites.textures['sprite0']); //background image
+        // newSprite.x = -24;
+        // newSprite.y = -24;
+        // newSprite.width = 112*9;
+        // newSprite.height = 112*9;
+        // newSprite.alpha = 0.2;
+        // this.displayCon.addChild(newSprite);
+        for (let k = 0; k<7; k++){
+            let tabCon = new PIXI.Container();
+            tabCon.visible = false;
+            this.displayCon.addChild(tabCon);
+            for(let i=0;i<15;i++){
+                for(let j=0;j<15;j++){
+                    this.tabs[k][i][j].setUpResearch(tabCon);
+                }
+            }
+        }
+        this.tabContainer = new PIXI.Container();
+        for (let i = 0; i<7; i++){
+            let sprite = i-1;
+            if (i == 0) sprite = 33;
+            let selector = new CasteTab(sprite);
+            selector.setUpSprites();
+            selector.casteNum = i;
+            selector.displayCon.y = i*112+16;
+            selector.displayCon.x = 252;
+            if (i > 0) selector.displayCon.visible = false;
+            this.tabContainer.addChild(selector.displayCon);
+        }
+        this.descriptionBox = new NodeDescription();
+        this.descriptionBox.setUpSprites();
+        this.selectCaste(this.currentpage);
+        this.completeResearch("Research");
+    }
+
+    sereneSpread(){
+        if (this.infectedConnectors.length == 0) this.infectedConnectors.push(this.tabs[0][7][12]);
+
+        const neig = [[-1,0],[1,0],[0,1],[0,-1]];
+        let candidates = [];
+        for (let g of this.infectedConnectors){
+            let k = g.page;
+            for (let x of neig){
+                if (this.tabs[k][g.x+x[0]] && this.tabs[k][g.x+x[0]][g.y+x[1]]){
+                    if (!this.tabs[k][g.x+x[0]][g.y+x[1]].fuffified && !(this.tabs[k][g.x+x[0]][g.y+x[1]] instanceof RealityWall)){
+                        candidates.push(this.tabs[k][g.x+x[0]][g.y+x[1]]);
+                        this.tabs[k][g.x+x[0]][g.y+x[1]].fuffified = true;
+                        if (this.tabs[k][g.x+x[0]][g.y+x[1]] instanceof ResearchNode){
+                            this.tabs[k][g.x+x[0]][g.y+x[1]].tilecon.alpha = 1;
+                            this.tabs[k][g.x+x[0]][g.y+x[1]].discovered = true;
+                            this.tabs[k][g.x+x[0]][g.y+x[1]].completed = true;
+                            this.influence["Serene"]++;
+                            universe.getTotalInfluence();
+                            if (this.tabs[k][g.x+x[0]][g.y+x[1]].axiomComponent) this.tabs[k][g.x+x[0]][g.y+x[1]].innerSymbol.texture = (allsprites.textures['icon'+inside[this.tabs[k][g.x+x[0]][g.y+x[1]].id]]);
+                            this.tabs[k][g.x+x[0]][g.y+x[1]].spriteDisplay.texture = allsprites.textures['sprite150'];
+                        }
+                        else{
+                            this.tabs[k][g.x+x[0]][g.y+x[1]].tilecon.alpha = 1;
+                            this.tabs[k][g.x+x[0]][g.y+x[1]].tilecon.filters = [];
+                            this.tabs[k][g.x+x[0]][g.y+x[1]].spriteDisplay.texture = allsprites.textures['sprite'+(this.tabs[k][g.x+x[0]][g.y+x[1]].sprite+30)];
+                        }
+                    }
+                }
+            }
+        }
+        this.infectedConnectors = candidates;
+    }
+
+    goopSpread(k,i,j){
+        this.tabs[k][i][j].tilecon.alpha = 1;
+        this.tabs[k][i][j].spriteDisplay.texture = allsprites.textures['sprite'+this.tabs[k][i][j].sprite];
+        let goo = [];
+        const neig = [[-1,0],[1,0],[0,1],[0,-1]];
+        for (let x of neig){
+            if (this.tabs[k][i+x[0]] && this.tabs[k][i+x[0]][j+x[1]]) goo.push(this.tabs[k][i+x[0]][j+x[1]]);
+        }
+        goo = goo.filter(t => t instanceof ResearchConnector && t.tilecon.alpha != 1);
+        while (goo.length){
+            for (let g of goo){
+                if (!(g instanceof ResearchConnector)){
+                    removeItemOnce(goo,g);
+                    g.alpha = 1;
+                    g.filters = [];
+                    continue;
+                }
+                const neig = [[-1,0],[1,0],[0,1],[0,-1]];
+                for (let x of neig){
+                    if (this.tabs[k][g.x+x[0]] && this.tabs[k][g.x+x[0]][g.y+x[1]]){
+                        goo.push(this.tabs[k][g.x+x[0]][g.y+x[1]]);
+                        if (this.tabs[k][g.x+x[0]][g.y+x[1]] instanceof ResearchNode){
+                            this.tabs[k][g.x+x[0]][g.y+x[1]].discoverNode();
+                        }
+                    }
+                }
+                goo = goo.filter(t => t instanceof ResearchConnector && t.tilecon.alpha != 1);
+                g.tilecon.alpha = 1;
+                g.tilecon.filters = [];
+            }
+            if (goo.length > 20) return "uh oh";
+        }
+    }
+
+    buildTabs(){
+        for (let k=0; k<7;k++){
+            this.tabs[k] = [];
+            let web = k;
+            if (web > 0) web = 2;
+            for(let i=0;i<15;i++){
+                this.tabs[k][i] = [];
+                for(let j=0;j<15;j++){
+                    let nodeType = keyresearch[researchpage["Web"+web][j][i]];
+                    if ("TL)><I-+KYJ".includes(researchpage["Web"+web][j][i])) this.tabs[k][i][j] = new ResearchConnector(i,j,nodeType,k);
+                    else if (nodeType == ".") this.tabs[k][i][j] = new RealityWall(i,j);
+                    else this.tabs[k][i][j] = new ResearchNode(i,j,researchpage["Web"+web][j][i],k);
+                }
+            }
+        }
+        this.page = this.tabs[0];
+    }
+
+    buildTabsOld(){
+        for (let k=0; k<Object.keys(researchpage).length-1;k++){
+            this.tabs[k] = [];
+            for(let i=0;i<5;i++){
+                this.tabs[k][i] = [];
+                for(let j=0;j<5;j++){
+                    let nodeType = keyresearch[researchpage["Page"+k][j][i]];
+                    if ("TL)><I-+KY".includes(researchpage["Page"+k][j][i])) this.tabs[k][i][j] = new ResearchConnector(i,j,nodeType);
+                    else if (nodeType == ".") this.tabs[k][i][j] = new Floor(i,j);
+                    else this.tabs[k][i][j] = new ResearchNode(i,j,researchpage["Page"+k][j][i],k);
+                }
+            }
+        }
+        this.page = this.tabs[0];
+    }
+
+    changeTab(inc){
+        if (this.tabs.length == this.currentpage + inc ||this.currentpage + inc < 0) return;
+        this.currentpage+= inc;
+        this.page = this.tabs[this.currentpage];
+    }
+
+    completeResearch(dis){
+        return;
+        if (this.knownnodes.includes(dis)) return;
+        for (let k = 0; k<7; k++){
+            for(let i=0;i<15;i++){
+                for(let j=0;j<15;j++){
+                    if (this.tabs[k][i][j] instanceof ResearchNode && dis == this.tabs[k][i][j].id && this.tabs[k][i][j].discovered){
+                        this.tabs[k][i][j].completeNode();
+                        if (k > 0) this.influence[Object.keys(this.influence)[k-1]]++;
+                        universe.getTotalInfluence();
+                        playSound("learn");
+                        this.knownnodes.push(dis);
+                        this.goopSpread(k,i,j);
+                        break;
+                    }
+                }
+            }
+        }
+    }
+
+    findletter(letter,k){
+        let searchpage = k;
+        if (letter[0] == "<"){
+            searchpage--;
+            letter = letter[1];
+        }
+        for(let i=0;i<5;i++){
+            for(let j=0;j<5;j++){
+                if (this.tabs[searchpage][i][j] instanceof ResearchNode && this.tabs[searchpage][i][j].letter == letter && this.tabs[searchpage][i][j].completed) return true;
+            }
+        }
+        return false;
+    }
+
+    checkforLinks(candidate,k){
+        let match = 0;
+        for (let i of candidate){
+            for (let j of i){
+                if (this.findletter(j,k)){
+                    match++;
+                    break;
+                }
+            }
+        }
+        if (match == candidate.length) return true;
+        else return false;
+    }
+}
