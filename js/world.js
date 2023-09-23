@@ -101,24 +101,13 @@ class Universe{
         }
     }
 
-    passUp(layer,origin){
+    passUp(layer){
         universe.zooming = true;
         this.layeredInfluence.delete(world.influence);
         uiDisplayLeft.removeChild(world.displayCon);
         player.tile.monster = null;
         world.saveRoom(world.getRoom());
-        const scale = {
-            "N" : [0,0],
-            "S" : [0,0],
-            "E" : [0,0],
-            "W" : [0,0],
-            "N2" : [1,0],
-            "W2" : [0,1],
-            "EE" : [1,0],
-            "SS" : [0,1],
-            "E2" : [1,1],
-            "S2" : [1,1],
-        }
+
         let locspawn = [4,5];
         let receivereward = true;
         for(let j=0;j<5;j++){
@@ -197,21 +186,20 @@ class Universe{
 
 class World{
     constructor(depth){
-        this.depth = depth;
         this.cageCorner;
         this.cageLocation = [2,4];
         this.roompool = [];
         this.isAccessible = false;
         this.finishedspread = false;
         this.generated = false;
-        this.currentroom = [4,4]; //parseInt((randomRange(0,8).toString()+randomRange(0,8).toString()));
+        //this.currentroom = [4,4]; //parseInt((randomRange(0,8).toString()+randomRange(0,8).toString()));
         this.serene = false;
         this.tranquil = false;
         this.faction = 0;
         this.fighting = false;
         this.rooms;
         this.cage = new CageTemplate();
-        this.layer;
+        this.layer = depth;
         this.name = "World Seed";
     }
 

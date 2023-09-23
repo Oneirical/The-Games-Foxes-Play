@@ -6,6 +6,13 @@ function toggleFullScreen() {
     }
 }
 
+function increaseResolution(factor){
+    let w = 1920/factor;
+    let l = 1080/factor;
+    app.renderer.resize(w,l);
+    app.stage.scale.set(w/1920,l/1080);
+}
+
 class FoxSprite extends PIXI.Sprite{
     constructor(imageURL)
     {
@@ -306,7 +313,8 @@ function drawTiles(){
     for (let r of universe.worlds){
         for(let i=0;i<numTiles;i++){
             for(let j=0;j<numTiles;j++){
-                if (r.playSpace.tiles[i] && r.playSpace.tiles[i][j] && !r.playSpace.tiles[i][j].graphicsReady && !(r.playSpace.tiles[i][j] instanceof RealityWall) && !((r.playSpace.tiles[i][j] instanceof LayerBackground) && r.playSpace.tiles[i][j].sprite == 2)) r.playSpace.tiles[i][j].setUpSprite();
+                if (r.playSpace.tiles[i] && r.playSpace.tiles[i][j] && !r.playSpace.tiles[i][j].graphicsReady 
+                    && !(r.playSpace.tiles[i][j] instanceof RealityWall) && (r.playSpace.tiles[i][j].name != "Eroded Floortiles")) r.playSpace.tiles[i][j].setUpSprite();
             }
         }
         

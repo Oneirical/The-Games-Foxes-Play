@@ -157,7 +157,7 @@ class SoulInjector extends Axiom{
 
     act(data){
         if (!this.storage) return data;
-        if (this.storage.axioms === []) throw new Error("Axioms have been emptied.");
+        if (this.storage.axioms == []) throw new Error("Axioms have been emptied.");
         for (let i of data["targets"]){
             if (i.monster && i.monster.findFirstEmptySlot()){
                 let loc = i.monster.findFirstEmptySlot();

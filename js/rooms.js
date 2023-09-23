@@ -4,7 +4,6 @@ var keytile = {
     "E" : Airlock,
     "#" : NoBreakWall,
     "A" : RealityWall,
-    "L" : LayerBackground,
     "T" : TermiWall,
     "t" : TermiExit,
     "," : TrueFloor,
