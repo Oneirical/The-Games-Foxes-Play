@@ -415,30 +415,6 @@ class Blehh extends Monster{
         this.stage = 0;
         this.noloot = true;
     }
-
-    update(){
-        if (this.stage == 99){
-            let startedStunned = this.stunned;
-            super.update();
-            if(!startedStunned){
-                this.stunned = true;
-            }
-        }
-        else if (this.stage == 6){
-            spells["QUADBOLT"](this.tile);
-            spells["UNHINGED"](this);
-            super.update();
-        }
-        else super.update();
-    }
-
-    die(){
-        super.die();
-        if (world.getRoom() instanceof WorldSeed){
-            world.getRoom().stage++;
-            world.getRoom().progressTutorial(world.getRoom().stage);
-        }
-    }
 }
 
 class BattleFluffy extends Monster{

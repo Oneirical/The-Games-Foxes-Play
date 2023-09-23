@@ -461,16 +461,6 @@ class MapExit extends Tile{
         if (!this.direction) this.sprite = 89;
         else this.sprite = this.textures[this.direction[0]];
     }
-    stepOn(monster){
-        return;
-        if(monster.isPlayer){
-            //playSound("newLevel");
-            this.monster = null;
-            world.saveRoom(world.getRoom());
-            world.enterRoom(this.direction);
-            log.allgrey = true;
-        }
-    }
 }
 
 class AscendExit extends Tile{
@@ -487,14 +477,6 @@ class AscendExit extends Tile{
             "E" : 93
         }
         this.sprite = this.textures["N"]; // TODO USED TO BE this.direction[0]
-    }
-    stepOn(monster){
-        if(monster.isPlayer){
-            //playSound("newLevel");
-            this.monster = null;
-            world.saveRoom(world.getRoom());
-            universe.passUp(universe.currentworld-1,this.direction);
-        }
     }
 }
 

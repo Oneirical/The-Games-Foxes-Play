@@ -74,7 +74,7 @@ class Universe{
         
         uiDisplayLeft.removeChild(world.displayCon);
         player.tile.monster = null;
-        world.saveRoom(world.getRoom());
+        world.saveRoom(world.playSpace);
         this.worlds[layer-1] = world;
         let spawnCoords = [spawnx, spawny];
         world = this.worlds[layer];
@@ -105,7 +105,7 @@ class Universe{
         this.layeredInfluence.delete(world.influence);
         uiDisplayLeft.removeChild(world.displayCon);
         player.tile.monster = null;
-        world.saveRoom(world.getRoom());
+        world.saveRoom(world.playSpace);
 
         let locspawn = [4,5];
         let receivereward = true;
@@ -265,10 +265,6 @@ class World{
             yindic++;
             xindic = 3;
         }
-    }
-
-    getRoom(){
-        return this.rooms[this.currentroom[0]][this.currentroom[1]];
     }
 
     vaultBuild(){
