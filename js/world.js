@@ -24,13 +24,12 @@ class Universe{
         monsters = [];
         for (let x = 0; x<floors.length; x++){
             this.worlds[x] = new World(x);
+            this.worlds[x].layer = x;
         }
         this.currentworld = 0;
         world = this.worlds[this.currentworld];
-        world.layer = 0;
-        world.confirmWorldFromVault();
-        for (let x = 1; x<floors.length; x++){
-            this.worlds[x].confirmWorld();
+        for (let x = 0; x<floors.length; x++){
+            this.worlds[x].worldBuilding();
         }
         assignSouls();
         world.currentroom = [0,2];
@@ -188,19 +187,12 @@ class World{
     constructor(depth){
         this.cageCorner;
         this.cageLocation = [2,4];
-        this.roompool = [];
-        this.isAccessible = false;
-        this.finishedspread = false;
-        this.generated = false;
-        //this.currentroom = [4,4]; //parseInt((randomRange(0,8).toString()+randomRange(0,8).toString()));
-        this.serene = false;
-        this.tranquil = false;
-        this.faction = 0;
-        this.fighting = false;
         this.rooms;
+        this.buildStyle = "Vault";
         this.cage = new CageTemplate();
         this.layer = depth;
         this.name = "World Seed";
+        this.id = "WorldSeed";
     }
 
     setUpSprites(){
@@ -209,22 +201,6 @@ class World{
         uiDisplayLeft.addChild(this.displayCon);
         drawChainBorder(10,10,this.displayCon);
         this.setUpMap();
-        //this.displayCon.addChild(newSprite);
-    }
-
-    represent(colour){
-        const factionc = {
-            0: 0,
-            1: 8,
-            2: 9,
-            3: 10,
-            4: 11,
-            5: 12,
-            6: 13
-        }
-        if (this.isAccessible) colour = factionc[this.faction];
-        if (this.serene && this.isAccessible) colour = 4;
-        drawPixel(colour,this.x*7.11,this.y*7.11);
     }
 
     getComps(i,j){
@@ -254,14 +230,6 @@ class World{
         this.mapCon.height = 32*15;
         //this.mapCon.pivot.set(1/2,1/2);
         this.displayCon.addChild(this.mapCon);
-                    //if (this.rooms[x][y].visited) drawPixel(9,4*7+x*size,4*7+y*size);
-        //for(let i = 0; i<numTiles;i++){
-           // for (let j = 0; j<numTiles; j++){
-                //if (!(tiles[i][j] instanceof RealityWall)) drawPixel(this.checkPixel(tiles[i][j]),i*brush+this.currentroom[0]*size,j*brush+this.currentroom[1]*size,14);
-                //if (tiles[i][j].monster && tiles[i][j].monster.isPlayer) drawPixel(3,i*brush+this.currentroom[0]*size,j*brush+this.currentroom[1]*size,14);
-        //    }
-        //}
-        //if (this.currentroom.visited) drawPixel(9,4*7+x*size,4*7+y*size,14);
 
         this.playerMarker = new FoxSprite(allsprites.textures["sprite0"]);
         this.playerMarker.width = 112/9;
@@ -273,31 +241,6 @@ class World{
         this.playerMarker.x = player.tile.x*112/9+world.getRoom().index[0]*112+(2*(112/9));
         this.playerMarker.y = player.tile.y*112/9+world.getRoom().index[1]*112+(2*(112/9));
 
-    }
-
-    miniMap(){
-        let size = 64;
-        let brush = (size/9);
-        let range = 3;
-        for(let y = world.getRoom().index[1]-range; y<world.getRoom().index[1]+range+1;y++){
-            for(let x = world.getRoom().index[0]-range; x<world.getRoom().index[0]+range+1;x++){
-                if (this.rooms[x] && this.rooms[x][y] && this.rooms[x][y].tangible){
-                    for(let i = 0; i<this.rooms[x][y].size;i++){
-                        for (let j = 0; j<this.rooms[x][y].size; j++){
-                            if (!(this.rooms[x][y].tiles[i][j] instanceof RealityWall)) drawPixel(this.checkPixel(this.rooms[x][y].tiles[i][j]),i*brush+canvas.width-156+size*(x-world.getRoom().index[0]),j*brush+130+size*(y-world.getRoom().index[1]));
-                        }//+673+128+size*(x-world.getRoom().index[0])
-                        //+546+128+size*(y-world.getRoom().index[1])
-                    }
-                    //if (this.rooms[x][y].visited) drawPixel(9,4*7+x*size,4*7+y*size);
-                }
-            }
-        }
-        for(let i = 0; i<numTiles;i++){
-            for (let j = 0; j<numTiles; j++){
-                if (!(tiles[i][j] instanceof RealityWall)) drawPixel(this.checkPixel(tiles[i][j]),i*brush+canvas.width-156,j*brush+130);
-                if (tiles[i][j].monster && tiles[i][j].monster.isPlayer) drawPixel(3,i*brush+canvas.width-156,j*brush+130);
-            }
-        }
     }
 
     hypnoDisplay(){
@@ -328,13 +271,9 @@ class World{
         return this.rooms[this.currentroom[0]][this.currentroom[1]];
     }
 
-    selectRooms(){
-        if (this.serene) this.roompool = [StandardSpire];
-        else this.roompool = [StandardFaith]; //BloxFaith,EmptyFaith,HideFaith,PipesFaith,TriangleFaith,StarFaith
-    }
-
-    confirmWorldFromVault(vault){
-        if (!vault) vault = "WorldSeed";
+    vaultBuild(){
+        let vault = this.id;
+        if (!vault) throw new Error("This world, at depth "+ this.layer +" has no ID.")
         if (vault == "Epsilon"){
             this.cageLocation = [2,6];
         }
@@ -395,7 +334,113 @@ class World{
                 if (this.playSpace.tiles[i][j] instanceof Airlock) this.playSpace.tiles[i][j].findDirection();        
             }
         }
+    }
 
+    blockBuild(){
+        tryTo('generate a world', function(){
+            return world.generateWorld() == randomPassableRoom().getConnectedRooms().length;
+        });
+        this.rooms = [];
+        this.blessRooms();
+        for(let i=0;i<5;i++){
+            this.rooms[i] = [];
+            for(let j=0;j<5;j++){
+                if (worldgen[i][j].passable){
+                    let roomType;
+                    let flip = false;
+                    let corridor = false;
+                    if (worldgen[i][j] instanceof MarkedFloor){
+                        const roo = worldgen[i][j];
+                        let place = roo.type;
+                        if (roo.num != 0) place += roo.num;
+                        roomType = new DefaultVaultRoom([i,j],place);
+                    }
+                    //if ((j == 8 && i == 4) || (j == 4 && i == 8) ||(j == 0 && i == 4) ||(j == 4 && i == 0)) roomType = EmptyFaith;
+                    //else if (j == 4 && i == 4) roomType = PlateGenerator;
+                    else if (j < 4 && j > 0 && worldgen[i][j+1].passable && worldgen[i][j-1].passable){
+                        if ((i == 4 || !worldgen[i+1][j].passable) && (i == 0 || !worldgen[i-1][j].passable)){
+                            roomType = shuffle([NarrowFaith,BridgeFaith])[0];
+                            corridor = true;
+                        }
+                        else roomType = EmptyFaith;
+                        
+                    }
+                    else if (i < 4 && i > 0 && worldgen[i+1][j].passable && worldgen[i-1][j].passable){
+                        if ((j == 4 || !worldgen[i][j+1].passable) && (j == 0 || !worldgen[i][j-1].passable)){
+                            roomType = shuffle([NarrowFaith,BridgeFaith])[0];
+                            corridor = true;
+                        }
+                        else roomType = EmptyFaith;
+                        flip = true;
+                        
+                    }
+                    //else if (Math.random() < 0.3 && (i+1 == 9 || !worldgen[i+1][j].passable) + (i-1 == -1 || !worldgen[i-1][j].passable) + (j+1 == 9 || !worldgen[i][j+1].passable) + (j-1 == -1 || !worldgen[i][j-1].passable == 3)){
+                    //    roomType = HarmonyRelay;
+                    //}
+                    else roomType = EmptyFaith;
+                    if (!(worldgen[i][j] instanceof MarkedFloor)) this.rooms[i][j] = new roomType([i,j]); // kind of cursed
+                    else this.rooms[i][j] = roomType;
+                    let times = shuffle([-1,0,1])[0];
+                    if (corridor) times = 0;
+                    if (rooms[this.rooms[i][j].id]["tags"].includes("randomflip") && !corridor) flip = true;
+                    if (flip) flipRoom(this.rooms[i][j].id,this.rooms[i][j].size,times);
+                    this.rooms[i][j].insertRoom(this.depth);
+                    if (flip) flipRoom(this.rooms[i][j].id,this.rooms[i][j].size,times);
+                    if (corridor && flip) this.rooms[i][j].verticality = "side";
+                    else if (corridor) this.rooms[i][j].verticality = "up";
+                }
+                else{
+                    this.rooms[i][j] = new VoidRoom([i,j]);
+                    this.rooms[i][j].insertRoom(this.depth);
+                }
+            }
+        }
+        this.depositTiles = [];
+        this.depositCreatures = [];
+        for(let i=0;i<45;i++){
+            this.depositTiles[i] = [];
+        }
+        for(let i=0;i<5;i++){
+            for(let j=0;j<5;j++){
+                for(let x=0;x<this.rooms[i][j].size;x++){
+                    for(let y=0;y<this.rooms[i][j].size;y++){
+                        this.depositTiles[i*9+x][j*9+y] = this.rooms[i][j].tiles[x][y];
+                    }
+                }
+                for (let u of this.rooms[i][j].monsters){
+                    u.room = this.rooms[i][j];
+                    this.depositCreatures.push(u);
+                    if (this.layer == 0) throw new Error("WTF");
+                }
+                this.rooms[i][j].layer = this.layer;
+            }
+        }        
+        this.generated = true;
+        this.playSpace = new HugeMap([0,0],this);
+        for(let i=0;i<45;i++){
+            for(let j=0;j<45;j++){
+                this.playSpace.tiles[i][j].existSpace = this.playSpace.tiles;
+                this.playSpace.tiles[i][j].x = i;
+                this.playSpace.tiles[i][j].y = j;            
+            }
+        }
+        for(let i=0;i<45;i++){
+            for(let j=0;j<45;j++){   
+                if (this.playSpace.tiles[i][j] instanceof Airlock) this.playSpace.tiles[i][j].findDirection();        
+            }
+        }
+    }
+
+    worldBuilding(){
+        if (this.layer == 1) this.buildStyle = "Blocks"; //temp, remove
+        switch (this.buildStyle){
+            case "Vault":
+                this.vaultBuild();
+                break;
+            case "Blocks":
+                this.blockBuild();
+                break;
+        }
     }
 
     blessRooms(){
@@ -439,108 +484,6 @@ class World{
                         this.waypointLocation = [chX*9+4,chY*9+4];
                     }
                 }
-            }
-        }
-    }
-
-    confirmWorld(){
-        tryTo('generate a world', function(){
-            return world.generateWorld() == randomPassableRoom().getConnectedRooms().length;
-        });
-
-        // if (world.generateCage() != randomPassableRoom().getConnectedRooms().length){
-        //     //log.addLog("WrongCageError");
-        //     world.cage.displayon = false;
-        //     return;
-        // }
-
-        this.rooms = [];
-        this.selectRooms();
-        this.blessRooms();
-        for(let i=0;i<5;i++){
-            this.rooms[i] = [];
-            for(let j=0;j<5;j++){
-                if (worldgen[i][j].passable){
-                    let roomType;
-                    let flip = false;
-                    let corridor = false;
-                    if (worldgen[i][j] instanceof MarkedFloor){
-                        const roo = worldgen[i][j];
-                        let place = roo.type;
-                        if (roo.num != 0) place += roo.num;
-                        roomType = new DefaultVaultRoom([i,j],place);
-                    }
-                    //if ((j == 8 && i == 4) || (j == 4 && i == 8) ||(j == 0 && i == 4) ||(j == 4 && i == 0)) roomType = EmptyFaith;
-                    //else if (j == 4 && i == 4) roomType = PlateGenerator;
-                    else if (j < 4 && j > 0 && worldgen[i][j+1].passable && worldgen[i][j-1].passable){
-                        if ((i == 4 || !worldgen[i+1][j].passable) && (i == 0 || !worldgen[i-1][j].passable)){
-                            roomType = shuffle([NarrowFaith,BridgeFaith])[0];
-                            corridor = true;
-                        }
-                        else roomType = shuffle(this.roompool)[0];
-                        
-                    }
-                    else if (i < 4 && i > 0 && worldgen[i+1][j].passable && worldgen[i-1][j].passable){
-                        if ((j == 4 || !worldgen[i][j+1].passable) && (j == 0 || !worldgen[i][j-1].passable)){
-                            roomType = shuffle([NarrowFaith,BridgeFaith])[0];
-                            corridor = true;
-                        }
-                        else roomType = shuffle(this.roompool)[0];
-                        flip = true;
-                        
-                    }
-                    //else if (Math.random() < 0.3 && (i+1 == 9 || !worldgen[i+1][j].passable) + (i-1 == -1 || !worldgen[i-1][j].passable) + (j+1 == 9 || !worldgen[i][j+1].passable) + (j-1 == -1 || !worldgen[i][j-1].passable == 3)){
-                    //    roomType = HarmonyRelay;
-                    //}
-                    else roomType = shuffle(this.roompool)[0];
-                    if (!(worldgen[i][j] instanceof MarkedFloor)) this.rooms[i][j] = new roomType([i,j]); // kind of cursed
-                    else this.rooms[i][j] = roomType;
-                    let times = shuffle([-1,0,1])[0];
-                    if (corridor) times = 0;
-                    if (rooms[this.rooms[i][j].id]["tags"].includes("randomflip") && !corridor) flip = true;
-                    if (flip) flipRoom(this.rooms[i][j].id,this.rooms[i][j].size,times);
-                    this.rooms[i][j].insertRoom(this.depth);
-                    if (flip) flipRoom(this.rooms[i][j].id,this.rooms[i][j].size,times);
-                    if (corridor && flip) this.rooms[i][j].verticality = "side";
-                    else if (corridor) this.rooms[i][j].verticality = "up";
-                }
-                else{
-                    this.rooms[i][j] = new VoidRoom([i,j]);
-                    this.rooms[i][j].insertRoom(this.depth);
-                }
-            }
-        }
-        this.depositTiles = [];
-        this.depositCreatures = [];
-        for(let i=0;i<45;i++){
-            this.depositTiles[i] = [];
-        }
-        for(let i=0;i<5;i++){
-            for(let j=0;j<5;j++){
-                for(let x=0;x<this.rooms[i][j].size;x++){
-                    for(let y=0;y<this.rooms[i][j].size;y++){
-                        this.depositTiles[i*9+x][j*9+y] = this.rooms[i][j].tiles[x][y];
-                    }
-                }
-                for (let u of this.rooms[i][j].monsters){
-                    u.room = this.rooms[i][j];
-                    this.depositCreatures.push(u);
-                }
-                this.rooms[i][j].layer = this.layer;
-            }
-        }        
-        this.generated = true;
-        this.playSpace = new HugeMap([0,0],this);
-        for(let i=0;i<45;i++){
-            for(let j=0;j<45;j++){
-                this.playSpace.tiles[i][j].existSpace = this.playSpace.tiles;
-                this.playSpace.tiles[i][j].x = i;
-                this.playSpace.tiles[i][j].y = j;            
-            }
-        }
-        for(let i=0;i<45;i++){
-            for(let j=0;j<45;j++){   
-                if (this.playSpace.tiles[i][j] instanceof Airlock) this.playSpace.tiles[i][j].findDirection();        
             }
         }
     }
