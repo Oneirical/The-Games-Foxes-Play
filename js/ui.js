@@ -301,20 +301,32 @@ class LocationDisplay{
         this.displayCon = new PIXI.Container();
         uiDisplayLeft.addChild(this.displayCon);
         drawChainBorder(10,3,this.displayCon);
-        const style = new PIXI.TextStyle({
+        let style = new PIXI.TextStyle({
             fontFamily: 'Play',
             fontSize: 40,
             fill: "plum",
         });
-        const richText = new PIXI.Text(world.name, style);
-        richText.anchor.set(0.5,0.5);
-        richText.x = (335+22)/4+54;
-        richText.y = (121+31)/4-8;
-        this.displayCon.addChild(richText);
+        this.richText = new PIXI.Text(world.name, style);
+        this.richText.anchor.set(0.5,0.5);
+        this.richText.x = (335+22)/4+54;
+        this.richText.y = (121+31)/4-8;
+        this.displayCon.addChild(this.richText);
     }
 
     update(){
-        this.displayCon.children[1].text = worldNames[world.id];
+        this.richText.text = worldNames[world.id];
+        if (this.richText.text.length > 15){
+            this.richText.style.wordWrap = true;
+            this.richText.style.wordWrapWidth = 9*32;
+            this.richText.style.fontSize = 30;
+        }
+        else {
+            this.richText.style = new PIXI.TextStyle({
+                fontFamily: 'Play',
+                fontSize: 40,
+                fill: "plum",
+            });
+        }
     }
 }
 

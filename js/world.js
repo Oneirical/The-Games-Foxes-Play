@@ -92,7 +92,7 @@ class Universe{
         tilesDisplay.addChild(player.creaturecon);
         tickProjectors();
         world.cage.generateWorld()
-        world.cage.pocketworld.hypnoDisplay();
+        //world.cage.pocketworld.hypnoDisplay();
 
         for (let i of monsters){
             for (let j of i.loopThroughSouls()){
@@ -255,26 +255,30 @@ class World{
     }
 
     hypnoDisplay(){
-        let xindic = 3;
-        let yindic = 3;
-        for(let y = this.cageLocation[1]-1; y<this.cageLocation[1]+2;y++){
-            for(let x = this.cageLocation[0]-1; x<this.cageLocation[0]+2;x++){
-                drawPixel("black",0,0,64,tiles[world.cageCorner[0]+xindic][world.cageCorner[1]+yindic].tilecon);
-                if (!this.rooms[x] || !this.rooms[x][y]){
+        for (let i of universe.worlds[this.layer-1].establishedPaths){
+            let xindic = -1;
+            let yindic = -1;
+            for(let y = i.y-1; y<i.y+2;y++){
+                for(let x = i.x-1; x<i.x+2;x++){
+                    drawPixel("black",0,0,64,tiles[i.x+xindic][i.y+yindic].tilecon);
+                    if (!(tiles[i.x+xindic][i.y+yindic] instanceof CageContainer)) throw new Error("Hypnotic hologram placed out of cage!"); 
+                    if (!this.rooms[x] || !this.rooms[x][y]){
+                        xindic++;
+                        continue;
+                    } 
+                    if (this.rooms[x][y].tangible){
+                        this.rooms[x][y].displayCon.width = 64;
+                        this.rooms[x][y].displayCon.height = 64;
+                        this.rooms[x][y].displayCon.x = 0;
+                        this.rooms[x][y].displayCon.y = 0;
+                        tiles[i.x+xindic][i.y+yindic].tilecon.addChild(this.rooms[x][y].displayCon);
+                        if (!(tiles[i.x+xindic][i.y+yindic] instanceof CageContainer)) throw new Error("Hypnotic hologram placed out of cage!");                    
+                    }
                     xindic++;
-                    continue;
-                } 
-                if (this.rooms[x][y].tangible){
-                    this.rooms[x][y].displayCon.width = 64;
-                    this.rooms[x][y].displayCon.height = 64;
-                    this.rooms[x][y].displayCon.x = 0;
-                    this.rooms[x][y].displayCon.y = 0;
-                    tiles[world.cageCorner[0]+xindic][world.cageCorner[1]+yindic].tilecon.addChild(this.rooms[x][y].displayCon);                    
                 }
-                xindic++;
+                yindic++;
+                xindic = -1;
             }
-            yindic++;
-            xindic = 3;
         }
     }
 
