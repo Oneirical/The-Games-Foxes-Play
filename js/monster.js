@@ -52,9 +52,11 @@ class Monster{
                         tilesDisplay.projectorDisplay.y = -448;
                         tilesDisplay.creatureDisplay.x = -448;
                         tilesDisplay.creatureDisplay.y = -448;
-                        let destination = 0; 
-                        if (universe.currentworld == 0) destination = 1;
-                        if (!universe.zooming && this.tile instanceof CenterTeleport) universe.passDown(destination, world.cage.pocketworld.cageLocation[0], world.cage.pocketworld.cageLocation[1]); // if you hold down the key on top of a pad you can pass through it, fix to prevent abuse or funny?
+                        if (!universe.zooming && this.tile instanceof CenterTeleport){
+                            let targetWorld = universe.findWorldByID(this.tile.destination);
+                            let destPad = targetWorld.findTelepadByDest(world.id);
+                            universe.passDown(floors.indexOf(this.tile.destination), destPad.x, destPad.y);
+                        } // if you hold down the key on top of a pad you can pass through it, fix to prevent abuse or funny?
                     }
                 }
                 else if (!player.animating || this.partOfPlayer){

@@ -39,6 +39,10 @@ class Universe{
         drawSprites();
     }
 
+    findWorldByID(id){
+        for (let i of this.worlds) if (i.id == id) return i;
+    }
+
     passDown(layer, spawnx, spawny){
         universe.zooming = true;
         this.zoomAnim = new PIXI.Ticker;
@@ -193,7 +197,7 @@ class World{
         this.layer = depth;
         this.name = "World Seed";
         this.id = "WorldSeed";
-        this.establishedPaths = 0; // how many telepads have been linked
+        this.establishedPaths = []; // how many telepads have been linked
     }
 
     setUpSprites(){
@@ -206,6 +210,10 @@ class World{
 
     getComps(i,j){
         return this.exppage.cage[i][j].value.type;
+    }
+
+    findTelepadByDest(dest){
+        for (let i of this.establishedPaths) if (i.destination == dest) return i;
     }
 
     setUpMap(){
@@ -546,10 +554,10 @@ class World{
     }
 
     saveRoom(room){
-        this.rooms[this.currentroom[0]][this.currentroom[1]].playerspawn = null;
-        this.rooms[this.currentroom[0]][this.currentroom[1]].monsters = monsters;
-        this.rooms[this.currentroom[0]][this.currentroom[1]].tiles = tiles;
-        this.rooms[this.currentroom[0]][this.currentroom[1]].visited = room.visited;
+        room.playerspawn = null;
+        room.monsters = monsters;
+        room.tiles = tiles;
+        room.visited = room.visited;
         monsters = [];
     }
 
@@ -568,7 +576,7 @@ class World{
         numTiles = room.size;
         tileSize = (9/numTiles)*64;
         tiles = room.tiles;
-        player.tile = getTile(40+(spawnl[0]-4)*9,40+(spawnl[1]-4)*9);
+        player.tile = getTile(spawnl[0],spawnl[1]);
         room.populateRoom();
         monsters = room.monsters;
         let playerisIn = locatePlayer();
@@ -794,8 +802,9 @@ class DefaultVaultRoom extends Room{
                 else{
                     this.tiles[i][j] = new tile(i,j,this);
                     if (this.tiles[i][j] instanceof CenterTeleport){
-                        this.tiles[i][j].destination = floorLinks[this.sourceWorld.id][this.sourceWorld.establishedPaths];
-                        this.sourceWorld.establishedPaths++;
+                        this.tiles[i][j].destination = floorLinks[this.sourceWorld.id][this.sourceWorld.establishedPaths.length];
+                        if (!this.tiles[i][j].destination) throw new Error("Destination failed to be linked to pad.")
+                        this.sourceWorld.establishedPaths.push(this.tiles[i][j]);
                     }
                 }
                 if (airlockDirOverride){
