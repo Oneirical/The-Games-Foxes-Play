@@ -63,15 +63,6 @@ class Tile{
             this.hitBox.alpha = 0;
         });
         this.effect = false;
-        app.ticker.add(() => {
-            if (this.effect){
-                this.effect.alpha -= 0.02;
-                if (this.effect.alpha <= 0){
-                    this.tilecon.removeChild(this.effect);
-                    this.effect = false;
-                }
-            }
-        });
         this.graphicsReady = true;
     }
 
@@ -213,11 +204,8 @@ class Tile{
         }
     }
 
-    setEffect(effectSprite){ 
-        if (this.effect){
-            this.tilecon.removeChild(this.effect);
-            this.effect = false; 
-        }                  
+    setEffect(effectSprite){     
+        this.tilecon.removeChild(this.effect);             
         this.effect = new FoxSprite(allsprites.textures["sprite"+effectSprite]);
         this.effect.width = 64;
         this.effect.height = 64;

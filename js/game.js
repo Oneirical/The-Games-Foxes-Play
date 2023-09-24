@@ -65,6 +65,14 @@ function teleport(target,destination,data){
     return data;
 }
 
+function getAllTiles(){
+    let arr = [];
+    for (let i of tiles){
+        for (let j of i) arr.push(j);
+    }
+    return arr;
+}
+
 function startGame(){   
     level = 1;
     tileSize = 64;
