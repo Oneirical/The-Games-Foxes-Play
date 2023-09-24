@@ -7,7 +7,7 @@ class CageTemplate{
     }
 
     generateWorld(){
-        if (universe.currentworld == 1) this.pocketworld = universe.worlds[0];
+        if (universe.currentworld == 1) this.pocketworld = universe.worlds[2];
         else if (universe.currentworld == 0) this.pocketworld = universe.worlds[1];
         this.displayon = true;
     }
@@ -25,6 +25,8 @@ class Universe{
         for (let x = 0; x<floors.length; x++){
             this.worlds[x] = new World(x);
             this.worlds[x].layer = x;
+            this.worlds[x].id = floors[x];
+            this.worlds[x].buildStyle = floorStyles[this.worlds[x].id];
         }
         this.currentworld = 0;
         world = this.worlds[this.currentworld];
@@ -437,10 +439,6 @@ class World{
     }
 
     worldBuilding(){
-        if (this.layer == 1){
-            this.buildStyle = "Blocks"; //temp, remove
-            this.id = "EpsilonApex";
-        }
         switch (this.buildStyle){
             case "Vault":
                 this.vaultBuild();

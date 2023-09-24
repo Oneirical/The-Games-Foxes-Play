@@ -343,6 +343,12 @@ messages = {
 
 }
 
+const worldNames = {
+    "WorldSeed" : "World Seed",
+    "EpsilonApex" : "Industrial Apex",
+    "EntertainAlpha" : "Entertainment Chamber Alpha",
+}
+
 colours = {
     "Empty" : "black",
     "Agony" : "orangered",

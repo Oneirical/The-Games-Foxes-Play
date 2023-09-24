@@ -314,7 +314,7 @@ class LocationDisplay{
     }
 
     update(){
-        this.displayCon.children[1].text = world.name;
+        this.displayCon.children[1].text = worldNames[world.id];
     }
 }
 
