@@ -64,6 +64,19 @@ class Tile{
         });
         this.effect = false;
         this.graphicsReady = true;
+        let effectFade = new PIXI.Ticker;
+        effectFade.start();
+        effectFade.add(() => {
+            let i = this;
+            if (i.effect){
+                i.effect.alpha -= 0.02;
+                if (i.effect.alpha <= 0){
+                    i.tilecon.removeChild(i.effect);
+                    i.effect = false;
+                }
+            }
+        });
+        // effect fading on tiles
     }
 
     setUpResearch(source){
@@ -954,6 +967,12 @@ class CageContainer extends Altar{
         if (world.cage.displayon){
             world.cage.pocketworld.hypnoDisplay(); //this shouldn't be a tile func, it should be a room func
         }
+    }
+}
+
+class CenterTeleport extends CageContainer{
+    constructor(x,y){
+        super(x,y);
     }
 }
 

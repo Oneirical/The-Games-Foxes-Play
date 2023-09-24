@@ -6,21 +6,6 @@ function toggleFullScreen() {
     }
 }
 
-let effectFade = new PIXI.Ticker;
-effectFade.start();
-effectFade.add(() => {
-    for (let i of getAllTiles()){
-        if (i.effect){
-            i.effect.alpha -= 0.02;
-            if (i.effect.alpha <= 0){
-                i.tilecon.removeChild(i.effect);
-                i.effect = false;
-            }
-        }
-    }
-});
-// effect fading on tiles
-
 function increaseResolution(factor){
     let w = 1920/factor;
     let l = 1080/factor;

@@ -193,6 +193,7 @@ class World{
         this.layer = depth;
         this.name = "World Seed";
         this.id = "WorldSeed";
+        this.establishedPaths = 0; // how many telepads have been linked
     }
 
     setUpSprites(){
@@ -287,6 +288,7 @@ class World{
                     this.rooms[i][j] = new roomType([i,j]);
                 }
                 catch (err) {throw new Error("Unknown room glyph: "+ genstruct[vault][j][i])}
+                this.rooms[i][j].sourceWorld = this;
                 if (flip) flipRoom(this.rooms[i][j].id,this.rooms[i][j].size,0);
                 this.rooms[i][j].insertRoom(this.depth);
                 if (flip) flipRoom(this.rooms[i][j].id,this.rooms[i][j].size,0);
@@ -297,7 +299,6 @@ class World{
         for(let i=0;i<45;i++){
             this.depositTiles[i] = [];
         }
-        let airlocks = [];
         for(let i=0;i<5;i++){
             for(let j=0;j<5;j++){
                 if ("Facility" == "Facility"){//replace this if more vaults get added
@@ -314,7 +315,6 @@ class World{
                     this.depositCreatures.push(u);
                 }
                 this.rooms[i][j].layer = this.layer;
-                if (this.rooms[i][j] instanceof HugeMap) this.giga = this.rooms[i][j];
             }
         }
         this.playSpace = new HugeMap([0,0],this);
@@ -376,6 +376,7 @@ class World{
                     else roomType = EmptyFaith;
                     if (!(worldgen[i][j] instanceof MarkedFloor)) this.rooms[i][j] = new roomType([i,j]); // kind of cursed
                     else this.rooms[i][j] = roomType;
+                    this.rooms[i][j].sourceWorld = this;
                     let times = shuffle([-1,0,1])[0];
                     if (corridor) times = 0;
                     if (rooms[this.rooms[i][j].id]["tags"].includes("randomflip") && !corridor) flip = true;
@@ -428,7 +429,10 @@ class World{
     }
 
     worldBuilding(){
-        if (this.layer == 1) this.buildStyle = "Blocks"; //temp, remove
+        if (this.layer == 1){
+            this.buildStyle = "Blocks"; //temp, remove
+            this.id = "EpsilonApex";
+        }
         switch (this.buildStyle){
             case "Vault":
                 this.vaultBuild();
@@ -679,6 +683,7 @@ class Room{
         this.visited = false;
         this.layer;
         this.graphicsReady = false;
+        this.sourceWorld;
     }
 
     setUpSprites(){
@@ -786,7 +791,13 @@ class DefaultVaultRoom extends Room{
                     dir = vault[j][i];
                     this.tiles[i][j] = new tile(i,j,dir);
                 }
-                else this.tiles[i][j] = new tile(i,j,this);
+                else{
+                    this.tiles[i][j] = new tile(i,j,this);
+                    if (this.tiles[i][j] instanceof CenterTeleport){
+                        this.tiles[i][j].destination = floorLinks[this.sourceWorld.id][this.sourceWorld.establishedPaths];
+                        this.sourceWorld.establishedPaths++;
+                    }
+                }
                 if (airlockDirOverride){
                     const eqs = {
                         "V" : "S",

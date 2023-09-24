@@ -61,8 +61,8 @@
     
     beginEverything();
 
-    document.querySelector("html").onkeypress = function(e){                                                 
+    document.querySelector("html").onkeypress = function(e){                                         
             if (e.key == "k") toggleFullScreen();
-            else trigger(e.key.toUpperCase());
+            else if (!universe.zooming) trigger(e.key.toUpperCase());
     };
 </script>
