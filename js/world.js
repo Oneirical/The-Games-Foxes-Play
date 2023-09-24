@@ -81,7 +81,6 @@ class Universe{
         uiDisplayLeft.removeChild(world.displayCon);
         player.tile.monster = null;
         world.saveRoom(world.playSpace);
-        this.worlds[layer-1] = world;
         let spawnCoords = [spawnx, spawny];
         world = this.worlds[layer];
         world.currentroom = spawnCoords;
