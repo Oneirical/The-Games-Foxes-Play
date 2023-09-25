@@ -53,6 +53,21 @@ var keyroom = {
     "R" : StareR,
 }
 
+const worldMaps = {
+    "Epsilon" : {
+        0 : "..W..",
+        1 : "..A..",
+        2 : "..E..",
+        3 : ".....",
+        4 : ".....",
+        "keys" : {
+            "W" : "WorldSeed",
+            "E" : "EntertainAlpha",
+            "A" : "EpsilonApex",
+        }
+    }
+}
+
 const logicMaps = {
     "Empty" : {
         0 : ".....",

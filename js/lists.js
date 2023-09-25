@@ -5,16 +5,12 @@ smod = ["Alacrity","Selective","Thrusters","Hover","Focus"];
 modulators = ["Alacrity","Selective","Thrusters","Hover","Focus"];
 
 const floors = ["WorldSeed", "EpsilonApex", "EntertainAlpha"]; // vox?
-const floorLinks = {
-    "WorldSeed" : ["EpsilonApex"],
-    "EpsilonApex" : ["WorldSeed","EntertainAlpha"],
-    "EntertainAlpha" : ["EpsilonApex"],
-}
+const floorLinks = {};
 const floorStyles = {
     "WorldSeed" : "Vault",
     "EpsilonApex" : "Blocks",
     "EntertainAlpha" : "Vault",
-}
+};
 
 // DO NOT USE THIS AS A LIST IT GETS WIPED EACH TIME
 const casteNodes = ["Saintly","Ordered","Artistic","Unhinged","Feral","Vile"];
@@ -24,7 +20,7 @@ let excludeloot = {
     "FUNCTION" : [],
     "CONTINGENCY" : [],
     "MUTATOR" : [],
-}
+};
 // A Million Thoughts Forge A Soul
 // Forests of Fur Tangled In Claws
 // Pulsing Hearts Under Glossy Membranes

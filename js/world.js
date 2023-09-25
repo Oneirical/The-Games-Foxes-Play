@@ -22,6 +22,7 @@ class Universe{
     start(){
         tiles = [];
         monsters = [];
+        this.composeLinks();
         for (let x = 0; x<floors.length; x++){
             this.worlds[x] = new World(x);
             this.worlds[x].layer = x;
@@ -39,6 +40,28 @@ class Universe{
         world.playRoom(world.rooms[2][0]);
         drawTiles();
         drawSprites();
+    }
+
+    composeLinks(){
+        for (let z of Object.keys(worldMaps)){
+            for (let i = 0; i<5; i++){
+                for (let j = 0; j<5; j++){
+                    let w = worldMaps[z];
+                    if (w[i][j] != "."){
+                        let region = w["keys"][w[i][j]];
+                        floorLinks[region] = [];
+                        let adj = [];
+                        if (i != 0) adj.push(w[i-1][j]);
+                        if (i != 4) adj.push(w[i+1][j]);
+                        if (j != 0) adj.push(w[i][j-1]);
+                        if (j != 4) adj.push(w[i][j+1]);
+                        for (let r of adj){
+                            if (r != ".") floorLinks[region].push(w["keys"][r])
+                        }
+                    }
+                }
+            }
+        }
     }
 
     findWorldByID(id){
