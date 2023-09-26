@@ -36,6 +36,7 @@ class Tile{
             newSprite.drawRect(0, 0, tileSize, tileSize);
             newSprite.endFill();
         }
+        else if (this instanceof CageContainer) {}
         else {
             newSprite = new FoxSprite(allsprites.textures['sprite'+hai]);
             newSprite.width = tileSize;

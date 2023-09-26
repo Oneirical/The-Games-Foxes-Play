@@ -40,7 +40,7 @@ class Universe{
         world.playRoom(world.rooms[2][0]);
         drawTiles();
         drawSprites();
-        //this.placeHypnoDisplays();  //sigh, try this again later
+        this.placeHypnoDisplays();  //sigh, try this again later
     }
 
     composeLinks(){
@@ -72,11 +72,13 @@ class Universe{
     placeHypnoDisplays(){
         for (let w of this.worlds){
             for (let p of w.establishedPaths){
-                let cont = w.grabSpritesOfSection(p.x-10,p.y-10,p.x+11,p.y+11);
+                let gazingInto = this.findWorldByID(p.destination);
+                let gazingPoint = gazingInto.findTelepadByDest(w.id);
+                let zoomSize = 14;
+                let cont = gazingInto.grabSpritesOfSection(gazingPoint.x-zoomSize+1,gazingPoint.y-zoomSize+1,gazingPoint.x+zoomSize,gazingPoint.y+zoomSize);
                 p.tilecon.addChild(cont);
-                cont.x-=112;
-                cont.y-=112;
-                console.log(p);
+                cont.x-=128-((22-gazingPoint.x)/9*64);
+                cont.y-=128-((22-gazingPoint.y)/9*64);
             }
         }
     }
@@ -191,7 +193,7 @@ class Universe{
         //world.cage.legendCheck();
         world.setUpSprites();
         uiDisplayLeft.addChild(world.displayCon);
-        world.cage.pocketworld.hypnoDisplay();
+        //world.cage.pocketworld.hypnoDisplay();
         this.zoomAnim.destroy();
         this.zoomAnim = new PIXI.Ticker;
         this.zoomAnim.start();
@@ -258,14 +260,14 @@ class World{
                 else if (area instanceof Airlock && area.direction) hai = 17;
                 else if (area instanceof Airlock) hai = 3;
                 let newSprite = new FoxSprite(allsprites.textures['sprite'+hai]);
-                newSprite.width = 112/9;
-                newSprite.height = 112/9;
-                newSprite.x = (w-i-1)*(112/9);
-                newSprite.y = (h-j-1)*(112/9);
+                newSprite.width = 64/9;
+                newSprite.height = 64/9;
+                newSprite.x = i*(64/9);
+                newSprite.y = j*(64/9);
                 if (area instanceof Airlock && area.direction){
                     newSprite.anchor.set(0.5,0.5);
-                    newSprite.x += 112/9/2;
-                    newSprite.y += 112/9/2;
+                    newSprite.x += 64/9/2;
+                    newSprite.y += 64/9/2;
                     const rotate = {
                         "S" : 0,
                         "W" : Math.PI/2,
