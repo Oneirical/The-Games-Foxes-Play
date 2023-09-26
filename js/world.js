@@ -40,6 +40,7 @@ class Universe{
         world.playRoom(world.rooms[2][0]);
         drawTiles();
         drawSprites();
+        //this.placeHypnoDisplays();  //sigh, try this again later
     }
 
     composeLinks(){
@@ -66,6 +67,18 @@ class Universe{
 
     findWorldByID(id){
         for (let i of this.worlds) if (i.id == id) return i;
+    }
+
+    placeHypnoDisplays(){
+        for (let w of this.worlds){
+            for (let p of w.establishedPaths){
+                let cont = w.grabSpritesOfSection(p.x-10,p.y-10,p.x+11,p.y+11);
+                p.tilecon.addChild(cont);
+                cont.x-=112;
+                cont.y-=112;
+                console.log(p);
+            }
+        }
     }
 
     passDown(layer, spawnx, spawny){
@@ -230,6 +243,41 @@ class World{
         uiDisplayLeft.addChild(this.displayCon);
         drawChainBorder(10,10,this.displayCon);
         this.setUpMap();
+    }
+
+    grabSpritesOfSection(x,y,w,h){
+        let hypnoCon = new PIXI.Container();
+        //let size = 112;
+        for(let i = x; i<w;i++){
+            for (let j = y; j<h; j++){
+                if (!this.playSpace.tiles[i] || !this.playSpace.tiles[i][j]) continue;
+                let area = this.playSpace.tiles[i][j];
+                if (!area) continue;
+                let hai = area.sprite;
+                if (area.monster) hai = area.monster.sprite;
+                else if (area instanceof Airlock && area.direction) hai = 17;
+                else if (area instanceof Airlock) hai = 3;
+                let newSprite = new FoxSprite(allsprites.textures['sprite'+hai]);
+                newSprite.width = 112/9;
+                newSprite.height = 112/9;
+                newSprite.x = (w-i-1)*(112/9);
+                newSprite.y = (h-j-1)*(112/9);
+                if (area instanceof Airlock && area.direction){
+                    newSprite.anchor.set(0.5,0.5);
+                    newSprite.x += 112/9/2;
+                    newSprite.y += 112/9/2;
+                    const rotate = {
+                        "S" : 0,
+                        "W" : Math.PI/2,
+                        "E" : 3*Math.PI/2,
+                        "N" : Math.PI,
+                    }
+                    newSprite.rotation = rotate[area.direction];
+                }
+                hypnoCon.addChild(newSprite);                
+            }
+        }
+        return hypnoCon;
     }
 
     getComps(i,j){
