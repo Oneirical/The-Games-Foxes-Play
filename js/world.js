@@ -76,9 +76,15 @@ class Universe{
                 let gazingPoint = gazingInto.findTelepadByDest(w.id);
                 let zoomSize = 14;
                 let cont = gazingInto.grabSpritesOfSection(gazingPoint.x-zoomSize+1,gazingPoint.y-zoomSize+1,gazingPoint.x+zoomSize,gazingPoint.y+zoomSize);
+                let contSmall = w.grabSpritesOfSection(p.x-zoomSize+1,p.y-zoomSize+1,p.x+zoomSize,p.y+zoomSize)
                 p.tilecon.addChild(cont);
+                contSmall.width = 64/3;
+                contSmall.height = 64/3;
+                p.tilecon.addChild(contSmall);
                 cont.x-=128-((22-gazingPoint.x)/9*64);
                 cont.y-=128-((22-gazingPoint.y)/9*64);
+                contSmall.x += 128/9;
+                contSmall.y += 128/9;
             }
         }
     }
