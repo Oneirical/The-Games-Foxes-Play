@@ -1,22 +1,7 @@
-class CageTemplate{
-    constructor(){
-        this.slots = [];
-        this.tier = 0;
-        this.pocketworld;
-        this.size = 1;
-    }
-
-    generateWorld(){
-        if (universe.currentworld == 1) this.pocketworld = universe.worlds[2];
-        else if (universe.currentworld == 0) this.pocketworld = universe.worlds[1];
-        this.displayon = true;
-    }
-}
-
 class Universe{
     constructor(){
         this.worlds = [];
-        this.currentworld = 0;
+        this.currentWorld = 0;
     }
 
     start(){
@@ -29,15 +14,12 @@ class Universe{
             this.worlds[x].id = floors[x];
             this.worlds[x].buildStyle = floorStyles[this.worlds[x].id];
         }
-        this.currentworld = 0;
-        world = this.worlds[this.currentworld];
+        this.currentWorld = 0;
+        world = this.worlds[this.currentWorld];
         for (let x = 0; x<floors.length; x++){
             this.worlds[x].worldBuilding();
         }
         assignSouls();
-        world.currentroom = [0,2];
-        world.tranquil = true;
-        world.playRoom(world.rooms[2][0]);
         drawTiles();
         drawSprites();
         this.placeHypnoDisplays(); // that was an adventure, wasn't it? I'm proud of you. Fu!
@@ -96,7 +78,7 @@ class Universe{
     passDown(layer, spawnx, spawny){
         universe.zooming = true;
         this.zoomAnim = new PIXI.Ticker;
-        this.currentworld = layer;
+        this.currentWorld = layer;
         this.zoomAnim.start();
         tilesDisplay.mask = tilesDisplay.maskReference;
         this.viewport = new pixi_viewport.Viewport({
@@ -138,7 +120,6 @@ class Universe{
         uiDisplayLeft.addChild(world.displayCon);
         tilesDisplay.addChild(player.creaturecon);
         tickProjectors();
-        world.cage.generateWorld();
         for (let i of monsters){
             for (let j of i.loopThroughSouls()){
                 if (!j) continue;
@@ -175,7 +156,7 @@ class Universe{
                 research.completeResearch(spellpatterns[i]["caste"]);
             }
         }
-        this.currentworld = layer;
+        this.currentWorld = layer;
         this.worlds[layer+1] = world;
         world = this.worlds[layer];
         world.currentroom = [4, 5]; // this will have to be replaced with the cage location
@@ -240,7 +221,7 @@ class World{
         this.cageLocation = [2,4];
         this.rooms;
         this.buildStyle = "Vault";
-        this.cage = new CageTemplate();
+        //this.cage = new CageTemplate();
         this.layer = depth;
         this.name = "World Seed";
         this.id = "WorldSeed";
@@ -553,22 +534,6 @@ class World{
         }
     }
 
-    generateCage(){
-        let passableRooms=0;
-        worldgen = [];
-        for(let i=0;i<5;i++){
-            worldgen[i] = [];
-            for(let j=0;j<5;j++){
-                if (this.cage.slots[i][j] instanceof Empty) worldgen[i][j] = new Wall(i,j);
-                else{
-                    worldgen[i][j] = new Floor(i,j);
-                    passableRooms++;
-                } 
-            }
-        }
-        return passableRooms;
-    }
-
     generateWorld(){
         let passableRooms=0;
         worldgen = [];
@@ -620,16 +585,6 @@ class World{
 
     appearRoom(spawnl){
         let room = world.playSpace;
-        // let spawnhandledflag = false;
-        // if (room instanceof BigRoomVoid){
-        //     let direction;
-        //     if (spawnl[0] == 7) direction = "W";
-        //     else if (spawnl[0] == 1) direction = "E";
-        //     else if (spawnl[1] == 1) direction = "S";
-        //     else direction = "N";
-        //     room = this.handleBigRoom(room,direction);
-        //     spawnhandledflag = true;
-        // }
         numTiles = room.size;
         tileSize = (9/numTiles)*64;
         tiles = room.tiles;
@@ -639,77 +594,6 @@ class World{
         let playerisIn = locatePlayer();
         if (!playerisIn) monsters.push(player);
         this.playRoom(room);
-    }
-
-    enterRoom(direction){
-        const shifts = {
-            "N" : [0,-1],
-            "W" : [-1,0],
-            "E" : [1,0],
-            "S" : [0,1],
-            "N2" : [1,-1],
-            "W2" : [-1,1],
-            "EE" : [2,0],
-            "SS" : [0,2],
-            "E2" : [2,1],
-            "S2" : [1,2],
-        }
-        let shift = shifts[direction];
-        this.currentroom = [this.currentroom[0] + shift[0],this.currentroom[1] + shift[1]];
-        let room = this.rooms[this.currentroom[0]][this.currentroom[1]];
-        if (room instanceof BigRoomVoid) room = this.handleBigRoom(room,direction[0]);
-
-        room = world.playSpace;
-
-        numTiles = room.size;
-        tileSize = (9/numTiles)*64;
-        tiles = room.tiles;
-        if (!room.playerspawn) room.playerspawn = [22,4];
-        room.populateRoom();
-        if (!room.visited){
-            level++;
-            world.fighting = true;
-            room.visited = true;
-        }
-        else{
-            monsters = room.monsters;
-        }
-        this.playRoom(room, player.hp);
-    }
-
-    handleBigRoom(room,direction){
-        let correctroom;
-        if (room.quadrant == "e"){
-            correctroom = this.rooms[this.currentroom[0]-1][this.currentroom[1]];
-            if (direction == "W") correctroom.playerspawn = [16,4];
-            else if (direction == "S") correctroom.playerspawn = [13,1];
-            this.currentroom[0] -= 1;
-        }
-        else if (room.quadrant == "s"){
-            correctroom = this.rooms[this.currentroom[0]-1][this.currentroom[1]-1];
-            if (direction == "W") correctroom.playerspawn = [16,13];
-            else if (direction == "N") correctroom.playerspawn = [13,16];
-            this.currentroom[0] -= 1;
-            this.currentroom[1] -= 1;
-        }
-        else if (room.quadrant == "w"){
-            correctroom = this.rooms[this.currentroom[0]][this.currentroom[1]-1];
-            if (direction == "N") correctroom.playerspawn = [4,16];
-            else if (direction == "E") correctroom.playerspawn = [1,13];
-            this.currentroom[1] -= 1;
-        }
-        else throw new Error('This big room transcends time and space!');
-        return correctroom;
-    }
-
-    selectPlayerExit(direction){
-        const exits = {
-            "N" : [4,7],
-            "W" : [7,4],
-            "E" : [1,4],
-            "S" : [4,1],
-        }
-        return exits[direction];
     }
 }
 
@@ -736,15 +620,8 @@ class Room{
         this.monsters = [];
         this.creatures = "";
         this.vault = true;
-        this.name = "Bugtopia";
         this.filler = NoBreakWall;
         this.vault = false;
-        this.extreme = {
-            "N" : 0,
-            "W" : 0,
-            "E" : numTiles-1,
-            "S" : numTiles-1,
-        }
         this.visited = false;
         this.layer;
         this.graphicsReady = false;

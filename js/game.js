@@ -113,23 +113,3 @@ function summonMonster(x,y,type){ // can accept a species or clone a creature
     }
     monster.setUpSprite();
 }
-
-function astair(start,dest){
-    let graph = [];
-    for (let i =0; i<numTiles; i++){
-        graph[i] = [];
-        for (let j = 0; j<numTiles; j++){
-            if (tiles[i][j] == start || tiles[i][j] == dest || tiles[i][j] instanceof Airlock || (tiles[i][j].passable && tiles[i][j].monster == null)) graph[i][j] = 1;
-            else graph[i][j] = 0;
-        }
-    }
-    pathfind = new Graph(graph);
-    let beg = pathfind.grid[start.x][start.y];
-    let end = pathfind.grid[dest.x][dest.y];
-    let result = astar.search(pathfind, beg, end);
-    let foundTiles = [];
-    for (let i of result){
-        foundTiles.push(tiles[i.x][i.y]);
-    }
-    return foundTiles;
-}

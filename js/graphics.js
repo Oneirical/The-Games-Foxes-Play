@@ -86,12 +86,8 @@ function beginEverything(){
     tilesDisplay.maskReference.alpha = 0;
     drawProjectors();
     
-    world.enterRoom("N");
-    // let rai = new PIXI.filters.ColorOverlayFilter();
-    // rai.color = "1a5fb4";
-    // rai.alpha = 0;
-    // let alarmCount = 0;
-    //tilesDisplay.filters = [rai];
+    world.appearRoom([22,4]); // initial spawn location in world seed
+
     app.ticker.add(() => {
         screenshake();
         app.stage.x = shakeX;
@@ -101,7 +97,6 @@ function beginEverything(){
         //rai.alpha = Math.sin(alarmCount)-0.5;
     });
     tilesDisplay.addChild(player.creaturecon);
-    world.cage.generateWorld()
         //FPS counter
     // const style = new PIXI.TextStyle({
     //     fontFamily: 'Play',

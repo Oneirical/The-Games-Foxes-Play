@@ -218,7 +218,8 @@ class Tile{
         }
     }
 
-    setEffect(effectSprite){     
+    setEffect(effectSprite){
+        return;
         this.tilecon.removeChild(this.effect);             
         this.effect = new FoxSprite(allsprites.textures["sprite"+effectSprite]);
         this.effect.width = 64;
@@ -707,24 +708,6 @@ class Altar extends Floor{
         this.spriteDisplay.on('pointerout', (event) => {
             this.hitBox.alpha = 0;
         });
-        return;
-        animationTick.add((delta) => {//This is technically adding tons of ticker statements on each room entry.
-            if (Math.random() > 0.97 && world.cage.slots[this.x-world.cageCorner[0]][this.y-world.cageCorner[1]].turbulent) soulcon.shakeAmount = 5; // REMOVE the 0-0 here and adapt
-            if(soulcon.shakeAmount){
-                soulcon.shakeAmount--;
-            }
-            let shakeAngle = Math.random()*Math.PI*2;
-            soulcon.offsetX = Math.round(Math.cos(shakeAngle)*soulcon.shakeAmount);
-            soulcon.offsetY = Math.round(Math.sin(shakeAngle)*soulcon.shakeAmount);
-            soulcon.x = tileSize/2 + soulcon.offsetX;
-            soulcon.y = tileSize/2 + soulcon.offsetY;
-        }); 
-    }
-
-    tickTile(){
-        let hai = world.cage.slots[this.x-world.cageCorner[0]][this.y-world.cageCorner[1]].icon;
-        this.soulCon.texture = allsprites.textures['icon'+hai];
-        //if (world.cage.slots[this.x][this.y].turbulent) new GlitchSprite(this.soulCon,0);
     }
 
     getDisplayX(){                     

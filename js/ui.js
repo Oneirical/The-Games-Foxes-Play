@@ -491,190 +491,6 @@ class ComponentsDisplay{
     }
 }
 
-class InfluenceDisplay{
-    constructor(){
-        universe.getTotalInfluence();
-        this.displayCon = new PIXI.Container();
-        this.displayCon.y = 32*15;  
-        this.inflCon = new PIXI.Container();
-        this.displayCon.addChild(this.inflCon);
-        drawChainBorder(7,17,this.displayCon);
-        const colors = ["lime","orangered","orange","yellow","yellowgreen","plum"];
-        for (let i = 0; i<6; i++){
-            let chSprite = 'icon'+i;
-            let newSprite = new FoxSprite(allsprites.textures[chSprite]);
-            newSprite.y = i*50;
-            newSprite.x = 0;
-            newSprite.width = 48;
-            newSprite.height = 48;
-            this.inflCon.addChild(newSprite);
-            const style = new PIXI.TextStyle({
-                fontFamily: 'Play',
-                fontSize: 18,
-                fill: colors[i],
-            });
-            const castes = ["Saintly","Ordered","Artistic","Unhinged","Feral","Vile"];
-            textWithoutCringe(universe.totalInfluence[castes[i]].toString(),70,i*50+12,style,this.inflCon);
-        }
-        drawChainLine(6,16,7*50-32,"h",this.inflCon);
-        for (let i = 0; i<2; i++){
-            let chSprite = 'icon7';
-            if (i == 0) chSprite = 'sprite26';
-            let newSprite = new FoxSprite(allsprites.textures[chSprite]);
-            newSprite.y = (i+6)*50+16;
-            newSprite.x = 0;
-            newSprite.width = 48;
-            newSprite.height = 48;
-            this.inflCon.addChild(newSprite);
-            const sumCol = ["cyan","white"];
-            const style = new PIXI.TextStyle({
-                fontFamily: 'Play',
-                fontSize: 18,
-                fill: sumCol[i],
-            });
-            const types = ["Serene","Total"];
-            const multi = ["/ 2","/ 10"];
-            textWithoutCringe(universe.totalInfluence[types[i]].toString(),70,i*50+328,style,this.inflCon);
-            textWithoutCringe(multi[i],130,i*50+328,style,this.inflCon);
-        }
-        drawChainLine(6,16,9*50-12,"h",this.inflCon);
-        let newSprite = new FoxSprite(allsprites.textures['icon13']);
-        newSprite.y = 9*50;
-        newSprite.x = 0;
-        newSprite.width = 48;
-        newSprite.height = 48;
-        this.inflCon.addChild(newSprite);
-        const style = new PIXI.TextStyle({
-            fontFamily: 'Play',
-            fontSize: 18,
-            fill: "lightblue",
-        });
-        textWithoutCringe(universe.calculatePotency().toString(),70,462,style,this.inflCon);
-    }
-}
-
-class CraftingDisplay{
-    constructor(){
-        this.displayCon = new PIXI.Container();
-        this.displayCon.y = 32*15;  
-        this.displayCon.x = 32*7; 
-        this.craftCon = new PIXI.Container();
-        this.displayCon.addChild(this.craftCon);
-        drawChainBorder(3,17,this.displayCon);
-        for (let i = 0; i<8; i++){
-            let newSprite = new FoxSprite(allsprites.textures['icon7']);
-            newSprite.y = i*64;
-            newSprite.x = 0;
-            newSprite.width = 64;
-            newSprite.height = 64;
-            newSprite.eventMode = 'static';
-            newSprite.assignedPraxis = "EMPTY";
-            newSprite.on('pointerover', (event) => {
-                this.findMatching(newSprite.assignedPraxis);
-                let wai = new PIXI.filters.GlowFilter();
-                wai.outerStrength = 1;
-                newSprite.filters = [wai];
-            });
-            newSprite.on('pointerout', (event) => {
-                this.resetShadows();
-                newSprite.filters = [];
-            });
-            this.craftCon.addChild(newSprite);
-        }
-    }
-
-    updateDisplay(){
-        for (let i = 0; i<8; i++){
-            const currentSpell = world.cage.pocketworld.reward["Sequence"][i];
-            let sprite = inside[currentSpell];
-            if (!sprite) sprite = 7;
-            this.craftCon.children[i].texture = allsprites.textures['icon'+sprite];
-            this.craftCon.children[i].assignedPraxis = currentSpell;
-        }
-    }
-
-    resetShadows(){
-        for (let i = 0; i<numTiles; i++){
-            for (let j = 0; j<numTiles; j++){
-                if (tiles[i][j] instanceof CageContainer){
-                    tiles[i][j].tilecon.alpha = 1;
-                }
-            }
-        }
-    }
-
-    findMatching(praxis){
-        if (!praxis) return;
-        for (let i = 0; i<numTiles; i++){
-            for (let j = 0; j<numTiles; j++){
-                if (tiles[i][j] instanceof CageContainer && world.cage.slots[i][j].patternFound != praxis){
-                    tiles[i][j].tilecon.alpha = 0.3;
-                }
-                else if (tiles[i][j] instanceof CageContainer && world.cage.slots[i][j].patternFound === praxis){
-                    tiles[i][j].tilecon.alpha = 1;
-                }
-            }
-        }
-    }
-}
-
-class CatalogueDisplay{
-    constructor(){
-        this.setUpSprites();
-    }
-
-    setUpSprites(){
-        this.displayCon = new PIXI.Container();
-        this.displayCon.y = 32*16;
-        this.catalogueCon = new PIXI.Container();
-        this.displayCon.addChild(this.catalogueCon);
-        this.catalogueCon.x = 8;
-        this.catalogueCon.y = 8;
-        drawChainBorder(15,12,this.displayCon);
-        for (let i = 0; i<7; i++){
-            for (let j = 0; j<5; j++){
-                const currentSpell = research.knownSpells[j+i*8];
-                let sprite = inside[currentSpell];
-                if (!sprite) sprite = 7;
-                let newSprite = new FoxSprite(allsprites.textures['icon'+sprite]);
-                newSprite.x = j*48;
-                newSprite.y = i*48;
-                newSprite.width = 48;
-                newSprite.height = 48;
-                newSprite.eventMode = 'static';
-                this.descriptionBox = new NodeDescription();
-                this.descriptionBox.setUpSprites();
-                this.descriptionBox.displayCon.x = -15*32;
-                this.descriptionBox.displayCon.y = 32;
-                uiDisplayRight.addChild(this.descriptionBox.displayCon);
-                this.descriptionBox.displayCon.visible = false;
-                const graphics = new PIXI.Graphics();
-                graphics.beginFill("black");
-                graphics.drawRect(-8, -8, 14*32, 28*32-16);
-                graphics.endFill();
-                this.descriptionBox.displayCon.addChild(graphics);
-                newSprite.on('pointerdown', (event) => {
-                });
-                newSprite.on('pointerover', (event) => {
-                    if (currentSpell){
-                        this.descriptionBox.displayCon.visible = true;
-                        this.descriptionBox.getDescription(currentSpell);
-                    }
-                    let wai = new PIXI.filters.GlowFilter();
-                    wai.outerStrength = 1;
-                    newSprite.filters = [wai];
-                });
-                newSprite.on('pointerout', (event) => {
-                    this.descriptionBox.displayCon.visible = false;
-                    newSprite.filters = [];
-                });
-                this.catalogueCon.addChild(newSprite);
-
-            }
-        }
-    }
-}
-
 class ButtonsDisplay{
     constructor(){
 
@@ -884,9 +700,6 @@ class SoulBreathing{
     toPaintMode(){
         this.displayCon.removeChild(this.destinationText);
         this.inPaint = true;
-        this.catalogue = new CatalogueDisplay();
-        this.craftShow = new CraftingDisplay();
-        this.inflShow = new InfluenceDisplay();
         // add "if in harmony paint" statement here
         //uiDisplayRight.removeChild(log.displayCon);
         //uiDisplayRight.addChild(this.catalogue.displayCon);
@@ -957,7 +770,6 @@ class SoulBreathing{
             s.alpha = 0.8;
         }
         if (this.teleMode){
-            world.cage.generateWorld()
             player.move(getTile(world.cageCorner[0]+4,world.cageCorner[1]+4))
         }
     }
