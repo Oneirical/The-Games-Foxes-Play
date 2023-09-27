@@ -251,7 +251,7 @@ class MarkedFloor extends Tile{
     constructor(x,y,type,num){
         super(x, y, 2, true);
         this.mutable = true;
-        this.lore = description["Floor"];
+        this.lore = entityDescription["Floor"];
         this.name = "Marked Tile";
         this.type = type;
         this.num = num;
@@ -262,7 +262,7 @@ class Floor extends Tile{
     constructor(x,y){
         super(x, y, 2, true);
         this.mutable = true;
-        this.lore = description["Floor"];
+        this.lore = entityDescription["Floor"];
         this.name = "Eroded Floortiles";
     };
 
@@ -311,7 +311,7 @@ class TrueFloor extends Floor{
 class Platform extends Floor{
     constructor(x,y){
         super(x, y, 57, true);
-        this.lore = description["Floor"];
+        this.lore = entityDescription["Floor"];
         this.name = "Eroded Floortiles";
         this.sprite = 57;
     };
@@ -320,7 +320,7 @@ class Platform extends Floor{
 class Ladder extends Floor{
     constructor(x,y){
         super(x, y, 58, true);
-        this.lore = description["Floor"];
+        this.lore = entityDescription["Floor"];
         this.name = "Eroded Floortiles";
         this.sprite = 58;
     };
@@ -329,7 +329,7 @@ class Ladder extends Floor{
 class Goop extends Tile{
     constructor(x,y){
         super(x, y, 60, true);
-        this.lore = description["Glamour"];
+        this.lore = entityDescription["Glamour"];
         this.name = "Glamorous Toxin";
         this.sprite = 60;
     };
@@ -366,7 +366,7 @@ class Goop extends Tile{
 class Wall extends Tile{
     constructor(x, y){
         super(x, y, 3, false);
-        this.lore = description["Barrier"];
+        this.lore = entityDescription["Barrier"];
         this.name = "Apocalypse Barrier";
         this.mutable = false;
     };
@@ -378,7 +378,7 @@ class Wall extends Tile{
 class NoBreakWall extends Tile{
     constructor(x, y){
         super(x, y, 3, false);
-        this.lore = description["Barrier"];
+        this.lore = entityDescription["Barrier"];
         this.name = "Apocalypse Barrier";
         this.eat = false;
     };
@@ -390,7 +390,7 @@ class NoBreakWall extends Tile{
 class AbazonWall extends Tile{
     constructor(x,y){
         super(x, y, 2, false);
-        this.lore = description["Abazon"];
+        this.lore = entityDescription["Abazon"];
         this.name = "Terracotta Sentry";
         this.eat = false;
     };
@@ -402,7 +402,7 @@ class AbazonWall extends Tile{
 class RoseWall extends Wall{
     constructor(x,y){
         super(x, y, 55, false);
-        this.lore = description["Roseic"];
+        this.lore = entityDescription["Roseic"];
         this.name = "Roseic Blowglass";
         this.eat = false;
         this.sprite = 55;
@@ -415,7 +415,7 @@ class RoseWall extends Wall{
 class BExit extends Tile{
     constructor(x,y,room){
         super(x, y, 17, false);
-        this.lore = description["Seal"];
+        this.lore = entityDescription["Seal"];
         this.name = "Soulsteel Seal";
         this.eat = false;
         this.id = 0;
@@ -433,7 +433,7 @@ class BExit extends Tile{
 class BAscendExit extends Tile{
     constructor(x,y,room){
         super(x, y, 17, false);
-        this.lore = description["Seal"];
+        this.lore = entityDescription["Seal"];
         this.name = "Soulsteel Seal";
         this.eat = false;
         this.id = 0;
@@ -451,7 +451,7 @@ class BAscendExit extends Tile{
 class MapExit extends Tile{
     constructor(x,y,room){
         super(x, y, 17, true);
-        this.lore = description["OpenSeal"];
+        this.lore = entityDescription["OpenSeal"];
         this.name = "Unraveled Seal";
         this.eat = false;
         this.checkDirection(room);
@@ -469,7 +469,7 @@ class MapExit extends Tile{
 class AscendExit extends Tile{
     constructor(x,y,room){
         super(x, y, 17, true);
-        this.lore = description["OpenSeal"];
+        this.lore = entityDescription["OpenSeal"];
         this.name = "Unraveled Seal";
         this.eat = false;
         this.checkDirection(room);
@@ -486,7 +486,7 @@ class AscendExit extends Tile{
 class TermiWall extends Wall{
     constructor(x, y){
         super(x, y, 37, false);
-        this.lore = description["Circuit"];
+        this.lore = entityDescription["Circuit"];
         this.name = "Tangled Circuits";
         this.sprite = 37;
     }
@@ -495,7 +495,7 @@ class TermiWall extends Wall{
 class RealityWall extends Wall{
     constructor(x, y, quadrant){ //I hope this doesn't break anything
         super(x, y, 2, false);
-        this.lore = description["Reality"];
+        this.lore = entityDescription["Reality"];
         this.name = "Nonexistent Nullspace";
         this.sprite = 2;
         this.quadrant = quadrant;
@@ -505,7 +505,7 @@ class RealityWall extends Wall{
 class Exit extends Tile{
     constructor(x, y){
         super(x, y, 11, true);
-        this.lore = description["OpenSeal"];
+        this.lore = entityDescription["OpenSeal"];
         this.name = "Unraveled Seal";
         super.checkDirection();
         this.textures = {
@@ -522,7 +522,7 @@ class Exit extends Tile{
 class TermiExit extends Exit{
     constructor(x, y){
         super(x, y, 38, true);
-        this.lore = description["TermiSeal"];
+        this.lore = entityDescription["TermiSeal"];
         this.name = "Hydraulic Gate";
         this.sprite = 38;
     }
@@ -538,7 +538,7 @@ class TermiExit extends Exit{
 class FluffExit extends Exit{
     constructor(x, y){
         super(x, y, 23, true);
-        this.lore = description["HarmonicSeal"];
+        this.lore = entityDescription["HarmonicSeal"];
         this.name = "Harmonic Seal";
         this.sprite = 23;
     }
@@ -547,7 +547,7 @@ class FluffExit extends Exit{
 class Booster extends Exit{
     constructor(x, y){
         super(x, y, 59, true);
-        this.lore = description["HarmonicSeal"];
+        this.lore = entityDescription["HarmonicSeal"];
         this.name = "Harmonic Seal";
         this.sprite = 59;
     }
@@ -562,7 +562,7 @@ class Booster extends Exit{
 class Airlock extends Tile{
     constructor(x,y){
         super(x, y, 2, false);
-        this.lore = description["Abazon"];
+        this.lore = entityDescription["Abazon"];
         this.name = "Terracotta Sentry";
         this.eat = false;
     };
@@ -663,7 +663,7 @@ class Airlock extends Tile{
 class Plate extends Floor{ //delete later
     constructor(x, y){
         super(x, y, 75, true);
-        this.lore = description["Mobilizer"];
+        this.lore = entityDescription["Mobilizer"];
         this.name = "Automaton Mobilizer";
         this.sprite = 75;
     }
@@ -677,7 +677,7 @@ class Altar extends Floor{
         super(x, y, 30, true); //30
         this.value = new Empty();
         this.name = "Positive Harmonic Relay";
-        this.lore = description["PosRelay"];
+        this.lore = entityDescription["PosRelay"];
         this.offsetX = 0;                                                   
         this.offsetY = 0;
         this.speed = 0.05;
@@ -763,7 +763,7 @@ class PosAltar extends Altar{
         this.value = new Empty();
         this.sprite = 30;
         this.name = "Positive Harmonic Relay";
-        this.lore = description["PosRelay"];
+        this.lore = entityDescription["PosRelay"];
     }
 }
 
@@ -772,7 +772,7 @@ class NegAltar extends Altar{
         super(x, y, 31, true); //31
         this.name = "Negative Harmonic Relay";
         this.sprite = 31;
-        this.lore = description["NegRelay"];
+        this.lore = entityDescription["NegRelay"];
         this.value = new Empty();
     }
 
@@ -783,7 +783,7 @@ class BetAltar extends Altar{
         super(x, y, 43, true); 
         this.name = "Soulscribe";
         this.sprite = 43;
-        this.lore = description["Soulscribe"];
+        this.lore = entityDescription["Soulscribe"];
         this.value = new Empty();
     }
 }
@@ -791,7 +791,7 @@ class BetAltar extends Altar{
 class RoseThrone extends Wall{
     constructor(x, y){
         super(x, y, 61, false);
-        this.lore = description["Rose"];
+        this.lore = entityDescription["Rose"];
         this.name = "Rose, Last of the Saints";
         this.sprite = 61;
     }
@@ -800,7 +800,7 @@ class RoseThrone extends Wall{
 class SereneThrone extends Wall{
     constructor(x, y){
         super(x, y, 26, false);
-        this.lore = description["Harmonizer"];
+        this.lore = entityDescription["Harmonizer"];
         this.name = "Serene Harmonizer";
         this.sprite = 26;
     }
@@ -809,7 +809,7 @@ class SereneThrone extends Wall{
 class RoseServant extends Wall{
     constructor(x, y){
         super(x, y, 62, false);
-        this.lore = description["RoseS"];
+        this.lore = entityDescription["RoseS"];
         this.name = "Tangled Servitor";
         this.sprite = 62;
     }
@@ -818,7 +818,7 @@ class RoseServant extends Wall{
 class RoseSpawner extends Tile{
     constructor(x, y){
         super(x, y, 63, true);
-        this.lore = description["RoseSpawn"];
+        this.lore = entityDescription["RoseSpawn"];
         this.name = "Aleatory Teleconstructor";
         this.sprite = 63;
     }
@@ -854,7 +854,7 @@ class RoseSpawner extends Tile{
 class Mobilizer extends Tile{
     constructor(x, y){
         super(x, y, 75, true);
-        this.lore = description["Mobilizer"];
+        this.lore = entityDescription["Mobilizer"];
         this.name = "Automaton Mobilizer";
         this.sprite = 75;
     }
@@ -890,7 +890,7 @@ class Mobilizer extends Tile{
 class CageWall extends Floor{
     constructor(x,y, dir){
         super(x, y, 107, true);
-        this.lore = description["IvoryCage"];
+        this.lore = entityDescription["IvoryCage"];
         this.name = "Ivory Bars";
         this.direction = dir;
         this.sprite = 107;
@@ -933,7 +933,7 @@ class CageContainer extends Altar{
     constructor(x, y){
         super(x,y,110, true);
         this.sprite = 110;
-        this.lore = description["Floor"];
+        this.lore = entityDescription["Floor"];
         this.name = "Eroded Floortiles";
         this.value = new Empty();
         this.seq = 0;
@@ -958,7 +958,7 @@ class HypnoticProjector extends Floor{
     constructor(x, y){
         super(x,y,110, true);
         this.sprite = 110;
-        this.lore = description["Hypno"];
+        this.lore = entityDescription["Hypno"];
         this.name = "Hypnotic Projector";
         this.value = new Empty();
     }
@@ -982,7 +982,7 @@ class ResearchConnector extends Floor{
         }
         this.page = page;
         this.sprite = conn[type];
-        this.lore = description["Floor"];
+        this.lore = entityDescription["Floor"];
         this.name = "hai";
         this.connectType = type;
     }
@@ -1163,7 +1163,7 @@ class ResearchNode extends Floor{
 class Window extends Wall{
     constructor(x, y){
         super(x, y, 129, false);
-        this.lore = description["Barrier"];
+        this.lore = entityDescription["Barrier"];
         this.name = "Apocalypse Barrier";
         this.mutable = false;
         this.sprite = 129;

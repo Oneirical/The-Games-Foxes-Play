@@ -1040,16 +1040,21 @@ class SoulTree{
             if (this.trackedEntity.souls[basic[5-i+1]] instanceof Soul) this.axiomCon.children[i].alpha = 1;
             else this.axiomCon.children[i].alpha = 0.5;
         }
+        this.entityName.text = this.trackedEntity.name;
+        this.entityLore.text = this.trackedEntity.lore;
+        this.entitySprite.texture = allsprites.textures['sprite'+this.trackedEntity.sprite];
     }
 
     setUpSprites(){
         this.displayCon = new PIXI.Container();
-        this.displayCon.y = 32*21;
+        this.displayCon.y = 32*15;
         uiDisplayLeft.addChild(this.displayCon);
-        drawChainBorder(10,11,this.displayCon); 
+        drawChainBorder(10,17,this.displayCon);
+        drawChainLine(9,16,210,"h",this.displayCon);
+        drawChainLine(9,16,50,"h",this.displayCon);
         this.axiomCon = new PIXI.Container();
         this.axiomCon.x = -8;
-        this.axiomCon.y = 10;
+        this.axiomCon.y = 210;
         this.displayCon.addChild(this.axiomCon);
 
         const xcoords = {
@@ -1124,6 +1129,37 @@ class SoulTree{
         newSprite.width = (7+12)*16;
         newSprite.height = (7+12)*16;
         this.axiomCon.addChild(newSprite);
+
+        let style = new PIXI.TextStyle({
+            fontFamily: 'Play',
+            fontSize: 18,
+            fill: "plum",
+        });
+        this.entityName = new PIXI.Text("If you see this it is buggo :3", style); //this.trackedEntity.name
+        this.entityName.anchor.set(0.5,0.5);
+        this.entityName.x = (335+22)/4+70;
+        this.entityName.y = (121+31)/4-24;
+        this.displayCon.addChild(this.entityName);
+
+        this.entitySprite = new FoxSprite(allsprites.textures['sprite'+1]);
+        this.entitySprite.width = 32;
+        this.entitySprite.height = 32;
+        this.entitySprite.y = -2;
+        
+        this.displayCon.addChild(this.entitySprite);
+
+        style = new PIXI.TextStyle({
+            fontFamily: 'Play',
+            fontSize: 14,
+            fill: "white",
+            wordWrap: true,
+            wordWrapWidth: 9*32
+        });
+
+        this.entityLore = new PIXI.Text("If you see this it is buggo :3", style); //this.trackedEntity.name
+        this.entityLore.y = (121+31)/4+10;
+        this.displayCon.addChild(this.entityLore);
+
         this.updateSlots();
     }
 
@@ -1260,7 +1296,8 @@ class Soul{
             "RadioBroadcaster" : 27,
             "SENET" : 8,
             "SoulInjector" : 29,
-            "StandardForm" : 66,
+            "EgoForm" : 66,
+            "CrossForm" : 66, // this should not be the same
             "PARACEON" : 41,
             "SMOOCH" : 17,
             "LastDamageSource" : 18,

@@ -460,11 +460,40 @@ const areaNames = {
     "Select" : "Select a destination..."
 }
 
-const monsterNames = {
-    "Scarab" : "Plated Thought-Ferry",
+const creaturePresentation = {
+    "Scarab" : {
+        name: "Plated Thought-Ferry",
+        color: "lightcoral",
+        lore: ":3"
+    },
+    "EpsilonHead" : {
+        name: "Epsilon, Adorned in Gold",
+        color: "gold",
+        lore: ":3"
+    },
+    "Terminal" : {
+        name: "Terminal, the Reality Anchor",
+        color: "plum",
+        lore: ":3"
+    },
+    "Programmer" : {
+        name: "Felidol Programmer",
+        color: "plum",
+        lore: ":3"
+    },
+    "Apiarist" : {
+        name: "Upload Relay",
+        color: "pink",
+        lore: ":3"
+    },
+    "EpsilonTail" : {
+        name: "Reinforced Scale-Steel",
+        color: "gold",
+        lore: ":3"
+    },
 }
 
-description = {
+const entityDescription = {
     // Creatures
     "Terminal" : "An artificial deity, kept captive in the Faith's End facility in prevision for the cataclysm prophetized to shatter reality. Until this moment, the Vessel waited. He engraved sigils into the metal with his claws, trying to imagine what the outside world even looks like. He ripped out chunks of steel in fits of rage, with only the inflexible silence answering his pleas for annihilation.",
     "Scion" : "A cultivator of subtle jabs and searing retorts, once directed at the sharply dressed nobles of their ilk. Mostly ineffectual, if not for their grime-infested claws animated with the fury of the dying.",
@@ -931,7 +960,12 @@ soulData = {
         "lore" : "Data is shapeless like slime, breeding itself into forms so alien to the original I sometimes wonder if we are not the descendants of one single original thought.",
         "descript" : "On Pulse, all Targeted Creatures are Injected with this Axiom's Data.",
     },
-    "StandardForm" : {
+    "EgoForm" : {
+        "name" : "hai",
+        "lore" : "hai",
+        "descript" : "hai",
+    },
+    "PlusForm" : {
         "name" : "hai",
         "lore" : "hai",
         "descript" : "hai",

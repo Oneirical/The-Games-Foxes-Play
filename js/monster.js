@@ -1,5 +1,5 @@
 class Monster{
-    static species = "Plated"; //monsterNames[this.name]
+    static species = "Plated"; //monsterNames[this.constructor.name]
     constructor(tile, sprite, hp){
         this.sprite = sprite;
         this.hp = hp;
@@ -13,6 +13,8 @@ class Monster{
             "FERAL" : false,
             "VILE" : false,
         };
+        if (creaturePresentation[this.constructor.name]) this.lore = creaturePresentation[this.constructor.name]["lore"];
+        if (creaturePresentation[this.constructor.name]) this.name = creaturePresentation[this.constructor.name]["name"];
         this.move(tile);
     }
 
@@ -287,7 +289,7 @@ class Monster{
 
 class Terminal extends Monster{
     constructor(tile){
-        super(tile, 0, 3, "SOULLESS", description["Terminal"]);
+        super(tile, 0, 3);
         this.isPlayer = true;
         this.teleportCounter = 0;
         this.name = "Terminal, the Reality Anchor";
@@ -304,7 +306,7 @@ class Terminal extends Monster{
 
 class Scion extends Monster{
     constructor(tile){
-        super(tile, 4, 2, "SAINTLY", description["Scion"]);
+        super(tile, 4, 2);
         this.soul = "Animated by a Saintly (6) soul.";
         this.name = "Scion of the Old World";
         this.ability = monabi["Scion"];
@@ -313,7 +315,7 @@ class Scion extends Monster{
 
 class Shrike extends Monster{
     constructor(tile){
-        super(tile, 5, 1, "UNHINGED", description["Shrike"]);
+        super(tile, 5, 1);
         this.soul = "Animated by a Feral (2) soul.";
         this.name = "Starpaper Shrike";
         this.ability = monabi["Shrike"];
@@ -323,7 +325,7 @@ class Shrike extends Monster{
 
 class Apiarist extends Monster{
     constructor(tile){
-        super(tile, 6, 3, "ORDERED", description["Apiarist"]);
+        super(tile, 6, 3);
         this.souls["ORDERED"] = "ScarabHack";
         this.name = "Brass Apiarist";
         this.ability = monabi["Apiarist"];
@@ -341,7 +343,7 @@ class Apiarist extends Monster{
 
 class Second extends Monster{
     constructor(tile){
-        super(tile, 7, 1, "VILE", description["Second"]);
+        super(tile, 7, 1);
         this.soul = "Animated by a Vile (1) soul.";
         this.name = "Second Emblem of Sin";
         this.ability = monabi["Second"];
@@ -350,7 +352,7 @@ class Second extends Monster{
 
 class Tinker extends Monster{
     constructor(tile){
-        super(tile, 8, 2, "SAINTLY", description["Tinker"]);
+        super(tile, 8, 2);
         this.soul = "Animated by an Artistic (4) soul.";
         this.name = "Frenzied Dream-Tinker";
         this.ability = monabi["Tinker"];
@@ -359,7 +361,7 @@ class Tinker extends Monster{
 
 class Harmonizer extends Monster{
     constructor(tile){
-        super(tile, 26, 1, "SERENE", description["Harmonizer"]);
+        super(tile, 26, 1);
         this.teleportCounter = 0;
         this.soul = "Animated by a Serene (?) soul.";
         this.name = "Serene Harmonizer";
@@ -382,7 +384,7 @@ class Harmonizer extends Monster{
 
 class Cage extends Monster{
     constructor(tile){
-        super(tile, 25, 1, "NOTHING", description["Cage"]);
+        super(tile, 25, 1);
         this.soul = "Soulless."
         this.name = "Herald's Cage";
         this.teleportCounter = 0;
@@ -399,7 +401,7 @@ class Cage extends Monster{
 
 class Herald extends Monster{
     constructor(tile){
-        super(tile, 54, 1, "FERAL", description["Herald"]);
+        super(tile, 54, 1);
         this.soul = "Soulless."
         this.name = "Herald of the Old World";
         this.teleportCounter = 0;
@@ -409,7 +411,7 @@ class Herald extends Monster{
 
 class Blehh extends Monster{
     constructor(tile){
-        super(tile, 95, 1, "SAINTLY", description["Zaint"]);
+        super(tile, 95, 1);
         this.soul = "Animated by a Saintly (6) soul.";
         this.name = "Zaint, First of the Saints";
         this.teleportCounter = 0;
@@ -421,7 +423,7 @@ class Blehh extends Monster{
 
 class BattleFluffy extends Monster{
     constructor(tile){
-        super(tile, 26, 5, "SERENE", description["Peacemaker"]);
+        super(tile, 26, 5);
         this.teleportCounter = 0;
         this.soul = "Animated by a Serene (?) soul.";
         this.name = "Serene Peacemaker";
@@ -477,7 +479,7 @@ class BattleFluffy extends Monster{
 
 class HostileFluffy extends Monster{
     constructor(tile){
-        super(tile, 26, 6, "SERENE", description["Peacemaker"]);
+        super(tile, 26, 6);
         this.soul = "Animated by a Serene (?) soul.";
         this.name = "Serene Peacemaker";
         this.isFluffy = true;
@@ -501,7 +503,7 @@ class HostileFluffy extends Monster{
 class Hologram extends Monster{
     
     constructor(tile){
-        super(tile, 39, 1, "NOTHING", description["Hologram"]);
+        super(tile, 39, 1);
         this.teleportCounter = 0;
         this.soul = "Soulless.";
         this.name = "Saints' Voice";
@@ -524,7 +526,7 @@ class Hologram extends Monster{
 
 class AbazonSummon extends Monster{
     constructor(tile,savet,power){
-        super(tile, 28, 5, "ABAZON", description["Abazon"]);
+        super(tile, 28, 5);
         this.teleportCounter = 0;
         this.noloot = true;
         this.statusEff["Charmed"] = 999;
@@ -546,7 +548,7 @@ class AbazonSummon extends Monster{
 
 class Oracle extends Monster{
     constructor(tile){
-        super(tile, 40, 2, "UNHINGED", description["Oracle"]);
+        super(tile, 40, 2);
         this.soul = "Animated by an Unhinged (3) soul.";
         this.name = "Anisychic Oracle";
         this.ability = monabi["Oracle"];
@@ -555,7 +557,7 @@ class Oracle extends Monster{
 
 class Snail extends Monster{ // BATTLESNAIL, GET IN THERE!
     constructor(tile){
-        super(tile, 41, 2, "ARTISTIC", description["Snail"]);
+        super(tile, 41, 2);
         this.souls["ORDERED"] = "ElectroCoil";
         this.name = "Shelled Electromedic";
         this.ability = monabi["Snail"];
@@ -577,7 +579,7 @@ class Snail extends Monster{ // BATTLESNAIL, GET IN THERE!
 
 class Husk extends Monster{
     constructor(tile){
-        super(tile, 24, 1, "NOTHING", description["Husk"]);
+        super(tile, 24, 1);
         this.soul = "Soulless.";
         this.name = "Crawling Husk";
         this.ability = monabi["Husk"];
@@ -590,7 +592,7 @@ class Husk extends Monster{
 
 class Slug extends Monster{
     constructor(tile){
-        super(tile, 29, 2, "ORDERED", description["Slug"]);
+        super(tile, 29, 2);
         this.souls["ORDERED"] = "Guard";
         this.name = "Shackle-Slug";
         this.ability = monabi["Slug"];
@@ -599,7 +601,7 @@ class Slug extends Monster{
 
 class Ragemaw extends Monster{
     constructor(tile){
-        super(tile, 44, 1, "FERAL", description["Ragemaw"]);
+        super(tile, 44, 1);
         this.soul = "Animated by a Feral (2) soul.";
         this.name = "Midnight Ragemaw";
         this.ability = monabi["Ragemaw"];
@@ -629,7 +631,7 @@ class Ragemaw extends Monster{
 
 class Felidol extends Monster{
     constructor(tile){
-        super(tile, 49, 2, "VILE", description["Felidol"]);
+        super(tile, 49, 2);
         this.soul = "Animated by a Vile (1) soul.";
         this.name = "Greedswept Felidol";
         this.ability = monabi["Felidol"];
@@ -638,7 +640,7 @@ class Felidol extends Monster{
 
 class Weaver extends Monster{
     constructor(tile){
-        super(tile, 27, 2, "ARTISTIC", description["Weaver"]);
+        super(tile, 27, 2);
         this.souls["ORDERED"] = "ScarabSpawner";
         this.name = "Humming Paperweaver";
         this.ability = monabi["Weaver"];
@@ -680,7 +682,7 @@ class Weaver extends Monster{
 
 class Rendfly extends Monster{
     constructor(tile){
-        super(tile, 54, 1, "FERAL", description["Rendfly"]);
+        super(tile, 54, 1);
         this.soul = "Animated by a Feral (2) soul.";
         this.name = "Rendfly Vermin";
         this.ability = monabi["Rendfly"];
@@ -728,7 +730,7 @@ class Modulorb extends Monster{
 
 class Third extends Monster{
     constructor(tile){
-        super(tile, 65, 2, "VILE", description["Third"]);
+        super(tile, 65, 2);
         this.soul = "Animated by a Vile (1) soul.";
         this.name = "Third Emblem of Sin";
         this.ability = monabi["Third"];
@@ -748,7 +750,7 @@ class Third extends Monster{
 
 class WalkBot extends Monster{
     constructor(tile){
-        super(tile, 65, 2, "VILE", description["Third"]);
+        super(tile, 65, 2);
         this.soul = "Animated by a Vile (1) soul.";
         this.name = "Third Emblem of Sin";
         this.ability = monabi["WalkBot"];
@@ -768,7 +770,7 @@ class WalkBot extends Monster{
 
 class Ashsoul extends Monster{
     constructor(tile){
-        super(tile, 66, 1, "UNHINGED", description["Ashsoul"]);
+        super(tile, 66, 1);
         this.soul = "Animated by an Unhiged (3) soul.";
         this.name = "Ashsoul Screecher";
         this.ability = monabi["Ashsoul"];
@@ -791,7 +793,7 @@ class Ashsoul extends Monster{
 
 class KnockbackBot extends Monster{
     constructor(tile){
-        super(tile, 66, 1, "UNHINGED", description["Ashsoul"]);
+        super(tile, 66, 1);
         this.soul = "Animated by an Unhiged (3) soul.";
         this.name = "Ashsoul Screecher";
         this.ability = monabi["KnockbackBot"];
@@ -804,16 +806,16 @@ class KnockbackBot extends Monster{
 
 class EpsilonHead extends Monster{
     constructor(tile){
-        super(tile, 67, 3, "ORDERED", description["Epsilon"]);
+        super(tile, 67, 3);
         this.souls["ORDERED"] = "EpsilonStand";
-        this.name = "Epsilon, Supreme Ordered General";
+        this.name = "Epsilon, Adorned in Gold";
         this.ability = monabi["Epsilon"];
     }
 }
 
 class Programmer extends Monster{
     constructor(tile){
-        super(tile, 49, 3, "VILE", description["Epsilon"]);
+        super(tile, 49, 3);
         this.souls["VILE"] = "Programmer";
         this.name = "Epsilon, Supreme Ordered General";
         this.ability = monabi["Epsilon"];
@@ -829,7 +831,7 @@ class Programmer extends Monster{
 class EpsilonTail extends Monster{
     static number = 1;
     constructor(tile){
-        super(tile, 68, 3, "ORDERED", description["Epsilon"]);
+        super(tile, 68, 3);
        
         //for (let i of monsters) if (i instanceof EpsilonTail) this.number++;
         this.souls["ORDERED"] = "Tail"+EpsilonTail.number;
@@ -842,7 +844,7 @@ class EpsilonTail extends Monster{
 
 class Epsilon extends Monster{
     constructor(tile){
-        super(tile, 67, 33, "ORDERED", description["Epsilon"]);
+        super(tile, 67, 33);
         this.soul = "Animated by an Ordered (5) soul.";
         this.name = "Epsilon, Supreme Ordered General";
         this.ability = monabi["Epsilon"];
@@ -1017,7 +1019,7 @@ class Epsilon extends Monster{
 
 class Tail extends Monster{
     constructor(tile,order){
-        super(tile, 68, 6, "ORDERED", description["Tail"]);
+        super(tile, 68, 6);
         this.soul = "Soulless.";
         this.name = "Rubberized Mecha-Segment";
         this.ability = monabi["Tail"];
@@ -1077,7 +1079,7 @@ class Tail extends Monster{
 
 class Box extends Monster{
     constructor(tile, type){
-        super(tile, core[type], 1, "ORDERED", description[type]);
+        super(tile, core[type], 1);
         this.soul = "Soulless.";
         this.name = core[core[type]];
         this.ability = monabi[type];
@@ -1097,7 +1099,7 @@ class Box extends Monster{
 
 class Apis extends Monster{
     constructor(tile){
-        super(tile, 70, 2, "FERAL", description["Apis"]);
+        super(tile, 70, 2);
         this.soul = "Animated by a Feral (2) soul.";
         this.name = "Messenger of Aculeo";
         this.ability = monabi["Apis"];
@@ -1106,7 +1108,7 @@ class Apis extends Monster{
 
 class Embalmer extends Monster{
     constructor(tile){
-        super(tile, 71, 1, "SAINTLY", description["Embalmer"]);
+        super(tile, 71, 1);
         this.soul = "Animated by a Saintly (6) soul.";
         this.name = "Roseic Bioembalmer";
         this.ability = monabi["Embalmer"];
@@ -1125,7 +1127,7 @@ class Embalmer extends Monster{
 
 class Brute extends Monster{
     constructor(tile){
-        super(tile, 72, 2, "ARTISTIC", description["Brute"]);
+        super(tile, 72, 2);
         this.soul = "Animated by an Artistic (4) soul.";
         this.name = "Rosewrapped Brute";
         this.ability = monabi["Brute"];
@@ -1162,7 +1164,7 @@ class Brute extends Monster{
 
 class Paradox extends Monster{
     constructor(tile){
-        super(tile, 79, 1, "ORDERED", description["Paradox"]);
+        super(tile, 79, 1);
         this.soul = "Animated by an Ordered (5) soul.";
         this.name = "Paradox Teledrone";
         this.ability = monabi["Paradox"];
@@ -1184,7 +1186,7 @@ class Paradox extends Monster{
 
 class Binary extends Monster{
     constructor(tile){
-        super(tile, 78, 2, "ORDERED", description["Binary"]);
+        super(tile, 78, 2);
         this.soul = "Animated by an Ordered (5) soul.";
         this.name = "Binary Duodrone";
         this.ability = monabi["Binary"];
@@ -1205,7 +1207,7 @@ class Binary extends Monster{
 
 class Titanic extends Monster{
     constructor(tile){
-        super(tile, 76, 1, "ORDERED", description["Titanic"]);
+        super(tile, 76, 1);
         this.soul = "Animated by an Ordered (5) soul.";
         this.name = "Titanic Gravidrone";
         this.ability = monabi["Titanic"];
@@ -1226,7 +1228,7 @@ class Titanic extends Monster{
 
 class Psydrone extends Monster{
     constructor(tile){
-        super(tile, 77, 1, "ORDERED", description["Psydrone"]);
+        super(tile, 77, 1);
         this.soul = "Animated by an Ordered (5) soul.";
         this.name = "Pulsating Psydrone";
         this.ability = monabi["Psydrone"];
@@ -1247,7 +1249,7 @@ class Psydrone extends Monster{
 
 class Scarab extends Monster{
     constructor(tile){
-        super(tile, 76, 1, "ORDERED", description["Scarab"]);
+        super(tile, 76, 1, "ORDERED");
         this.name = "Plated Thought-Ferry";
         this.souls["ORDERED"] = "Scarab";
     }
@@ -1255,7 +1257,7 @@ class Scarab extends Monster{
 
 class Exploder extends Monster{
     constructor(tile){
-        super(tile, 77, 1, "NOTHING", description["Exploder"]);
+        super(tile, 77, 1);
         this.soul = "Soulless.";
         this.name = "Compacted Disdain";
         this.ability = monabi["Exploder"];
