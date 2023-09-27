@@ -102,7 +102,6 @@ function beginEverything(){
     });
     tilesDisplay.addChild(player.creaturecon);
     world.cage.generateWorld()
-    //world.cage.pocketworld.hypnoDisplay();
         //FPS counter
     // const style = new PIXI.TextStyle({
     //     fontFamily: 'Play',

@@ -40,7 +40,7 @@ class Universe{
         world.playRoom(world.rooms[2][0]);
         drawTiles();
         drawSprites();
-        this.placeHypnoDisplays();  //sigh, try this again later
+        this.placeHypnoDisplays(); // that was an adventure, wasn't it? I'm proud of you. Fu!
     }
 
     composeLinks(){
@@ -72,15 +72,19 @@ class Universe{
     placeHypnoDisplays(){
         for (let w of this.worlds){
             for (let p of w.establishedPaths){
+                if (p.hypnoticScenes) {
+                    for (let h of p.hypnoticScenes) p.tilecon.removeChild(h); // it can technically be reused, but the hypnodisplay only pulls from sprites, not paint and entities
+                }
                 let gazingInto = this.findWorldByID(p.destination);
                 let gazingPoint = gazingInto.findTelepadByDest(w.id);
                 let zoomSize = 14;
                 let cont = gazingInto.grabSpritesOfSection(gazingPoint.x-zoomSize+1,gazingPoint.y-zoomSize+1,gazingPoint.x+zoomSize,gazingPoint.y+zoomSize);
-                let contSmall = w.grabSpritesOfSection(p.x-zoomSize+1,p.y-zoomSize+1,p.x+zoomSize,p.y+zoomSize)
+                let contSmall = w.grabSpritesOfSection(p.x-zoomSize+1,p.y-zoomSize+1,p.x+zoomSize,p.y+zoomSize);
                 p.tilecon.addChild(cont);
                 contSmall.width = 64/3;
                 contSmall.height = 64/3;
                 p.tilecon.addChild(contSmall);
+                p.hypnoticScenes = [cont,contSmall];
                 cont.x-=128-((22-gazingPoint.x)/9*64);
                 cont.y-=128-((22-gazingPoint.y)/9*64);
                 contSmall.x += 128/9+((22-p.x)/9*64/9);
@@ -134,9 +138,7 @@ class Universe{
         uiDisplayLeft.addChild(world.displayCon);
         tilesDisplay.addChild(player.creaturecon);
         tickProjectors();
-        world.cage.generateWorld()
-        //world.cage.pocketworld.hypnoDisplay();
-
+        world.cage.generateWorld();
         for (let i of monsters){
             for (let j of i.loopThroughSouls()){
                 if (!j) continue;
@@ -333,34 +335,6 @@ class World{
         this.playerMarker.x = player.tile.x*112/9+world.getRoom().index[0]*112+(2*(112/9));
         this.playerMarker.y = player.tile.y*112/9+world.getRoom().index[1]*112+(2*(112/9));
 
-    }
-
-    hypnoDisplay(){
-        for (let i of universe.worlds[this.layer-1].establishedPaths){
-            let xindic = -1;
-            let yindic = -1;
-            for(let y = i.y-1; y<i.y+2;y++){
-                for(let x = i.x-1; x<i.x+2;x++){
-                    drawPixel("black",0,0,64,tiles[i.x+xindic][i.y+yindic].tilecon);
-                    if (!(tiles[i.x+xindic][i.y+yindic] instanceof CageContainer)) throw new Error("Hypnotic hologram placed out of cage!"); 
-                    if (!this.rooms[x] || !this.rooms[x][y]){
-                        xindic++;
-                        continue;
-                    } 
-                    if (this.rooms[x][y].tangible){
-                        this.rooms[x][y].displayCon.width = 64;
-                        this.rooms[x][y].displayCon.height = 64;
-                        this.rooms[x][y].displayCon.x = 0;
-                        this.rooms[x][y].displayCon.y = 0;
-                        tiles[i.x+xindic][i.y+yindic].tilecon.addChild(this.rooms[x][y].displayCon);
-                        if (!(tiles[i.x+xindic][i.y+yindic] instanceof CageContainer)) throw new Error("Hypnotic hologram placed out of cage!");                    
-                    }
-                    xindic++;
-                }
-                yindic++;
-                xindic = -1;
-            }
-        }
     }
 
     vaultBuild(){
@@ -805,35 +779,6 @@ class Room{
                 }
                 this.displayCon.addChild(newSprite);
                 
-                //if (!(this.tiles[i][j] instanceof RealityWall)) drawPixel(checkPixel(this.tiles[i][j]),i*brush,j*brush,14,this.displayCon);
-            }
-        }
-        this.hypnoCon = new PIXI.Container();
-        size = 64;
-        for(let i = 0; i<this.size;i++){
-            for (let j = 0; j<this.size; j++){
-                let hai = this.tiles[i][j].sprite;
-                if (this.tiles[i][j].monster) hai = this.tiles[i][j].monster.sprite;
-                else if (this.tiles[i][j] instanceof Airlock && this.tiles[i][j].direction) hai = 17;
-                else if (this.tiles[i][j] instanceof Airlock) hai = 3;
-                let newSprite = new FoxSprite(allsprites.textures['sprite'+hai]);
-                newSprite.width = 64/9;
-                newSprite.height = 64/9;
-                newSprite.x = i*(64/9);
-                newSprite.y = j*(64/9);
-                if (this.tiles[i][j] instanceof Airlock && this.tiles[i][j].direction){
-                    newSprite.anchor.set(0.5,0.5);
-                    newSprite.x += 64/9/2;
-                    newSprite.y += 64/9/2;
-                    const rotate = {
-                        "S" : 0,
-                        "W" : Math.PI/2,
-                        "E" : 3*Math.PI/2,
-                        "N" : Math.PI,
-                    }
-                    newSprite.rotation = rotate[this.tiles[i][j].direction];
-                }
-                this.hypnoCon.addChild(newSprite);
                 //if (!(this.tiles[i][j] instanceof RealityWall)) drawPixel(checkPixel(this.tiles[i][j]),i*brush,j*brush,14,this.displayCon);
             }
         }

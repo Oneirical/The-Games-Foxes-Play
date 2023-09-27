@@ -7,14 +7,12 @@ This game is in active development and is nowhere near a complete state. I post 
 
 Design goals:
 
-* **Failure is as valuable as success** - Death of the physical body is unimportant - only faith matters. Failing encounters causes a peculiar infection to spread further, unlocking great power at the cost of one's very identity...
+* **All is Soul** - No creatures in the game are hardcoded. Every action is managed by one's Soul, filled to the brim with Axioms dictating each behaviour, each ability and each objective. Careful examination reveals what makes them tick...
 
-* **An unusual alternative to experience points and spellcasting** - Slaying creatures awards you with Souls. Souls can be invoked for minor powers, or fuelled by Axioms to unleash even greater effects, fully customizable with an in-game spell crafting system!
-
-* **Map generation that responds to player interaction** - The dungeons in TGFP are dreamscapes, moulded by those who imagine them. Depending on which Souls you select and where you place them in the Soul Cage, the denizens populating the illusory worlds below can range from fully mechanized snakes to eerily staring cat statues. 
+* **Hypnotic Sandbox** - As one delves down the complex, the tools to manipulate Souls shall be unveiled, and then, there will be no further limits. Reprogram fearsome foes into suicide! Recreate the most devastating spells from the most dangerous of creatures! Link yourself to shoot lasers at every creature on the map through walls on every turn! Accidentally walk into a brainwashing beam and forcibly add yourself to the list of targets! Incinerate yourself with 9 trillion damage! Shrug it off with a Soul dictating "when taking damage, heal that amount"!
 
 * **Extensive lore presented through nonmodal elements** - Should you ever start wondering if the setting actually makes sense or if I just injected metric tons of illegal psychedelics in my bloodstream to make this game, you can learn all my worldbuilding through flavour text and dialogue, but you will never be locked out of key-mashing and combat. Those who don't care about the "why" and just want to smash some robotic critters can easily do so without interruption. 
 
-I try to keep the latest winnable and potentially fun build on [itch.io](https://oneirical.itch.io/tgfp).
+I try to keep the latest winnable and potentially fun build on [itch.io](https://oneirical.itch.io/tgfp). Warning: the current one is from March and since then, I've taken development in a massively different direction.
 
 This game is 100% open source and MIT-licensed, because free stuff is cool.

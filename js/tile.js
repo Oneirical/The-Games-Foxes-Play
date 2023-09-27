@@ -963,12 +963,6 @@ class CageContainer extends Altar{
             //wheel.toTeleMode();
         }
     }
-
-    turnOnProjector(){
-        if (world.cage.displayon){
-            world.cage.pocketworld.hypnoDisplay(); //this shouldn't be a tile func, it should be a room func
-        }
-    }
 }
 
 class CenterTeleport extends CageContainer{
@@ -984,13 +978,6 @@ class HypnoticProjector extends Floor{
         this.lore = description["Hypno"];
         this.name = "Hypnotic Projector";
         this.value = new Empty();
-    }
-
-    setUpSprite(){
-        super.setUpSprite();
-        if (world.cage.displayon){
-            world.cage.pocketworld.hypnoDisplay();
-        }
     }
 }
 

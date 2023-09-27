@@ -958,7 +958,6 @@ class SoulBreathing{
         }
         if (this.teleMode){
             world.cage.generateWorld()
-            world.cage.pocketworld.hypnoDisplay();
             player.move(getTile(world.cageCorner[0]+4,world.cageCorner[1]+4))
         }
     }
