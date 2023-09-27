@@ -83,8 +83,8 @@ class Universe{
                 p.tilecon.addChild(contSmall);
                 cont.x-=128-((22-gazingPoint.x)/9*64);
                 cont.y-=128-((22-gazingPoint.y)/9*64);
-                contSmall.x += 128/9;
-                contSmall.y += 128/9;
+                contSmall.x += 128/9+((22-p.x)/9*64/9);
+                contSmall.y += 128/9+((22-p.y)/9*64/9);
             }
         }
     }
@@ -258,7 +258,10 @@ class World{
         //let size = 112;
         for(let i = x; i<w;i++){
             for (let j = y; j<h; j++){
-                if (!this.playSpace.tiles[i] || !this.playSpace.tiles[i][j]) continue;
+                if (!this.playSpace.tiles[i] || !this.playSpace.tiles[i][j]) {
+                    drawPixel("black", i*(64/9),j*(64/9),64/9,hypnoCon);
+                    continue;
+                };
                 let area = this.playSpace.tiles[i][j];
                 if (!area) continue;
                 let hai = area.sprite;
