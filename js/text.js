@@ -464,17 +464,17 @@ const creaturePresentation = {
     "Scarab" : {
         name: "Plated Thought-Ferry",
         color: "lightcoral",
-        lore: ":3"
+        lore: "\"Whenever I hear the tinkling of these scarabs' six copper legs against the steel catwalks, I wonder what pointless design the Ordered chose to impose upon their subordinates this time around. Perhaps, with chance, this plan will pretend to be more purposeful than the last.\"",//"A glistening copper scarab protected by a bulky shell, blocking out any blunt attacks, electromagnetic pulses or thoughts of liberation. No such armour defends its vulnerable Soul."
     },
     "EpsilonHead" : {
         name: "Epsilon, Adorned in Gold",
         color: "gold",
-        lore: ":3"
+        lore: "\"The Ordered built a weapon. They aimed it at their paranoia, and fired. Now they feel nothing but the pride of being powerful. Should this serpent of pure gold challenge me, I will become the first foe it could ever find.\""
     },
     "Terminal" : {
         name: "Terminal, the Reality Anchor",
         color: "plum",
-        lore: ":3"
+        lore: "\"They designed my flesh prison as the polar opposite of my containment cell: vulnerable. I scoff at the twigs they have given me for paws, the bulky tail that collects filth as it trails across the steel, the white sockets where two eyes used to be - for they could never truly break my mind. Now, I will shatter theirs.\""
     },
     "Programmer" : {
         name: "Felidol Programmer",
