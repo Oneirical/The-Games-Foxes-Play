@@ -1043,6 +1043,14 @@ class SoulTree{
         this.entityName.text = this.trackedEntity.name;
         this.entityLore.text = this.trackedEntity.lore;
         this.entitySprite.texture = allsprites.textures['sprite'+this.trackedEntity.sprite];
+        let hpIndicator = this.trackedEntity.hp;
+        for (let i of this.healthTracker){
+            if (hpIndicator <= 0){
+                i.texture = allsprites.textures['icon7'];
+            }
+            else i.texture = allsprites.textures['sprite75'];
+            hpIndicator--;
+        }
     }
 
     setUpSprites(){
@@ -1104,13 +1112,15 @@ class SoulTree{
                 axiomslot.filters = [];
             });
         }
-
+        this.healthTracker = [];
         for (let i = 0; i<4; i++){
             let axiomslot = new FoxSprite(allsprites.textures['icon7']);
             axiomslot.width = 32;
             axiomslot.height = 32;
-            axiomslot.x = (79+193)/2;
-            axiomslot.y = 82+i*36;
+            axiomslot.x = 272/2+0.5;
+            axiomslot.y = 80+i*37;
+
+            this.healthTracker.push(axiomslot);
             this.axiomCon.addChild(axiomslot);
             axiomslot.eventMode = 'static';
             axiomslot.on('pointerdown', (event) => {
@@ -1125,6 +1135,7 @@ class SoulTree{
                 axiomslot.filters = [];
             });
         }
+        this.healthTracker.reverse();
         let newSprite = new FoxSprite(allsprites.textures['icon6']);
         newSprite.width = (7+12)*16;
         newSprite.height = (7+12)*16;
@@ -1157,7 +1168,7 @@ class SoulTree{
         });
 
         this.entityLore = new PIXI.Text("If you see this it is buggo :3", style); //this.trackedEntity.name
-        this.entityLore.y = (121+31)/4+10;
+        this.entityLore.y = (121+31)/4+8;
         this.displayCon.addChild(this.entityLore);
 
         this.updateSlots();

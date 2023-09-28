@@ -1,7 +1,5 @@
 ## This is a chaotic canvas on which I launch all the random things I come up with while going about my day and bugs I notice throughout playtesting. It is not meant to be comprehensible.
 
-# next thing: add the new unique datatypes and make assimilate match for datatypes
-
 * Add Form grid (range targeters) images in their descriptions for clarity
 * A better ui for descriptions, with definitions for each keyword like 'exhale' or 'targets' or the status effects, StS style
 
@@ -10,7 +8,7 @@ Lifecycle of an Axiom:
 Feral nightmares generate chaotic axiom components.
 Unhinged hunters capture them and dissect them.
 Vile merchants collect and order parts in a treasury and distribute to Artistic.
-* An escherian staircase with Felidols floating around, gaining wealth for the Vile
+* An escherian staircase with Felidols floating around the water, gaining wealth for the Vile
 Saintly creates blueprints to follow.
 Artistic creates the Axioms from the blueprints.
 Ordered collect Axioms and go insert them in scarab printers.
@@ -21,7 +19,6 @@ Left-Pawed Paths, Sinking Down
 
 **Everyone Is Legendary**
 
-* second rewrite lore to feed others. Also their contin should be on turnstart.
 * Make it possible to pass the time when dead and only respawn when you truly want it. Useful with felidol passive 
 * put question marks in the craft recipe indicator if you don't know that one yet (say, while looking at an enemy)
 - Lore is that Terminal needs vessels that believes in those caste-respective axioms so he doesn't brainwash himself.

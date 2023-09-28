@@ -93,11 +93,11 @@ class Monster{
         this.creaturecon.addChild(newSprite);
         this.hpcon = new PIXI.Container();
         this.creaturecon.addChild(this.hpcon);
-        for(let i=0; i<6; i++){
-            let bai = new FoxSprite(allsprites.textures['sprite9']);
-            bai.x = i*11;
-            bai.width = tileSize;
-            bai.height = tileSize;
+        for(let i=0; i<4; i++){
+            const bai = new PIXI.Graphics();
+            bai.beginFill("red");
+            bai.drawRect(i*18, 60, 10, 4);
+            bai.endFill();
             this.hpcon.addChild(bai);
         }
         if (!this.animationTick) this.setUpAnimation();
@@ -132,16 +132,13 @@ class Monster{
             else i.visible = true;
             hp--;
         }
+
+        if (soulTree.trackedEntity === this) soulTree.updateSlots(this);
     }
 
     heal(damage){
         if (damage <= 0) return;
-        if (this instanceof Tail){
-            for (let x of monsters){
-                if (x instanceof Epsilon) x.hp = Math.min(33, x.hp+damage);
-            }
-        }
-        this.hp = Math.min(maxHp, this.hp+damage);
+        this.hp = Math.min(4, this.hp+damage);
         this.updateHp();
     }
 

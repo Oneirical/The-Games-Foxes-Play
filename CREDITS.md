@@ -31,6 +31,11 @@ Copyright (c) 2017 YOPEY YOPEY LLC
 PIXI-Viewpoint is licensed under the MIT License.
 http://www.opensource.org/licenses/mit-license
 
+FontFaceObserver
+Copyright (c) 2014 - Bram Stein
+FontFaceObserver is licensed under the BSD 2 License.
+https://opensource.org/license/bsd-2-clause/
+
 GreenSock
 Copyright (c) 2023 GreenSock
 GreenSock is licensed under a custom no-commercial use license.

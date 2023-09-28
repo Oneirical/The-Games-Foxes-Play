@@ -26,6 +26,7 @@
 
 <body></body>
 <script src="js/pixi/pixi.js"></script>
+<script src="js/pixi/fontface.js"></script>
 <script src="js/pixi/pixi-filters.js"></script>
 <script src="js/pixi/spritesheet.js"></script>
 <script src="js/lists.js"></script>
@@ -44,6 +45,10 @@
 <script src="js/axioms.js"></script>
 <script src="js/rooms.js"></script>
 <script>
+
+    let playFont = new FontFaceObserver('Play');
+
+    playFont.load();
 
     var player;
     var tiles;
