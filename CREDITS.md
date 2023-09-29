@@ -11,6 +11,11 @@ Copyright (c) 2023 Amit Patel
 Line interpolation algorithm is licensed under the MIT License.
 http://www.opensource.org/licenses/mit-license
 
+Seedrandom
+Copyright (c) 2019 David Bau
+Seeded RNG is licensed under the MIT License.
+http://www.opensource.org/licenses/mit-license
+
 Broughlike Tutorial
 Copyright (c) 2019 Jeremiah Reid
 Broughlike Tutorial is licensed under the MIT License.
