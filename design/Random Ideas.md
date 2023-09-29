@@ -17,15 +17,7 @@ Scarabs get to Epsilon and make him OP.
 Righteousness, Ever-Upwards
 Left-Pawed Paths, Sinking Down
 
-**Everyone Is Legendary**
-
-* Make it possible to pass the time when dead and only respawn when you truly want it. Useful with felidol passive 
-* put question marks in the craft recipe indicator if you don't know that one yet (say, while looking at an enemy)
-- Lore is that Terminal needs vessels that believes in those caste-respective axioms so he doesn't brainwash himself.
-
-**Brushstroke Crafting**
-
-* Become able to place a whole pattern in one shot by selecting from catalogue
+* Make it possible to pass the time when dead and only give up when you truly want it. Useful with felidol passive 
 
 **"Serene Collective" design**
 
