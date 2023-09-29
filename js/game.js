@@ -88,13 +88,13 @@ function startGame(){
     universe.start();
 }
 
-function summonMonster(x,y,type){ // can accept a species or clone a creature
+function summonCreature(x,y,type){ // can accept a species or clone a creature
     let tile = getTile(x,y);
     let monster;
-    if (type instanceof Monster) monster = new type.constructor(tile);
+    if (type instanceof Creature) monster = new type.constructor(tile);
     else monster = new type(tile);
     monsters.push(monster);
-    if (type instanceof Monster){
+    if (type instanceof Creature){
         for (let j of soulSlotNames){
             if (type.souls[j]) monster.souls[j] = type.souls[j].cloneSoul();
             if (monster.souls[j]) monster.souls[j].owner = monster;

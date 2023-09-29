@@ -1,6 +1,6 @@
 class Axiom{
     static storageEquivalences = {
-        "Creature" : Monster,
+        "Creature" : Creature,
         "Axiom" : Axiom,
         "Soul" : Soul,
         "Colour" : Colour,
@@ -222,7 +222,7 @@ class EntityFilter extends Axiom{
     }
 
     translate(){
-        if (!(this.storage instanceof Monster)){
+        if (!(this.storage instanceof Creature)){
             for (let i of monsters){
                 if (i instanceof this.storage){
                     this.storage = i;
@@ -390,7 +390,7 @@ class FormTile extends Axiom{
 
     translate(){
         if (this.storage == "ScarabWaypoint") this.storage = getTile(world.waypointLocation[0],world.waypointLocation[1]);
-        if (this.storage instanceof Monster) this.storage = this.storage.tile;
+        if (this.storage instanceof Creature) this.storage = this.storage.tile;
     }
 
     act(data){
@@ -523,7 +523,7 @@ class CloneCreature extends Axiom{
     }
 
     translate(){
-        if (!(this.storage instanceof Monster)){
+        if (!(this.storage instanceof Creature)){
             for (let i of monsters){
                 if (i instanceof this.storage){
                     this.storage = i;
@@ -541,7 +541,7 @@ class CloneCreature extends Axiom{
         let works = false;
         for (let i of data["targets"]){
             if (i.passable && !i.monster){
-                summonMonster(i.x,i.y,this.storage);
+                summonCreature(i.x,i.y,this.storage);
                 works = true;
             }
         }

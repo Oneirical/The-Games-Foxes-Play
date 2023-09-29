@@ -40,7 +40,7 @@ class NodeDescription{
             else return "Boolean: False";
         }
         else if (dataPoint instanceof Tile) return "Tile: "+dataPoint.name+" at X: "+dataPoint.x+" and Y: "+dataPoint.y;
-        else if (dataPoint instanceof Monster) return "Creature: "+dataPoint.name+" at X: "+dataPoint.tile.x+" and Y: "+dataPoint.tile.y;
+        else if (dataPoint instanceof Creature) return "Creature: "+dataPoint.name+" at X: "+dataPoint.tile.x+" and Y: "+dataPoint.tile.y;
         else if (dataPoint instanceof Axiom) return "Axiom: "+soulData[dataPoint.nameID]["name"];
         else if (dataPoint instanceof Colour) return "Colour: "+dataPoint.colour;
         else if (dataPoint instanceof Direction){

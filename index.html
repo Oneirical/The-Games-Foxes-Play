@@ -47,7 +47,8 @@
 <script src="js/rooms.js"></script>
 <script>
 
-    var seededRNG = new Math.seedrandom('terminal');
+    var rngSeed = 'terminal';
+    var seededRNG = new Math.seedrandom(rngSeed);
 
     let playFont = new FontFaceObserver('Play');
 

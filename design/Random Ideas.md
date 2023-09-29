@@ -3,6 +3,20 @@
 * Add Form grid (range targeters) images in their descriptions for clarity
 * A better ui for descriptions, with definitions for each keyword like 'exhale' or 'targets' or the status effects, StS style
 
+**Save and Load**
+
+Save the world gen seed.
+Give every creature in the game an ID, store in array
+List every entity that has species "Terminal", "Snail", etc by ID
+List every entity that has HP "4", "3", etc by ID
+List the location of every creature ID (layer, x, y)
+
+then the souls...
+
+When in the future there's destroy/create terrain, add that to a "changes to the terrain" array and plop that down when loading
+
+***
+
 Lifecycle of an Axiom:
 
 Feral nightmares generate chaotic axiom components.

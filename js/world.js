@@ -1072,7 +1072,7 @@ class StandardSpire extends Room{
     buildRoom(){
         
         generateSpire();
-        generateMonsters();
+        generateCreatures();
     }
 
     initializeRoom(){
@@ -1169,7 +1169,7 @@ class FluffianWorkshop extends Room{
     buildRoom(){
         
         generateModule();
-        generateMonsters();
+        generateCreatures();
     }
 
     initializeRoom(){

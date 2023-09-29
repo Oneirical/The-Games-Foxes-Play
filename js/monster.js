@@ -1,4 +1,4 @@
-class Monster{
+class Creature{
     static species = "Plated"; //monsterNames[this.constructor.name]
     constructor(tile, sprite, hp){
         this.sprite = sprite;
@@ -284,7 +284,7 @@ class Monster{
     }
 }
 
-class Terminal extends Monster{
+class Terminal extends Creature{
     constructor(tile){
         super(tile, 0, 3);
         this.isPlayer = true;
@@ -301,7 +301,7 @@ class Terminal extends Monster{
     }
 }
 
-class Scion extends Monster{
+class Scion extends Creature{
     constructor(tile){
         super(tile, 4, 2);
         this.soul = "Animated by a Saintly (6) soul.";
@@ -310,7 +310,7 @@ class Scion extends Monster{
     }
 }
 
-class Shrike extends Monster{
+class Shrike extends Creature{
     constructor(tile){
         super(tile, 5, 1);
         this.soul = "Animated by a Feral (2) soul.";
@@ -320,7 +320,7 @@ class Shrike extends Monster{
     }
 }
 
-class Apiarist extends Monster{
+class Apiarist extends Creature{
     constructor(tile){
         super(tile, 6, 3);
         this.souls["ORDERED"] = "ScarabHack";
@@ -338,7 +338,7 @@ class Apiarist extends Monster{
     }
 }
 
-class Second extends Monster{
+class Second extends Creature{
     constructor(tile){
         super(tile, 7, 1);
         this.soul = "Animated by a Vile (1) soul.";
@@ -347,7 +347,7 @@ class Second extends Monster{
     }
 }
 
-class Tinker extends Monster{
+class Tinker extends Creature{
     constructor(tile){
         super(tile, 8, 2);
         this.soul = "Animated by an Artistic (4) soul.";
@@ -356,7 +356,7 @@ class Tinker extends Monster{
     }
 }
 
-class Harmonizer extends Monster{
+class Harmonizer extends Creature{
     constructor(tile){
         super(tile, 26, 1);
         this.teleportCounter = 0;
@@ -379,7 +379,7 @@ class Harmonizer extends Monster{
     
 }
 
-class Cage extends Monster{
+class Cage extends Creature{
     constructor(tile){
         super(tile, 25, 1);
         this.soul = "Soulless."
@@ -392,11 +392,11 @@ class Cage extends Monster{
 
     die(){
         super.die();
-        summonMonster(this.tile.x,this.tile.y,Herald);
+        summonCreature(this.tile.x,this.tile.y,Herald);
     }
 }
 
-class Herald extends Monster{
+class Herald extends Creature{
     constructor(tile){
         super(tile, 54, 1);
         this.soul = "Soulless."
@@ -406,7 +406,7 @@ class Herald extends Monster{
     }
 }
 
-class Blehh extends Monster{
+class Blehh extends Creature{
     constructor(tile){
         super(tile, 95, 1);
         this.soul = "Animated by a Saintly (6) soul.";
@@ -418,7 +418,7 @@ class Blehh extends Monster{
     }
 }
 
-class BattleFluffy extends Monster{
+class BattleFluffy extends Creature{
     constructor(tile){
         super(tile, 26, 5);
         this.teleportCounter = 0;
@@ -474,7 +474,7 @@ class BattleFluffy extends Monster{
     }
 }
 
-class HostileFluffy extends Monster{
+class HostileFluffy extends Creature{
     constructor(tile){
         super(tile, 26, 6);
         this.soul = "Animated by a Serene (?) soul.";
@@ -497,7 +497,7 @@ class HostileFluffy extends Monster{
     }
 }
 
-class Hologram extends Monster{
+class Hologram extends Creature{
     
     constructor(tile){
         super(tile, 39, 1);
@@ -521,7 +521,7 @@ class Hologram extends Monster{
     }
 }
 
-class AbazonSummon extends Monster{
+class AbazonSummon extends Creature{
     constructor(tile,savet,power){
         super(tile, 28, 5);
         this.teleportCounter = 0;
@@ -543,7 +543,7 @@ class AbazonSummon extends Monster{
     }
 }
 
-class Oracle extends Monster{
+class Oracle extends Creature{
     constructor(tile){
         super(tile, 40, 2);
         this.soul = "Animated by an Unhinged (3) soul.";
@@ -552,7 +552,7 @@ class Oracle extends Monster{
     }
 }
 
-class Snail extends Monster{ // BATTLESNAIL, GET IN THERE!
+class Snail extends Creature{ // BATTLESNAIL, GET IN THERE!
     constructor(tile){
         super(tile, 41, 2);
         this.souls["ORDERED"] = "ElectroCoil";
@@ -574,7 +574,7 @@ class Snail extends Monster{ // BATTLESNAIL, GET IN THERE!
     }
 }
 
-class Husk extends Monster{
+class Husk extends Creature{
     constructor(tile){
         super(tile, 24, 1);
         this.soul = "Soulless.";
@@ -587,7 +587,7 @@ class Husk extends Monster{
     }
 }
 
-class Slug extends Monster{
+class Slug extends Creature{
     constructor(tile){
         super(tile, 29, 2);
         this.souls["ORDERED"] = "Guard";
@@ -596,7 +596,7 @@ class Slug extends Monster{
     }
 }
 
-class Ragemaw extends Monster{
+class Ragemaw extends Creature{
     constructor(tile){
         super(tile, 44, 1);
         this.soul = "Animated by a Feral (2) soul.";
@@ -620,13 +620,13 @@ class Ragemaw extends Monster{
     }
 }
 
-//class Monk extends Monster{
+//class Monk extends Creature{
 //    constructor(tile){
 //        super(tile, 45, 2, commoneq[[ "VILE", "FERAL", "UNHINGED", "ARTISTIC", "ORDERED", "SAINTLY"][randomRange(0,5)]], description["Monk"]);
 //    }
 //}
 
-class Felidol extends Monster{
+class Felidol extends Creature{
     constructor(tile){
         super(tile, 49, 2);
         this.soul = "Animated by a Vile (1) soul.";
@@ -635,7 +635,7 @@ class Felidol extends Monster{
     }    
 }
 
-class Weaver extends Monster{
+class Weaver extends Creature{
     constructor(tile){
         super(tile, 27, 2);
         this.souls["ORDERED"] = "ScarabSpawner";
@@ -677,7 +677,7 @@ class Weaver extends Monster{
     }
 }
 
-class Rendfly extends Monster{
+class Rendfly extends Creature{
     constructor(tile){
         super(tile, 54, 1);
         this.soul = "Animated by a Feral (2) soul.";
@@ -711,7 +711,7 @@ class Rendfly extends Monster{
     }
 }
 
-class Modulorb extends Monster{
+class Modulorb extends Creature{
     constructor(tile, contents){
         super(tile, 64, 1, contents, description["ModuleOrb"]);
         this.soul = "Contains the "+modulename[contents];
@@ -725,7 +725,7 @@ class Modulorb extends Monster{
     }
 }
 
-class Third extends Monster{
+class Third extends Creature{
     constructor(tile){
         super(tile, 65, 2);
         this.soul = "Animated by a Vile (1) soul.";
@@ -745,7 +745,7 @@ class Third extends Monster{
     }
 }
 
-class WalkBot extends Monster{
+class WalkBot extends Creature{
     constructor(tile){
         super(tile, 65, 2);
         this.soul = "Animated by a Vile (1) soul.";
@@ -765,7 +765,7 @@ class WalkBot extends Monster{
     }
 }
 
-class Ashsoul extends Monster{
+class Ashsoul extends Creature{
     constructor(tile){
         super(tile, 66, 1);
         this.soul = "Animated by an Unhiged (3) soul.";
@@ -788,7 +788,7 @@ class Ashsoul extends Monster{
     }
 }
 
-class KnockbackBot extends Monster{
+class KnockbackBot extends Creature{
     constructor(tile){
         super(tile, 66, 1);
         this.soul = "Animated by an Unhiged (3) soul.";
@@ -801,7 +801,7 @@ class KnockbackBot extends Monster{
     }
 }
 
-class EpsilonHead extends Monster{
+class EpsilonHead extends Creature{
     constructor(tile){
         super(tile, 67, 3);
         this.souls["ORDERED"] = "EpsilonStand";
@@ -810,7 +810,7 @@ class EpsilonHead extends Monster{
     }
 }
 
-class Programmer extends Monster{
+class Programmer extends Creature{
     constructor(tile){
         super(tile, 49, 3);
         this.souls["VILE"] = "Programmer";
@@ -825,7 +825,7 @@ class Programmer extends Monster{
     }
 }
 
-class EpsilonTail extends Monster{
+class EpsilonTail extends Creature{
     static number = 1;
     constructor(tile){
         super(tile, 68, 3);
@@ -839,7 +839,7 @@ class EpsilonTail extends Monster{
     }
 }
 
-class Epsilon extends Monster{
+class Epsilon extends Creature{
     constructor(tile){
         super(tile, 67, 33);
         this.soul = "Animated by an Ordered (5) soul.";
@@ -1014,7 +1014,7 @@ class Epsilon extends Monster{
     }
 }
 
-class Tail extends Monster{
+class Tail extends Creature{
     constructor(tile,order){
         super(tile, 68, 6);
         this.soul = "Soulless.";
@@ -1074,7 +1074,7 @@ class Tail extends Monster{
     }
 }
 
-class Box extends Monster{
+class Box extends Creature{
     constructor(tile, type){
         super(tile, core[type], 1);
         this.soul = "Soulless.";
@@ -1094,7 +1094,7 @@ class Box extends Monster{
     }
 }
 
-class Apis extends Monster{
+class Apis extends Creature{
     constructor(tile){
         super(tile, 70, 2);
         this.soul = "Animated by a Feral (2) soul.";
@@ -1103,7 +1103,7 @@ class Apis extends Monster{
     }
 }
 
-class Embalmer extends Monster{
+class Embalmer extends Creature{
     constructor(tile){
         super(tile, 71, 1);
         this.soul = "Animated by a Saintly (6) soul.";
@@ -1122,7 +1122,7 @@ class Embalmer extends Monster{
     }
 }
 
-class Brute extends Monster{
+class Brute extends Creature{
     constructor(tile){
         super(tile, 72, 2);
         this.soul = "Animated by an Artistic (4) soul.";
@@ -1159,7 +1159,7 @@ class Brute extends Monster{
     }
 }
 
-class Paradox extends Monster{
+class Paradox extends Creature{
     constructor(tile){
         super(tile, 79, 1);
         this.soul = "Animated by an Ordered (5) soul.";
@@ -1181,7 +1181,7 @@ class Paradox extends Monster{
     }
 }
 
-class Binary extends Monster{
+class Binary extends Creature{
     constructor(tile){
         super(tile, 78, 2);
         this.soul = "Animated by an Ordered (5) soul.";
@@ -1202,7 +1202,7 @@ class Binary extends Monster{
     }
 }
 
-class Titanic extends Monster{
+class Titanic extends Creature{
     constructor(tile){
         super(tile, 76, 1);
         this.soul = "Animated by an Ordered (5) soul.";
@@ -1223,7 +1223,7 @@ class Titanic extends Monster{
     }
 }
 
-class Psydrone extends Monster{
+class Psydrone extends Creature{
     constructor(tile){
         super(tile, 77, 1);
         this.soul = "Animated by an Ordered (5) soul.";
@@ -1244,7 +1244,7 @@ class Psydrone extends Monster{
     }
 }
 
-class Scarab extends Monster{
+class Scarab extends Creature{
     constructor(tile){
         super(tile, 76, 1, "ORDERED");
         this.name = "Plated Thought-Ferry";
@@ -1252,7 +1252,7 @@ class Scarab extends Monster{
     }
 }
 
-class Exploder extends Monster{
+class Exploder extends Creature{
     constructor(tile){
         super(tile, 77, 1);
         this.soul = "Soulless.";
