@@ -1,8 +1,11 @@
 class Creature{
-    static species = "Plated"; //monsterNames[this.constructor.name]
-    constructor(tile, sprite, hp){
-        this.sprite = sprite;
-        this.hp = hp;
+    constructor(tile, species){
+        this.sprite = speciesData[species]["sprite"];
+        this.species = species;
+        this.hp = speciesData[species]["hp"];
+        this.numberID = creaturesCreated;
+        creaturesCreated++;
+
         this.offsetX = 0;                                                   
         this.offsetY = 0;
         this.souls = {
@@ -13,8 +16,11 @@ class Creature{
             "FERAL" : false,
             "VILE" : false,
         };
-        if (creaturePresentation[this.constructor.name]) this.lore = creaturePresentation[this.constructor.name]["lore"];
-        if (creaturePresentation[this.constructor.name]) this.name = creaturePresentation[this.constructor.name]["name"];
+        for (let i of Object.keys(speciesData[species]["souls"])){
+            this.souls[i] = speciesData[species]["souls"][i];
+        }
+        if (creaturePresentation[this.species]) this.lore = creaturePresentation[this.species]["lore"];
+        if (creaturePresentation[this.species]) this.name = creaturePresentation[this.species]["name"];
         this.move(tile);
     }
 

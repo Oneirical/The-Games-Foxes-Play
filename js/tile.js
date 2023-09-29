@@ -24,6 +24,7 @@ class Tile{
     interact(){};
 
     setUpSprite(){
+        if (this instanceof CageContainer) return;
         this.tilecon = new PIXI.Container();
         //tilesDisplay.notPlayerTiles.addChild(this.tilecon);
         //this.tilecon.x = (96*2/3*8)-(player.tile.x-this.x)*tileSize;
@@ -35,24 +36,27 @@ class Tile{
             newSprite.beginFill("black");
             newSprite.drawRect(0, 0, tileSize, tileSize);
             newSprite.endFill();
+            newSprite.visible = false;
         }
-        else if (this instanceof CageContainer) {}
         else {
             newSprite = new FoxSprite(allsprites.textures['sprite'+hai]);
             newSprite.width = tileSize;
             newSprite.height = tileSize;
+        }
+        if (newSprite){
+            this.tilecon.addChild(newSprite);
+            this.spriteDisplay = newSprite;
         }        
-        this.tilecon.addChild(newSprite);
-        this.spriteDisplay = newSprite;
+
         //add traps here
         drawHitbox(tileSize/2, tileSize/2,tileSize,this.tilecon);
         this.hitBox = this.tilecon.children[this.tilecon.children.length-1];
-        this.spriteDisplay.eventMode = 'static';
-        this.spriteDisplay.on('pointerover', (event) => {
+        this.tilecon.eventMode = 'static';
+        this.tilecon.on('pointerover', (event) => {
             this.hitBox.alpha = 0.4;
             //if (this.souls) for (let i of this.souls) i.absorbSoul(this,player); //debug
         });
-        this.spriteDisplay.on('pointerdown', (event) => {
+        this.tilecon.on('pointerdown', (event) => {
             if (this.monster){
                 console.log(this.monster);
                 soulTree.updateSlots(this.monster);
@@ -60,7 +64,7 @@ class Tile{
                 if (wheel.currentSoulDisplayed) wheel.displayCon.removeChild(wheel.currentSoulDisplayed.displayCon);
             }
         });
-        this.spriteDisplay.on('pointerout', (event) => {
+        this.tilecon.on('pointerout', (event) => {
             this.hitBox.alpha = 0;
         });
         this.effect = false;
@@ -684,75 +688,12 @@ class Altar extends Floor{
         this.thrashcounter = 0;
     }
 
-    setUpSprite(){
-        super.setUpSprite();
-        let soulcon = new FoxSprite(allsprites.textures['icon7']);
-        soulcon.width = 48;
-        soulcon.height = 48;
-        soulcon.x = tileSize/2;
-        soulcon.y = tileSize/2;
-        soulcon.anchor.set(0.5);
-        soulcon.shakeAmount = 0;
-        this.soulCon = soulcon;
-        this.tilecon.addChild(this.soulCon);
-        drawHitbox(tileSize/2, tileSize/2,tileSize*0.8+7,this.tilecon);
-        this.hitBox = this.tilecon.children[this.tilecon.children.length-1];
-        this.spriteDisplay.eventMode = 'static';
-        this.spriteDisplay.on('pointerover', (event) => {
-            this.hitBox.alpha = 0.7;
-            //if (isMouseDown) wheel.cageSoul(wheel.selectedCan,getTile(this.x,this.y));
-        });
-        this.spriteDisplay.on('pointerdown', (event) => {
-            //wheel.cageSoul(wheel.selectedCan,getTile(this.x,this.y));
-        });
-        this.spriteDisplay.on('pointerout', (event) => {
-            this.hitBox.alpha = 0;
-        });
-    }
-
     getDisplayX(){                     
         return this.x + this.offsetX;
     }
 
     getDisplayY(){                                                                  
         return this.y + this.offsetY;
-    }
-
-    drawFreeform(x,y,size){
-        super.drawFreeform(x,y,size);
-        let factor = 8;
-        let beeg = 64;
-        if (size == 48){
-            factor = 8;
-            beeg = 32;
-        }
-        if (!this.value.turbulent) drawSymbol(this.value.icon, x+this.x*size+factor, y+this.y*size+factor,beeg);
-        else{
-            this.thrashcounter++;
-            if (this.thrashcounter > 10 && this.offsetX == 0 && this.offsetY == 0){
-                let rt = randomRange(1,4);
-                if (rt == 1) this.offsetX+= 0.1;
-                else if (rt == 2) this.offsetX-= 0.1;
-                else if (rt == 3)this.offsetY+= 0.1;
-                else if (rt == 4)this.offsetY-= 0.1;
-                this.thrashcounter = 0;
-            }
-            drawSymbol(this.value.icon, x+this.getDisplayX()*size+factor,  y+this.getDisplayY()*size+factor,beeg);
-            ctx.globalAlpha = 1;
-            this.offsetX -= Math.sign(this.offsetX)*(this.speed);     
-            this.offsetY -= Math.sign(this.offsetY)*(this.speed);
-        }
-    }
-
-    getValue(){
-        let number = "?";
-        if (this.value instanceof Saintly) number = "6";
-        else if (this.value instanceof Ordered) number = "5";
-        else if (this.value instanceof Artistic) number = "4";
-        else if (this.value instanceof Unhinged) number = "3";
-        else if (this.value instanceof Feral) number = "2";
-        else if (this.value instanceof Vile) number = "1";
-        return number;
     }
 }
 
@@ -931,8 +872,8 @@ class FloorSoul extends Floor{ //unused
 
 class CageContainer extends Altar{
     constructor(x, y){
-        super(x,y,110, true);
-        this.sprite = 110;
+        super(x,y,2, true);
+        this.sprite = 2;
         this.lore = entityDescription["Floor"];
         this.name = "Eroded Floortiles";
         this.value = new Empty();

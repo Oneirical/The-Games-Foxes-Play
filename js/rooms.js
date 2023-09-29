@@ -196,7 +196,7 @@ const logicMaps = {
             "N" : new NumberStorage(998),
             "M" : new ModuloGate(999),
             "P" : new PlusForm(),
-            "S" : new CloneCreature(Scarab),
+            "S" : new SummonCreature("Scarab"),
         }
     },
     "EpsilonControl1":{
@@ -520,7 +520,7 @@ var rooms = {
         8 : "TTTTETTTT",
         "tags": [],
         "creatures" : {
-            "t" : Terminal,
+            "t" : "Terminal",
         }
     },
     "Void" : {
@@ -643,7 +643,7 @@ var rooms = {
         8 : "####E####",
         "tags": ["randomgen"],
         "creatures" : {
-            "f" : Felidol,
+            "f" : "Felidol",
         }
     },
     "ScarabFactory" : {
@@ -658,7 +658,7 @@ var rooms = {
         8 : "####E####",
         "tags": ["randomgen","randomflip"],
         "creatures" : {
-            "f" : Weaver,
+            "f" : "Weaver",
         }
     },
     "ScarabSample" : {
@@ -673,7 +673,7 @@ var rooms = {
         8 : "####E####",
         "tags": ["randomgen","randomflip"],
         "creatures" : {
-            "s" : Scarab,
+            "s" : "Scarab",
         }
     },
     "ScarabWaypoint" : {
@@ -688,7 +688,7 @@ var rooms = {
         8 : "####E####",
         "tags": ["randomgen","randomflip"],
         "creatures" : {
-            "ANY" : Apiarist,
+            "ANY" : "Apiarist",
         },
         "marks" : {
             "l" : "ProgramThis",
@@ -707,23 +707,26 @@ var rooms = {
         8 : "####E####",
         "tags": ["randomgen"],
         "creatures" : {
-            "g" : Slug,
+            "g" : "Slug",
         }
     },
     "Epsilon1" : {
         0 : "####E####",
         1 : "#........",
         2 : "#...e....",
-        3 : "#...t....",
-        4 : "E...t....",
-        5 : "#...t....",
-        6 : "#...t....",
+        3 : "#...a....",
+        4 : "E...b....",
+        5 : "#...c....",
+        6 : "#...d....",
         7 : "#........",
         8 : "#........",
         "tags": ["randomgen"],
         "creatures" : {
-            "e" : EpsilonHead,
-            "t" : EpsilonTail,
+            "e" : "EpsilonHead",
+            "a" : "EpsilonTail1",
+            "b" : "EpsilonTail2",
+            "c" : "EpsilonTail3",
+            "d" : "EpsilonTail4",
         }
     },
     "Epsilon2" : {
@@ -810,7 +813,7 @@ var rooms = {
         8 : "####E####",
         "tags": ["randomgen"],
         "creatures" : {
-            "f" : Programmer,
+            "f" : "Programmer",
         },
         "marks" : {
             "f" : "LinkToWaypoint",
@@ -866,7 +869,7 @@ var rooms = {
         "tags": ["randomgen","randomflip"],
         "vertical" : true,
         "creatures" : {
-            "h" : Hologram,
+            "h" : "Hologram",
         }
     },
     "Narrow" : {
@@ -895,7 +898,7 @@ var rooms = {
         "tags": ["randomgen","randomflip"],
         "vertical" : true,
         "creatures" : {
-            "ANY" : Snail,
+            "ANY" : "Snail",
         },
         "marks" : {
             "a" : [0,"f"],

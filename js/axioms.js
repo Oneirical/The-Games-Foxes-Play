@@ -550,6 +550,31 @@ class CloneCreature extends Axiom{
     }
 }
 
+
+class SummonCreature extends Axiom{
+    constructor(crea){
+        super();
+        this.storage = crea;
+        this.dataType = ["Species"];
+    }
+
+    act(data){
+        if (data["targets"].length == 0){
+            data["break"] = true;
+            return data;
+        }
+        let works = false;
+        for (let i of data["targets"]){
+            if (i.passable && !i.monster){
+                summonCreature(i.x,i.y,this.storage);
+                works = true;
+            }
+        }
+        if (!works) data["break"] = true;
+        return data;
+    }
+}
+
 class DamageDealer extends Axiom{
     constructor(dam){
         super();

@@ -719,10 +719,10 @@ class DefaultVaultRoom extends Room{
                     this.tiles[i][j].direction = eqs[airlockDirOverride];
                 }
                 if (vault["creatures"] && vault["creatures"][vault[j][i]]){
-                    let entity = new vault["creatures"][vault[j][i]](this.tiles[i][j]);
+                    let entity = new Creature(this.tiles[i][j],vault["creatures"][vault[j][i]]);
                     if (vault["marks"] && vault["marks"][vault[j][i]]) entity.generationMark = vault["marks"][vault[j][i]];
                     this.monsters.push(entity);
-                    if (entity instanceof Terminal) player = entity;
+                    if (entity.species == "Terminal") player = entity;
                 }
             }
         }

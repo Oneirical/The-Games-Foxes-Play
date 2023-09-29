@@ -21,6 +21,86 @@ let excludeloot = {
     "CONTINGENCY" : [],
     "MUTATOR" : [],
 };
+
+const speciesData = {
+    "Terminal" : {
+        "sprite" : 0,
+        "hp" : 3,
+        "souls" : {
+            "SAINTLY" : "Terminal",
+        }
+    },
+    "Programmer" : {
+        "sprite" : 49,
+        "hp" : 2,
+        "souls" : {
+            "VILE" : "Programmer",
+        }
+    },
+    "Apiarist" : {
+        "sprite" : 6,
+        "hp" : 4,
+        "souls" : {
+            "ORDERED" : "ScarabHack",
+        }
+    },
+    "EpsilonHead" : {
+        "sprite" : 67,
+        "hp" : 4,
+        "souls" : {
+            "ORDERED" : "EpsilonStand",
+        }
+    },
+    "EpsilonTail1" : {
+        "sprite" : 68,
+        "hp" : 4,
+        "souls" : {
+            "ORDERED" : "Tail1",
+        }
+    },
+    "EpsilonTail2" : {
+        "sprite" : 68,
+        "hp" : 4,
+        "souls" : {
+            "ORDERED" : "Tail2",
+        }
+    },
+    "EpsilonTail3" : {
+        "sprite" : 68,
+        "hp" : 4,
+        "souls" : {
+            "ORDERED" : "Tail3",
+        }
+    },
+    "EpsilonTail4" : {
+        "sprite" : 68,
+        "hp" : 4,
+        "souls" : {
+            "ORDERED" : "Tail4",
+        }
+    },
+    "Slug" : {
+        "sprite" : 29,
+        "hp" : 2,
+        "souls" : {
+            "ORDERED" : "Guard",
+        }
+    },
+    "Scarab" : {
+        "sprite" : 76,
+        "hp" : 1,
+        "souls" : {
+            "ORDERED" : "Scarab",
+        }
+    },
+    "Weaver" : {
+        "sprite" : 27,
+        "hp" : 2,
+        "souls" : {
+            "ORDERED" : "ScarabSpawner",
+        }
+    },
+}
 // A Million Thoughts Forge A Soul
 // Forests of Fur Tangled In Claws
 // Pulsing Hearts Under Glossy Membranes

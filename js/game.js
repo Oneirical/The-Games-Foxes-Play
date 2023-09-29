@@ -91,8 +91,8 @@ function startGame(){
 function summonCreature(x,y,type){ // can accept a species or clone a creature
     let tile = getTile(x,y);
     let monster;
-    if (type instanceof Creature) monster = new type.constructor(tile);
-    else monster = new type(tile);
+    if (type instanceof Creature) monster = new Creature(tile,type.species);
+    else monster = new Creature(tile,type);
     monsters.push(monster);
     if (type instanceof Creature){
         for (let j of soulSlotNames){
