@@ -32,7 +32,7 @@ class NodeDescription{
         this.displayCon.visible = true;
     }
 
-    getDataText(dataPoint){
+    getDataText(dataPoint){ // TODO restructure this to use the dataType instead of dataPoint
         if (typeof dataPoint === "string") return "Message: "+dataPoint;
         else if (typeof dataPoint === "number") return "Number: "+dataPoint;
         else if (typeof dataPoint === "boolean"){
@@ -54,7 +54,7 @@ class NodeDescription{
         }
         else if (dataPoint instanceof Caste) return "Caste: "+dataPoint.caste;
         else if (dataPoint instanceof Soul) return "A captive Soul.";
-        else if (dataPoint && dataPoint.species) return "Species: "+dataPoint.species;
+        else if (dataPoint) return "Species: "+dataPoint;
         else return "Nothing."
     }
 

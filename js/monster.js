@@ -5,6 +5,7 @@ class Creature{
         this.hp = speciesData[species]["hp"];
         this.numberID = creaturesCreated;
         creaturesCreated++;
+        allCreatures.push(this);
 
         this.offsetX = 0;                                                   
         this.offsetY = 0;

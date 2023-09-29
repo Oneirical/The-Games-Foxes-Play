@@ -107,7 +107,7 @@ const logicMaps = {
             "K" : new ContinKilled(),
             "L" : new LastDamageSource(),
             "B" : new AssimilateBroadcast("DANGER"),
-            "I" : new SpeciesCheck(Scarab),
+            "I" : new SpeciesCheck("Scarab"),
         }
     },
     "Guard" : {
@@ -211,7 +211,7 @@ const logicMaps = {
             "C" : new EgoForm(),
             "S" : new PaintTile("Red"),
             "N" : new RadioBroadcaster("SLITHER1"),
-            "I" : new SpeciesCheck(EpsilonHead),
+            "I" : new SpeciesCheck("EpsilonHead"),
             "E" : new RadioBroadcaster("EON"),
 
             "w" : new RadioReceiver("W"),
@@ -238,7 +238,7 @@ const logicMaps = {
             "C" : new EgoForm(),
             "S" : new PaintTile("Red"),
             "N" : new RadioBroadcaster("SLITHER1"),
-            "I" : new SpeciesCheck(EpsilonHead),
+            "I" : new SpeciesCheck("EpsilonHead"),
 
             "w" : new RadioReceiver("W"),
             "a" : new RadioReceiver("A"),
@@ -261,7 +261,7 @@ const logicMaps = {
             "R" : new RadioReceiver("EON"),
             "P" : new PlusForm(),
             "D" : new DamageDealer(1),
-            "F" : new EntityFilter(Scarab),
+            "F" : new EntityFilter("Scarab"),
             "T" : new TriggerWatch(DamageDealer),
             "A" : new SoulAbsorber(),
 
@@ -279,7 +279,7 @@ const logicMaps = {
             "P" : new FormEntity("Player"), // just testing for now, no player targeters later
             "F" : new BooleanFlip(),
             "B" : new BooleanGate(true),
-            "I" : new SpeciesCheck(EpsilonHead),
+            "I" : new SpeciesCheck("EpsilonHead"),
 
             "C" : new EgoForm(),
             "S" : new PaintTile("Red"),

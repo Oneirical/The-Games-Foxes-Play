@@ -101,7 +101,7 @@ class LastDamageSource extends Axiom{
         this.dataType = ["Creature"];
     }
     act(data){
-        this.storage = data["caster"].lastDamageCulprit;
+        this.storage = data["caster"].lastDamageCulprit.numberID;
         return data;
     }
 }
@@ -221,23 +221,12 @@ class EntityFilter extends Axiom{
         this.dataType = ["Creature"];
     }
 
-    translate(){
-        if (!(this.storage instanceof Creature)){
-            for (let i of monsters){
-                if (i instanceof this.storage){
-                    this.storage = i;
-                    break;
-                }
-            }
-        }
-    }
-
     act(data){
         let newTargets = [];
         for (let i = data["targets"].length-1; i>=0; i--){
             let r = data["targets"][i];
             if (!r.monster) continue;
-            else if (!(r.monster instanceof this.storage.constructor)) continue;
+            else if (r.monster.numberID != this.storage) continue;
             else newTargets.push(r);
         }
         data["targets"] = newTargets;
@@ -266,7 +255,7 @@ class SpeciesCheck extends Axiom{
 
     act(data){
         let check = false;
-        if (data["caster"] instanceof this.storage) check = true;
+        if (data["caster"].species == this.storage) check = true;
         if (!check) data["break"] = true;
         return data;
     }
@@ -363,18 +352,13 @@ class FormEntity extends Axiom{
     constructor(entity){
         super();
         this.storage = entity;
-        this.dataType = ["Creature","Tile"];
-    }
-
-    translate(){
-        if (this.storage == "Player") this.storage = player;
+        this.dataType = ["Creature"];
     }
 
     act(data){
         let dest;
         if (!this.storage) return data;
-        if (this.storage instanceof Tile) dest = this.storage;
-        else dest = this.storage.tile;
+        dest = allCreatures[this.storage.numberID].tile;
         data["targets"].push(dest);
         if (!dest) throw new Error("An undefined tile was pushed to targets.");
         return data;
@@ -385,12 +369,11 @@ class FormTile extends Axiom{
     constructor(tile){
         super();
         this.storage = tile;
-        this.dataType = ["Creature","Tile"];
+        this.dataType = ["Tile"];
     }
 
     translate(){
         if (this.storage == "ScarabWaypoint") this.storage = getTile(world.waypointLocation[0],world.waypointLocation[1]);
-        if (this.storage instanceof Creature) this.storage = this.storage.tile;
     }
 
     act(data){
@@ -515,7 +498,7 @@ class ModuloGate extends Axiom{
     }
 }
 
-class CloneCreature extends Axiom{
+class CloneCreature extends Axiom{ //unused for now
     constructor(crea){
         super();
         this.storage = crea;
@@ -615,7 +598,7 @@ class LinkForm extends Axiom{
             return data;
         }
         const initialPoint = data["caster"].tile;
-        const finalPoint = this.storage.tile;
+        const finalPoint = allCreatures[this.storage.numberID].tile;
         const trail = line(initialPoint,finalPoint);
         removeItemAll(trail,initialPoint);
         removeItemAll(trail,finalPoint);
