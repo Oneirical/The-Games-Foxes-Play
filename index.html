@@ -25,6 +25,7 @@
 </style>
 
 <body></body>
+<script src="js/pixi/seedrandom.js"></script>
 <script src="js/pixi/pixi.js"></script>
 <script src="js/pixi/fontface.js"></script>
 <script src="js/pixi/pixi-filters.js"></script>
@@ -45,6 +46,8 @@
 <script src="js/axioms.js"></script>
 <script src="js/rooms.js"></script>
 <script>
+
+var seededRNG = new Math.seedrandom('terminal');
 
     let playFont = new FontFaceObserver('Play');
 

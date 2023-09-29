@@ -420,9 +420,6 @@ class World{
                         flip = true;
                         
                     }
-                    //else if (Math.random() < 0.3 && (i+1 == 9 || !worldgen[i+1][j].passable) + (i-1 == -1 || !worldgen[i-1][j].passable) + (j+1 == 9 || !worldgen[i][j+1].passable) + (j-1 == -1 || !worldgen[i][j-1].passable == 3)){
-                    //    roomType = HarmonyRelay;
-                    //}
                     else roomType = EmptyFaith;
                     if (!(worldgen[i][j] instanceof MarkedFloor)) this.rooms[i][j] = new roomType([i,j]); // kind of cursed
                     else this.rooms[i][j] = roomType;
@@ -544,7 +541,7 @@ class World{
                     worldgen[i][j] = new Wall(i,j); // ridiculous, but ingenious!
                     //passableRooms++;
                 }
-                else if(Math.random() < 0.4){
+                else if(seededRNG() < 0.4){
                     worldgen[i][j] = new Wall(i,j);
                 }
                 else{
