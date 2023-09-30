@@ -624,6 +624,7 @@ class Airlock extends Tile{
         this.doorAnim = new PIXI.Ticker();
         this.doorAnim.start();
         this.doorAnim.add(() => {
+            if (fastReload) return;
             if (this.direction == "N" || this.direction == "S" ){
                 if (this.doorTiles.children[0].x < 90 && this.passable){
                     this.doorTiles.children[0].x +=3;

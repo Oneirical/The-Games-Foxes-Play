@@ -110,6 +110,18 @@ const logicMaps = {
             "I" : new SpeciesCheck("Scarab"),
         }
     },
+    "MoveDownBot" : {
+        0 : ".....",
+        1 : ".....",
+        2 : ".R...",
+        3 : ".A...",
+        4 : ".M...",
+        "keys" : {
+            "R" : new RadioReceiver("EON"),
+            "A" : new FormDir("S"),
+            "M" : new MoveFunction(),
+        }
+    },
     "Guard" : {
         0 : ".....",
         1 : ".....",

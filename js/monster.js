@@ -270,6 +270,17 @@ class Creature{
         if(this.tile){
             this.tile.stepOut(this);
             this.tile.monster = null;
+            if (fastReload){
+                this.tile = tile;
+                tile.monster = this;                             
+                tile.stepOn(this);
+                if (this.tile instanceof CenterTeleport && this === player){
+                    let targetWorld = universe.findWorldByID(this.tile.destination);
+                    let destPad = targetWorld.findTelepadByDest(world.id);
+                    universe.passDown(floors.indexOf(this.tile.destination), destPad.x, destPad.y);
+                }
+                return;
+            }
             if (this.animating && this === player){
                 tickProjectors();
                 this.animating = false;

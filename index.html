@@ -71,11 +71,13 @@
     shakeY = 0;
 
     var worldgen;
+
+    var actionQueue = [];
+    var fastReload = false;
     
     beginEverything();
 
-    document.querySelector("html").onkeypress = function(e){                                         
-            if (e.key == "k") toggleFullScreen();
-            else if (!universe.zooming) trigger(e.key.toUpperCase());
+    document.querySelector("html").onkeypress = function(e){        
+            playerInput(e.key);                                 
     };
 </script>

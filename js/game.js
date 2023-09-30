@@ -4,6 +4,34 @@ function trigger(key,assi){
     }
 }
 
+function playerInput(key){
+    if (key == "k") toggleFullScreen();
+    else if (key == "o") saveGame();
+    else if (key == "p") loadGame();
+    else if (!universe.zooming) {
+        let action = key.toUpperCase();
+        trigger(action);
+        actionQueue.push(action);
+    }
+}
+
+function saveGame(){
+    localStorage.setItem("seed",rngSeed);
+    localStorage.setItem("queue",JSON.stringify(actionQueue));
+}
+
+function loadGame(){
+    fastReload = true;
+    rngSeed = localStorage.getItem("seed");
+    let reloadQueue = JSON.parse(localStorage.getItem("queue"));
+    for (let i = 0; i<reloadQueue.length; i++){ // WHY DOES EVERYTHING GET AN EXTRA MOVE AT THE END?? FIX IT
+        playerInput(reloadQueue[i]);
+    }
+    actionQueue = reloadQueue;
+    tickProjectors();
+    fastReload = false;
+}
+
 function locatePlayer(over){
     if (!over) over = monsters;
     for (let i of over){

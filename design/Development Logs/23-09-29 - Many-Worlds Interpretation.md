@@ -17,6 +17,8 @@ Indeed, every entity in the game can only have between 1 to 4 health points. Nat
 
 I am currently working on a saving-and-loading system (completely different from my failed first attempt) For this purpose, I am simplifying the data structures all over the game, making sure everything can be stored in a compact JSON file that isn't as long as the distance between the Sun and Proxima Centauri. It's actually quite the interesting puzzle! I've already made it so all RNG in the game is derived from a one word seed, which should save me the horrendous burden that would be storing the position of every single tile in the save file.
 
+In the last hour, I just tinkered up a possibly cursed but infinitely amusing system where I log every single player action and replay it on loading. Thank you Chaigidel for [the suggestion](https://www.reddit.com/r/roguelikedev/comments/10zt7w5/learning_how_to_rewind_time_save_load/j87okyw/). It is surprisingly fast, but I do not know how it will scale up as I expand my game.
+
 # Annoying Technowizardry
 
 My crusty 8 years old laptop is now only capable of running my game at 30 FPS, which I judge to be a disgrace for a traditional roguelike. Yes, the GPU in it is ranked as "terrible" on [UserBenchmark](https://gpu.userbenchmark.com/SpeedTest/38173/IntelR-HD-Graphics-515), but that seems like a poor excuse for what is basically a 2D game with almost no animation. The game used to run a lot better on it, but I did something in the last month that wrecked it (while I was developing on another computer) and I have no idea what it was.

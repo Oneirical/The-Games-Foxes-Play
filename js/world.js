@@ -76,9 +76,14 @@ class Universe{
     }
 
     passDown(layer, spawnx, spawny){
+        this.currentWorld = layer;
+        if (fastReload) {
+            this.handleDescent(layer, spawnx, spawny);
+            return;
+        }
         universe.zooming = true;
         this.zoomAnim = new PIXI.Ticker;
-        this.currentWorld = layer;
+        
         this.zoomAnim.start();
         tilesDisplay.mask = tilesDisplay.maskReference;
         this.viewport = new pixi_viewport.Viewport({
@@ -586,6 +591,7 @@ class World{
         tileSize = (9/numTiles)*64;
         tiles = room.tiles;
         player.tile = getTile(spawnl[0],spawnl[1]);
+        console.log(player.tile);
         room.populateRoom();
         monsters = room.monsters;
         let playerisIn = locatePlayer();

@@ -159,8 +159,3 @@ function randomPassableRoom(){
     });
     return tile;
 }
-
-function saveGame(){
-    let savedGame = {};
-    savedGame["seed"] = rngSeed;
-}
