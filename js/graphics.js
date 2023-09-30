@@ -73,7 +73,6 @@ function beginEverything(){
     wheel.setUpSprites();
     world.setUpSprites();
     log.setUpLog();
-    //statuses.setUpSprites();
     sideTooltip.setUpSprites();
 
     let tilesChains = new PIXI.Container();

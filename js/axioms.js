@@ -21,13 +21,6 @@ class Axiom{
     //direction: NSWE
     //tile: number/string
 
-    build(){
-        let colourTypes = ["Red","Yellow","Green","Cyan","Blue","Plum","Lime","Orange","Pink"];
-        let casteTypes = ["SAINTLY","ORDERED","ARTISTIC","UNHINGED","FERAL","VILE"];
-        if (colourTypes.includes(this.storage) && this.dataType == "Colour") this.storage = new Colour(this.storage);
-        else if (casteTypes.includes(this.storage) && this.dataType == "Caste") this.storage = new Caste(this.storage);
-    }
-
     translate(){};
 }
 
@@ -193,8 +186,8 @@ class PaintTile extends Axiom{
     }
     act(data){
         for (let i of data["targets"]){
-            i.paint = this.storage.colour;
-            drawPixel(this.storage.colour,0,0,tileSize,i.tilecon);
+            i.paint = this.storage;
+            drawPixel(this.storage,0,0,tileSize,i.tilecon);
             i.paintDisplay = i.tilecon.children[i.tilecon.children.length-1];
         }
         return data;
@@ -210,7 +203,7 @@ class PaintFilter extends Axiom{
     act(data){
         for (let i = data["targets"].length-1; i>=0; i--){
             let r = data["targets"][i];
-            if (r.paint != this.storage.colour) removeItemAll(data["targets"],r);
+            if (r.paint != this.storage) removeItemAll(data["targets"],r);
         }
         return data;
     }
@@ -319,7 +312,7 @@ class OverwriteSlot extends Axiom{
         for (let i of data["targets"]){
             if (i.monster){
                 for (let s of soulSlotNames){
-                    if (s == this.storage.caste && i.monster.souls[s]){
+                    if (s == this.storage && i.monster.souls[s]){
                         for (let a of assi){
                             i.monster.souls[s].axioms[a.x][a.y] = a;
                         }

@@ -106,7 +106,6 @@ function startGame(){
     tileSize = 64;
     numTiles = 9;
     areaname = new LocationDisplay();
-    statuses = new StatusDisplay();
     buttons = new ButtonsDisplay();
     wheel = new SoulBreathing(); //should belong to entity
     universe = new Universe();
