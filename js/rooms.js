@@ -403,11 +403,11 @@ const logicMaps = {
 
 var genstruct = {
     "WorldSeed" : {
-        0 : "..W..",
-        1 : "..V..",
-        2 : "EHMHE",
-        3 : "V.V.V",
-        4 : "E.C.E",
+        0 : "..E..",
+        1 : ".....",
+        2 : "E.W.E",
+        3 : "V...V",
+        4 : "E...E",
         keys: {
             "E" : EmptyFaith,
             "C" : SoulCage,
@@ -523,13 +523,13 @@ var rooms = {
     "Seed" : {
         0 : "TTTTTTTTT",
         1 : "T.......T",
-        2 : "T.......T",
-        3 : "T.......T",
-        4 : "T...t...T",
-        5 : "T.......T",
-        6 : "T.......T",
-        7 : "T.......T",
-        8 : "TTTTETTTT",
+        2 : "T..nnn..T",
+        3 : "T.woooe.T",
+        4 : "T.woçoe.T",
+        5 : "T.woooe.T",
+        6 : "T..sss..T",
+        7 : "T...t...T",
+        8 : "TTTTTTTTT",
         "tags": [],
         "creatures" : {
             "t" : "Terminal",
@@ -815,7 +815,7 @@ var rooms = {
     },
     "VileTransport" : {
         0 : "####E####",
-        1 : "#...f...#",
+        1 : "#.......#",
         2 : "#..nnn..#",
         3 : "#.woooe.#",
         4 : "E.woçoe.E",

@@ -85,7 +85,7 @@ function beginEverything(){
     tilesDisplay.maskReference.alpha = 0;
     drawProjectors();
     
-    world.appearRoom([22,4]); // initial spawn location in world seed
+    world.appearRoom([22,25]); // initial spawn location in world seed
 
     app.ticker.add(() => {
         screenshake();

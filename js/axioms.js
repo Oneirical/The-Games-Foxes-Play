@@ -500,17 +500,6 @@ class CloneCreature extends Axiom{ //unused for now
         this.dataType = "Creature";
     }
 
-    translate(){
-        if (!(this.storage instanceof Creature)){
-            for (let i of monsters){
-                if (i instanceof this.storage){
-                    this.storage = i;
-                    break;
-                }
-            }
-        }
-    }
-
     act(data){
         if (data["targets"].length == 0){
             data["break"] = true;
