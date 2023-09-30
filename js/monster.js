@@ -843,20 +843,6 @@ class Programmer extends Creature{
     }
 }
 
-class EpsilonTail extends Creature{
-    static number = 1;
-    constructor(tile){
-        super(tile, 68, 3);
-       
-        //for (let i of monsters) if (i instanceof EpsilonTail) this.number++;
-        this.souls["ORDERED"] = "Tail"+EpsilonTail.number;
-        EpsilonTail.number++;
-        if (EpsilonTail.number == 5) EpsilonTail.number = 1;
-        this.name = "Epsilon, Supreme Ordered General";
-        this.ability = monabi["Epsilon"];
-    }
-}
-
 class Epsilon extends Creature{
     constructor(tile){
         super(tile, 67, 33);

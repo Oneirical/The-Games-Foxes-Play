@@ -5,14 +5,12 @@ class Direction{
 }
 
 class Colour{
-    static colourTypes = ["Red","Yellow","Green","Cyan","Blue","Plum","Lime","Orange","Pink"];
     constructor(colour){
         this.colour = colour;
     }
 }
 
 class Caste{
-    static casteTypes = ["SAINTLY","ORDERED","ARTISTIC","UNHINGED","FERAL","VILE"];
     constructor(caste){
         this.caste = caste;
     }

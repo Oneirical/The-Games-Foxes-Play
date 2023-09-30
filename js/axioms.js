@@ -1,13 +1,4 @@
 class Axiom{
-    static storageEquivalences = {
-        "Creature" : Creature,
-        "Axiom" : Axiom,
-        "Soul" : Soul,
-        "Colour" : Colour,
-        "Direction" : Direction,
-        "Tile" : Tile,
-        "Caste" : Caste,
-    };
     constructor(){
         this.contingency = false;
         this.x;
@@ -21,9 +12,11 @@ class Axiom{
     act(data){return data;};
 
     build(){
+        let colourTypes = ["Red","Yellow","Green","Cyan","Blue","Plum","Lime","Orange","Pink"];
+        let casteTypes = ["SAINTLY","ORDERED","ARTISTIC","UNHINGED","FERAL","VILE"];
         if ("NSWE".includes(this.storage) && this.dataType.includes("Direction")) this.storage = new Direction(this.storage);
-        else if (Colour.colourTypes.includes(this.storage) && this.dataType.includes("Colour")) this.storage = new Colour(this.storage);
-        else if (Caste.casteTypes.includes(this.storage) && this.dataType.includes("Caste")) this.storage = new Caste(this.storage);
+        else if (colourTypes.includes(this.storage) && this.dataType.includes("Colour")) this.storage = new Colour(this.storage);
+        else if (casteTypes.includes(this.storage) && this.dataType.includes("Caste")) this.storage = new Caste(this.storage);
     }
 
     translate(){};

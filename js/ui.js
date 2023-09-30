@@ -1477,8 +1477,17 @@ class Soul{
         else if (typeof sourceAxiom.storage === "number") foundType = "Number";
         else if (typeof sourceAxiom.storage === "string") foundType = "Message";
         else {
-            for (let i of Object.keys(Axiom.storageEquivalences)){
-                if (sourceAxiom.storage instanceof Axiom.storageEquivalences[i]){
+            let storageEquivalences = {
+                "Creature" : Creature,
+                "Axiom" : Axiom,
+                "Soul" : Soul,
+                "Colour" : Colour,
+                "Direction" : Direction,
+                "Tile" : Tile,
+                "Caste" : Caste,
+            };
+            for (let i of Object.keys(storageEquivalences)){
+                if (sourceAxiom.storage instanceof storageEquivalences[i]){
                     foundType = i;
                     break;
                 }

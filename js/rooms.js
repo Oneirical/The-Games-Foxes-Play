@@ -178,7 +178,7 @@ const logicMaps = {
             "E" : new RadioReceiver("TERMINATE"),
             "P" : new PlusForm(),
             "H" : new HealProvider(1),
-            "I" : new SpeciesCheck(EpsilonTail),
+            "I" : new SpeciesCheck("EpsilonTail"),
         }
     },
     "ScarabHack" : {
