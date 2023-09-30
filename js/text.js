@@ -890,6 +890,11 @@ soulData = {
         "lore" : "hai",
         "descript" : "On Pulse, all Targets without a Creature are filled with a clone of this Axiom's Creature-type Data."
     },
+    "SummonCreature" : {
+        "name" : "hai",
+        "lore" : "hai",
+        "descript" : "On Pulse, all Targets without a Creature are filled with a Creature matching this Axiom's Species-type Data."
+    },
     "LinkForm" : {
         "name" : "hai",
         "lore" : "hai",
@@ -1013,7 +1018,7 @@ soulData = {
     "RadioReceiver" : {
         "name" : "hai",
         "lore" : "We have come to breathe data as well as air. ",
-        "descript" : "When this Creatures receives Message-type Data which corresponds to this Axiom's Message-type Data, Pulse this Axiom.",
+        "descript" : "When this Creature receives Message-type Data which corresponds to this Axiom's Message-type Data, Pulse this Axiom.",
     },
     "RealityAnchor" : {
         "name" : "hai",
@@ -1025,10 +1030,10 @@ soulData = {
         "lore" : "hai",
         "descript" : "On Pulse, all Targets which are not Painted with this Axiom's Colour-type Data are no longer Targets.",
     },
-    "EntityFilter" : {
+    "SpeciesFilter" : {
         "name" : "hai",
         "lore" : "hai",
-        "descript" : "On Pulse, all Targets which do not contain a Creature corresponding to the Creature-type Data of this Axiom are no longer Targets.",
+        "descript" : "On Pulse, all Targets which do not contain a Creature which matches the Species-type Data of this Axiom are no longer Targets.",
     },
 }
 

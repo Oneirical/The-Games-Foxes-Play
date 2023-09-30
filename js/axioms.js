@@ -7,16 +7,25 @@ class Axiom{
         this.soul;
         this.storage;
         this.nameID = this.constructor.name;
-        this.dataType = [];
+        this.dataType = false;
     }
     act(data){return data;};
+
+    //message: string
+    //axiom: string
+    //creature: number
+    //colour: string
+    //boolean: boolean
+    //species: string
+    //caste: string
+    //direction: NSWE
+    //tile: number/string
 
     build(){
         let colourTypes = ["Red","Yellow","Green","Cyan","Blue","Plum","Lime","Orange","Pink"];
         let casteTypes = ["SAINTLY","ORDERED","ARTISTIC","UNHINGED","FERAL","VILE"];
-        if ("NSWE".includes(this.storage) && this.dataType.includes("Direction")) this.storage = new Direction(this.storage);
-        else if (colourTypes.includes(this.storage) && this.dataType.includes("Colour")) this.storage = new Colour(this.storage);
-        else if (casteTypes.includes(this.storage) && this.dataType.includes("Caste")) this.storage = new Caste(this.storage);
+        if (colourTypes.includes(this.storage) && this.dataType == "Colour") this.storage = new Colour(this.storage);
+        else if (casteTypes.includes(this.storage) && this.dataType == "Caste") this.storage = new Caste(this.storage);
     }
 
     translate(){};
@@ -43,7 +52,7 @@ class RadioBroadcaster extends Axiom{
     constructor(message){
         super();
         this.storage = message;
-        this.dataType = ["Message"];
+        this.dataType = "Message";
     }
     act(data){
         trigger(this.storage);
@@ -56,7 +65,7 @@ class RadioReceiver extends Axiom{
         super();
         this.storage = key;
         this.contingency = true;
-        this.dataType = ["Message"];
+        this.dataType = "Message";
     }
     act(data){
         return data;
@@ -68,7 +77,7 @@ class ContinKilled extends Axiom{
         super();
         this.storage = "OBLIVION";
         this.contingency = true;
-        this.dataType = ["Message"];
+        this.dataType = "Message";
     }
     act(data){
         return data;
@@ -78,9 +87,9 @@ class ContinKilled extends Axiom{
 class TriggerWatch extends Axiom{
     constructor(key){
         super();
-        this.storage = new key();
+        this.storage = key;
         this.contingency = true;
-        this.dataType = ["Axiom"];
+        this.dataType = "Axiom";
     }
     act(data){
         return data;
@@ -91,7 +100,7 @@ class LastDamageSource extends Axiom{
     constructor(entity){
         super();
         this.storage = entity;
-        this.dataType = ["Creature"];
+        this.dataType = "Creature";
     }
     act(data){
         this.storage = data["caster"].lastDamageCulprit.numberID;
@@ -135,7 +144,7 @@ class SoulInjector extends Axiom{
     constructor(soul){
         super();
         this.storage = soul;
-        this.dataType = ["Soul"];
+        this.dataType = "Soul";
     }
 
     translate(){
@@ -180,7 +189,7 @@ class PaintTile extends Axiom{
     constructor(colour){
         super();
         this.storage = colour;
-        this.dataType = ["Colour"];
+        this.dataType = "Colour";
     }
     act(data){
         for (let i of data["targets"]){
@@ -196,7 +205,7 @@ class PaintFilter extends Axiom{
     constructor(colour){
         super();
         this.storage = colour;
-        this.dataType = ["Colour"];
+        this.dataType = "Colour";
     }
     act(data){
         for (let i = data["targets"].length-1; i>=0; i--){
@@ -207,11 +216,11 @@ class PaintFilter extends Axiom{
     }
 }
 
-class EntityFilter extends Axiom{
+class SpeciesFilter extends Axiom{
     constructor(entity){
         super();
         this.storage = entity;
-        this.dataType = ["Creature"];
+        this.dataType = "Species";
     }
 
     act(data){
@@ -219,7 +228,7 @@ class EntityFilter extends Axiom{
         for (let i = data["targets"].length-1; i>=0; i--){
             let r = data["targets"][i];
             if (!r.monster) continue;
-            else if (r.monster.numberID != this.storage) continue;
+            else if (r.monster.species != this.storage) continue;
             else newTargets.push(r);
         }
         data["targets"] = newTargets;
@@ -231,7 +240,7 @@ class BooleanGate extends Axiom{
     constructor(boo){
         super();
         this.storage = boo;
-        this.dataType = ["Boolean"];
+        this.dataType = "Boolean";
     }
     act(data){
         if (!this.storage) data["break"] = true;
@@ -243,7 +252,7 @@ class SpeciesCheck extends Axiom{
     constructor(iden){
         super();
         this.storage = iden;
-        this.dataType = ["Species"];
+        this.dataType = "Species";
     }
 
     act(data){
@@ -270,7 +279,7 @@ class BooleanFlip extends Axiom{
     }
     act(data){
         let surr = this.soul.getLogicNeighbours(this,true);
-        for (let i of surr) if (i.dataType.includes("Boolean")) i.storage = !i.storage;
+        for (let i of surr) if (i.dataType == "Boolean") i.storage = !i.storage;
         return data;
     }
 }
@@ -279,7 +288,7 @@ class AssimilateBroadcast extends Axiom{
     constructor(message){
         super();
         this.storage = message;
-        this.dataType = ["Message"];
+        this.dataType = "Message";
         this.surr;
     }
     act(data){
@@ -298,7 +307,7 @@ class OverwriteSlot extends Axiom{
     constructor(slot){
         super();
         this.storage = slot;
-        this.dataType = ["Caste"];
+        this.dataType = "Caste";
         this.surr;
     }
     act(data){
@@ -326,7 +335,7 @@ class FormDir extends Axiom{
     constructor(dir){
         super();
         this.storage = dir;
-        this.dataType = ["Direction"];
+        this.dataType = "Direction";
     }
 
     act(data){
@@ -336,7 +345,7 @@ class FormDir extends Axiom{
             "E" : [1,0],
             "S" : [0,1],
         }
-        data["targets"].push(getTile(data["caster"].tile.x+directions[this.storage.direction][0],data["caster"].tile.y+directions[this.storage.direction][1]));
+        data["targets"].push(getTile(data["caster"].tile.x+directions[this.storage][0],data["caster"].tile.y+directions[this.storage][1]));
         return data;
     }
 }
@@ -345,7 +354,7 @@ class FormEntity extends Axiom{
     constructor(entity){
         super();
         this.storage = entity;
-        this.dataType = ["Creature"];
+        this.dataType = "Creature";
     }
 
     act(data){
@@ -362,7 +371,7 @@ class FormTile extends Axiom{
     constructor(tile){
         super();
         this.storage = tile;
-        this.dataType = ["Tile"];
+        this.dataType = "Tile";
     }
 
     translate(){
@@ -458,11 +467,11 @@ class NumberIncrementer extends Axiom{
     constructor(number){
         super();
         this.storage = number;
-        this.dataType = ["Number"];
+        this.dataType = "Number";
     }
     act(data){
         let surr = this.soul.getLogicNeighbours(this,true);
-        for (let i of surr) if (i.dataType.includes("Number")) i.storage += this.storage;
+        for (let i of surr) if (i.dataType == "Number") i.storage += this.storage;
         return data;
     }
 }
@@ -471,7 +480,7 @@ class NumberStorage extends Axiom{
     constructor(number){
         super();
         this.storage = number;
-        this.dataType = ["Number"];
+        this.dataType = "Number";
     }
 }
 
@@ -479,7 +488,7 @@ class ModuloGate extends Axiom{
     constructor(number){
         super();
         this.storage = number;
-        this.dataType = ["Number"];
+        this.dataType = "Number";
     }
     act(data){
         let surr = this.soul.getLogicNeighbours(this,true);
@@ -495,7 +504,7 @@ class CloneCreature extends Axiom{ //unused for now
     constructor(crea){
         super();
         this.storage = crea;
-        this.dataType = ["Creature"];
+        this.dataType = "Creature";
     }
 
     translate(){
@@ -531,7 +540,7 @@ class SummonCreature extends Axiom{
     constructor(crea){
         super();
         this.storage = crea;
-        this.dataType = ["Species"];
+        this.dataType = "Species";
     }
 
     act(data){
@@ -555,7 +564,7 @@ class DamageDealer extends Axiom{
     constructor(dam){
         super();
         this.storage = dam;
-        this.dataType = ["Number"];
+        this.dataType = "Number";
     }
     act(data){
         for (let i of data["targets"]){
@@ -569,7 +578,7 @@ class HealProvider extends Axiom{
     constructor(dam){
         super();
         this.storage = dam;
-        this.dataType = ["Number"];
+        this.dataType = "Number";
     }
     act(data){
         for (let i of data["targets"]){
@@ -583,7 +592,7 @@ class LinkForm extends Axiom{
     constructor(link){
         super();
         this.storage = link;
-        this.dataType = ["Creature"];
+        this.dataType = "Creature";
     }
     act(data){
         if (!this.storage){

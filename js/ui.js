@@ -32,30 +32,43 @@ class NodeDescription{
         this.displayCon.visible = true;
     }
 
-    getDataText(dataPoint){ // TODO restructure this to use the dataType instead of dataPoint
-        if (typeof dataPoint === "string") return "Message: "+dataPoint;
-        else if (typeof dataPoint === "number") return "Number: "+dataPoint;
-        else if (typeof dataPoint === "boolean"){
-            if (dataPoint) return "Boolean: True";
-            else return "Boolean: False";
+    getDataText(node){
+
+        let dataPoint = node.dataType;
+        let dataAnswer = node.storage;
+
+        if (!dataAnswer) return "Nothing.";
+
+        switch (dataPoint){
+            case "Message":
+                return "Message: "+dataAnswer;
+            case "Number":
+                return "Number: "+dataAnswer;
+            case "Boolean":
+                if (dataAnswer) return "Boolean: True";
+                else return "Boolean: False"; 
+            case "Creature":
+                let crea = allCreatures[dataAnswer];
+                return "Creature: "+crea.name+" at X: "+crea.tile.x+" and Y: "+crea.tile.y;
+            case "Axiom":
+                return "Axiom: "+soulData[dataAnswer]["name"];
+            case "Direction":
+                const dirs = {
+                    "N" : "North",
+                    "S" : "South",
+                    "W" : "West",
+                    "E" : "East"
+                }
+                return "Direction: "+dirs[dataAnswer];
+            case "Caste":
+                return "Caste: "+dataAnswer;
+            case "Species":
+                return "Species: "+creaturePresentation[dataAnswer]["name"];
+            case "Tile":
+                return "Tile: "+dataAnswer.name+" at X: "+dataAnswer.x+" and Y: "+dataAnswer.y; //edit this
+            default:
+                return "Nothing.";
         }
-        else if (dataPoint instanceof Tile) return "Tile: "+dataPoint.name+" at X: "+dataPoint.x+" and Y: "+dataPoint.y;
-        else if (dataPoint instanceof Creature) return "Creature: "+dataPoint.name+" at X: "+dataPoint.tile.x+" and Y: "+dataPoint.tile.y;
-        else if (dataPoint instanceof Axiom) return "Axiom: "+soulData[dataPoint.nameID]["name"];
-        else if (dataPoint instanceof Colour) return "Colour: "+dataPoint.colour;
-        else if (dataPoint instanceof Direction){
-            const dirs = {
-                "N" : "North",
-                "S" : "South",
-                "W" : "West",
-                "E" : "East"
-            }
-            return "Direction: "+dirs[dataPoint.direction];
-        }
-        else if (dataPoint instanceof Caste) return "Caste: "+dataPoint.caste;
-        else if (dataPoint instanceof Soul) return "A captive Soul.";
-        else if (dataPoint) return "Species: "+dataPoint;
-        else return "Nothing."
     }
 
     getDescription(node){
@@ -76,11 +89,9 @@ class NodeDescription{
         this.displayCon.addChild(newSprite);
         let tag = soulData[node.nameID];
         let soulDataTypes;
-        if (node.dataType.length == 0) soulDataTypes = "This Axiom cannot contain any Data.";
-        else if (node.dataType.length == 1) soulDataTypes = "This Axiom can contain "+ node.dataType[0] +"-type Data.";
-        else if (node.dataType.length == 2) soulDataTypes = "This Axiom can contain " + node.dataType[0]+ "-type or " + node.dataType[1] +"-type Data.";
-        // extra case for length > 2?
-        const text = [tag["name"],researchflags["Saintly"], tag["descript"],tag["lore"],soulDataTypes, "This Axiom currently contains:\n\n"+this.getDataText(node.storage)]; //,node.extra
+        if (!node.dataType) soulDataTypes = "This Axiom cannot contain any Data.";
+        else soulDataTypes = "This Axiom can contain "+ node.dataType +"-type Data.";
+        const text = [tag["name"],researchflags["Saintly"], tag["descript"],tag["lore"],soulDataTypes, "This Axiom currently contains:\n\n"+this.getDataText(node)]; //,node.extra
         for (let i of text){
             if (!i) continue;
             let coloring = "white";

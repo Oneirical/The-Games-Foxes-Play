@@ -114,12 +114,12 @@ const logicMaps = {
         0 : ".....",
         1 : ".....",
         2 : ".R...",
-        3 : ".A...",
-        4 : ".M...",
+        3 : ".D...",
+        4 : ".....",
         "keys" : {
-            "R" : new RadioReceiver("EON"),
-            "A" : new FormDir("S"),
-            "M" : new MoveFunction(),
+            "R" : new TriggerWatch("MoveFunction"),
+            "A" : new EgoForm(),
+            "D" : new DamageDealer(1),
         }
     },
     "Guard" : {
@@ -143,7 +143,7 @@ const logicMaps = {
         3 : ".R...",
         4 : ".....",
         "keys" : {
-            "D" : new TriggerWatch(DamageDealer),
+            "D" : new TriggerWatch("DamageDealer"),
             "A" : new SoulAbsorber(),
             "R" : new RealityAnchor(),
         }
@@ -159,7 +159,7 @@ const logicMaps = {
             "M" : new MoveFunction(),
             "P" : new FormEntity(), //handled to link to the hacker
             "C" : new PlusForm(),
-            "F" : new EntityFilter(Apiarist),
+            "F" : new SpeciesFilter("Apiarist"),
             "A" : new NoTargetStop(),
             "V" : new VoidTargets(),
 
@@ -273,8 +273,8 @@ const logicMaps = {
             "R" : new RadioReceiver("EON"),
             "P" : new PlusForm(),
             "D" : new DamageDealer(1),
-            "F" : new EntityFilter("Scarab"),
-            "T" : new TriggerWatch(DamageDealer),
+            "F" : new SpeciesFilter("Scarab"),
+            "T" : new TriggerWatch("DamageDealer"),
             "A" : new SoulAbsorber(),
 
         }
