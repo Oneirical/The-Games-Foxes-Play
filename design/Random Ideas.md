@@ -3,6 +3,7 @@
 * Add Form grid (range targeters) images in their descriptions for clarity
 * A better ui for descriptions, with definitions for each keyword like 'exhale' or 'targets' or the status effects, StS style
 * Swap axiom tile effects to go out and do it all at once at the end
+* Review the tiles display, it is making it impossible to play knockback animations on far knockback effects
 
 **Save and Load**
 

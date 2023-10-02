@@ -308,7 +308,7 @@ class Creature{
             this.offsetY = this.tile.y - tile.y;
             this.originalOffsetX = this.offsetX;
             this.originalOffsetY = this.offsetY;
-            this.anispeed = 1/6*(Math.abs(this.offsetX)+Math.abs(this.offsetY));
+            this.anispeed = Math.min(1/6*(Math.abs(this.offsetX)+Math.abs(this.offsetY)),1);
         }
         this.tile = tile;
         tile.monster = this;                             
