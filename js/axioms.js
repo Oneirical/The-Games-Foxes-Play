@@ -142,19 +142,22 @@ class WarpCloseAway extends Axiom{
     act(data){
         const targets = data["targets"];
         const origin = data["caster"].tile;
-        let entities = targets.toSorted((a,b) => manDist(origin,a) - manDist(origin,b));
+        let entities = [...targets].sort((a,b) => manDist(origin,a) - manDist(origin,b));
         let warp = [...entities];
         warp.reverse();
         entities = entities.filter((a) => a.monster);
         if (entities.length == 0) data["break"] = true;
+        let teleported = false;
         for (let i of entities){
             for (let j of warp){
                 if (j.isEmpty()){
                     teleport(i.monster,j,data);
+                    teleported = true;
                     break;
                 }
             }
         }
+        if (!teleported) data["break"] = true;
         return data;
     }
 }
@@ -165,7 +168,7 @@ class FurthestFilter extends Axiom{
     }
     act(data){
         const targets = data["targets"];
-        let entities = targets.toSorted((a,b) => manDist(origin,a) - manDist(origin,b));
+        let entities = [...targets].sort((a,b) => manDist(origin,a) - manDist(origin,b));
         entities.reverse();
         let onlySurvivor = entities[0];
         data["targets"] = [onlySurvivor];
@@ -232,6 +235,18 @@ class VoidTargets extends Axiom{
     }
 }
 
+class ScreenShake extends Axiom{
+    constructor(num){
+        super();
+        this.storage = num;
+        this.dataType = "Number";
+    }
+    act(data){
+        shakeAmount += this.storage;
+        return data;
+    }
+}
+
 class SoulAbsorber extends Axiom{
     constructor(){
         super();
@@ -247,7 +262,7 @@ class SoulAbsorber extends Axiom{
                     data["caster"].souls[data["caster"].findFirstEmptySlot()] = j;
                 }
                 locatePlayer();
-                soulTree.updateSlots(data["caster"]);
+                if (soulTree.trackedEntity === data["caster"]) soulTree.updateSlots(data["caster"]);
             }
         }
         return data;
@@ -279,7 +294,7 @@ class SoulInjector extends Axiom{
                 let loc = i.monster.findFirstEmptySlot();
                 i.monster.souls[loc] = Object.create(this.storage);
                 i.monster.souls[loc].owner = i.monster;
-                soulTree.updateSlots(i.monster);
+                if (soulTree.trackedEntity === i.monster) soulTree.updateSlots(i.monster);
             }
         }
         return data;

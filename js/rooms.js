@@ -83,7 +83,7 @@ const logicMaps = {
         1 : "TMDB.",
         2 : "...W.",
         3 : "...F.",
-        4 : "...EX",
+        4 : "..SEX",
         "keys" : {
             "T" : new TriggerWatch("MoveFunction"),
             "M" : new MomentumTarget(),
@@ -93,6 +93,7 @@ const logicMaps = {
             "F" : new FurthestFilter(),
             "E" : new ExpandTargets(),
             "X" : new DamageDealer(1),
+            "S" : new ScreenShake(20),
 
 
         }
