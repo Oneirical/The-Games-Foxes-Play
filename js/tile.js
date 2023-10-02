@@ -227,7 +227,6 @@ class Tile{
     }
 
     setEffect(effectSprite){
-        return;
         this.tilecon.removeChild(this.effect);             
         this.effect = new FoxSprite(allsprites.textures["sprite"+effectSprite]);
         this.effect.width = 64;

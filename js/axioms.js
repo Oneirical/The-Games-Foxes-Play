@@ -146,6 +146,7 @@ class WarpCloseAway extends Axiom{
         let warp = [...entities];
         warp.reverse();
         entities = entities.filter((a) => a.monster);
+        if (entities.length == 0) data["break"] = true;
         for (let i of entities){
             for (let j of warp){
                 if (j.isEmpty()){
@@ -180,7 +181,10 @@ class ExpandTargets extends Axiom{
         const originalTargets = [...data["targets"]];
         for (let i of originalTargets){
             const boom = i.getAllNeighbors();
-            for (let j of boom) data["targets"].push(j);
+            for (let j of boom){
+                data["targets"].push(j);
+                j.setEffect(14);
+            }
         }
         return data;
     }
@@ -196,7 +200,11 @@ class TargetsDirectionalBeam extends Axiom{
         const originalTargets = [...data["targets"]];
         for (let i of originalTargets){
             const beam = targetBoltTravel(this.storage,i);
-            for (let j of beam) data["targets"].push(j);
+            for (let j of beam) {
+                data["targets"].push(j);
+                if (["N","S"].includes(this.storage)) j.setEffect(16);
+                else if (["W","E"].includes(this.storage)) j.setEffect(15);
+            }
         }
         return data;
     }
@@ -746,10 +754,10 @@ function targetBoltTravel(direction, location){
     direction = eqs[direction];
     while(true){
         let testTile = newTile.getNeighbor(direction[0], direction[1]);
-        targets.push(testTile);
-        if(testTile.passable){
+        if(testTile && testTile.passable){
             newTile = testTile;
             if(newTile.monster) break;
+            else targets.push(testTile);
             //newTile.setEffect(effect,30);
         }else{
             break;

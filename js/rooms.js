@@ -83,7 +83,7 @@ const logicMaps = {
         1 : "TMDB.",
         2 : "...W.",
         3 : "...F.",
-        4 : "...XE",
+        4 : "...EX",
         "keys" : {
             "T" : new TriggerWatch("MoveFunction"),
             "M" : new MomentumTarget(),
