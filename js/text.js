@@ -968,12 +968,12 @@ soulData = {
     "EgoForm" : {
         "name" : "hai",
         "lore" : "hai",
-        "descript" : "hai",
+        "descript" : "On Pulse, Target the Self's tile.",
     },
     "PlusForm" : {
         "name" : "hai",
         "lore" : "hai",
-        "descript" : "hai",
+        "descript" : "On Pulse, Target all 4 tiles adjacent to the Self.",
     },
     "LastDamageSource" : {
         "name" : "Scorn Those Who Made Flesh Bleed",
@@ -1008,7 +1008,7 @@ soulData = {
     "SoulAbsorber" : {
         "name" : "The Servitude of Still Minds",
         "lore" : "hai",
-        "descript" : "",
+        "descript" : "On Pulse, all Targeted Souls are swallowed into the Self's first empty Soul slot.",
     },
     "ContinKilled" : {
         "name" : "hai",
@@ -1038,7 +1038,7 @@ soulData = {
     "MomentumTarget" : {
         "name" : "A Sprint, then a Strike",
         "lore" : "hai",
-        "descript" : "On Pulse, shoot a beam of length and angle equal to the Self's last move, starting from the Self. All beamed Tiles become Targets.",
+        "descript" : "On Pulse, shoot a beam of length and angle equal to the Self's last move, starting from the Self. All beamed tiles become Targets.",
     },
     "DirectionExtractor" : {
         "name" : "A Needle To Pierce An Endless Forest",
@@ -1048,12 +1048,12 @@ soulData = {
     "TargetsDirectionalBeam" : {
         "name" : "Rain Clouds Dot The Horizon",
         "lore" : "hai",
-        "descript" : "On Pulse, all targets shoot out a beam in this Axiom's Direction, stopping at the first Creature or Solid Tile met. All beamed tiles become Targets.",
+        "descript" : "On Pulse, all targets shoot out a beam in this Axiom's Direction, stopping at the first Creature or Solid tile met. All beamed tiles become Targets.",
     },
     "WarpCloseAway" : {
         "name" : "Exile Shatters Bonds of Kinship",
         "lore" : "hai",
-        "descript" : "On Pulse, all Targeted Creatures, starting with those nearest to the Self, are Teleported to the Empty Target furthest from the Self.",
+        "descript" : "On Pulse, all Targeted Creatures, starting with those nearest to the Self, are Teleported to the Empty Target furthest from the Self. If no Creatures are Teleported, Sever.",
     },
     "FurthestFilter" : {
         "name" : "Travels Inspired By Furthest Reaches",
@@ -1063,7 +1063,7 @@ soulData = {
     "ExpandTargets" : {
         "name" : "Bubbles Swell From Deepest Chasms",
         "lore" : "hai",
-        "descript" : "On Pulse, all 8 Tiles surrounding each Target become Targets.",
+        "descript" : "On Pulse, all 8 tiles surrounding each Target become Targets.",
     },
     "ScreenShake" : {
         "name" : "Perception, Dissolved to Blurry Motion",
