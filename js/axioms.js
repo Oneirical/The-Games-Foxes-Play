@@ -235,6 +235,16 @@ class VoidTargets extends Axiom{
     }
 }
 
+class EgoFilter extends Axiom{
+    constructor(){
+        super();
+    }
+    act(data){
+        removeItemOnce(data["targets"], data["caster"].tile);
+        return data;
+    }
+}
+
 class ScreenShake extends Axiom{
     constructor(num){
         super();

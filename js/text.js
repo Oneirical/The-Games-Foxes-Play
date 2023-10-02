@@ -1070,6 +1070,11 @@ soulData = {
         "lore" : "hai",
         "descript" : "On Pulse, the screen cosmetically shakes for an intensity equal to this Axiom's Number.",
     },
+    "EgoFilter" : {
+        "name" : "Perception, Dissolved to Blurry Motion",
+        "lore" : "hai",
+        "descript" : "On Pulse, the Self's tile is no longer a Target.",
+    },
 }
 
 researchnames = {
