@@ -487,7 +487,7 @@ const creaturePresentation = {
         lore: ":3"
     },
     "EpsilonTail" : {
-        name: "Reinforced Scale-Steel",
+        name: "Rubberized Mecha-Segment",
         color: "gold",
         lore: ":3"
     },
@@ -993,7 +993,7 @@ soulData = {
     "TriggerWatch" : {
         "name" : "hai",
         "lore" : "hai",
-        "descript" : "When an Axiom of this Axiom's Axiom-type Data is Pulsed, Pulse this Axiom, keeping the same Targets.",
+        "descript" : "When an Axiom of this Axiom's Axiom-type Data is Pulsed within the Self, Pulse this Axiom.",
     },
     "ClearPaint" : {
         "name" : "Stillness of Granite, Returned",

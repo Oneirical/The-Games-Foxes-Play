@@ -1383,7 +1383,7 @@ class Soul{
             let currentSynapse = data[0];
             let i = currentSynapse["synapses"][0];
             currentSynapse = i.act(currentSynapse);
-            this.owner.trigger(i.constructor.name, data); // for triggerwatch contingency
+            this.owner.trigger(i.constructor.name); // for triggerwatch contingency
             let additions = [];
             for (let r of this.getLogicNeighbours(i)) additions.push(r);
             if (additions.length == 0) currentSynapse["break"] = true;

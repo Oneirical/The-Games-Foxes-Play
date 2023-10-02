@@ -2,6 +2,7 @@
 
 * Add Form grid (range targeters) images in their descriptions for clarity
 * A better ui for descriptions, with definitions for each keyword like 'exhale' or 'targets' or the status effects, StS style
+* Swap axiom tile effects to go out and do it all at once at the end
 
 **Save and Load**
 
@@ -184,6 +185,7 @@ Surging Cyan Rivers Drown Thought
 * “It is not death we distribute, it is uplifting. All ruffians of this world contain a primordial Fluffy - all we do is permutation of the switches in incorrect positions, while leaving the correct ones in place. Some are more Fluffy than others before our intervention […]” Therefore, the more (narcisstic) you are, the more vulnerable you become.
 
 * Terminal is caged because he needs to be the observer of the whole world for it to continue ticking.
+* Death messages for what happens when your soul is immobilized after the death of your body - only one Plane is left to tick. How does the population react?
 
 **Insane/overly ambitious stuff**
 

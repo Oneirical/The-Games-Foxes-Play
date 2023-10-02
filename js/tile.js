@@ -23,6 +23,10 @@ class Tile{
     stepOut(){};
     interact(){};
 
+    isEmpty(){
+        return !this.monster && this.passable;
+    }
+
     setUpSprite(){
         if (this instanceof CageContainer) return;
         this.tilecon = new PIXI.Container();

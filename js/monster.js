@@ -22,6 +22,7 @@ class Creature{
         }
         if (creaturePresentation[this.species]) this.lore = creaturePresentation[this.species]["lore"];
         if (creaturePresentation[this.species]) this.name = creaturePresentation[this.species]["name"];
+        this.lastMotion = [0, 0];
         this.move(tile);
     }
 
@@ -221,15 +222,26 @@ class Creature{
         }
     }
 
-    tryMove(dx,dy){
+    interactedBy(interactor){
+        this.trigger("TAKE");
+
+    }
+
+    interactWith(target){
+        this.trigger("GIVE");
+        target.interactedBy(this);
+    }
+
+    tryMove(dx,dy){ // make teleport also pass through this but check what dx is and ignore dy
         let newTile = this.tile.getNeighbor(dx,dy);
+        
         if(newTile.passable){
             if(!newTile.monster){
                 this.move(newTile);
                 return true;
             }
             else{
-                //newTile.monster.interact(); do something here for dialogue pushing etc
+                this.interactWith(newTile.monster);
                 return false;
             }
         }
@@ -268,9 +280,10 @@ class Creature{
     move(tile){
         if (this.dead) return;
         if(this.tile){
+            let currentTile = this.tile;
             this.tile.stepOut(this);
             this.tile.monster = null;
-            if (fastReload){
+            if (fastReload){ // kind of ugly
                 this.tile = tile;
                 tile.monster = this;                             
                 tile.stepOn(this);
@@ -298,7 +311,10 @@ class Creature{
         }
         this.tile = tile;
         tile.monster = this;                             
-        tile.stepOn(this);   
+        tile.stepOn(this);
+        let newTile = this.tile;
+        this.lastMotion = [newTile.x - currentTile.x, newTile.y - currentTile.y];
+
     }
 }
 

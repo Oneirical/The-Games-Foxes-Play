@@ -78,6 +78,25 @@ const logicMaps = {
         "keys" : {
         }
     },
+    "OrderedStarter" : {
+        0 : ".....",
+        1 : "TMDB.",
+        2 : "...W.",
+        3 : "...F.",
+        4 : "...XE",
+        "keys" : {
+            "T" : new TriggerWatch("MoveFunction"),
+            "M" : new MomentumTarget(),
+            "D" : new DirectionExtractor(),
+            "B" : new TargetsDirectionalBeam(),
+            "W" : new WarpCloseAway(),
+            "F" : new FurthestFilter(),
+            "E" : new ExpandTargets(),
+            "X" : new DamageDealer(1),
+
+
+        }
+    },
     "ElectroCoil" : {
         0 : "RINMB",
         1 : "....Z",
@@ -266,7 +285,7 @@ const logicMaps = {
     "EpsilonStand" : {
         0 : "RPFDA",
         1 : ".....", 
-        2 : "TA...",
+        2 : "TPA..",
         3 : ".....",
         4 : ".....",
         "keys" : {

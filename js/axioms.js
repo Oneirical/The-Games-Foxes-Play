@@ -89,6 +89,117 @@ class TriggerWatch extends Axiom{
     }
 }
 
+class MomentumTarget extends Axiom{
+    constructor(){
+        super();
+    }
+    act(data){
+        const motion = data["caster"].lastMotion;
+        const startTile = data["caster"].tile;
+        const endTile = getTile(startTile.x + motion[0], startTile.y + motion[y]);
+        const trail = line(startTile,endTile);
+        removeItemOnce(trail,startTile);
+        for (let i of trail){
+            data["targets"].push(i);
+        }
+        for (let i of trail) i.setEffect(14);
+        return data;
+    }
+}
+
+class DirectionExtractor extends Axiom(){
+    constructor(){
+        super();
+    }
+
+    act(data){
+        let difX = 0;
+        let difY = 0;
+        const casterTile = data["caster"].tile;
+        let finalChoice;
+        for (let i of data["targets"]){
+            difX += i.x - casterTile.x;
+            difY += i.y - casterTile.y;
+        }
+        if (difX > 0 && difX > Math.abs(difY)) finalChoice = "E";
+        else if (difY > 0 && difY > Math.abs(difX)) finalChoice = "S";
+        else if (difX < 0 && Math.abs(difX) > Math.abs(difY)) finalChoice = "W";
+        else if (difY < 0 && Math.abs(difY) > Math.abs(difX)) finalChoice = "N";
+        else finalChoice = shuffle(["N","S","W","E"])[0]; // kind of cringe, may rework
+        
+        const neigh = this.soul.getLogicNeighbours(this,true);
+        for (let i of neigh){
+            if (i.dataType == "Direction") i.storage = finalChoice;
+        }
+        return data;
+    }
+}
+
+class WarpCloseAway extends Axiom{
+    constructor(){
+        super();
+    }
+    act(data){
+        const targets = data["targets"];
+        const origin = data["caster"].tile;
+        let entities = targets.toSorted((a,b) => manDist(origin,a) - manDist(origin,b));
+        let warp = [...entities];
+        warp.reverse();
+        entities.filter((a) => a.monster);
+        for (let i of entities){
+            for (let j of warp){
+                if (j.isEmpty()){
+                    teleport(i.monster,j,data);
+                    break;
+                }
+            }
+        }
+        return data;
+    }
+}
+
+class FurthestFilter extends Axiom{
+    constructor(){
+        super();
+    }
+    act(data){
+        const targets = data["targets"];
+        let entities = targets.toSorted((a,b) => manDist(origin,a) - manDist(origin,b));
+        entities.reverse();
+        let onlySurvivor = entities[0];
+        data["targets"] = [onlySurvivor];
+        return data;
+    }
+}
+
+class ExpandTargets extends Axiom{
+    constructor(){
+        super();
+    }
+    act(data){
+        for (let i of data["targets"]){
+            const boom = i.getAllNeighbors();
+            for (let j of boom) data["targets"].push(j);
+        }
+        return data;
+    }
+}
+
+class TargetsDirectionalBeam extends Axiom{
+    constructor(dir){
+        super();
+        this.storage = dir;
+        this.dataType = "Direction";
+    }
+    act(data){
+        for (let i of data["targets"]){
+            const beam = targetBoltTravel(this.storage,i);
+            for (let j of beam) data["targets"].push(j);
+        }
+        return data;
+    }
+}
+
 class LastDamageSource extends Axiom{
     constructor(entity){
         super();
@@ -584,8 +695,8 @@ class LinkForm extends Axiom{
         const initialPoint = data["caster"].tile;
         const finalPoint = allCreatures[this.storage.numberID].tile;
         const trail = line(initialPoint,finalPoint);
-        removeItemAll(trail,initialPoint);
-        removeItemAll(trail,finalPoint);
+        removeItemOnce(trail,initialPoint);
+        removeItemOnce(trail,finalPoint);
         let allX = true;
         let allY = true;
         let currentX = trail[0].x;
@@ -621,13 +732,19 @@ for (let i of Object.keys(researchflags)){
     else if (scan.includes("Mutator")) axiomRepertoire["Mutators"].push(i);
 }
 
-function targetBoltTravel(direction, effect, location){
+function targetBoltTravel(direction, location){
     let newTile = location;
-    let targets = new Set();
+    let targets = [];
+    const eqs = {
+        "N" : [0,-1],
+        "W" : [-1,0],
+        "E" : [1,0],
+        "S" : [0,1],
+    }
+    direction = eqs[direction];
     while(true){
         let testTile = newTile.getNeighbor(direction[0], direction[1]);
-        testTile.spellDirection = direction;
-        targets.add(testTile);
+        targets.push(testTile);
         if(testTile.passable){
             newTile = testTile;
             if(newTile.monster) break;

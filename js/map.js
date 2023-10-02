@@ -49,6 +49,12 @@ function lerp(start, end, t) {
     return start * (1.0 - t) + t * end;
 }
 
+function manDist (pos0, pos1) {
+    var d1 = Math.abs(pos1.x - pos0.x);
+    var d2 = Math.abs(pos1.y - pos0.y);
+    return d1 + d2;
+}
+
 function flipRoom(id,size,times){
     if (times >= 0){
         for (let x = 0; x<size;x++){
