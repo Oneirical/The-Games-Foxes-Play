@@ -79,11 +79,11 @@ const logicMaps = {
         }
     },
     "OrderedStarter" : {
-        0 : ".....",
-        1 : "TMDB.",
-        2 : "...W.",
-        3 : "...F.",
-        4 : "..SEX",
+        0 : "TMDBW",
+        1 : "....F",
+        2 : "....E",
+        3 : "....X",
+        4 : "....S",
         "keys" : {
             "T" : new TriggerWatch("MoveFunction"),
             "M" : new MomentumTarget(),
@@ -94,8 +94,6 @@ const logicMaps = {
             "E" : new ExpandTargets(),
             "X" : new DamageDealer(1),
             "S" : new ScreenShake(20),
-
-
         }
     },
     "ElectroCoil" : {

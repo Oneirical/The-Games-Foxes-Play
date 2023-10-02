@@ -1035,6 +1035,41 @@ soulData = {
         "lore" : "hai",
         "descript" : "On Pulse, all Targets which do not contain a Creature which matches the Species-type Data of this Axiom are no longer Targets.",
     },
+    "MomentumTarget" : {
+        "name" : "A Sprint, then a Strike",
+        "lore" : "hai",
+        "descript" : "On Pulse, shoot a beam of length and angle equal to the Self's last move, starting from the Self. All beamed Tiles become Targets.",
+    },
+    "DirectionExtractor" : {
+        "name" : "A Needle To Pierce An Endless Forest",
+        "lore" : "hai",
+        "descript" : "On Pulse, find the average Direction of every Target relative to the Self. All adjacent Axioms with Direction-type Data obtain this Direction.",
+    },
+    "TargetsDirectionalBeam" : {
+        "name" : "Rain Clouds Dot The Horizon",
+        "lore" : "hai",
+        "descript" : "On Pulse, all targets shoot out a beam in this Axiom's Direction, stopping at the first Creature or Solid Tile met. All beamed tiles become Targets.",
+    },
+    "WarpCloseAway" : {
+        "name" : "Exile Shatters Bonds of Kinship",
+        "lore" : "hai",
+        "descript" : "On Pulse, all Targeted Creatures, starting with those nearest to the Self, are Teleported to the Empty Target furthest from the Self.",
+    },
+    "FurthestFilter" : {
+        "name" : "Travels Inspired By Furthest Reaches",
+        "lore" : "hai",
+        "descript" : "On Pulse, all Targets except the one furthest from the Self are no longer Targets.",
+    },
+    "ExpandTargets" : {
+        "name" : "Bubbles Swell From Deepest Chasms",
+        "lore" : "hai",
+        "descript" : "On Pulse, all 8 Tiles surrounding each Target become Targets.",
+    },
+    "ScreenShake" : {
+        "name" : "Perception, Dissolved to Blurry Motion",
+        "lore" : "hai",
+        "descript" : "On Pulse, the screen cosmetically shakes for an intensity equal to this Axiom's Number.",
+    },
 }
 
 researchnames = {
