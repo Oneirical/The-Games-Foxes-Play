@@ -28,6 +28,7 @@ const speciesData = {
         "hp" : 3,
         "souls" : {
             "SAINTLY" : "Terminal",
+            "ORDERED" : "OrderedStarter"
         }
     },
     "Programmer" : {

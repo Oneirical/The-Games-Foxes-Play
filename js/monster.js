@@ -279,8 +279,9 @@ class Creature{
 
     move(tile){
         if (this.dead) return;
+        let currentTileCoords = false;
         if(this.tile){
-            let currentTile = this.tile;
+            currentTileCoords = [this.tile.x,this.tile.y];
             this.tile.stepOut(this);
             this.tile.monster = null;
             if (fastReload){ // kind of ugly
@@ -313,7 +314,7 @@ class Creature{
         tile.monster = this;                             
         tile.stepOn(this);
         let newTile = this.tile;
-        this.lastMotion = [newTile.x - currentTile.x, newTile.y - currentTile.y];
+        if (currentTileCoords) this.lastMotion = [newTile.x - currentTileCoords[0], newTile.y - currentTileCoords[1]];
 
     }
 }

@@ -77,7 +77,8 @@ function teleport(target,destination,data){
     let initialPoint = target.tile;
     target.move(destination);
     let finalPoint = target.tile;
-    if (data["flags"].has("trailing")) {
+    return data;
+    if (data["flags"].has("trailing")) { // no "flags" target
         let dx = finalPoint.x - initialPoint.x;
         let dy = finalPoint.y - initialPoint.y;
         let direction;
@@ -90,7 +91,7 @@ function teleport(target,destination,data){
             data.targets.add(i);
         }
     }
-    return data;
+
 }
 
 function getAllTiles(){

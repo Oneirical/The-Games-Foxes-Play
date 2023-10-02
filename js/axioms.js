@@ -96,7 +96,7 @@ class MomentumTarget extends Axiom{
     act(data){
         const motion = data["caster"].lastMotion;
         const startTile = data["caster"].tile;
-        const endTile = getTile(startTile.x + motion[0], startTile.y + motion[y]);
+        const endTile = getTile(startTile.x + motion[0], startTile.y + motion[1]);
         const trail = line(startTile,endTile);
         removeItemOnce(trail,startTile);
         for (let i of trail){
@@ -107,7 +107,7 @@ class MomentumTarget extends Axiom{
     }
 }
 
-class DirectionExtractor extends Axiom(){
+class DirectionExtractor extends Axiom{
     constructor(){
         super();
     }
@@ -145,7 +145,7 @@ class WarpCloseAway extends Axiom{
         let entities = targets.toSorted((a,b) => manDist(origin,a) - manDist(origin,b));
         let warp = [...entities];
         warp.reverse();
-        entities.filter((a) => a.monster);
+        entities = entities.filter((a) => a.monster);
         for (let i of entities){
             for (let j of warp){
                 if (j.isEmpty()){
@@ -177,7 +177,8 @@ class ExpandTargets extends Axiom{
         super();
     }
     act(data){
-        for (let i of data["targets"]){
+        const originalTargets = [...data["targets"]];
+        for (let i of originalTargets){
             const boom = i.getAllNeighbors();
             for (let j of boom) data["targets"].push(j);
         }
@@ -192,7 +193,8 @@ class TargetsDirectionalBeam extends Axiom{
         this.dataType = "Direction";
     }
     act(data){
-        for (let i of data["targets"]){
+        const originalTargets = [...data["targets"]];
+        for (let i of originalTargets){
             const beam = targetBoltTravel(this.storage,i);
             for (let j of beam) data["targets"].push(j);
         }
