@@ -54,23 +54,25 @@ class Universe{
     placeHypnoDisplays(){
         for (let w of this.worlds){
             for (let p of w.establishedPaths){
-                if (p.hypnoticScenes) {
-                    for (let h of p.hypnoticScenes) p.tileCon.removeChild(h); // it can technically be reused, but the hypnodisplay only pulls from sprites, not paint and entities
+                let tileWhichDisplays = w.playSpace.tiles[p.x-1][p.y-1]; // this is a little ugly but oh well, if it is what it takes to remove the visual setEffect() bug
+                if (!(tileWhichDisplays instanceof CageContainer)) throw new Error("The chosen hypnotic display was not a portal tile.")
+                if (tileWhichDisplays.hypnoticScenes) {
+                    for (let h of tileWhichDisplays.hypnoticScenes) tileWhichDisplays.tileCon.removeChild(h); // it can technically be reused, but the hypnodisplay only pulls from sprites, not paint and entities
                 }
                 let gazingInto = this.findWorldByID(p.destination);
                 let gazingPoint = gazingInto.findTelepadByDest(w.id);
                 let zoomSize = 14; //don't touch that! it's not the same as the graphics one
                 let cont = gazingInto.grabSpritesOfSection(gazingPoint.x-zoomSize+1,gazingPoint.y-zoomSize+1,gazingPoint.x+zoomSize,gazingPoint.y+zoomSize);
                 let contSmall = w.grabSpritesOfSection(p.x-zoomSize+1,p.y-zoomSize+1,p.x+zoomSize,p.y+zoomSize);
-                p.tileCon.addChild(cont);
+                tileWhichDisplays.tileCon.addChild(cont);
                 contSmall.width = 64/3;
                 contSmall.height = 64/3;
-                p.tileCon.addChild(contSmall);
-                p.hypnoticScenes = [cont,contSmall];
-                cont.x-=128-((22-gazingPoint.x)/9*64);
-                cont.y-=128-((22-gazingPoint.y)/9*64);
-                contSmall.x += 128/9+((22-p.x)/9*64/9);
-                contSmall.y += 128/9+((22-p.y)/9*64/9);
+                tileWhichDisplays.tileCon.addChild(contSmall);
+                tileWhichDisplays.hypnoticScenes = [cont,contSmall];
+                cont.x-=64-((22-gazingPoint.x)/9*64);
+                cont.y-=64-((22-gazingPoint.y)/9*64);
+                contSmall.x += 128/9+((22-p.x)/9*64/9)+64;
+                contSmall.y += 128/9+((22-p.y)/9*64/9)+64;
             }
         }
     }
