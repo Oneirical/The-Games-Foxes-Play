@@ -5,6 +5,8 @@
 * Swap axiom tile effects to go out and do it all at once at the end
 * Review the tiles display, it is making it impossible to play knockback animations on far knockback effects
 
+* What if: turn infinite loops in souls (2x2 axioms) into the harmony mechanic
+
 **Save and Load**
 
 Save the world gen seed.

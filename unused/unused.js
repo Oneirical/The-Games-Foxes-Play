@@ -1840,7 +1840,6 @@ function toResearchMode(){
         uiDisplayLeft.addChild(world.displayCon);
         uiDisplayRight.addChild(wheel.displayCon);
         uiDisplayRight.addChild(log.displayCon);
-        if (world.getRoom() instanceof SoulCage) wheel.toPaintMode();
     }
 }
 
@@ -1888,7 +1887,6 @@ function toAxiomMode(){
         uiDisplayRight.addChild(log.displayCon);
         uiDisplayRight.removeChild(research.descriptionBox.displayCon);
         uiDisplayRight.removeChild(player.axioms.axiomList.displayCon);
-        if (world.getRoom() instanceof SoulCage) wheel.toPaintMode();
     }
 }
 

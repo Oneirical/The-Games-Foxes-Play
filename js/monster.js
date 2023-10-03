@@ -32,6 +32,12 @@ class Creature{
         }
     }
 
+    getSouls(){
+        let souls = [];
+        for (let i of Object.keys(this.souls)) souls.push(this.souls[i]);
+        return souls;
+    }
+
     setUpAnimation(){
         if (this.animationTick) this.animationTick.destroy();
         this.animationTick = new PIXI.Ticker;
@@ -332,7 +338,6 @@ class Terminal extends Creature{
         this.ability = "";
         this.noloot = true;
         this.fov = 0;
-        this.wheel = new SoulBreathing();
         this.souldropped = true;
     }
 }
@@ -640,19 +645,6 @@ class Ragemaw extends Creature{
         this.ability = monabi["Ragemaw"];
         this.noloot = true;
         this.respawned = false;
-    }
-    die(){
-        let moncount = monsters.filter(mon => mon.name != "Midnight Ragemaw" && !mon.statusEff["Charmed"] > 0);
-        if (moncount.length >= 1 && !this.respawned){
-            let respawn = new Ragemaw(randomPassableTile());
-            monsters.push(respawn);
-            this.respawned = true;
-            super.die();
-        }
-        else{
-            super.die();
-            wheel.addSoul(this.loot);
-        }
     }
 }
 

@@ -573,7 +573,6 @@ class World{
         drawProjectors();
         drawSprites();
         if (areaname.displayCon) areaname.update();
-        wheel.reshuffle();
         animateAll();
     }
 
@@ -962,16 +961,6 @@ class SoulCage extends DefaultVaultRoom{
         this.name = "Soul Cage";
         this.cataloguedis;
         this.currentcat;
-    }
-    initializeRoom(){
-        research.completeResearch("Cage");
-        for(let i=0;i<wheel.wheel.length;i++){
-            if (!(wheel.wheel[i] instanceof Empty)){
-                wheel.subduedSouls.push(wheel.wheel[i]);
-                wheel.wheel[i] = new Empty();
-            }
-        }
-        //wheel.toPaintMode();
     }
 }
 

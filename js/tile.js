@@ -689,7 +689,6 @@ class Altar extends Floor{
         this.offsetX = 0;                                                   
         this.offsetY = 0;
         this.speed = 0.05;
-        this.thrashcounter = 0;
     }
 
     getDisplayX(){                     
@@ -862,7 +861,6 @@ class FloorSoul extends Floor{ //unused
         this.offsetX = 0;                                                   
         this.offsetY = 0;
         this.speed = 0.05;
-        this.thrashcounter = 0;
     }
 
     getDisplayX(){                     
@@ -883,13 +881,6 @@ class CageContainer extends Altar{
         this.value = new Empty();
         this.seq = 0;
         this.spritesave = 0;
-    }
-
-    stepOn(monster){
-        super.stepOn(monster);
-        if(monster.isPlayer){
-            //wheel.toTeleMode();
-        }
     }
 }
 

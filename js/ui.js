@@ -451,39 +451,22 @@ class MessageLog{
     }
 }
 
-class SoulBreathing{
+class InvokeWheel{
     constructor(){
         //this.wheel = [new Empty(),new Empty(),new Empty(),new Empty(),new Empty(),new Empty(),new Empty(),new Empty()];
         let center = [(canvas.height+canvas.width-256)/2-40, 195*canvas.height/900]; //256: minimap height
         this.dist = 100*(7/7);
         let dist = this.dist;
         let pi = Math.PI;
-        this.wheelcoords = [[center[0], center[1]-dist],[center[0]+Math.cos(pi/4)*dist, center[1]-Math.sin(pi/4)*dist],[center[0]+dist, center[1]],[center[0]+Math.cos(pi/4)*dist, center[1]+Math.sin(pi/4)*dist],[center[0], center[1]+dist],[center[0]-Math.cos(pi/4)*dist, center[1]+Math.sin(pi/4)*dist],[center[0]-dist, center[1]],[center[0]-Math.cos(pi/4)*dist, center[1]-Math.sin(pi/4)*dist]];
         dist = 45*(7/7);
         center = [center[0]+28,center[1]+38];
         this.hotkeycoords = [[center[0], center[1]-dist],[center[0]+Math.cos(pi/4)*dist, center[1]-Math.sin(pi/4)*dist],[center[0]+dist, center[1]],[center[0]+Math.cos(pi/4)*dist, center[1]+Math.sin(pi/4)*dist],[center[0], center[1]+dist],[center[0]-Math.cos(pi/4)*dist, center[1]+Math.sin(pi/4)*dist],[center[0]-dist, center[1]],[center[0]-Math.cos(pi/4)*dist, center[1]-Math.sin(pi/4)*dist]];
+    }
 
-        this.subduedSouls = [];
-        this.turbulentSouls = []; //
-        this.exhaustedSouls = [];
-        this.resolve = 3; //update this later with the bonus
-        //this.castes = [new Saintly(),new Ordered(),new Artistic(),new Unhinged(),new Feral(),new Vile()];
-        this.hide = false;
-        this.ipseity = 0;
-        let first = [587, 420];
-        let vert = 52;
-        let hori = 64*5-5;
-        center = [(canvas.height+canvas.width-256)/2-40, 195*canvas.height/900];
-        dist = 100*(7/7);
-        this.circlemotion = {centerX:(canvas.height+canvas.width-256)/2-16, centerY:195*canvas.height/900+24, radius:170};
-        this.paintcoords = [[center[0]+Math.cos(pi/4)*dist, center[1]-Math.sin(pi/4)*dist],[center[0]+dist, center[1]],[center[0]+Math.cos(pi/4)*dist, center[1]+Math.sin(pi/4)*dist],[center[0], center[1]+dist],[center[0]-Math.cos(pi/4)*dist, center[1]+Math.sin(pi/4)*dist],[center[0]-dist, center[1]],[center[0]-Math.cos(pi/4)*dist, center[1]-Math.sin(pi/4)*dist]];
-        this.paintcir = [];
-        for (let i of this.paintcoords) this.paintcir.push({centerX:i[0]+24, centerY:i[1]+24, radius:15});
-        this.currentbrush = 8;
-        this.turbstatus = true;
-        this.castecoords = [first,[first[0]+hori,first[1]],[first[0],first[1]+vert],[first[0]+hori,first[1]+vert],[first[0],first[1]+vert*2],[first[0]+hori,first[1]+vert*2]];
-        //this.turbulentmarkers = [new Feral(),new Feral()];
-        //this.turbulentmarkers[0].turbulent = true;
+    getMacros(){
+        const souls = player.getSouls();
+        let macroQueue = [];
+        for (let i of souls) for (let j of i.commands) macroQueue.push(j);
     }
 
     setUpSprites(){
@@ -491,14 +474,15 @@ class SoulBreathing{
         uiDisplayRight.addChild(this.displayCon);
         drawChainBorder(15,15,this.displayCon);
         let center = [(1885-1410)/2-16,(505-30)/2-16];
-        let dist = 100*(7/7);
+        let dist = 100;
+        let nudge = 1.8;
         let pi = Math.PI;
-        let wheelcoords = [[center[0], center[1]-dist],[center[0]+Math.cos(pi/4)*dist, center[1]-Math.sin(pi/4)*dist],[center[0]+dist, center[1]],[center[0]+Math.cos(pi/4)*dist, center[1]+Math.sin(pi/4)*dist],[center[0], center[1]+dist],[center[0]-Math.cos(pi/4)*dist, center[1]+Math.sin(pi/4)*dist],[center[0]-dist, center[1]],[center[0]-Math.cos(pi/4)*dist, center[1]-Math.sin(pi/4)*dist]];
-        dist = 45*(7/7);
+        let wheelcoords = [[center[0], center[1]-dist*nudge],[center[0]-dist*nudge, center[1]],[center[0]+dist*nudge, center[1]], [center[0], center[1]+dist*nudge],[center[0], center[1]-dist],[center[0]+Math.cos(pi/4)*dist, center[1]-Math.sin(pi/4)*dist],[center[0]+dist, center[1]],[center[0]+Math.cos(pi/4)*dist, center[1]+Math.sin(pi/4)*dist],[center[0], center[1]+dist],[center[0]-Math.cos(pi/4)*dist, center[1]+Math.sin(pi/4)*dist],[center[0]-dist, center[1]],[center[0]-Math.cos(pi/4)*dist, center[1]-Math.sin(pi/4)*dist]];
+        dist = 45;
         this.wheelCon = new PIXI.Container();
         this.displayCon.addChild(this.wheelCon);
         let paintcans = [];
-        for (let i = 0; i<8; i++){
+        for (let i = 0; i<12; i++){
             let newSprite = new FoxSprite(allsprites.textures['icon7']);
             newSprite.width = (7-3)*16;
             newSprite.height = (7-3)*16;
@@ -509,28 +493,10 @@ class SoulBreathing{
             this.wheelCon.addChild(newSprite);
             this.wheelCon.children[i].eventMode = 'static';
             this.wheelCon.children[i].on('click', (event) => {
-                this.selectCan(i);
             });
             this.wheelCon.children[i].on('pointerover', (event) => {
-                if (this.teleMode){
-                    this.destinationText.text = areaNames[i];
-                    const areaStyles = {
-                        1: "lime",
-                        2: "orangered",
-                        3: "orange",
-                        4: "yellow",
-                        5: "yellowgreen",
-                        6: "plum",
-                        7: "cyan",
-                    }
-                    this.destinationText.style.fill = areaStyles[i];
-                }
             });
             this.wheelCon.children[i].on('pointerout', (event) => {
-                if (this.teleMode){
-                    this.destinationText.text = areaNames["Select"];
-                    this.destinationText.style.fill = "white";
-                }
             });
             newSprite.paintCan = new PIXI.Container();
             newSprite.paintCan.eventMode = 'none';
@@ -547,157 +513,6 @@ class SoulBreathing{
         this.displayCon.addChild(this.spinningPile);
     }
 
-    toPaintMode(){
-        this.displayCon.removeChild(this.destinationText);
-        this.inPaint = true;
-        // add "if in harmony paint" statement here
-        //uiDisplayRight.removeChild(log.displayCon);
-        //uiDisplayRight.addChild(this.catalogue.displayCon);
-        //uiDisplayLeft.removeChild(player.axioms.displayCon);
-        //uiDisplayLeft.removeChild(statuses.displayCon);
-        //uiDisplayLeft.addChild(this.craftShow.displayCon);
-        //uiDisplayLeft.addChild(this.inflShow.displayCon);
-        //this.craftShow.updateDisplay();
-        for (let i = 0; i< 8;  i++){
-            let hai = (i-1+58);
-            if (i == 0) hai = 7;
-            this.wheelCon.children[i].texture = allsprites.textures['icon'+hai];
-            if (i!=0) this.wheelCon.children[i].alpha = 0.25;
-            else this.wheelCon.children[i].alpha = 0.5;
-        }
-        let initial =this.bouncySouls.children.length-1;
-        for (let i = initial; i>=0; i--){
-            let can = this.bouncySouls.children[i];
-            can.bounceborder = 32;
-            can.x = 16;
-            can.y = 16;
-            can.width = 16;
-            can.height = 16;
-            can.alpha = 0.5;
-            can.trspeed = 2;
-            this.wheelCon.children[6-can.caste].paintCan.addChild(can);
-        }
-    }
-
-    toTeleMode(){
-        this.teleMode = true;
-        for (let i = 1; i< 8;  i++){
-            if (i == 7) this.wheelCon.children[i].texture = allsprites.textures['sprite'+26];
-            else this.wheelCon.children[i].texture = allsprites.textures['icon'+(i-1)];
-            this.wheelCon.children[i].alpha = 0.5;
-            this.wheelCon.children[i].paintCan.visible = false;
-        }
-        const style = new PIXI.TextStyle({
-            fontFamily: 'Play',
-            fontSize: 18,
-            fill: "white",
-        });
-        this.destinationText = new PIXI.Text(areaNames["Select"],style);
-        this.destinationText.anchor.set(0.5);
-        this.destinationText.x = 220;
-        this.destinationText.y = 400;
-        this.displayCon.addChild(this.destinationText);
-    }
-
-    selectCan(i){
-        if (this.selectedCan != null || i == this.selectedCan) {
-            for (let s of this.wheelCon.children[this.selectedCan].paintCan.children){
-                s.trspeed = 2;
-                s.alpha = 0.5;
-            }
-            if (this.selectedCan != 0 && !this.teleMode) this.wheelCon.children[this.selectedCan].alpha = 0.25;
-            else this.wheelCon.children[this.selectedCan].alpha = 0.5;
-        }
-        if (i == this.selectedCan){
-            this.selectedCan = null;
-            return;
-        }
-        this.selectedCan = i;
-        if (this.selectedCan != 0 && !this.teleMode) this.wheelCon.children[i].alpha = 0.5;
-        else this.wheelCon.children[i].alpha = 1;
-        for (let s of this.wheelCon.children[i].paintCan.children){
-            s.trspeed = 5;
-            s.alpha = 0.8;
-        }
-        if (this.teleMode){
-            player.move(getTile(world.cageCorner[0]+4,world.cageCorner[1]+4))
-        }
-    }
-
-    toNormalMode(){
-        this.inPaint = false;
-        uiDisplayRight.removeChild(this.catalogue.displayCon);
-        uiDisplayRight.addChild(log.displayCon);
-        uiDisplayLeft.addChild(statuses.displayCon);
-        uiDisplayLeft.removeChild(this.craftShow.displayCon);
-        uiDisplayLeft.removeChild(this.inflShow.displayCon);
-        if (this.selectedCan != null) this.selectCan(this.selectedCan);
-        this.selectedCan = null;
-        for (let i = 0; i< 8;  i++){
-            this.wheelCon.children[i].alpha = 1;
-            this.wheelCon.children[i].texture = allsprites.textures['icon7'];
-            let initial = this.wheelCon.children[i].paintCan.children.length-1;
-            for (let k = initial; k>=0; k--){
-                let j = this.wheelCon.children[i].paintCan.children[k];
-                j.x = 194;
-                j.y = 194;
-                j.width = 32;
-                j.height = 32;
-                j.alpha = 0.15;
-                j.trspeed = 5;
-                j.bounceborder = 420;
-                this.bouncySouls.addChild(j);
-            }
-        }
-    }
-
-    reshuffle(){
-        for(let i=0;i<this.exhaustedSouls.length;i++){
-            this.subduedSouls.push(this.exhaustedSouls[i]);
-            this.exhaustedSouls[i] = "deleted";
-        }
-        this.subduedSouls = shuffle(this.subduedSouls);
-        removeItemAll(this.exhaustedSouls,"deleted");
-    }
-
-    countsubduedSoulsSouls(turb){
-        let counts = [0,0,0,0,0,0];
-        for (let k of this.subduedSouls){
-            for (let g of this.castes){
-                if (k.caste == g.caste && k.turbulent == turb) counts[this.castes.indexOf(g)]++;
-            } 
-        }
-        return counts;
-    }
-
-    countDiscardSouls(turb){
-        let counts = [0,0,0,0,0,0];
-        for (let k of this.turbulentSouls){
-            for (let g of this.castes){
-                if (k.caste ==  g.caste && k.turbulent == turb) counts[this.castes.indexOf(g)]++;
-            } 
-        }
-        return counts;
-    }
-
-    countSavedSouls(){
-        let counts = [0,0,0,0,0,0];
-        for (let k of this.exhaustedSouls){
-            for (let g of this.castes){
-                if (k.caste ==  g.caste) counts[this.castes.indexOf(g)]++;
-            } 
-        }
-        return counts;
-    }
-
-    getWheelSpace(){
-        let space = 0;
-        for (let i of this.wheel){
-            if (i instanceof Empty) space++;
-        }
-        return space;
-    }
-
     addSoul(skey,noturb){
         const drops = {
             "Vile" : Vile,
@@ -709,8 +524,6 @@ class SoulBreathing{
         }
         let loot = new drops[skey.name]();
         let caste = Object.keys(drops).indexOf(skey.name);
-        if (!noturb) loot.turbulent = true;
-        this.turbulentSouls.push(loot);
         loot.displayIcon.width = 32;
         loot.displayIcon.height = 32;
         loot.displayIcon.x = 194;
@@ -740,135 +553,6 @@ class SoulBreathing{
             loot.displayIcon.y += loot.displayIcon.diry*loot.displayIcon.trspeed;
         });
         research.completeResearch("Herald");
-    }
-
-    retrieveSoul(override){
-        let measureX = override.x - world.cageCorner[0];
-        let measureY = override.y - world.cageCorner[1];
-        if (world.cage.slots[measureX][measureY] instanceof Empty) return;
-        if (world.cage.slots[measureX][measureY] instanceof Shattered){
-            this.ipseity+= 10;
-            world.cage.slots[measureX][measureY] = new Empty();
-            world.cage.size--;
-            if(world.cage.size > 0) world.cage.generateWorld();
-            else world.cage.displayon = false;
-            research.completeResearch("Shattered");
-            return;
-        }
-        let retrievesuccess = true;
-        if (!world.cage.slots[measureX][measureY].turbulent)research.completeResearch("Subdued");
-        if (basic.includes(world.cage.slots[measureX][measureY].id)){
-            if (world.cage.slots[measureX][measureY].turbulent){
-                this.turbulentSouls.push(world.cage.slots[measureX][measureY]);
-                this.wheelCon.children[7-basic.indexOf(world.cage.slots[measureX][measureY].id)].paintCan.addChild(world.cage.slots[measureX][measureY].displayIcon);
-                let can = world.cage.slots[measureX][measureY].displayIcon; //oh so NOW you assign a variable to that. Fu!
-                can.bounceborder = 32;
-                can.x = 16;
-                can.y = 16;
-                can.width = 16;
-                can.height = 16;
-                can.alpha = 0.5;
-                can.trspeed = 2;
-                if (7-basic.indexOf(world.cage.slots[measureX][measureY].id) == this.selectedCan){
-                    can.trspeed = 5;
-                    can.alpha = 0.8;
-                }
-            }
-            else{
-                this.subduedSouls.push(world.cage.slots[measureX][measureY]);
-                let newSoul = this.subduedSouls[this.subduedSouls.length-1].displayIcon;
-                let startangle = 0;
-                if (this.subduedSouls.length > 1) startangle = this.subduedSouls[this.subduedSouls.length-2].displayIcon.calAngle + 0.1;
-                newSoul.calAngle = startangle;
-                newSoul.width = 16;
-                newSoul.height = 16;
-                newSoul.spinSpeed = 0.01;
-                newSoul.spinDist = 170;
-                app.ticker.add((delta) => {
-                    newSoul.calAngle+= newSoul.spinSpeed;
-                    newSoul.x = newSoul.spinDist*Math.cos(newSoul.calAngle);
-                    newSoul.y = newSoul.spinDist*Math.sin(newSoul.calAngle);
-                });
-                this.spinningPile.addChild(newSoul);
-            } 
-        }
-        else retrievesuccess = player.axioms.addAxiom(world.cage.slots[measureX][measureY]);
-        if (retrievesuccess) {
-            world.cage.slots[measureX][measureY] = new Empty();
-            tiles[measureX][measureY].tickTile(allsprites.textures['sprite110']);
-            world.cage.size--;
-        }
-        if(world.cage.size > 0) world.cage.generateWorld();
-        else world.cage.displayon = false;
-    }
-
-    cycleSouls(){
-        this.exhaustedSouls.push(this.wheel[0]);
-        this.spinningPile.addChild(this.wheel[0].displayIcon);
-        this.wheel[0].displayIcon.spinDist = 30;
-        this.wheel[0] = new Empty();
-        for (let i =0; i<this.wheel.length-1;i++){
-            this.wheel[i] = this.wheel[i+1];
-        }
-        this.wheel[7] = new Empty();
-    }
-
-    resetAngles(){
-        for (let i = 0; i<this.subduedSouls.length; i++){
-            if (i == 0) continue;
-            else this.subduedSouls[i].angle = this.subduedSouls[i-1].angle+0.1;
-        }
-    }
-
-    tickWheel(){
-        if (!world.fighting) return;
-        for (let k of this.wheelCon.children){
-            if (k instanceof FoxSprite){
-                k.texture = this.wheel[this.wheelCon.children.indexOf(k)].displayIcon.texture;
-            }
-        }
-    }
-
-    cageSoul(slot, override){
-        if (!override) override = player.tile;
-        let measureX = override.x - world.cageCorner[0];
-        let measureY = override.y - world.cageCorner[1];
-        const choices = [Saintly, Ordered, Artistic, Unhinged, Feral, Vile, Serene];
-        let soulType = choices[slot-1];
-        let soul;
-        if (!soulType){
-            this.retrieveSoul(override);
-            return;
-        }
-        for (let i of this.turbulentSouls) if (i instanceof soulType){ 
-            soul = i; 
-            break;
-        }
-        if (soul){
-            if (!(world.cage.slots[measureX][measureY] instanceof Empty)){
-                this.retrieveSoul(override);
-            }
-            removeItemOnce(this.turbulentSouls,soul);
-            soul.cageX = measureX;
-            soul.cageY = measureY;
-            world.cage.slots[measureX][measureY] = soul;
-            world.cage.size++;
-            if(world.cage.size > 0) world.cage.generateWorld();
-            research.completeResearch("Turbulent");
-            research.completeResearch("Brush");
-            if (this.wheelCon.children[slot].paintCan.children.length > 0) this.wheelCon.children[slot].paintCan.removeChildAt(0);
-            override.tickTile();
-        }
-    }
-
-    lookForSoul(type, turbulent){
-        for (let i = 0; i < this.turbulentSouls.length; i++){
-            if (this.turbulentSouls[i].id == type && this.turbulentSouls[i].turbulent == turbulent) return ["turbulentSouls",i];
-        }
-        for (let i = 0; i < this.subduedSouls.length; i++){
-            if (this.subduedSouls[i].id == type && this.subduedSouls[i].turbulent == turbulent) return ["subduedSouls",i];
-        }
-        return false;
     }
 }
 
@@ -1096,37 +780,26 @@ class SoulTree{
 class Soul{
     constructor(name,owner){
         this.id = name;
-        this.name = soulname[name];
-        this.icon;
-        this.lore = souldesc[name];
         this.caste;
-        this.command = "S";
-        this.influence = "A";
-        this.subdescript = soulabi[name];
-        this.glamdescript;
-        this.hardescript;
-        this.alpha = 1;
-        this.turbulent = false;
-        this.index = 0;
-        this.triggers = false;
-        this.chosen = false;
+
+
         this.offsetX = 0;      
         this.shattered = false;                                             
         this.offsetY = 0;
         this.spinSpeed = 0.05;
-        this.thrashcounter = 0;
         this.x = 0;
         this.y = 0;
         this.speed = 0.01;
         this.angle = 0;
 
         this.contingencies = [];
+        this.commands = [];
         this.axioms = [];
         this.owner = owner;
         if (!this.owner) this.owner = "None";
         if (["EMPTY","VILE","FERAL","UNHINGED","ARTISTIC","ORDERED","SAINTLY"].includes(name)) return;
         this.setUpAxioms();
-        this.findContingencies();
+        this.findBindings();
     }
 
     setUpSprites(){
@@ -1244,7 +917,7 @@ class Soul{
             }
         }
         newSoul.setUpSprites();
-        newSoul.findContingencies();
+        newSoul.findBindings();
         return newSoul;
     }
 
@@ -1268,10 +941,12 @@ class Soul{
         return found;
     }
 
-    findContingencies(){
+    findBindings(){
         for (let i = 0; i<5; i++){
             for (let j = 0; j<5; j++){
                 if(this.axioms[i][j].contingency) this.contingencies.push(this.axioms[i][j]);
+                if(this.axioms[i][j] instanceof RadioReceiver && this.axioms[i][j].storage && this.axioms[i][j].storage.length === 1) this.commands.push(this.axioms[i][j].storage);
+
             }
         }
     }
@@ -1433,24 +1108,6 @@ class Soul{
         printOutText(this.subdescript, 18, 590, 110, "white", 20, 6*64-35);
         //printOutText(this.lore, 18, 10, 600, colours[this.id], 20, 690);
         drawSymbol(this.icon, 890, 20, 64);
-    }
-
-    thrash(x, y, size){
-        if (!this.turbulent) drawSymbol(this.icon, x, y,size);
-        else{
-            this.thrashcounter++;
-            if (this.thrashcounter > 10){
-                let rt = randomRange(1,4);
-                if (rt == 1) this.offsetX+= 0.1;
-                else if (rt == 2) this.offsetX-= 0.1;
-                else if (rt == 3)this.offsetY+= 0.1;
-                else if (rt == 4)this.offsetY-= 0.1;
-                this.thrashcounter = 0;
-            }
-            drawSymbol(this.icon, x+this.offsetX*size,  y + this.offsetY*size,size);
-            this.offsetX -= Math.sign(this.offsetX)*(this.speed);     
-            this.offsetY -= Math.sign(this.offsetY)*(this.speed);
-        }
     }
 
     describeWheel(){

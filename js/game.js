@@ -108,7 +108,7 @@ function startGame(){
     numTiles = 9;
     areaname = new LocationDisplay();
     buttons = new ButtonsDisplay();
-    wheel = new SoulBreathing(); //should belong to entity
+    wheel = new InvokeWheel(); //should belong to entity
     universe = new Universe();
     log = new MessageLog();
     soulTree = new SoulTree();
