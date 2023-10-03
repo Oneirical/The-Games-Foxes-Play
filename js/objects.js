@@ -33,11 +33,11 @@ class ClickTrap{
         this.trapImg = new FoxSprite(allsprites.textures["sprite12"]);
         this.trapImg.width = 112;
         this.trapImg.height = 112;
-        this.tile.tilecon.addChild(this.trapImg);
+        this.tile.tileCon.addChild(this.trapImg);
     }
 
     destroy(){
-        this.tile.tilecon.removeChild(this.trapImg);
+        this.tile.tileCon.removeChild(this.trapImg);
     }
 
     trigger(){

@@ -1976,7 +1976,7 @@ class Research{
                         candidates.push(this.tabs[k][g.x+x[0]][g.y+x[1]]);
                         this.tabs[k][g.x+x[0]][g.y+x[1]].fuffified = true;
                         if (this.tabs[k][g.x+x[0]][g.y+x[1]] instanceof ResearchNode){
-                            this.tabs[k][g.x+x[0]][g.y+x[1]].tilecon.alpha = 1;
+                            this.tabs[k][g.x+x[0]][g.y+x[1]].tileCon.alpha = 1;
                             this.tabs[k][g.x+x[0]][g.y+x[1]].discovered = true;
                             this.tabs[k][g.x+x[0]][g.y+x[1]].completed = true;
                             this.influence["Serene"]++;
@@ -1985,8 +1985,8 @@ class Research{
                             this.tabs[k][g.x+x[0]][g.y+x[1]].spriteDisplay.texture = allsprites.textures['sprite150'];
                         }
                         else{
-                            this.tabs[k][g.x+x[0]][g.y+x[1]].tilecon.alpha = 1;
-                            this.tabs[k][g.x+x[0]][g.y+x[1]].tilecon.filters = [];
+                            this.tabs[k][g.x+x[0]][g.y+x[1]].tileCon.alpha = 1;
+                            this.tabs[k][g.x+x[0]][g.y+x[1]].tileCon.filters = [];
                             this.tabs[k][g.x+x[0]][g.y+x[1]].spriteDisplay.texture = allsprites.textures['sprite'+(this.tabs[k][g.x+x[0]][g.y+x[1]].sprite+30)];
                         }
                     }
@@ -1997,14 +1997,14 @@ class Research{
     }
 
     goopSpread(k,i,j){
-        this.tabs[k][i][j].tilecon.alpha = 1;
+        this.tabs[k][i][j].tileCon.alpha = 1;
         this.tabs[k][i][j].spriteDisplay.texture = allsprites.textures['sprite'+this.tabs[k][i][j].sprite];
         let goo = [];
         const neig = [[-1,0],[1,0],[0,1],[0,-1]];
         for (let x of neig){
             if (this.tabs[k][i+x[0]] && this.tabs[k][i+x[0]][j+x[1]]) goo.push(this.tabs[k][i+x[0]][j+x[1]]);
         }
-        goo = goo.filter(t => t instanceof ResearchConnector && t.tilecon.alpha != 1);
+        goo = goo.filter(t => t instanceof ResearchConnector && t.tileCon.alpha != 1);
         while (goo.length){
             for (let g of goo){
                 if (!(g instanceof ResearchConnector)){
@@ -2022,9 +2022,9 @@ class Research{
                         }
                     }
                 }
-                goo = goo.filter(t => t instanceof ResearchConnector && t.tilecon.alpha != 1);
-                g.tilecon.alpha = 1;
-                g.tilecon.filters = [];
+                goo = goo.filter(t => t instanceof ResearchConnector && t.tileCon.alpha != 1);
+                g.tileCon.alpha = 1;
+                g.tileCon.filters = [];
             }
             if (goo.length > 20) return "uh oh";
         }

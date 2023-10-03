@@ -15,7 +15,7 @@ class Tile{
         this.fuffified = false;
         this.clickTrap = false;
         this.spellDirection = false;
-        this.tilecon = new PIXI.Container();
+        this.tileCon = new PIXI.Container();
         this.graphicsReady = false;
         this.paint = false;
     }
@@ -28,14 +28,15 @@ class Tile{
     }
 
     setUpSprite(){
-        if (this instanceof CageContainer) return;
-        this.tilecon = new PIXI.Container();
-        //tilesDisplay.notPlayerTiles.addChild(this.tilecon);
-        //this.tilecon.x = (96*2/3*8)-(player.tile.x-this.x)*tileSize;
-        //this.tilecon.y = (96*2/3*8)-(player.tile.y-this.y)*tileSize;
+        //if (this instanceof CageContainer) return;
+        if (this.tileCon.children.length == 0) this.tileCon = new PIXI.Container();
+        //tilesDisplay.notPlayerTiles.addChild(this.tileCon);
+        //this.tileCon.x = (96*2/3*8)-(player.tile.x-this.x)*tileSize;
+        //this.tileCon.y = (96*2/3*8)-(player.tile.y-this.y)*tileSize;
         let hai = this.sprite;
         let newSprite;
-        if (this.sprite == 2){
+        if (this instanceof CageContainer){}
+        else if (this.sprite == 2){
             newSprite = new PIXI.Graphics();
             newSprite.beginFill("black");
             newSprite.drawRect(0, 0, tileSize, tileSize);
@@ -48,19 +49,19 @@ class Tile{
             newSprite.height = tileSize;
         }
         if (newSprite){
-            this.tilecon.addChild(newSprite);
+            this.tileCon.addChild(newSprite);
             this.spriteDisplay = newSprite;
         }        
 
         //add traps here
-        drawHitbox(tileSize/2, tileSize/2,tileSize,this.tilecon);
-        this.hitBox = this.tilecon.children[this.tilecon.children.length-1];
-        this.tilecon.eventMode = 'static';
-        this.tilecon.on('pointerover', (event) => {
+        drawHitbox(tileSize/2, tileSize/2,tileSize,this.tileCon);
+        this.hitBox = this.tileCon.children[this.tileCon.children.length-1];
+        this.tileCon.eventMode = 'static';
+        this.tileCon.on('pointerover', (event) => {
             this.hitBox.alpha = 0.4;
             //if (this.souls) for (let i of this.souls) i.absorbSoul(this,player); //debug
         });
-        this.tilecon.on('pointerdown', (event) => {
+        this.tileCon.on('pointerdown', (event) => {
             if (this.monster){
                 console.log(this.monster);
                 soulTree.updateSlots(this.monster);
@@ -68,7 +69,7 @@ class Tile{
                 if (wheel.currentSoulDisplayed) wheel.displayCon.removeChild(wheel.currentSoulDisplayed.displayCon);
             }
         });
-        this.tilecon.on('pointerout', (event) => {
+        this.tileCon.on('pointerout', (event) => {
             this.hitBox.alpha = 0;
         });
         this.effect = false;
@@ -80,7 +81,7 @@ class Tile{
             if (i.effect){
                 i.effect.alpha -= 0.02;
                 if (i.effect.alpha <= 0){
-                    i.tilecon.removeChild(i.effect);
+                    i.tileCon.removeChild(i.effect);
                     i.effect = false;
                 }
             }
@@ -92,13 +93,13 @@ class Tile{
         let hai = this.sprite;
         if (hai == 2) return;
         let newSprite = new FoxSprite(allsprites.textures['sprite'+hai]);
-        this.tilecon.x = this.x*64;
-        this.tilecon.y = this.y*64;
+        this.tileCon.x = this.x*64;
+        this.tileCon.y = this.y*64;
         newSprite.width = 64;
         newSprite.height = 64;
-        this.tilecon.addChild(newSprite);
+        this.tileCon.addChild(newSprite);
         this.spriteDisplay = newSprite;
-        source.addChild(this.tilecon);
+        source.addChild(this.tileCon);
     }
 
     tickTile(newTex){
@@ -115,10 +116,10 @@ class Tile{
     }
 
     replace(newTileType){
-        tilesDisplay.removeChild(tiles[this.x][this.y].tilecon);
+        tilesDisplay.removeChild(tiles[this.x][this.y].tileCon);
         tiles[this.x][this.y] = new newTileType(this.x, this.y);
         tiles[this.x][this.y].setUpSprite();
-        tilesDisplay.setChildIndex(tiles[this.x][this.y].tilecon,0);
+        tilesDisplay.setChildIndex(tiles[this.x][this.y].tileCon,0);
         return tiles[this.x][this.y];
     }
 
@@ -220,18 +221,18 @@ class Tile{
         for (let i of this.souls){
             i.owner.creaturecon.x = 0;
             i.owner.creaturecon.y = 0;
-            this.tilecon.addChild(i.owner.creaturecon);
+            this.tileCon.addChild(i.owner.creaturecon);
             i.owner.creaturecon.alpha = 0.5;
             //new GlitchSprite(i.owner.creaturecon,3); // a little too laggy perhaps
         }
     }
 
     setEffect(effectSprite){
-        this.tilecon.removeChild(this.effect);             
+        this.tileCon.removeChild(this.effect);             
         this.effect = new FoxSprite(allsprites.textures["sprite"+effectSprite]);
         this.effect.width = 64;
         this.effect.height = 64;
-        this.tilecon.addChild(this.effect);
+        this.tileCon.addChild(this.effect);
     }
 
     checkDirection(room){
@@ -603,7 +604,7 @@ class Airlock extends Tile{
     setUpSprite(){
         this.doorTiles = new PIXI.Container();
         super.setUpSprite();
-        this.tilecon.addChild(this.doorTiles);
+        this.tileCon.addChild(this.doorTiles);
         let door;
         for (let i = 0; i<2; i++){
             door = new FoxSprite(allsprites.textures['sprite'+(17)]);
@@ -621,9 +622,9 @@ class Airlock extends Tile{
             door.rotation = rotate[this.direction];
             this.doorTiles.addChild(door);
         }
-        drawPixel("black",0,0,tileSize,this.tilecon);
-        this.tilecon.children[this.tilecon.children.length-1].alpha = 0;
-        this.tilecon.mask = this.tilecon.children[this.tilecon.children.length-1];
+        drawPixel("black",0,0,tileSize,this.tileCon);
+        this.tileCon.children[this.tileCon.children.length-1].alpha = 0;
+        this.tileCon.mask = this.tileCon.children[this.tileCon.children.length-1];
         this.doorAnim = new PIXI.Ticker();
         this.doorAnim.start();
         this.doorAnim.add(() => {
@@ -926,13 +927,13 @@ class ResearchConnector extends Floor{
     setUpResearch(source){
         super.setUpResearch(source);
         if (this.connectType == "J"){
-            this.tilecon.rotation = Math.PI;
-            this.tilecon.x += 64;
-            this.tilecon.y += 64;
+            this.tileCon.rotation = Math.PI;
+            this.tileCon.x += 64;
+            this.tileCon.y += 64;
         }
         let wai = new PIXI.filters.GrayscaleFilter();
-        this.tilecon.filters = [wai];
-        this.tilecon.alpha = 0.3;
+        this.tileCon.filters = [wai];
+        this.tileCon.alpha = 0.3;
     }
 }
 
@@ -1047,7 +1048,7 @@ class ResearchNode extends Floor{
     discoverNode(){
         if (this.id == "Vision" && !(research.knownnodes.includes("Seed") && research.knownnodes.includes("Brush"))) return;
         else if (this.id == "Axioms" && !(research.knownnodes.includes("Form") && research.knownnodes.includes("Function"))) return;
-        this.tilecon.alpha = 1;
+        this.tileCon.alpha = 1;
         this.discovered = true;
         if (this.axiomComponent) this.innerSymbol.texture = (allsprites.textures['icon'+inside[this.id]]);
         if (this.page > 0 && !research.knownSpells.includes(this.id)) research.knownSpells.push(this.id);
@@ -1078,9 +1079,9 @@ class ResearchNode extends Floor{
         newSprite.width = 48;
         newSprite.x = 8;
         newSprite.y = 8;
-        this.tilecon.alpha = 0.3;
+        this.tileCon.alpha = 0.3;
         newSprite.height = 48;
-        this.tilecon.addChild(newSprite);
+        this.tileCon.addChild(newSprite);
         this.innerSymbol = newSprite;
         super.setUpResearch(source);
         this.spriteDisplay.eventMode = 'static';
@@ -1088,10 +1089,10 @@ class ResearchNode extends Floor{
             research.descriptionBox.getDescription(this);
             let wai = new PIXI.filters.GlowFilter();
             wai.outerStrength = 1;
-            this.tilecon.filters = [wai];
+            this.tileCon.filters = [wai];
         });
         this.spriteDisplay.on('pointerout', (event) => {
-            this.tilecon.filters = [];
+            this.tileCon.filters = [];
         });
     }
 }

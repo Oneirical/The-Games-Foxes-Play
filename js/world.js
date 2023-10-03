@@ -55,17 +55,17 @@ class Universe{
         for (let w of this.worlds){
             for (let p of w.establishedPaths){
                 if (p.hypnoticScenes) {
-                    for (let h of p.hypnoticScenes) p.tilecon.removeChild(h); // it can technically be reused, but the hypnodisplay only pulls from sprites, not paint and entities
+                    for (let h of p.hypnoticScenes) p.tileCon.removeChild(h); // it can technically be reused, but the hypnodisplay only pulls from sprites, not paint and entities
                 }
                 let gazingInto = this.findWorldByID(p.destination);
                 let gazingPoint = gazingInto.findTelepadByDest(w.id);
                 let zoomSize = 14;
                 let cont = gazingInto.grabSpritesOfSection(gazingPoint.x-zoomSize+1,gazingPoint.y-zoomSize+1,gazingPoint.x+zoomSize,gazingPoint.y+zoomSize);
                 let contSmall = w.grabSpritesOfSection(p.x-zoomSize+1,p.y-zoomSize+1,p.x+zoomSize,p.y+zoomSize);
-                p.tilecon.addChild(cont);
+                p.tileCon.addChild(cont);
                 contSmall.width = 64/3;
                 contSmall.height = 64/3;
-                p.tilecon.addChild(contSmall);
+                p.tileCon.addChild(contSmall);
                 p.hypnoticScenes = [cont,contSmall];
                 cont.x-=128-((22-gazingPoint.x)/9*64);
                 cont.y-=128-((22-gazingPoint.y)/9*64);

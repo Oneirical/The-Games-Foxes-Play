@@ -318,7 +318,7 @@ class ClearPaint extends Axiom{
     act(data){
         for (let i of data["targets"]){
             i.paint = false;
-            i.tilecon.removeChild(i.paintDisplay);
+            i.tileCon.removeChild(i.paintDisplay);
         }
         return data;
     }
@@ -333,8 +333,8 @@ class PaintTile extends Axiom{
     act(data){
         for (let i of data["targets"]){
             i.paint = this.storage;
-            drawPixel(this.storage,0,0,tileSize,i.tilecon);
-            i.paintDisplay = i.tilecon.children[i.tilecon.children.length-1];
+            drawPixel(this.storage,0,0,tileSize,i.tileCon);
+            i.paintDisplay = i.tileCon.children[i.tileCon.children.length-1];
         }
         return data;
     }
