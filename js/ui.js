@@ -1383,6 +1383,7 @@ class Soul{
             let currentSynapse = data[0];
             let i = currentSynapse["synapses"][0];
             currentSynapse = i.act(currentSynapse);
+            currentSynapse["targets"] = [...new Set(currentSynapse["targets"])]; // remove duplicates
             this.owner.trigger(i.constructor.name); // for triggerwatch contingency
             let additions = [];
             for (let r of this.getLogicNeighbours(i)) additions.push(r);

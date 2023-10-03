@@ -222,7 +222,7 @@ class Tile{
             i.owner.creaturecon.y = 0;
             this.tilecon.addChild(i.owner.creaturecon);
             i.owner.creaturecon.alpha = 0.5;
-            new GlitchSprite(i.owner.creaturecon,3);
+            //new GlitchSprite(i.owner.creaturecon,3); // a little too laggy perhaps
         }
     }
 

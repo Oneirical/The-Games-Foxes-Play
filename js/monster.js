@@ -82,6 +82,7 @@ class Creature{
                         if (this.offsetY > 0) this.creaturecon.y -= 64;
                         else if (this.offsetY < 0) this.creaturecon.y += 64;
                     }
+                    tickProjectors();
                 }
 
             }

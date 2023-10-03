@@ -83,7 +83,7 @@ const logicMaps = {
         1 : "....F",
         2 : "RPE.E",
         3 : "..A.X",
-        4 : "..W.S",
+        4 : ".KW.S",
         "keys" : {
             "T" : new TriggerWatch("MoveFunction"),
             "M" : new MomentumTarget(),
@@ -97,6 +97,7 @@ const logicMaps = {
             "R" : new RadioReceiver("1"),
             "P" : new PlusForm(),
             "A" : new EgoFilter(),
+            "K" : new RadioBroadcaster("EON"),
         }
     },
     "ElectroCoil" : {
