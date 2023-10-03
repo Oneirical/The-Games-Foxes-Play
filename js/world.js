@@ -20,9 +20,9 @@ class Universe{
             this.worlds[x].worldBuilding();
         }
         assignSouls();
+        this.placeHypnoDisplays(); // that was an adventure, wasn't it? I'm proud of you. Fu!
         drawTiles();
         drawSprites();
-        this.placeHypnoDisplays(); // that was an adventure, wasn't it? I'm proud of you. Fu!
     }
 
     composeLinks(){
@@ -59,7 +59,7 @@ class Universe{
                 }
                 let gazingInto = this.findWorldByID(p.destination);
                 let gazingPoint = gazingInto.findTelepadByDest(w.id);
-                let zoomSize = 14;
+                let zoomSize = 14; //don't touch that! it's not the same as the graphics one
                 let cont = gazingInto.grabSpritesOfSection(gazingPoint.x-zoomSize+1,gazingPoint.y-zoomSize+1,gazingPoint.x+zoomSize,gazingPoint.y+zoomSize);
                 let contSmall = w.grabSpritesOfSection(p.x-zoomSize+1,p.y-zoomSize+1,p.x+zoomSize,p.y+zoomSize);
                 p.tileCon.addChild(cont);
