@@ -65,7 +65,9 @@ class NodeDescription{
             case "Species":
                 return "Species: "+creaturePresentation[dataAnswer]["name"];
             case "Tile":
-                return "Tile: "+dataAnswer.name+" at X: "+dataAnswer.x+" and Y: "+dataAnswer.y; //edit this
+                const tile = getTileInUniverse(dataAnswer);
+                const worldLevel = universe.worlds[dataAnswer.split(';')[0]];
+                return "Tile: "+tile.name+" at X: "+tile.x+" and Y: "+tile.y+" in the "+worldNames[worldLevel.id]; //edit this
             default:
                 return "Nothing.";
         }
