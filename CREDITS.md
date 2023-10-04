@@ -26,6 +26,11 @@ Copyright (c) Brian Grinstead, http://briangrinstead.com
 A* Algorithm is licensed under the MIT License.
 http://www.opensource.org/licenses/mit-license
 
+lz string compressor
+Copyright (c) 2013 pieroxy
+lz string compressor is licensed under the MIT License.
+http://www.opensource.org/licenses/mit-license
+
 PIXI.js
 Copyright (c) 2013-2023 Mathew Groves, Chad Engler
 pixi.js is licensed under the MIT License.
