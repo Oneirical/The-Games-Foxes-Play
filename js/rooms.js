@@ -81,8 +81,8 @@ const logicMaps = {
     "OrderedStarter" : {
         0 : "TMDBW",
         1 : "....F",
-        2 : "EPR.E",
-        3 : "A...X",
+        2 : "EPN.E",
+        3 : "A.R.X",
         4 : "WK.NS",
         "keys" : {
             "T" : new TriggerWatch("MoveFunction"),
@@ -94,11 +94,12 @@ const logicMaps = {
             "E" : new ExpandTargets(),
             "X" : new DamageDealer(1),
             "S" : new ScreenShake(20),
+
             "R" : new RadioReceiver("1"),
             "P" : new PlusForm(),
             "A" : new EgoFilter(),
             "K" : new RadioBroadcaster("EON"),
-            "N" : new DisableEffects(),
+            "N" : new ShowEffects(),
         }
     },
     "ElectroCoil" : {
@@ -399,11 +400,11 @@ const logicMaps = {
         }
     },
     "Terminal" : {
-        0 : "VTMNW",
-        1 : "M....",
-        2 : "OARDE",
-        3 : "....M",
-        4 : "SsMTV",
+        0 : "MTMNW",
+        1 : "O....",
+        2 : "A.R.D",
+        3 : "....E",
+        4 : "SsMTM",
         "keys" : {
             "W" : new RadioReceiver("W"),
             "A" : new RadioReceiver("A"),
@@ -414,7 +415,6 @@ const logicMaps = {
             "O" : new FormDir("W"),
             "E" : new FormDir("E"),
             "S" : new RadioReceiver("S"),
-            "V" : new VoidTargets(),
 
             "s" : new FormDir("S"),
             "R" : new RealityAnchor(),

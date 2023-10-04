@@ -140,6 +140,16 @@ function getTile(x, y){
     else return false;
 }
 
+function getTileInUniverse(str){
+    const tileIndex = str.split(';');
+    if (!universe.worlds[tileIndex[0]]) throw new Error("Out of bounds tile in a Tile Axiom.");
+    const depth = universe.worlds[tileIndex[0]].playSpace.tiles;
+    const x = tileIndex[1];
+    const y = tileIndex[2];
+    if (!depth[x] || !depth[x][y]) throw new Error("Out of bounds tile in a Tile Axiom.");
+    else return depth[x][y];
+}
+
 function randomPassableTile(){
     let tile;
     tryTo('get random passable tile', function(){

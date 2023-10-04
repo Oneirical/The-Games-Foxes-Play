@@ -41,11 +41,12 @@ class RealityAnchor extends Axiom{
     }
 }
 
-class DisableEffects extends Axiom{
+class ShowEffects extends Axiom{
     constructor(){
         super();
     }
     act(data){
+        data["showEffects"] = true;
         return data;
     }
 }
@@ -559,12 +560,12 @@ class FormTile extends Axiom{
     }
 
     translate(){
-        if (this.storage == "ScarabWaypoint") this.storage = getTile(world.waypointLocation[0],world.waypointLocation[1]);
+        if (this.storage == "ScarabWaypoint") this.storage = world.layer+";"+world.waypointLocation[0]+";"+world.waypointLocation[1];
     }
 
     act(data){
         if (!this.storage) return data;
-        let dest = this.storage;
+        let dest = getTileInUniverse(this.storage);
         data["targets"].push(dest);
         if (!dest) throw new Error("An undefined tile was pushed to targets.");
         return data;
