@@ -455,14 +455,10 @@ class MessageLog{
 
 class InvokeWheel{
     constructor(){
-        //this.wheel = [new Empty(),new Empty(),new Empty(),new Empty(),new Empty(),new Empty(),new Empty(),new Empty()];
-        let center = [(canvas.height+canvas.width-256)/2-40, 195*canvas.height/900]; //256: minimap height
-        this.dist = 100*(7/7);
-        let dist = this.dist;
-        let pi = Math.PI;
-        dist = 45*(7/7);
-        center = [center[0]+28,center[1]+38];
-        this.hotkeycoords = [[center[0], center[1]-dist],[center[0]+Math.cos(pi/4)*dist, center[1]-Math.sin(pi/4)*dist],[center[0]+dist, center[1]],[center[0]+Math.cos(pi/4)*dist, center[1]+Math.sin(pi/4)*dist],[center[0], center[1]+dist],[center[0]-Math.cos(pi/4)*dist, center[1]+Math.sin(pi/4)*dist],[center[0]-dist, center[1]],[center[0]-Math.cos(pi/4)*dist, center[1]-Math.sin(pi/4)*dist]];
+        //let pi = Math.PI;
+        //dist = 45;
+        //let center = [center[0]+28,center[1]+38];
+        //this.hotkeycoords = [[center[0], center[1]-dist],[center[0]+Math.cos(pi/4)*dist, center[1]-Math.sin(pi/4)*dist],[center[0]+dist, center[1]],[center[0]+Math.cos(pi/4)*dist, center[1]+Math.sin(pi/4)*dist],[center[0], center[1]+dist],[center[0]-Math.cos(pi/4)*dist, center[1]+Math.sin(pi/4)*dist],[center[0]-dist, center[1]],[center[0]-Math.cos(pi/4)*dist, center[1]-Math.sin(pi/4)*dist]];
     }
 
     getMacros(){
@@ -504,10 +500,15 @@ class InvokeWheel{
             this.wheelCon.addChild(newSprite);
             this.wheelCon.children[i].eventMode = 'static';
             this.wheelCon.children[i].on('click', (event) => {
+                if (this.wheelCon.children[i].bindingKey) playerInput(this.wheelCon.children[i].bindingKey);
             });
             this.wheelCon.children[i].on('pointerover', (event) => {
+                let wai = new PIXI.filters.GlowFilter();
+                wai.outerStrength = 1;
+                this.wheelCon.children[i].filters = [wai];
             });
             this.wheelCon.children[i].on('pointerout', (event) => {
+                this.wheelCon.children[i].filters = [];
             });
         }
         this.bouncySouls = new PIXI.ParticleContainer();

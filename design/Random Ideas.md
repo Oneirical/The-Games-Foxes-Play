@@ -6,6 +6,7 @@
 * Review the tiles display, it is making it impossible to play knockback animations on far knockback effects
 
 * What if: turn infinite loops in souls (2x2 axioms) into the harmony mechanic
+* Return soul absorption as spinning circles of tiny caste icons on tiles
 
 **Save and Load**
 

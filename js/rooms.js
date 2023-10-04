@@ -410,10 +410,10 @@ const logicMaps = {
             "W" : new RadioReceiver("W"),
             "A" : new RadioReceiver("A"),
             "D" : new RadioReceiver("D"),
-            "1" : new DefineIcon(59),
+            "1" : new DefineIcon(58),
             "2" : new DefineIcon(60),
-            "3" : new DefineIcon(61),
-            "4" : new DefineIcon(62),
+            "3" : new DefineIcon(59),
+            "4" : new DefineIcon(61),
 
             "N" : new FormDir("N"),
             "O" : new FormDir("W"),
