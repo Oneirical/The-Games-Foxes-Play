@@ -83,7 +83,7 @@ const logicMaps = {
         1 : "....F",
         2 : "EPN.E",
         3 : "A.R.X",
-        4 : "WK.NS",
+        4 : "WKINS",
         "keys" : {
             "T" : new TriggerWatch("MoveFunction"),
             "M" : new MomentumTarget(),
@@ -95,6 +95,7 @@ const logicMaps = {
             "X" : new DamageDealer(1),
             "S" : new ScreenShake(20),
 
+            "I" : new DefineIcon(28),
             "R" : new RadioReceiver("1"),
             "P" : new PlusForm(),
             "A" : new EgoFilter(),
@@ -401,16 +402,19 @@ const logicMaps = {
     },
     "Terminal" : {
         0 : "MTMNW",
-        1 : "O....",
-        2 : "A.R.D",
-        3 : "....E",
+        1 : "O...1",
+        2 : "A2R3D",
+        3 : "4...E",
         4 : "SsMTM",
         "keys" : {
             "W" : new RadioReceiver("W"),
             "A" : new RadioReceiver("A"),
             "D" : new RadioReceiver("D"),
-            //"C" : new ContinKeypress("Click"),
-            //"F" : new FormTile()
+            "1" : new DefineIcon(59),
+            "2" : new DefineIcon(60),
+            "3" : new DefineIcon(61),
+            "4" : new DefineIcon(62),
+
             "N" : new FormDir("N"),
             "O" : new FormDir("W"),
             "E" : new FormDir("E"),

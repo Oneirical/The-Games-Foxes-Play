@@ -75,6 +75,8 @@ function beginEverything(){
     log.setUpLog();
     sideTooltip.setUpSprites();
 
+    wheel.getMacros();
+
     let tilesChains = new PIXI.Container();
     app.stage.addChild(tilesChains);
     tilesChains.x = (1920-16*16*7)/2+(7+12)*16+8;

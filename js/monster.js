@@ -38,6 +38,15 @@ class Creature{
         return souls;
     }
 
+    addSoulAtCaste(caste, soul){
+        this.souls[caste] = soul;
+        if (this === player) wheel.getMacros();
+    }
+    
+    addSoul(soul){
+        this.addSoulAtCaste(this.findFirstEmptySlot(), soul);
+    }
+
     setUpAnimation(){
         if (this.animationTick) this.animationTick.destroy();
         this.animationTick = new PIXI.Ticker;
@@ -157,64 +166,12 @@ class Creature{
         this.updateHp();
     }
 
-    useAbility(spellName){
-        spells[spellName]();
-    }
-
     getDisplayX(){                     
         return this.tile.x + this.offsetX;
     }
 
     getDisplayY(){                                                                  
         return this.tile.y + this.offsetY;
-    }
-
-    knockback(power, direction, antisuicide){
-        let recallcheck = false;
-        for(let i=0;i<numTiles;i++){
-            for(let j=0;j<numTiles;j++){
-                if (getTile(i,j).recallpoint) recallcheck = getTile(i,j);
-            }
-        }
-        if (recallcheck && this.isPlayer){
-            this.move(recallcheck);
-            recallcheck.recallpoint = false;
-            spells["ARTTRIGGERS"](this);
-            return;
-        }
-        let soulSpawn = this.tile;
-        let newTile = this.tile;
-        let testTile = newTile;
-        let collision = false;
-        this.soulstun += 3;
-        while(power > 0){
-            testTile = newTile.getNeighbor(direction[0],direction[1]);
-            if(testTile.passable && !testTile.monster){
-                newTile = testTile;
-                power--;
-            }else{
-                if (!testTile.passable) collision = true;
-                break;
-            }
-        }
-        if (!this.souldropped){
-            let testSoul = new DroppedSoul(soulSpawn,this.loot.name,this);
-            droppedsouls.push(testSoul);
-            this.souldropped = true;
-        }
-        if(true){
-            if (!(testTile instanceof AbazonWall)) this.move(newTile);
-            else if (!antisuicide){
-                this.hit(99);
-                this.sprite = 83;
-            }
-            else this.move(newTile);
-            if (collision){
-                this.soulstun += power*2;
-                return true;
-            }
-        }
-        return false;
     }
 
     drawHp(){

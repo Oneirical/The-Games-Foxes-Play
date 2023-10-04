@@ -466,9 +466,17 @@ class InvokeWheel{
     }
 
     getMacros(){
+        if (!this.activeButtons) return;
         const souls = player.getSouls();
-        let macroQueue = [];
-        for (let i of souls) for (let j of i.commands) macroQueue.push(j);
+        let filledButtons = 0;
+        for (let i of souls){
+            if (!i) continue;
+            for (let j of Object.keys(i.commands)){
+                this.activeButtons[filledButtons].bindingKey = j;
+                this.activeButtons[filledButtons].texture = allsprites.textures['icon'+i.commands[j]];
+                filledButtons++;
+            }
+        }
     }
 
     setUpSprites(){
@@ -483,7 +491,7 @@ class InvokeWheel{
         dist = 45;
         this.wheelCon = new PIXI.Container();
         this.displayCon.addChild(this.wheelCon);
-        let paintcans = [];
+        this.activeButtons = [];
         for (let i = 0; i<12; i++){
             let newSprite = new FoxSprite(allsprites.textures['icon7']);
             newSprite.width = (7-3)*16;
@@ -491,6 +499,7 @@ class InvokeWheel{
             newSprite.anchor.set(0.5,0.5);
             newSprite.x = wheelcoords[i][0];
             newSprite.y = wheelcoords[i][1];
+            this.activeButtons.push(newSprite);
             
             this.wheelCon.addChild(newSprite);
             this.wheelCon.children[i].eventMode = 'static';
@@ -500,13 +509,7 @@ class InvokeWheel{
             });
             this.wheelCon.children[i].on('pointerout', (event) => {
             });
-            newSprite.paintCan = new PIXI.Container();
-            newSprite.paintCan.eventMode = 'none';
-            newSprite.paintCan.x = newSprite.x-22;
-            newSprite.paintCan.y = newSprite.y-22;
-            paintcans.push(newSprite.paintCan);
         }
-        for (let i of paintcans) this.wheelCon.addChild(i);
         this.bouncySouls = new PIXI.ParticleContainer();
         this.spinningPile = new PIXI.ParticleContainer();
         this.spinningPile.x = center[0]-8;
@@ -554,7 +557,6 @@ class InvokeWheel{
             loot.displayIcon.x += loot.displayIcon.dirx*loot.displayIcon.trspeed;
             loot.displayIcon.y += loot.displayIcon.diry*loot.displayIcon.trspeed;
         });
-        research.completeResearch("Herald");
     }
 }
 
@@ -795,7 +797,7 @@ class Soul{
         this.angle = 0;
 
         this.contingencies = [];
-        this.commands = [];
+        this.commands = {};
         this.axioms = [];
         this.owner = owner;
         if (!this.owner) this.owner = "None";
@@ -943,12 +945,20 @@ class Soul{
         return found;
     }
 
+    getIconOfCommand(axiom){
+        const neigh = this.getLogicNeighbours(axiom,true);
+        for (let i of neigh){
+            if (i instanceof DefineIcon && i.storage) return i.storage;
+        }
+    }
+
     findBindings(){
         for (let i = 0; i<5; i++){
             for (let j = 0; j<5; j++){
                 if(this.axioms[i][j].contingency) this.contingencies.push(this.axioms[i][j]);
-                if(this.axioms[i][j] instanceof RadioReceiver && this.axioms[i][j].storage && this.axioms[i][j].storage.length === 1) this.commands.push(this.axioms[i][j].storage);
-
+                if(this.axioms[i][j] instanceof RadioReceiver && this.axioms[i][j].storage && this.axioms[i][j].storage.length === 1){
+                    this.commands[this.axioms[i][j].storage] = this.getIconOfCommand(this.axioms[i][j]);
+                }
             }
         }
     }
@@ -956,7 +966,7 @@ class Soul{
     getLogicNeighbours(axiom, includeSource){
         if (!includeSource) includeSource = false;
         let results = [];
-        const neig = [[-1,0],[1,0],[0,1],[0,-1]];
+        const neig = [[0,1],[1,0],[0,-1],[-1,0]];
         for (let i of neig){
             let fou;
             if (between(axiom.x+i[0],-1,5) && between(axiom.y+i[1],-1,5)) fou = this.axioms[axiom.x+i[0]][axiom.y+i[1]];

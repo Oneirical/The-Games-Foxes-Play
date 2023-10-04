@@ -41,6 +41,18 @@ class RealityAnchor extends Axiom{
     }
 }
 
+class DefineIcon extends Axiom{
+    constructor(icID){
+        super();
+        this.storage = icID;
+        this.dataType = "Icon";
+    }
+    act(data){
+        data["break"] = true;
+        return data;
+    }
+}
+
 class ShowEffects extends Axiom{
     constructor(){
         super();
@@ -315,7 +327,7 @@ class SoulAbsorber extends Axiom{
                     if (!data["caster"].findFirstEmptySlot()) break;
                     j.absorbSoul(i,data["caster"]);
                     j.owner = data["caster"];
-                    data["caster"].souls[data["caster"].findFirstEmptySlot()] = j;
+                    data["caster"].addSoul(j);
                 }
                 locatePlayer();
                 if (soulTree.trackedEntity === data["caster"]) soulTree.updateSlots(data["caster"]);

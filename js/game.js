@@ -64,7 +64,9 @@ function assignSouls(){
     for (let r of universe.worlds){
         for (let i of r.playSpace.monsters){
             for (let j of soulSlotNames){
-                if (i.souls[j]) i.souls[j] = new Soul(i.souls[j],i);
+                if (i.souls[j]){
+                    i.addSoulAtCaste(j,new Soul(i.souls[j],i));
+                }
             }
             if (i.generationMark){
                 i.extraConfig(r.playSpace);
