@@ -81,9 +81,9 @@ const logicMaps = {
     "OrderedStarter" : {
         0 : "TMDBW",
         1 : "....F",
-        2 : "RPE.E",
-        3 : "..A.X",
-        4 : ".KW.S",
+        2 : "EPR.E",
+        3 : "A...X",
+        4 : "WK.NS",
         "keys" : {
             "T" : new TriggerWatch("MoveFunction"),
             "M" : new MomentumTarget(),
@@ -98,6 +98,7 @@ const logicMaps = {
             "P" : new PlusForm(),
             "A" : new EgoFilter(),
             "K" : new RadioBroadcaster("EON"),
+            "N" : new DisableEffects(),
         }
     },
     "ElectroCoil" : {

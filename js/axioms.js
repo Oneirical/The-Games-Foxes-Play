@@ -41,6 +41,15 @@ class RealityAnchor extends Axiom{
     }
 }
 
+class DisableEffects extends Axiom{
+    constructor(){
+        super();
+    }
+    act(data){
+        return data;
+    }
+}
+
 class RadioBroadcaster extends Axiom{
     constructor(message){
         super();
@@ -102,7 +111,31 @@ class MomentumTarget extends Axiom{
         for (let i of trail){
             data["targets"].push(i);
         }
-        for (let i of trail) i.setEffect(14);
+        return data;
+    }
+}
+
+class DirectionFromMotion extends Axiom{
+    constructor(){
+        super();
+    }
+
+    act(data){
+        const motion = data["caster"].lastMotion;
+        const difX = motion[0];
+        const difY = motion[1];
+        let finalChoice;
+
+        if (difX > 0 && difX > Math.abs(difY)) finalChoice = "E";
+        else if (difY > 0 && difY > Math.abs(difX)) finalChoice = "S";
+        else if (difX < 0 && Math.abs(difX) > Math.abs(difY)) finalChoice = "W";
+        else if (difY < 0 && Math.abs(difY) > Math.abs(difX)) finalChoice = "N";
+        else finalChoice = shuffle(["N","S","W","E"])[0]; // kind of cringe, may rework
+        
+        const neigh = this.soul.getLogicNeighbours(this,true);
+        for (let i of neigh){
+            if (i.dataType == "Direction") i.storage = finalChoice;
+        }
         return data;
     }
 }
@@ -186,7 +219,6 @@ class ExpandTargets extends Axiom{
             const boom = i.getAllNeighbors();
             for (let j of boom){
                 data["targets"].push(j);
-                j.setEffect(14);
             }
         }
         return data;
@@ -205,9 +237,22 @@ class TargetsDirectionalBeam extends Axiom{
             const beam = targetBoltTravel(this.storage,i);
             for (let j of beam) {
                 data["targets"].push(j);
-                if (["N","S"].includes(this.storage)) j.setEffect(16);
-                else if (["W","E"].includes(this.storage)) j.setEffect(15);
             }
+        }
+        return data;
+    }
+}
+
+class BeamFromCaster extends Axiom{
+    constructor(dir){
+        super();
+        this.storage = dir;
+        this.dataType = "Direction";
+    }
+    act(data){
+        const beam = targetBoltTravel(this.storage,data["caster"].tile);
+        for (let j of beam) {
+            data["targets"].push(j);
         }
         return data;
     }
@@ -579,7 +624,6 @@ class PlusForm extends Axiom{
             let tarTile = newTile.getNeighbor(i[0],i[1]);
             //tarTile.spellDirection = i;
             data["targets"].push(tarTile);
-            tarTile.setEffect(14);
         }
         return data;
     }
@@ -741,9 +785,6 @@ class LinkForm extends Axiom{
             if (i.y != currentY) allY = false;
             data["targets"].push(i);
         }
-        if (allX) for (let i of trail) i.setEffect(16);
-        else if (allY) for (let i of trail) i.setEffect(15);
-        else for (let i of trail) i.setEffect(14);
         return data;
     }
 }
@@ -783,7 +824,6 @@ function targetBoltTravel(direction, location){
             newTile = testTile;
             if(newTile.monster) break;
             else targets.push(testTile);
-            //newTile.setEffect(effect,30);
         }else{
             break;
         }

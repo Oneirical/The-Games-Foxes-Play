@@ -487,7 +487,7 @@ class AscendExit extends Tile{
             "W" : 92,
             "E" : 93
         }
-        this.sprite = this.textures["N"]; // TODO USED TO BE this.direction[0]
+        this.sprite = this.textures["N"];
     }
 }
 
