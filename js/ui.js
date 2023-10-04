@@ -470,6 +470,8 @@ class InvokeWheel{
             for (let j of Object.keys(i.commands)){
                 this.activeButtons[filledButtons].bindingKey = j;
                 this.activeButtons[filledButtons].texture = allsprites.textures['icon'+i.commands[j]];
+                this.activeHotkeys[filledButtons].text = j;
+                this.activeHotkeys[filledButtons].visible = true;
                 filledButtons++;
             }
         }
@@ -488,6 +490,7 @@ class InvokeWheel{
         this.wheelCon = new PIXI.Container();
         this.displayCon.addChild(this.wheelCon);
         this.activeButtons = [];
+        this.activeHotkeys = [];
         for (let i = 0; i<12; i++){
             let newSprite = new FoxSprite(allsprites.textures['icon7']);
             newSprite.width = (7-3)*16;
@@ -511,6 +514,24 @@ class InvokeWheel{
                 this.wheelCon.children[i].filters = [];
             });
         }
+
+        dist = 50;
+        nudge = 2.8;
+        wheelcoords = [[center[0], center[1]-dist*nudge],[center[0]-dist*nudge, center[1]],[center[0]+dist*nudge, center[1]], [center[0], center[1]+dist*nudge],[center[0], center[1]-dist],[center[0]+Math.cos(pi/4)*dist, center[1]-Math.sin(pi/4)*dist],[center[0]+dist, center[1]],[center[0]+Math.cos(pi/4)*dist, center[1]+Math.sin(pi/4)*dist],[center[0], center[1]+dist],[center[0]-Math.cos(pi/4)*dist, center[1]+Math.sin(pi/4)*dist],[center[0]-dist, center[1]],[center[0]-Math.cos(pi/4)*dist, center[1]-Math.sin(pi/4)*dist]];
+        for (let i = 0; i<12; i++){
+            let richText = new PIXI.Text("B");
+            richText.style = new PIXI.TextStyle({
+                fontFamily: 'Play',
+                fontSize: 15,
+                fill: "white",
+            });
+            richText.x = wheelcoords[i][0]-5;
+            richText.y = wheelcoords[i][1]-10;
+            richText.visible = false;
+            this.wheelCon.addChild(richText);
+            this.activeHotkeys.push(richText);
+        }
+
         this.bouncySouls = new PIXI.ParticleContainer();
         this.spinningPile = new PIXI.ParticleContainer();
         this.spinningPile.x = center[0]-8;
