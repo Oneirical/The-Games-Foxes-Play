@@ -21,6 +21,10 @@ class Axiom{
     //direction: NSWE
     //tile: number/string
 
+    changeStorage(newStore){
+        this.storage = newStore;
+    }
+
     translate(){};
 }
 
@@ -36,7 +40,7 @@ class RealityAnchor extends Axiom{
         super();
     }
     act(data){
-        data["break"] = true;
+        data = severSynapse(data);
         return data;
     }
 }
@@ -48,7 +52,7 @@ class DefineIcon extends Axiom{
         this.dataType = "Icon";
     }
     act(data){
-        data["break"] = true;
+        data = severSynapse(data);
         return data;
     }
 }
@@ -122,7 +126,7 @@ class MomentumTarget extends Axiom{
         const trail = line(startTile,endTile);
         removeItemOnce(trail,startTile);
         for (let i of trail){
-            data["targets"].push(i);
+            target(data, i);
         }
         return data;
     }
@@ -147,7 +151,7 @@ class DirectionFromMotion extends Axiom{
         
         const neigh = this.soul.getLogicNeighbours(this,true);
         for (let i of neigh){
-            if (i.dataType == "Direction") i.storage = finalChoice;
+            if (i.dataType == "Direction") i.changeStorage(finalChoice);
         }
         return data;
     }
@@ -175,7 +179,7 @@ class DirectionExtractor extends Axiom{
         
         const neigh = this.soul.getLogicNeighbours(this,true);
         for (let i of neigh){
-            if (i.dataType == "Direction") i.storage = finalChoice;
+            if (i.dataType == "Direction") i.changeStorage(finalChoice);
         }
         return data;
     }
@@ -192,7 +196,7 @@ class WarpCloseAway extends Axiom{
         let warp = [...entities];
         warp.reverse();
         entities = entities.filter((a) => a.monster);
-        if (entities.length == 0) data["break"] = true;
+        if (entities.length == 0) data = severSynapse(data);
         let teleported = false;
         for (let i of entities){
             for (let j of warp){
@@ -203,7 +207,7 @@ class WarpCloseAway extends Axiom{
                 }
             }
         }
-        if (!teleported) data["break"] = true;
+        if (!teleported) data = severSynapse(data);
         return data;
     }
 }
@@ -217,7 +221,8 @@ class FurthestFilter extends Axiom{
         let entities = [...targets].sort((a,b) => manDist(origin,a) - manDist(origin,b));
         entities.reverse();
         let onlySurvivor = entities[0];
-        data["targets"] = [onlySurvivor];
+        nukeTargets();
+        target(data, onlySurvivor);
         return data;
     }
 }
@@ -231,7 +236,7 @@ class ExpandTargets extends Axiom{
         for (let i of originalTargets){
             const boom = i.getAllNeighbors();
             for (let j of boom){
-                data["targets"].push(j);
+                target(data, j);
             }
         }
         return data;
@@ -249,7 +254,7 @@ class TargetsDirectionalBeam extends Axiom{
         for (let i of originalTargets){
             const beam = targetBoltTravel(this.storage,i);
             for (let j of beam) {
-                data["targets"].push(j);
+                target(data, j);
             }
         }
         return data;
@@ -265,7 +270,7 @@ class BeamFromCaster extends Axiom{
     act(data){
         const beam = targetBoltTravel(this.storage,data["caster"].tile);
         for (let j of beam) {
-            data["targets"].push(j);
+            target(data, j);
         }
         return data;
     }
@@ -278,7 +283,7 @@ class LastDamageSource extends Axiom{
         this.dataType = "Creature";
     }
     act(data){
-        this.storage = data["caster"].lastDamageCulprit.numberID;
+        this.changeStorage(data["caster"].lastDamageCulprit.numberID);
         return data;
     }
 }
@@ -288,7 +293,7 @@ class VoidTargets extends Axiom{
         super();
     }
     act(data){
-        data["targets"] = [];
+        nukeTargets();
         return data;
     }
 }
@@ -360,7 +365,7 @@ class SoulInjector extends Axiom{
         for (let i of data["targets"]){
             if (i.monster && i.monster.findFirstEmptySlot()){
                 let loc = i.monster.findFirstEmptySlot();
-                i.monster.souls[loc] = Object.create(this.storage);
+                i.monster.souls[loc] = Object.create(this.storage); // TODO rework this to use a new soul copy function
                 i.monster.souls[loc].owner = i.monster;
                 if (soulTree.trackedEntity === i.monster) soulTree.updateSlots(i.monster);
             }
@@ -421,14 +426,14 @@ class SpeciesFilter extends Axiom{
     }
 
     act(data){
-        let newTargets = [];
-        for (let i = data["targets"].length-1; i>=0; i--){
-            let r = data["targets"][i];
+        let testTargets = [...data["targets"]];
+        nukeTargets();
+        for (let i = testTargets.length-1; i>=0; i--){
+            let r = testTargets[i];
             if (!r.monster) continue;
             else if (r.monster.species != this.storage) continue;
-            else newTargets.push(r);
+            else target(data, r);
         }
-        data["targets"] = newTargets;
         return data;
     }
 }
@@ -440,7 +445,7 @@ class BooleanGate extends Axiom{
         this.dataType = "Boolean";
     }
     act(data){
-        if (!this.storage) data["break"] = true;
+        if (!this.storage) data = severSynapse(data);
         return data;
     }
 }
@@ -455,7 +460,7 @@ class SpeciesCheck extends Axiom{
     act(data){
         let check = false;
         if (data["caster"].species == this.storage) check = true;
-        if (!check) data["break"] = true;
+        if (!check) data = severSynapse(data);
         return data;
     }
 }
@@ -465,7 +470,7 @@ class NoTargetStop extends Axiom{
         super();
     }
     act(data){
-        if (data["targets"].length == 0) data["break"] = true;
+        if (data["targets"].length == 0) data = severSynapse(data);
         return data;
     }
 }
@@ -518,7 +523,7 @@ class OverwriteSlot extends Axiom{
                 for (let s of soulSlotNames){
                     if (s == this.storage && i.monster.souls[s]){
                         for (let a of assi){
-                            i.monster.souls[s].axioms[a.x][a.y] = a;
+                            i.monster.souls[s].axioms[a.x][a.y] = a; // TODO these are a little cringe
                         }
                     }
                 }
@@ -542,7 +547,7 @@ class FormDir extends Axiom{
             "E" : [1,0],
             "S" : [0,1],
         }
-        data["targets"].push(getTile(data["caster"].tile.x+directions[this.storage][0],data["caster"].tile.y+directions[this.storage][1]));
+        target(data, getTile(data["caster"].tile.x+directions[this.storage][0],data["caster"].tile.y+directions[this.storage][1]));
         return data;
     }
 }
@@ -558,7 +563,7 @@ class FormEntity extends Axiom{
         let dest;
         if (!this.storage) return data;
         dest = allCreatures[this.storage.numberID].tile;
-        data["targets"].push(dest);
+        target(data, dest);
         if (!dest) throw new Error("An undefined tile was pushed to targets.");
         return data;
     }
@@ -578,7 +583,7 @@ class FormTile extends Axiom{
     act(data){
         if (!this.storage) return data;
         let dest = getTileInUniverse(this.storage);
-        data["targets"].push(dest);
+        target(data, dest);
         if (!dest) throw new Error("An undefined tile was pushed to targets.");
         return data;
     }
@@ -591,7 +596,7 @@ class MoveFunction extends Axiom{
 
     act(data){
         if (data["targets"].length == 0){
-            data["break"] = true;
+            data = severSynapse(data);
             return data;
         }
         let targets = data["targets"].slice(0);
@@ -599,12 +604,12 @@ class MoveFunction extends Axiom{
         let chosen = targets[0];
         let currentTile = data["caster"].tile;
         if (chosen === currentTile){
-            data["break"] = true;
+            data = severSynapse(data);
             return data;
         }
         if (Math.abs(chosen.x-currentTile.x) <= 1 && Math.abs(chosen.y-currentTile.y) <= 1 && Math.abs(chosen.x-currentTile.x) + Math.abs(chosen.y-currentTile.y) != 2){
             if (!data["caster"].tryMove(chosen.x-currentTile.x,chosen.y-currentTile.y)){
-                data["break"] = true;
+                data = severSynapse(data);
             }
             return data;
         }
@@ -614,7 +619,7 @@ class MoveFunction extends Axiom{
             path.shift();
         }
         let dir = [path[0].x-data["caster"].tile.x,path[0].y-data["caster"].tile.y];
-        if (!data["caster"].tryMove(dir[0],dir[1])) data["break"] = true;
+        if (!data["caster"].tryMove(dir[0],dir[1])) data = severSynapse(data);
         return data;
     }
 }
@@ -636,7 +641,7 @@ class PlusForm extends Axiom{
         for (let i of directions){
             let tarTile = newTile.getNeighbor(i[0],i[1]);
             //tarTile.spellDirection = i;
-            data["targets"].push(tarTile);
+            target(data, tarTile);
         }
         return data;
     }
@@ -648,7 +653,7 @@ class EgoForm extends Axiom{
     }
 
     act(data){
-        data["targets"].push(data["caster"].tile);
+        target(data, data["caster"].tile);
         return data;
     }
 }
@@ -689,7 +694,7 @@ class ModuloGate extends Axiom{
     act(data){
         let surr = this.soul.getLogicNeighbours(this,true);
         for (let i of surr) if (i instanceof NumberStorage && i.storage%this.storage != 0){ //maybe change this to number type instead of specifically NumberStorage?
-            data["break"] = true;
+            data = severSynapse(data);
         }
         
         return data;
@@ -705,7 +710,7 @@ class CloneCreature extends Axiom{ //unused for now
 
     act(data){
         if (data["targets"].length == 0){
-            data["break"] = true;
+            data = severSynapse(data);
             return data;
         }
         let works = false;
@@ -715,7 +720,7 @@ class CloneCreature extends Axiom{ //unused for now
                 works = true;
             }
         }
-        if (!works) data["break"] = true;
+        if (!works) data = severSynapse(data);
         return data;
     }
 }
@@ -730,7 +735,7 @@ class SummonCreature extends Axiom{
 
     act(data){
         if (data["targets"].length == 0){
-            data["break"] = true;
+            data = severSynapse(data);
             return data;
         }
         let works = false;
@@ -740,7 +745,7 @@ class SummonCreature extends Axiom{
                 works = true;
             }
         }
-        if (!works) data["break"] = true;
+        if (!works) data = severSynapse(data);
         return data;
     }
 }
@@ -781,7 +786,7 @@ class LinkForm extends Axiom{
     }
     act(data){
         if (!this.storage){
-            data["break"] = true;
+            data = severSynapse(data);
             return data;
         }
         const initialPoint = data["caster"].tile;
@@ -796,7 +801,7 @@ class LinkForm extends Axiom{
         for (let i of trail){
             if (i.x != currentX) allX = false;
             if (i.y != currentY) allY = false;
-            data["targets"].push(i);
+            target(data, i);
         }
         return data;
     }
