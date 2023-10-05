@@ -699,7 +699,7 @@ class DefaultVaultRoom extends Room{
             for(let j=0;j<this.size;j++){
                 let tile;
                 let airlockDirOverride;
-                if (!keytile[vault[j][i]] || (vault["creatures"] && vault["creatures"][vault[j][i]])) tile = Floor;
+                if (!keytile[vault[j][i]] || (vault["creatures"] && vault["creatures"][vault[j][i]]) || keytile[vault[j][i]] === NoBreakWall) tile = Floor; //cursed
                 else tile = keytile[vault[j][i]];
                 if (tile == Airlock && ["V","^","<",">"].includes(vault[j][i])) airlockDirOverride = vault[j][i];
                 //if (depth == 1 && (tile == Wall || tile == NoBreakWall)) tile = RoseWall;
@@ -725,8 +725,10 @@ class DefaultVaultRoom extends Room{
                     }
                     this.tiles[i][j].direction = eqs[airlockDirOverride];
                 }
-                if (vault["creatures"] && vault["creatures"][vault[j][i]]){
-                    let entity = new Creature(this.tiles[i][j],vault["creatures"][vault[j][i]]);
+                if (keytile[vault[j][i]] === NoBreakWall || vault["creatures"] && vault["creatures"][vault[j][i]]){
+                    let entity;
+                    if (keytile[vault[j][i]] === NoBreakWall) entity = new Creature(this.tiles[i][j],"Wall");
+                    else entity = new Creature(this.tiles[i][j],vault["creatures"][vault[j][i]]);
                     if (vault["marks"] && vault["marks"][vault[j][i]]) entity.generationMark = vault["marks"][vault[j][i]];
                     this.monsters.push(entity);
                     if (entity.species == "Terminal") player = entity;

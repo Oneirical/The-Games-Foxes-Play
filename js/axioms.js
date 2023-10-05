@@ -8,6 +8,7 @@ class Axiom{
         this.storage;
         this.nameID = this.constructor.name;
         this.dataType = false;
+        this.tag = false;
     }
     act(data){return data;};
 
@@ -38,6 +39,17 @@ class EmptyAxiom extends Axiom{
 class RealityAnchor extends Axiom{
     constructor(){
         super();
+    }
+    act(data){
+        data = severSynapse(data);
+        return data;
+    }
+}
+
+class UntargetableTag extends Axiom{
+    constructor(){
+        super();
+        this.tag = "Untargetable";
     }
     act(data){
         data = severSynapse(data);
@@ -221,7 +233,7 @@ class FurthestFilter extends Axiom{
         let entities = [...targets].sort((a,b) => manDist(origin,a) - manDist(origin,b));
         entities.reverse();
         let onlySurvivor = entities[0];
-        nukeTargets();
+        nukeTargets(data);
         target(data, onlySurvivor);
         return data;
     }
@@ -293,7 +305,7 @@ class VoidTargets extends Axiom{
         super();
     }
     act(data){
-        nukeTargets();
+        nukeTargets(data);
         return data;
     }
 }
@@ -427,7 +439,7 @@ class SpeciesFilter extends Axiom{
 
     act(data){
         let testTargets = [...data["targets"]];
-        nukeTargets();
+        nukeTargets(data);
         for (let i = testTargets.length-1; i>=0; i--){
             let r = testTargets[i];
             if (!r.monster) continue;

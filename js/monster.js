@@ -38,9 +38,15 @@ class Creature{
         return souls;
     }
 
+    hasTaggedSoul(tag){
+        let souls = this.getSouls();
+        for (let i of souls) if (i && i.tags.has(tag)) return true;
+        return false;
+    }
+
     addSoulAtCaste(caste, soul){
         this.souls[caste] = soul;
-        if (this === player) wheel.getMacros();
+        if (this === player) wheel.getMacros(); // TODO add a master "update soul stuff" function with getmacros, get new bindings, etc?
     }
     
     addSoul(soul){

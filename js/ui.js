@@ -821,6 +821,7 @@ class Soul{
         this.contingencies = [];
         this.commands = {};
         this.axioms = [];
+        this.tags = new Set();
         this.owner = owner;
         if (!this.owner) this.owner = "None";
         if (["EMPTY","VILE","FERAL","UNHINGED","ARTISTIC","ORDERED","SAINTLY"].includes(name)) return;
@@ -975,12 +976,16 @@ class Soul{
     }
 
     findBindings(){
+        this.contingencies = [];
+        this.commands = {};
+        this.tags.clear();
         for (let i = 0; i<5; i++){
             for (let j = 0; j<5; j++){
                 if(this.axioms[i][j].contingency) this.contingencies.push(this.axioms[i][j]);
                 if(this.axioms[i][j] instanceof RadioReceiver && this.axioms[i][j].storage && this.axioms[i][j].storage.length === 1){
                     this.commands[this.axioms[i][j].storage] = this.getIconOfCommand(this.axioms[i][j]);
                 }
+                if (this.axioms[i][j].tag) this.tags.add(this.axioms[i][j].tag);
             }
         }
     }

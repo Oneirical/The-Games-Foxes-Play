@@ -1462,7 +1462,7 @@ axiomEffects = {
     ///////////////
     //
     //   FUNCTIONS
-    // TODO: Click, divide up aspha in "random blink" and "target casts next praxes", make gyvji react to motion instead of just doing it
+    //  Click, divide up aspha in "random blink" and "target casts next praxes", make gyvji react to motion instead of just doing it
     ///////////////
 
     ATKDELAY : function(target,power,data){

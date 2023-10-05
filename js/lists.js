@@ -28,7 +28,8 @@ const speciesData = {
         "hp" : 3,
         "souls" : {
             "SAINTLY" : "Terminal",
-            "ORDERED" : "OrderedStarter"
+            "ORDERED" : "OrderedStarter",
+            "ARTISTIC" : "Singularity"
         }
     },
     "Programmer" : {
@@ -36,6 +37,13 @@ const speciesData = {
         "hp" : 2,
         "souls" : {
             "VILE" : "Programmer",
+        }
+    },
+    "Wall" : {
+        "sprite" : 3,
+        "hp" : 4,
+        "souls" : {
+            "ORDERED" : "Wall",
         }
     },
     "Apiarist" : {

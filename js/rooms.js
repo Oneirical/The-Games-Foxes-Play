@@ -78,6 +78,16 @@ const logicMaps = {
         "keys" : {
         }
     },
+    "Wall" : {
+        0 : ".....",
+        1 : ".....",
+        2 : "..U..",
+        3 : ".....",
+        4 : ".....",
+        "keys" : {
+            "U" : new UntargetableTag(),
+        }
+    },
     "OrderedStarter" : {
         0 : "TMDBW",
         1 : "....F",
@@ -97,6 +107,23 @@ const logicMaps = {
 
             "I" : new DefineIcon(28),
             "R" : new RadioReceiver("1"),
+            "P" : new PlusForm(),
+            "A" : new EgoFilter(),
+            "K" : new RadioBroadcaster("EON"),
+            "N" : new ShowEffects(),
+        }
+    },
+    "Singularity" : {
+        0 : "EEEEA",
+        1 : "E...W",
+        2 : "EPN.K",
+        3 : "..R..",
+        4 : "..I..",
+        "keys" : {
+            "W" : new WarpCloseAway(),
+            "E" : new ExpandTargets(),
+            "I" : new DefineIcon(29),
+            "R" : new RadioReceiver("2"),
             "P" : new PlusForm(),
             "A" : new EgoFilter(),
             "K" : new RadioBroadcaster("EON"),

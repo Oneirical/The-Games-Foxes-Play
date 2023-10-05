@@ -51,7 +51,8 @@ function severSynapse(data){
 }
 
 function target(data, tile){
-    data["targets"].push(tile);
+    if (tile.monster && tile.monster.hasTaggedSoul("Untargetable")) return;// replace with the no target tag
+    if (tile) data["targets"].push(tile);
     return data;
 }
 
