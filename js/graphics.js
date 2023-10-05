@@ -93,10 +93,23 @@ function beginEverything(){
         screenshake();
         app.stage.x = shakeX;
         app.stage.y = shakeY;
-
-        //alarmCount+=0.1;
-        //rai.alpha = Math.sin(alarmCount)-0.5;
     });
+
+    // WARNING: EXTREMELY CURSED
+    // A TERRIBLE SACRIFICE WAS NEEDED TO FIX THAT ONE FONT LOADING BUG
+    // 5th of October 2023 never forget
+    let fontRepair = new PIXI.Ticker;
+    fontRepair.start();
+    let saveMe = 0;
+    fontRepair.add(() => {
+        saveMe++;
+        makeFontsWork();
+        if (saveMe > 1){
+            fontRepair.destroy(); // cast down that abomination into the fiery pits
+        }
+    });
+    // END OF CRINGE CODE DANGER SECTOR
+
     tilesDisplay.addChild(player.creaturecon);
         //FPS counter
     // const style = new PIXI.TextStyle({
@@ -110,6 +123,30 @@ function beginEverything(){
     //     count++;
     //     if (count == 10) {uiDisplayLeft.children[uiDisplayLeft.children.length-1].children[0].text = app.ticker.FPS; count = 0;}
     // });
+    //
+}
+
+function makeFontsWork(){ //yikes, can't believe I had to do that
+    areaname.update();
+    soulTree.entityLore.style = new PIXI.TextStyle({
+        fontFamily: 'Play',
+        fontSize: 14,
+        fill: "white",
+        wordWrap: true,
+        wordWrapWidth: 9*32
+    });
+    soulTree.entityName.style = new PIXI.TextStyle({
+        fontFamily: 'Play',
+        fontSize: 18,
+        fill: "plum",
+    });
+    for (let i of wheel.activeHotkeys){
+        i.style = new PIXI.TextStyle({
+            fontFamily: 'Play',
+            fontSize: 15,
+            fill: "white",
+        });
+    }
 }
 
 function drawChainLine(l,x,y,dir,source){
