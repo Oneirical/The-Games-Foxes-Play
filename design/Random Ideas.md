@@ -5,8 +5,9 @@
 * Swap axiom tile effects to go out and do it all at once at the end
 * Review the tiles display, it is making it impossible to play knockback animations on far knockback effects
 
-* What if: turn infinite loops in souls (2x2 axioms) into the harmony mechanic
-* Return soul absorption as spinning circles of tiny caste icons on tiles
+* What if: turn infinite loops in souls (2x2 axioms) into the harmony mechanic, they may convert entire floors in a chain reaction
+* Multiple creatures per tile, some are intangible, X husks contain souls
+* Epsilon momentum + reverse direction + teleport entity? make it possible for the player to control without edits
 
 **Save and Load**
 

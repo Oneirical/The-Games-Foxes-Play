@@ -29,7 +29,7 @@ const speciesData = {
         "souls" : {
             "SAINTLY" : "Terminal",
             "ORDERED" : "OrderedStarter",
-            "ARTISTIC" : "Singularity"
+            //"ARTISTIC" : "Singularity"
         }
     },
     "Programmer" : {

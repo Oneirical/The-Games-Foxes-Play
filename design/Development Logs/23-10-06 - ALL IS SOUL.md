@@ -1,6 +1,6 @@
-*""*
+*"A glass canister filled with wispy, pink vapour. The label reads, "Once the fluorescent tubes' buzzing becomes unbearable, break immediately and inhale contents. May induce ego death."*
 
-- 
+- Saints' Breath flavour text
 
 ## The Games Foxes Play
 *([complete source code](https://github.com/Oneirical/The-Games-Foxes-Play) - [mirror](https://codeberg.org/Oneirical/The-Games-Foxes-Play) | [view all previous posts](https://github.com/Oneirical/The-Games-Foxes-Play/tree/main/design/Development%20Logs) | [play 0.4.3 online in browser on itch.io! (very old)](https://oneirical.itch.io/tgfp))*
@@ -13,7 +13,9 @@ My beloved hyper-punch knockback spell is back after an all-too-long retirement,
 
 In order to increase reliability, the companion active ability (which I somehow managed to fit in the same Soul) warps every creature in a short circle AOE as far from the caster as possible, in order to forcefully reposition creatures backing into corners or cuddling in packs to avoid getting punched.
 
-The [wheel UI]() in the top right has been reworked to automatically scan the player's Souls, detect all hotkey bindings and add them as clickable buttons. Currently, you see it scanning the Saintly Soul, containing the WASD movement commands, and then the Ordered Soul, with that active I just mentioned assigned to 1. Yes, if you mess up your starting Saintly Soul, you may literally lose the ability to move. I am going to need a surrender button.
+[Video demonstration.](https://yewtu.be/embed/IN_nTlzdkSw)
+
+The [wheel UI](https://cdn.discordapp.com/attachments/504088568084561930/1159963375812497418/Capture_decran_le_2023-10-06_a_17.20.03.png?ex=6532ef13&is=65207a13&hm=2921a63c7c0d1255c0e9b4328eb4031e3b0e2980ad2aeb558690cf9b6b43d9c5&) in the top right has been reworked to automatically scan the player's Souls, detect all hotkey bindings and add them as clickable buttons. Currently, you see it scanning the Saintly Soul, containing the WASD movement commands, and then the Ordered Soul, with that active I just mentioned assigned to 1. Yes, if you mess up your starting Saintly Soul, you may literally lose the ability to move. I am going to need a surrender button.
 
 I am not too sure what to limit these actives with, or when they recharge... Mana, creatures defeated, turns passed? I can't quite find a satistfying mechanic that would tie in with my game. Maybe I should just let these abilities get spammed as much as the player wants and balance them around that.
 
@@ -23,7 +25,7 @@ I am currently in the process of **removing tiles from my game**. That's right, 
 
 (Floor tiles will remain as the only tile type).
 
-I expect lots of horrible bugs to surface from this rework, but for now, it has allowed me to create this hilarious ["reverse black hole" giga-spell](), which instantly makes any pain endured in development worth it. The matching Soul goes roughly like this: *"When the spell hotkey is pressed, target all adjacent tiles to the caster, expand, expand, expand, [...], exclude the caster's tile, warp every targeted creature as far away from the caster as possible."*
+I expect lots of horrible bugs to surface from this rework, but for now, it has allowed me to create this hilarious ["reverse black hole" giga-spell](https://yewtu.be/embed/uy2bE4gJC_M), which instantly makes any pain endured in development worth it. The matching Soul goes roughly like this: *"When the spell hotkey is pressed, target all adjacent tiles to the caster, expand, expand, expand, [...], exclude the caster's tile, warp every targeted creature as far away from the caster as possible."*
 
 There has been previous times where I journeyed into fundamental reworks like this only to get disappointed and undo everything. This time, I think this is genuinely a great idea:
 

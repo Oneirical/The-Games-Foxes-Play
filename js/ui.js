@@ -525,8 +525,8 @@ class InvokeWheel{
                 fontSize: 15,
                 fill: "white",
             });
-            richText.x = wheelcoords[i][0]-5;
-            richText.y = wheelcoords[i][1]-10;
+            richText.x = wheelcoords[i][0]-8;
+            richText.y = wheelcoords[i][1]-9;
             richText.visible = false;
             this.wheelCon.addChild(richText);
             this.activeHotkeys.push(richText);
