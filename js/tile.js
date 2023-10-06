@@ -36,22 +36,19 @@ class Tile{
         let hai = this.sprite;
         let newSprite;
         if (this instanceof CageContainer){}
-        else if (this.sprite == 2){
-            newSprite = new PIXI.Graphics();
-            newSprite.beginFill("black");
-            newSprite.drawRect(0, 0, tileSize, tileSize);
-            newSprite.endFill();
-            newSprite.visible = false;
-        }
         else {
+
             newSprite = new FoxSprite(allsprites.textures['sprite'+hai]);
             newSprite.width = tileSize;
             newSprite.height = tileSize;
+            if (newSprite){
+                this.tileCon.addChild(newSprite);
+                this.spriteDisplay = newSprite;
+            }       
+            if (this.sprite == 2){
+                newSprite.visible = false;
+            } 
         }
-        if (newSprite){
-            this.tileCon.addChild(newSprite);
-            this.spriteDisplay = newSprite;
-        }        
 
         //add traps here
         drawHitbox(tileSize/2, tileSize/2,tileSize,this.tileCon);
