@@ -39,9 +39,16 @@ const speciesData = {
             "VILE" : "Programmer",
         }
     },
+    "EntropicHusk" : {
+        "sprite" : 1,
+        "hp" : 0,
+        "souls" : {
+        },
+        "intangible" : true,
+    },
     "Wall" : {
         "sprite" : 3,
-        "hp" : 4,
+        "hp" : 0,
         "souls" : {
             "ORDERED" : "Wall",
         }

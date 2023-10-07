@@ -114,90 +114,6 @@ class NodeDescription{
     }
 }
 
-class AxiomList{
-    constructor(){
-        this.setUpSprites();
-    }
-
-    fillInRows(entity){
-        this.axiomRows.removeChildren();
-        const source = entity.axioms;
-        for (let i =0 ; i<10; i++){
-            const maxSize = 18;
-            let slot;
-            if (i < 6) slot = source.active[i];
-            else slot = source.storage[i-6];
-            for (let j = 0; j<maxSize; j++){
-                let spriteID = inside[slot.sequence[j]];
-                if (!spriteID) spriteID = 7;
-                let praxisSprite = new FoxSprite(allsprites.textures["icon"+spriteID]);
-                if (i < 6) praxisSprite.y = source.active.indexOf(slot)*87+7;
-                else praxisSprite.y = (6+source.storage.indexOf(slot))*87+7;
-                if (j>maxSize/2) praxisSprite.y += 32;
-                praxisSprite.x = (j+1)*32+52;
-                if (j>maxSize/2) praxisSprite.x -= (maxSize/2+1)*32;
-                praxisSprite.width = 32;
-                praxisSprite.height = 32;
-                const currentSpell = slot.sequence[j];
-                praxisSprite.eventMode = 'static';
-                this.descriptionBox = new NodeDescription();
-                this.descriptionBox.setUpSprites();
-                this.descriptionBox.displayCon.x = -15*32;
-                this.descriptionBox.displayCon.y = 32;
-                uiDisplayRight.addChild(this.descriptionBox.displayCon);
-                this.descriptionBox.displayCon.visible = false;
-                const graphics = new PIXI.Graphics();
-                graphics.beginFill("black");
-                graphics.drawRect(-8, -8, 14*32, 28*32-16);
-                graphics.endFill();
-                this.descriptionBox.displayCon.addChild(graphics);
-                praxisSprite.on('pointerdown', (event) => {
-                });
-                praxisSprite.on('pointerover', (event) => {
-                    if (currentSpell){
-                        this.descriptionBox.displayCon.visible = true;
-                        this.descriptionBox.getDescription(currentSpell);
-                    }
-                    let wai = new PIXI.filters.GlowFilter();
-                    wai.outerStrength = 1;
-                    praxisSprite.filters = [wai];
-                });
-                praxisSprite.on('pointerout', (event) => {
-                    this.descriptionBox.displayCon.visible = false;
-                    praxisSprite.filters = [];
-                });
-
-                this.axiomRows.addChild(praxisSprite);
-            }
-        }
-    }
-
-    setUpSprites(){
-        this.displayCon = new PIXI.Container();
-        drawChainBorder(15,28,this.displayCon);
-        this.axiomRows = new PIXI.Container();
-        const rowColors = ["lime","orangered","orange","yellow","yellowgreen","plum","white","white","white","white"];
-        for (let i = 0; i<10; i++){
-            const graphics = new PIXI.Graphics();
-            graphics.lineStyle(5, rowColors[i], 1);
-            graphics.beginFill("black");
-            graphics.drawRect(80, i*87, 370, 77);
-            graphics.endFill();
-            this.displayCon.addChild(graphics);
-        }
-        for (let i = 0; i<10; i++){
-            let spriteID = i;
-            if (spriteID > 5) spriteID = 7;
-            let casteSprite = new FoxSprite(allsprites.textures["icon"+spriteID]);
-            casteSprite.y = i*87+8;
-            casteSprite.width = 64;
-            casteSprite.height = 64;
-            this.displayCon.addChild(casteSprite);
-        }
-        this.displayCon.addChild(this.axiomRows);
-    }
-}
-
 class CasteTab{
     constructor(caste){
         this.caste = caste;
@@ -299,7 +215,6 @@ class Cursor{
         if (!(this.tile instanceof ResearchNode)) research.exppage = new TutorialDisplay("Default");                     
     }
     die(){
-        this.dead = true;
         this.tile.cursor = null;
         this.sprite = 99999;
     }
@@ -584,12 +499,7 @@ class InvokeWheel{
 
 class SoulTree{
     constructor(){
-        this.active = [new Empty(),new Empty(),new Empty(),new Empty(), new Empty(), new Empty()];
-        this.storage = [new Empty(),new Empty(),new Empty(),new Empty()];
         this.castes = ["VILE","FERAL","UNHINGED","ARTISTIC","ORDERED","SAINTLY","SERENE"];
-        this.axiomList = new AxiomList();
-        this.describepage = 0;
-
         this.trackedEntity;
     }
 
@@ -600,9 +510,9 @@ class SoulTree{
             if (this.trackedEntity.souls[basic[5-i+1]] instanceof Soul) this.axiomCon.children[i].alpha = 1;
             else this.axiomCon.children[i].alpha = 0.5;
         }
-        this.entityName.text = this.trackedEntity.name;
-        this.entityLore.text = this.trackedEntity.lore;
-        this.entitySprite.texture = allsprites.textures['sprite'+this.trackedEntity.sprite];
+        this.entityName.text = creaturePresentation[this.trackedEntity.species]["name"];
+        this.entityLore.text = creaturePresentation[this.trackedEntity.species]["lore"];
+        this.entitySprite.texture = allsprites.textures['sprite'+speciesData[this.trackedEntity.species]["sprite"]];
         let hpIndicator = this.trackedEntity.hp;
         for (let i of this.healthTracker){
             if (hpIndicator <= 0){
@@ -732,74 +642,6 @@ class SoulTree{
         this.displayCon.addChild(this.entityLore);
 
         this.updateSlots();
-    }
-
-    updateAxioms(){
-        if (!this.axiomCon) return;
-        for (let i = 0; i<6; i++){
-            this.axiomCon.children[i].texture = allsprites.textures['icon'+this.active[i].icon];
-            if (this.active[i].icon > 5) this.axiomCon.children[i].alpha = 1;
-            else this.axiomCon.children[i].alpha = 0.7;
-        }
-        for (let i = 0; i<4; i++){
-            this.axiomCon.children[i+6].texture = allsprites.textures['icon'+this.storage[i].icon];
-        }
-        if (inInventory) this.axiomList.fillInRows(player);
-    }
-
-    activateAxiom(slot){
-        let soul = this.storage[slot];
-        if (soul instanceof Empty) return;
-        let caste;
-        caste = 5-this.castes.indexOf(this.storage[slot].caste);
-        this.storage[slot] = new Empty();
-        if (caste == -1){
-            //make serenes work
-        }
-        this.storeAxiom(caste, this.active[caste]);
-        this.active[caste] = soul;
-        this.updateAxioms();
-    }
-
-    hasSoul(type){
-        for (let x of this.active){
-            if (x instanceof type) return true;
-        }
-        return false;
-    }
-
-    addAxiom(soul){
-        let noroom = 0;
-        for (let i of this.storage){
-            if (noroom == this.storage.length){
-                shakeAmount = 5;
-                return false;
-            }
-            else if (i instanceof Empty){
-                this.storage[this.storage.indexOf(i)] = soul;
-                break;
-            }
-            else noroom++;
-        }
-        this.updateAxioms();
-        return true;
-    }
-
-    storeAxiom(slot){
-        let soul = this.active[slot];
-        let noRoom = true;
-        if (this.active[slot].id == "STARTER") return;
-        else{
-            for (let i of this.storage){
-                if (i instanceof Empty){
-                    this.storage[this.storage.indexOf(i)] = soul;
-                    noRoom = false;
-                    break;
-                }
-            }
-            if (!noRoom) this.active[slot] = this.castesclass[slot];
-        }
-        this.updateAxioms();
     }
 }
 
@@ -958,6 +800,15 @@ class Soul{
         return ax;
     }
 
+    forceInjectAxiom(axiomType){ //modifies soul
+        let emptySpace = this.findAxioms(EmptyAxiom);
+        if (emptySpace.length === 0) return false;
+        else{
+            this.axioms[emptySpace[0].x][emptySpace[0].y] = new axiomType();
+            return true;
+        }
+    }
+
     findAxioms(type){
         let found = [];
         for (let i = 0; i<5; i++){
@@ -1010,7 +861,6 @@ class Soul{
     }
 
     absorbSoul(start,destination){
-        if (!this.owner.dead) return;
         this.owner.creaturecon.x = tileSize*(8+(start.x-player.tile.x));
         this.owner.creaturecon.y = tileSize*(8+(start.y-player.tile.y));
         tilesDisplay.addChild(this.owner.creaturecon);
@@ -1137,60 +987,6 @@ class Soul{
                 }
             }
         }
-    }
-
-    describe(){
-        let bump = 0;
-        if ((5*64-32-ctx.measureText(this.name).width) < 0) bump = 20; 
-        printOutText(toTitleCase(this.caste) + " Caste", 18, 590, 50 + bump, colours[this.caste], 20, 6*64-35);
-        //printOutText(inventorytext[this.command], 18, 590, 170, colours[this.command], 20, 6*64-35); for future use, or maybe just place this thing in its own screen
-        if (basic.includes(this.id)) printOutText("Empty Slot", 18, 590, 30, "white", 20, 6*64-35);
-        else printOutText(this.name, 18, 590, 30, colours[this.id], 20, 6*64-100);
-        printOutText(this.subdescript, 18, 590, 110, "white", 20, 6*64-35);
-        //printOutText(this.lore, 18, 10, 600, colours[this.id], 20, 690);
-        drawSymbol(this.icon, 890, 20, 64);
-    }
-
-    describeWheel(){
-        if (world.getRoom() instanceof SoulCage) return;
-        const hijack = {
-            "VILE" : 0,
-            "FERAL" : 1,
-            "UNHINGED" : 2,
-            "ARTISTIC" : 3,
-            "ORDERED" : 4,
-            "SAINTLY" : 5
-        }
-        const index = hijack[this.caste];
-        printOutText(toTitleCase(this.caste) + " Soul", 18, 10, 600, colours[this.id], 20, 690);
-        if (this instanceof Empty) printOutText(soulabi["EMPTY"], 18, 10, 640, "white", 20, 690);
-        else {
-            let command = player.axioms.active[index].id;
-            if (basic.includes(command)) command = "Commanded by its own whims";
-            else command = "Commanded by a Legend";
-            printOutText(command, 18, 10, 620, "lightgrey", 20, 690);
-            if (false && !basic.includes(player.axioms.active[index].id) && player.axioms.active[index].influence != "I") printOutText(player.axioms.active[index].subdescript, 18, 10, 660, "white", 20, 690);
-            else printOutText("\n[g]Base Effect[w]\n"+this.subdescript, 18, 10, 660, "white", 20, 690);
-        }
-        
-    }
-
-    describeAbridged(){
-        if (!cursormode){
-            let bump = 0;
-            if ((5*64-32-ctx.measureText(this.name).width) < 0) bump = 20; 
-            printOutText(toTitleCase(this.caste) + " Caste", 18, 590, 50 + bump, colours[this.caste], 20, 6*64-35);
-            if (basic.includes(this.id)) printOutText("Empty Slot", 18, 590, 30, "white", 20, 6*64-35);
-            else printOutText(this.name, 18, 590, 30, colours[this.id], 20, 6*64-100);
-            printOutText(this.subdescript, 18, 590, 110, "white", 20, 6*64-35);
-            drawSymbol(this.icon, 890, 20, 64);
-            drawSymbol(34, 590, 500, 64);
-            printOutText("Inhale this Soul (Q) to choose it and exit the Relay.", 18, 660, 528, "white", 20, 6*64-105);
-        }
-    }
-
-    talk(){
-        log.addLog(this.id);
     }
 }
 

@@ -491,6 +491,16 @@ const creaturePresentation = {
         color: "gold",
         lore: ":3"
     },
+    "EntropicHusk" : {
+        name: "",
+        color: "gold",
+        lore: ":3"
+    },
+    "Slug" : {
+        name: "",
+        color: "gold",
+        lore: ":3"
+    },
 }
 
 const entityDescription = {

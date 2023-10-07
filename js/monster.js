@@ -24,6 +24,8 @@ class Creature{
         if (creaturePresentation[this.species]) this.name = creaturePresentation[this.species]["name"];
         this.lastMotion = [0, 0];
         this.move(tile);
+        if (speciesData[species]["intangible"]) this.tangible = false;
+        else this.tangible = true;
     }
 
     trigger(event,assi){
@@ -40,7 +42,7 @@ class Creature{
 
     hasTaggedSoul(tag){
         let souls = this.getSouls();
-        for (let i of souls) if (i && i.tags.has(tag)) return true;
+        for (let i of souls) if (i instanceof Soul && i.tags.has(tag)) return true;
         return false;
     }
 
@@ -51,6 +53,12 @@ class Creature{
     
     addSoul(soul){
         this.addSoulAtCaste(this.findFirstEmptySlot(), soul);
+    }
+
+    forceInjectAxiom(axiomType){
+        let souls = this.getSouls();
+        for (let i of souls) if (i && i.forceInjectAxiom(axiomType)) return true;
+        return false;
     }
 
     setUpAnimation(){
@@ -121,6 +129,7 @@ class Creature{
         newSprite.height = tileSize;
         
         this.creaturecon.addChild(newSprite);
+        this.representativeSprite = newSprite;
         this.hpcon = new PIXI.Container();
         this.creaturecon.addChild(this.hpcon);
         for(let i=0; i<4; i++){
@@ -202,60 +211,64 @@ class Creature{
         target.interactedBy(this);
     }
 
+    canMove(tile){
+        if (!tile) return false;
+        else if (!this.tangible) return true;
+        else if (!tile.tangibleCreature) return true;
+        else return false;
+    }
+
     tryMove(dx,dy){ // make teleport also pass through this but check what dx is and ignore dy
         let newTile = this.tile.getNeighbor(dx,dy);
-        
-        if(newTile.passable){
-            if(!newTile.monster){
+        if(this.canMove(newTile)){
                 this.move(newTile);
                 return true;
             }
-            else{
-                this.interactWith(newTile.monster);
-                return false;
-            }
-        }
         else{
-            newTile.interact();
+            this.interactWith(newTile.tangibleCreature);
             return false;
         }
+    }
+
+    changeSpecies(newSpecies){
+        this.species = newSpecies;
+        this.representativeSprite.texture = (allsprites.textures['sprite'+speciesData[newSpecies]["sprite"]]);
+        soulTree.updateSlots(this);
     }
 
     hit(damage,origin){  
         if (damage <= 0) return;          
         this.lastDamageCulprit = origin;
         this.hp -= damage;
-        if(this.hp <= 0 && !this.dead) this.die();
-        if(this.isPlayer){                                                     
-            //playSound("hit1");                                              
-        }else{                                                       
-            //playSound("hit2");                                              
-        }
+        if(this.hp <= 0) this.die();
         this.updateHp();
     }
 
     die(){
-        this.dead = true;
         this.trigger("OBLIVION");
-        if (this.tile.monster == this){
-            this.tile.monster = null;
-            for (let i of this.loopThroughSouls()) if (i) this.tile.souls.push(i);
-            this.tile.addSoulsOnFloor();
+        this.changeSpecies("EntropicHusk");
+        this.toggleTangibility();
+    }
+
+    toggleTangibility(){
+        if (this.tangible){
+            this.tile.tangibleCreature = false;
+            this.tile.intangibleCreatures.add(this);
         }
-        this.sprite = 1;
-        tilesDisplay.removeChild(this.creaturecon);
-        removeItemOnce(monsters,this);
+        else{
+            this.tile.intangibleCreatures.delete(this);
+            this.tile.tangibleCreature = this;
+        }
+        this.tangible = !this.tangible;
     }
 
     move(tile){
-        if (this.dead) return;
         let currentTileCoords = false;
         if(this.tile){
             currentTileCoords = [this.tile.x,this.tile.y];
-            this.tile.stepOut(this);
             this.tile.monster = null;
+            this.tile.stepOut(this);
             if (fastReload){ // kind of ugly
-                this.tile = tile;
                 tile.monster = this;                             
                 tile.stepOn(this);
                 if (this.tile instanceof CenterTeleport && this === player){
@@ -280,7 +293,6 @@ class Creature{
             this.originalOffsetY = this.offsetY;
             this.anispeed = Math.min(1/6*(Math.abs(this.offsetX)+Math.abs(this.offsetY)),1);
         }
-        this.tile = tile;
         tile.monster = this;                             
         tile.stepOn(this);
         let newTile = this.tile;

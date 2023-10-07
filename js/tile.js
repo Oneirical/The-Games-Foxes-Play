@@ -5,23 +5,25 @@ class Tile{
         this.sprite = sprite;
         this.passable = passable;
         this.eat = true;
-        this.cuff = false;
-        this.trap = false;
-        this.eviltrap = false;
-        this.siphon = false;
-        this.pin = false;
-        this.recallpoint = false;
         this.souls = [];
-        this.fuffified = false;
-        this.clickTrap = false;
-        this.spellDirection = false;
         this.tileCon = new PIXI.Container();
         this.graphicsReady = false;
-        this.paint = false;
+        this.paint = false; // rework this to become more creatures
+
+        this.tangibleCreature = false;
+        this.intangibleCreatures = new Set();
     }
 
-    stepOut(){};
-    interact(){};
+    stepOut(creature){
+        if (creature.tangible) this.tangibleCreature = false;
+        else this.intangibleCreatures.delete(creature);
+    };
+
+    stepOn(creature){
+        creature.tile = this;
+        if (creature.tangible) this.tangibleCreature = creature;
+        else this.intangibleCreatures.add(creature);
+    }
 
     isEmpty(){
         return !this.monster && this.passable;
@@ -270,40 +272,6 @@ class Floor extends Tile{
         this.lore = entityDescription["Floor"];
         this.name = "Eroded Floortiles";
     };
-
-    stepOn(monster){
-        let trapsafe = true;
-        if (this.clickTrap && this.clickTrap.triggerType == "STEP"){
-            this.clickTrap.trigger();
-            this.clickTrap = false;
-        }
-        if (monster.isPlayer){
-            trapsafe = player.activemodule != "Hover";
-        }
-        if (monster.isPlayer && (this.pin || this.eviltrap || this.cuff) && !trapsafe){
-            if (!player.consumeCommon(1,false)) {
-                log.addLog("FluffyInsufficientPower");
-                player.activemodule = "NONE";
-                //playSound("off");
-                trapsafe = true;
-            }
-        }
-        if (monster.isPlayer && this.cuff && trapsafe){
-            player.para = 1;
-            //playSound("fail");
-            this.cuff = false;
-        }
-        if ((monster.isPlayer) && this.pin && trapsafe){
-            //playSound("fail");
-            for (let x of monsters){
-                if (x instanceof Weaver){
-                    x.enraged = true;
-                    x.isPassive = false;
-                }
-            }
-            this.pin = false;
-        }
-    }
 }
 
 class TrueFloor extends Floor{
@@ -338,33 +306,6 @@ class Goop extends Tile{
         this.name = "Glamorous Toxin";
         this.sprite = 60;
     };
-    stepOn(monster){
-        if((!monster.isPlayer&&!monster.statusEff["Charmed"] > 0)&& this.trap){  
-            spells["ARTTRIGGER"](monster.tile);
-            //playSound("treasure");            
-            this.trap = false;
-        }
-        if (monster.isPlayer && this.cuff){
-            player.para = 1;
-            //playSound("fail");
-            this.cuff = false;
-        }
-        if ((monster.isPlayer||monster.statusEff["Charmed"] > 0) && this.eviltrap){
-            //playSound("fail");
-            spells["ARTTRIGGER"](monster.tile);
-            this.eviltrap = false;
-        }
-        if ((monster.isPlayer) && this.pin){
-            //playSound("fail");
-            for (let x of monsters){
-                if (x instanceof Weaver){
-                    x.enraged = true;
-                    x.isPassive = false;
-                }
-            }
-            this.pin = false;
-        }
-    }
 }
 
 
@@ -375,9 +316,6 @@ class Wall extends Tile{
         this.name = "Apocalypse Barrier";
         this.mutable = false;
     };
-
-    stepOn(monster){
-    }
 }
 
 class NoBreakWall extends Tile{
@@ -387,9 +325,6 @@ class NoBreakWall extends Tile{
         this.name = "Apocalypse Barrier";
         this.eat = false;
     };
-
-    stepOn(monster){
-    }
 }
 
 class AbazonWall extends Tile{
@@ -399,9 +334,6 @@ class AbazonWall extends Tile{
         this.name = "Terracotta Sentry";
         this.eat = false;
     };
-
-    stepOn(monster){
-    }
 }
 
 class RoseWall extends Wall{
@@ -412,9 +344,6 @@ class RoseWall extends Wall{
         this.eat = false;
         this.sprite = 55;
     };
-
-    stepOn(monster){
-    }
 }
 
 class BExit extends Tile{
@@ -532,12 +461,6 @@ class TermiExit extends Exit{
         this.sprite = 38;
     }
 
-    stepOn(monster){
-        pauseAllMusic();
-        super.stepOn(monster);
-        //level+=14; //debug
-    }
-
 }
 
 class FluffExit extends Exit{
@@ -555,12 +478,6 @@ class Booster extends Exit{
         this.lore = entityDescription["HarmonicSeal"];
         this.name = "Harmonic Seal";
         this.sprite = 59;
-    }
-    stepOn(monster){
-        player.fall = 0;
-        areachange = false;
-        super.stepOn(monster);
-        if (level % 5 == 1 && level > 5) message= "FluffyWorkshop";
     }
 }
 
@@ -654,16 +571,6 @@ class Airlock extends Tile{
         this.passable = true;
 
     }
-
-    stepOut(monster){
-        let neigh = this.getAdjacentNeighbors();
-        for (let i of neigh) if (i.monster && i.monster != monster) return;
-        this.passable = false;
-    }
-
-    stepOn(){
-
-    }
 }
 
 class Plate extends Floor{ //delete later
@@ -672,9 +579,6 @@ class Plate extends Floor{ //delete later
         this.lore = entityDescription["Mobilizer"];
         this.name = "Automaton Mobilizer";
         this.sprite = 75;
-    }
-    stepOn(monster){
-        super.stepOn(monster);
     }
 }
 
@@ -764,33 +668,6 @@ class RoseSpawner extends Tile{
         this.name = "Aleatory Teleconstructor";
         this.sprite = 63;
     }
-    stepOn(monster){
-        if((!monster.isPlayer&&!monster.statusEff["Charmed"] > 0)&& this.trap){  
-            spells["ARTTRIGGER"](monster.tile);
-            //playSound("treasure");            
-            this.trap = false;
-        }
-        if (monster.isPlayer && this.cuff){
-            player.para = 1;
-            //playSound("fail");
-            this.cuff = false;
-        }
-        if ((monster.isPlayer||monster.statusEff["Charmed"] > 0) && this.eviltrap){
-            //playSound("fail");
-            spells["ARTTRIGGER"](monster.tile);
-            this.eviltrap = false;
-        }
-        if ((monster.isPlayer) && this.pin){
-            //playSound("fail");
-            for (let x of monsters){
-                if (x instanceof Weaver){
-                    x.enraged = true;
-                    x.isPassive = false;
-                }
-            }
-            this.pin = false;
-        }
-    }
 }
 
 class Mobilizer extends Tile{
@@ -799,33 +676,6 @@ class Mobilizer extends Tile{
         this.lore = entityDescription["Mobilizer"];
         this.name = "Automaton Mobilizer";
         this.sprite = 75;
-    }
-    stepOn(monster){
-        if((!monster.isPlayer&&!monster.statusEff["Charmed"] > 0)&& this.trap){  
-            spells["ARTTRIGGER"](monster.tile);
-            //playSound("treasure");            
-            this.trap = false;
-        }
-        if (monster.isPlayer && this.cuff){
-            player.para = 1;
-            //playSound("fail");
-            this.cuff = false;
-        }
-        if ((monster.isPlayer||monster.statusEff["Charmed"] > 0) && this.eviltrap){
-            //playSound("fail");
-            spells["ARTTRIGGER"](monster.tile);
-            this.eviltrap = false;
-        }
-        if ((monster.isPlayer) && this.pin){
-            //playSound("fail");
-            for (let x of monsters){
-                if (x instanceof Weaver){
-                    x.enraged = true;
-                    x.isPassive = false;
-                }
-            }
-            this.pin = false;
-        }
     }
 }
 
@@ -1102,10 +952,4 @@ class Window extends Wall{
         this.mutable = false;
         this.sprite = 129;
     };
-}
-
-function goToCage(){
-    tiles[4][0].stepOn(player);
-    tiles[4][0].stepOn(player);
-    tiles[4][0].stepOn(player);
 }
