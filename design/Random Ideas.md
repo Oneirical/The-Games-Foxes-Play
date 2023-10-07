@@ -8,6 +8,7 @@
 * What if: turn infinite loops in souls (2x2 axioms) into the harmony mechanic, they may convert entire floors in a chain reaction
 * Multiple creatures per tile, some are intangible, X husks contain souls
 * Epsilon momentum + reverse direction + teleport entity? make it possible for the player to control without edits
+* Going into a separated/unstabilized portal goes to Nowhere with the cockroach piano
 
 **Save and Load**
 

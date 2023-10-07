@@ -25,8 +25,18 @@ class Tile{
         else this.intangibleCreatures.add(creature);
     }
 
+    getAllCreatures(){
+        let creatures = [...this.intangibleCreatures];
+        if (this.tangibleCreature) creatures.unshift(this.tangibleCreature);
+        return creatures;
+    }
+
     isEmpty(){
         return !this.monster && this.passable;
+    }
+
+    hasNothing(){
+        return !this.tangibleCreature && this.intangibleCreatures.size === 0;
     }
 
     setUpSprite(){

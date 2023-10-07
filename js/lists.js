@@ -46,11 +46,19 @@ const speciesData = {
         },
         "intangible" : true,
     },
+    "HoloStabilizer" : {
+        "sprite" : 1,
+        "hp" : 0,
+        "souls" : {
+            "ORDERED" : "Untargetable",
+        },
+        "intangible" : true,
+    },
     "Wall" : {
         "sprite" : 3,
         "hp" : 0,
         "souls" : {
-            "ORDERED" : "Wall",
+            "ORDERED" : "Untargetable",
         }
     },
     "Apiarist" : {

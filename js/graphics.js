@@ -135,6 +135,13 @@ function makeFontsWork(){ //yikes, can't believe I had to do that
         wordWrap: true,
         wordWrapWidth: 9*32
     });
+    soulTree.entityOpinion.style = new PIXI.TextStyle({
+        fontFamily: 'Play',
+        fontSize: 14,
+        fill: "plum",
+        wordWrap: true,
+        wordWrapWidth: 9*32
+    });
     soulTree.entityName.style = new PIXI.TextStyle({
         fontFamily: 'Play',
         fontSize: 18,

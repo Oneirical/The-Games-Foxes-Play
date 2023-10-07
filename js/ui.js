@@ -511,7 +511,11 @@ class SoulTree{
             else this.axiomCon.children[i].alpha = 0.5;
         }
         this.entityName.text = creaturePresentation[this.trackedEntity.species]["name"];
+        this.entityName.style.color = creaturePresentation[this.trackedEntity.species]["color"];
         this.entityLore.text = creaturePresentation[this.trackedEntity.species]["lore"];
+        this.entityOpinion.text = creaturePresentation[this.trackedEntity.species]["opinion"];
+        const textMetrics = PIXI.TextMetrics.measureText(this.entityLore.text, this.entityLore.style);
+        this.entityOpinion.y = 65 + textMetrics.height;
         this.entitySprite.texture = allsprites.textures['sprite'+speciesData[this.trackedEntity.species]["sprite"]];
         let hpIndicator = this.trackedEntity.hp;
         for (let i of this.healthTracker){
@@ -638,8 +642,20 @@ class SoulTree{
         });
 
         this.entityLore = new PIXI.Text("If you see this it is buggo :3", style); //this.trackedEntity.name
-        this.entityLore.y = (121+31)/4+8;
+        this.entityLore.y = 46;
         this.displayCon.addChild(this.entityLore);
+
+        style = new PIXI.TextStyle({
+            fontFamily: 'Play',
+            fontSize: 14,
+            fill: "plum",
+            wordWrap: true,
+            wordWrapWidth: 9*32
+        });
+
+        this.entityOpinion = new PIXI.Text("If you see this it is buggo :3", style); //this.trackedEntity.name
+        this.entityOpinion.y = 0;
+        this.displayCon.addChild(this.entityOpinion);
 
         this.updateSlots();
     }

@@ -20,7 +20,7 @@ class Universe{
             this.worlds[x].worldBuilding();
         }
         assignSouls();
-        this.placeHypnoDisplays(); // that was an adventure, wasn't it? I'm proud of you. Fu!
+        //this.placeHypnoDisplays(); // that was an adventure, wasn't it? I'm proud of you. Fu!
         drawTiles();
         drawSprites();
     }
@@ -699,7 +699,7 @@ class DefaultVaultRoom extends Room{
             for(let j=0;j<this.size;j++){
                 let tile;
                 let airlockDirOverride;
-                if (!keytile[vault[j][i]] || (vault["creatures"] && vault["creatures"][vault[j][i]]) || keytile[vault[j][i]] === NoBreakWall) tile = Floor; //cursed
+                if (!keytile[vault[j][i]] || (vault["creatures"] && vault["creatures"][vault[j][i]]) || typeof keytile[vault[j][i]] === "string") tile = Floor; //cursed
                 else tile = keytile[vault[j][i]];
                 if (tile == Airlock && ["V","^","<",">"].includes(vault[j][i])) airlockDirOverride = vault[j][i];
                 //if (depth == 1 && (tile == Wall || tile == NoBreakWall)) tile = RoseWall;
@@ -725,9 +725,9 @@ class DefaultVaultRoom extends Room{
                     }
                     this.tiles[i][j].direction = eqs[airlockDirOverride];
                 }
-                if (keytile[vault[j][i]] === NoBreakWall || vault["creatures"] && vault["creatures"][vault[j][i]]){
+                if (typeof keytile[vault[j][i]] === "string"|| vault["creatures"] && vault["creatures"][vault[j][i]]){
                     let entity;
-                    if (keytile[vault[j][i]] === NoBreakWall) entity = new Creature(this.tiles[i][j],"Wall");
+                    if (typeof keytile[vault[j][i]] === "string") entity = new Creature(this.tiles[i][j],keytile[vault[j][i]]);
                     else entity = new Creature(this.tiles[i][j],vault["creatures"][vault[j][i]]);
                     if (vault["marks"] && vault["marks"][vault[j][i]]) entity.generationMark = vault["marks"][vault[j][i]];
                     this.monsters.push(entity);

@@ -1,8 +1,8 @@
 var keytile = {
-    "W" : Wall,
+    "W" : "Wall",
     "." : Floor,
     "E" : Airlock,
-    "#" : NoBreakWall,
+    "#" : "Wall",
     "A" : RealityWall,
     "T" : TermiWall,
     "t" : TermiExit,
@@ -15,7 +15,7 @@ var keytile = {
     "s" : CageWall,
     "e" : CageWall,
     "w" : CageWall,
-    "o" : CageContainer,
+    "o" : "HoloStabilizer",
     "ç" : CenterTeleport,
     "H" : HypnoticProjector,
     "|" : Window,
@@ -78,14 +78,14 @@ const logicMaps = {
         "keys" : {
         }
     },
-    "Wall" : {
+    "Untargetable" : {
         0 : ".....",
         1 : ".....",
         2 : "..U..",
         3 : ".....",
         4 : ".....",
         "keys" : {
-            "U" : new UntargetableTag(),
+            "U" : new UnaffectedTag(),
         }
     },
     "OrderedStarter" : {

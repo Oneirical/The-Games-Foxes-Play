@@ -57,6 +57,17 @@ class UntargetableTag extends Axiom{
     }
 }
 
+class UnaffectedTag extends Axiom{
+    constructor(){
+        super();
+        this.tag = "Unaffected";
+    }
+    act(data){
+        data = severSynapse(data);
+        return data;
+    }
+}
+
 class DefineIcon extends Axiom{
     constructor(icID){
         super();
@@ -204,16 +215,14 @@ class WarpCloseAway extends Axiom{
     act(data){
         const targets = data["targets"];
         const origin = data["caster"].tile;
-        let entities = [...targets].sort((a,b) => manDist(origin,a) - manDist(origin,b));
-        let warp = [...entities];
-        warp.reverse();
-        entities = entities.filter((a) => a.monster);
+        let warp = [...targets].sort((a,b) => manDist(origin,a) - manDist(origin,b)).reverse();
+        let entities = getAllTargetedCreatures(data);
         if (entities.length == 0) data = severSynapse(data);
         let teleported = false;
         for (let i of entities){
             for (let j of warp){
-                if (j.isEmpty()){
-                    teleport(i.monster,j,data);
+                if (i.canMove(j)){
+                    teleport(i,j,data);
                     teleported = true;
                     break;
                 }
@@ -601,6 +610,32 @@ class FormTile extends Axiom{
     }
 }
 
+class MoveDir extends Axiom{
+    constructor(){
+        super();
+        this.storage = dir;
+        this.dataType = "Direction";
+    }
+    act(data){
+        if (data["targets"].length == 0){
+            data = severSynapse(data);
+            return data;
+        }
+        const directions = {
+            "N" : [0,-1],
+            "W" : [-1,0],
+            "E" : [1,0],
+            "S" : [0,1],
+        }
+        let oneMoveSucceeded = false;
+        for (let i of getAllTargetedCreatures(data)){
+            if (i.tryMove(directions[this.storage][0],directions[this.storage][1])) oneMoveSucceeded = true;
+        }
+        if (!oneMoveSucceeded) data = severSynapse(data);
+        return data;
+    }
+}
+
 class MoveFunction extends Axiom{
     constructor(){
         super();
@@ -769,8 +804,8 @@ class DamageDealer extends Axiom{
         this.dataType = "Number";
     }
     act(data){
-        for (let i of data["targets"]){
-            if (i.monster) i.monster.hit(this.storage, data["caster"]);
+        for (let i of getAllTargetedCreatures(data)){
+            i.hit(this.storage, data["caster"]);
         }
         return data;
     }

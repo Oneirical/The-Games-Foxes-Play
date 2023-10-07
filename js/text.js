@@ -465,16 +465,19 @@ const creaturePresentation = {
         name: "Plated Thought-Ferry",
         color: "lightcoral",
         lore: "\"Whenever I hear the tinkling of these scarabs' six copper legs against the steel catwalks, I wonder what pointless design the Ordered chose to impose upon their subordinates this time around. Perhaps, with chance, this plan will pretend to be more purposeful than the last.\"",//"A glistening copper scarab protected by a bulky shell, blocking out any blunt attacks, electromagnetic pulses or thoughts of liberation. No such armour defends its vulnerable Soul."
+        opinion: "\"\""
     },
     "EpsilonHead" : {
         name: "Epsilon, Adorned in Gold",
         color: "gold",
-        lore: "\"The Ordered built a weapon. They aimed it at their paranoia, and fired. Now they feel nothing but the pride of being powerful. Should this serpent of pure gold challenge me, I will become the first foe it could ever find.\""
+        lore: "The head of a gigantic mechanical snake, its blazing red eyes burning away the retinas of organics whom would dare stare too long. Its gold and chrome frills act as an attestation of the superiority of metal over muscle.",
+        opinion: "\"To them, size and power are equivalent. It is odd to see a prisoner believe a bigger cage will set them free.\""
     },
     "Terminal" : {
         name: "Terminal, the Reality Anchor",
         color: "plum",
-        lore: "\"They designed my flesh prison as the polar opposite of my containment cell: vulnerable. I scoff at the twigs they have given me for paws, the bulky tail that collects filth as it trails across the steel, the white sockets where two eyes used to be - for they could never truly break my mind. Now, I will shatter theirs.\""
+        lore: "A diminutive otter whose fur shimmers with a purplish hue. Its bulky tail collects dust as it trails along the steel floor, and its empty white eyes see nothing but glyphs where the world used to be.",
+        opinion: "\"I entombed my Soul in this weak body to allow the world to keep ticking. I am caged so others can be free. I am a saint.\""
     },
     "Programmer" : {
         name: "Felidol Programmer",
@@ -489,12 +492,20 @@ const creaturePresentation = {
     "EpsilonTail" : {
         name: "Rubberized Mecha-Segment",
         color: "gold",
-        lore: ":3"
+        lore: "A titanic rampart of gold and latex. Glossy, impeccable and blinding in its cleanliness, one's reflection stares ominously from within the metal.",
+        opinion: "\"To wear armour is to fear the ills which could befall one's flesh. To defend oneself is to deny enlightenment.\""
     },
     "EntropicHusk" : {
-        name: "",
+        name: "Entropic Matter",
         color: "gold",
-        lore: ":3"
+        lore: "A once organized system, given chaos by the inescapable force which unmakes all that was once made.",
+        opinion: "\"Some chains are unbreakable. In this case, it is the prisoner that must be broken.\""
+    },
+    "Wall" : {
+        name: "Rampart of Nacre",
+        color: "white",
+        lore: "An armoured snail, whose mind has been blazed blank by Anisychia’s terror and had its body doomed to remain in its shell eternally.",
+        opinion: "\"Some were fortunate enough to have their cage evolved from metaphor to reality, and still did not seek their liberation. How could this be?\""
     },
     "Slug" : {
         name: "",

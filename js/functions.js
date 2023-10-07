@@ -51,12 +51,26 @@ function severSynapse(data){
 }
 
 function target(data, tile){
-    if (tile.monster && tile.monster.hasTaggedSoul("Untargetable")) return;// replace with the no target tag
-    if (tile) data["targets"].push(tile);
+    if (!tile) return data;
+    for (let i of tile.getAllCreatures()){
+        if (i.hasTaggedSoul("Untargetable")) return data;
+    }
+    data["targets"].push(tile);
     return data;
 }
 
 function nukeTargets(data){
     data["targets"] = [];
     return data;
+}
+
+function getAllTargetedCreatures(data){
+    let creatures = [];
+    for (let i of data["targets"]){
+        for (let j of i.getAllCreatures()){
+            creatures.push(j);
+        }
+    }
+    creatures = creatures.filter((a) => !a.hasTaggedSoul("Unaffected"));
+    return creatures;
 }
