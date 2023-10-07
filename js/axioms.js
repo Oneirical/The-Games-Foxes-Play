@@ -887,7 +887,7 @@ function targetBoltTravel(direction, location){
         let testTile = newTile.getNeighbor(direction[0], direction[1]);
         if(testTile && testTile.passable){
             newTile = testTile;
-            if(newTile.monster) break;
+            if(newTile.tangibleCreature) break;
             else targets.push(testTile);
         }else{
             break;

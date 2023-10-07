@@ -154,6 +154,7 @@ function makeFontsWork(){ //yikes, can't believe I had to do that
             fill: "white",
         });
     }
+    soulTree.updateSlots(player);
 }
 
 function drawChainLine(l,x,y,dir,source){

@@ -50,7 +50,7 @@ const speciesData = {
         "sprite" : 1,
         "hp" : 0,
         "souls" : {
-            "ORDERED" : "Untargetable",
+            "ORDERED" : "Unaffected",
         },
         "intangible" : true,
     },
@@ -58,7 +58,7 @@ const speciesData = {
         "sprite" : 3,
         "hp" : 0,
         "souls" : {
-            "ORDERED" : "Untargetable",
+            "ORDERED" : "Unaffected",
         }
     },
     "Apiarist" : {

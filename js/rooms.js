@@ -78,7 +78,7 @@ const logicMaps = {
         "keys" : {
         }
     },
-    "Untargetable" : {
+    "Unaffected" : {
         0 : ".....",
         1 : ".....",
         2 : "..U..",

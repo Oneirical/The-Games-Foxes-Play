@@ -23,9 +23,10 @@ class Creature{
         if (creaturePresentation[this.species]) this.lore = creaturePresentation[this.species]["lore"];
         if (creaturePresentation[this.species]) this.name = creaturePresentation[this.species]["name"];
         this.lastMotion = [0, 0];
-        this.move(tile);
+        this.tangible = true;
         if (speciesData[species]["intangible"]) this.tangible = false;
-        else this.tangible = true;
+
+        this.move(tile);
     }
 
     trigger(event,assi){
@@ -142,6 +143,7 @@ class Creature{
         if (!this.animationTick) this.setUpAnimation();
         this.updateHp();
         this.graphicsReady = true;
+        if (!this.tangible) this.representativeSprite.alpha = 0.3;
         //remember when you looked for 2 hours for that one bug that made you drop 1 FPS every time Terminal passed a door and it turned
         //out to be that one tiny line under here that caused literal thousands of StatusDisplay to stack on top of each other? Now that was funny
     }
@@ -219,6 +221,7 @@ class Creature{
     }
 
     tryMove(dx,dy){ // make teleport also pass through this but check what dx is and ignore dy
+        if (this.hasTaggedSoul("Unaffected")) return false;
         let newTile = this.tile.getNeighbor(dx,dy);
         if(this.canMove(newTile)){
                 this.move(newTile);
@@ -234,6 +237,8 @@ class Creature{
         this.species = newSpecies;
         this.representativeSprite.texture = (allsprites.textures['sprite'+speciesData[newSpecies]["sprite"]]);
         soulTree.updateSlots(this);
+        if (speciesData[newSpecies]["intangible"]) this.becomeIntangible();
+        else this.becomeTangible();
     }
 
     hit(damage,origin){  
@@ -247,19 +252,26 @@ class Creature{
     die(){
         this.trigger("OBLIVION");
         this.changeSpecies("EntropicHusk");
-        this.toggleTangibility();
+        this.forceInjectAxiom(UnaffectedTag);
     }
 
-    toggleTangibility(){
+    becomeIntangible(){
         if (this.tangible){
             this.tile.tangibleCreature = false;
             this.tile.intangibleCreatures.add(this);
         }
-        else{
+
+        this.tangible = false;
+        this.representativeSprite.alpha = 0.3;
+    }
+
+    becomeTangible(){
+        if (!this.tangible){
             this.tile.intangibleCreatures.delete(this);
             this.tile.tangibleCreature = this;
         }
-        this.tangible = !this.tangible;
+        this.tangible = true;
+        this.representativeSprite.alpha = 1;
     }
 
     move(tile){

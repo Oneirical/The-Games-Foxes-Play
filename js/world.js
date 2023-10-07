@@ -592,7 +592,6 @@ class World{
         tileSize = (9/numTiles)*64;
         tiles = room.tiles;
         player.tile = getTile(spawnl[0],spawnl[1]);
-        console.log(player.tile);
         room.populateRoom();
         monsters = room.monsters;
         let playerisIn = locatePlayer();

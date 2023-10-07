@@ -511,11 +511,11 @@ class SoulTree{
             else this.axiomCon.children[i].alpha = 0.5;
         }
         this.entityName.text = creaturePresentation[this.trackedEntity.species]["name"];
-        this.entityName.style.color = creaturePresentation[this.trackedEntity.species]["color"];
+        this.entityName.style.fill = creaturePresentation[this.trackedEntity.species]["color"];
         this.entityLore.text = creaturePresentation[this.trackedEntity.species]["lore"];
         this.entityOpinion.text = creaturePresentation[this.trackedEntity.species]["opinion"];
         const textMetrics = PIXI.TextMetrics.measureText(this.entityLore.text, this.entityLore.style);
-        this.entityOpinion.y = 65 + textMetrics.height;
+        this.entityOpinion.y = 45 + textMetrics.height;
         this.entitySprite.texture = allsprites.textures['sprite'+speciesData[this.trackedEntity.species]["sprite"]];
         let hpIndicator = this.trackedEntity.hp;
         for (let i of this.healthTracker){
@@ -821,6 +821,7 @@ class Soul{
         if (emptySpace.length === 0) return false;
         else{
             this.axioms[emptySpace[0].x][emptySpace[0].y] = new axiomType();
+            this.findBindings();
             return true;
         }
     }
