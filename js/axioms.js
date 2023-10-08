@@ -100,6 +100,18 @@ class OpenSelf extends Axiom{
     }
 }
 
+class OpenOther extends Axiom{
+    constructor(){
+        super();
+    }
+    act(data){
+        for (let i of getAllTargetedCreatures(data)){
+            i.openSelf();
+        }
+        return data;
+    }
+}
+
 class RadioBroadcaster extends Axiom{
     constructor(message){
         super();
