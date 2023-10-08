@@ -58,7 +58,7 @@ const speciesData = {
         "sprite" : 17,
         "hp" : 0,
         "souls" : {
-            "ORDERED" : "MoveDownBot",
+            "ORDERED" : "Airlock",
         },
     },
     "Wall" : {

@@ -90,6 +90,16 @@ class ShowEffects extends Axiom{
     }
 }
 
+class OpenSelf extends Axiom{
+    constructor(){
+        super();
+    }
+    act(data){
+        data["caster"].openSelf();
+        return data;
+    }
+}
+
 class RadioBroadcaster extends Axiom{
     constructor(message){
         super();

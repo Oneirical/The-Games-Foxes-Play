@@ -78,6 +78,20 @@ const logicMaps = {
         "keys" : {
         }
     },
+    "Airlock" : {
+        0 : "..I.U",
+        1 : "..E..",
+        2 : "..O..",
+        3 : ".....",
+        4 : ".....",
+        "keys" : {
+            "I" : new RadioReceiver("TAKE"),
+            "U" : new UnaffectedTag(),
+            "E" : new EgoForm(),
+            "O" : new OpenSelf(),
+
+        }
+    },
     "Unaffected" : {
         0 : ".....",
         1 : ".....",

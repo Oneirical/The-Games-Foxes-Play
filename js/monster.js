@@ -117,6 +117,64 @@ class Creature{
         });
     }
 
+    closeSelf(){
+        this.becomeTangible();
+    }
+
+    openSelf(){
+        this.becomeIntangible();
+        if (!this.doorTiles){
+            this.representativeSprite.visible = false;
+            this.doorTiles = new PIXI.Container;
+            this.creaturecon.addChild(this.doorTiles);
+            for (let i = 0; i<2; i++){
+                let door = new FoxSprite(allsprites.textures['sprite'+speciesData[this.species]["sprite"]]);
+                door.width = tileSize;
+                door.height = tileSize;
+                door.anchor.set(0.5,0.5);
+                door.x = tileSize/2;
+                door.y = tileSize/2;
+                const rotate = {
+                    "S" : 0,
+                    "W" : Math.PI/2,
+                    "E" : 3*Math.PI/2,
+                    "N" : Math.PI,
+                }
+                if (this.direction) door.rotation = rotate[this.direction];
+                this.doorTiles.addChild(door);
+            }
+            drawPixel("black",0,0,tileSize,this.creaturecon);
+            this.creaturecon.children[this.creaturecon.children.length-1].alpha = 0;
+            this.creaturecon.mask = this.creaturecon.children[this.creaturecon.children.length-1];
+            this.creaturecon.doorMask = this.creaturecon.children[this.creaturecon.children.length-1]; // so we can remove it later
+            this.doorAnim = new PIXI.Ticker();
+            this.doorAnim.start();
+            this.doorAnim.add(() => {
+                if (fastReload) return;
+                if (!this.direction || this.direction == "N" || this.direction == "S" ){
+                    if (this.doorTiles.children[0].x < 88 && !this.tangible){
+                        this.doorTiles.children[0].x +=3;
+                        this.doorTiles.children[1].x -=3;
+                    }
+                    else if (this.doorTiles.children[0].x > 32 && this.tangible){
+                        this.doorTiles.children[0].x -=3;
+                        this.doorTiles.children[1].x +=3;
+                    }
+                }
+                else if (this.direction == "W" || this.direction == "E" ){
+                    if (this.doorTiles.children[0].y < 88 && !this.tangible){
+                        this.doorTiles.children[0].y +=3;
+                        this.doorTiles.children[1].y -=3;
+                    }
+                    else if (this.doorTiles.children[0].y > 32 && this.tangible){
+                        this.doorTiles.children[0].y -=3;
+                        this.doorTiles.children[1].y +=3;
+                    }
+                }
+            });
+        }
+    }
+
     setUpSprite(){
         this.creaturecon = new PIXI.Container();
         if (this === player){
@@ -203,7 +261,6 @@ class Creature{
 
     interactedBy(interactor){
         this.trigger("TAKE");
-
     }
 
     interactWith(target){
