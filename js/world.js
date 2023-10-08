@@ -546,12 +546,8 @@ class World{
         for(let i=0;i<5;i++){
             worldgen[i] = [];
             for(let j=0;j<5;j++){
-                if(false){
+                if(seededRNG() < 0.4){
                     worldgen[i][j] = new Wall(i,j); // ridiculous, but ingenious!
-                    //passableRooms++;
-                }
-                else if(seededRNG() < 0.4){
-                    worldgen[i][j] = new Wall(i,j);
                 }
                 else{
                     worldgen[i][j] = new Floor(i,j);
@@ -659,9 +655,7 @@ class Room{
                     }
                     newSprite.rotation = rotate[this.tiles[i][j].direction];
                 }
-                this.displayCon.addChild(newSprite);
-                
-                //if (!(this.tiles[i][j] instanceof RealityWall)) drawPixel(checkPixel(this.tiles[i][j]),i*brush,j*brush,14,this.displayCon);
+                this.displayCon.addChild(newSprite);                
             }
         }
         this.graphicsReady = true;

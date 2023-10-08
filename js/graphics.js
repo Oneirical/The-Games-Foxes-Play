@@ -401,23 +401,17 @@ function tickProjectors(){
                 tiles[i-zoom+player.tile.x][j-zoom+player.tile.y].projectedBy = projector;
             }
             else projector.referenceTile = null;
-            if (projector.referenceTile && !(projector.referenceTile instanceof RealityWall)){
-                projector.addChild(projector.referenceTile.tileCon);
-                if (projector.referenceTile.monster && player != projector.referenceTile.monster){
-                    tilesDisplay.creatureDisplay.addChild(projector.referenceTile.monster.creaturecon);
-                    projector.referenceTile.monster.creaturecon.originalX = i*tileSize+64*(15-zoom);
-                    projector.referenceTile.monster.creaturecon.originalY = j*tileSize+64*(15-zoom);
-                    projector.referenceTile.monster.creaturecon.x = i*tileSize+64*(15-zoom)+projector.referenceTile.monster.offsetX*tileSize;
-                    projector.referenceTile.monster.creaturecon.y = j*tileSize+64*(15-zoom)+projector.referenceTile.monster.offsetY*tileSize;
-                    //tilesDisplay.projectorDisplay.swapChildren(projector,tilesDisplay.projectorDisplay.projectors[zoom*2-1][zoom*2-1]);
-                }
-            }
-            else{
-                newSprite = new PIXI.Graphics();
-                newSprite.beginFill("black");
-                newSprite.drawRect(0, 0, tileSize, tileSize);
-                newSprite.endFill();
-                projector.addChild(newSprite);
+            newSprite = new PIXI.Graphics();
+            newSprite.beginFill("black");
+            newSprite.drawRect(0, 0, tileSize, tileSize);
+            newSprite.endFill();
+            projector.addChild(newSprite);
+            if (projector.referenceTile && projector.referenceTile.monster && player != projector.referenceTile.monster){
+                tilesDisplay.creatureDisplay.addChild(projector.referenceTile.monster.creaturecon);
+                projector.referenceTile.monster.creaturecon.originalX = i*tileSize+64*(15-zoom);
+                projector.referenceTile.monster.creaturecon.originalY = j*tileSize+64*(15-zoom);
+                projector.referenceTile.monster.creaturecon.x = i*tileSize+64*(15-zoom)+projector.referenceTile.monster.offsetX*tileSize;
+                projector.referenceTile.monster.creaturecon.y = j*tileSize+64*(15-zoom)+projector.referenceTile.monster.offsetY*tileSize;
             }
         }
     }
@@ -426,12 +420,12 @@ function tickProjectors(){
 function drawTiles(){
     tileSize = 64;
     for (let r of universe.worlds){
-        for(let i=0;i<numTiles;i++){
-            for(let j=0;j<numTiles;j++){
-                if (r.playSpace.tiles[i] && r.playSpace.tiles[i][j] && !r.playSpace.tiles[i][j].graphicsReady 
-                    && !(r.playSpace.tiles[i][j] instanceof RealityWall)) r.playSpace.tiles[i][j].setUpSprite();
-            }
-        }
+        //for(let i=0;i<numTiles;i++){
+        //    for(let j=0;j<numTiles;j++){
+        //        if (r.playSpace.tiles[i] && r.playSpace.tiles[i][j] && !r.playSpace.tiles[i][j].graphicsReady 
+        //            && !(r.playSpace.tiles[i][j] instanceof RealityWall)) r.playSpace.tiles[i][j].setUpSprite();
+        //    }
+        //}
         
         for(let i=0;i<5;i++){
             for(let j=0;j<5;j++){

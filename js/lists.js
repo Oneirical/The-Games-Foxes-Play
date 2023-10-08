@@ -76,6 +76,20 @@ const speciesData = {
             "ORDERED" : "Unaffected",
         }
     },
+    "TermiWall" : {
+        "sprite" : 37,
+        "hp" : 0,
+        "souls" : {
+            "ORDERED" : "Unaffected",
+        }
+    },
+    "RoseWall" : {
+        "sprite" : 55,
+        "hp" : 0,
+        "souls" : {
+            "ORDERED" : "Unaffected",
+        }
+    },
     "Apiarist" : {
         "sprite" : 6,
         "hp" : 4,

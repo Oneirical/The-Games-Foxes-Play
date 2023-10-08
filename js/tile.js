@@ -13,7 +13,7 @@ class Tile{
         this.tangibleCreature = false;
         this.intangibleCreatures = new Set();
 
-        //if (this.constructor.name !== "Floor") console.log(this.constructor.name);
+        if (this.constructor.name !== "Floor") console.log(this.constructor.name);
     }
 
     stepOut(creature){
