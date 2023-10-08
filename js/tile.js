@@ -42,6 +42,7 @@ class Tile{
     }
 
     setUpSprite(){
+        return;
         //if (this instanceof CageContainer) return;
         if (this.tileCon.children.length == 0) this.tileCon = new PIXI.Container();
         //tilesDisplay.notPlayerTiles.addChild(this.tileCon);
