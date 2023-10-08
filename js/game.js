@@ -64,6 +64,7 @@ function assignRotations(){
     for (let r of universe.worlds){
         for (let i of r.playSpace.monsters){
             if (i.species === "Airlock") rotateAirlock(i,r); // a little gory, may cause trouble if the changeSpecies of airlocks not connected makes weird properties
+            if (i.species === "WellWall") rotateWellWall(i,r);
         }
     }
 }

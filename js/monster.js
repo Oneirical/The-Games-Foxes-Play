@@ -199,7 +199,7 @@ class Creature{
         if (!this.animationTick) this.setUpAnimation();
         this.updateHp();
         this.graphicsReady = true;
-        if (!this.tangible) this.representativeSprite.alpha = 0.3;
+        //if (!this.tangible) this.representativeSprite.alpha = 0.3;
         //remember when you looked for 2 hours for that one bug that made you drop 1 FPS every time Terminal passed a door and it turned
         //out to be that one tiny line under here that caused literal thousands of StatusDisplay to stack on top of each other? Now that was funny
     }

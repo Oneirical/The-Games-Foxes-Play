@@ -54,6 +54,14 @@ const speciesData = {
         },
         "intangible" : true,
     },
+    "WellWall" : {
+        "sprite" : 108,
+        "hp" : 0,
+        "souls" : {
+            "ORDERED" : "Unaffected",
+        },
+        "intangible" : true,
+    },
     "Airlock" : {
         "sprite" : 17,
         "hp" : 0,
