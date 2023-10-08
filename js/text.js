@@ -489,6 +489,12 @@ const creaturePresentation = {
         color: "pink",
         lore: ":3"
     },
+    "Airlock" : {
+        name: "Upload Relay",
+        color: "pink",
+        lore: ":3",
+        opinion: "",
+    },
     "EpsilonTail" : {
         name: "Rubberized Mecha-Segment",
         color: "gold",

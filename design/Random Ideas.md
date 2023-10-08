@@ -9,6 +9,7 @@
 * Multiple creatures per tile, some are intangible, X husks contain souls
 * Epsilon momentum + reverse direction + teleport entity? make it possible for the player to control without edits
 * Going into a separated/unstabilized portal goes to Nowhere with the cockroach piano
+* Place the glace-crowns past a snowy path, they view the harmony from afar
 
 **Save and Load**
 
@@ -134,30 +135,9 @@ Bright Red Blood, A Shriek
 
 Surging Cyan Rivers Drown Thought
 
-
-**Various Contingencies**
-
-- When moving up... (3 Saintly)
-- When moving down... (3 Vile)
-- When moving left... (3 Unhinged)
-- When moving... (5 Feral)
-- When moving in a circle... (1 Artistic)
-- When breathing a Soul... (3 Saintly)
-- After using all six Castes (without repeats)... (1 Random)
-- When a turn passes while having 5 or less Value remaining... (1 Unhinged)
-- When reshuffle deck...
-
-**Low priority nitpicks**
-
-* Potential softlock with Apis constrict + him dying after applying his constrict
-* Epsilon's vulnerability markings cause confusion.
-* Double speed enemies still seem to occasionally return to their previous tile.
-
 **UI**
 
 * Inspect elements in the sidebar to know what they do.
-* Add tile abilties. Like "opens on room clear". Maybe make returnExits different too.
-* Cool sliding animation in Inventory/Modules.
 
 **Rooms & Creatures**
 
@@ -176,6 +156,7 @@ Surging Cyan Rivers Drown Thought
 * A funny moment if you turn yourself into a Felidol and get softlocked into an eternal staring contest with another Felidol. Maybe the stare has some paralyzing property...
 
 * A radioactive vox area that randomly mutates souls, for better or worse.
+* A challenge with falling boxes with MoveDownBot
 
 **Lore & Writing**
 

@@ -20,8 +20,6 @@ class Creature{
         for (let i of Object.keys(speciesData[species]["souls"])){
             this.souls[i] = speciesData[species]["souls"][i];
         }
-        if (creaturePresentation[this.species]) this.lore = creaturePresentation[this.species]["lore"];
-        if (creaturePresentation[this.species]) this.name = creaturePresentation[this.species]["name"];
         this.lastMotion = [0, 0];
         this.tangible = true;
         if (speciesData[species]["intangible"]) this.tangible = false;
@@ -235,10 +233,11 @@ class Creature{
 
     changeSpecies(newSpecies){
         this.species = newSpecies;
-        this.representativeSprite.texture = (allsprites.textures['sprite'+speciesData[newSpecies]["sprite"]]);
-        soulTree.updateSlots(this);
+        if (this.representativeSprite) this.representativeSprite.texture = (allsprites.textures['sprite'+speciesData[newSpecies]["sprite"]]);
+        if (soulTree.trackedEntity === this) soulTree.updateSlots(this);
         if (speciesData[newSpecies]["intangible"]) this.becomeIntangible();
         else this.becomeTangible();
+
     }
 
     hit(damage,origin){  
@@ -262,7 +261,7 @@ class Creature{
         }
 
         this.tangible = false;
-        this.representativeSprite.alpha = 0.3;
+        if (this.representativeSprite) this.representativeSprite.alpha = 0.3;
     }
 
     becomeTangible(){
@@ -271,7 +270,7 @@ class Creature{
             this.tile.tangibleCreature = this;
         }
         this.tangible = true;
-        this.representativeSprite.alpha = 1;
+        if (this.representativeSprite) this.representativeSprite.alpha = 1;
     }
 
     move(tile){

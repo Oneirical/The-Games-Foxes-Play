@@ -54,6 +54,13 @@ const speciesData = {
         },
         "intangible" : true,
     },
+    "Airlock" : {
+        "sprite" : 17,
+        "hp" : 0,
+        "souls" : {
+            "ORDERED" : "MoveDownBot",
+        },
+    },
     "Wall" : {
         "sprite" : 3,
         "hp" : 0,

@@ -60,6 +60,14 @@ function locatePlayer(over){
     return false;
 }
 
+function assignRotations(){
+    for (let r of universe.worlds){
+        for (let i of r.playSpace.monsters){
+            if (i.species === "Airlock") rotateAirlock(i,r); // a little gory, may cause trouble if the changeSpecies of airlocks not connected makes weird properties
+        }
+    }
+}
+
 function assignSouls(){
     for (let r of universe.worlds){
         for (let i of r.playSpace.monsters){

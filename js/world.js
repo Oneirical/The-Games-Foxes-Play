@@ -19,10 +19,12 @@ class Universe{
         for (let x = 0; x<floors.length; x++){
             this.worlds[x].worldBuilding();
         }
-        assignSouls();
-        //this.placeHypnoDisplays(); // that was an adventure, wasn't it? I'm proud of you. Fu!
         drawTiles();
         drawSprites();
+        assignRotations();
+        assignSouls();
+        //this.placeHypnoDisplays(); // that was an adventure, wasn't it? I'm proud of you. Fu!
+
     }
 
     composeLinks(){

@@ -157,6 +157,41 @@ function makeFontsWork(){ //yikes, can't believe I had to do that
     soulTree.updateSlots(player);
 }
 
+function rotateAirlock(airlock, world){
+    const directions = {
+        "N" : [0,-1],
+        "W" : [-1,0],
+        "E" : [1,0],
+        "S" : [0,1],
+    };
+    for (let i of Object.keys(directions)){
+        let nextTile;
+        if (world.playSpace.tiles[airlock.tile.x+directions[i][0]] && world.playSpace.tiles[airlock.tile.x+directions[i][0]][airlock.tile.y+directions[i][1]]) nextTile = world.playSpace.tiles[airlock.tile.x+directions[i][0]][airlock.tile.y+directions[i][1]];
+        if (nextTile && nextTile.tangibleCreature.species === "Airlock"){
+            airlock.direction = i;
+            break;
+        }
+    }
+    if (!airlock.direction){
+        airlock.changeSpecies("Wall");
+        for (let i of Object.keys(speciesData[airlock.species]["souls"])){
+            airlock.souls[i] = speciesData[airlock.species]["souls"][i];
+        }
+    }
+    else {
+        airlock.representativeSprite.anchor.set(0.5,0.5);
+        airlock.representativeSprite.x = tileSize/2;
+        airlock.representativeSprite.y = tileSize/2;
+        const rotate = {
+            "S" : 0,
+            "W" : Math.PI/2,
+            "E" : 3*Math.PI/2,
+            "N" : Math.PI,
+        }
+        airlock.representativeSprite.rotation = rotate[airlock.direction];
+    }
+}
+
 function drawChainLine(l,x,y,dir,source){
     let chaincon = new PIXI.ParticleContainer();
     chaincon.x = x;

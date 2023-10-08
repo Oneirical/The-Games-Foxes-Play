@@ -1,7 +1,7 @@
 var keytile = {
     "W" : "Wall",
     "." : Floor,
-    "E" : Airlock,
+    "E" : "Airlock",
     "#" : "Wall",
     "A" : RealityWall,
     "T" : TermiWall,
@@ -166,12 +166,12 @@ const logicMaps = {
         0 : ".....",
         1 : ".....",
         2 : ".R...",
-        3 : ".D...",
-        4 : ".....",
+        3 : ".A...",
+        4 : ".D...",
         "keys" : {
-            "R" : new TriggerWatch("MoveFunction"),
-            "A" : new EgoForm(),
-            "D" : new DamageDealer(1),
+            "R" : new RadioReceiver("EON"),
+            "A" : new FormDir("S"),
+            "D" : new MoveFunction(),
         }
     },
     "Guard" : {
