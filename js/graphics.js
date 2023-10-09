@@ -165,12 +165,14 @@ function rotateAirlock(airlock, world){
         "E" : [1,0],
         "S" : [0,1],
     };
-    for (let i of Object.keys(directions)){
-        let nextTile;
-        if (world.playSpace.tiles[airlock.tile.x+directions[i][0]] && world.playSpace.tiles[airlock.tile.x+directions[i][0]][airlock.tile.y+directions[i][1]]) nextTile = world.playSpace.tiles[airlock.tile.x+directions[i][0]][airlock.tile.y+directions[i][1]];
-        if (nextTile && nextTile.tangibleCreature.species === "Airlock"){
-            airlock.direction = i;
-            break;
+    if (!airlock.direction){
+        for (let i of Object.keys(directions)){
+            let nextTile;
+            if (world.playSpace.tiles[airlock.tile.x+directions[i][0]] && world.playSpace.tiles[airlock.tile.x+directions[i][0]][airlock.tile.y+directions[i][1]]) nextTile = world.playSpace.tiles[airlock.tile.x+directions[i][0]][airlock.tile.y+directions[i][1]];
+            if (nextTile && nextTile.tangibleCreature.species === "Airlock"){
+                airlock.direction = i;
+                break;
+            }
         }
     }
     if (!airlock.direction){

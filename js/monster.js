@@ -1,7 +1,14 @@
 class Creature{
     constructor(tile, species){
-        this.sprite = speciesData[species]["sprite"];
         this.species = species;
+
+        if (this.species.includes("Airlock") && this.species.length == 8){
+            this.direction = this.species[7];
+            this.species = "Airlock";
+            species = "Airlock";
+        }
+        this.sprite = speciesData[species]["sprite"];
+
         this.hp = speciesData[species]["hp"];
         this.numberID = creaturesCreated;
         creaturesCreated++;

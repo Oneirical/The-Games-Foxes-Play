@@ -157,6 +157,7 @@ Surging Cyan Rivers Drown Thought
 
 * A radioactive vox area that randomly mutates souls, for better or worse.
 * A challenge with falling boxes with MoveDownBot
+* Feral chase area that ticks every half second if 2 creatures are on the screen at once.
 
 **Lore & Writing**
 

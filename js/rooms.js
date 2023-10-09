@@ -20,10 +20,10 @@ var keytile = {
     "H" : HypnoticProjector,
     "|" : Window,
     "a" : Airlock,
-    "V" : Airlock,
-    "^" : Airlock,
-    ">" : Airlock,
-    "<" : Airlock,
+    "V" : "AirlockS",
+    "^" : "AirlockN",
+    ">" : "AirlockE",
+    "<" : "AirlockW",
 }
 
 var keyroom = {
