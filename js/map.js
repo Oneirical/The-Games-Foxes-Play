@@ -7,7 +7,7 @@ function astair(start,dest){
     for (let i =0; i<numTiles; i++){
         graph[i] = [];
         for (let j = 0; j<numTiles; j++){
-            if (tiles[i][j] == start || tiles[i][j] == dest || tiles[i][j] instanceof Airlock || (tiles[i][j].passable && tiles[i][j].monster == null)) graph[i][j] = 1;
+            if (tiles[i][j] == start || tiles[i][j] == dest || (tiles[i][j].tangibleCreature === false)) graph[i][j] = 1;
             else graph[i][j] = 0;
         }
     }

@@ -363,10 +363,6 @@ class World{
         }
         for(let i=0;i<5;i++){
             for(let j=0;j<5;j++){
-                if ("Facility" == "Facility"){//replace this if more vaults get added
-                    if (this.rooms[i][j] instanceof WorldSeed) this.rooms[i][j].filler = TermiWall;
-                    else this.rooms[i][j].filler = Wall;
-                }
                 for(let x=0;x<this.rooms[i][j].size;x++){
                     for(let y=0;y<this.rooms[i][j].size;y++){
                         this.depositTiles[i*9+x][j*9+y] = this.rooms[i][j].tiles[x][y];
@@ -385,11 +381,6 @@ class World{
                 this.playSpace.tiles[i][j].existSpace = this.playSpace.tiles;
                 this.playSpace.tiles[i][j].x = i;
                 this.playSpace.tiles[i][j].y = j;            
-            }
-        }
-        for(let i=0;i<45;i++){
-            for(let j=0;j<45;j++){   
-                if (this.playSpace.tiles[i][j] instanceof Airlock) this.playSpace.tiles[i][j].findDirection();        
             }
         }
     }
@@ -478,11 +469,6 @@ class World{
                 this.playSpace.tiles[i][j].existSpace = this.playSpace.tiles;
                 this.playSpace.tiles[i][j].x = i;
                 this.playSpace.tiles[i][j].y = j;            
-            }
-        }
-        for(let i=0;i<45;i++){
-            for(let j=0;j<45;j++){   
-                if (this.playSpace.tiles[i][j] instanceof Airlock) this.playSpace.tiles[i][j].findDirection();        
             }
         }
     }
@@ -624,7 +610,6 @@ class Room{
         this.monsters = [];
         this.creatures = "";
         this.vault = true;
-        this.filler = NoBreakWall;
         this.vault = false;
         this.visited = false;
         this.layer;
@@ -639,25 +624,11 @@ class Room{
             for (let j = 0; j<this.size; j++){
                 let hai = this.tiles[i][j].sprite;
                 if (this.tiles[i][j].monster) hai = this.tiles[i][j].monster.sprite;
-                else if (this.tiles[i][j] instanceof Airlock && this.tiles[i][j].direction) hai = 17;
-                else if (this.tiles[i][j] instanceof Airlock) hai = 3;
                 let newSprite = new FoxSprite(allsprites.textures['sprite'+hai]);
                 newSprite.width = 112/9;
                 newSprite.height = 112/9;
                 newSprite.x = i*(112/9);
                 newSprite.y = j*(112/9);
-                if (this.tiles[i][j] instanceof Airlock && this.tiles[i][j].direction){
-                    newSprite.anchor.set(0.5,0.5);
-                    newSprite.x += 112/9/2;
-                    newSprite.y += 112/9/2;
-                    const rotate = {
-                        "S" : 0,
-                        "W" : Math.PI/2,
-                        "E" : 3*Math.PI/2,
-                        "N" : Math.PI,
-                    }
-                    newSprite.rotation = rotate[this.tiles[i][j].direction];
-                }
                 this.displayCon.addChild(newSprite);                
             }
         }
@@ -699,8 +670,6 @@ class DefaultVaultRoom extends Room{
                 let airlockDirOverride;
                 if (!keytile[vault[j][i]] || (vault["creatures"] && vault["creatures"][vault[j][i]]) || typeof keytile[vault[j][i]] === "string") tile = Floor; //cursed
                 else tile = keytile[vault[j][i]];
-                if (tile == Airlock && ["V","^","<",">"].includes(vault[j][i])) airlockDirOverride = vault[j][i];
-                //if (depth == 1 && (tile == Wall || tile == NoBreakWall)) tile = RoseWall;
                 if ("nswe".includes(vault[j][i])){
                     let dir;
                     dir = vault[j][i];
@@ -785,7 +754,6 @@ class WorldSeed extends DefaultVaultRoom{
         this.visited = true;
         this.name = "World Seed";
         this.music = "malform";
-        this.filler = TermiWall;
         this.stage = 0;
     }
 
@@ -991,7 +959,6 @@ class HarmonyRelay extends DefaultVaultRoom{
         this.music = "harmony2";
         this.fuffspawn = 0;
         this.hostile = false;
-        //this.filler = AbazonWall;
         this.id = "Empty";
     }
 
