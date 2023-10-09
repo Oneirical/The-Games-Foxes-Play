@@ -257,8 +257,13 @@ class World{
                 let area = this.playSpace.tiles[i][j];
                 if (!area) continue;
                 let hai = area.sprite;
-                if (area.monster) hai = area.monster.sprite;
+                let visible = true;
+                if (area.monster){
+                    hai = speciesData[area.monster.species]["sprite"];
+                    if (speciesData[area.monster.species]["invisible"]) visible = false;
+                }
                 let newSprite = new FoxSprite(allsprites.textures['sprite'+hai]);
+                newSprite.visible = visible;
                 newSprite.width = 64/9;
                 newSprite.height = 64/9;
                 newSprite.x = i*(64/9);

@@ -970,8 +970,9 @@ class Soul{
             if (currentSynapse["showEffects"]) for (let i of currentSynapse["targets"]) i.setEffect(14); //TODO maybe change the effect depending on soul caste
             this.owner.trigger(i.constructor.name); // for triggerwatch contingency
             let additions = [];
-            for (let r of this.getLogicNeighbours(i)) additions.push(r);
-            if (additions.length == 0) currentSynapse["break"] = true;
+            let synapseEnded = false;
+            for (let r of this.getLogicNeighbours(i)) if (!(r instanceof FailCatcher)) additions.push(r);
+            if (additions.length == 0) synapseEnded = true;
             if (additions.length >= 1 && !currentSynapse["break"]) currentSynapse["synapses"].push(additions[0]);
             if (additions.length > 1 && !currentSynapse["break"]){
                 for (let o = 1; o<additions.length; o++){
@@ -991,7 +992,10 @@ class Soul{
                     if (r instanceof FailCatcher) additionsFail.push(r);
                 }
                 if (additionsFail.length == 0) removeItemOnce(data,currentSynapse);
-                else currentSynapse["break"] = false;
+                else{
+                    currentSynapse["break"] = false;
+                    synapseEnded = false;
+                }
                 if (additionsFail.length >= 1) currentSynapse["synapses"].push(additionsFail[0]);
                 if (additionsFail.length > 1){
                     for (let o = 1; o<additionsFail.length; o++){
@@ -1004,6 +1008,7 @@ class Soul{
                     }
                 }
             }
+            if (synapseEnded) removeItemOnce(data,currentSynapse);
         }
     }
 }

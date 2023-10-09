@@ -149,13 +149,6 @@ class Creature{
                 door.anchor.set(0.5,0.5);
                 door.x = tileSize/2;
                 door.y = tileSize/2;
-                const rotate = {
-                    "S" : 0,
-                    "W" : Math.PI/2,
-                    "E" : 3*Math.PI/2,
-                    "N" : Math.PI,
-                }
-                if (this.direction) door.rotation = rotate[this.direction];
                 this.doorTiles.addChild(door);
             }
             drawPixel("black",0,0,tileSize,this.creaturecon);
@@ -166,7 +159,17 @@ class Creature{
             this.doorAnim.start();
             this.doorAnim.add(() => {
                 if (fastReload) return;
-                if (!this.direction || this.direction == "N" || this.direction == "S" ){
+                //if (true || !this.direction || this.direction == "E" || this.direction == "W" ){
+                if (this.doorTiles.children[0].x < 88 && !this.tangible){ // ouh, that's weird. why does it only work if it's X only? something weird going on with rotations, it may bug out when it's not airlocks getting opened
+                    this.doorTiles.children[0].x +=3;
+                    this.doorTiles.children[1].x -=3;
+                }
+                else if (this.doorTiles.children[0].x > 32 && this.tangible){
+                    this.doorTiles.children[0].x -=3;
+                    this.doorTiles.children[1].x +=3;
+                }
+                //}
+/*                 else if (this.direction == "N" || this.direction == "S" ){
                     if (this.doorTiles.children[0].x < 88 && !this.tangible){
                         this.doorTiles.children[0].x +=3;
                         this.doorTiles.children[1].x -=3;
@@ -175,17 +178,7 @@ class Creature{
                         this.doorTiles.children[0].x -=3;
                         this.doorTiles.children[1].x +=3;
                     }
-                }
-                else if (this.direction == "W" || this.direction == "E" ){
-                    if (this.doorTiles.children[0].y < 88 && !this.tangible){
-                        this.doorTiles.children[0].y +=3;
-                        this.doorTiles.children[1].y -=3;
-                    }
-                    else if (this.doorTiles.children[0].y > 32 && this.tangible){
-                        this.doorTiles.children[0].y -=3;
-                        this.doorTiles.children[1].y +=3;
-                    }
-                }
+                } */
             });
         }
     }

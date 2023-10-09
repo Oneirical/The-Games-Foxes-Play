@@ -100,6 +100,16 @@ class OpenSelf extends Axiom{
     }
 }
 
+class CloseSelf extends Axiom{
+    constructor(){
+        super();
+    }
+    act(data){
+        data["caster"].closeSelf();
+        return data;
+    }
+}
+
 class OpenOther extends Axiom{
     constructor(){
         super();
@@ -359,6 +369,17 @@ class ScreenShake extends Axiom{
     }
     act(data){
         shakeAmount += this.storage;
+        return data;
+    }
+}
+
+class BreakIfNobody extends Axiom{
+    constructor(){
+        super();
+    }
+    act(data){
+        let creatures = getAllTargetedCreatures(data);
+        if (creatures.length === 0) severSynapse(data);
         return data;
     }
 }

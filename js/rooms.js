@@ -82,13 +82,18 @@ const logicMaps = {
         0 : "..I.U",
         1 : "..E..",
         2 : "..O..",
-        3 : ".....",
-        4 : ".....",
+        3 : "....C",
+        4 : "REPBF",
         "keys" : {
             "I" : new RadioReceiver("TAKE"),
+            "R" : new RadioReceiver("EON"),
             "U" : new UnaffectedTag(),
             "E" : new EgoForm(),
             "O" : new OpenSelf(),
+            "P" : new PlusForm(),
+            "B" : new BreakIfNobody(),
+            "F" : new FailCatcher(),
+            "C" : new CloseSelf(),
 
         }
     },
