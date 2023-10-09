@@ -30,8 +30,16 @@ class Creature{
         this.lastMotion = [0, 0];
         this.tangible = true;
         if (speciesData[species]["intangible"]) this.tangible = false;
-
+        this.direction = "S";
         this.move(tile);
+
+        this.editedData = {
+            "Position" : false,
+            "Soul" : false,
+            "Health" : false,
+            "Rotation" : false,
+            "Species" : false,
+        }
     }
 
     trigger(event,assi){
@@ -97,10 +105,11 @@ class Creature{
                         tilesDisplay.projectorDisplay.y = -448;
                         tilesDisplay.creatureDisplay.x = -448;
                         tilesDisplay.creatureDisplay.y = -448;
-                        if (!universe.zooming && this.tile instanceof CenterTeleport){
-                            let targetWorld = universe.findWorldByID(this.tile.destination);
+                        if (!universe.zooming && this.tile.getSpecies("DimensionWarp")){
+                            let sourcePad = this.tile.getSpecies("DimensionWarp");
+                            let targetWorld = universe.findWorldByID(sourcePad.destination);
                             let destPad = targetWorld.findTelepadByDest(world.id);
-                            universe.passDown(floors.indexOf(this.tile.destination), destPad.x, destPad.y);
+                            universe.passDown(floors.indexOf(sourcePad.destination), destPad.tile.x, destPad.tile.y);
                         } // if you hold down the key on top of a pad you can pass through it, fix to prevent abuse or funny?
                     }
                 }
@@ -242,6 +251,7 @@ class Creature{
 
     heal(damage){
         if (damage <= 0) return;
+        this.editedData["Health"] = true;
         this.hp = Math.min(4, this.hp+damage);
         this.updateHp();
     }
@@ -264,6 +274,32 @@ class Creature{
                 );
             }
         }
+    }
+
+    rotate(dir){
+        if (this === player){
+            this.creaturecon.x = 8*tileSize;
+            this.creaturecon.y = 8*tileSize;
+        }
+        else{
+            this.creaturecon.x = 0;
+            this.creaturecon.y = 0;
+        }
+        const rotate = {
+            "S" : 0,
+            "W" : Math.PI/2,
+            "E" : 3*Math.PI/2,
+            "N" : Math.PI,
+        }
+        const offset = {
+            "S" : 0,
+            "W" : tileSize,
+            "E" : tileSize,
+            "N" : tileSize,
+        }
+        this.creaturecon.rotation = rotate[dir];
+        if (dir == "W" || dir == "N") this.creaturecon.x += offset[dir];
+        if (dir == "E" || dir == "N")  this.creaturecon.y += offset[dir];
     }
 
     interactedBy(interactor){
@@ -307,6 +343,7 @@ class Creature{
     hit(damage,origin){  
         if (damage <= 0) return;          
         this.lastDamageCulprit = origin;
+        this.editedData["Health"] = true;
         this.hp -= damage;
         if(this.hp <= 0) this.die();
         this.updateHp();
@@ -340,6 +377,7 @@ class Creature{
     move(tile){
         let currentTileCoords = false;
         if(this.tile){
+            this.editedData["Position"] = true;
             currentTileCoords = [this.tile.x,this.tile.y];
             this.tile.monster = null;
             this.tile.stepOut(this);

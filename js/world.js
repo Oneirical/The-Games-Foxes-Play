@@ -23,7 +23,7 @@ class Universe{
         drawSprites();
         assignRotations();
         assignSouls();
-        //this.placeHypnoDisplays(); // that was an adventure, wasn't it? I'm proud of you. Fu!
+        this.placeHypnoDisplays(); // that was an adventure, wasn't it? I'm proud of you. Fu!
 
     }
 
@@ -56,7 +56,7 @@ class Universe{
     placeHypnoDisplays(){
         for (let w of this.worlds){
             for (let p of w.establishedPaths){
-                let tileWhichDisplays = w.playSpace.tiles[p.x-1][p.y-1].getAllCreatures()[0]; // this is a little ugly but oh well, if it is what it takes to remove the visual setEffect() bug
+                let tileWhichDisplays = w.playSpace.tiles[p.tile.x-1][p.tile.y-1].getAllCreatures()[0]; // this is a little ugly but oh well, if it is what it takes to remove the visual setEffect() bug
                 if (!(tileWhichDisplays.species == "HoloStabilizer")) throw new Error("The chosen hypnotic display was not a portal creature.")
                 if (tileWhichDisplays.hypnoticScenes) {
                     for (let h of tileWhichDisplays.hypnoticScenes) tileWhichDisplays.creaturecon.removeChild(h); // it can technically be reused, but the hypnodisplay only pulls from sprites, not paint and entities
@@ -64,17 +64,17 @@ class Universe{
                 let gazingInto = this.findWorldByID(p.destination);
                 let gazingPoint = gazingInto.findTelepadByDest(w.id);
                 let zoomSize = 14; //don't touch that! it's not the same as the graphics one
-                let cont = gazingInto.grabSpritesOfSection(gazingPoint.x-zoomSize+1,gazingPoint.y-zoomSize+1,gazingPoint.x+zoomSize,gazingPoint.y+zoomSize);
-                let contSmall = w.grabSpritesOfSection(p.x-zoomSize+1,p.y-zoomSize+1,p.x+zoomSize,p.y+zoomSize);
-                tileWhichDisplays.tileCon.addChild(cont);
+                let cont = gazingInto.grabSpritesOfSection(gazingPoint.tile.x-zoomSize+1,gazingPoint.tile.y-zoomSize+1,gazingPoint.tile.x+zoomSize,gazingPoint.tile.y+zoomSize);
+                let contSmall = w.grabSpritesOfSection(p.tile.x-zoomSize+1,p.tile.y-zoomSize+1,p.tile.x+zoomSize,p.tile.y+zoomSize);
+                tileWhichDisplays.creaturecon.addChild(cont);
                 contSmall.width = 64/3;
                 contSmall.height = 64/3;
-                tileWhichDisplays.tileCon.addChild(contSmall);
+                tileWhichDisplays.creaturecon.addChild(contSmall);
                 tileWhichDisplays.hypnoticScenes = [cont,contSmall];
-                cont.x-=64-((22-gazingPoint.x)/9*64);
-                cont.y-=64-((22-gazingPoint.y)/9*64);
-                contSmall.x += 128/9+((22-p.x)/9*64/9)+64;
-                contSmall.y += 128/9+((22-p.y)/9*64/9)+64;
+                cont.x-=64-((22-gazingPoint.tile.x)/9*64);
+                cont.y-=64-((22-gazingPoint.tile.y)/9*64);
+                contSmall.x += 128/9+((22-p.tile.x)/9*64/9)+64;
+                contSmall.y += 128/9+((22-p.tile.y)/9*64/9)+64;
             }
         }
     }
@@ -705,11 +705,6 @@ class DefaultVaultRoom extends Room{
                 }
                 else{
                     this.tiles[i][j] = new tile(i,j,this);
-                    if (this.tiles[i][j] instanceof CenterTeleport){
-                        this.tiles[i][j].destination = floorLinks[this.sourceWorld.id][this.sourceWorld.establishedPaths.length];
-                        if (!this.tiles[i][j].destination) throw new Error("Destination failed to be linked to pad.")
-                        this.sourceWorld.establishedPaths.push(this.tiles[i][j]);
-                    }
                 }
                 if (airlockDirOverride){
                     const eqs = {
@@ -726,7 +721,12 @@ class DefaultVaultRoom extends Room{
                     else entity = new Creature(this.tiles[i][j],vault["creatures"][vault[j][i]]);
                     if (vault["marks"] && vault["marks"][vault[j][i]]) entity.generationMark = vault["marks"][vault[j][i]];
                     this.monsters.push(entity);
-                    if (entity.species == "Terminal") player = entity;
+                    if (entity.species === "DimensionWarp"){
+                        entity.destination = floorLinks[this.sourceWorld.id][this.sourceWorld.establishedPaths.length];
+                        if (!entity.destination) throw new Error("Destination failed to be linked to pad.")
+                        this.sourceWorld.establishedPaths.push(entity);
+                    }
+                    if (entity.species === "Terminal") player = entity;
                 }
             }
         }

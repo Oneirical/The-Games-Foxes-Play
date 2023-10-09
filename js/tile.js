@@ -33,6 +33,12 @@ class Tile{
         return creatures;
     }
 
+    getSpecies(species){
+        let creatures = this.getAllCreatures();
+        for (let i of creatures) if (i.species === species) return i;
+        return false;
+    }
+
     isEmpty(){
         return !this.monster && this.passable;
     }

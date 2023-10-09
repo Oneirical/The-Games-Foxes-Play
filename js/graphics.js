@@ -182,16 +182,7 @@ function rotateAirlock(airlock, world){
         }
     }
     else {
-        airlock.representativeSprite.anchor.set(0.5,0.5);
-        airlock.representativeSprite.x = tileSize/2;
-        airlock.representativeSprite.y = tileSize/2;
-        const rotate = {
-            "S" : 0,
-            "W" : Math.PI/2,
-            "E" : 3*Math.PI/2,
-            "N" : Math.PI,
-        }
-        airlock.representativeSprite.rotation = rotate[airlock.direction];
+        airlock.rotate(airlock.direction);
     }
 }
 
@@ -220,16 +211,7 @@ function rotateWellWall(airlock, world){
         throw new Error("A Well Wall did not find an adjacent teleport zone.")
     }
     else {
-        airlock.representativeSprite.anchor.set(0.5,0.5);
-        airlock.representativeSprite.x = tileSize/2;
-        airlock.representativeSprite.y = tileSize/2;
-        const rotate = {
-            "S" : 0,
-            "W" : Math.PI/2,
-            "E" : 3*Math.PI/2,
-            "N" : Math.PI,
-        }
-        airlock.representativeSprite.rotation = rotate[airlock.direction];
+        airlock.rotate(airlock.direction);
     }
 }
 
@@ -409,11 +391,20 @@ function tickProjectors(){
             newSprite.endFill();
             projector.addChild(newSprite);
             if (projector.referenceTile && projector.referenceTile.monster && player != projector.referenceTile.monster){
+                const offset = {
+                    "S" : 0,
+                    "W" : tileSize,
+                    "E" : tileSize,
+                    "N" : tileSize,
+                }
                 tilesDisplay.creatureDisplay.addChild(projector.referenceTile.monster.creaturecon);
                 projector.referenceTile.monster.creaturecon.originalX = i*tileSize+64*(15-zoom);
                 projector.referenceTile.monster.creaturecon.originalY = j*tileSize+64*(15-zoom);
                 projector.referenceTile.monster.creaturecon.x = i*tileSize+64*(15-zoom)+projector.referenceTile.monster.offsetX*tileSize;
                 projector.referenceTile.monster.creaturecon.y = j*tileSize+64*(15-zoom)+projector.referenceTile.monster.offsetY*tileSize;
+                let dir = projector.referenceTile.monster.direction;
+                if (dir == "W" || dir == "N") projector.referenceTile.monster.creaturecon.x += offset[dir];
+                if (dir == "E" || dir == "N")  projector.referenceTile.monster.creaturecon.y += offset[dir];
             }
         }
     }

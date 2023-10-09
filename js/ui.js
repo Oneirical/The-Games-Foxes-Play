@@ -820,6 +820,7 @@ class Soul{
         let emptySpace = this.findAxioms(EmptyAxiom);
         if (emptySpace.length === 0) return false;
         else{
+            this.owner.editedData["Soul"] = true;
             this.axioms[emptySpace[0].x][emptySpace[0].y] = new axiomType();
             this.findBindings();
             return true;
