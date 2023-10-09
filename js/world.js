@@ -497,7 +497,7 @@ class World{
         let usable = [];
         for (let i of worldgen){
             for (let j of i){
-                if (j.name == "Eroded Floortiles") usable.push(j);
+                if (j instanceof Floor) usable.push(j);
             }
         }
         for (let r of Object.keys(specialTypes)){
@@ -809,48 +809,6 @@ class StarFaith extends DefaultVaultRoom{
     }
 }
 
-class Tele1 extends DefaultVaultRoom{
-    constructor(index){
-        super(index);
-        this.id = "Tele1";
-    }
-}
-
-class Tele2 extends DefaultVaultRoom{
-    constructor(index){
-        super(index);
-        this.id = "Tele2";
-    }
-}
-
-class Tele3 extends DefaultVaultRoom{
-    constructor(index){
-        super(index);
-        this.id = "Tele3";
-    }
-}
-
-class Tele4 extends DefaultVaultRoom{
-    constructor(index){
-        super(index);
-        this.id = "Tele4";
-    }
-}
-
-class Tele5 extends DefaultVaultRoom{
-    constructor(index){
-        super(index);
-        this.id = "Tele5";
-    }
-}
-
-class Tele6 extends DefaultVaultRoom{
-    constructor(index){
-        super(index);
-        this.id = "Tele6";
-    }
-}
-
 class Epsilon1 extends DefaultVaultRoom{
     constructor(index){
         super(index);
@@ -942,128 +900,6 @@ class VoidRoom extends DefaultVaultRoom{
     }
 }
 
-class BigRoomVoid extends DefaultVaultRoom{
-    constructor(index,quadrant){
-        super(index);
-        this.id = "Void";
-        this.tangible = false;
-        this.quadrant = quadrant;
-    }
-}
-
-class HarmonyRelay extends DefaultVaultRoom{
-    constructor(index){
-        super(index);
-        this.entrymessage = "FluffyWelcome";
-        this.name = "Test of Unity";
-        this.music = "harmony2";
-        this.fuffspawn = 0;
-        this.hostile = false;
-        this.id = "Empty";
-    }
-
-    populateRoom(){
-        super.populateRoom();
-        let monsterType = shuffle([Harmonizer])[0];
-        let tile = getTile(4,4);
-        world.getRoom().fuffspawn = tile;
-        let monster = new monsterType(tile);
-        monsters.push(monster);
-    }
-
-    initializeRoom(){
-        world.fighting = false;
-        super.initializeRoom();
-    }
-
-    determineLoot(type){
-        let lootdrop = new Senet();
-        lootdrop = relayPool[type][randomRange(0,relayPool[type].length-1)];
-        return lootdrop;
-    }
-
-    summonLoot(elegance, slot1, slot2){
-        let fluffchance  = elegance/5;
-        let bonusartifact = false;
-        let zones = [tiles[3][4],tiles[5][4]];
-        let lootdrop = [this.determineLoot(slot1.value.caste),this.determineLoot(slot2.value.caste)];
-        if (elegance < 0){
-            log.addLog("FluffyAppalled");
-            fluffchance = 100;
-        }
-        else if (elegance >= 300){
-            log.addLog("FluffyMocking");
-        }
-        else if (elegance > 99 && elegance <= 299){
-            log.addLog("FluffyDisgusted");
-        }
-        else if (elegance > 10 && elegance <= 99){
-            log.addLog("FluffySatisfied");
-        }
-        else if (elegance > 0 && elegance <= 10){
-            log.addLog("FluffyImpressed");
-            fluffchance = 0;
-        }
-        else if (elegance == 0){
-            log.addLog("FluffyExalted");
-            fluffchance = 0;
-            bonusartifact = true;
-        }
-        else{
-            log.addLog("FluffyCheat");
-            lootdrop = [new Shizapis(), new Shizapis()];
-            fluffchance = 0;
-        }
-            
-        for (let i = 0;i<lootdrop.length;i++){
-            if (randomRange(0,100) < fluffchance) lootdrop[i] = new Serene();
-            zones[i].value = lootdrop[i]; 
-        }
-        //if (bonusartifact){
-        //    let moddrop = modulators[randomRange(0,modulators.length-1)];
-        //    removeItemOnce(modulators,moddrop);
-        //    spawnCages(moddrop,getTile(4,4));
-        //}
-    }
-} 
-
-class StandardSpire extends Room{
-    constructor(index){
-        super(index);
-        this.name = "Serene Spire";
-    }
-
-    buildRoom(){
-        
-        generateSpire();
-        generateCreatures();
-    }
-
-    initializeRoom(){
-        this.playerspawn = spirespawner;
-        this.playerspawn.replace(Ladder);
-        super.initializeRoom();
-    }
-}
-
-class RoseicCogArena extends Room{
-    constructor(index){
-        super(index);
-        this.name = "Roseic Circus";
-        this.size = 18;
-    }
-
-    buildRoom(){
-        
-        generateCircus();
-    }
-
-    initializeRoom(){
-        this.playerspawn = getTile(8,8);
-        super.initializeRoom();
-    }
-}
-
 class HugeMap extends DefaultVaultRoom{
     constructor(index,myWorld){
         super(index);
@@ -1089,55 +925,5 @@ class HugeMap extends DefaultVaultRoom{
             }
         }
         tickProjectors();
-    }
-}
-
-class SixfoldStand extends DefaultVaultRoom{
-    constructor(index){
-        super(index);
-        this.name = "Sixfold Node";
-        this.size = 18;
-        this.id = "Sixfold";
-    }
-}
-
-class EpsilonArena extends DefaultVaultRoom{
-    constructor(index){
-        super(index);
-        this.size = 18;
-        this.entrymessage = "EpsilonWelcome1";
-        this.name = "Industrial Apex";
-        this.music = "epsilon";
-        this.id = "Epsilon";
-        this.hostile = true;
-    }
-
-    buildRoom(connector){
-        super.buildRoom(connector);
-        showboss = true;
-    }
-
-    initializeRoom(){
-        //this.entrancepoints = [getTile(1,1), getTile(1,numTiles-2),getTile(numTiles-2,1),getTile(numTiles-2,numTiles-2)];
-        super.initializeRoom();
-    }
-}
-
-class FluffianWorkshop extends Room{
-    constructor(index){
-        super(index);
-        this.entrymessage = "FluffyWorkshop";
-        this.name = "Fluffian Workshop";
-    }
-
-    buildRoom(){
-        
-        generateModule();
-        generateCreatures();
-    }
-
-    initializeRoom(){
-        this.playerspawn = getTile(1,8);
-        super.initializeRoom();
     }
 }

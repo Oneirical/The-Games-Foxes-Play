@@ -274,9 +274,6 @@ class Tile{
 class MarkedFloor extends Tile{
     constructor(x,y,type,num){
         super(x, y, 2, true);
-        this.mutable = true;
-        this.lore = entityDescription["Floor"];
-        this.name = "Marked Tile";
         this.type = type;
         this.num = num;
     };
@@ -285,17 +282,11 @@ class MarkedFloor extends Tile{
 class Floor extends Tile{
     constructor(x,y){
         super(x, y, 2, true);
-        this.mutable = true;
-        this.lore = entityDescription["Floor"];
-        this.name = "Eroded Floortiles";
     };
 }
 
 class Wall extends Tile{
     constructor(x, y){
         super(x, y, 3, false);
-        this.lore = entityDescription["Barrier"];
-        this.name = "Apocalypse Barrier";
-        this.mutable = false;
     };
 }

@@ -897,25 +897,6 @@ class LinkForm extends Axiom{
     }
 }
 
-
-
-
-
-const axiomRepertoire = {
-    "Forms" : [],
-    "Functions" : [],
-    "Contingencies" : [],
-    "Mutators" : [],
-}
-
-for (let i of Object.keys(researchflags)){
-    let scan = researchflags[i];
-    if (scan.includes("Form")) axiomRepertoire["Forms"].push(i);
-    else if (scan.includes("Contingency")) axiomRepertoire["Contingencies"].push(i);
-    else if (scan.includes("Function")) axiomRepertoire["Functions"].push(i);
-    else if (scan.includes("Mutator")) axiomRepertoire["Mutators"].push(i);
-}
-
 function targetBoltTravel(direction, location){
     let newTile = location;
     let targets = [];
@@ -937,4 +918,356 @@ function targetBoltTravel(direction, location){
         }
     }
     return targets;
+}
+
+class Soul{
+    constructor(name,owner){
+        this.id = name;
+        this.caste;
+
+
+        this.offsetX = 0;      
+        this.shattered = false;                                             
+        this.offsetY = 0;
+        this.spinSpeed = 0.05;
+        this.x = 0;
+        this.y = 0;
+        this.speed = 0.01;
+        this.angle = 0;
+
+        this.contingencies = [];
+        this.commands = {};
+        this.axioms = [];
+        this.tags = new Set();
+        this.owner = owner;
+        if (!this.owner) this.owner = "None";
+        if (["EMPTY","VILE","FERAL","UNHINGED","ARTISTIC","ORDERED","SAINTLY"].includes(name)) return;
+        this.setUpAxioms();
+        this.findBindings();
+    }
+
+    setUpSprites(){
+        const inside = {
+            "NumberIncrementer" : 67,
+            "ModuloGate" : 68,
+            "NumberStorage" : 69,
+            "HealProvider" : 70,
+            "Contingency" : 72,
+            "CloneCreature" : 71,
+            "Structures" : 73,
+            "LinkForm" : 75,
+            "Song" : 76,
+            "DamageDealer" : 35,
+            "Herald" : 37,
+            "FormDir" : 36,
+            "Turbulent" : 28,
+            "FormEntity" : 13,
+            "BooleanGate" : 33,
+            "SpeciesCheck" : 24,
+            "FormTile" : 26,
+            "Security" : 1,
+            "AssimilateBroadcast" : 49,
+            "OverwriteSlot" : 14,
+            "BooleanFlip" : 39,
+            "MoveFunction" : 74,
+            "NoTargetStop" : 40,
+            "RadioBroadcaster" : 27,
+            "SENET" : 8,
+            "SoulInjector" : 29,
+            "EgoForm" : 66,
+            "CrossForm" : 66, // this should not be the same
+            "PARACEON" : 41,
+            "SMOOCH" : 17,
+            "LastDamageSource" : 18,
+            "PaintTile" : 30,
+            "FailCatcher" : 43,
+            "TriggerWatch" : 42,
+            "ClearPaint" : 32,
+            "VoidTargets" : 38,
+            "EPSILON" : 44,
+            "Brush" : 65,
+            "SoulAbsorber" : 20,
+            "Saintly" : 0,
+            "Ordered" : 1,
+            "Unhinged" : 3,
+            "Feral" : 4,
+            "Vile" : 5,
+            "Artistic" : 2,
+            "ContinKilled" : 15,
+            "RadioReceiver" : 16,
+            "RealityAnchor" : 20,
+            "PaintFilter" : 25,
+            "EntityFilter" : 22,
+            "Axioms" : 6,
+            
+            
+            "ZENORIUM" : 65,
+        }
+        this.displayCon = new PIXI.Container();
+        let size = 80;
+        for (let i = 0; i<5; i++){
+            for (let j = 0; j<5; j++){
+                let icon = 7;
+                if (!this.axioms[i][j].empty) icon = inside[this.axioms[i][j].constructor.name];
+                this.axioms[i][j].icon = icon;
+                let axiom = new FoxSprite(allsprites.textures['icon'+icon]);
+                axiom.eventMode = 'static';
+                axiom.x = i*size+24;
+                axiom.y = j*size+24;
+                axiom.width = size;
+                axiom.height = size;
+                axiom.on('pointerdown', (event) => {
+                });
+                axiom.on('pointerover', (event) => {
+                    app.stage.addChild(sideTooltip.displayCon);
+                    sideTooltip.getDescription(this.axioms[i][j]);
+                    let wai = new PIXI.filters.GlowFilter();
+                    wai.outerStrength = 1;
+                    axiom.filters = [wai];
+                });
+                axiom.on('pointerout', (event) => {
+                    app.stage.removeChild(sideTooltip.displayCon);
+                    axiom.filters = [];
+                });
+                this.displayCon.addChild(axiom);
+            }
+        }
+    }
+
+    setUpAxioms(){
+        let id = this.id;
+        for (let i = 0; i<5; i++){
+            this.axioms[i] = [];
+            for (let j = 0; j<5; j++){
+                const hai = logicMaps[id]["keys"];
+                if (logicMaps[id][i][j] == ".") this.axioms[i][j] = new EmptyAxiom();
+                else{
+                    if (!hai[logicMaps[id][i][j]]) throw new Error("Component " + logicMaps[id][i][j] +" was not specified in rooms.js");
+                    this.axioms[i][j] = Object.create(hai[logicMaps[id][i][j]]);
+                }
+                this.axioms[i][j].x = i;
+                this.axioms[i][j].y = j;
+                this.axioms[i][j].soul = this;
+            }
+        }
+        this.setUpSprites();
+    }
+
+    cloneSoul(){
+        let newSoul = new Soul("Empty",this.owner);
+        for (let i = 0; i<5; i++){
+            for (let j = 0; j<5; j++){
+                newSoul.axioms[i][j] = Object.create(this.axioms[i][j]); //may cause problems eventually with souls inside souls - maybe ban this and setup "references" to other creatures instead of storing souls
+            }
+        }
+        newSoul.setUpSprites();
+        newSoul.findBindings();
+        return newSoul;
+    }
+
+    loopThroughAxioms(){
+        let ax = [];
+        for (let i = 0; i<5; i++){
+            for (let j = 0; j<5; j++){
+                ax.push(this.axioms[i][j]);
+            }
+        }
+        return ax;
+    }
+
+    forceInjectAxiom(axiomType){ //modifies soul
+        let emptySpace = this.findAxioms(EmptyAxiom);
+        if (emptySpace.length === 0) return false;
+        else{
+            this.owner.editedData["Soul"] = true;
+            this.axioms[emptySpace[0].x][emptySpace[0].y] = new axiomType();
+            this.findBindings();
+            return true;
+        }
+    }
+
+    findAxioms(type){
+        let found = [];
+        for (let i = 0; i<5; i++){
+            for (let j = 0; j<5; j++){
+                if (this.axioms[i][j] instanceof type) found.push(this.axioms[i][j]);
+            }
+        }
+        return found;
+    }
+
+    getIconOfCommand(axiom){
+        const neigh = this.getLogicNeighbours(axiom,true);
+        for (let i of neigh){
+            if (i instanceof DefineIcon && i.storage) return i.storage;
+        }
+    }
+
+    findBindings(){
+        this.contingencies = [];
+        this.commands = {};
+        this.tags.clear();
+        for (let i = 0; i<5; i++){
+            for (let j = 0; j<5; j++){
+                if(this.axioms[i][j].contingency) this.contingencies.push(this.axioms[i][j]);
+                if(this.axioms[i][j] instanceof RadioReceiver && this.axioms[i][j].storage && this.axioms[i][j].storage.length === 1){
+                    this.commands[this.axioms[i][j].storage] = this.getIconOfCommand(this.axioms[i][j]);
+                }
+                if (this.axioms[i][j].tag) this.tags.add(this.axioms[i][j].tag);
+            }
+        }
+    }
+
+    getLogicNeighbours(axiom, includeSource){
+        if (!includeSource) includeSource = false;
+        let results = [];
+        const neig = [[0,1],[1,0],[0,-1],[-1,0]];
+        for (let i of neig){
+            let fou;
+            if (between(axiom.x+i[0],-1,5) && between(axiom.y+i[1],-1,5)) fou = this.axioms[axiom.x+i[0]][axiom.y+i[1]];
+            else continue;
+            if (!fou.empty && (includeSource || !(axiom.sourceX == fou.x && axiom.sourceY == fou.y))){
+                if (!includeSource){
+                    fou.sourceX = axiom.x;
+                    fou.sourceY = axiom.y;
+                }
+                results.push(fou);
+            }
+        }
+        return results;
+    }
+
+    absorbSoul(start,destination){
+        this.owner.creaturecon.x = tileSize*(8+(start.x-player.tile.x));
+        this.owner.creaturecon.y = tileSize*(8+(start.y-player.tile.y));
+        tilesDisplay.addChild(this.owner.creaturecon);
+        const destinationX = tileSize*(8+(destination.tile.x-player.tile.x));
+        const destinationY = tileSize*(8+(destination.tile.y-player.tile.y));
+        const oriX = this.owner.creaturecon.x;
+        const oriY = this.owner.creaturecon.y;
+        let source = this.owner.creaturecon;
+        let wao = new PIXI.Ticker;
+        wao.start();
+        wao.add(() => {
+            if (!approxEqual(source.x,destinationX,3) && !approxEqual(source.y,destinationY,3)){
+                source.x += (destinationX - oriX)/10;
+                source.y += (destinationY - oriY)/10;
+            }
+            else{
+                tilesDisplay.removeChild(source);
+                wao.destroy();
+            }
+        });
+        removeItemOnce(start.souls,this);
+    }
+
+    checkCompatibility(sourceAxiom, destAxiom){
+        let foundType;
+        if (typeof sourceAxiom.storage === "boolean") foundType = "Boolean";
+        else if (typeof sourceAxiom.storage === "number") foundType = "Number";
+        else if (typeof sourceAxiom.storage === "string") foundType = "Message";
+        else {
+            let storageEquivalences = {
+                "Creature" : Creature,
+                "Axiom" : Axiom,
+                "Soul" : Soul,
+                "Colour" : Colour,
+                "Direction" : Direction,
+                "Tile" : Tile,
+                "Caste" : Caste,
+            };
+            for (let i of Object.keys(storageEquivalences)){
+                if (sourceAxiom.storage instanceof storageEquivalences[i]){
+                    foundType = i;
+                    break;
+                }
+            }
+        }
+        if (destAxiom.dataType.includes(foundType)) return true;
+        else return false;
+    }
+
+    trigger(event,assi){
+        let data;
+        for (let i of this.contingencies) if (i.storage == event || (i.dataType.includes("Axiom") && i.storage.constructor.name == event)){
+            if (assi){
+                if (assi[0]["caster"]){
+                    data = assi;
+                }
+                else for (let j of assi){
+                    let studying = this.axioms[i.x+j.relativeDir[0]][i.y+j.relativeDir[1]];
+                    if (this.checkCompatibility(j,studying)) studying.storage = j.storage;
+                }
+            }
+            this.pulse(i,data);
+        }
+    }
+
+    pulse(source,dataOverwrite){
+        let data = [{
+            "synapses" : [source],
+            "targets" : [],
+            "caster" : this.owner,
+            "break" : false,
+            "showEffects" : false,
+        }];
+        if (dataOverwrite){
+            data = dataOverwrite;
+            for (let i of data) i["synapses"] = [source];
+        }
+        let loopNum = 0;
+        while(data.length != 0){
+            loopNum++;
+            if (loopNum >= 1000){
+                throw new Error("Infinite loop in "+this.owner.id+".");
+                break;
+            }
+            let currentSynapse = data[0];
+            let i = currentSynapse["synapses"][0];
+            currentSynapse = i.act(currentSynapse);
+            currentSynapse["targets"] = [...new Set(currentSynapse["targets"])]; // remove duplicates
+            if (currentSynapse["showEffects"]) for (let i of currentSynapse["targets"]) i.setEffect(14); //TODO maybe change the effect depending on soul caste
+            this.owner.trigger(i.constructor.name); // for triggerwatch contingency
+            let additions = [];
+            let synapseEnded = false;
+            for (let r of this.getLogicNeighbours(i)) if (!(r instanceof FailCatcher)) additions.push(r);
+            if (additions.length == 0) synapseEnded = true;
+            if (additions.length >= 1 && !currentSynapse["break"]) currentSynapse["synapses"].push(additions[0]);
+            if (additions.length > 1 && !currentSynapse["break"]){
+                for (let o = 1; o<additions.length; o++){
+                    data.push({
+                        "synapses" : [additions[o]],
+                        "targets" : currentSynapse["targets"].slice(),
+                        "caster" : currentSynapse["caster"],
+                        "break" : currentSynapse["break"],
+                    });
+                }
+            }
+            removeItemOnce(currentSynapse["synapses"],i);
+            if (currentSynapse["break"]){
+                currentSynapse["synapses"] = [];
+                let additionsFail = [];
+                for (let r of this.getLogicNeighbours(i)) {
+                    if (r instanceof FailCatcher) additionsFail.push(r);
+                }
+                if (additionsFail.length == 0) removeItemOnce(data,currentSynapse);
+                else{
+                    currentSynapse["break"] = false;
+                    synapseEnded = false;
+                }
+                if (additionsFail.length >= 1) currentSynapse["synapses"].push(additionsFail[0]);
+                if (additionsFail.length > 1){
+                    for (let o = 1; o<additionsFail.length; o++){
+                        data.push({
+                            "synapses" : [additionsFail[o]],
+                            "targets" : currentSynapse["targets"].slice(),
+                            "caster" : currentSynapse["caster"],
+                            "break" : currentSynapse["break"],
+                        });
+                    }
+                }
+            }
+            if (synapseEnded) removeItemOnce(data,currentSynapse);
+        }
+    }
 }

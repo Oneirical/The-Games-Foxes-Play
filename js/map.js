@@ -88,52 +88,6 @@ function flipRoom(id,size,times){
     }
 }
 
-function generateSpire(){
-    let passableTiles=0;
-    tiles = [];
-    let platformstart = randomRange(1,7);
-    for(let i=0;i<numTiles;i++){
-        tiles[i] = [];
-        for(let j=0;j<numTiles;j++){
-            if(j == 8 && i == platformstart){
-                tiles[i][j] = new Platform(i,j);
-                passableTiles++;
-            }
-            else{
-                tiles[i][j] = new Floor(i,j);
-                passableTiles++;
-            }
-        }
-    }
-    let pcon = tiles[platformstart][8];
-    spirespawner = pcon;
-    let top = 8;
-    while (top > 0){
-        let surface = [];
-        for (let i=0;i<randomRange(5,12);i++){
-            let platform = pcon.getLateralNeighbors().filter(t => t.passable || !t instanceof Platform);
-            platform[0].replace(Platform);
-            surface.push(platform[0]);
-            pcon = platform[0];
-        }
-        let ladder = surface[randomRange(0,surface.length-1)].getNeighbor(0, -1);
-        if (ladder.y > 0) ladder.replace(Ladder);
-        else ladder.replace(Booster);
-        for (let i=0;i<randomRange(0,2);i++){
-            let lad = ladder.getNeighbor(0, -1);
-            if (lad.y > 0) lad.replace(Ladder);
-            else lad.replace(Booster);
-            ladder = lad;
-        }
-        pcon = ladder.getNeighbor(0, -1);
-        if (pcon.y > 0) pcon.replace(Platform);
-        else pcon.replace(Booster);
-        top = pcon.y;
-    }
-
-    return passableTiles;
-}
-
 function getTile(x, y){
     //if (x > numTiles-1 ||x < 0 || y < 0 || y > numTiles-1) return new RoseWall(x,y);
     if (tiles[x] && tiles[x][y]) return tiles[x][y];

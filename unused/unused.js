@@ -2336,3 +2336,117 @@ var researchpage = {
 }
 
 //spawns: N - W - E - S
+
+function generateSpire(){
+    let passableTiles=0;
+    tiles = [];
+    let platformstart = randomRange(1,7);
+    for(let i=0;i<numTiles;i++){
+        tiles[i] = [];
+        for(let j=0;j<numTiles;j++){
+            if(j == 8 && i == platformstart){
+                tiles[i][j] = new Platform(i,j);
+                passableTiles++;
+            }
+            else{
+                tiles[i][j] = new Floor(i,j);
+                passableTiles++;
+            }
+        }
+    }
+    let pcon = tiles[platformstart][8];
+    spirespawner = pcon;
+    let top = 8;
+    while (top > 0){
+        let surface = [];
+        for (let i=0;i<randomRange(5,12);i++){
+            let platform = pcon.getLateralNeighbors().filter(t => t.passable || !t instanceof Platform);
+            platform[0].replace(Platform);
+            surface.push(platform[0]);
+            pcon = platform[0];
+        }
+        let ladder = surface[randomRange(0,surface.length-1)].getNeighbor(0, -1);
+        if (ladder.y > 0) ladder.replace(Ladder);
+        else ladder.replace(Booster);
+        for (let i=0;i<randomRange(0,2);i++){
+            let lad = ladder.getNeighbor(0, -1);
+            if (lad.y > 0) lad.replace(Ladder);
+            else lad.replace(Booster);
+            ladder = lad;
+        }
+        pcon = ladder.getNeighbor(0, -1);
+        if (pcon.y > 0) pcon.replace(Platform);
+        else pcon.replace(Booster);
+        top = pcon.y;
+    }
+
+    return passableTiles;
+}
+
+class CasteTab{
+    constructor(caste){
+        this.caste = caste;
+        this.extension = 4;
+        this.extended = false;
+    }
+
+    setUpSprites(){
+        this.displayCon = new PIXI.Container();
+        this.displayCon.truePos = 252;
+        drawChainBorder(12,3,this.displayCon);
+        for (let i of this.displayCon.children[0].children){
+            if (i.x == 11*32) this.displayCon.children[0].removeChild(i);
+        }
+        let newSprite = new FoxSprite(allsprites.textures['icon'+this.caste]);
+        newSprite.width = 64;
+        newSprite.height = 64;
+        newSprite.alpha = 0.8;
+        this.displayCon.addChild(newSprite);
+        const tabText = {
+            33: "Fundamentals",
+            0: "Saintly",
+            1: "Ordered",
+            2: "Artistic",
+            3: "Unhinged",
+            4: "Feral",
+            5: "Vile"
+        };
+        const tabColor = {
+            33: "white",
+            0: "lime",
+            1: "orangered",
+            2: "orange",
+            3: "yellow",
+            4: "yellowgreen",
+            5: "plum"
+        };
+        const style = new PIXI.TextStyle({
+            fontFamily: 'Play',
+            fontSize: 32,
+            fill: tabColor[this.caste],
+        });
+        printOutText(tabText[this.caste],92,15,style,this.displayCon);
+        for (let i of this.displayCon.children[2].children) i.anchor.set(0.5,0.5);
+        const graphics = new PIXI.Graphics();
+        graphics.beginFill("white");
+        graphics.drawRect(-16, -16, 11*32, 3*32);
+        graphics.endFill();
+        graphics.alpha = 0.1;
+        graphics.eventMode = 'static';
+        graphics.on('pointerover', (event) => {
+            this.displayCon.truePos = 16;
+        });
+        graphics.on('pointerdown', (event) => {
+            research.selectCaste(this.casteNum);
+        });
+        graphics.on('pointerout', (event) => {
+            if (!this.displayCon.extended) this.displayCon.truePos = 252;
+        });
+        this.displayCon.addChild(graphics);
+        app.ticker.add(() => {
+            if (this.displayCon.extended) this.displayCon.truePos = 16;
+            if (this.displayCon.x < this.displayCon.truePos) this.displayCon.x = Math.min(this.displayCon.x+24,this.displayCon.truePos);
+            else if (this.displayCon.x > this.displayCon.truePos) this.displayCon.x = Math.max(this.displayCon.x-24,this.displayCon.truePos);
+        });
+    }
+}
