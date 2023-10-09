@@ -53,6 +53,7 @@ const speciesData = {
             "ORDERED" : "Unaffected",
         },
         "intangible" : true,
+        "invisible" : true,
     },
     "DimensionWarp" : {
         "sprite" : 1,
@@ -61,6 +62,7 @@ const speciesData = {
             "ORDERED" : "Unaffected",
         },
         "intangible" : true,
+        "invisible" : true,
     },
     "WellWall" : {
         "sprite" : 108,

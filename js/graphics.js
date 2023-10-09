@@ -165,17 +165,20 @@ function rotateAirlock(airlock, world){
         "E" : [1,0],
         "S" : [0,1],
     };
+    let foundDirection = false;
     if (!airlock.direction){
         for (let i of Object.keys(directions)){
             let nextTile;
             if (world.playSpace.tiles[airlock.tile.x+directions[i][0]] && world.playSpace.tiles[airlock.tile.x+directions[i][0]][airlock.tile.y+directions[i][1]]) nextTile = world.playSpace.tiles[airlock.tile.x+directions[i][0]][airlock.tile.y+directions[i][1]];
             if (nextTile && nextTile.tangibleCreature.species === "Airlock"){
                 airlock.direction = i;
+                foundDirection = true;
                 break;
             }
         }
     }
-    if (!airlock.direction){
+    else foundDirection = true;
+    if (!foundDirection){
         airlock.changeSpecies("Wall");
         for (let i of Object.keys(speciesData[airlock.species]["souls"])){
             airlock.souls[i] = speciesData[airlock.species]["souls"][i];
@@ -390,21 +393,24 @@ function tickProjectors(){
             newSprite.drawRect(0, 0, tileSize, tileSize);
             newSprite.endFill();
             projector.addChild(newSprite);
-            if (projector.referenceTile && projector.referenceTile.monster && player != projector.referenceTile.monster){
+            if (projector.referenceTile && !projector.referenceTile.hasNothing()){
                 const offset = {
                     "S" : 0,
                     "W" : tileSize,
                     "E" : tileSize,
                     "N" : tileSize,
                 }
-                tilesDisplay.creatureDisplay.addChild(projector.referenceTile.monster.creaturecon);
-                projector.referenceTile.monster.creaturecon.originalX = i*tileSize+64*(15-zoom);
-                projector.referenceTile.monster.creaturecon.originalY = j*tileSize+64*(15-zoom);
-                projector.referenceTile.monster.creaturecon.x = i*tileSize+64*(15-zoom)+projector.referenceTile.monster.offsetX*tileSize;
-                projector.referenceTile.monster.creaturecon.y = j*tileSize+64*(15-zoom)+projector.referenceTile.monster.offsetY*tileSize;
-                let dir = projector.referenceTile.monster.direction;
-                if (dir == "W" || dir == "N") projector.referenceTile.monster.creaturecon.x += offset[dir];
-                if (dir == "E" || dir == "N")  projector.referenceTile.monster.creaturecon.y += offset[dir];
+                for (let k of projector.referenceTile.getAllCreatures()) {
+                    if (k === player) continue;
+                    tilesDisplay.creatureDisplay.addChild(k.creaturecon);
+                    k.creaturecon.originalX = i*tileSize+64*(15-zoom);
+                    k.creaturecon.originalY = j*tileSize+64*(15-zoom);
+                    k.creaturecon.x = i*tileSize+64*(15-zoom)+k.offsetX*tileSize;
+                    k.creaturecon.y = j*tileSize+64*(15-zoom)+k.offsetY*tileSize;
+                    let dir = k.direction;
+                    if (dir == "W" || dir == "N") k.creaturecon.x += offset[dir];
+                    if (dir == "E" || dir == "N") k.creaturecon.y += offset[dir];
+                }
             }
         }
     }

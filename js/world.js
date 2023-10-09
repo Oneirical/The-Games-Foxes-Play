@@ -258,14 +258,12 @@ class World{
                 if (!area) continue;
                 let hai = area.sprite;
                 if (area.monster) hai = area.monster.sprite;
-                else if (area instanceof Airlock && area.direction) hai = 17;
-                else if (area instanceof Airlock) hai = 3;
                 let newSprite = new FoxSprite(allsprites.textures['sprite'+hai]);
                 newSprite.width = 64/9;
                 newSprite.height = 64/9;
                 newSprite.x = i*(64/9);
                 newSprite.y = j*(64/9);
-                if (area instanceof Airlock && area.direction){
+                if (area.monster && area.monster.direction){
                     newSprite.anchor.set(0.5,0.5);
                     newSprite.x += 64/9/2;
                     newSprite.y += 64/9/2;
@@ -275,7 +273,7 @@ class World{
                         "E" : 3*Math.PI/2,
                         "N" : Math.PI,
                     }
-                    newSprite.rotation = rotate[area.direction];
+                    newSprite.rotation = rotate[area.monster.direction];
                 }
                 hypnoCon.addChild(newSprite);                
             }

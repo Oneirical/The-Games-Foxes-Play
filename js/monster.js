@@ -30,7 +30,6 @@ class Creature{
         this.lastMotion = [0, 0];
         this.tangible = true;
         if (speciesData[species]["intangible"]) this.tangible = false;
-        this.direction = "S";
         this.move(tile);
 
         this.editedData = {
@@ -215,6 +214,7 @@ class Creature{
         if (!this.animationTick) this.setUpAnimation();
         this.updateHp();
         this.graphicsReady = true;
+        if (speciesData[this.species]["invisible"]) this.representativeSprite.visible = false;
         //if (!this.tangible) this.representativeSprite.alpha = 0.3;
         //remember when you looked for 2 hours for that one bug that made you drop 1 FPS every time Terminal passed a door and it turned
         //out to be that one tiny line under here that caused literal thousands of StatusDisplay to stack on top of each other? Now that was funny
@@ -333,7 +333,11 @@ class Creature{
 
     changeSpecies(newSpecies){
         this.species = newSpecies;
-        if (this.representativeSprite) this.representativeSprite.texture = (allsprites.textures['sprite'+speciesData[newSpecies]["sprite"]]);
+        if (this.representativeSprite){
+            this.representativeSprite.texture = (allsprites.textures['sprite'+speciesData[newSpecies]["sprite"]]);
+            if (speciesData[this.species]["invisible"]) this.representativeSprite.visible = false;
+            else this.representativeSprite.visible = true;
+        }
         if (soulTree.trackedEntity === this) soulTree.updateSlots(this);
         if (speciesData[newSpecies]["intangible"]) this.becomeIntangible();
         else this.becomeTangible();
@@ -362,7 +366,7 @@ class Creature{
         }
 
         this.tangible = false;
-        if (this.representativeSprite) this.representativeSprite.alpha = 0.3;
+        //if (this.representativeSprite) this.representativeSprite.alpha = 0.3;
     }
 
     becomeTangible(){
@@ -371,7 +375,7 @@ class Creature{
             this.tile.tangibleCreature = this;
         }
         this.tangible = true;
-        if (this.representativeSprite) this.representativeSprite.alpha = 1;
+        //if (this.representativeSprite) this.representativeSprite.alpha = 1;
     }
 
     move(tile){
