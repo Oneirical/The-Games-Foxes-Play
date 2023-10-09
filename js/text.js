@@ -489,11 +489,29 @@ const creaturePresentation = {
         color: "pink",
         lore: ":3"
     },
+    "WellWall" : {
+        name: "Thought-Matter Rift",
+        color: "antiquewhite",
+        lore: "A golden worm, so entranced in contemplation it has rejected the writhing motions common to its kin. It guards the bridge between this Plane and those beneath.",
+        opinion: "\"A step into the pool of transcension breaks the body. A plunge shatters the mind. A swim frees the Soul.\"",
+    },
+    "HoloStabilizer" : {
+        name: "Hypnotic Stabilizer",
+        color: "gainsboro",
+        lore: "A swarm of robotic butterflies, their holographic wings perfectly mimicking the landscapes of worlds beyond this one. A single glance blurs the line between what is, and what is not.",
+        opinion: "\"The dazzling lights of our screens and holograms glow so bright. And yet, they darken our minds.\"",
+    },
+    "DimensionWarp" : {
+        name: "Hypnotic Well",
+        color: "lightskyblue",
+        lore: "An octopus whose tentacles are shaped from the stickiest black tar. One tug, one gaze into the landscapes all around, a deep breath, then a plunge.",
+        opinion: "\"Close your eyes, and a new world takes the place of the one departed. Reality despises emptiness.\"",
+    },
     "Airlock" : {
-        name: "Upload Relay",
-        color: "pink",
-        lore: ":3",
-        opinion: "",
+        name: "Quicksilver Curtains",
+        color: "lightgray",
+        lore: "A hovering jellyfish of pure mercury, reflecting the bleak glow of the fluorescent tubes across its liquid body. A touch suffices to disturb it and allow passage.",
+        opinion: "\"All doors have a key. The one which opens the gates of death is faith.\"",
     },
     "EpsilonTail" : {
         name: "Rubberized Mecha-Segment",

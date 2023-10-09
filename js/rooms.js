@@ -16,7 +16,7 @@ var keytile = {
     "e" : "WellWall",
     "w" : "WellWall",
     "o" : "HoloStabilizer",
-    "ç" : CenterTeleport,
+    "ç" : "DimensionWarp",
     "H" : HypnoticProjector,
     "|" : Window,
     "a" : Airlock,

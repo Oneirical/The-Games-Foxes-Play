@@ -353,7 +353,7 @@ function tickTiles(){
 
 function drawProjectors(){
     tilesDisplay.mask = tilesDisplay.maskReference;
-    drawTiles();
+    //drawTiles();
     projectorDisplay = new PIXI.Container();
     projectorDisplay.x = -448;
     projectorDisplay.y = -448;

@@ -19,7 +19,7 @@ class Universe{
         for (let x = 0; x<floors.length; x++){
             this.worlds[x].worldBuilding();
         }
-        drawTiles();
+        //drawTiles();
         drawSprites();
         assignRotations();
         assignSouls();
@@ -56,10 +56,10 @@ class Universe{
     placeHypnoDisplays(){
         for (let w of this.worlds){
             for (let p of w.establishedPaths){
-                let tileWhichDisplays = w.playSpace.tiles[p.x-1][p.y-1]; // this is a little ugly but oh well, if it is what it takes to remove the visual setEffect() bug
-                if (!(tileWhichDisplays instanceof CageContainer)) throw new Error("The chosen hypnotic display was not a portal tile.")
+                let tileWhichDisplays = w.playSpace.tiles[p.x-1][p.y-1].getAllCreatures()[0]; // this is a little ugly but oh well, if it is what it takes to remove the visual setEffect() bug
+                if (!(tileWhichDisplays.species == "HoloStabilizer")) throw new Error("The chosen hypnotic display was not a portal creature.")
                 if (tileWhichDisplays.hypnoticScenes) {
-                    for (let h of tileWhichDisplays.hypnoticScenes) tileWhichDisplays.tileCon.removeChild(h); // it can technically be reused, but the hypnodisplay only pulls from sprites, not paint and entities
+                    for (let h of tileWhichDisplays.hypnoticScenes) tileWhichDisplays.creaturecon.removeChild(h); // it can technically be reused, but the hypnodisplay only pulls from sprites, not paint and entities
                 }
                 let gazingInto = this.findWorldByID(p.destination);
                 let gazingPoint = gazingInto.findTelepadByDest(w.id);

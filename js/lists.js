@@ -54,6 +54,14 @@ const speciesData = {
         },
         "intangible" : true,
     },
+    "DimensionWarp" : {
+        "sprite" : 1,
+        "hp" : 0,
+        "souls" : {
+            "ORDERED" : "Unaffected",
+        },
+        "intangible" : true,
+    },
     "WellWall" : {
         "sprite" : 108,
         "hp" : 0,
