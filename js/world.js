@@ -106,11 +106,8 @@ class Universe{
     
         this.viewport.addChild(tilesDisplay.notPlayerTiles);
         tilesDisplay.addChild(player.creaturecon);
-        let count = 0;
         this.zoomAnim.add(() => {
-            count++;
-            if (count == 42){
-                console.log(count);
+            if (this.viewport.scaled > 8.56){
                 this.handleDescent(layer, spawnx, spawny);
                 universe.zooming = false;
                 this.viewport.removeChild(tilesDisplay.notPlayerTiles);

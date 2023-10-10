@@ -159,6 +159,7 @@ class Creature{
             this.representativeSprite.visible = false;
             this.doorTiles = new PIXI.Container;
             this.creaturecon.addChild(this.doorTiles);
+            tileSize = 64;
             for (let i = 0; i<2; i++){
                 let door = new FoxSprite(allsprites.textures['sprite'+speciesData[this.species]["sprite"]]);
                 door.width = tileSize;
@@ -166,39 +167,44 @@ class Creature{
                 door.anchor.set(0.5,0.5);
                 door.x = tileSize/2;
                 door.y = tileSize/2;
+                const rotate = {
+                    "S" : 0,
+                    "W" : Math.PI/2,
+                    "E" : 3*Math.PI/2,
+                    "N" : Math.PI,
+                }
+                if (this.direction) door.rotation = rotate[this.direction];
                 this.doorTiles.addChild(door);
             }
-            drawPixel("black",0,0,tileSize,this.creaturecon);
-            //this.creaturecon.children[this.creaturecon.children.length-1].alpha = 0;
-            //this.creaturecon.mask = this.creaturecon.children[this.creaturecon.children.length-1];
-            //this.creaturecon.doorMask = this.creaturecon.children[this.creaturecon.children.length-1]; // so we can remove it later
-            this.doorTiles.width = 64;
-            this.doorTiles.height = 64
+            drawPixel("black",0,0,64,this.creaturecon);
+            this.creaturecon.children[this.creaturecon.children.length-1].alpha = 0;
+            this.creaturecon.mask = this.creaturecon.children[this.creaturecon.children.length-1];
+            this.creaturecon.doorMask = this.creaturecon.children[this.creaturecon.children.length-1]; // so we can remove it later
             //return;
             this.doorAnim = new PIXI.Ticker();
             this.doorAnim.start();
             this.doorAnim.add(() => {
                 if (fastReload) return;
-                //if (true || !this.direction || this.direction == "E" || this.direction == "W" ){
-                if (this.doorTiles.children[0].x < 88 && !this.tangible){ // ouh, that's weird. why does it only work if it's X only? something weird going on with rotations, it may bug out when it's not airlocks getting opened
-                    this.doorTiles.children[0].x +=3;
-                    this.doorTiles.children[1].x -=3;
+                if (!this.direction || this.direction == "E" || this.direction == "W" ){
+                if (this.doorTiles.children[0].y < 88 && !this.tangible){ // ouh, that's weird. why does it only work if it's X only? something weird going on with rotations, it may bug out when it's not airlocks getting opened
+                    this.doorTiles.children[0].y +=5;
+                    this.doorTiles.children[1].y -=5;
                 }
-                else if (this.doorTiles.children[0].x > 32 && this.tangible){
-                    this.doorTiles.children[0].x -=3;
-                    this.doorTiles.children[1].x +=3;
+                else if (this.doorTiles.children[0].y > 32 && this.tangible){
+                    this.doorTiles.children[0].y -=5;
+                    this.doorTiles.children[1].y +=5;
                 }
-                //}
-/*                 else if (this.direction == "N" || this.direction == "S" ){
+                }
+                 else if (this.direction == "N" || this.direction == "S" ){
                     if (this.doorTiles.children[0].x < 88 && !this.tangible){
-                        this.doorTiles.children[0].x +=3;
-                        this.doorTiles.children[1].x -=3;
+                        this.doorTiles.children[0].x +=5;
+                        this.doorTiles.children[1].x -=5;
                     }
                     else if (this.doorTiles.children[0].x > 32 && this.tangible){
-                        this.doorTiles.children[0].x -=3;
-                        this.doorTiles.children[1].x +=3;
+                        this.doorTiles.children[0].x -=5;
+                        this.doorTiles.children[1].x +=5;
                     }
-                } */
+                } 
             });
         }
     }
@@ -234,7 +240,7 @@ class Creature{
     }
 
     inRangeOfPlayer(){
-        return Math.abs(this.tile.x-player.tile.x) < 10 && Math.abs(this.tile.y-player.tile.y) < 10; 
+        return Math.abs(this.tile.x-player.tile.x) < 11 && Math.abs(this.tile.y-player.tile.y) < 11; 
     }
 
     extraConfig(){};
