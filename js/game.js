@@ -28,7 +28,6 @@ function loadGame(){
         playerInput(reloadQueue[i]);
     }
     actionQueue = reloadQueue;
-    tickProjectors();
     fastReload = false;
 }
 
@@ -48,7 +47,6 @@ function locatePlayer(over){
                     tilesDisplay.addChild(player.creaturecon);
                     player.creaturecon.x = 8*tileSize; //when soul swapping, the victim's sprite will go in weird places
                     player.creaturecon.y = 8*tileSize;
-                    tickProjectors();
                     if (player instanceof EpsilonHead){
                         for (let m of monsters) if (m instanceof EpsilonTail) m.partOfPlayer = true;
                     }

@@ -927,6 +927,5 @@ class HugeMap extends DefaultVaultRoom{
                 tiles[i][j].y = j;
             }
         }
-        tickProjectors();
     }
 }

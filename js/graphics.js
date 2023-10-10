@@ -114,7 +114,6 @@ function beginEverything(){
     // END OF CRINGE CODE DANGER SECTOR
 
     tilesDisplay.addChild(player.creaturecon);
-    tickProjectors();
         //FPS counter
     // const style = new PIXI.TextStyle({
     //     fontFamily: 'Play',
@@ -339,46 +338,6 @@ function tickTiles(){
     }
 }
 
-function drawProjectors(){
-    tilesDisplay.mask = tilesDisplay.maskReference;
-    //drawTiles();
-    projectorDisplay = new PIXI.Container();
-    projectorDisplay.x = -448;
-    projectorDisplay.y = -448;
-    tilesDisplay.notPlayerTiles.addChild(projectorDisplay);
-    let creatureDisplay = new PIXI.Container();
-    creatureDisplay.x = -448;
-    creatureDisplay.y = -448;
-    tilesDisplay.notPlayerTiles.addChild(creatureDisplay);
-    tilesDisplay.projectorDisplay = projectorDisplay;
-    tilesDisplay.creatureDisplay = creatureDisplay;
-    zoom = 10;
-    tileSize = 64;
-    projectorDisplay.projectors = [];
-    for(let i=0;i<zoom*2;i++){
-        projectorDisplay.projectors[i] = [];
-        for(let j=0;j<zoom*2;j++){
-            let projector = new PIXI.Container();
-            projector.x = i*tileSize+64*(15-zoom);
-            projector.y = j*tileSize+64*(15-zoom);
-            if (tiles[i-zoom+player.tile.x] && tiles[i-zoom+player.tile.x][j-zoom+player.tile.y]) projector.referenceTile = tiles[i-zoom+player.tile.x][j-zoom+player.tile.y];
-            if (projector.referenceTile){
-                projector.addChild(projector.referenceTile.tileCon);
-            }
-            else{
-                newSprite = new PIXI.Graphics();
-                newSprite.beginFill("black");
-                newSprite.drawRect(0, 0, tileSize, tileSize);
-                newSprite.endFill();
-                projector.addChild(newSprite);
-            }
-            projectorDisplay.addChild(projector);
-            projectorDisplay.projectors[i][j] = projector;
-        }
-    }
-    //drawSprites();
-}
-
 function reloadDisplay(display){
     display.removeChildren();
     for (let i=0; i<45; i++){
@@ -416,47 +375,6 @@ function newBetterDisplay(){
         }
     });
     return efficientDisplay;
-}
-
-function tickProjectors(){
-    return;
-    tilesDisplay.creatureDisplay.removeChildren();
-    for(let i=0;i<zoom*2;i++){
-        for(let j=0;j<zoom*2;j++){
-            let projector = tilesDisplay.projectorDisplay.projectors[i][j];
-            projector.removeChildren();
-            if (tiles[i-zoom+player.tile.x] && tiles[i-zoom+player.tile.x][j-zoom+player.tile.y]){ // possible optimization here - stop removing every single tile
-                projector.referenceTile = tiles[i-zoom+player.tile.x][j-zoom+player.tile.y];
-                if (tiles[i-zoom+player.tile.x][j-zoom+player.tile.y].hitBox) tiles[i-zoom+player.tile.x][j-zoom+player.tile.y].hitBox.alpha = 0;
-                tiles[i-zoom+player.tile.x][j-zoom+player.tile.y].projectedBy = projector;
-            }
-            else projector.referenceTile = null;
-            newSprite = new PIXI.Graphics();
-            newSprite.beginFill("black");
-            newSprite.drawRect(0, 0, tileSize, tileSize);
-            newSprite.endFill();
-            projector.addChild(newSprite);
-            if (projector.referenceTile && !projector.referenceTile.hasNothing()){
-                const offset = {
-                    "S" : 0,
-                    "W" : tileSize,
-                    "E" : tileSize,
-                    "N" : tileSize,
-                }
-                for (let k of projector.referenceTile.getAllCreatures()) {
-                    if (k === player) continue;
-                    tilesDisplay.creatureDisplay.addChild(k.creaturecon);
-                    k.creaturecon.originalX = i*tileSize+64*(15-zoom);
-                    k.creaturecon.originalY = j*tileSize+64*(15-zoom);
-                    k.creaturecon.x = i*tileSize+64*(15-zoom)+k.offsetX*tileSize;
-                    k.creaturecon.y = j*tileSize+64*(15-zoom)+k.offsetY*tileSize;
-                    let dir = k.direction;
-                    if (dir == "W" || dir == "N") k.creaturecon.x += offset[dir];
-                    if (dir == "E" || dir == "N") k.creaturecon.y += offset[dir];
-                }
-            }
-        }
-    }
 }
 
 function drawTiles(){

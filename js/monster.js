@@ -142,7 +142,6 @@ class Creature{
                         if (this.offsetY > 0) this.creaturecon.y -= 64;
                         else if (this.offsetY < 0) this.creaturecon.y += 64;
                     }
-                    tickProjectors();
                 }
 
             }
@@ -186,16 +185,16 @@ class Creature{
             this.doorAnim.add(() => {
                 if (fastReload) return;
                 if (!this.direction || this.direction == "E" || this.direction == "W" ){
-                if (this.doorTiles.children[0].y < 88 && !this.tangible){ // ouh, that's weird. why does it only work if it's X only? something weird going on with rotations, it may bug out when it's not airlocks getting opened
-                    this.doorTiles.children[0].y +=5;
-                    this.doorTiles.children[1].y -=5;
+                    if (this.doorTiles.children[0].y < 88 && !this.tangible){
+                        this.doorTiles.children[0].y +=5;
+                        this.doorTiles.children[1].y -=5;
+                    }
+                    else if (this.doorTiles.children[0].y > 32 && this.tangible){
+                        this.doorTiles.children[0].y -=5;
+                        this.doorTiles.children[1].y +=5;
+                    }
                 }
-                else if (this.doorTiles.children[0].y > 32 && this.tangible){
-                    this.doorTiles.children[0].y -=5;
-                    this.doorTiles.children[1].y +=5;
-                }
-                }
-                 else if (this.direction == "N" || this.direction == "S" ){
+                else if (this.direction == "N" || this.direction == "S" ){
                     if (this.doorTiles.children[0].x < 88 && !this.tangible){
                         this.doorTiles.children[0].x +=5;
                         this.doorTiles.children[1].x -=5;
@@ -230,7 +229,6 @@ class Creature{
             bai.endFill();
             this.hpcon.addChild(bai);
         }
-        if (!this.animationTick) this.setUpAnimation();
         this.updateHp();
         this.graphicsReady = true;
         if (speciesData[this.species]["invisible"]) this.representativeSprite.visible = false;
