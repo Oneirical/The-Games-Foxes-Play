@@ -412,19 +412,6 @@ class SoulAbsorber extends Axiom{
         super();
     }
     act(data){
-        for (let i of data["targets"]){
-            if (i.souls){
-                while (i.souls.length > 0){
-                    let j = i.souls[0];
-                    if (!data["caster"].findFirstEmptySlot()) break;
-                    j.absorbSoul(i,data["caster"]);
-                    j.owner = data["caster"];
-                    data["caster"].addSoul(j);
-                }
-                locatePlayer();
-                if (soulTree.trackedEntity === data["caster"]) soulTree.updateSlots(data["caster"]);
-            }
-        }
         return data;
     }
 }

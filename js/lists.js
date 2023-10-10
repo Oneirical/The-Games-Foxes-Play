@@ -153,7 +153,7 @@ const speciesData = {
         "sprite" : 76,
         "hp" : 1,
         "souls" : {
-            "ORDERED" : "Scarab",
+            //"ORDERED" : "Scarab",
         }
     },
     "Weaver" : {

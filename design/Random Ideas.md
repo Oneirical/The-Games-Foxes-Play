@@ -11,6 +11,7 @@
 * Going into a separated/unstabilized portal goes to Nowhere with the cockroach piano
 * Place the glace-crowns past a snowy path, they view the harmony from afar
 * Bug if something turns tangible on top of something already tangible?
+* Rust binding with Tauri for astar or fringe search?
 
 **Save and Load**
 
