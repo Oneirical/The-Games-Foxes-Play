@@ -169,9 +169,12 @@ class Creature{
                 this.doorTiles.addChild(door);
             }
             drawPixel("black",0,0,tileSize,this.creaturecon);
-            this.creaturecon.children[this.creaturecon.children.length-1].alpha = 0;
-            this.creaturecon.mask = this.creaturecon.children[this.creaturecon.children.length-1];
-            this.creaturecon.doorMask = this.creaturecon.children[this.creaturecon.children.length-1]; // so we can remove it later
+            //this.creaturecon.children[this.creaturecon.children.length-1].alpha = 0;
+            //this.creaturecon.mask = this.creaturecon.children[this.creaturecon.children.length-1];
+            //this.creaturecon.doorMask = this.creaturecon.children[this.creaturecon.children.length-1]; // so we can remove it later
+            this.doorTiles.width = 64;
+            this.doorTiles.height = 64
+            //return;
             this.doorAnim = new PIXI.Ticker();
             this.doorAnim.start();
             this.doorAnim.add(() => {
