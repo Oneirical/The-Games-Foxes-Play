@@ -403,12 +403,15 @@ function newBetterDisplay(){
     app.ticker.add(() => {
         efficientDisplay.x = -(player.tile.x+player.offsetX)*64+512;
         efficientDisplay.y = -(player.tile.y+player.offsetY)*64+512; // speedX = abs(offsetX() /100?
-        if (Math.abs(player.offsetX) < 0.05) player.offsetX = 0;
-        else player.offsetX = Math.sign(player.offsetX) * (Math.abs(player.offsetX)-player.anispeed);
-        if (Math.abs(player.offsetY) < 0.05) player.offsetY = 0;
-        else player.offsetY = Math.sign(player.offsetY) * (Math.abs(player.offsetY)-player.anispeed);
+        player.reduceOffset();
         for (let i of monsters){
-            if (i.inRangeOfPlayer()) i.creaturecon.visible = true;
+            if (i === player) continue;
+            if (i.inRangeOfPlayer()){
+                i.creaturecon.visible = true;
+                i.creaturecon.x = (i.tile.x+i.offsetX)*64;
+                i.creaturecon.y = (i.tile.y+i.offsetY)*64;
+                i.reduceOffset();
+            }
             else i.creaturecon.visible = false;
         }
     });

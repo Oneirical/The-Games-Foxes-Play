@@ -124,7 +124,7 @@ const logicMaps = {
         4 : "..I..",
         "keys" : {
             //"W" : new WarpCloseAway(),
-            "W" : new TwinningAssimilation(149),
+            "W" : new TwinningAssimilation(181),
             "E" : new ExpandTargets(),
             "I" : new DefineIcon(29),
             "R" : new RadioReceiver("2"),
