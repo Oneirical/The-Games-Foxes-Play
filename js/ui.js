@@ -75,7 +75,6 @@ class NodeDescription{
 
     getDescription(node){
         if (!node) return;
-        if (node instanceof ResearchNode) node = node.id;
         this.displayCon.removeChildren();
         const graphics = new PIXI.Graphics();
         graphics.beginFill("black");

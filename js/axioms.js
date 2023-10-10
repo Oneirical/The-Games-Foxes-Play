@@ -373,6 +373,29 @@ class ScreenShake extends Axiom{
     }
 }
 
+class TwinningAssimilation extends Axiom{
+    constructor(crea){
+        super();
+        this.storage = crea;
+        this.dataType = "Creature";
+    }
+
+    act(data){
+        if (!this.storage){
+            severSynapse(data);
+            return data;
+        }
+        let model = allCreatures[this.storage];
+        for (let i of getAllTargetedCreatures(data)){
+            i.changeSpecies(model.species);
+            for (let j of Object.keys(i.souls)){
+                i.replaceSoul(j,model.souls[j]);
+            }
+        }
+        return data;
+    }
+}
+
 class BreakIfNobody extends Axiom{
     constructor(){
         super();
@@ -922,7 +945,6 @@ function targetBoltTravel(direction, location){
 
 class Soul{
     constructor(name,owner){
-        this.id = name;
         this.caste;
 
 
@@ -942,7 +964,7 @@ class Soul{
         this.owner = owner;
         if (!this.owner) this.owner = "None";
         if (["EMPTY","VILE","FERAL","UNHINGED","ARTISTIC","ORDERED","SAINTLY"].includes(name)) return;
-        this.setUpAxioms();
+        this.setUpAxioms(name);
         this.findBindings();
     }
 
@@ -1034,8 +1056,8 @@ class Soul{
         }
     }
 
-    setUpAxioms(){
-        let id = this.id;
+    setUpAxioms(name){
+        let id = name;
         for (let i = 0; i<5; i++){
             this.axioms[i] = [];
             for (let j = 0; j<5; j++){
@@ -1057,7 +1079,12 @@ class Soul{
         let newSoul = new Soul("Empty",this.owner);
         for (let i = 0; i<5; i++){
             for (let j = 0; j<5; j++){
-                newSoul.axioms[i][j] = Object.create(this.axioms[i][j]); //may cause problems eventually with souls inside souls - maybe ban this and setup "references" to other creatures instead of storing souls
+                if (!(this.axioms[i][j] instanceof RealityAnchor)) newSoul.axioms[i][j] = new this.axioms[i][j].constructor();
+                else newSoul.axioms[i][j] = new EmptyAxiom();
+                newSoul.axioms[i][j].storage = this.axioms[i][j].storage;
+                newSoul.axioms[i][j].x = i;
+                newSoul.axioms[i][j].y = j;
+                newSoul.axioms[i][j].soul = newSoul;
             }
         }
         newSoul.setUpSprites();

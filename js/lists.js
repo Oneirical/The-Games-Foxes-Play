@@ -28,8 +28,8 @@ const speciesData = {
         "hp" : 3,
         "souls" : {
             "SAINTLY" : "Terminal",
-            "ORDERED" : "OrderedStarter",
-            //"ARTISTIC" : "Singularity"
+            //"ORDERED" : "OrderedStarter",
+            "ARTISTIC" : "Singularity"
         }
     },
     "Programmer" : {

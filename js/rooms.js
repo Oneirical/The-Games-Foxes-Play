@@ -123,7 +123,8 @@ const logicMaps = {
         3 : "..R..",
         4 : "..I..",
         "keys" : {
-            "W" : new WarpCloseAway(),
+            //"W" : new WarpCloseAway(),
+            "W" : new TwinningAssimilation(149),
             "E" : new ExpandTargets(),
             "I" : new DefineIcon(29),
             "R" : new RadioReceiver("2"),

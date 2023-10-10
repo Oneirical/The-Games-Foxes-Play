@@ -53,6 +53,14 @@ class Creature{
         return souls;
     }
 
+    replaceSoul(caste,soul){
+        if (soul){
+            this.souls[caste] = soul.cloneSoul();
+            this.souls[caste].owner = this;
+        } 
+        else this.souls[caste] = false;
+    }
+
     hasTaggedSoul(tag){
         let souls = this.getSouls();
         for (let i of souls) if (i instanceof Soul && i.tags.has(tag)) return true;
