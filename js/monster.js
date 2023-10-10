@@ -82,13 +82,21 @@ class Creature{
         return false;
     }
 
+    playerPassDown(){
+        let sourcePad = this.tile.getSpecies("DimensionWarp");
+        let targetWorld = universe.findWorldByID(sourcePad.destination);
+        let destPad = targetWorld.findTelepadByDest(world.id);
+        universe.passDown(floors.indexOf(sourcePad.destination), destPad.tile.x, destPad.tile.y);
+    }
+
     setUpAnimation(){
+        return;
         if (this.animationTick) this.animationTick.destroy();
         this.animationTick = new PIXI.Ticker;
         this.animationTick.start();
         animationTick.add(() => {
             if (this.offsetX != 0 || this.offsetY != 0){
-                //this.anispeed = 0.01;
+                this.anispeed = 0.01;
                 if (player === this){
                     this.animating = true;
                     if (this.offsetX == this.originalOffsetX) this.offsetX = 0;
@@ -97,26 +105,14 @@ class Creature{
                     else this.offsetX = Math.max(this.offsetX - this.anispeed,this.originalOffsetX);
                     if (this.originalOffsetY >= 0) this.offsetY = Math.min(this.offsetY + this.anispeed,this.originalOffsetY);
                     else this.offsetY = Math.max(this.offsetY - this.anispeed,this.originalOffsetY);
-                    tilesDisplay.projectorDisplay.x = -448+(this.offsetX*tileSize);
-                    tilesDisplay.projectorDisplay.y = -448+(this.offsetY*tileSize);
-                    tilesDisplay.creatureDisplay.x = -448+(this.offsetX*tileSize);
-                    tilesDisplay.creatureDisplay.y = -448+(this.offsetY*tileSize);
                     if (this.offsetX == this.originalOffsetX && this.offsetY == this.originalOffsetY){
                         this.animating = false;
                         this.offsetX = 0;
                         this.offsetY = 0;
                         this.originalOffsetX = 0;
                         this.originalOffsetY = 0;
-                        tickProjectors();
-                        tilesDisplay.projectorDisplay.x = -448;
-                        tilesDisplay.projectorDisplay.y = -448;
-                        tilesDisplay.creatureDisplay.x = -448;
-                        tilesDisplay.creatureDisplay.y = -448;
                         if (!universe.zooming && this.tile.getSpecies("DimensionWarp")){
-                            let sourcePad = this.tile.getSpecies("DimensionWarp");
-                            let targetWorld = universe.findWorldByID(sourcePad.destination);
-                            let destPad = targetWorld.findTelepadByDest(world.id);
-                            universe.passDown(floors.indexOf(sourcePad.destination), destPad.tile.x, destPad.tile.y);
+
                         } // if you hold down the key on top of a pad you can pass through it, fix to prevent abuse or funny?
                     }
                 }
@@ -221,6 +217,10 @@ class Creature{
         //out to be that one tiny line under here that caused literal thousands of StatusDisplay to stack on top of each other? Now that was funny
     }
 
+    inRangeOfPlayer(){
+        return Math.abs(this.tile.x-player.tile.x) < 10 && Math.abs(this.tile.y-player.tile.y) < 10; 
+    }
+
     extraConfig(){};
 
     loopThroughSouls(){
@@ -298,9 +298,9 @@ class Creature{
             "E" : tileSize,
             "N" : tileSize,
         }
-        this.creaturecon.rotation = rotate[dir];
-        if (dir == "W" || dir == "N") this.creaturecon.x += offset[dir];
-        if (dir == "E" || dir == "N")  this.creaturecon.y += offset[dir];
+        this.representativeSprite.rotation = rotate[dir];
+        if (dir == "W" || dir == "N") this.representativeSprite.x += offset[dir];
+        if (dir == "E" || dir == "N") this.representativeSprite.y += offset[dir];
     }
 
     interactedBy(interactor){
@@ -397,18 +397,11 @@ class Creature{
                 return;
             }
             if (this.animating && this === player){
-                tickProjectors();
                 this.animating = false;
-                tilesDisplay.projectorDisplay.x = -448;
-                tilesDisplay.projectorDisplay.y = -448;
-                tilesDisplay.creatureDisplay.x = -448;
-                tilesDisplay.creatureDisplay.y = -448;
             }
             if (this === player) this.animating = true;
             this.offsetX = this.tile.x - tile.x;
             this.offsetY = this.tile.y - tile.y;
-            this.originalOffsetX = this.offsetX;
-            this.originalOffsetY = this.offsetY;
             this.anispeed = Math.min(1/6*(Math.abs(this.offsetX)+Math.abs(this.offsetY)),1);
         }
         tile.monster = this;                             

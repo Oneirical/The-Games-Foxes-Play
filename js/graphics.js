@@ -24,6 +24,7 @@ class FoxSprite extends PIXI.Sprite{
   
 
 function beginEverything(){
+    PIXI.settings.ROUND_PIXELS = true;
     animationTick = new PIXI.Ticker;
     animationTick.start();
     app = new PIXI.Application({
@@ -85,7 +86,9 @@ function beginEverything(){
     drawPixel("black",(1920-16*16*7)/2+(7+12)*16,(1080-16*9*7)/2,112*9,app.stage); // this is for the zoom in effect
     tilesDisplay.maskReference = app.stage.children[app.stage.children.length-1];
     tilesDisplay.maskReference.alpha = 0;
-    drawProjectors();
+    //drawProjectors();
+    tilesDisplay.worldDisplay = newBetterDisplay();
+    tilesDisplay.notPlayerTiles.addChild(tilesDisplay.worldDisplay);
     
     world.appearRoom([22,25]); // initial spawn location in world seed
 
@@ -376,7 +379,44 @@ function drawProjectors(){
     //drawSprites();
 }
 
+function reloadDisplay(display){
+    display.removeChildren();
+    for (let i=0; i<45; i++){
+        for (let j=0; j<45; j++){
+            let tile = world.playSpace.tiles[i][j];
+            if (!tile.hasNothing()){
+                for (let k of tile.getAllCreatures()){
+                    if (k === player) continue;
+                    let crea = k.creaturecon;
+                    display.addChild(crea);
+                    crea.x = i*64;
+                    crea.y = j*64;
+                }
+            }
+        }
+    }
+}
+
+function newBetterDisplay(){
+    let efficientDisplay = new PIXI.Container();
+    reloadDisplay(efficientDisplay);
+    app.ticker.add(() => {
+        efficientDisplay.x = -(player.tile.x+player.offsetX)*64+512;
+        efficientDisplay.y = -(player.tile.y+player.offsetY)*64+512; // speedX = abs(offsetX() /100?
+        if (Math.abs(player.offsetX) < 0.05) player.offsetX = 0;
+        else player.offsetX = Math.sign(player.offsetX) * (Math.abs(player.offsetX)-player.anispeed);
+        if (Math.abs(player.offsetY) < 0.05) player.offsetY = 0;
+        else player.offsetY = Math.sign(player.offsetY) * (Math.abs(player.offsetY)-player.anispeed);
+        for (let i of monsters){
+            if (i.inRangeOfPlayer()) i.creaturecon.visible = true;
+            else i.creaturecon.visible = false;
+        }
+    });
+    return efficientDisplay;
+}
+
 function tickProjectors(){
+    return;
     tilesDisplay.creatureDisplay.removeChildren();
     for(let i=0;i<zoom*2;i++){
         for(let j=0;j<zoom*2;j++){

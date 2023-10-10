@@ -461,7 +461,7 @@ const logicMaps = {
 
 var genstruct = {
     "WorldSeed" : {
-        0 : "..E..",
+        0 : "E.E..",
         1 : ".....",
         2 : "E.W.E",
         3 : "V...V",

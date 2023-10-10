@@ -80,7 +80,6 @@ class Universe{
     }
 
     passDown(layer, spawnx, spawny){
-        this.currentWorld = layer;
         if (fastReload) {
             this.handleDescent(layer, spawnx, spawny);
             return;
@@ -96,7 +95,8 @@ class Universe{
             events: app.renderer.events // the interaction module is important for wheel to work properly when renderer.view is placed or scaled
         })
         tilesDisplay.addChild(this.viewport)
-    
+        this.viewport.startingWidth = this.viewport.width;
+        this.viewport.startingHeight = this.viewport.height;
         this.viewport
             .animate({
                 width: 1143/9,
@@ -107,16 +107,18 @@ class Universe{
         this.viewport.addChild(tilesDisplay.notPlayerTiles);
         tilesDisplay.addChild(player.creaturecon);
         this.zoomAnim.add(() => {
-            if (this.viewport.width >= 9869){
+            if (this.viewport.width >= 4930){
                 this.handleDescent(layer, spawnx, spawny);
                 universe.zooming = false;
+                this.viewport.removeChild(tilesDisplay.notPlayerTiles);
+                tilesDisplay.removeChild(this.viewport);
                 this.zoomAnim.stop();
             }
         });
     }
 
     handleDescent(layer, spawnx, spawny){
-        
+        this.currentWorld = layer;
         uiDisplayLeft.removeChild(world.displayCon);
         player.tile.monster = null;
         world.saveRoom(world.playSpace);
@@ -127,8 +129,9 @@ class Universe{
         world.appearRoom([spawnx,spawny]);
         world.setUpSprites();
         uiDisplayLeft.addChild(world.displayCon);
+        reloadDisplay(tilesDisplay.worldDisplay);
+        tilesDisplay.addChild(tilesDisplay.notPlayerTiles);
         tilesDisplay.addChild(player.creaturecon);
-        tickProjectors();
         for (let i of monsters){
             for (let j of i.loopThroughSouls()){
                 if (!j) continue;
@@ -551,15 +554,15 @@ class World{
         if (!room.playerspawn) room.playerspawn = [4,4];
         tiles = room.tiles;
         if (room instanceof WorldSeed) room.populateRoom();
-        tilesDisplay.removeChildren();
-        tilesDisplay.notPlayerTiles.removeChildren();
-        tilesDisplay.addChild(tilesDisplay.notPlayerTiles);
+        //tilesDisplay.removeChildren();
+        //tilesDisplay.notPlayerTiles.removeChildren();
+        //tilesDisplay.addChild(tilesDisplay.notPlayerTiles);
         room.initializeRoom();
         animationTick.destroy();
         animationTick = new PIXI.Ticker;
         animationTick.start();
         
-        drawProjectors();
+        //drawProjectors();
         drawSprites();
         if (areaname.displayCon) areaname.update();
         animateAll();

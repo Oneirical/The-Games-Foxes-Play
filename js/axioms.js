@@ -1164,7 +1164,7 @@ class Soul{
         return results;
     }
 
-    absorbSoul(start,destination){
+    absorbSoul(start,destination){ // probably outdated
         this.owner.creaturecon.x = tileSize*(8+(start.x-player.tile.x));
         this.owner.creaturecon.y = tileSize*(8+(start.y-player.tile.y));
         tilesDisplay.addChild(this.owner.creaturecon);
