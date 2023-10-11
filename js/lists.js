@@ -149,6 +149,13 @@ const speciesData = {
             "ORDERED" : "Guard",
         }
     },
+    "Harmonizer" : {
+        "sprite" : 26,
+        "hp" : 0,
+        "souls" : {
+            "SAINTLY" : "CyanFlood",
+        }
+    },
     "Scarab" : {
         "sprite" : 76,
         "hp" : 1,

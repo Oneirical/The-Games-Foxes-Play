@@ -4,6 +4,8 @@ function trigger(key,assi){
     }
 }
 
+setInterval(trigger,1000,"RHYTHM");
+
 function playerInput(key){
     if (key == "k") toggleFullScreen();
     else if (key == "o") saveGame();

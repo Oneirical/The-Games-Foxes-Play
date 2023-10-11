@@ -340,7 +340,6 @@ class Creature{
     }
 
     tryMove(dx,dy){ // make teleport also pass through this but check what dx is and ignore dy
-        if (this.hasTaggedSoul("Unaffected")) return false;
         let newTile = this.tile.getNeighbor(dx,dy);
         if(this.canMove(newTile)){
                 this.move(newTile);

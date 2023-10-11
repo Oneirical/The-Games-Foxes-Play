@@ -62,6 +62,20 @@ const logicMaps = {
         "keys" : {
         }
     },
+    "CyanFlood" : {
+        0 : ".R..B",
+        1 : ".P...",
+        2 : ".E...",
+        3 : ".T...",
+        4 : ".....",
+        "keys" : {
+            "R" : new ContinSecond(),
+            "E" : new EgoType(),
+            "B" : new RealityBreakTag(),
+            "P" : new PlusForm(),
+            "T" : new TwinningAssimilation(),
+        }
+    },
     "Airlock" : {
         0 : "..I.U",
         1 : "..E..",
@@ -121,7 +135,7 @@ const logicMaps = {
         1 : "E...W",
         2 : "EPN.K",
         3 : "..R..",
-        4 : "..I..",
+        4 : "..I.B",
         "keys" : {
             //"W" : new WarpCloseAway(),
             "W" : new TwinningAssimilation(181),
@@ -132,6 +146,7 @@ const logicMaps = {
             "A" : new EgoFilter(),
             "K" : new RadioBroadcaster("EON"),
             "N" : new ShowEffects(),
+            "B" : new RealityBreakTag(),
         }
     },
     "ElectroCoil" : {

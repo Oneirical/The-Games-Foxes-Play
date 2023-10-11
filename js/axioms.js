@@ -27,6 +27,13 @@ class Axiom{
     }
 
     translate(){};
+
+    assimilateAdjacentAxioms(dataType, replacement){
+        const neigh = this.soul.getLogicNeighbours(this,true);
+        for (let i of neigh){
+            if (i.dataType == dataType) i.changeStorage(replacement);
+        }
+    }
 }
 
 class EmptyAxiom extends Axiom{
@@ -61,6 +68,17 @@ class UnaffectedTag extends Axiom{
     constructor(){
         super();
         this.tag = "Unaffected";
+    }
+    act(data){
+        data = severSynapse(data);
+        return data;
+    }
+}
+
+class RealityBreakTag extends Axiom{
+    constructor(){
+        super();
+        this.tag = "RealityBreak";
     }
     act(data){
         data = severSynapse(data);
@@ -158,6 +176,18 @@ class ContinKilled extends Axiom{
     }
 }
 
+class ContinSecond extends Axiom{
+    constructor(){
+        super();
+        this.storage = "RHYTHM";
+        this.contingency = true;
+        this.dataType = "Message";
+    }
+    act(data){
+        return data;
+    }
+}
+
 class TriggerWatch extends Axiom{
     constructor(key){
         super();
@@ -204,10 +234,19 @@ class DirectionFromMotion extends Axiom{
         else if (difY < 0 && Math.abs(difY) > Math.abs(difX)) finalChoice = "N";
         else finalChoice = shuffle(["N","S","W","E"])[0]; // kind of cringe, may rework
         
-        const neigh = this.soul.getLogicNeighbours(this,true);
-        for (let i of neigh){
-            if (i.dataType == "Direction") i.changeStorage(finalChoice);
-        }
+        this.assimilateAdjacentAxioms("Direction", finalChoice);
+        return data;
+    }
+}
+
+class EgoType extends Axiom{
+    constructor(){
+        super();
+    }
+
+    act(data){
+        const self = data["caster"].numberID;
+        this.assimilateAdjacentAxioms("Creature",self);
         return data;
     }
 }
