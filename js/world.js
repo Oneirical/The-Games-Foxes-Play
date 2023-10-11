@@ -1,7 +1,6 @@
 class Universe{
     constructor(){
         this.worlds = [];
-        this.currentWorld = 0;
     }
 
     start(){
@@ -14,8 +13,7 @@ class Universe{
             this.worlds[x].id = floors[x];
             this.worlds[x].buildStyle = floorStyles[this.worlds[x].id];
         }
-        this.currentWorld = 0;
-        world = this.worlds[this.currentWorld];
+        world = this.findWorldByID("AttunementChamber"); 
         for (let x = 0; x<floors.length; x++){
             this.worlds[x].worldBuilding();
         }
@@ -117,7 +115,6 @@ class Universe{
     }
 
     handleDescent(layer, spawnx, spawny){
-        this.currentWorld = layer;
         uiDisplayLeft.removeChild(world.displayCon);
         player.tile.monster = null;
         world.saveRoom(world.playSpace);
@@ -167,7 +164,6 @@ class Universe{
                 research.completeResearch(spellpatterns[i]["caste"]);
             }
         }
-        this.currentWorld = layer;
         this.worlds[layer+1] = world;
         world = this.worlds[layer];
         world.currentroom = [4, 5]; // this will have to be replaced with the cage location
@@ -365,6 +361,7 @@ class World{
         }
         for(let i=0;i<5;i++){
             for(let j=0;j<5;j++){
+                if (this.depositTiles[i*9] && this.depositTiles[i*9][j*9]) continue;
                 for(let x=0;x<this.rooms[i][j].size;x++){
                     for(let y=0;y<this.rooms[i][j].size;y++){
                         this.depositTiles[i*9+x][j*9+y] = this.rooms[i][j].tiles[x][y];
@@ -660,6 +657,7 @@ class DefaultVaultRoom extends Room{
         this.depth = depth;
         this.tiles = [];
         let vault = rooms[this.id];
+        this.size = vault[0].length;
         if (vault["creatures"] && vault["creatures"]["ANY"]){
             for (let i of "abcdefghijklmnopqrstuvwxyz"){
                 vault["creatures"][i] = vault["creatures"]["ANY"];
@@ -858,6 +856,13 @@ class BloxFaith extends DefaultVaultRoom{
     constructor(index){
         super(index);
         this.id = "Blox";
+    }
+}
+
+class BooleanChoice extends DefaultVaultRoom{
+    constructor(index){
+        super(index);
+        this.id = "BooleanChoice";
     }
 }
 

@@ -4,12 +4,13 @@ basicspire = ["VILES","FERALS","UNHINGEDS","ARTISTICS","ORDEREDS","SAINTLYS"];
 smod = ["Alacrity","Selective","Thrusters","Hover","Focus"];
 modulators = ["Alacrity","Selective","Thrusters","Hover","Focus"];
 
-const floors = ["AttunementChamber", "EpsilonApex", "EntertainAlpha"]; // vox?
+const floors = ["AttunementChamber", "EpsilonApex", "EntertainAlpha", "BooleanChoice"]; // vox?
 const floorLinks = {};
 const floorStyles = {
     "AttunementChamber" : "Vault",
     "EpsilonApex" : "Blocks",
     "EntertainAlpha" : "Vault",
+    "BooleanChoice" : "Vault",
 };
 
 // DO NOT USE THIS AS A LIST IT GETS WIPED EACH TIME

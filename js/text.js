@@ -374,6 +374,7 @@ const worldNames = {
     "EpsilonApex" : "Industrial Apex",
     "EntertainAlpha" : "Entertainment Chamber Alpha",
     "AttunementChamber" : "Soul Injector",
+    "BooleanChoice" : "Choice of Castes",
 }
 
 colours = {
@@ -789,16 +790,6 @@ soulabi = {
 soulpassive = {
     "SERENE" : "Passive: IN UNITY WE FLOURISH - Cannot be removed once placed. Unlocks one additional Harmonic Modulator slot. Increases reputation with Serene Collectivists.",
     "SERENEDETAIL" : "If all Common Souls in your reserves are controlled by a Serene Soul, transform a random legendary Soul into a Serene Soul. If you have no non-Serene Legendary Souls, fill a random empty Caste slot with a Serene Soul.",
-}
-
-soulval = { //UNUSED
-    //modulators
-    "Alacrity" : "Consumes 1 Common Soul per soul draw.",
-    "Selective" : "Consumes 1 Common Soul per use of a Serene Soul. Consumes 3 Common Souls per Harmony-branded attack.",
-    "Thrusters" : "Consumes 1 Common Soul per dash. Consumes 1 Common Soul per Serene dash.",
-    "Hover" : "Consumes 1 Common Soul per avoided trap or non-soul actions taken on first turns. Consumes 2 Common Souls per Harmony trap produced.",
-    "Focus" : "Consumes 3 Common Souls per soul cast.",
-    "NONE" : "",
 }
 
 soulname = {
