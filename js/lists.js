@@ -154,7 +154,8 @@ const speciesData = {
         "hp" : 0,
         "souls" : {
             "SAINTLY" : "CyanFlood",
-        }
+        },
+        "intangible" : true,
     },
     "Scarab" : {
         "sprite" : 76,

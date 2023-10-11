@@ -407,6 +407,8 @@ class SoulTree{
         this.entityName.style.fill = creaturePresentation[this.trackedEntity.species]["color"];
         this.entityLore.text = creaturePresentation[this.trackedEntity.species]["lore"];
         this.entityOpinion.text = creaturePresentation[this.trackedEntity.species]["opinion"];
+        if (this.trackedEntity.species == "Harmonizer") this.entityOpinion.style.fill = "cyan";
+        else this.entityOpinion.style.fill = "plum";
         const textMetrics = PIXI.TextMetrics.measureText(this.entityLore.text, this.entityLore.style);
         this.entityOpinion.y = 45 + textMetrics.height;
         this.entitySprite.texture = allsprites.textures['sprite'+speciesData[this.trackedEntity.species]["sprite"]];

@@ -129,3 +129,14 @@ function randomPassableRoom(){
     });
     return tile;
 }
+
+function closestTileToGoal(creature, start,end){
+    let neighbors = start.getAdjacentPassableNeighbors();
+    neighbors = neighbors.filter(t => creature.canMove(t) || t === end);
+    if(neighbors.length){
+        neighbors.sort((a,b) => a.dist(end) - b.dist(end));
+        let newTile = neighbors[0];
+        return newTile;
+    }
+    return false;
+}

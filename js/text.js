@@ -479,6 +479,12 @@ const creaturePresentation = {
         lore: "A diminutive otter whose fur shimmers with a purplish hue. Its bulky tail collects dust as it trails along the steel floor, and its empty white eyes see nothing but glyphs where the world used to be.",
         opinion: "\"I entombed my Soul in this weak body to allow the world to keep ticking. I am caged so others can be free. I am a saint.\""
     },
+    "Harmonizer" : {
+        name: "Fluffy, of Cyan Radiance",
+        color: "cyan",
+        lore: "A billowy, soft cloud dancing through the air, taking the shape of a gaseous fox with six tails. The tinkle of a distant bell repeats itself as it spreads to prod at the world around it.",
+        opinion: "\"In unity we flourish.\""
+    },
     "Programmer" : {
         name: "Felidol Programmer",
         color: "plum",

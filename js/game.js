@@ -9,6 +9,7 @@ setInterval(trigger,1000,"RHYTHM");
 function playerInput(key){
     if (key == "k") toggleFullScreen();
     else if (key == "o") saveGame();
+    else if (key == "m") summonCreature(16,40,"Harmonizer");
     else if (key == "p") loadGame();
     else if (!universe.zooming) {
         let action = key.toUpperCase();

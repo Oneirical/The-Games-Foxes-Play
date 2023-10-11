@@ -56,7 +56,7 @@ class RealityAnchor extends Axiom{
 class UntargetableTag extends Axiom{
     constructor(){
         super();
-        this.tag = "Untargetable";
+        this.tag = "Untargetable"; // TODO these should become storage...
     }
     act(data){
         data = severSynapse(data);
@@ -82,6 +82,29 @@ class RealityBreakTag extends Axiom{
     }
     act(data){
         data = severSynapse(data);
+        return data;
+    }
+}
+
+class HarmonyTag extends Axiom{
+    constructor(){
+        super();
+        this.tag = "HarmonicGrace";
+    }
+    act(data){
+        data = severSynapse(data);
+        return data;
+    }
+}
+
+class PercentChanceSever extends Axiom{
+    constructor(num){
+        super();
+        this.storage = num;
+        this.dataType = "Number";
+    }
+    act(data){
+        if (randomRange(0, 99) <= this.storage) data = severSynapse(data);
         return data;
     }
 }
@@ -368,6 +391,18 @@ class BeamFromCaster extends Axiom{
     }
 }
 
+class TargetAllCreatures extends Axiom{
+    constructor(){
+        super();
+    }
+    act(data){
+        for (let j of monsters) {
+            target(data, j.tile);
+        }
+        return data;
+    }
+}
+
 class LastDamageSource extends Axiom{
     constructor(entity){
         super();
@@ -526,6 +561,21 @@ class PaintFilter extends Axiom{
         for (let i = data["targets"].length-1; i>=0; i--){
             let r = data["targets"][i];
             if (r.paint != this.storage) removeItemAll(data["targets"],r);
+        }
+        return data;
+    }
+}
+
+class NoTagFilter extends Axiom{
+    constructor(tag){
+        super();
+        this.storage = tag;
+        this.dataType = "Tag";
+    }
+    act(data){
+        let scan = getAllTargetedCreatures(data);
+        for (let i of scan){
+            if (i.hasTaggedSoul(this.storage)) removeItemAll(data["targets"],i.tile);
         }
         return data;
     }
@@ -746,8 +796,15 @@ class MoveFunction extends Axiom{
             data = severSynapse(data);
             return data;
         }
-        if (Math.abs(chosen.x-currentTile.x) <= 1 && Math.abs(chosen.y-currentTile.y) <= 1 && Math.abs(chosen.x-currentTile.x) + Math.abs(chosen.y-currentTile.y) != 2){
+        else if (Math.abs(chosen.x-currentTile.x) <= 1 && Math.abs(chosen.y-currentTile.y) <= 1 && Math.abs(chosen.x-currentTile.x) + Math.abs(chosen.y-currentTile.y) != 2){
             if (!data["caster"].tryMove(chosen.x-currentTile.x,chosen.y-currentTile.y)){
+                data = severSynapse(data);
+            }
+            return data;
+        }
+        else if (!data.caster.tangible){
+            let here = closestTileToGoal(data.caster, data.caster.tile, chosen);
+            if (!data.caster.tryMove(here.x-currentTile.x, here.y-currentTile.y)){
                 data = severSynapse(data);
             }
             return data;
