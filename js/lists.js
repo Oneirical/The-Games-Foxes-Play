@@ -4,10 +4,10 @@ basicspire = ["VILES","FERALS","UNHINGEDS","ARTISTICS","ORDEREDS","SAINTLYS"];
 smod = ["Alacrity","Selective","Thrusters","Hover","Focus"];
 modulators = ["Alacrity","Selective","Thrusters","Hover","Focus"];
 
-const floors = ["WorldSeed", "EpsilonApex", "EntertainAlpha"]; // vox?
+const floors = ["AttunementChamber", "EpsilonApex", "EntertainAlpha"]; // vox?
 const floorLinks = {};
 const floorStyles = {
-    "WorldSeed" : "Vault",
+    "AttunementChamber" : "Vault",
     "EpsilonApex" : "Blocks",
     "EntertainAlpha" : "Vault",
 };
@@ -28,8 +28,8 @@ const speciesData = {
         "hp" : 3,
         "souls" : {
             "SAINTLY" : "Terminal",
-            //"ORDERED" : "OrderedStarter",
-            "ARTISTIC" : "Singularity"
+            "ORDERED" : "OrderedStarter",
+            //"ARTISTIC" : "Singularity"
         }
     },
     "Programmer" : {
@@ -146,7 +146,7 @@ const speciesData = {
         "sprite" : 29,
         "hp" : 2,
         "souls" : {
-            "ORDERED" : "Guard",
+            "ORDERED" : "SwarmPlayer",
         }
     },
     "Harmonizer" : {

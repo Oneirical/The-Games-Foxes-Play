@@ -13,6 +13,13 @@
 * Bug if something turns tangible on top of something already tangible?
 * Rust binding with Tauri for astar or fringe search? Locate player is also super expensive
 
+**Performance Optimizations**
+
+* hasTaggedSoul
+* astar
+* locatePlayer
+* twinningAssimilation & cloneSoul
+
 **Save and Load**
 
 Save the world gen seed.

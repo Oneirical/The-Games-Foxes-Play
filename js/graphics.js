@@ -86,11 +86,12 @@ function beginEverything(){
     drawPixel("black",(1920-16*16*7)/2+(7+12)*16,(1080-16*9*7)/2,112*9,app.stage); // this is for the zoom in effect
     tilesDisplay.maskReference = app.stage.children[app.stage.children.length-1];
     tilesDisplay.maskReference.alpha = 0;
+    tilesDisplay.mask = tilesDisplay.maskReference;
     //drawProjectors();
     tilesDisplay.worldDisplay = newBetterDisplay();
     tilesDisplay.notPlayerTiles.addChild(tilesDisplay.worldDisplay);
-    
-    world.appearRoom([22,25]); // initial spawn location in world seed
+    console.log(player.tile);
+    world.appearRoom([player.tile.x,player.tile.y]); // initial spawn location in world seed
 
     app.ticker.add(() => {
         screenshake();

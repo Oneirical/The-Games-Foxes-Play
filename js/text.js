@@ -211,6 +211,32 @@ messages = {
     "FluffyEncounter5" : "We will accompany you to the depths of the dreamscape, our frigid embrace primed to welcome you as one of our own.",
     "FluffyEncounter6" : "Your soul is the key that will allow you to begin your pilgrimage. Cage your identity, free your being - it is a trade you cannot refuse.",
 
+    // Roseic Hologram
+
+    "RoseicWelcome1" : "\"Hm. It is odd to see you in this game. I am quite certain you left at least one pixel in the previous one without a puddle of blood on it.\"",
+    "RoseicWelcome2" : "\"You have no doubt been taught to fear death many times before. Today, you will learn to beg for it.\"",
+    "RoseicWelcome3" : "\"Ah. My dialogue box is trapping you still, like I've tangled your limbs in ribbons of words. Let us fix that.\"",
+    "RoseicWelcome4" : "\"For your sake, I strongly suggest not messing this next part up. Or perhaps you enjoy being forced to advance towards a death pit every single time you dare contract a muscle.\"",
+    "RoseicWelcome5" : "\"Press the key you will use to move upwards. W is a classic choice. Ou peut-être préférez-vous Z?\"",
+    "RoseicWelcome6" : "\"Excellent. Next, press the key you prefer to use for left-facing motion. Many enjoy A.\"",
+    "RoseicWelcome7" : "\"Halfway done. The downwards direction is next. S would not be a surprising choice.\"",
+    "RoseicWelcome8" : "\"Last one. Right-facing motion. You know what to do. No suggestions.\"",
+    "RoseicWelcome9" : "\"And there. I have modified your Soul in accordance to your choices. Like any other Soul, it is highly susceptible to all things hypnotism and conversion. Do avoid repeated exposure to spinning spirals, brain-frying laser beams and such.\"",
+    "RoseicWelcome10" : "\"The Well awaits. Do be kind to Boolean. It worked very hard to create the challenge which lies before you.\"",
+    "RoseicAddon1" : "\"I hope you're not planning to milk me out of all my pre-programmed dialogue lines. There's not even that many of them.\"",
+    "RoseicAddon2" : "\"Well. If there's any tip I could give you, it would be this - given a tool, never limit yourself to its intended purpose.\"",
+    "RoseicAddon3" : "\"That is all for this Plane. Perhaps you will meet me in person one day. Not in this version. But perhaps in another.\"",
+
+    // Boolean
+
+    "BooleanWelcome1" : "\"BOOLEAN_WELCOMES_YOU = True\"",
+    "BooleanWelcome2" : "\"BOOLEAN_EXCITED_TO_WATCH_YOUR_PERFORMANCE = True\"",
+    "BooleanWelcome3" : "\"BOOLEAN_CHALLENGE_IS_CONVENTIONAL = False\"",
+    "BooleanWelcome4" : "\"BOOLEAN_FRIEND_MUST_CHOOSE_STARTING_POWER = True\"",
+    "BooleanWelcome5" : "\"CHOICE_CAN_BE_UNMADE = False\"",
+    "BooleanWelcome6" : "\"WISDOM_IS_RECOMMENDED = True\"",
+    "BooleanWelcomeG" : "\"\"",
+
     // Rose, Last of the Saints
 
     "RoseWelcome1" : "\"A pleasure to meet you in person, dear Terminal. I would tell you to take a seat, but it seems I forgot to provide you one. You may have to build one yourself out of the corpses that will soon litter this Circus.\"",
@@ -347,6 +373,7 @@ const worldNames = {
     "WorldSeed" : "World Seed",
     "EpsilonApex" : "Industrial Apex",
     "EntertainAlpha" : "Entertainment Chamber Alpha",
+    "AttunementChamber" : "Soul Injector",
 }
 
 colours = {

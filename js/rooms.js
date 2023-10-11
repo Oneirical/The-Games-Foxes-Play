@@ -45,9 +45,95 @@ const worldMaps = {
         3 : ".....",
         4 : ".....",
         "keys" : {
-            "W" : "WorldSeed",
+            "W" : "AttunementChamber",
             "E" : "EntertainAlpha",
             "A" : "EpsilonApex",
+        }
+    }
+}
+
+var genstruct = {
+    "WorldSeed" : {
+        0 : "E.E..",
+        1 : ".....",
+        2 : "E.W.E",
+        3 : "V...V",
+        4 : "E...E",
+        keys: {
+            "E" : EmptyFaith,
+            "C" : SoulCage,
+            "W" : WorldSeed,
+            "H" : NarrowFaith,
+            "V" : NarrowFaith,
+            "M" : EmptyFaith,
+            "." : VoidRoom,
+        },
+    },
+    "EntertainAlpha" : {
+        0 : "..E..",
+        1 : "..V..",
+        2 : "EHCHE",
+        3 : "..V..",
+        4 : "..E..",
+        keys: {
+            "E" : EmptyFaith,
+            "C" : SoulCage,
+            "W" : WorldSeed,
+            "H" : NarrowFaith,
+            "V" : NarrowFaith,
+            "M" : EmptyFaith,
+            "." : VoidRoom,
+        },
+    },
+    "AttunementChamber" : {
+        0 : ".....",
+        1 : "..C..",
+        2 : "..V..",
+        3 : "..W..",
+        4 : ".....",
+        keys: {
+            "C" : SoulCage,
+            "W" : WorldSeed,
+            "V" : NarrowFaith,
+            "." : VoidRoom,
+        },
+    },
+    "BooleanChoice" : {
+        0 : "..C..",
+        1 : ".B...",
+        2 : ".....",
+        3 : ".....",
+        4 : "..C..",
+        keys: {
+            "C" : SoulCage,
+            //"B" : BooleanChoice,
+            "." : VoidRoom,
+        },
+    },
+    "Facility" : {
+        0 : "GHEHTHEHG",
+        1 : "V.V.E.V.V",
+        2 : "V.V...V.V",
+        3 : "V.E.G.E.V",
+        4 : "V...V...V",
+        5 : "EHL.B.RHE",
+        6 : "V...P...V",
+        7 : "GHL.N.RHG",
+        8 : "....A....",
+        keys: {
+        }
+    },
+    "Epsilon" : {
+        0 : ".G.....TT",
+        1 : "GCSHZH12T", // epsilon in top right, consumes the treadmill scarabs
+        2 : "....V.34.",
+        3 : "....V..V.",
+        4 : "FHRHPHHZ.", //"hacker" at the centre
+        5 : "V.V.V..V.", // factories produce axioms, research tests to see if they are safe
+        6 : "XHWHR..S.", // malfunction room accumulates dangerous specimen
+        7 : "V.V.V..CG", // security checkpoints lead into the production sector
+        8 : "WHXHA..G.", // X checkpoints detect harmonic intrusions
+        keys: {
         }
     }
 }
@@ -66,8 +152,8 @@ const logicMaps = {
         0 : ".R..B",
         1 : ".P..H",
         2 : ".E...",
-        3 : ".T...",
-        4 : ".XANM",
+        3 : ".TANM",
+        4 : ".....",
         "keys" : {
             "R" : new ContinSecond(),
             "E" : new EgoType(),
@@ -114,8 +200,8 @@ const logicMaps = {
         0 : "TMDBW",
         1 : "....F",
         2 : "EPN.E",
-        3 : "A.R.X",
-        4 : "WKINS",
+        3 : "A.R.S",
+        4 : "WKI.N",
         "keys" : {
             "T" : new TriggerWatch("MoveFunction"),
             "M" : new MomentumTarget(),
@@ -210,6 +296,20 @@ const logicMaps = {
             "M" : new MoveFunction(),
             "P" : new FormEntity(),
 
+        }
+    },
+    "SwarmPlayer" : {
+        0 : ".....",
+        1 : ".....",
+        2 : "EFBPM",
+        3 : ".....",
+        4 : ".....",
+        "keys" : {
+            "E" : new RadioReceiver("EON"),
+            "M" : new MoveFunction(),
+            "P" : new FormEntity(181),
+            "F" : new BooleanFlip(),
+            "B" : new BooleanGate(true),
         }
     },
     "SoulSiphon" : {
@@ -479,101 +579,6 @@ const logicMaps = {
     },
 }
 
-var genstruct = {
-    "WorldSeed" : {
-        0 : "E.E..",
-        1 : ".....",
-        2 : "E.W.E",
-        3 : "V...V",
-        4 : "E...E",
-        keys: {
-            "E" : EmptyFaith,
-            "C" : SoulCage,
-            "W" : WorldSeed,
-            "H" : NarrowFaith,
-            "V" : NarrowFaith,
-            "M" : EmptyFaith,
-            "." : VoidRoom,
-        },
-    },
-    "EntertainAlpha" : {
-        0 : "..E..",
-        1 : "..V..",
-        2 : "EHCHE",
-        3 : "..V..",
-        4 : "..E..",
-        keys: {
-            "E" : EmptyFaith,
-            "C" : SoulCage,
-            "W" : WorldSeed,
-            "H" : NarrowFaith,
-            "V" : NarrowFaith,
-            "M" : EmptyFaith,
-            "." : VoidRoom,
-        },
-    },
-    "Facility" : {
-        0 : "GHEHTHEHG",
-        1 : "V.V.E.V.V",
-        2 : "V.V...V.V",
-        3 : "V.E.G.E.V",
-        4 : "V...V...V",
-        5 : "EHL.B.RHE",
-        6 : "V...P...V",
-        7 : "GHL.N.RHG",
-        8 : "....A....",
-        keys: {
-            "G" : EmptyFaith,
-            "E" : EmptyFaith,
-            "P" : PlateGenerator,
-            "B" : SoulCage,
-            "W" : WorldSeed,
-            "." : VoidRoom,
-            "H" : NarrowFaith,
-            "V" : NarrowFaith,
-            "S" : EmptyFaith,
-            "O" : TriangleFaith,
-            "T" : TCross,
-            "A" : SpawnRoom,
-            "N" : AnnounceCorridor,
-            "L" : StareL,
-            "R" : StareR,
-        }
-    },
-    "Epsilon" : {
-        0 : ".G.....TT",
-        1 : "GCSHZH12T", // epsilon in top right, consumes the treadmill scarabs
-        2 : "....V.34.",
-        3 : "....V..V.",
-        4 : "FHRHPHHZ.", //"hacker" at the centre
-        5 : "V.V.V..V.", // factories produce axioms, research tests to see if they are safe
-        6 : "XHWHR..S.", // malfunction room accumulates dangerous specimen
-        7 : "V.V.V..CG", // security checkpoints lead into the production sector
-        8 : "WHXHA..G.", // X checkpoints detect harmonic intrusions
-        keys: {
-            W: SoulCage,
-            A: SpawnRoom, //delete
-            V: NarrowFaith,
-            H: NarrowFaith,
-            X: EmptyFaith,
-            F: EmptyFaith,
-            R: EmptyFaith,
-            P: EmptyFaith,
-            G: EmptyFaith,
-            C: EmptyFaith,
-            S: EmptyFaith,
-            Z: EmptyFaith, //zap the scarabs
-            T: EmptyFaith,
-            M: EmptyFaith, //malfunction
-            1: Epsilon1,
-            2: Epsilon2,
-            3: Epsilon3,
-            4: Epsilon4,
-            ".": VoidRoom,
-        }
-    }
-}
-
 // anisychia should be natural selection
 
 var rooms = {
@@ -590,14 +595,14 @@ var rooms = {
         "tags": [],
     },
     "Seed" : {
-        0 : "TTTTTTTTT",
+        0 : "TTTTETTTT",
         1 : "T.......T",
-        2 : "T..nnn..T",
-        3 : "T.woooe.T",
-        4 : "T.woçoe.T",
-        5 : "T.woooe.T",
-        6 : "T..sss..T",
-        7 : "T...t...T",
+        2 : "T.......T",
+        3 : "T.......T",
+        4 : "T.......T",
+        5 : "T...t...T",
+        6 : "T.......T",
+        7 : "T.......T",
         8 : "TTTTTTTTT",
         "tags": [],
         "creatures" : {
@@ -775,6 +780,39 @@ var rooms = {
             "l" : "ProgramThis",
             "r" : "LinkHere",
         }
+    },
+    "BooleanChoice" : {
+        0:  "#############E#############",
+        1:  "#.........................#",
+        2:  "#......RVR.......RVR......#",
+        3:  "#.....WW.WW.....WW.WW.....#",
+        4:  "#.....r...l.....r...l.....#",
+        5:  "#.....WW.WW.....WW.WW.....#",
+        6:  "#......R^R.......R^R......#",
+        7:  "#.........................#",
+        8:  "#.........................#",
+        9:  "#.........................#",
+        10: "#.........................#",
+        11: "#..RVR...............RVR..#",
+        12: "#.WW.WW.............WW.WW.#",
+        13: "#.r...l.............r...l.#",
+        14: "#.WW.WW.............WW.WW.#",
+        15: "#..R^R...............R^R..#",
+        16: "#.........................#",
+        17: "#.........................#",
+        18: "#.........................#",
+        19: "#.........................#",
+        20: "#......RVR.......RVR......#",
+        21: "#.....WW.WW.....WW.WW.....#",
+        22: "#.....r...l.....r...l.....#",
+        23: "#.....WW.WW.....WW.WW.....#",
+        24: "#......R^R.......R^R......#",
+        25: "#.........................#",
+        26: "#############E#############",
+        "tags" : ["randomgen"],
+        "creatures" : {
+            "ANY" : "Wall",
+        },
     },
     "Garnison" : {
         0 : "####E####",

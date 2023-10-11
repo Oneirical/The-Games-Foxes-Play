@@ -88,7 +88,6 @@ class Universe{
         this.zoomAnim = new PIXI.Ticker;
         
         this.zoomAnim.start();
-        tilesDisplay.mask = tilesDisplay.maskReference;
         this.viewport = new pixi_viewport.Viewport({
             screenWidth: 1152-64,
             screenHeight: 1152-64,

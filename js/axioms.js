@@ -725,9 +725,8 @@ class FormEntity extends Axiom{
     act(data){
         let dest;
         if (!this.storage) return data;
-        dest = allCreatures[this.storage.numberID].tile;
+        dest = allCreatures[this.storage].tile;
         target(data, dest);
-        if (!dest) throw new Error("An undefined tile was pushed to targets.");
         return data;
     }
 }

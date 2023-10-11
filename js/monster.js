@@ -90,12 +90,12 @@ class Creature{
     }
 
     reduceOffset(){
-        if (Math.abs(this.offsetX) < 0.01) this.offsetX = 0;
+        if (Math.abs(this.offsetX) < 0.02) this.offsetX = 0;
         else {
             let anispeedX = Math.max(Math.abs(this.offsetX/5),0.04);
             this.offsetX = Math.sign(this.offsetX) * (Math.abs(this.offsetX)-anispeedX);
         }
-        if (Math.abs(this.offsetY) < 0.01) this.offsetY = 0;
+        if (Math.abs(this.offsetY) < 0.02) this.offsetY = 0;
         else {
             let anispeedY = Math.max(Math.abs(this.offsetY/5),0.04);
             this.offsetY = Math.sign(this.offsetY) * (Math.abs(this.offsetY)-anispeedY);

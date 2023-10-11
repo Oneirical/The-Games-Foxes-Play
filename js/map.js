@@ -7,7 +7,8 @@ function astair(start,dest){
     for (let i =0; i<numTiles; i++){
         graph[i] = [];
         for (let j = 0; j<numTiles; j++){
-            if (tiles[i][j] == start || tiles[i][j] == dest || (tiles[i][j].tangibleCreature === false)) graph[i][j] = 1;
+            if (tiles[i][j] == start || tiles[i][j] == dest || (tiles[i][j].tangibleCreature === false) || (tiles[i][j].tangibleCreature.species === "Airlock")) graph[i][j] = 1;
+            // yikes, the airlock means they'll still go for the doors even if the airlocks get their souls messed up
             else graph[i][j] = 0;
         }
     }
