@@ -28,6 +28,10 @@ class Tile{
         }
     }
 
+    toSaveFormat(){
+        return this.z +";"+ this.x + ";" + this.y;
+    }
+
     getAllCreatures(){
         let creatures = [...this.intangibleCreatures];
         if (this.tangibleCreature) creatures.unshift(this.tangibleCreature);
@@ -285,11 +289,13 @@ class MarkedFloor extends Tile{
 class Floor extends Tile{
     constructor(x,y){
         super(x, y, 2, true);
+        //this.z = z; // depth value (which world)
     };
 }
 
 class Wall extends Tile{
     constructor(x, y){
         super(x, y, 3, false);
+        //this.z = z;
     };
 }

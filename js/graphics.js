@@ -90,7 +90,6 @@ function beginEverything(){
     //drawProjectors();
     tilesDisplay.worldDisplay = newBetterDisplay();
     tilesDisplay.notPlayerTiles.addChild(tilesDisplay.worldDisplay);
-    console.log(player.tile);
     world.appearRoom([player.tile.x,player.tile.y]); // initial spawn location in world seed
 
     app.ticker.add(() => {
@@ -128,6 +127,7 @@ function beginEverything(){
     //     if (count == 10) {uiDisplayLeft.children[uiDisplayLeft.children.length-1].children[0].text = app.ticker.FPS; count = 0;}
     // });
     //
+    if (localStorage["seed"]) loadGameStorage();
 }
 
 function makeFontsWork(){ //yikes, can't believe I had to do that

@@ -48,8 +48,9 @@
 <script src="js/axioms.js"></script>
 <script src="js/rooms.js"></script>
 <script>
-
-    var rngSeed = 'terminal';
+    var rngSeed;
+    if (localStorage["seed"]) rngSeed = localStorage.getItem("seed");
+    else rngSeed = makeid(10);
     var seededRNG = new Math.seedrandom(rngSeed);
 
     var creaturesCreated = 0;

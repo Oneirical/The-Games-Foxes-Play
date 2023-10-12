@@ -33,6 +33,7 @@ class Axiom{
         for (let i of neigh){
             if (i.dataType == dataType) i.changeStorage(replacement);
         }
+        this.soul.owner.editedData["Soul"] = true;
     }
 }
 

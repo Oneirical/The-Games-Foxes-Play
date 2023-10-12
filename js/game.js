@@ -10,7 +10,7 @@ function playerInput(key){
     if (key == "k") toggleFullScreen();
     else if (key == "o") saveGame();
     else if (key == "m") summonCreature(16,40,"Harmonizer");
-    else if (key == "p") loadGame();
+    else if (key == "p") localStorage.clear();
     else if (!universe.zooming) {
         let action = key.toUpperCase();
         trigger(action);
@@ -18,12 +18,48 @@ function playerInput(key){
     }
 }
 
-function saveGame(){
-    localStorage.setItem("seed",rngSeed);
-    localStorage.setItem("queue",JSON.stringify(actionQueue));
+function saveEntityLocations(){
+    let movedEntities = {};
+    for (let i of allCreatures){
+        if (i.editedData.Position) movedEntities[i.numberID] = i.tile.toSaveFormat();
+    }
+    return movedEntities;
 }
 
-function loadGame(){
+function saveEntitySpecies(){
+    let changedEntities = {};
+    for (let i of allCreatures){
+        if (i.editedData.Species) changedEntities[i.numberID] = i.species;
+    }
+    return changedEntities = {};
+}
+
+function saveGame(){
+    localStorage.clear();
+    localStorage.setItem("seed",rngSeed);
+    localStorage.setItem("queue",JSON.stringify(actionQueue));
+    localStorage.setItem("positions",JSON.stringify(saveEntityLocations()));
+    localStorage.setItem("species",JSON.stringify(saveEntitySpecies()));
+    console.log(localStorage);
+}
+
+function loadGameStorage(){
+    let positions = JSON.parse(localStorage.getItem("positions"));
+    let species = JSON.parse(localStorage.getItem("species"));
+    for (let i of allCreatures){
+        let num = i.numberID;
+        if (positions[num]){
+            let tile = getTileInUniverse(positions[num]);
+            if (i === player) universe.handleDescent(tile.z,tile.x,tile.y);
+            i.move(tile); // make sure no contingencies are triggered later by this
+        }
+        if (species[num]){
+            i.changeSpecies(species[num]);
+        }
+    }
+}
+
+function loadGameQueue(){
     fastReload = true;
     rngSeed = localStorage.getItem("seed");
     let reloadQueue = JSON.parse(localStorage.getItem("queue"));

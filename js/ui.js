@@ -42,7 +42,6 @@ class VignetteInjector{
                 lineJoin: 'round',
             });
             let bumpValue = textWithoutCringe(i,0,bump,style,this.displayCon);
-            console.log(style.wordWrapWidth);
             bumpValue+=40;
             bump += bumpValue;
             if (text.indexOf(i) < text.length-1) drawChainLine(7,16,bump-7,"h",this.displayCon);

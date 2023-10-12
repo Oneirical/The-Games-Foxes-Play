@@ -582,7 +582,7 @@ const soulVignettes = {
         4: "\"Mesh your droplet with mine. Make your choice.\"",
     },
     "OrderedDialogue" : { // Boolean speaks only in booleans (neither) "order incarnate"
-        color: "orangered"
+        color: "orangered",
         0: "\"BOOLEAN_POWER_IS_COMPLEX = False\"",
         1: "\"BOOLEAN_POWER_IS_EFFECTIVE = True\"",
         2: "\"BOOLEAN_POWER_ACTIVATES_WHEN_TERMINAL_TAKES_STEP_TOWARDS_ENTITY = True\"",

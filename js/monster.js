@@ -32,11 +32,9 @@ class Creature{
         if (speciesData[species]["intangible"]) this.tangible = false;
         this.move(tile);
 
-        this.editedData = {
+        this.editedData = { //keep this under "this.move" so not literally everything has a moved position
             "Position" : false,
             "Soul" : false,
-            "Health" : false,
-            "Rotation" : false,
             "Species" : false,
         }
     }
@@ -59,6 +57,7 @@ class Creature{
             this.souls[caste].owner = this;
         } 
         else this.souls[caste] = false;
+        this.editedData["Soul"] = true;
     }
 
     hasTaggedSoul(tag){
@@ -272,7 +271,6 @@ class Creature{
 
     heal(damage){
         if (damage <= 0) return;
-        this.editedData["Health"] = true;
         this.hp = Math.min(4, this.hp+damage);
         this.updateHp();
     }
@@ -361,13 +359,13 @@ class Creature{
         if (soulTree.trackedEntity === this) soulTree.updateSlots(this);
         if (speciesData[newSpecies]["intangible"]) this.becomeIntangible();
         else this.becomeTangible();
+        this.editedData["Species"] = true;
 
     }
 
     hit(damage,origin){  
         if (damage <= 0) return;          
         this.lastDamageCulprit = origin;
-        this.editedData["Health"] = true;
         this.hp -= damage;
         if(this.hp <= 0) this.die();
         this.updateHp();

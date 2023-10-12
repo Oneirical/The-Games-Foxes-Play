@@ -350,7 +350,7 @@ class World{
                 catch (err) {throw new Error("Unknown room glyph: "+ genstruct[vault][j][i])}
                 this.rooms[i][j].sourceWorld = this;
                 if (flip) flipRoom(this.rooms[i][j].id,this.rooms[i][j].size,0);
-                this.rooms[i][j].insertRoom(this.depth);
+                this.rooms[i][j].insertRoom(this.layer);
                 if (flip) flipRoom(this.rooms[i][j].id,this.rooms[i][j].size,0);
             }
         }
@@ -430,14 +430,14 @@ class World{
                     if (corridor) times = 0;
                     if (rooms[this.rooms[i][j].id]["tags"].includes("randomflip") && !corridor) flip = true;
                     if (flip) flipRoom(this.rooms[i][j].id,this.rooms[i][j].size,times);
-                    this.rooms[i][j].insertRoom(this.depth);
+                    this.rooms[i][j].insertRoom(this.layer);
                     if (flip) flipRoom(this.rooms[i][j].id,this.rooms[i][j].size,times);
                     if (corridor && flip) this.rooms[i][j].verticality = "side";
                     else if (corridor) this.rooms[i][j].verticality = "up";
                 }
                 else{
                     this.rooms[i][j] = new VoidRoom([i,j]);
-                    this.rooms[i][j].insertRoom(this.depth);
+                    this.rooms[i][j].insertRoom(this.layer);
                 }
             }
         }
@@ -678,6 +678,7 @@ class DefaultVaultRoom extends Room{
                 else{
                     this.tiles[i][j] = new tile(i,j,this);
                 }
+                this.tiles[i][j].z = this.depth;
                 if (airlockDirOverride){
                     const eqs = {
                         "V" : "S",
@@ -929,6 +930,8 @@ class HugeMap extends DefaultVaultRoom{
             for (let j=0; j<45; j++){
                 tiles[i][j].x = i;
                 tiles[i][j].y = j;
+                tiles[i][j].z = this.world.layer;
+                if (typeof tiles[i][j].z !== "number") throw new Error("Z coordinate was not a number.");
             }
         }
     }
