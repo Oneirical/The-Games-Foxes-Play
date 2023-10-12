@@ -889,10 +889,31 @@ class ModuloGate extends Axiom{
     }
     act(data){
         let surr = this.soul.getLogicNeighbours(this,true);
-        for (let i of surr) if (i instanceof NumberStorage && i.storage%this.storage != 0){ //maybe change this to number type instead of specifically NumberStorage?
+        for (let i of surr) if (i.dataType === "Number" && i.storage && i.storage%this.storage != 0){
             data = severSynapse(data);
         }
         
+        return data;
+    }
+}
+
+class DialoguePrinter extends Axiom{
+    constructor(spe){
+        super();
+        this.storage = spe;
+        this.dataType = "Species";
+    }
+    act(data){
+        if (!this.storage){
+            data = severSynapse(data);
+            return data;
+        }
+        let num = 0;
+        let surr = this.soul.getLogicNeighbours(this,true);
+        for (let i of surr) if (i.dataType === "Number" && i.storage){
+            num += i.storage;
+        }
+        log.addLog(this.storage,num);
         return data;
     }
 }

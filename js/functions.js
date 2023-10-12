@@ -49,7 +49,7 @@ function severSynapse(data){
 }
 
 function target(data, tile){
-    if (!tile) throw new Error("An undefined tile was targeted.");
+    if (!tile) return data;
     for (let i of tile.getAllCreatures()){
         if (i.hasTaggedSoul("Untargetable") && !data.caster.hasTaggedSoul("RealityBreak")) return data;
     }

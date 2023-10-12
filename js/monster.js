@@ -149,7 +149,7 @@ class Creature{
     }
 
     closeSelf(){
-        this.editedData["Opened"] = "Closed";
+        if (this.editedData["Opened"]) this.editedData["Opened"] = "Closed";
         this.becomeTangible();
     }
 

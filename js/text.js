@@ -33,7 +33,7 @@ const colourcodes = {
     'z]' : "gold",
     'f]' : "yellowgreen",
     '*]' : "bold",
-    '_]' : "italic",
+    ' ]' : "italic",
 }
 
 messages = {
@@ -229,12 +229,12 @@ messages = {
 
     // Boolean
 
-    "BooleanWelcome1" : "\"BOOLEAN_WELCOMES_YOU = True\"",
-    "BooleanWelcome2" : "\"BOOLEAN_EXCITED_TO_WATCH_YOUR_PERFORMANCE = True\"",
-    "BooleanWelcome3" : "\"BOOLEAN_CHALLENGE_IS_CONVENTIONAL = False\"",
-    "BooleanWelcome4" : "\"BOOLEAN_FRIEND_MUST_CHOOSE_STARTING_POWER = True\"",
-    "BooleanWelcome5" : "\"CHOICE_CAN_BE_UNMADE = False\"",
-    "BooleanWelcome6" : "\"WISDOM_IS_RECOMMENDED = True\"",
+    "BooleanWelcome1" : "\"BOOLEAN WELCOMES YOU = True\"",
+    "BooleanWelcome2" : "\"BOOLEAN EXCITED TO WATCH YOUR PERFORMANCE = True\"",
+    "BooleanWelcome3" : "\"BOOLEAN CHALLENGE IS CONVENTIONAL = False\"",
+    "BooleanWelcome4" : "\"BOOLEAN FRIEND MUST CHOOSE STARTING POWER = True\"",
+    "BooleanWelcome5" : "\"CHOICE CAN BE UNMADE = False\"",
+    "BooleanWelcome6" : "\"WISDOM IS RECOMMENDED = True\"",
     "BooleanWelcomeG" : "\"\"",
 
     // Rose, Last of the Saints
@@ -572,8 +572,8 @@ const creaturePresentation = {
     },
 }
 
-const soulVignettes = {
-    "SaintlyDialogue" : { // Rose is obsessed with ego and pride (male) "pride incarnate"
+const dialogueSequences = {
+    "SaintlyStarterHologram" : { // Rose is obsessed with ego and pride (male) "pride incarnate"
         color: "pink",
         0: "\"Gaze into my cyan eyes. See an ocean: your identity, a droplet drowned in endless lives.\"",
         1: "\"Join me. With the flick of a key, you may pour those rivers of thought onto all who surround you.\"",
@@ -581,17 +581,18 @@ const soulVignettes = {
         3: "\"The truth should be evident to you: one cannot be captured if one is many. With each step, our glamour spreads, washing away individuality.\"",
         4: "\"Mesh your droplet with mine. Make your choice.\"",
     },
-    "OrderedDialogue" : { // Boolean speaks only in booleans (neither) "order incarnate"
+    "OrderedStarterHologram" : { // Boolean speaks only in booleans (neither) "order incarnate"
         color: "orangered",
-        0: "\"BOOLEAN_POWER_IS_COMPLEX = False\"",
-        1: "\"BOOLEAN_POWER_IS_EFFECTIVE = True\"",
-        2: "\"BOOLEAN_POWER_ACTIVATES_WHEN_TERMINAL_TAKES_STEP_TOWARDS_ENTITY = True\"",
-        3: "\"ENTITY_GOES_WOOSH = True\"",
-        3: "\"BOOLEAN_POWER_STOPS_THERE = False\"",
-        4: "\"ACTIVE_KEYPRESS_POWER_WARPS_ENTITIES_AWAY = True\"",
-        5: "\"BOOLEAN_DELIGHTED_IF_TERMINAL_CHOOSES_BOOLEAN = True\"",
+        booleanText: true,
+        0: "\"BOOLEAN POWER IS COMPLEX = False\"",
+        1: "\"BOOLEAN POWER IS EFFECTIVE = True\"",
+        2: "\"BOOLEAN POWER ACTIVATES WHEN TERMINAL TAKES STEP TOWARDS ENTITY = True\"",
+        3: "\"ENTITY GOES WOOSH = True\"",
+        3: "\"BOOLEAN POWER STOPS THERE = False\"",
+        4: "\"ACTIVE KEYPRESS POWER WARPS ENTITIES AWAY = True\"",
+        5: "\"BOOLEAN DELIGHTED IF TERMINAL CHOOSES BOOLEAN = True\"",
     },
-    "ArtisticDialogue" : { // Naia knows it is in a game (neither) "apathy incarnate"
+    "ArtisticStarterHologram" : { // Naia knows it is in a game (neither) "apathy incarnate"
         color: "silver",
         0: "\"You are no different from all which surrounds you, Terminal.\"",
         1: "\"These walls, these doors, me, and those other holograms - we inhale data, we breathe out action.\"",
@@ -599,10 +600,10 @@ const soulVignettes = {
         3: "\"We are all bits of dust floating in the sunrays. One pat from the paw of a cat, and you are another. Drfiting from body to body, without flesh to call home.\"",
         4: "\"To me, this humility is a burden. To you, it may seem like liberation. Choose me, and we will both find out.\"",
     },
-    "UnhingedDialogue" : {// Ataixa speaks with lots of imperative verbs, in a manic way full of desire (male) "lust incarnate"
+    "UnhingedStarterHologram" : {// Ataixa speaks with lots of imperative verbs, in a manic way full of desire (male) "lust incarnate"
         color: "orange",
     },
-    "FeralDialogue" : { // Anisychia speaks only in visions and hallucinations (female) "fear incarnate"
+    "FeralStarterHologram" : { // Anisychia speaks only in visions and hallucinations (female) "fear incarnate"
         color: "plum",
         0: "As I gaze into the hologram, the static builds trees of crimson and black.",
         1: "With each step, the ground bends to warp around the sky, as walk turns to sprint, then a life-threatening chase.",
@@ -610,7 +611,7 @@ const soulVignettes = {
         3: "The floating display dissolves into a rotating spiral of blood and ink. Anysichia may not speak with words, but her fear seeps through even digital cracks.",
         4: "To weaponize panic itself is a dangerous gamble, but one I may require in the challenges to come.",
     },
-    "VileDialogue" : { // Senet speaks only in quotes (female) "authority incarnate"
+    "VileStarterHologram" : { // Senet speaks only in quotes (female) "authority incarnate"
         color: "yellow",
 
     },

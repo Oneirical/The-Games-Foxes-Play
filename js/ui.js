@@ -257,29 +257,27 @@ class MessageLog{
         PIXI.Assets.loadBundle('fonts');
     }
 
-    addLog(message){
-        if (this.textcon.children.length > 0 && messages[message] == this.textcon.children[this.textcon.children.length-1].originalText){
+    addLog(creature,num){
+        if (!dialogueSequences[creature]) return;
+        let message = dialogueSequences[creature][num];
+        if (!message) return;
+        if (this.textcon.children.length > 0 && message == this.textcon.children[this.textcon.children.length-1].originalText){
             this.textcon.children[this.textcon.children.length-1].repetitions += 1;
             this.textcon.children[this.textcon.children.length-1].text = this.textcon.children[this.textcon.children.length-1].originalText +  " x" + this.textcon.children[this.textcon.children.length-1].repetitions;
             return;
         }
-        let coloring = colours[message];
-        if (message.includes("Fluffy")) coloring = "cyan";
-        else if (message.includes("Rose")) coloring = "lightpink";
-        else if (message.includes("Epsilon")) coloring = "orangered";
-        else if (message.includes("Saint")) coloring = "lime";
-        else if (message.includes("Faith")) coloring = "white";
-        else if (message.includes("Error")) coloring = "yellow";
+        let coloring = dialogueSequences[creature].color;
         const style = new PIXI.TextStyle({
             fontFamily: 'Play',
             fontSize: 18,
             fill: coloring,
             wordWrap: true,
-            wordWrapWidth: 7*16*16-(7*9*16+(7+12)*16+10)-20,
+            wordWrapWidth: 450,
             lineJoin: 'round',
         });
-        printOutText(messages[message],0,0,style,this.textcon);
-        const richText = new PIXI.Text(messages[message], style);
+        //if (dialogueSequences[creature].booleanText) style.breakWords = true; // so boolean (the character) doesn't go out of the frame (no spaces)
+        printOutText(message,0,0,style,this.textcon);
+        const richText = new PIXI.Text(message, style);
         richText.repetitions = 0;
         richText.originalText = richText.text;
         if (this.textcon.children.length > 1){

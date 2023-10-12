@@ -40,6 +40,34 @@ const speciesData = {
             "VILE" : "Programmer",
         }
     },
+    "SaintlyStarterHologram" : {
+        "sprite" : 39,
+        "hp" : 2,
+        "souls" : {
+            "SAINTLY" : "SaintlyStarterHologram",
+        }
+    },
+    "OrderedStarterHologram" : {
+        "sprite" : 40,
+        "hp" : 2,
+        "souls" : {
+            "ORDERED" : "OrderedStarterHologram",
+        }
+    },
+    "ArtisticStarterHologram" : {
+        "sprite" : 41,
+        "hp" : 2,
+        "souls" : {
+            "ORDERED" : "ArtisticStarterHologram",
+        }
+    },
+    "FeralStarterHologram" : {
+        "sprite" : 42,
+        "hp" : 2,
+        "souls" : {
+            "ORDERED" : "FeralStarterHologram",
+        }
+    },
     "EntropicHusk" : {
         "sprite" : 1,
         "hp" : 0,
