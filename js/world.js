@@ -116,7 +116,7 @@ class Universe{
 
     handleDescent(layer, spawnx, spawny){
         uiDisplayLeft.removeChild(world.displayCon);
-        player.tile.monster = null;
+        player.tile.stepOut(player);
         world.saveRoom(world.playSpace);
         let spawnCoords = [spawnx, spawny];
         world = this.worlds[layer];

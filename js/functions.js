@@ -1,7 +1,5 @@
 function teleport(target,destination,data){
-    let initialPoint = target.tile;
-    target.move(destination);
-    let finalPoint = target.tile;
+    if (target.canMove(destination)) target.move(destination);
     return data;
     if (data["flags"].has("trailing")) { // no "flags" target
         let dx = finalPoint.x - initialPoint.x;

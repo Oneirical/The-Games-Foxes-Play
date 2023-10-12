@@ -31,7 +31,15 @@ function saveEntitySpecies(){
     for (let i of allCreatures){
         if (i.editedData.Species) changedEntities[i.numberID] = i.species;
     }
-    return changedEntities = {};
+    return changedEntities;
+}
+
+function saveEntityDoors(){
+    let changedEntities = {};
+    for (let i of allCreatures){
+        if (i.editedData.Opened) changedEntities[i.numberID] = i.editedData.Opened;
+    }
+    return changedEntities;
 }
 
 function saveGame(){
@@ -40,18 +48,24 @@ function saveGame(){
     localStorage.setItem("queue",JSON.stringify(actionQueue));
     localStorage.setItem("positions",JSON.stringify(saveEntityLocations()));
     localStorage.setItem("species",JSON.stringify(saveEntitySpecies()));
+    localStorage.setItem("opened",JSON.stringify(saveEntityDoors()));
     console.log(localStorage);
 }
 
 function loadGameStorage(){
     let positions = JSON.parse(localStorage.getItem("positions"));
     let species = JSON.parse(localStorage.getItem("species"));
+    let doors = JSON.parse(localStorage.getItem("opened"));
     for (let i of allCreatures){
         let num = i.numberID;
+        if (doors[num]){
+            if (doors[num] === "Open") i.openSelf();
+            if (doors[num] === "Closed") i.closeSelf();
+        }
         if (positions[num]){
             let tile = getTileInUniverse(positions[num]);
             if (i === player) universe.handleDescent(tile.z,tile.x,tile.y);
-            i.move(tile); // make sure no contingencies are triggered later by this
+            i.reloadMove(tile); // make sure no contingencies are triggered later by this
         }
         if (species[num]){
             i.changeSpecies(species[num]);

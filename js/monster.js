@@ -36,6 +36,7 @@ class Creature{
             "Position" : false,
             "Soul" : false,
             "Species" : false,
+            "Opened" : false,
         }
     }
 
@@ -148,10 +149,12 @@ class Creature{
     }
 
     closeSelf(){
+        this.editedData["Opened"] = "Closed";
         this.becomeTangible();
     }
 
     openSelf(){
+        this.editedData["Opened"] = "Open";
         this.becomeIntangible();
         if (!this.doorTiles){
             this.representativeSprite.visible = false;
@@ -394,6 +397,14 @@ class Creature{
         }
         this.tangible = true;
         //if (this.representativeSprite) this.representativeSprite.alpha = 1;
+    }
+
+    reloadMove(tile){
+        if(this.tile){
+            this.editedData["Position"] = true;
+            this.tile.stepOut(this);
+            tile.stepOn(this);
+        }
     }
 
     move(tile){
