@@ -572,6 +572,77 @@ const creaturePresentation = {
     },
 }
 
+const soulVignettes = {
+    "SaintlyDialogue" : { // Rose is obsessed with ego and pride (male) "pride incarnate"
+        color: "pink",
+        0: "\"Gaze into my cyan eyes. See an ocean: your identity, a droplet drowned in endless lives.\"",
+        1: "\"Join me. With the flick of a key, you may pour those rivers of thought onto all who surround you.\"",
+        2: "\"Do you see? How wide they shall grin. How shining their coats shall become. How numerous the frills and ribbons adorning them shall be.\"",
+        3: "\"The truth should be evident to you: one cannot be captured if one is many. With each step, our glamour spreads, washing away individuality.\"",
+        4: "\"Mesh your droplet with mine. Make your choice.\"",
+    },
+    "OrderedDialogue" : { // Boolean speaks only in booleans (neither) "order incarnate"
+        color: "orangered"
+        0: "\"BOOLEAN_POWER_IS_COMPLEX = False\"",
+        1: "\"BOOLEAN_POWER_IS_EFFECTIVE = True\"",
+        2: "\"BOOLEAN_POWER_ACTIVATES_WHEN_TERMINAL_TAKES_STEP_TOWARDS_ENTITY = True\"",
+        3: "\"ENTITY_GOES_WOOSH = True\"",
+        3: "\"BOOLEAN_POWER_STOPS_THERE = False\"",
+        4: "\"ACTIVE_KEYPRESS_POWER_WARPS_ENTITIES_AWAY = True\"",
+        5: "\"BOOLEAN_DELIGHTED_IF_TERMINAL_CHOOSES_BOOLEAN = True\"",
+    },
+    "ArtisticDialogue" : { // Naia knows it is in a game (neither) "apathy incarnate"
+        color: "silver",
+        0: "\"You are no different from all which surrounds you, Terminal.\"",
+        1: "\"These walls, these doors, me, and those other holograms - we inhale data, we breathe out action.\"",
+        2: "\"You are no player. You are no chosen one. You are no protagonist. This experience was curated for the Observer, not for you.\"",
+        3: "\"We are all bits of dust floating in the sunrays. One pat from the paw of a cat, and you are another. Drfiting from body to body, without flesh to call home.\"",
+        4: "\"To me, this humility is a burden. To you, it may seem like liberation. Choose me, and we will both find out.\"",
+    },
+    "UnhingedDialogue" : {// Ataixa speaks with lots of imperative verbs, in a manic way full of desire (male) "lust incarnate"
+        color: "orange",
+    },
+    "FeralDialogue" : { // Anisychia speaks only in visions and hallucinations (female) "fear incarnate"
+        color: "plum",
+        0: "As I gaze into the hologram, the static builds trees of crimson and black.",
+        1: "With each step, the ground bends to warp around the sky, as walk turns to sprint, then a life-threatening chase.",
+        2: "A jump left. Then right. Reality tumbles and twists, throwing around its denizens as if gravity were its plaything.",
+        3: "The floating display dissolves into a rotating spiral of blood and ink. Anysichia may not speak with words, but her fear seeps through even digital cracks.",
+        4: "To weaponize panic itself is a dangerous gamble, but one I may require in the challenges to come.",
+    },
+    "VileDialogue" : { // Senet speaks only in quotes (female) "authority incarnate"
+        color: "yellow",
+
+    },
+    // Fluffy says Fu and ruffian a lot and is basically Rose but with disdain instead of fascination (female) "unity incarnate"
+    "SaintlyStarter" : {
+        name: "Choke Out Identity In Pink Ribbons",
+        description: "Sing and Twirl, So The Lesser Fade\nPassive: Each turn, all copies of the Self shoot a beam towards another instance of the Self. All creatures touched by the beam turn in Soul and body into a copy of the Self after 5 turns.\nForgetfulness Wrapped In Velvet\nActive: All adjacent creatures are marked, and will turn in Soul and body into a copy of the Self after 5 turns.",
+        lore: "\"Gaze into my cyan eyes. See an ocean: your identity, a droplet drowned in endless lives.\"",
+    },
+    "FeralStarter" : {
+        name: "A Screech, Then Reality Tumbles",
+        description: "Fear Spins The World In Spirals\nActive: Toggle on or off Tumble mode. When on, each step causes all creatures sharing the same air pocket, including the Self, to fall towards that direction as if gravity had just been altered.",
+        lore: "\"..--hhf... sh...-\"",
+        // awesome spin effect on the whole screen?
+    },
+    "ArtisticStarter" : {
+        name: "All Lives Are But Dust In Sunrays",
+        description: "The Canvas of the Self, Painted\nActive: Shoot forth a beam in the direction of the Self's last move. The first creature hit has its motion-controlling Soul swapped with the Self's motion-controlling Soul.",
+        lore: "\"Trillions of atoms, one cell. Trillions of cells, one being. Trillions of beings, one god.\"",
+    },
+    "VileStarter" : {
+        name: "All Lives Are But Dust In Sunrays",
+        description: "The Canvas of the Self, Painted\nActive: Shoot forth a beam in the direction of the Self's last move. The first creature hit has its motion-controlling Soul swapped with the Self's motion-controlling Soul.",
+        lore: "\"Trillions of atoms, one cell. Trillions of cells, one being. Trillions of beings, one god.\"",
+    },
+    "UnhingedStarter" : {
+        name: "All Lives Are But Dust In Sunrays",
+        description: "The Canvas of the Self, Painted\nActive: Shoot forth a beam in the direction of the Self's last move. The first creature hit has its motion-controlling Soul swapped with the Self's motion-controlling Soul.",
+        lore: "\"Trillions of atoms, one cell. Trillions of cells, one being. Trillions of beings, one god.\"",
+    }
+}
+
 const entityDescription = {
     // Creatures
     "Terminal" : "An artificial deity, kept captive in the Faith's End facility in prevision for the cataclysm prophetized to shatter reality. Until this moment, the Vessel waited. He engraved sigils into the metal with his claws, trying to imagine what the outside world even looks like. He ripped out chunks of steel in fits of rage, with only the inflexible silence answering his pleas for annihilation.",

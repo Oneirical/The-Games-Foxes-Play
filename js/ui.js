@@ -15,6 +15,41 @@ class Tooltip{
     }
 }
 
+class VignetteInjector{
+    constructor(soul){
+        this.displayCon = new PIXI.Container();
+        let width = 8;
+        let height = 14;
+        drawChainBorder(width,height,this.displayCon);
+        const graphics = new PIXI.Graphics();
+        graphics.beginFill("black");
+        graphics.drawRect(-8, -8, (width-1)*32+16, (height-1)*32+16);
+        graphics.endFill();
+        this.displayCon.addChild(graphics);
+
+        const text = [soulVignettes[soul]["name"],soulVignettes[soul]["description"],soulVignettes[soul]["lore"]];
+        let bump = 0;
+        for (let i of text){
+            if (!i) continue;
+            let coloring = "white";
+            //if (i == tag["lore"]) coloring = "plum";
+            const style = new PIXI.TextStyle({
+                fontFamily: 'Play',
+                fontSize: 18,
+                fill: coloring,
+                wordWrap: true,
+                wordWrapWidth: 7*32,
+                lineJoin: 'round',
+            });
+            let bumpValue = textWithoutCringe(i,0,bump,style,this.displayCon);
+            console.log(style.wordWrapWidth);
+            bumpValue+=40;
+            bump += bumpValue;
+            if (text.indexOf(i) < text.length-1) drawChainLine(7,16,bump-7,"h",this.displayCon);
+        }
+    }
+}
+
 class NodeDescription{
     constructor(){
     }

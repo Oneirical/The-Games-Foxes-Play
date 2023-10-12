@@ -94,6 +94,14 @@ const speciesData = {
             "ORDERED" : "Unaffected",
         }
     },
+    "SixfoldIdol" : {
+        "sprite" : 36,
+        "hp" : 0,
+        "souls" : {
+            "ORDERED" : "Unaffected",
+        },
+        "intangible" : true,
+    },
     "RoseWall" : {
         "sprite" : 55,
         "hp" : 0,
