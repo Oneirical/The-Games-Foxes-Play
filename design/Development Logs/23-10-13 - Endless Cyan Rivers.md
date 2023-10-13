@@ -7,9 +7,11 @@
 
 I've done too much this week. I'm nearly at 1000 Git commits. Let's jump straight into it.
 
+[Here is this week's demonstration video.](https://yewtu.be/embed/-65XzWtu71o)
+
 * Tiles have been removed. There are only creatures now.
   * There are now intangible creatures. They can move anywhere, completely unimpeded.
-    * Yes, things such as the Well (stairs) or floor features are creatures. They have a Soul and everything. And you can become them. You can turn yourself into a walking stairwell and banish creatures into the tutorial level as you walk around.
+    * Yes, things such as the Well (stairs) or floor features are creatures. They have a Soul and everything. And you can become them. You can turn yourself into a walking door.
   * Properties can be applied to pretty much anything. Those airlocks that slide open when you touch them? You can put that on an enemy. You can open your enemies. Literally.
 
 * The new Axiom "Droplets Drowned In Endless Lives" turns other creatures into perfect copies of the caster in both body and Soul. You can have 10 clones of yourself walking around in perfect synchrony and copying all your Souls ("spells"). This is balanced, because each action also makes 10 turns pass due to the way Souls work (1 turn per clone).
@@ -19,7 +21,7 @@ I've done too much this week. I'm nearly at 1000 Git commits. Let's jump straigh
   * This is actually the nerfed version. The initial prototype would literally conquer the entire game in seconds due to a hilarious chain reaction and drop my frames per second to 1.
 
 * A new starter area presents the player with a choice of 1 out of 6 starter Souls. Which Caste will you pledge yourself to? Since this is practically one of the first things a new player will see, I am making sure to bring out the cool stuff right away. This is no choosing if you want to be a wizard or a warrior, this is choosing if you want identity takeover, soul swapping or gravity manipulation in your starting kit.
-  * Actually making those 6 Souls is a work in progress. I have the Ordered one (knockback and teleports) finished, and the Saintly one (assimilation and clones) will be extremely easy to make. Artistic (soul swap) and Feral (gravity swap) shouldn't take too long. Unhinged and Vile are the ones I'm not too sure about. Their themes are respectively "greed and desire" (probably something about stealing abilities) and "distancing oneself from direct conflict" (probably something about summons or making a little pokémon team).
+  * Actually making those 6 Souls is a work in progress. I have the Ordered one (knockback and teleports) finished. The Feral one (gravity swap) is coming along, but has a few bugs. The Saintly one (assimilation and clones) will be extremely easy to make. Artistic (soul swap) shouldn't take too long. Unhinged and Vile are the ones I'm not too sure about. Their themes are respectively "greed and desire" (probably something about stealing abilities) and "distancing oneself from direct conflict" (probably something about summons or making a little pokémon team).
 
 * Save and load system completely reworked.
   * Every time a creature changes either its Position, Species (and some other minor things), this gets tracked.

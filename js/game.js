@@ -1,5 +1,5 @@
 function trigger(key,assi){
-    if (key === "EON") world.tickMap();
+    if (key === "EON" || key === "RHYTHM") world.tickMap();
     for (let i of monsters){
             i.trigger(key,assi);
     }
@@ -10,7 +10,7 @@ setInterval(trigger,1000,"RHYTHM");
 function playerInput(key){
     if (key == "k") toggleFullScreen();
     else if (key == "o") saveGame();
-    else if (key == "m") summonCreature(16,40,"Harmonizer");
+    else if (key == "m") summonCreature(17,30,"Harmonizer");
     else if (key == "p") localStorage.clear();
     else if (!universe.zooming) {
         let action = key.toUpperCase();
