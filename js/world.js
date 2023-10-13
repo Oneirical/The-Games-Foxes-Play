@@ -321,7 +321,6 @@ class World{
             this.creaturesOnMap.addChild(graphics);
             this.trackedCreatures.push(graphics);
             graphics.linkedCreature = i;
-            console.log(graphics);
         }
         
         this.creaturesOnMap.x += 8;
