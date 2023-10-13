@@ -70,6 +70,7 @@ class Creature{
     addSoulAtCaste(caste, soul){
         this.souls[caste] = soul;
         if (this === player) wheel.getMacros(); // TODO add a master "update soul stuff" function with getmacros, get new bindings, etc?
+        this.editedData["Soul"] = true;
     }
     
     addSoul(soul){
@@ -208,6 +209,26 @@ class Creature{
                 } 
             });
         }
+    }
+
+    knockback(dir){
+        let newTile = this.tile;
+        const eqs = {
+            "N" : [0,-1],
+            "W" : [-1,0],
+            "E" : [1,0],
+            "S" : [0,1],
+        }
+        let direction = eqs[dir];
+        while(true){
+            let testTile = newTile.getNeighbor(direction[0], direction[1]);
+            if(testTile && !testTile.tangibleCreature){
+                newTile = testTile;
+            }else{
+                break;
+            }
+        }
+        this.move(newTile);
     }
 
     setUpSprite(){

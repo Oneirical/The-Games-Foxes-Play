@@ -29,9 +29,10 @@ class Axiom{
     translate(){};
 
     assimilateAdjacentAxioms(dataType, replacement){
-        const neigh = this.soul.getLogicNeighbours(this,true);
+        let neigh = this.soul.getLogicNeighbours(this,true);
         for (let i of neigh){
             if (i.dataType == dataType) i.changeStorage(replacement);
+            else if (i instanceof AssimilationExtender) for (let j of this.soul.getLogicNeighbours(i,true)) neigh.push(j); // TODO danger: infinite loop risk if two extenders next to each other
         }
         this.soul.owner.editedData["Soul"] = true;
     }
@@ -45,6 +46,16 @@ class EmptyAxiom extends Axiom{
 }
 
 class RealityAnchor extends Axiom{
+    constructor(){
+        super();
+    }
+    act(data){
+        data = severSynapse(data);
+        return data;
+    }
+}
+
+class AssimilationExtender extends Axiom{
     constructor(){
         super();
     }
@@ -359,6 +370,33 @@ class ExpandTargets extends Axiom{
     }
 }
 
+class TargetAllAffected extends Axiom{
+    constructor(){
+        super();
+    }
+    act(data){
+        const tile = data.caster.tile;
+        let additions = new Set([tile]);
+        let scan = new Set([tile]);
+        let antiLoop = 0;
+        while(scan.size > 0){
+            antiLoop++;
+            if (antiLoop > 500){
+                throw new Error("Infinite loop in targetallempty");
+            }
+            let first = getFirstItemOfSet(scan);
+            let candi = first.getAdjacentAffectedNeighbors();
+            for (let i of candi) if (!additions.has(i)){
+                scan.add(i);
+                additions.add(i);
+            }
+            scan.delete(first);
+        }
+        for (let i of additions) target(data,i);
+        return data;
+    }
+}
+
 class TargetsDirectionalBeam extends Axiom{
     constructor(dir){
         super();
@@ -372,6 +410,21 @@ class TargetsDirectionalBeam extends Axiom{
             for (let j of beam) {
                 target(data, j);
             }
+        }
+        return data;
+    }
+}
+
+class BashDir extends Axiom{
+    constructor(dir){
+        super();
+        this.storage = dir;
+        this.dataType = "Direction";
+    }
+    act(data){
+        const bash = getAllTargetedCreatures(data);
+        for (let i of bash){
+            i.knockback(this.storage);
         }
         return data;
     }
@@ -456,7 +509,7 @@ class TwinningAssimilation extends Axiom{
     }
 
     act(data){
-        if (!this.storage){
+        if (typeof this.storage != "number"){
             severSynapse(data);
             return data;
         }
@@ -646,6 +699,7 @@ class BooleanFlip extends Axiom{
     act(data){
         let surr = this.soul.getLogicNeighbours(this,true);
         for (let i of surr) if (i.dataType == "Boolean") i.storage = !i.storage;
+        else if (i instanceof AssimilationExtender) for (let j of this.soul.getLogicNeighbours(i,true)) surr.push(j);
         return data;
     }
 }

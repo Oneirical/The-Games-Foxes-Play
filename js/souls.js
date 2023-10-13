@@ -85,8 +85,8 @@ const logicMaps = {
     },
     "Airlock" : {
         0 : "..I.U",
-        1 : "..E..",
-        2 : "..O..",
+        1 : "..O..",
+        2 : ".....",
         3 : "....C",
         4 : "REPBF",
         "keys" : {
@@ -135,6 +135,23 @@ const logicMaps = {
             "A" : new EgoFilter(),
             "K" : new RadioBroadcaster("EON"),
             "N" : new ShowEffects(),
+        }
+    },
+    "FeralStarter" : {
+        0 : ".....",
+        1 : ".....",
+        2 : ".RBTD",
+        3 : "..A.C",
+        4 : ".EF..",
+        "keys" : {
+            "T" : new TargetAllAffected(),
+            "R" : new RadioReceiver("EON"),
+            "C" : new BashDir("N"),
+            "D" : new DirectionFromMotion(),
+            "E" : new RadioReceiver("3"),
+            "F" : new BooleanFlip(),
+            "B" : new BooleanGate(true),
+            "A" : new AssimilationExtender(),
         }
     },
     "Singularity" : {
@@ -468,11 +485,11 @@ const logicMaps = {
         }
     },
     "Terminal" : {
-        0 : "MTMNW",
-        1 : "O...1",
+        0 : "MT.NW",
+        1 : "O.TM1",
         2 : "A2R3D",
-        3 : "4...E",
-        4 : "SsMTM",
+        3 : "4MT.E",
+        4 : "Ss.TM",
         "keys" : {
             "W" : new RadioReceiver("W"),
             "A" : new RadioReceiver("A"),

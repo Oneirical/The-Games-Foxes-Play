@@ -189,7 +189,11 @@ class Tile{
     }
 
     getAdjacentEmptyNeighbors(){
-        return this.getAdjacentNeighbors().filter(t => !t.monster);
+        return this.getAdjacentNeighbors().filter(t => !t.tangibleCreature);
+    }
+
+    getAdjacentAffectedNeighbors(){
+        return this.getAdjacentNeighbors().filter(t => !t.tangibleCreature || !t.tangibleCreature.hasTaggedSoul("Unaffected"));//yikes, this is ugly
     }
 
     getAdjacentPassableEmptyNeighbors(){

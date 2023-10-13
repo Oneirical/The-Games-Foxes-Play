@@ -59,6 +59,26 @@ function lose(val,red){
     return val;
 }
 
+function getFirstItemOfSet(set) {
+  for(let item of set) {
+    if(item) {
+       return item;
+    }   
+  }
+  return undefined;
+}
+
+function array_move(arr, old_index, new_index) {
+  if (new_index >= arr.length) {
+      var k = new_index - arr.length + 1;
+      while (k--) {
+          arr.push(undefined);
+      }
+  }
+  arr.splice(new_index, 0, arr.splice(old_index, 1)[0]);
+  return arr; // for testing
+};
+
 function findCommonElement(array1, array2) {
      
     // Loop for array1

@@ -64,7 +64,11 @@ function nukeTargets(data){
 
 function getAllTargetedCreatures(data){
     let creatures = [];
-    for (let i of data["targets"]){
+    const origin = data["caster"].tile;
+    let warp = [...data["targets"]].sort((a,b) => manDist(origin,a) - manDist(origin,b)); 
+    // This is extremely gory. In order to stop weird collisions with the feral starter, there might be instead a TargetSorter that reorders everything
+    // from "as far away from the caster as possible" with a dir axiom?
+    for (let i of warp){
         for (let j of i.getAllCreatures()){
             creatures.push(j);
         }
