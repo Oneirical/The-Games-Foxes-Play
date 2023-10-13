@@ -258,7 +258,7 @@ class World{
                 let visible = true;
                 if (area.monster){
                     hai = speciesData[area.monster.species]["sprite"];
-                    if (speciesData[area.monster.species]["invisible"]) visible = false;
+                    if (area.monster.hasTag("Invisible")) visible = false;
                 }
                 let newSprite = new FoxSprite(allsprites.textures['sprite'+hai]);
                 newSprite.visible = visible;
@@ -580,7 +580,7 @@ class World{
         player.tile = getTile(spawnl[0],spawnl[1]);
         room.populateRoom();
         monsters = room.monsters;
-        let playerisIn = locatePlayer();
+        let playerisIn = reassignPlayer();
         if (!playerisIn) monsters.push(player);
         this.playRoom(room);
     }

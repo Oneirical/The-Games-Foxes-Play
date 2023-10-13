@@ -24,12 +24,14 @@ class Creature{
             "FERAL" : false,
             "VILE" : false,
         };
+        if (speciesData[species]["tags"]) this.tags = new Set(speciesData[species]["tags"]);
+        else this.tags = new Set();
         for (let i of Object.keys(speciesData[species]["souls"])){
             this.souls[i] = speciesData[species]["souls"][i];
         }
         this.lastMotion = [0, 0];
         this.tangible = true;
-        if (speciesData[species]["intangible"]) this.tangible = false;
+        if (this.hasTag("Intangible")) this.tangible = false;
         this.move(tile);
 
         this.editedData = { //keep this under "this.move" so not literally everything has a moved position
@@ -61,10 +63,24 @@ class Creature{
         this.editedData["Soul"] = true;
     }
 
-    hasTaggedSoul(tag){
-        let souls = this.getSouls();
-        for (let i of souls) if (i instanceof Soul && i.tags.has(tag)) return true;
-        return false;
+    addTag(tag){
+        if (tag === "RealityAnchor") player.removeTag("RealityAnchor");
+        this.tags.add(tag);
+    }
+
+    removeTag(tag){
+        this.tags.delete(tag);
+    }
+
+    hasTag(tag){
+        return this.tags.has(tag);
+    }
+
+    twinTags(tags){
+        let anchor = false;
+        if (this.hasTag("RealityAnchor")) anchor = true;
+        this.tags = tags;
+        if (anchor) this.addTag("RealityAnchor");
     }
 
     addSoulAtCaste(caste, soul){
@@ -254,7 +270,7 @@ class Creature{
         }
         this.updateHp();
         this.graphicsReady = true;
-        if (speciesData[this.species]["invisible"]) this.representativeSprite.visible = false;
+        if (this.hasTag("Invisible")) this.representativeSprite.visible = false;
         //if (!this.tangible) this.representativeSprite.alpha = 0.3;
         //remember when you looked for 2 hours for that one bug that made you drop 1 FPS every time Terminal passed a door and it turned
         //out to be that one tiny line under here that caused literal thousands of StatusDisplay to stack on top of each other? Now that was funny
@@ -377,12 +393,12 @@ class Creature{
         this.species = newSpecies;
         if (this.representativeSprite){
             this.representativeSprite.texture = (allsprites.textures['sprite'+speciesData[newSpecies]["sprite"]]);
-            if (speciesData[this.species]["invisible"]) this.representativeSprite.visible = false;
-            else this.representativeSprite.visible = true;
+            //if (speciesData[this.species]["invisible"]) this.representativeSprite.visible = false;
+            //else this.representativeSprite.visible = true;
         }
         if (soulTree.trackedEntity === this) soulTree.updateSlots(this);
-        if (speciesData[newSpecies]["intangible"]) this.becomeIntangible();
-        else this.becomeTangible();
+        //if (speciesData[newSpecies]["intangible"]) this.becomeIntangible(); // these are based on tags now
+        //else this.becomeTangible();
         this.editedData["Species"] = true;
 
     }

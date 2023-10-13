@@ -10,7 +10,7 @@ const logicMaps = {
     },
     "SaintlyStarterHologram" : {
         0 : "IPND.",
-        1 : "....U",
+        1 : ".....",
         2 : ".....",
         3 : ".....",
         4 : ".....",
@@ -19,12 +19,11 @@ const logicMaps = {
             "P" : new NumberIncrementer(1),
             "N" : new NumberStorage(-1),
             "D" : new DialoguePrinter("SaintlyStarterHologram"),
-            "U" : new UnaffectedTag(),
         }
     },
     "OrderedStarterHologram" : {
         0 : "IPND.",
-        1 : "....U",
+        1 : ".....",
         2 : ".....",
         3 : ".....",
         4 : ".....",
@@ -33,12 +32,11 @@ const logicMaps = {
             "P" : new NumberIncrementer(1),
             "N" : new NumberStorage(-1),
             "D" : new DialoguePrinter("OrderedStarterHologram"),
-            "U" : new UnaffectedTag(),
         }
     },
     "ArtisticStarterHologram" : {
         0 : "IPND.",
-        1 : "....U",
+        1 : ".....",
         2 : ".....",
         3 : ".....",
         4 : ".....",
@@ -47,12 +45,11 @@ const logicMaps = {
             "P" : new NumberIncrementer(1),
             "N" : new NumberStorage(-1),
             "D" : new DialoguePrinter("ArtisticStarterHologram"),
-            "U" : new UnaffectedTag(),
         }
     },
     "FeralStarterHologram" : {
         0 : "IPND.",
-        1 : "....U",
+        1 : ".....",
         2 : ".....",
         3 : ".....",
         4 : ".....",
@@ -61,30 +58,27 @@ const logicMaps = {
             "P" : new NumberIncrementer(1),
             "N" : new NumberStorage(-1),
             "D" : new DialoguePrinter("FeralStarterHologram"),
-            "U" : new UnaffectedTag(),
         }
     },
     "CyanFlood" : {
-        0 : ".R..B",
-        1 : ".P..H",
-        2 : ".E...",
-        3 : ".TANM",
-        4 : ".....",
+        0 : ".RANM",
+        1 : ".P...",
+        2 : ".N...",
+        3 : ".E...",
+        4 : ".T...",
         "keys" : {
             "R" : new ContinSecond(),
             "E" : new EgoType(),
-            "B" : new RealityBreakTag(),
             "P" : new PlusForm(),
             "X" : new PercentChanceSever(90),
             "T" : new TwinningAssimilation(),
             "A" : new TargetAllCreatures(),
             "N" : new NoTagFilter("HarmonicGrace"),
             "M" : new MoveFunction(),
-            "H" : new HarmonyTag(),
         }
     },
     "Airlock" : {
-        0 : "..I.U",
+        0 : "..I..",
         1 : "..O..",
         2 : ".....",
         3 : "....C",
@@ -92,7 +86,6 @@ const logicMaps = {
         "keys" : {
             "I" : new RadioReceiver("TAKE"),
             "R" : new RadioReceiver("EON"),
-            "U" : new UnaffectedTag(),
             "E" : new EgoForm(),
             "O" : new OpenSelf(),
             "P" : new PlusForm(),
@@ -100,16 +93,6 @@ const logicMaps = {
             "F" : new FailCatcher(),
             "C" : new CloseSelf(),
 
-        }
-    },
-    "Unaffected" : {
-        0 : ".....",
-        1 : ".....",
-        2 : "..U..",
-        3 : ".....",
-        4 : ".....",
-        "keys" : {
-            "U" : new UnaffectedTag(),
         }
     },
     "OrderedStarter" : {
@@ -159,7 +142,7 @@ const logicMaps = {
         1 : "E...W",
         2 : "EPN.K",
         3 : "..R..",
-        4 : "..I.B",
+        4 : "..I..",
         "keys" : {
             //"W" : new WarpCloseAway(),
             "W" : new TwinningAssimilation(181),
@@ -170,7 +153,6 @@ const logicMaps = {
             "A" : new EgoFilter(),
             "K" : new RadioBroadcaster("EON"),
             "N" : new ShowEffects(),
-            "B" : new RealityBreakTag(),
         }
     },
     "ElectroCoil" : {

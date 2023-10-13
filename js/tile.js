@@ -161,14 +161,14 @@ class Tile{
             this.getNeighbor(0, 1),
             this.getNeighbor(-1, 0),
             this.getNeighbor(1, 0)
-        ]);
+        ].filter(t => t));
     }
 
     getLateralNeighbors(){
         return shuffle([
             this.getNeighbor(-1, 0),
             this.getNeighbor(1, 0)
-        ]);
+        ].filter(t => t));
     }
 
     getAllNeighbors(){
@@ -181,7 +181,7 @@ class Tile{
             this.getNeighbor(-1, -1),
             this.getNeighbor(-1, 1),
             this.getNeighbor(1, -1),
-        ]);
+        ].filter(t => t));
     }
 
     getAdjacentPassableNeighbors(){
@@ -193,7 +193,7 @@ class Tile{
     }
 
     getAdjacentAffectedNeighbors(){
-        return this.getAdjacentNeighbors().filter(t => !t.tangibleCreature || !t.tangibleCreature.hasTaggedSoul("Unaffected"));//yikes, this is ugly
+        return this.getAdjacentNeighbors().filter(t => !t.tangibleCreature || !t.tangibleCreature.hasTag("Unaffected"));//yikes, this is ugly
     }
 
     getAdjacentPassableEmptyNeighbors(){

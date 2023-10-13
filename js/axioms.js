@@ -381,7 +381,7 @@ class TargetAllAffected extends Axiom{
         let antiLoop = 0;
         while(scan.size > 0){
             antiLoop++;
-            if (antiLoop > 500){
+            if (antiLoop > 2025){
                 throw new Error("Infinite loop in targetallempty");
             }
             let first = getFirstItemOfSet(scan);
@@ -519,6 +519,7 @@ class TwinningAssimilation extends Axiom{
             for (let j of Object.keys(i.souls)){
                 i.replaceSoul(j,model.souls[j]);
             }
+            i.twinTags(model.tags);
         }
         return data;
     }
@@ -629,7 +630,7 @@ class NoTagFilter extends Axiom{
     act(data){
         let scan = getAllTargetedCreatures(data);
         for (let i of scan){
-            if (i.hasTaggedSoul(this.storage)) removeItemAll(data["targets"],i.tile);
+            if (i.hasTag(this.storage)) removeItemAll(data["targets"],i.tile);
         }
         return data;
     }
@@ -1237,8 +1238,7 @@ class Soul{
         let newSoul = new Soul("Empty",this.owner);
         for (let i = 0; i<5; i++){
             for (let j = 0; j<5; j++){
-                if (!(this.axioms[i][j] instanceof RealityAnchor)) newSoul.axioms[i][j] = new this.axioms[i][j].constructor();
-                else newSoul.axioms[i][j] = new EmptyAxiom();
+                newSoul.axioms[i][j] = new this.axioms[i][j].constructor();
                 newSoul.axioms[i][j].storage = this.axioms[i][j].storage;
                 newSoul.axioms[i][j].x = i;
                 newSoul.axioms[i][j].y = j;

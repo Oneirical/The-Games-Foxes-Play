@@ -114,6 +114,8 @@ function beginEverything(){
     // END OF CRINGE CODE DANGER SECTOR
 
     tilesDisplay.addChild(player.creaturecon);
+    player.creaturecon.x = 512;
+    player.creaturecon.y = 512;
         //FPS counter
     // const style = new PIXI.TextStyle({
     //     fontFamily: 'Play',
@@ -183,9 +185,15 @@ function rotateAirlock(airlock, world){
     else foundDirection = true;
     if (!foundDirection){
         airlock.changeSpecies("Wall");
-        for (let i of Object.keys(speciesData[airlock.species]["souls"])){
-            airlock.souls[i] = speciesData[airlock.species]["souls"][i];
-        }
+        airlock.souls = {
+            "SAINTLY" : false,
+            "ORDERED" : false,
+            "ARTISTIC" : false,
+            "UNHINGED" : false,
+            "FERAL" : false,
+            "VILE" : false,
+        };
+        airlock.tags = new Set(["Unaffected"]);
     }
     else {
         airlock.rotate(airlock.direction);

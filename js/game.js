@@ -84,31 +84,12 @@ function loadGameQueue(){
     fastReload = false;
 }
 
-function locatePlayer(over){
-    if (!over) over = monsters;
-    for (let i of over){
-        let s = i.loopThroughSouls();
-        for (let t of s){
-            let y;
-            if(t instanceof Soul) y = t.findAxioms(RealityAnchor);
-            else y = [];
-            if (y.length > 0){
-                const playerChanged = player !== i;
-                if (playerChanged) tilesDisplay.removeChild(player.creaturecon);
-                player = i;
-                if (playerChanged){
-                    tilesDisplay.addChild(player.creaturecon);
-                    player.creaturecon.x = 8*tileSize; //when soul swapping, the victim's sprite will go in weird places
-                    player.creaturecon.y = 8*tileSize;
-                    if (player instanceof EpsilonHead){
-                        for (let m of monsters) if (m instanceof EpsilonTail) m.partOfPlayer = true;
-                    }
-                }
-                return true;
-            }
-        }
-    }
-    return false;
+function reassignPlayer(oldPlayer){
+    if (oldPlayer) tilesDisplay.removeChild(oldPlayer.creaturecon);
+    tilesDisplay.addChild(player.creaturecon);
+    player.creaturecon.x = 8*tileSize;
+    player.creaturecon.y = 8*tileSize;
+    return true;
 }
 
 function assignRotations(){

@@ -32,7 +32,8 @@ const speciesData = {
             //"ORDERED" : "OrderedStarter",
             //"ARTISTIC" : "Singularity"
             "FERAL" : "FeralStarter",
-        }
+        },
+        "tags" : ["RealityAnchor"],
     },
     "Programmer" : {
         "sprite" : 49,
@@ -69,38 +70,26 @@ const speciesData = {
             "ORDERED" : "FeralStarterHologram",
         }
     },
-    "EntropicHusk" : {
-        "sprite" : 1,
-        "hp" : 0,
-        "souls" : {
-        },
-        "intangible" : true,
-    },
     "HoloStabilizer" : {
         "sprite" : 1,
         "hp" : 0,
         "souls" : {
-            "ORDERED" : "Unaffected",
         },
-        "intangible" : true,
-        "invisible" : true,
+        "tags" : ["Intangible","Invisible","Unaffected"],
     },
     "DimensionWarp" : {
         "sprite" : 1,
         "hp" : 0,
         "souls" : {
-            "ORDERED" : "Unaffected",
         },
-        "intangible" : true,
-        "invisible" : true,
+        "tags" : ["Intangible","Invisible","Unaffected"],
     },
     "WellWall" : {
         "sprite" : 108,
         "hp" : 0,
         "souls" : {
-            "ORDERED" : "Unaffected",
         },
-        "intangible" : true,
+        "tags" : ["Intangible","Unaffected"],
     },
     "Airlock" : {
         "sprite" : 17,
@@ -108,35 +97,35 @@ const speciesData = {
         "souls" : {
             "ORDERED" : "Airlock",
         },
+        "tags" : ["Unaffected"],
     },
     "Wall" : {
         "sprite" : 3,
         "hp" : 0,
         "souls" : {
-            "ORDERED" : "Unaffected",
-        }
+        },
+        "tags" : ["Unaffected"],
     },
     "TermiWall" : {
         "sprite" : 37,
         "hp" : 0,
         "souls" : {
-            "ORDERED" : "Unaffected",
-        }
+        },
+        "tags" : ["Unaffected"],
     },
     "SixfoldIdol" : {
         "sprite" : 36,
         "hp" : 0,
         "souls" : {
-            "ORDERED" : "Unaffected",
         },
-        "intangible" : true,
+        "tags" : ["Intangible"],
     },
     "RoseWall" : {
         "sprite" : 55,
         "hp" : 0,
         "souls" : {
-            "ORDERED" : "Unaffected",
-        }
+        },
+        "tags" : ["Unaffected"],
     },
     "Apiarist" : {
         "sprite" : 6,
@@ -193,7 +182,7 @@ const speciesData = {
         "souls" : {
             "SAINTLY" : "CyanFlood",
         },
-        "intangible" : true,
+        "tags" : ["Intangible","RealityBreak","HarmonicGrace"],
     },
     "Scarab" : {
         "sprite" : 76,

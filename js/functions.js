@@ -51,7 +51,7 @@ function severSynapse(data){
 function target(data, tile){
     if (!tile) return data;
     for (let i of tile.getAllCreatures()){
-        if (i.hasTaggedSoul("Untargetable") && !data.caster.hasTaggedSoul("RealityBreak")) return data;
+        if (i.hasTag("Untargetable") && !data.caster.hasTag("RealityBreak")) return data;
     }
     data["targets"].push(tile);
     return data;
@@ -73,6 +73,6 @@ function getAllTargetedCreatures(data){
             creatures.push(j);
         }
     }
-    if (!data.caster.hasTaggedSoul("RealityBreak")) creatures = creatures.filter((a) => !a.hasTaggedSoul("Unaffected"));
+    if (!data.caster.hasTag("RealityBreak")) creatures = creatures.filter((a) => !a.hasTag("Unaffected"));
     return creatures;
 }
