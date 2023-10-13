@@ -99,13 +99,6 @@ class Creature{
         return false;
     }
 
-    playerPassDown(){
-        let sourcePad = this.tile.getSpecies("DimensionWarp");
-        let targetWorld = universe.findWorldByID(sourcePad.destination);
-        let destPad = targetWorld.findTelepadByDest(world.id);
-        universe.passDown(floors.indexOf(sourcePad.destination), destPad.tile.x, destPad.tile.y);
-    }
-
     reduceOffset(){
         if (Math.abs(this.offsetX) < 0.02) this.offsetX = 0;
         else {

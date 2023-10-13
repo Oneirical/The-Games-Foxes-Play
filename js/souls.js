@@ -8,6 +8,18 @@ const logicMaps = {
         "keys" : {
         }
     },
+    "HypnoWell" : {
+        0 : "..R..",
+        1 : "..E..",
+        2 : "..W..",
+        3 : ".....",
+        4 : ".....",
+        "keys" : {
+            "R" : new RadioReceiver("EON"),
+            "E" : new EgoForm(),
+            "W" : new WarpEntity(),
+        }
+    },
     "SaintlyStarterHologram" : {
         0 : "IPND.",
         1 : ".....",
@@ -225,18 +237,6 @@ const logicMaps = {
             "P" : new FormEntity(181),
             "F" : new BooleanFlip(),
             "B" : new BooleanGate(true),
-        }
-    },
-    "SoulSiphon" : {
-        0 : ".....",
-        1 : ".....",
-        2 : ".....",
-        3 : ".R...",
-        4 : ".....",
-        "keys" : {
-            "D" : new TriggerWatch("DamageDealer"),
-            "A" : new SoulAbsorber(),
-            "R" : new RealityAnchor(),
         }
     },
     "Programmer" : {
@@ -469,7 +469,7 @@ const logicMaps = {
     "Terminal" : {
         0 : "MT.NW",
         1 : "O.TM1",
-        2 : "A2R3D",
+        2 : "A2.3D",
         3 : "4MT.E",
         4 : "Ss.TM",
         "keys" : {
@@ -487,7 +487,6 @@ const logicMaps = {
             "S" : new RadioReceiver("S"),
 
             "s" : new FormDir("S"),
-            "R" : new RealityAnchor(),
             "M" : new MoveFunction(),
             "T" : new RadioBroadcaster("EON"),
         }

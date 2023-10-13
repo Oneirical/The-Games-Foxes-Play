@@ -23,9 +23,6 @@ class Tile{
         creature.tile = this;
         if (creature.tangible) this.tangibleCreature = creature;
         else this.intangibleCreatures.add(creature);
-        if (creature === player && this.getSpecies("DimensionWarp")){
-            player.playerPassDown(); // temp remove
-        }
     }
 
     toSaveFormat(){

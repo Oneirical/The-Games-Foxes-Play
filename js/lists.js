@@ -81,6 +81,7 @@ const speciesData = {
         "sprite" : 1,
         "hp" : 0,
         "souls" : {
+            "ORDERED" : "HypnoWell",
         },
         "tags" : ["Intangible","Invisible","Unaffected"],
     },

@@ -580,8 +580,7 @@ class World{
         player.tile = getTile(spawnl[0],spawnl[1]);
         room.populateRoom();
         monsters = room.monsters;
-        let playerisIn = reassignPlayer();
-        if (!playerisIn) monsters.push(player);
+        if (!monsters.includes(player)) monsters.push(player);
         this.playRoom(room);
     }
 }

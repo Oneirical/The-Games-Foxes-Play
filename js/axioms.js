@@ -45,6 +45,27 @@ class EmptyAxiom extends Axiom{
     }
 }
 
+class WarpEntity extends Axiom{
+    constructor(){
+        super();
+    }
+    act(data){
+        let sourcePad = data.caster;
+        if (!sourcePad.destination){
+            data = severSynapse(data);
+            return data;
+        }
+        let targetWorld = universe.findWorldByID(sourcePad.destination);
+        let destPad = targetWorld.findTelepadByDest(world.id);
+        let entities = getAllTargetedCreatures(data);
+        for (let i of entities){
+            if (i === player) universe.passDown(floors.indexOf(sourcePad.destination), destPad.tile.x, destPad.tile.y);
+            //else i.move(getTileInUniverse(floors.indexOf(sourcePad.destination)+";"+destPad.tile.x+";"+destPad.tile.y)) // TODO currently needs work
+        }
+        return data;
+    }
+}
+
 class RealityAnchor extends Axiom{
     constructor(){
         super();
