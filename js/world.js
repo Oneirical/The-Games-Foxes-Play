@@ -301,14 +301,14 @@ class World{
         const size = 6;
         this.trackedCreatures = [];
         for (let i of monsters){
-            /*
+            
             let newSprite = new FoxSprite(allsprites.textures['sprite'+speciesData[i.species]["sprite"]]);
             newSprite.x = i.tile.x*size;
             newSprite.y = i.tile.y*size;
             newSprite.width = size;
             newSprite.height = size;
-            */
             
+            /*
             let fill;
             if (creaturePresentation[i.species]) fill = creaturePresentation[i.species]["color"];
             else fill = "white";
@@ -317,10 +317,10 @@ class World{
             graphics.drawRect(0, 0, size, size);
             graphics.position.set(i.tile.x*size, i.tile.y*size);
             graphics.endFill();
-            
-            this.creaturesOnMap.addChild(graphics);
-            this.trackedCreatures.push(graphics);
-            graphics.linkedCreature = i;
+            */
+            this.creaturesOnMap.addChild(newSprite);
+            this.trackedCreatures.push(newSprite);
+            newSprite.linkedCreature = i;
         }
         
         this.creaturesOnMap.x += 8;
@@ -337,6 +337,7 @@ class World{
         for (let i of this.trackedCreatures){
             i.x = i.linkedCreature.tile.x*6;
             i.y = i.linkedCreature.tile.y*6;
+            i.texture = allsprites.textures['sprite'+speciesData[i.linkedCreature.species]["sprite"]];
         }
 
     }
