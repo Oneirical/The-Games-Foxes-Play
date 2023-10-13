@@ -1,4 +1,5 @@
 function trigger(key,assi){
+    if (key === "EON") world.tickMap();
     for (let i of monsters){
             i.trigger(key,assi);
     }

@@ -72,7 +72,6 @@ function beginEverything(){
     buttons.setUpSprites();
     soulTree.setUpSprites();
     wheel.setUpSprites();
-    world.setUpSprites();
     log.setUpLog();
     sideTooltip.setUpSprites();
 
@@ -116,6 +115,7 @@ function beginEverything(){
     tilesDisplay.addChild(player.creaturecon);
     player.creaturecon.x = 512;
     player.creaturecon.y = 512;
+    world.setUpSprites();
         //FPS counter
     // const style = new PIXI.TextStyle({
     //     fontFamily: 'Play',
@@ -404,18 +404,11 @@ function drawTiles(){
     }
 }
 
-function animateAll(){
-    for (let i of monsters){
-        i.setUpAnimation();
-    }
-}
-
 function drawSprites(){
     for (let r of universe.worlds){
         for (let m of r.playSpace.monsters){
             if (!m.graphicsReady && !m.creaturecon){
                 m.setUpSprite();
-                m.setUpAnimation();
             }
         }
     }

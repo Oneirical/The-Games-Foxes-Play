@@ -112,52 +112,6 @@ class Creature{
         }
     }
 
-    setUpAnimation(){
-        return;
-        if (this.animationTick) this.animationTick.destroy();
-        this.animationTick = new PIXI.Ticker;
-        this.animationTick.start();
-        animationTick.add(() => {
-            if (this.offsetX != 0 || this.offsetY != 0){
-                this.anispeed = 0.01;
-                if (player === this){
-                    this.animating = true;
-                    if (this.offsetX == this.originalOffsetX) this.offsetX = 0;
-                    if (this.offsetY == this.originalOffsetY) this.offsetY = 0;
-                    if (this.originalOffsetX >= 0) this.offsetX = Math.min(this.offsetX + this.anispeed,this.originalOffsetX);
-                    else this.offsetX = Math.max(this.offsetX - this.anispeed,this.originalOffsetX);
-                    if (this.originalOffsetY >= 0) this.offsetY = Math.min(this.offsetY + this.anispeed,this.originalOffsetY);
-                    else this.offsetY = Math.max(this.offsetY - this.anispeed,this.originalOffsetY);
-                    if (this.offsetX == this.originalOffsetX && this.offsetY == this.originalOffsetY){
-                        this.animating = false;
-                        this.offsetX = 0;
-                        this.offsetY = 0;
-                        this.originalOffsetX = 0;
-                        this.originalOffsetY = 0;
-                        if (!universe.zooming && this.tile.getSpecies("DimensionWarp")){
-
-                        } // if you hold down the key on top of a pad you can pass through it, fix to prevent abuse or funny?
-                    }
-                }
-                else if (!player.animating || this.partOfPlayer){
-                    if (this.offsetX >= 0) this.offsetX = Math.max(this.offsetX - this.anispeed,0);
-                    else this.offsetX = Math.min(this.offsetX + this.anispeed,0);
-                    if (this.offsetY >= 0) this.offsetY = Math.max(this.offsetY - this.anispeed,0);
-                    else this.offsetY = Math.min(this.offsetY + this.anispeed,0);
-                    this.creaturecon.x = this.creaturecon.originalX + this.offsetX*tileSize;
-                    this.creaturecon.y = this.creaturecon.originalY + this.offsetY*tileSize;
-                    if (this.partOfPlayer){
-                        if (this.offsetX > 0) this.creaturecon.x -= 64;
-                        else if (this.offsetX < 0) this.creaturecon.x += 64;
-                        if (this.offsetY > 0) this.creaturecon.y -= 64;
-                        else if (this.offsetY < 0) this.creaturecon.y += 64;
-                    }
-                }
-
-            }
-        });
-    }
-
     closeSelf(){
         if (this.editedData["Opened"]) this.editedData["Opened"] = "Closed";
         this.becomeTangible();

@@ -134,13 +134,14 @@ const logicMaps = {
     },
     "FeralStarter" : {
         0 : ".....",
-        1 : ".....",
+        1 : "....X",
         2 : ".RBTD",
         3 : "..A.C",
         4 : ".EF..",
         "keys" : {
             "T" : new TargetAllAffected(),
-            "R" : new RadioReceiver("EON"),
+            "R" : new TriggerWatch("MoveFunction"),
+            "X" : new RadioBroadcaster("EON"),
             "C" : new BashDir("N"),
             "D" : new DirectionFromMotion(),
             "E" : new RadioReceiver("3"),
@@ -234,7 +235,7 @@ const logicMaps = {
         "keys" : {
             "E" : new RadioReceiver("EON"),
             "M" : new MoveFunction(),
-            "P" : new FormEntity(181),
+            "P" : new FormEntity("93"),
             "F" : new BooleanFlip(),
             "B" : new BooleanGate(true),
         }

@@ -294,37 +294,51 @@ class World{
 
     setUpMap(){
         this.mapCon = new PIXI.Container();
-        let size = 112;
         drawPixel("black",0,0,112*9,this.mapCon);
-        this.mapCon.children[0].alpha = 0.0;
-        this.roomsInMap = new PIXI.Container();
-        this.mapCon.addChild(this.roomsInMap);
-        for(let y = 0; y<5;y++){
-            for(let x = 0; x<5;x++){
-                if (this.rooms[x][y].tangible && this.rooms[x][y].displayCon){
-                    this.rooms[x][y].displayCon.x = x*size;
-                    this.rooms[x][y].displayCon.y = y*size;
-                    this.roomsInMap.addChild(this.rooms[x][y].displayCon);
-                }
-            }
+        this.mapCon.children[0].alpha = 0;
+        this.creaturesOnMap = new PIXI.Container();
+        this.mapCon.addChild(this.creaturesOnMap);
+        const size = 6;
+        this.trackedCreatures = [];
+        for (let i of monsters){
+            /*
+            let newSprite = new FoxSprite(allsprites.textures['sprite'+speciesData[i.species]["sprite"]]);
+            newSprite.x = i.tile.x*size;
+            newSprite.y = i.tile.y*size;
+            newSprite.width = size;
+            newSprite.height = size;
+            */
+            
+            let fill;
+            if (creaturePresentation[i.species]) fill = creaturePresentation[i.species]["color"];
+            else fill = "white";
+            const graphics = new PIXI.Graphics();
+            graphics.beginFill(fill);
+            graphics.drawRect(0, 0, size, size);
+            graphics.position.set(i.tile.x*size, i.tile.y*size);
+            graphics.endFill();
+            
+            this.creaturesOnMap.addChild(graphics);
+            this.trackedCreatures.push(graphics);
+            graphics.linkedCreature = i;
+            console.log(graphics);
         }
-        this.roomsInMap.x += 24;
-        this.roomsInMap.y += 24;
+        
+        this.creaturesOnMap.x += 8;
+        this.creaturesOnMap.y += 8;
         //this.roomsInMap.scale.set(0.95,0.95);
-        this.mapCon.width = 32*15;
-        this.mapCon.height = 32*15;
+        //this.mapCon.width = 32*15;
+        //this.mapCon.height = 32*15;
         //this.mapCon.pivot.set(1/2,1/2);
         this.displayCon.addChild(this.mapCon);
-
-        this.playerMarker = new FoxSprite(allsprites.textures["sprite0"]);
-        this.playerMarker.width = 112/9;
-        this.playerMarker.height = 112/9;
-        this.mapCon.addChild(this.playerMarker);
     }
 
     tickMap(){
-        this.playerMarker.x = player.tile.x*112/9+world.getRoom().index[0]*112+(2*(112/9));
-        this.playerMarker.y = player.tile.y*112/9+world.getRoom().index[1]*112+(2*(112/9));
+        const size = 1;
+        for (let i of this.trackedCreatures){
+            i.x = i.linkedCreature.tile.x*6;
+            i.y = i.linkedCreature.tile.y*6;
+        }
 
     }
 
@@ -561,7 +575,6 @@ class World{
         //drawProjectors();
         drawSprites();
         if (areaname.displayCon) areaname.update();
-        animateAll();
     }
 
     saveRoom(room){

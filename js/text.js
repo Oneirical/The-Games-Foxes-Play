@@ -570,6 +570,11 @@ const creaturePresentation = {
         color: "gold",
         lore: ":3"
     },
+    "RoseWall" : {
+        name: "",
+        color: "pink",
+        lore: ":3"
+    },
 }
 
 const dialogueSequences = {
