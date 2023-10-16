@@ -23,6 +23,11 @@ let excludeloot = {
     "MUTATOR" : [],
 };
 
+const tagSprites = {
+    "RealityAnchor" : 20,
+    "HarmonicGrace" : 26,
+}
+
 const speciesData = {
     "Terminal" : {
         "sprite" : 0,
@@ -31,7 +36,7 @@ const speciesData = {
             "SAINTLY" : "Terminal",
             //"ORDERED" : "OrderedStarter",
             //"ARTISTIC" : "Singularity"
-            "FERAL" : "FeralStarter",
+            "FERAL" : "OrderedStarter",
         },
         "tags" : ["RealityAnchor"],
     },

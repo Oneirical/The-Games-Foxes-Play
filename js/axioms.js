@@ -1197,7 +1197,6 @@ class Soul{
             "Artistic" : 2,
             "ContinKilled" : 15,
             "RadioReceiver" : 16,
-            "RealityAnchor" : 20,
             "PaintFilter" : 25,
             "EntityFilter" : 22,
             "Axioms" : 6,

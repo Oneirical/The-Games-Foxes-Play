@@ -206,16 +206,6 @@ class Creature{
         
         this.creaturecon.addChild(newSprite);
         this.representativeSprite = newSprite;
-        this.hpcon = new PIXI.Container();
-        this.creaturecon.addChild(this.hpcon);
-        for(let i=0; i<4; i++){
-            const bai = new PIXI.Graphics();
-            bai.beginFill("red");
-            bai.drawRect(i*18, 60, 10, 4);
-            bai.endFill();
-            this.hpcon.addChild(bai);
-        }
-        this.updateHp();
         this.graphicsReady = true;
         if (this.hasTag("Invisible")) this.representativeSprite.visible = false;
         //if (!this.tangible) this.representativeSprite.alpha = 0.3;
@@ -242,18 +232,6 @@ class Creature{
             if (this.souls[i] === false) return i;
         }
         return false;
-    }
-
-    updateHp(){
-        let hp = this.hp;
-        if (this.isInvincible || this.order >= 0) hp = 0;
-        for (let i of this.hpcon.children){
-            if (hp <= 0) i.visible = false;
-            else i.visible = true;
-            hp--;
-        }
-
-        if (soulTree.trackedEntity === this) soulTree.updateSlots(this);
     }
 
     heal(damage){

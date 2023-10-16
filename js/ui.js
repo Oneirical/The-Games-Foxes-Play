@@ -410,13 +410,14 @@ class SoulTree{
         const textMetrics = PIXI.TextMetrics.measureText(this.entityLore.text, this.entityLore.style);
         this.entityOpinion.y = 45 + textMetrics.height;
         this.entitySprite.texture = allsprites.textures['sprite'+speciesData[this.trackedEntity.species]["sprite"]];
-        let hpIndicator = this.trackedEntity.hp;
-        for (let i of this.healthTracker){
-            if (hpIndicator <= 0){
-                i.texture = allsprites.textures['icon7'];
-            }
-            else i.texture = allsprites.textures['sprite75'];
-            hpIndicator--;
+        let printedTags = 0;
+        for (let i of this.trackedEntity.tags){
+            if (tagSprites[i]) this.tagTracker[printedTags].texture = allsprites.textures['icon'+tagSprites[i]];
+            else this.tagTracker[printedTags].texture = allsprites.textures['icon1'];
+            printedTags++;
+        }
+        for (let i = printedTags; i<4; i++){
+            this.tagTracker[i] = allsprites.textures['icon7'];
         }
     }
 
@@ -479,30 +480,30 @@ class SoulTree{
                 axiomslot.filters = [];
             });
         }
-        this.healthTracker = [];
+        this.tagTracker = [];
         for (let i = 0; i<4; i++){
             let axiomslot = new FoxSprite(allsprites.textures['icon7']);
             axiomslot.width = 32;
             axiomslot.height = 32;
-            axiomslot.x = 272/2+0.5;
+            axiomslot.x = 272/2;
             axiomslot.y = 80+i*37;
 
-            this.healthTracker.push(axiomslot);
+            this.tagTracker.push(axiomslot);
             this.axiomCon.addChild(axiomslot);
             axiomslot.eventMode = 'static';
-            axiomslot.on('pointerdown', (event) => {
+            axiomslot.on('pointerdown', () => {
                 this.activateAxiom(i);
             });
-            axiomslot.on('pointerover', (event) => {
+            axiomslot.on('pointerover', () => {
                 let wai = new PIXI.filters.GlowFilter();
                 wai.outerStrength = 1;
                 axiomslot.filters = [wai];
             });
-            axiomslot.on('pointerout', (event) => {
+            axiomslot.on('pointerout', () => {
                 axiomslot.filters = [];
             });
         }
-        this.healthTracker.reverse();
+        //this.tagTracker.reverse();
         let newSprite = new FoxSprite(allsprites.textures['icon6']);
         newSprite.width = (7+12)*16;
         newSprite.height = (7+12)*16;
