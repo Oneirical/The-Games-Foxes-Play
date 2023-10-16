@@ -121,7 +121,6 @@ const logicMaps = {
             "W" : new WarpCloseAway(),
             "F" : new FurthestFilter(),
             "E" : new ExpandTargets(),
-            "X" : new DamageDealer(1),
             "S" : new ScreenShake(20),
 
             "I" : new DefineIcon(28),
@@ -180,7 +179,6 @@ const logicMaps = {
            "N" : new NumberStorage(0),
            "M" : new ModuloGate(5),
            "B" : new LinkForm(),
-           "Z" : new DamageDealer(1),
         }
     },
     "Scarab" : {
@@ -193,10 +191,6 @@ const logicMaps = {
             "R" : new RadioReceiver("EON"),
             "A" : new RadioReceiver("GONOW"),
             "M" : new MoveFunction(),
-            "P" : new FormTile("ScarabWaypoint"),
-            "K" : new ContinKilled(),
-            "L" : new LastDamageSource(),
-            "B" : new AssimilateBroadcast("DANGER"),
             "I" : new SpeciesCheck("Scarab"),
         }
     },
@@ -210,20 +204,6 @@ const logicMaps = {
             "R" : new RadioReceiver("EON"),
             "A" : new FormDir("S"),
             "D" : new MoveFunction(),
-        }
-    },
-    "Guard" : {
-        0 : ".....",
-        1 : ".....",
-        2 : "MPR..",
-        3 : ".E...",
-        4 : ".....",
-        "keys" : {
-            "E" : new RadioReceiver("EON"),
-            "R" : new RadioReceiver("DANGER"),
-            "M" : new MoveFunction(),
-            "P" : new FormEntity(),
-
         }
     },
     "SwarmPlayer" : {
@@ -269,69 +249,6 @@ const logicMaps = {
             "A" : new AssimilationExtender(),
             "P" : new TargetAllAffected(),
             "H" : new HasTagFilter("Robotic"),
-        }
-    },
-    "Programmer" : {
-        0 : "CFA..",
-        1 : "E.VBS",
-        2 : "P....",
-        3 : "M....",
-        4 : ".....",
-        "keys" : {
-            "E" : new RadioReceiver("EON"),
-            "M" : new MoveFunction(),
-            "P" : new FormEntity(), //handled to link to the hacker
-            "C" : new PlusForm(),
-            "F" : new SpeciesFilter("Apiarist"),
-            "A" : new NoTargetStop(),
-            "V" : new VoidTargets(),
-
-            "S" : new SoulInjector("Epsilon"),
-            "B" : new AssimilateBroadcast("PAYLOAD"),
-
-        }
-    },
-    "PermaHeal" : {
-        0 : "EIPH.",
-        1 : ".....",
-        2 : ".....",
-        3 : ".....",
-        4 : ".....",
-        "keys" : {
-            "E" : new RadioReceiver("TERMINATE"),
-            "P" : new PlusForm(),
-            "H" : new HealProvider(1),
-            "I" : new SpeciesCheck("EpsilonTail"),
-        }
-    },
-    "ScarabHack" : {
-        0 : ".....",
-        1 : "....A", //A
-        2 : "....P",
-        3 : ".EBTI",
-        4 : ".....",
-        "keys" : {
-            "E" : new RadioReceiver("EON"),
-            "B" : new LinkForm(),
-            "I" : new SoulInjector(),
-            "A" : new OverwriteSlot("ORDERED"),
-            "P" : new FormEntity(),
-            "T" : new RadioReceiver("PAYLOAD"),
-        }
-    },
-    "ScarabSpawner" : {
-        0 : "RINMP",
-        1 : "....S",
-        2 : ".....",
-        3 : ".....",
-        4 : ".....",
-        "keys" : {
-            "R" : new RadioReceiver("EON"),
-            "I" : new NumberIncrementer(1),
-            "N" : new NumberStorage(998),
-            "M" : new ModuloGate(999),
-            "P" : new PlusForm(),
-            "S" : new SummonCreature("Scarab"),
         }
     },
     "EpsilonControl1":{
@@ -395,10 +312,8 @@ const logicMaps = {
         "keys" : {
             "R" : new RadioReceiver("EON"),
             "P" : new PlusForm(),
-            "D" : new DamageDealer(1),
             "F" : new SpeciesFilter("Scarab"),
             "T" : new TriggerWatch("DamageDealer"),
-            "A" : new SoulAbsorber(),
 
         }
     },

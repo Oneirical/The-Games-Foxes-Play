@@ -26,8 +26,6 @@ class Axiom{
         this.storage = newStore;
     }
 
-    translate(){};
-
     assimilateAdjacentAxioms(dataType, replacement){
         let neigh = this.soul.getLogicNeighbours(this,true);
         for (let i of neigh){
@@ -564,47 +562,6 @@ class BreakIfNobody extends Axiom{
     }
 }
 
-class SoulAbsorber extends Axiom{
-    constructor(){
-        super();
-    }
-    act(data){
-        return data;
-    }
-}
-
-class SoulInjector extends Axiom{
-    constructor(soul){
-        super();
-        this.storage = soul;
-        this.dataType = "Soul";
-    }
-
-    translate(){
-        if (typeof this.storage === 'string'){
-            this.storage = new Soul(this.storage);
-            for (let i of this.storage.loopThroughAxioms()){
-                i.translate();
-            }
-        }
-
-    }
-
-    act(data){
-        if (!this.storage) return data;
-        if (this.storage.axioms == []) throw new Error("Axioms have been emptied.");
-        for (let i of data["targets"]){
-            if (i.monster && i.monster.findFirstEmptySlot()){
-                let loc = i.monster.findFirstEmptySlot();
-                i.monster.souls[loc] = Object.create(this.storage); // TODO rework this to use a new soul copy function
-                i.monster.souls[loc].owner = i.monster;
-                if (soulTree.trackedEntity === i.monster) soulTree.updateSlots(i.monster);
-            }
-        }
-        return data;
-    }
-}
-
 class ClearPaint extends Axiom{
     constructor(){
         super();
@@ -748,53 +705,6 @@ class BooleanFlip extends Axiom{
     }
 }
 
-class AssimilateBroadcast extends Axiom{
-    constructor(message){
-        super();
-        this.storage = message;
-        this.dataType = "Message";
-        this.surr;
-    }
-    act(data){
-        let surr = this.soul.getLogicNeighbours(this,true);
-        let assi = [];
-        for (let i of surr){
-            i.relativeDir = [i.x-this.x, i.y-this.y];
-            assi.push(i);
-        }
-        trigger(this.storage,assi);
-        return data;
-    }
-}
-
-class OverwriteSlot extends Axiom{
-    constructor(slot){
-        super();
-        this.storage = slot;
-        this.dataType = "Caste";
-        this.surr;
-    }
-    act(data){
-        let surr = this.soul.getLogicNeighbours(this,true);
-        let assi = [];
-        for (let i of surr){
-            assi.push(i);
-        }
-        for (let i of data["targets"]){
-            if (i.monster){
-                for (let s of soulSlotNames){
-                    if (s == this.storage && i.monster.souls[s]){
-                        for (let a of assi){
-                            i.monster.souls[s].axioms[a.x][a.y] = a; // TODO these are a little cringe
-                        }
-                    }
-                }
-            }
-        }
-        return data;
-    }
-}
-
 class FormDir extends Axiom{
     constructor(dir){
         super();
@@ -835,10 +745,6 @@ class FormTile extends Axiom{
         super();
         this.storage = tile;
         this.dataType = "Tile";
-    }
-
-    translate(){
-        if (this.storage == "ScarabWaypoint") this.storage = world.layer+";"+world.waypointLocation[0]+";"+world.waypointLocation[1];
     }
 
     act(data){
@@ -1012,83 +918,6 @@ class DialoguePrinter extends Axiom{
             num += i.storage;
         }
         log.addLog(this.storage,num);
-        return data;
-    }
-}
-
-class CloneCreature extends Axiom{ //unused for now
-    constructor(crea){
-        super();
-        this.storage = crea;
-        this.dataType = "Creature";
-    }
-
-    act(data){
-        if (data["targets"].length == 0){
-            data = severSynapse(data);
-            return data;
-        }
-        let works = false;
-        for (let i of data["targets"]){
-            if (i.passable && !i.monster){
-                summonCreature(i.x,i.y,this.storage);
-                works = true;
-            }
-        }
-        if (!works) data = severSynapse(data);
-        return data;
-    }
-}
-
-
-class SummonCreature extends Axiom{
-    constructor(crea){
-        super();
-        this.storage = crea;
-        this.dataType = "Species";
-    }
-
-    act(data){
-        if (data["targets"].length == 0){
-            data = severSynapse(data);
-            return data;
-        }
-        let works = false;
-        for (let i of data["targets"]){
-            if (i.passable && !i.monster){
-                summonCreature(i.x,i.y,this.storage);
-                works = true;
-            }
-        }
-        if (!works) data = severSynapse(data);
-        return data;
-    }
-}
-
-class DamageDealer extends Axiom{
-    constructor(dam){
-        super();
-        this.storage = dam;
-        this.dataType = "Number";
-    }
-    act(data){
-        for (let i of getAllTargetedCreatures(data)){
-            i.hit(this.storage, data["caster"]);
-        }
-        return data;
-    }
-}
-
-class HealProvider extends Axiom{
-    constructor(dam){
-        super();
-        this.storage = dam;
-        this.dataType = "Number";
-    }
-    act(data){
-        for (let i of data["targets"]){
-            if (i.monster) i.monster.heal(this.storage, data["caster"]);
-        }
         return data;
     }
 }

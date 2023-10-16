@@ -128,16 +128,6 @@ class Universe{
         reloadDisplay(tilesDisplay.worldDisplay);
         tilesDisplay.addChild(tilesDisplay.notPlayerTiles);
         tilesDisplay.addChild(player.creaturecon);
-        for (let i of monsters){
-            for (let j of i.loopThroughSouls()){
-                if (!j) continue;
-                for (let r of j.axioms){
-                    for (let p of r){
-                        p.translate();
-                    }
-                }
-            }
-        }
     }
 
     passUp(layer){

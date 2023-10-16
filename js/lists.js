@@ -39,10 +39,10 @@ const speciesData = {
         },
         "tags" : ["RealityAnchor"],
     },
-    "Programmer" : {
-        "sprite" : 49,
+    "ElectroCoil" : {
+        "sprite" : 41,
         "souls" : {
-            "VILE" : "Programmer",
+            // simply use crossbeam
         }
     },
     "SaintlyStarterHologram" : {
@@ -136,7 +136,6 @@ const speciesData = {
     "EpsilonHead" : {
         "sprite" : 67,
         "souls" : {
-            "ORDERED" : "EpsilonStand",
         }
     },
     "EpsilonTail1" : {
@@ -179,13 +178,11 @@ const speciesData = {
     "Scarab" : {
         "sprite" : 76,
         "souls" : {
-            //"ORDERED" : "Scarab",
         }
     },
     "Weaver" : {
         "sprite" : 27,
         "souls" : {
-            "ORDERED" : "ScarabSpawner",
         }
     },
 }

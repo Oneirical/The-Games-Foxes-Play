@@ -32,9 +32,6 @@ function summonCreature(x,y,type){ // can accept a species or clone a creature
     else for (let j of soulSlotNames){
         if (monster.souls[j]){
             monster.souls[j] = new Soul(monster.souls[j],monster);
-            for (let r of monster.souls[j].axioms){
-                for (let p of r) p.translate();
-            }
         } 
     }
     if (monster.generationMark){
