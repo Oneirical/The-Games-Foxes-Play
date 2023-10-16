@@ -513,15 +513,23 @@ const creaturePresentation = {
         lore: "A billowy, soft cloud dancing through the air, taking the shape of a gaseous fox with six tails. The tinkle of a distant bell repeats itself as it spreads to prod at the world around it.",
         opinion: "\"In unity we flourish.\""
     },
-    "Programmer" : {
-        name: "Felidol Programmer",
-        color: "plum",
-        lore: ":3"
+    "ElectroCoil" : {
+        name: "Coiled Devotee",
+        color: "blue",
+        lore: "A metallic nautilus entranced in prayer alongside its kin. When their partner becomes haunted by a stray individualist thought, a helpful flash comes to scorch away the mind.",
+        opinion: "\"Give a Soul insufficient faith, and it becomes paralyzed in apathy. Drown it in zeal, and the weight of its duty comes to immobilize it. I strive to be the line between.\"",
     },
-    "Apiarist" : {
-        name: "Upload Relay",
-        color: "pink",
-        lore: ":3"
+    "SaintlyStarterHologram" : {
+        name: "Saintly Hologram",
+        color: "lime",
+        lore: "A dizzying tangle of bright green and pink ribbons, dancing through the air. Pulling one's stare away from the choreography after staring too long proves difficult.",
+        opinion: "\"A void in which identity comes to fade. To faith, it is poison. To victory, it is its ally.\"",
+    },
+    "FeralStarterHologram" : {
+        name: "Feral Hologram",
+        color: "yellowgreen",
+        lore: "A pulsating sphere of crimson and black. Viscous ooze drips away to stain the floor, while visions of trees where the leaves are blades shimmer deep within.",
+        opinion: "\"Fear is the primordial emotion. All which we do, all which we desire - it stems from the terror of not having it.\"",
     },
     "WellWall" : {
         name: "Thought-Matter Rift",
