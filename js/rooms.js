@@ -277,19 +277,20 @@ var rooms = {
         8 : "####E####",
         "tags": ["randomgen"],
     },
-    "CatsCross" : {
+    "ApiaristCross" : {
         0 : "####E####",
         1 : "#Wf...fW#",
         2 : "#ff...ff#",
-        3 : "#...f...#",
-        4 : "E..fWf..E",
-        5 : "#...f...#",
+        3 : "#..f.f..#",
+        4 : "E...4...E",
+        5 : "#..f.f..#",
         6 : "#ff...ff#",
         7 : "#Wf...fW#",
         8 : "####E####",
         "tags": ["randomgen"],
         "creatures" : {
-            "f" : "Felidol",
+            "f" : "Apiarist",
+            "4" : "FourScanner",
         }
     },
     "ScarabFactory" : {

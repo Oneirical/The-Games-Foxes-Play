@@ -31,60 +31,52 @@ const tagSprites = {
 const speciesData = {
     "Terminal" : {
         "sprite" : 0,
-        "hp" : 3,
         "souls" : {
             "SAINTLY" : "Terminal",
             //"ORDERED" : "OrderedStarter",
             //"ARTISTIC" : "Singularity"
-            "FERAL" : "OrderedStarter",
+            //"FERAL" : "OrderedStarter",
         },
         "tags" : ["RealityAnchor"],
     },
     "Programmer" : {
         "sprite" : 49,
-        "hp" : 2,
         "souls" : {
             "VILE" : "Programmer",
         }
     },
     "SaintlyStarterHologram" : {
         "sprite" : 39,
-        "hp" : 2,
         "souls" : {
             "SAINTLY" : "SaintlyStarterHologram",
         }
     },
     "OrderedStarterHologram" : {
         "sprite" : 40,
-        "hp" : 2,
         "souls" : {
             "ORDERED" : "OrderedStarterHologram",
         }
     },
     "ArtisticStarterHologram" : {
         "sprite" : 41,
-        "hp" : 2,
         "souls" : {
             "ORDERED" : "ArtisticStarterHologram",
         }
     },
     "FeralStarterHologram" : {
         "sprite" : 42,
-        "hp" : 2,
         "souls" : {
             "ORDERED" : "FeralStarterHologram",
         }
     },
     "HoloStabilizer" : {
         "sprite" : 1,
-        "hp" : 0,
         "souls" : {
         },
         "tags" : ["Intangible","Invisible","Unaffected"],
     },
     "DimensionWarp" : {
         "sprite" : 1,
-        "hp" : 0,
         "souls" : {
             "ORDERED" : "HypnoWell",
         },
@@ -92,14 +84,12 @@ const speciesData = {
     },
     "WellWall" : {
         "sprite" : 108,
-        "hp" : 0,
         "souls" : {
         },
         "tags" : ["Intangible","Unaffected"],
     },
     "Airlock" : {
         "sprite" : 17,
-        "hp" : 0,
         "souls" : {
             "ORDERED" : "Airlock",
         },
@@ -107,84 +97,80 @@ const speciesData = {
     },
     "Wall" : {
         "sprite" : 3,
-        "hp" : 0,
         "souls" : {
         },
         "tags" : ["Unaffected"],
     },
     "TermiWall" : {
         "sprite" : 37,
-        "hp" : 0,
         "souls" : {
         },
         "tags" : ["Unaffected"],
     },
     "SixfoldIdol" : {
         "sprite" : 36,
-        "hp" : 0,
         "souls" : {
         },
         "tags" : ["Intangible"],
     },
     "RoseWall" : {
         "sprite" : 55,
-        "hp" : 0,
         "souls" : {
         },
         "tags" : ["Unaffected"],
     },
     "Apiarist" : {
         "sprite" : 6,
-        "hp" : 4,
         "souls" : {
-            "ORDERED" : "ScarabHack",
-        }
+            "SAINTLY" : "SwarmPlayerDisabled"
+        },
+        "tags" : ["Robotic"],
+    },
+    "FourScanner" : {
+        "sprite" : 7,
+        "souls" : {
+            "ORDERED" : "ScanForPlayer",
+        },
+        "tags" : ["Robotic"],
     },
     "EpsilonHead" : {
         "sprite" : 67,
-        "hp" : 4,
         "souls" : {
             "ORDERED" : "EpsilonStand",
         }
     },
     "EpsilonTail1" : {
         "sprite" : 68,
-        "hp" : 4,
         "souls" : {
             "ORDERED" : "Tail1",
         }
     },
     "EpsilonTail2" : {
         "sprite" : 68,
-        "hp" : 4,
         "souls" : {
             "ORDERED" : "Tail2",
         }
     },
     "EpsilonTail3" : {
         "sprite" : 68,
-        "hp" : 4,
         "souls" : {
             "ORDERED" : "Tail3",
         }
     },
     "EpsilonTail4" : {
         "sprite" : 68,
-        "hp" : 4,
         "souls" : {
             "ORDERED" : "Tail4",
         }
     },
     "Slug" : {
         "sprite" : 29,
-        "hp" : 2,
         "souls" : {
             "ORDERED" : "SwarmPlayer",
         }
     },
     "Harmonizer" : {
         "sprite" : 26,
-        "hp" : 0,
         "souls" : {
             "SAINTLY" : "CyanFlood",
         },
@@ -192,14 +178,12 @@ const speciesData = {
     },
     "Scarab" : {
         "sprite" : 76,
-        "hp" : 1,
         "souls" : {
             //"ORDERED" : "Scarab",
         }
     },
     "Weaver" : {
         "sprite" : 27,
-        "hp" : 2,
         "souls" : {
             "ORDERED" : "ScarabSpawner",
         }

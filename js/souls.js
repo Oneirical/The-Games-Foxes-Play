@@ -240,6 +240,37 @@ const logicMaps = {
             "B" : new BooleanGate(true),
         }
     },
+    "SwarmPlayerDisabled" : {
+        0 : ".....",
+        1 : ".....",
+        2 : "EFB.M",
+        3 : ".....",
+        4 : ".....",
+        "keys" : {
+            "E" : new RadioReceiver("EON"),
+            "M" : new MoveFunction(),
+            "F" : new BooleanFlip(),
+            "B" : new BooleanGate(true),
+        }
+    },
+    "ScanForPlayer" : {
+        0 : "E....",
+        1 : "CN...",
+        2 : ".GAF.",
+        3 : ".PHO.",
+        4 : ".....",
+        "keys" : {
+            "E" : new RadioReceiver("EON"),
+            "C" : new CrossBeamTarget(),
+            "N" : new NoTagFilter("Robotic"),
+            "F" : new FormEntity(),
+            "G" : new GrabRandomCreature(),
+            "O" : new AssimilateCaste("SAINTLY"),
+            "A" : new AssimilationExtender(),
+            "P" : new TargetAllAffected(),
+            "H" : new HasTagFilter("Robotic"),
+        }
+    },
     "Programmer" : {
         0 : "CFA..",
         1 : "E.VBS",

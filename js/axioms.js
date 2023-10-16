@@ -36,6 +36,11 @@ class Axiom{
         }
         this.soul.owner.editedData["Soul"] = true;
     }
+
+    getAdjacentAxioms(){
+        let neigh = this.soul.getLogicNeighbours(this,true);
+        return neigh;
+    }
 }
 
 class EmptyAxiom extends Axiom{
@@ -66,16 +71,6 @@ class WarpEntity extends Axiom{
     }
 }
 
-class RealityAnchor extends Axiom{
-    constructor(){
-        super();
-    }
-    act(data){
-        data = severSynapse(data);
-        return data;
-    }
-}
-
 class AssimilationExtender extends Axiom{
     constructor(){
         super();
@@ -86,46 +81,11 @@ class AssimilationExtender extends Axiom{
     }
 }
 
-class UntargetableTag extends Axiom{
+class Connector extends Axiom{
     constructor(){
         super();
-        this.tag = "Untargetable"; // TODO these should become storage...
     }
     act(data){
-        data = severSynapse(data);
-        return data;
-    }
-}
-
-class UnaffectedTag extends Axiom{
-    constructor(){
-        super();
-        this.tag = "Unaffected";
-    }
-    act(data){
-        data = severSynapse(data);
-        return data;
-    }
-}
-
-class RealityBreakTag extends Axiom{
-    constructor(){
-        super();
-        this.tag = "RealityBreak";
-    }
-    act(data){
-        data = severSynapse(data);
-        return data;
-    }
-}
-
-class HarmonyTag extends Axiom{
-    constructor(){
-        super();
-        this.tag = "HarmonicGrace";
-    }
-    act(data){
-        data = severSynapse(data);
         return data;
     }
 }
@@ -360,6 +320,38 @@ class WarpCloseAway extends Axiom{
     }
 }
 
+class GrabRandomCreature extends Axiom{ // add these on a "setting", furthest, random, closest?
+    constructor(){
+        super();
+    }
+    act(data){
+        let crea = getAllTargetedCreatures(data);
+        if (crea.length == 0) {
+            severSynapse(data);
+            return data;
+        }
+        let theChosen = shuffle(crea)[0];
+        this.assimilateAdjacentAxioms("Creature",theChosen.numberID);
+        return data;
+    }
+}
+
+class AssimilateCaste extends Axiom{
+    constructor(caste){
+        super();
+        this.storage = caste;
+        this.dataType = "Caste"
+    }
+    act(data){
+        let payload = this.getAdjacentAxioms();
+        let crea = getAllTargetedCreatures(data);
+        for (let i of crea){
+            i.assimilateCaste(this.storage,payload);
+        }
+        return data;
+    }
+}
+
 class FurthestFilter extends Axiom{
     constructor(){
         super();
@@ -461,6 +453,21 @@ class BeamFromCaster extends Axiom{
         const beam = targetBoltTravel(this.storage,data["caster"].tile);
         for (let j of beam) {
             target(data, j);
+        }
+        return data;
+    }
+}
+
+class CrossBeamTarget extends Axiom{
+    constructor(){
+        super();
+    }
+    act(data){
+        for (let i of ["N","S","W","E"]){
+            const beam = targetBoltTravel(i,data["caster"].tile);
+            for (let j of beam) {
+                target(data, j);
+            }
         }
         return data;
     }
@@ -652,6 +659,21 @@ class NoTagFilter extends Axiom{
         let scan = getAllTargetedCreatures(data);
         for (let i of scan){
             if (i.hasTag(this.storage)) removeItemAll(data["targets"],i.tile);
+        }
+        return data;
+    }
+}
+
+class HasTagFilter extends Axiom{
+    constructor(tag){
+        super();
+        this.storage = tag;
+        this.dataType = "Tag";
+    }
+    act(data){
+        let scan = getAllTargetedCreatures(data);
+        for (let i of scan){
+            if (!i.hasTag(this.storage)) removeItemAll(data["targets"],i.tile);
         }
         return data;
     }
@@ -1112,10 +1134,10 @@ function targetBoltTravel(direction, location){
     direction = eqs[direction];
     while(true){
         let testTile = newTile.getNeighbor(direction[0], direction[1]);
-        if(testTile && testTile.passable){
+        if(testTile){
             newTile = testTile;
+            targets.push(testTile)
             if(newTile.tangibleCreature) break;
-            else targets.push(testTile);
         }else{
             break;
         }
@@ -1258,10 +1280,7 @@ class Soul{
         let newSoul = new Soul("Empty",this.owner);
         for (let i = 0; i<5; i++){
             for (let j = 0; j<5; j++){
-                newSoul.axioms[i][j] = new this.axioms[i][j].constructor();
-                newSoul.axioms[i][j].storage = this.axioms[i][j].storage;
-                newSoul.axioms[i][j].x = i;
-                newSoul.axioms[i][j].y = j;
+                newSoul.axioms[i][j] = this.cloneAxiom(this.axioms[i][j]);
                 newSoul.axioms[i][j].soul = newSoul;
             }
         }
@@ -1288,6 +1307,24 @@ class Soul{
             this.axioms[emptySpace[0].x][emptySpace[0].y] = new axiomType();
             this.findBindings();
             return true;
+        }
+    }
+
+    cloneAxiom(axiom){
+        let clone = new axiom.constructor();
+        clone.storage = axiom.storage;
+        clone.x = axiom.x;
+        clone.y = axiom.y;
+        return clone;
+    }
+
+    swapOutAxiom(newAxiom){
+        this.axioms[newAxiom.x][newAxiom.y] = this.cloneAxiom(newAxiom);
+    }
+
+    dropPayload(payload){
+        for (let i of payload){
+            this.swapOutAxiom(i);
         }
     }
 

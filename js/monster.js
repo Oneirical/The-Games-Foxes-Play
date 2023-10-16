@@ -9,7 +9,7 @@ class Creature{
         }
         this.sprite = speciesData[species]["sprite"];
 
-        this.hp = speciesData[species]["hp"];
+        //this.hp = speciesData[species]["hp"];
         this.numberID = creaturesCreated;
         creaturesCreated++;
         allCreatures.push(this);
@@ -91,6 +91,14 @@ class Creature{
     
     addSoul(soul){
         this.addSoulAtCaste(this.findFirstEmptySlot(), soul);
+        this.editedData["Soul"] = true;
+    }
+
+    assimilateCaste(caste,payload){
+        let target = this.souls[caste];
+        if (!target) return;
+        target.dropPayload(payload);
+        this.editedData["Soul"] = true;
     }
 
     forceInjectAxiom(axiomType){
