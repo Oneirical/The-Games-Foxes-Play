@@ -384,7 +384,7 @@ function newBetterDisplay(){
     reloadDisplay(efficientDisplay);
     app.ticker.add(() => {
         efficientDisplay.x = -(player.tile.x+player.offsetX)*64+512;
-        efficientDisplay.y = -(player.tile.y+player.offsetY)*64+512; // speedX = abs(offsetX() /100?
+        efficientDisplay.y = -(player.tile.y+player.offsetY)*64+512;
         player.reduceOffset();
         for (let i of monsters){
             if (i === player) continue;
@@ -407,24 +407,6 @@ function newBetterDisplay(){
         }
     });
     return efficientDisplay;
-}
-
-function drawTiles(){
-    tileSize = 64;
-    for (let r of universe.worlds){
-        //for(let i=0;i<numTiles;i++){
-        //    for(let j=0;j<numTiles;j++){
-        //        if (r.playSpace.tiles[i] && r.playSpace.tiles[i][j] && !r.playSpace.tiles[i][j].graphicsReady 
-        //            && !(r.playSpace.tiles[i][j] instanceof RealityWall)) r.playSpace.tiles[i][j].setUpSprite();
-        //    }
-        //}
-        
-        for(let i=0;i<5;i++){
-            for(let j=0;j<5;j++){
-                if (!r.rooms[i][j].graphicsReady) r.rooms[i][j].setUpSprites();
-            }
-        } 
-    }
 }
 
 function drawSprites(){
@@ -454,17 +436,6 @@ function drawPixel(fill,x,y,size,source){
     graphics.beginFill(fill);
     graphics.drawRect(x, y, size, size);
     graphics.endFill();
-    source.addChild(graphics);
-}
-
-function drawHitbox(x,y,size,source){
-    const graphics = new PIXI.Sprite(allsprites.textures['sprite130']);
-    graphics.x = x;
-    graphics.y = y;
-    graphics.height = size;
-    graphics.width = size;
-    graphics.alpha = 0;
-    graphics.anchor.set(0.5);
     source.addChild(graphics);
 }
 

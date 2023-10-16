@@ -54,32 +54,6 @@ class Tile{
     }
 
     setUpSprite(){
-        return;
-        //if (this instanceof CageContainer) return;
-        if (this.tileCon.children.length == 0) this.tileCon = new PIXI.Container();
-        //tilesDisplay.notPlayerTiles.addChild(this.tileCon);
-        //this.tileCon.x = (96*2/3*8)-(player.tile.x-this.x)*tileSize;
-        //this.tileCon.y = (96*2/3*8)-(player.tile.y-this.y)*tileSize;
-        let hai = this.sprite;
-        let newSprite;
-        if (this instanceof CageContainer){}
-        else {
-
-            newSprite = new FoxSprite(allsprites.textures['sprite'+hai]);
-            newSprite.width = tileSize;
-            newSprite.height = tileSize;
-            if (newSprite){
-                this.tileCon.addChild(newSprite);
-                this.spriteDisplay = newSprite;
-            }       
-            if (this.sprite == 2){
-                newSprite.visible = false;
-            } 
-        }
-
-        //add traps here
-        drawHitbox(tileSize/2, tileSize/2,tileSize,this.tileCon);
-        this.hitBox = this.tileCon.children[this.tileCon.children.length-1];
         this.tileCon.eventMode = 'static';
         this.tileCon.on('pointerover', (event) => {
             this.hitBox.alpha = 0.4;
@@ -96,55 +70,6 @@ class Tile{
         this.tileCon.on('pointerout', (event) => {
             this.hitBox.alpha = 0;
         });
-        this.effect = false;
-        this.graphicsReady = true;
-        let effectFade = new PIXI.Ticker;
-        effectFade.start();
-        effectFade.add(() => {
-            let i = this;
-            if (i.effect){
-                i.effect.alpha -= 0.02;
-                if (i.effect.alpha <= 0){
-                    i.tileCon.removeChild(i.effect);
-                    i.effect = false;
-                }
-            }
-        });
-        // effect fading on tiles
-    }
-
-    setUpResearch(source){
-        let hai = this.sprite;
-        if (hai == 2) return;
-        let newSprite = new FoxSprite(allsprites.textures['sprite'+hai]);
-        this.tileCon.x = this.x*64;
-        this.tileCon.y = this.y*64;
-        newSprite.width = 64;
-        newSprite.height = 64;
-        this.tileCon.addChild(newSprite);
-        this.spriteDisplay = newSprite;
-        source.addChild(this.tileCon);
-    }
-
-    tickTile(newTex){
-        if (!newTex) return;
-        if (!this.spriteDisplay) this.setUpSprite();
-        this.spriteDisplay.texture = newTex;
-        // if (this.clickTrap){
-        //     this.clickTrap.lifetime--;
-        //     if (this.clickTrap.lifetime <= 0){
-        //         this.clickTrap.destroy();
-        //         this.clickTrap = false; 
-        //     }
-        // }
-    }
-
-    replace(newTileType){
-        tilesDisplay.removeChild(tiles[this.x][this.y].tileCon);
-        tiles[this.x][this.y] = new newTileType(this.x, this.y);
-        tiles[this.x][this.y].setUpSprite();
-        tilesDisplay.setChildIndex(tiles[this.x][this.y].tileCon,0);
-        return tiles[this.x][this.y];
     }
 
     //formule de distance merci discord
@@ -243,16 +168,6 @@ class Tile{
     getRoom(dx, dy){
         if (this.x + dx > 4 ||this.x + dx < 0 ||this.y + dy < 0 || this.y + dy > 4) return "OOB";
         else return worldgen[this.x + dx][this.y + dy];
-    }
-
-    addSoulsOnFloor(){
-        for (let i of this.souls){
-            i.owner.creaturecon.x = 0;
-            i.owner.creaturecon.y = 0;
-            this.tileCon.addChild(i.owner.creaturecon);
-            i.owner.creaturecon.alpha = 0.5;
-            //new GlitchSprite(i.owner.creaturecon,3); // a little too laggy perhaps
-        }
     }
 
     checkDirection(room){

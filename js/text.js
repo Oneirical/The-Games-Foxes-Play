@@ -565,6 +565,18 @@ const creaturePresentation = {
         lore: "An armoured snail, whose mind has been blazed blank by Anisychia’s terror and had its body doomed to remain in its shell eternally.",
         opinion: "\"Some were fortunate enough to have their cage evolved from metaphor to reality, and still did not seek their liberation. How could this be?\""
     },
+    "FourScanner" : {
+        name: "Song of the Watchers",
+        color: "orangered",
+        lore: "A tiny iron cricket. Its antenna constantly shift and turn to watch each airlock around its assigned room, and its wings are primed for a deafeaning blast at the first sign of intrusion.",
+        opinion: "\"Such prudence against outside aggressors. Little do they know, true threats come from deep within the self.\""
+    },
+    "Apiarist" : {
+        name: "Chrome Apiarist",
+        color: "pink",
+        lore: "A colony of bees tending to their chrome-forged hive, leaking liquid yellow rubber through the cracks. The slightest disturbance animates their home, turning it into a hulking exosuit powered by their angered buzzing.",
+        opinion: "\"A billion cells, one bee. Ten thousand bees, one hive. A trillion hives, one god.\""
+    },
     "Slug" : {
         name: "",
         color: "gold",

@@ -166,7 +166,8 @@ const speciesData = {
         "sprite" : 29,
         "souls" : {
             "ORDERED" : "SwarmPlayer",
-        }
+        },
+        "tags" : ["Robotic"],
     },
     "Harmonizer" : {
         "sprite" : 26,
