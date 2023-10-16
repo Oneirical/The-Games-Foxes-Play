@@ -1297,7 +1297,8 @@ class Soul{
             let i = currentSynapse["synapses"][0];
             currentSynapse = i.act(currentSynapse);
             currentSynapse["targets"] = [...new Set(currentSynapse["targets"])]; // remove duplicates
-            if (currentSynapse["showEffects"]) for (let i of currentSynapse["targets"]) i.setEffect(14); //TODO maybe change the effect depending on soul caste
+            //if (currentSynapse["showEffects"]) for (let i of currentSynapse["targets"]) i.setEffect(14); //TODO maybe change the effect depending on soul caste
+            if (currentSynapse["showEffects"]) for (let i of currentSynapse["targets"]) queueUpEffect(i,14);
             this.owner.trigger(i.constructor.name); // for triggerwatch contingency
             let additions = [];
             let synapseEnded = false;

@@ -60,6 +60,7 @@ function beginEverything(){
 
     tilesDisplay.notPlayerTiles = new PIXI.Container();
     tilesDisplay.addChild(tilesDisplay.notPlayerTiles);
+    tilesDisplay.effectQueue = new Set();
     
     uiDisplayRight = new PIXI.Container();
     uiDisplayRight.x = 1424;
@@ -198,6 +199,19 @@ function rotateAirlock(airlock, world){
     else {
         airlock.rotate(airlock.direction);
     }
+}
+
+function queueUpEffect(tile,effectSprite){
+    if (tile.effect) return;
+    let effect = new FoxSprite(allsprites.textures['sprite'+effectSprite]);
+    tile.effect = true;
+    effect.referenceTile = tile;
+    effect.width = 64;
+    effect.height = 64;
+    effect.x = tile.x*64;
+    effect.y = tile.y*64;
+    tilesDisplay.effectQueue.add(effect);
+    tilesDisplay.worldDisplay.addChild(effect);
 }
 
 function rotateWellWall(airlock, world){
@@ -381,6 +395,15 @@ function newBetterDisplay(){
                 i.reduceOffset();
             }
             else i.creaturecon.visible = false;
+        }
+        for (let i of tilesDisplay.effectQueue){
+            if (i.referenceTile.inRangeOfPlayer()) i.visible = true;
+            else i.visible = false;
+            i.alpha -= 0.05;
+            if (i.alpha <= 0.01){
+                tilesDisplay.effectQueue.delete(i);
+                i.referenceTile.effect = false;
+            }
         }
     });
     return efficientDisplay;

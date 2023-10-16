@@ -234,8 +234,8 @@ const logicMaps = {
         }
     },
     "ScanForPlayer" : {
-        0 : "E....",
-        1 : "CN...",
+        0 : ".CXE.",
+        1 : ".N...",
         2 : ".GAF.",
         3 : ".PHO.",
         4 : ".....",
@@ -249,6 +249,7 @@ const logicMaps = {
             "A" : new AssimilationExtender(),
             "P" : new TargetAllAffected(),
             "H" : new HasTagFilter("Robotic"),
+            "X" : new ShowEffects(),
         }
     },
     "EpsilonControl1":{

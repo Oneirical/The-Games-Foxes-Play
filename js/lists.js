@@ -127,11 +127,11 @@ const speciesData = {
         "tags" : ["Robotic"],
     },
     "FourScanner" : {
-        "sprite" : 7,
+        "sprite" : 75,
         "souls" : {
             "ORDERED" : "ScanForPlayer",
         },
-        "tags" : ["Robotic"],
+        "tags" : ["Robotic","Intangible"],
     },
     "EpsilonHead" : {
         "sprite" : 67,

@@ -29,6 +29,10 @@ class Tile{
         return this.z +";"+ this.x + ";" + this.y;
     }
 
+    inRangeOfPlayer(){
+        return Math.abs(this.x-player.tile.x) < 11 && Math.abs(this.y-player.tile.y) < 11; 
+    }
+
     getAllCreatures(){
         let creatures = [...this.intangibleCreatures];
         if (this.tangibleCreature) creatures.unshift(this.tangibleCreature);
@@ -249,14 +253,6 @@ class Tile{
             i.owner.creaturecon.alpha = 0.5;
             //new GlitchSprite(i.owner.creaturecon,3); // a little too laggy perhaps
         }
-    }
-
-    setEffect(effectSprite){
-        this.tileCon.removeChild(this.effect);             
-        this.effect = new FoxSprite(allsprites.textures["sprite"+effectSprite]);
-        this.effect.width = 64;
-        this.effect.height = 64;
-        this.tileCon.addChild(this.effect);
     }
 
     checkDirection(room){
