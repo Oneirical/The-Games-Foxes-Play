@@ -391,6 +391,21 @@ class ExpandTargets extends Axiom{
     }
 }
 
+class TargetAllOfSpecies extends Axiom{
+    constructor(species){
+        super();
+        this.storage = species;
+        this.dataType = "Species";
+    }
+
+    act(data){
+        for (let i of monsters){
+            if (i.species == this.storage) target(data, i.tile);
+        }
+        return data;
+    }
+}
+
 class TargetAllAffected extends Axiom{
     constructor(){
         super();
@@ -957,17 +972,20 @@ class LinkForm extends Axiom{
         }
         const initialPoint = data["caster"].tile;
         const finalPoint = allCreatures[this.storage.numberID].tile;
-        const trail = line(initialPoint,finalPoint);
-        removeItemOnce(trail,initialPoint);
-        removeItemOnce(trail,finalPoint);
-        let allX = true;
-        let allY = true;
-        let currentX = trail[0].x;
-        let currentY = trail[0].y;
-        for (let i of trail){
-            if (i.x != currentX) allX = false;
-            if (i.y != currentY) allY = false;
-            target(data, i);
+        targetBetweenPoints(data, initialPoint,finalPoint);
+        return data;
+    }
+}
+
+class LinkAllTargets extends Axiom{
+    constructor(){
+        super();
+    }
+    act(data){
+        for (let i of data.targets){
+            const initialPoint = data["caster"].tile;
+            const finalPoint = i;
+            targetBetweenPoints(data, initialPoint,finalPoint);
         }
         return data;
     }

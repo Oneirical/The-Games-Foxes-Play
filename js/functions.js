@@ -59,6 +59,16 @@ function nukeTargets(data){
     return data;
 }
 
+function targetBetweenPoints(data, initialPoint, finalPoint){
+    const trail = line(initialPoint,finalPoint);
+    removeItemOnce(trail,initialPoint);
+    removeItemOnce(trail,finalPoint);
+    for (let i of trail){
+        target(data, i);
+    }
+    return data;
+}
+
 function getAllTargetedCreatures(data){
     let creatures = [];
     const origin = data["caster"].tile;

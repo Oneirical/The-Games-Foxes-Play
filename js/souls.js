@@ -132,27 +132,29 @@ const logicMaps = {
         }
     },
     "SaintlyStarter" : {
-        0 : "1COW.",
-        1 : "E....",
-        2 : "TS...",
-        3 : "GA...",
-        4 : "BFXZ.",
+        0 : "SCETW",
+        1 : "1....",
+        2 : ".....",
+        3 : ".....",
+        4 : ".....",
+        /*
+        2 : ".SR..",
+        3 : ".X...",
+        4 : ".ZLET",
+        */
         "keys" : {
             "1" : new RadioReceiver("1"),
             "C" : new PlusForm(),
-            "O" : new SoulInjector("ORDERED"),
             "E" : new EgoType(),
-            "A" : new AssimilationExtender(),
             "T" : new TwinningAssimilation(),
-            "G" : new BooleanGate(true),
-            "B" : new BooleanFlip(),
             "W" : new RadioBroadcaster("EON"),
-            "S" : new SpeciesGrabber(),
-            "F" : new SpeciesFilter(),
-            "X" : new EgoForm(),
-            "Z" : new RadioReceiver("EON"),
-
-
+            "S" : new ShowEffects(),
+/*
+            "R" : new RadioReceiver("EON"),
+            "X" : new SpeciesGrabber(),
+            "Z" : new TargetAllOfSpecies(),
+            "L" : new LinkAllTargets(),
+            */
         }
     },
     "FeralStarter" : {
