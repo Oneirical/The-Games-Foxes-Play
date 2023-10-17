@@ -131,6 +131,30 @@ const logicMaps = {
             "N" : new ShowEffects(),
         }
     },
+    "SaintlyStarter" : {
+        0 : "1COW.",
+        1 : "E....",
+        2 : "TS...",
+        3 : "GA...",
+        4 : "BFXZ.",
+        "keys" : {
+            "1" : new RadioReceiver("1"),
+            "C" : new PlusForm(),
+            "O" : new SoulInjector("ORDERED"),
+            "E" : new EgoType(),
+            "A" : new AssimilationExtender(),
+            "T" : new TwinningAssimilation(),
+            "G" : new BooleanGate(true),
+            "B" : new BooleanFlip(),
+            "W" : new RadioBroadcaster("EON"),
+            "S" : new SpeciesGrabber(),
+            "F" : new SpeciesFilter(),
+            "X" : new EgoForm(),
+            "Z" : new RadioReceiver("EON"),
+
+
+        }
+    },
     "FeralStarter" : {
         0 : ".....",
         1 : "....X",

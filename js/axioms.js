@@ -334,6 +334,16 @@ class GrabRandomCreature extends Axiom{ // add these on a "setting", furthest, r
     }
 }
 
+class SpeciesGrabber extends Axiom{
+    constructor(){
+        super();
+    }
+    act(data){
+        this.assimilateAdjacentAxioms("Species",data.caster.species);
+        return data;
+    }
+}
+
 class AssimilateCaste extends Axiom{
     constructor(caste){
         super();
@@ -637,20 +647,32 @@ class HasTagFilter extends Axiom{
 }
 
 class SpeciesFilter extends Axiom{
-    constructor(entity){
+    constructor(species){
         super();
-        this.storage = entity;
+        this.storage = species;
         this.dataType = "Species";
     }
 
     act(data){
-        let testTargets = [...data["targets"]];
-        nukeTargets(data);
-        for (let i = testTargets.length-1; i>=0; i--){
-            let r = testTargets[i];
-            if (!r.monster) continue;
-            else if (r.monster.species != this.storage) continue;
-            else target(data, r);
+        let all = getAllTargetedCreatures(data);
+        for (let i of all){
+            if (i.species != this.storage) removeItemOnce(data.targets, i.tile);
+        }
+        return data;
+    }
+}
+
+class SoulInjector extends Axiom{
+    constructor(caste){
+        super();
+        this.storage = caste;
+        this.dataType = "Caste";
+    }
+
+    act(data){
+        let all = getAllTargetedCreatures(data);
+        for (let i of all){
+            i.addSoul(data.caster.souls[this.storage].cloneSoul());
         }
         return data;
     }
