@@ -117,6 +117,8 @@ function beginEverything(){
     player.creaturecon.x = 512;
     player.creaturecon.y = 512;
     world.setUpSprites();
+
+    setUpCursor();
         //FPS counter
     // const style = new PIXI.TextStyle({
     //     fontFamily: 'Play',
@@ -421,6 +423,21 @@ function drawSprites(){
 
 function getMouse(){
     return [(app.renderer.events).rootPointerEvent.global.x,(app.renderer.events).rootPointerEvent.global.y];
+}
+
+function setUpCursor(){
+    let cursorLayer = tilesDisplay.worldDisplay;
+    let cursor = new FoxSprite(allsprites.textures['sprite18']);
+    cursor.width = 64;
+    cursor.height = 64;
+    cursor.x = 164;
+    cursor.y = 164;
+    cursorLayer.addChild(cursor)
+    cursorLayer.eventMode = 'static';
+    cursorLayer.on('mousemove', e => {
+        cursor.x = e.getLocalPosition(tilesDisplay).x;
+        cursor.y = e.getLocalPosition(tilesDisplay).y;
+    });
 }
 
 function checkPixel(tile){

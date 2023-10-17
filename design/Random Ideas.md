@@ -2,33 +2,27 @@
 
 * Add Form grid (range targeters) images in their descriptions for clarity
 * A better ui for descriptions, with definitions for each keyword like 'exhale' or 'targets' or the status effects, StS style
-* Swap axiom tile effects to go out and do it all at once at the end
-* Review the tiles display, it is making it impossible to play knockback animations on far knockback effects
 
 * What if: turn infinite loops in souls (2x2 axioms) into the harmony mechanic, they may convert entire floors in a chain reaction
-* Multiple creatures per tile, some are intangible, X husks contain souls
 * Epsilon momentum + reverse direction + teleport entity? make it possible for the player to control without edits
 * Going into a separated/unstabilized portal goes to Nowhere with the cockroach piano
 * Place the glace-crowns past a snowy path, they view the harmony from afar
 * Bug if something turns tangible on top of something already tangible?
-* Rust binding with Tauri for astar or fringe search? Locate player is also super expensive
 
 **Performance Optimizations**
 
 * astar
 * twinningAssimilation & cloneSoul
 
-**Save and Load**
+**Animation**
+* Review the tiles display, it is making it impossible to play knockback animations on far knockback effects
+* Add a queue to the offset to knockback THEN move
 
-Save the world gen seed.
-Give every creature in the game an ID, store in array
-List every entity that has species "Terminal", "Snail", etc by ID
-List every entity that has HP "4", "3", etc by ID
-List the location of every creature ID (layer, x, y)
 
-then the souls...
 
-When in the future there's destroy/create terrain, add that to a "changes to the terrain" array and plop that down when loading
+**Save and Load**.
+
+Just the souls and tags are left
 
 ***
 
@@ -45,8 +39,6 @@ Scarabs get to Epsilon and make him OP.
 
 Righteousness, Ever-Upwards
 Left-Pawed Paths, Sinking Down
-
-* Make it possible to pass the time when dead and only give up when you truly want it. Useful with felidol passive 
 
 **"Serene Collective" design**
 
