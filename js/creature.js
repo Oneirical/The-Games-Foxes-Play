@@ -199,7 +199,9 @@ class Creature{
                 break;
             }
         }
+        if (newTile == this.tile) return false;
         this.move(newTile);
+        return true;
     }
 
     setUpSprite(){

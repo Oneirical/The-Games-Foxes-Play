@@ -459,9 +459,11 @@ class BashDir extends Axiom{
     }
     act(data){
         const bash = getAllTargetedCreatures(data);
+        let success = false;
         for (let i of bash){
-            i.knockback(this.storage);
+            success = success || i.knockback(this.storage);
         }
+        if (!success) severSynapse(data);
         return data;
     }
 }

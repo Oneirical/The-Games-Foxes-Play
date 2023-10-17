@@ -108,20 +108,21 @@ const logicMaps = {
         }
     },
     "OrderedStarter" : {
-        0 : "TMDBW",
-        1 : "....F",
-        2 : "EPN.E",
-        3 : "A.R.S",
-        4 : "WKI.N",
+        0 : "TMXDB",
+        1 : "....S",
+        2 : "EPN.N",
+        3 : "A.R..",
+        4 : "WKI..",
         "keys" : {
             "T" : new TriggerWatch("MoveFunction"),
             "M" : new MomentumTarget(),
             "D" : new DirectionExtractor(),
-            "B" : new TargetsDirectionalBeam(),
+            "B" : new BashDir(),
             "W" : new WarpCloseAway(),
             "F" : new FurthestFilter(),
             "E" : new ExpandTargets(),
-            "S" : new ScreenShake(20),
+            "S" : new ScreenShake(10),
+            "X" : new BreakIfNobody(),
 
             "I" : new DefineIcon(28),
             "R" : new RadioReceiver("1"),

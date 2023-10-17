@@ -15,9 +15,7 @@
 
 **Performance Optimizations**
 
-* hasTag
 * astar
-* locatePlayer
 * twinningAssimilation & cloneSoul
 
 **Save and Load**
