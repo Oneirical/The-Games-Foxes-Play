@@ -214,6 +214,49 @@ class TriggerWatch extends Axiom{
     }
 }
 
+class TagInjector extends Axiom{
+    constructor(tag){
+        super();
+        this.storage = tag;
+        this.dataType = "Tag";
+    }
+
+    act(data){
+        let crea = getAllTargetedCreatures(data);
+        for (let i of crea) i.addTag(this.storage);
+        return data;
+    }
+}
+
+class SoulSwapper extends Axiom{
+    constructor(caste){
+        super();
+        this.storage = caste;
+        this.dataType = "Caste";
+    }
+
+    act(data){
+        let crea = getAllTargetedCreatures(data);
+        let soulPool = [];
+        for (let i of crea){
+            soulPool.push(i.souls[this.storage]);
+            i.wipeSoulAtCaste(this.storage);
+        }
+        if (soulPool.length != crea.length) throw new Error("Soul pool and creature pool did not match in soul swap axiom.");
+        else if (soulPool.length < 2) {
+            severSynapse(data);
+            return data;
+        }
+        let index = 1;
+        for (let i of crea){
+            i.addSoulAtCaste(this.storage, soulPool[index]);
+            index++;
+            if (index == soulPool.length) index = 0;
+        }
+        return data;
+    }
+}
+
 class MomentumTarget extends Axiom{
     constructor(){
         super();
@@ -690,6 +733,22 @@ class SoulInjector extends Axiom{
         let all = getAllTargetedCreatures(data);
         for (let i of all){
             i.addSoul(data.caster.souls[this.storage].cloneSoul());
+        }
+        return data;
+    }
+}
+
+class SoulWipe extends Axiom{
+    constructor(caste){
+        super();
+        this.storage = caste;
+        this.dataType = "Caste";
+    }
+
+    act(data){
+        let all = getAllTargetedCreatures(data);
+        for (let i of all){
+            i.wipeSoulAtCaste(this.storage);
         }
         return data;
     }

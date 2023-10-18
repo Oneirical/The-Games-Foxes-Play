@@ -1,5 +1,5 @@
 basic = ["SERENE","VILE","FERAL","UNHINGED","ARTISTIC","ORDERED","SAINTLY"];
-const soulSlotNames = ["VILE","FERAL","UNHINGED","ARTISTIC","ORDERED","SAINTLY"];
+const soulSlotNames = ["VILE","FERAL","UNHINGED","ARTISTIC","ORDERED","SAINTLY"].reverse();
 basicspire = ["VILES","FERALS","UNHINGEDS","ARTISTICS","ORDEREDS","SAINTLYS"];
 smod = ["Alacrity","Selective","Thrusters","Hover","Focus"];
 modulators = ["Alacrity","Selective","Thrusters","Hover","Focus"];
@@ -33,7 +33,7 @@ const speciesData = {
         "sprite" : 0,
         "souls" : {
             "SAINTLY" : "Terminal",
-            "ORDERED" : "OrderedStarter",
+            "ORDERED" : "ArtisticStarter",
             //"ARTISTIC" : "Singularity"
             //"FERAL" : "OrderedStarter",
         },

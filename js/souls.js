@@ -158,6 +158,28 @@ const logicMaps = {
             */
         }
     },
+    "ArtisticStarter" : {
+        0 : "DBCET",
+        1 : "S...X",
+        2 : "Z....",
+        3 : "1....",
+        4 : ".....",
+
+        "keys" : {
+            "1" : new RadioReceiver("1"),
+            "D" : new DirectionFromMotion(),
+            "B" : new BeamFromCaster(),
+            "S" : new EgoForm(),
+            "Z" : new ShowEffects(),
+            "A" : new SoulWipe("ORDERED"),
+            "C" : new SoulInjector("ORDERED"),
+            "E" : new SoulSwapper("SAINTLY"),
+            "T" : new TagInjector("RealityAnchor"),
+            "X" : new RadioBroadcaster("EON"),
+
+
+        }
+    },
     "FeralStarter" : {
         0 : ".....",
         1 : "....X",

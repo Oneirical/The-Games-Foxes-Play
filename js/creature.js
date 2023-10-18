@@ -66,6 +66,7 @@ class Creature{
     addTag(tag){
         if (tag === "RealityAnchor") player.removeTag("RealityAnchor");
         this.tags.add(tag);
+        if (tag === "RealityAnchor") reassignPlayer(player, this);
     }
 
     removeTag(tag){
@@ -85,12 +86,18 @@ class Creature{
 
     addSoulAtCaste(caste, soul){
         this.souls[caste] = soul;
+        if (soul) this.souls[caste].owner = this;
         if (this === player) wheel.getMacros(); // TODO add a master "update soul stuff" function with getmacros, get new bindings, etc?
         this.editedData["Soul"] = true;
     }
     
     addSoul(soul){
         this.addSoulAtCaste(this.findFirstEmptySlot(), soul);
+        this.editedData["Soul"] = true;
+    }
+
+    wipeSoulAtCaste(caste){
+        this.souls[caste] = false;
         this.editedData["Soul"] = true;
     }
 

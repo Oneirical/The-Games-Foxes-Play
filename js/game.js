@@ -85,11 +85,16 @@ function loadGameQueue(){
     fastReload = false;
 }
 
-function reassignPlayer(oldPlayer){
+function reassignPlayer(oldPlayer, newPlayer){
     if (oldPlayer) tilesDisplay.removeChild(oldPlayer.creaturecon);
+    player = newPlayer;
     tilesDisplay.addChild(player.creaturecon);
     player.creaturecon.x = 8*tileSize;
     player.creaturecon.y = 8*tileSize;
+    soulTree.updateSlots(player);
+    tilesDisplay.worldDisplay.addChild(oldPlayer.creaturecon);
+    player.offsetX = oldPlayer.tile.x - newPlayer.tile.x;
+    player.offsetY = oldPlayer.tile.y - newPlayer.tile.y;
     return true;
 }
 
