@@ -33,7 +33,7 @@ const speciesData = {
         "sprite" : 0,
         "souls" : {
             "SAINTLY" : "Terminal",
-            "ORDERED" : "ArtisticStarter",
+            "ORDERED" : "SaintlyStarter",
             //"ARTISTIC" : "Singularity"
             //"FERAL" : "OrderedStarter",
         },

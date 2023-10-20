@@ -17,9 +17,9 @@ There are still many ways to defeat creatures, or to be defeated. There are thre
 
 Alongside this rework comes two new Souls, or spells:
 
-- The Last Saint offers to you a fragment of their ribbon-adorned vision of domination. Using this active ability causes all adjacent creatures to become clones of yourself with all Souls intact... Which leads to utterly [insane]() chain reactions when used multiple times. Honestly, trying to even get to the exit when everyone is you is a puzzle in itself.
+- The Last Saint offers to you a fragment of their ribbon-adorned vision of domination. Using this active ability causes all adjacent creatures to become clones of yourself with all Souls intact... Which leads to utterly [insane](https://yewtu.be/embed/Zf-jI5T0o5Y) chain reactions when used multiple times. Honestly, trying to even get to the exit when everyone is you is a puzzle in itself. Not to mention that *every single clone causes an extra turn to tick away at each keypress*.
 
-- The Data Breather believes true enlightenment comes by viewing the world through the perspective of all creatures big and small - and their gift allows this in a very literal form. It reminds me a little bit of Caves of Qud's domination, though it is more a [soul swap than a full takeover](). I hope these kinds of abilities will create as much fun as the polymorph mechanics in Nethack and such.
+- The Data Breather believes true enlightenment comes by viewing the world through the perspective of all creatures big and small - and their gift allows this in a very literal form. It reminds me a little bit of Caves of Qud's domination, though it is more a [soul swap than a full takeover](https://yewtu.be/embed/6URKqkbZX-U). I hope these kinds of abilities will create as much fun as the polymorph mechanics in Nethack and such.
 
 Also visible in these clips are a new freshly designed trap: the deactivated pink Apiarists remain on standby, while the red Song of the Watchers in the centre continuously scans all 4 entrance points. Entering the room immediately sends the swarm against the intruder - which may not necessarily be the player! Lure a terrible foe inside to obtain aid, or misstep and have your situation worsen? The possibilities are as numerous as stars in the night sky.
 
