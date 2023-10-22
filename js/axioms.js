@@ -890,31 +890,21 @@ class MoveFunction extends Axiom{
         let targets = data["targets"].slice(0);
         targets.sort((a,b) => a.dist(data["caster"].tile) - b.dist(data["caster"].tile));
         let chosen = targets[0];
-        let currentTile = data["caster"].tile;
-        if (chosen === currentTile){
-            data = severSynapse(data);
-            return data;
-        }
-        else if (Math.abs(chosen.x-currentTile.x) <= 1 && Math.abs(chosen.y-currentTile.y) <= 1 && Math.abs(chosen.x-currentTile.x) + Math.abs(chosen.y-currentTile.y) != 2){
-            if (!data["caster"].tryMove(chosen.x-currentTile.x,chosen.y-currentTile.y)){
-                data = severSynapse(data);
-            }
-            return data;
-        }
-        else if (!data.caster.tangible){
-            let here = closestTileToGoal(data.caster, data.caster.tile, chosen);
-            if (!data.caster.tryMove(here.x-currentTile.x, here.y-currentTile.y)){
-                data = severSynapse(data);
-            }
-            return data;
-        }
-        let path = astair(currentTile,chosen);
-        if(path.length == 0){
-            path = line(currentTile,chosen);
-            path.shift();
-        }
-        let dir = [path[0].x-data["caster"].tile.x,path[0].y-data["caster"].tile.y];
-        if (!data["caster"].tryMove(dir[0],dir[1])) data = severSynapse(data);
+        let creature = data["caster"];
+        data = induceStep(creature, chosen, data);
+        return data;
+    }
+}
+
+class ForcePullToSelf extends Axiom{
+    constructor(){
+        super();
+    }
+
+    act(data){
+        let crea = getAllTargetedCreatures(data);
+        let point = data.caster.tile;
+        for (let i of crea) data = induceStep(i, point, data);
         return data;
     }
 }

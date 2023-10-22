@@ -780,7 +780,7 @@ class AnnounceCorridor extends DefaultVaultRoom{
 class EmptyFaith extends DefaultVaultRoom{
     constructor(index){
         super(index);
-        this.id = shuffle(["Empty","ApiaristCross"])[0];
+        this.id = shuffle(["Empty","ApiaristCross","AttractPole"])[0];
     }
 }
 

@@ -20,6 +20,22 @@ const logicMaps = {
             "W" : new WarpEntity(),
         }
     },
+    "AttractPole" : {
+        0 : ".RE..",
+        1 : "..B..",
+        2 : "..G..",
+        3 : "..S..",
+        4 : "..H..",
+        "keys" : {
+            "R" : new RadioReceiver("EON"),
+            "G" : new BooleanGate(false),
+            "B" : new BooleanFlip(),
+            "S" : new TargetAllAffected(),
+            "H" : new ForcePullToSelf(),
+            "E" : new ShowEffects(),
+
+        }
+    },
     "SaintlyStarterHologram" : {
         0 : "IPND.",
         1 : ".....",

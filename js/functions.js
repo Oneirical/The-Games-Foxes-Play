@@ -17,6 +17,35 @@ function teleport(target,destination,data){
 
 }
 
+function induceStep(creature, chosen, data){
+    const currentTile = creature.tile;
+    if (chosen === currentTile){
+        data = severSynapse(data);
+        return data;
+    }
+    else if (Math.abs(chosen.x-currentTile.x) <= 1 && Math.abs(chosen.y-currentTile.y) <= 1 && Math.abs(chosen.x-currentTile.x) + Math.abs(chosen.y-currentTile.y) != 2){
+        if (!creature.tryMove(chosen.x-currentTile.x,chosen.y-currentTile.y)){
+            data = severSynapse(data);
+        }
+        return data;
+    }
+    else if (!creature.tangible){
+        let here = closestTileToGoal(creature, currentTile, chosen);
+        if (!creature.tryMove(here.x-currentTile.x, here.y-currentTile.y)){
+            data = severSynapse(data);
+        }
+        return data;
+    }
+    let path = astair(currentTile,chosen);
+    if(path.length == 0){
+        path = line(currentTile,chosen);
+        path.shift();
+    }
+    let dir = [path[0].x-creature.tile.x,path[0].y-creature.tile.y];
+    if (!creature.tryMove(dir[0],dir[1])) data = severSynapse(data);
+    return data;
+}
+
 function summonCreature(x,y,type){ // can accept a species or clone a creature
     let tile = getTile(x,y);
     let monster;

@@ -51,6 +51,12 @@ const speciesData = {
             "ORDERED": "BouncyBall"
         }
     },
+    "AttractPole" : {
+        "sprite" : 105,
+        "souls" : {
+            "ORDERED" : "AttractPole",
+        }
+    },
     "SaintlyStarterHologram" : {
         "sprite" : 39,
         "souls" : {

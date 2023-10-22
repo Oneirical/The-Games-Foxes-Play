@@ -679,17 +679,20 @@ var rooms = {
         8 : "####E####",
         "tags": ["randomgen"],
     },
-    "Star" : {
+    "AttractPole" : {
         0 : "AAA#E#AAA",
         1 : "AA#W.W#AA",
         2 : "A#W...W#A",
         3 : "#W.....W#",
-        4 : "E.......E",
+        4 : "E...p...E",
         5 : "#W.....W#",
         6 : "A#W...W#A",
         7 : "AA#W.W#AA",
         8 : "AAA#E#AAA",
         "tags": ["randomgen"],
+        "creatures" : {
+            "p" : "AttractPole"
+        }
     },
     "Pipes" : {
         0 : "####E####",
