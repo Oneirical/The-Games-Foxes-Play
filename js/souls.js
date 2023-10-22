@@ -216,18 +216,35 @@ const logicMaps = {
             "N" : new ShowEffects(),
         }
     },
-    "ElectroCoil" : {
-        0 : "RINMB",
-        1 : "....Z",
+    "BouncyBalls" : {
+        0 : "RCEDB",
+        1 : ".....",
         2 : ".....",
         3 : ".....",
         4 : ".....",
         "keys" : {
            "R" : new RadioReceiver("EON"),
-           "I" : new NumberIncrementer(1),
-           "N" : new NumberStorage(0),
-           "M" : new ModuloGate(5),
-           "B" : new LinkForm(),
+           "C" : new CrossBeamTarget(),
+           "D" : new DirectionExtractor(),
+           "E" : new EgoForm(),
+           "B" : new BashDir(),
+        }
+    },
+    "ElectroCoil" : {
+        0 : "RCD..",
+        1 : "..A..",
+        2 : "..B..",
+        3 : "..E..",
+        4 : "RFG..",
+        "keys" : {
+           "R" : new RadioReceiver("EON"),
+           "C" : new CrossBeamTarget(),
+           "D" : new DirectionExtractor(),
+           "E" : new EgoForm(),
+           "B" : new BashDir(),
+           "A" : new AssimilationExtender(),
+           "F" : new BooleanFlip(),
+           "G" : new BooleanGate(true),
         }
     },
     "Scarab" : {

@@ -42,7 +42,7 @@ const speciesData = {
     "ElectroCoil" : {
         "sprite" : 41,
         "souls" : {
-            // simply use crossbeam
+            "ORDERED": "BouncyBalls"
         }
     },
     "SaintlyStarterHologram" : {

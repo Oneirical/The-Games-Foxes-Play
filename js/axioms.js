@@ -328,10 +328,7 @@ class DirectionExtractor extends Axiom{
         else if (difY < 0 && Math.abs(difY) > Math.abs(difX)) finalChoice = "N";
         else finalChoice = shuffle(["N","S","W","E"])[0]; // kind of cringe, may rework
         
-        const neigh = this.soul.getLogicNeighbours(this,true);
-        for (let i of neigh){
-            if (i.dataType == "Direction") i.changeStorage(finalChoice);
-        }
+        this.assimilateAdjacentAxioms("Direction", finalChoice);
         return data;
     }
 }

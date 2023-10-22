@@ -578,26 +578,14 @@ var rooms = {
         3 : "A#b...g#A",
         4 : "A#c...h#A",
         5 : "A#d...i#A",
-        6 : "A#e...j#A",
+        6 : "A#y...j#A",
         7 : "A##.,.##A",
         8 : "AA##E##AA",
         "tags": ["randomgen","randomflip"],
         "vertical" : true,
         "creatures" : {
-            "ANY" : "Snail",
+            "ANY" : "ElectroCoil",
         },
-        "marks" : {
-            "a" : [0,"f"],
-            "b" : [1,"g"],
-            "c" : [2,"h"],
-            "d" : [3,"i"],
-            "e" : [4,"j"],
-            "f" : "f",
-            "g" : "g",
-            "h" : "h",
-            "i" : "i",
-            "j" : "j",
-        }
     },
     "TCross" : {
         0 : "AAAAAAAAA",
