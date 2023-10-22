@@ -725,7 +725,7 @@ class TriangleFaith extends DefaultVaultRoom{
 class NarrowFaith extends DefaultVaultRoom{
     constructor(index){
         super(index);
-        this.id = shuffle(["Narrow","LaserHall"])[0]; //
+        this.id = shuffle(["Narrow","LaserHall","BouncyHall"])[0]; //
         this.corridor = true;
     }
 }

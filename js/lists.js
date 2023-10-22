@@ -42,7 +42,13 @@ const speciesData = {
     "ElectroCoil" : {
         "sprite" : 41,
         "souls" : {
-            "ORDERED": "BouncyBalls"
+            //"ORDERED": "BouncyBalls"
+        }
+    },
+    "BouncyBall" : {
+        "sprite" : 71,
+        "souls" : {
+            "ORDERED": "BouncyBall"
         }
     },
     "SaintlyStarterHologram" : {

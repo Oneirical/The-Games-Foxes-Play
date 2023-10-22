@@ -587,6 +587,22 @@ var rooms = {
             "ANY" : "ElectroCoil",
         },
     },
+    "BouncyHall" : {
+        0 : "AA##E##AA",
+        1 : "A##.,.##A",
+        2 : "A#a.#.f#A",
+        3 : "A#b...g#A",
+        4 : "A#c.#.h#A",
+        5 : "A#d...i#A",
+        6 : "A#y.#.j#A",
+        7 : "A##.,.##A",
+        8 : "AA##E##AA",
+        "tags": ["randomgen","randomflip"],
+        "vertical" : true,
+        "creatures" : {
+            "ANY" : "BouncyBall",
+        },
+    },
     "TCross" : {
         0 : "AAAAAAAAA",
         1 : "AAAAAAAAA",

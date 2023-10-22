@@ -417,7 +417,7 @@ class SoulTree{
             printedTags++;
         }
         for (let i = printedTags; i<4; i++){
-            this.tagTracker[i] = allsprites.textures['icon7'];
+            this.tagTracker[i].texture = allsprites.textures['icon7'];
         }
     }
 
@@ -492,7 +492,6 @@ class SoulTree{
             this.axiomCon.addChild(axiomslot);
             axiomslot.eventMode = 'static';
             axiomslot.on('pointerdown', () => {
-                this.activateAxiom(i);
             });
             axiomslot.on('pointerover', () => {
                 let wai = new PIXI.filters.GlowFilter();

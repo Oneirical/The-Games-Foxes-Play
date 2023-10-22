@@ -426,17 +426,24 @@ function getMouse(){
 }
 
 function setUpCursor(){
-    let cursorLayer = tilesDisplay.worldDisplay;
+    let cursorLayer = drawPixel("white",0,0,32*33,tilesDisplay);
+    cursorLayer.alpha = 0;
     let cursor = new FoxSprite(allsprites.textures['sprite18']);
     cursor.width = 64;
     cursor.height = 64;
     cursor.x = 164;
     cursor.y = 164;
-    cursorLayer.addChild(cursor)
+    tilesDisplay.addChild(cursor)
     cursorLayer.eventMode = 'static';
     cursorLayer.on('mousemove', e => {
-        cursor.x = e.getLocalPosition(tilesDisplay).x;
-        cursor.y = e.getLocalPosition(tilesDisplay).y;
+        let x = Math.floor(e.getLocalPosition(tilesDisplay).x/64);
+        let y = Math.floor(e.getLocalPosition(tilesDisplay).y/64);
+        cursor.x = x*64;
+        cursor.y = y*64;
+        cursor.currentTile = getTile(player.tile.x-8+x,player.tile.y-8+y);
+    });
+    cursorLayer.on('click', e => {
+        soulTree.updateSlots(cursor.currentTile.getAllCreatures()[0]);
     });
 }
 
@@ -454,6 +461,7 @@ function drawPixel(fill,x,y,size,source){
     graphics.drawRect(x, y, size, size);
     graphics.endFill();
     source.addChild(graphics);
+    return graphics;
 }
 
 function removeColorTags(text){

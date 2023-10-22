@@ -103,6 +103,8 @@ Give Epsilon a giga tongue or some cool shockwave.
 ### Industrial Apex
 * A giant library giga room with all the text strings of the game.
 * Puzzles. Boolean loves puzzles! Don't overdo them.
+* A pole that pulls in creatures and sucks out their souls.
+* A relentless but slow intangible pursuer that sucks out souls.
 
 ### Faith's End
 * Ataixa craves corruption. These rooms can only be accessed by drawing from the deck of the Unhinged and wiping out realities.

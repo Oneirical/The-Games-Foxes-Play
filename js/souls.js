@@ -216,7 +216,7 @@ const logicMaps = {
             "N" : new ShowEffects(),
         }
     },
-    "BouncyBalls" : {
+    "BouncyBall" : {
         0 : "RCEDB",
         1 : ".....",
         2 : ".....",
