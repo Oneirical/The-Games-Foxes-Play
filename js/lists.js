@@ -11,6 +11,7 @@ const floorStyles = {
     "EpsilonApex" : "Blocks",
     "EntertainAlpha" : "Vault",
     "BooleanChoice" : "Vault",
+    "VileCage" : "Vault",
 };
 
 // DO NOT USE THIS AS A LIST IT GETS WIPED EACH TIME

@@ -729,6 +729,15 @@ class NarrowFaith extends DefaultVaultRoom{
         this.corridor = true;
     }
 }
+
+class EmptyCorridor extends DefaultVaultRoom{
+    constructor(index){
+        super(index);
+        this.id = shuffle(["Narrow"])[0]; //
+        this.corridor = true;
+    }
+}
+
 class GrandHallFaith extends DefaultVaultRoom{
     constructor(index){
         super(index);
@@ -866,6 +875,13 @@ class BooleanChoice extends DefaultVaultRoom{
     constructor(index){
         super(index);
         this.id = "BooleanChoice";
+    }
+}
+
+class VileCage extends DefaultVaultRoom{
+    constructor(index){
+        super(index);
+        this.id = "VileCage";
     }
 }
 
