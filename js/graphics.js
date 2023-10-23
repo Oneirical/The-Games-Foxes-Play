@@ -434,6 +434,7 @@ function setUpCursor(){
     cursor.x = 164;
     cursor.y = 164;
     tilesDisplay.addChild(cursor)
+    tilesDisplay.cursor = cursor;
     cursorLayer.eventMode = 'static';
     cursorLayer.on('mousemove', e => {
         let x = Math.floor(e.getLocalPosition(tilesDisplay).x/64);

@@ -128,6 +128,7 @@ class Universe{
         reloadDisplay(tilesDisplay.worldDisplay);
         tilesDisplay.addChild(tilesDisplay.notPlayerTiles);
         tilesDisplay.addChild(player.creaturecon);
+        tilesDisplay.setChildIndex(tilesDisplay.cursor, tilesDisplay.children.length-1);
     }
 
     passUp(layer){
