@@ -358,6 +358,22 @@ class WarpCloseAway extends Axiom{
     }
 }
 
+class TeleportToTile extends Axiom{
+    constructor(tile){
+        super();
+        this.dataType = "Tile";
+        this.storage = tile;
+    }
+    act(data){
+        let entities = getAllTargetedCreatures(data);
+        if (entities.length == 0) data = severSynapse(data);
+        let tile = getTileInUniverse(this.storage);
+        if (entities[0].canMove(tile)) teleport(entities[0],tile,data);
+        else data = severSynapse(data);
+        return data;
+    }
+}
+
 class GrabRandomCreature extends Axiom{ // add these on a "setting", furthest, random, closest?
     constructor(){
         super();
