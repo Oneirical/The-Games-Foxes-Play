@@ -1,20 +1,17 @@
 function teleport(target,destination,data){
-    if (target.canMove(destination)) target.move(destination);
-    return data;
-    if (data["flags"].has("trailing")) { // no "flags" target
-        let dx = finalPoint.x - initialPoint.x;
-        let dy = finalPoint.y - initialPoint.y;
-        let direction;
-        let trail = line(initialPoint,finalPoint);
-        for (let r = 1; r<trail.length-1; r++){
-            let i = trail[r];
-            if (Math.abs(dx) >= Math.abs(dy)) direction = [0,shuffle([-1,1])[0]];
-            else direction = [shuffle([-1,1])[0],0];
-            i.spellDirection = direction;
-            data.targets.add(i);
-        }
+    if (!target.canMove(destination)){
+        severSynapse(data);
+        return data;
     }
-
+    planeShift = false;
+    if (target.tile.z != destination.z) planeShift = true;
+    if (planeShift){
+        removeItemOnce(world.playSpace.monsters, target);
+        removeItemOnce(monsters,target);
+    }
+    target.move(destination);
+    if (planeShift) universe.worlds[destination.z].playSpace.monsters.push(target);
+    return data;
 }
 
 function induceStep(creature, chosen, data){

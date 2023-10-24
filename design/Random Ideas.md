@@ -57,6 +57,8 @@ Boolean
 
 turn infinite loops in souls (2x2 axioms) into the harmony mechanic, they may convert entire floors in a chain reaction and make it look like the Serene Spire
 
+hypnowells swap creatures by bringing them to nowhere dimension, maybe the only way to access it is to break that swap effect?
+
 **UI**
 
 * Inspect elements in the sidebar to know what they do.
