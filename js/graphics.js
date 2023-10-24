@@ -373,6 +373,7 @@ function reloadDisplay(display){
                     if (k === player) continue;
                     let crea = k.creaturecon;
                     display.addChild(crea);
+                    if (k.hypnoticScenes) display.setChildIndex(crea, 0);
                     crea.x = i*64;
                     crea.y = j*64;
                 }
