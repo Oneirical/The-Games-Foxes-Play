@@ -352,17 +352,6 @@ function drawChainBorder(w,h,source){
     }
 }
 
-function tickTiles(){
-    for(let i=0;i<numTiles;i++){
-        for(let j=0;j<numTiles;j++){
-            let hai = tiles[i][j].sprite;
-            let bai = allsprites.textures['sprite'+hai];
-            tiles[i][j].tickTile(bai);
-            //tilesDisplay.children[j+(i*9)].children[0].texture = bai; //extend this to also place traps and caged souls
-        }
-    }
-}
-
 function reloadDisplay(display){
     display.removeChildren();
     for (let i=0; i<45; i++){

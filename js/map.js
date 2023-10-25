@@ -4,10 +4,11 @@ function sameTile(tile1,tile2){
 
 function astair(start,dest){
     let graph = [];
+    let tilesArray = universe.worlds[start.z].playSpace.tiles;
     for (let i =0; i<numTiles; i++){
         graph[i] = [];
         for (let j = 0; j<numTiles; j++){
-            if (tiles[i][j] == start || tiles[i][j] == dest || (tiles[i][j].tangibleCreature === false) || (tiles[i][j].tangibleCreature.species === "Airlock")) graph[i][j] = 1;
+            if (tilesArray[i][j] == start || tilesArray[i][j] == dest || (tilesArray[i][j].tangibleCreature === false) || (tilesArray[i][j].tangibleCreature.species === "Airlock")) graph[i][j] = 1;
             // yikes, the airlock means they'll still go for the doors even if the airlocks get their souls messed up
             else graph[i][j] = 0;
         }
@@ -18,17 +19,18 @@ function astair(start,dest){
     let result = astar.search(pathfind, beg, end);
     let foundTiles = [];
     for (let i of result){
-        foundTiles.push(tiles[i.x][i.y]);
+        foundTiles.push(tilesArray[i.x][i.y]);
     }
     return foundTiles;
 }
 
 function line(p0, p1) {
+    let z = p0.z;
     let points = [];
     let N = diagonal_distance(p0, p1);
     for (let step = 0; step <= N; step++) {
         let t = N === 0? 0.0 : step / N;
-        points.push(round_point(lerp_point(p0, p1, t)));
+        points.push(round_point(lerp_point(p0, p1, t),z));
     }
     return points;
 }
@@ -38,8 +40,8 @@ function diagonal_distance(p0, p1) {
     return Math.max(Math.abs(dx), Math.abs(dy));
 }
 
-function round_point(p) {
-    return tiles[Math.round(p[0])][Math.round(p[1])];
+function round_point(p,z) {
+    return getTile(Math.round(p[0]),Math.round(p[1]),z);
 }
 
 function lerp_point(p0, p1, t) {

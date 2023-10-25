@@ -4,7 +4,6 @@ class Universe{
     }
 
     start(){
-        tiles = [];
         monsters = [];
         this.composeLinks();
         for (let x = 0; x<floors.length; x++){
@@ -535,7 +534,6 @@ class World{
 
     playRoom(room){
         if (!room.playerspawn) room.playerspawn = [4,4];
-        tiles = room.tiles;
         if (room instanceof WorldSeed) room.populateRoom();
         //tilesDisplay.removeChildren();
         //tilesDisplay.notPlayerTiles.removeChildren();
@@ -562,7 +560,6 @@ class World{
         let room = world.playSpace;
         numTiles = room.size;
         tileSize = (9/numTiles)*64;
-        tiles = room.tiles;
         player.tile = getTile(spawnl[0],spawnl[1], room.tiles[0][0].z);
         room.populateRoom();
         monsters = room.monsters;
@@ -921,18 +918,5 @@ class HugeMap extends DefaultVaultRoom{
         this.tiles = this.world.depositTiles;
         this.monsters = this.world.depositCreatures;
         if (!this.monsters) this.monsters = [];
-
-    }
-
-    initializeRoom(){
-        super.initializeRoom();
-        for (let i=0; i<45; i++){
-            for (let j=0; j<45; j++){
-                tiles[i][j].x = i;
-                tiles[i][j].y = j;
-                tiles[i][j].z = this.world.layer;
-                if (typeof tiles[i][j].z !== "number") throw new Error("Z coordinate was not a number.");
-            }
-        }
     }
 }
