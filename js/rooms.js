@@ -95,7 +95,7 @@ var genstruct = {
         keys: {
             "C" : SoulCage,
             "W" : WorldSeed,
-            "V" : NarrowFaith,
+            "V" : EmptyCorridor,
             "." : VoidRoom,
         },
     },

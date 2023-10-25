@@ -131,57 +131,11 @@ class Universe{
         tilesDisplay.setChildIndex(tilesDisplay.cursor, tilesDisplay.children.length-1);
     }
 
-    passUp(layer){
+    passUp(layer, spawnx, spawny){
+        this.handleDescent(layer, spawnx, spawny);
+
         universe.zooming = true;
-        this.layeredInfluence.delete(world.influence);
-        uiDisplayLeft.removeChild(world.displayCon);
-        player.tile.monster = null;
-        world.saveRoom(world.playSpace);
-
-        let locspawn = [4,5];
-        let receivereward = true;
-        for(let j=0;j<5;j++){
-            for(let i=0;i<5;i++){
-                if (world.rooms[i][j].visited == false && world.rooms[i][j].id != "Void") receivereward = false;
-            }
-        }
-        let reward = false;
-        if (world.reward["Sequence"].length > 0 && receivereward) reward = new Axiom(world.reward["Sequence"],shuffle(world.reward["Caste"])[0],world.reward["Potency"]);
-        if (reward){
-            research.completeResearch("Craft");
-            for (let i of world.reward["Sequence"]){
-                research.completeResearch(i);
-                research.completeResearch(spellpatterns[i]["type"]);
-                research.completeResearch(spellpatterns[i]["caste"]);
-            }
-        }
-        this.worlds[layer+1] = world;
-        world = this.worlds[layer];
-        world.currentroom = [4, 5]; // this will have to be replaced with the cage location
-        //world.cage.displayon = false;
-        world.appearRoom(locspawn);
-        player.offsetX = -motionsave[0];
-        player.offsetY = -motionsave[1];
-
-        if (reward){
-            for(let j=0;j<5;j++){
-                for(let i=0;i<5;i++){
-                    world.cage.slots[i][j] = new Empty();
-                }
-            }
-            world.cage.slots[4][4] = reward;
-            world.cage.size = 1;
-        }
-        world.cage.pocketworld.reward = {
-            "Sequence" : [],
-            "Caste" : "",
-            "Potency" : 0,
-        }
-        //world.cage.legendCheck();
-        world.setUpSprites();
-        uiDisplayLeft.addChild(world.displayCon);
         //world.cage.pocketworld.hypnoDisplay();
-        this.zoomAnim.destroy();
         this.zoomAnim = new PIXI.Ticker;
         this.zoomAnim.start();
         tilesDisplay.mask = tilesDisplay.maskReference;
@@ -191,16 +145,11 @@ class Universe{
             events: app.renderer.events
         })
         tilesDisplay.addChild(this.viewport)
-    
-        this.viewport.animate({
-            width: (1143)/9,
-            time: 0,
-        })
+        this.viewport.scaled = 8.56;
     
         this.viewport.addChild(tilesDisplay.notPlayerTiles);
         tilesDisplay.addChild(player.creaturecon);
         this.zoomAnim.add(() => {
-            if (this.viewport.width >= 9869){
                 this.viewport
                 .animate({
                     width: (1143),
@@ -208,7 +157,6 @@ class Universe{
                 })
                 universe.zooming = false;
                 this.zoomAnim.destroy();
-            }
         });
     }
 }
