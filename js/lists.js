@@ -4,15 +4,9 @@ basicspire = ["VILES","FERALS","UNHINGEDS","ARTISTICS","ORDEREDS","SAINTLYS"];
 smod = ["Alacrity","Selective","Thrusters","Hover","Focus"];
 modulators = ["Alacrity","Selective","Thrusters","Hover","Focus"];
 
-const floors = ["AttunementChamber", "EpsilonApex", "EntertainAlpha", "BooleanChoice"]; // vox?
+let floors = []; // vox?
 const floorLinks = {};
-const floorStyles = {
-    "AttunementChamber" : "Vault",
-    "EpsilonApex" : "Blocks",
-    "EntertainAlpha" : "Vault",
-    "BooleanChoice" : "Vault",
-    "VileCage" : "Vault",
-};
+const floorStyles = {};
 
 // DO NOT USE THIS AS A LIST IT GETS WIPED EACH TIME
 const casteNodes = ["Saintly","Ordered","Artistic","Unhinged","Feral","Vile"];

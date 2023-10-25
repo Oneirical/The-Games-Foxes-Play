@@ -32,7 +32,10 @@ class Universe{
                     let w = worldMaps[z];
                     if (w[i][j] != "."){
                         let region = w["keys"][w[i][j]];
+                        floors.push(region);
                         floorLinks[region] = [];
+                        floorStyles[region] = "Blocks";
+                        if (genstruct[region]) floorStyles[region] = "Vault";
                         let adj = [];
                         if (i != 0) adj.push(w[i-1][j]);
                         if (i != 4) adj.push(w[i+1][j]);
