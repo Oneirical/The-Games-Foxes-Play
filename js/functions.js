@@ -7,7 +7,6 @@ function teleport(target,destination,data){
     if (target.tile.z != destination.z) planeShift = true;
     if (planeShift){
         removeItemOnce(world.playSpace.monsters, target);
-        removeItemOnce(monsters,target);
     }
     target.move(destination);
     if (planeShift) universe.worlds[destination.z].playSpace.monsters.push(target);

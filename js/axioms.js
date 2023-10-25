@@ -422,6 +422,7 @@ class FurthestFilter extends Axiom{
     }
     act(data){
         const targets = data["targets"];
+        let origin = data.caster.tile;
         let entities = [...targets].sort((a,b) => manDist(origin,a) - manDist(origin,b));
         entities.reverse();
         let onlySurvivor = entities[0];
