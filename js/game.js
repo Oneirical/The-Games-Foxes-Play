@@ -10,7 +10,7 @@ setInterval(trigger,1000,"RHYTHM");
 function playerInput(key){
     if (key == "k") toggleFullScreen();
     else if (key == "o") saveGame();
-    else if (key == "m") increaseResolution(2);
+    else if (key == "m") universe.passUp(0,22,22);
     else if (key == "n"){
         increaseResolution(resolutionScreen+0.1);
         resolutionScreen += 0.1;

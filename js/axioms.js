@@ -62,7 +62,7 @@ class WarpEntity extends Axiom{
         let destPad = targetWorld.findTelepadByDest(world.id);
         let entities = getAllTargetedCreatures(data);
         for (let i of entities){
-            if (i === player) universe.passUp(floors.indexOf(sourcePad.destination), destPad.tile.x, destPad.tile.y);
+            if (i === player) universe.passDown(floors.indexOf(sourcePad.destination), destPad.tile.x, destPad.tile.y);
             else teleport(i, getTileInUniverse(floors.indexOf(sourcePad.destination)+";"+destPad.tile.x+";"+destPad.tile.y), data); // TODO currently needs work
         }
         return data;

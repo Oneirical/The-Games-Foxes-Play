@@ -64,6 +64,7 @@ hypnowells swap creatures by bringing them to nowhere dimension, maybe the only 
 * Inspect elements in the sidebar to know what they do.
 * A better ui for descriptions, with definitions for each keyword like 'exhale' or 'targets' or the status effects, StS style
 * Add Form grid (range targeters) images in their descriptions for clarity
+* Use a viewport to change the screen resolution?
 
 **Lore and flavour**
 

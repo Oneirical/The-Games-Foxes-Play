@@ -39,7 +39,7 @@ var keyroom = {
 
 const worldMaps = {
     "Epsilon" : {
-        0 : ".....",
+        0 : "....V",
         1 : "..W..",
         2 : "..B..",
         3 : "..A..",
@@ -48,7 +48,8 @@ const worldMaps = {
             "W" : "AttunementChamber",
             "E" : "EntertainAlpha",
             "A" : "EpsilonApex",
-            "B" : "BooleanChoice"
+            "B" : "BooleanChoice",
+            "V" : "VileMarket"
         }
     }
 }
@@ -120,6 +121,19 @@ var genstruct = {
         keys: {
             "C" : SoulCage,
             "S" : VileCage,
+            "." : VoidRoom,
+            "H" : EmptyCorridor,
+            "V" : EmptyCorridor
+        },
+    },
+    "VileMarket" : {
+        0 : "..V..",
+        1 : "..V..",
+        2 : "HHC..",
+        3 : ".....",
+        4 : ".....",
+        keys: {
+            "C" : SoulCage,
             "." : VoidRoom,
             "H" : EmptyCorridor,
             "V" : EmptyCorridor

@@ -54,6 +54,33 @@ class Universe{
         for (let i of this.worlds) if (i.id == id) return i;
     }
 
+    updateHypnoDisplay(creature, projectedTile, addMini){
+        let w = this.worlds[creature.tile.z];
+        let p = creature;
+        let tileWhichDisplays = w.playSpace.tiles[p.tile.x-1][p.tile.y-1].getAllCreatures()[0]; // this is a little ugly but oh well, if it is what it takes to remove the visual setEffect() bug
+        if (!(tileWhichDisplays.species == "HoloStabilizer")) throw new Error("The chosen hypnotic display was not a portal creature.")
+        if (tileWhichDisplays.hypnoticScenes) {
+            for (let h of tileWhichDisplays.hypnoticScenes) tileWhichDisplays.creaturecon.removeChild(h); // it can technically be reused, but the hypnodisplay only pulls from sprites, not paint and entities
+        }
+        let gazingInto = this.worlds[projectedTile.z];
+        let zoomSize = 14;
+        let cont = gazingInto.grabSpritesOfSection(projectedTile.x-zoomSize+1, projectedTile.y-zoomSize+1, projectedTile.x+zoomSize, projectedTile.y+zoomSize);
+        let contSmall = w.grabSpritesOfSection(p.tile.x-zoomSize+1,p.tile.y-zoomSize+1,p.tile.x+zoomSize,p.tile.y+zoomSize);
+        tileWhichDisplays.creaturecon.addChild(cont);
+        contSmall.width = 64/3;
+        contSmall.height = 64/3;
+        if (addMini){
+            tileWhichDisplays.creaturecon.addChild(contSmall);
+            tileWhichDisplays.hypnoticScenes = [cont,contSmall];
+            contSmall.x += 128/9+((22-p.tile.x)/9*64/9)+64;
+            contSmall.y += 128/9+((22-p.tile.y)/9*64/9)+64;
+        }
+        else tileWhichDisplays.hypnoticScenes = [cont];
+        cont.x-=64-((22-projectedTile.x)/9*64);
+        cont.y-=64-((22-projectedTile.y)/9*64);
+
+    }
+
     placeHypnoDisplays(){
         for (let w of this.worlds){
             for (let p of w.establishedPaths){
@@ -135,6 +162,7 @@ class Universe{
     }
 
     passUp(layer, spawnx, spawny){
+        this.updateHypnoDisplay(getTileInUniverse(layer+";"+spawnx+";"+spawny).getAllCreatures()[0],player.tile, false); //once again, super gory, will fail if something steps on it because it grabs the first creature
         this.handleDescent(layer, spawnx, spawny);
 
         universe.zooming = true;
@@ -198,9 +226,12 @@ class World{
                 if (!area) continue;
                 let hai = area.sprite;
                 let visible = true;
-                if (area.monster){
-                    hai = speciesData[area.monster.species]["sprite"];
-                    if (area.monster.hasTag("Invisible")) visible = false;
+                if (!area.hasNothing()){
+                    let creas = area.getAllCreatures();
+                    for (let r of creas){
+                        if (r.hasTag("Invisible") || player === r) visible = false;
+                        hai = speciesData[r.species]["sprite"];
+                    }
                 }
                 let newSprite = new FoxSprite(allsprites.textures['sprite'+hai]);
                 newSprite.visible = visible;
@@ -650,8 +681,7 @@ class DefaultVaultRoom extends Room{
                     this.monsters.push(entity);
                     if (entity.species === "DimensionWarp"){
                         entity.destination = floorLinks[this.sourceWorld.id][this.sourceWorld.establishedPaths.length];
-                        if (!entity.destination) throw new Error("Destination failed to be linked to pad.")
-                        this.sourceWorld.establishedPaths.push(entity);
+                        if (entity.destination) this.sourceWorld.establishedPaths.push(entity);
                     }
                     if (entity.species === "Terminal") player = entity;
                 }
