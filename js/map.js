@@ -89,9 +89,11 @@ function flipRoom(id,size,times){
     }
 }
 
-function getTile(x, y){
+function getTile(x, y, z){
     //if (x > numTiles-1 ||x < 0 || y < 0 || y > numTiles-1) return new RoseWall(x,y);
-    if (tiles[x] && tiles[x][y]) return tiles[x][y];
+    let world = universe.worlds[z];
+    let tilesArray = world.playSpace.tiles;
+    if (tilesArray[x] && tilesArray[x][y]) return tilesArray[x][y];
     else return false;
 }
 
@@ -103,21 +105,6 @@ function getTileInUniverse(str){
     const y = tileIndex[2];
     if (!depth[x] || !depth[x][y]) throw new Error("Out of bounds tile in a Tile Axiom.");
     else return depth[x][y];
-}
-
-function randomPassableTile(){
-    let tile;
-    tryTo('get random passable tile', function(){
-        let x = randomRange(1,numTiles-2);
-        let y = randomRange(1,numTiles-2);
-        tile = getTile(x, y);
-        let surround = tile.getAdjacentNeighbors();
-        for (i of surround){
-            if (i instanceof BExit) return false;
-        }
-        return tile.passable && !tile.monster;
-    });
-    return tile;
 }
 
 function randomPassableRoom(){

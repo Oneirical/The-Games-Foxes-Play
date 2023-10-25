@@ -44,7 +44,7 @@ function induceStep(creature, chosen, data){
 }
 
 function summonCreature(x,y,type){ // can accept a species or clone a creature
-    let tile = getTile(x,y);
+    let tile = getTile(x,y, player.tile.z);
     let monster;
     if (type instanceof Creature) monster = new Creature(tile,type.species);
     else monster = new Creature(tile,type);

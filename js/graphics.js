@@ -442,7 +442,7 @@ function setUpCursor(){
         let y = Math.floor(e.getLocalPosition(tilesDisplay).y/64);
         cursor.x = x*64;
         cursor.y = y*64;
-        cursor.currentTile = getTile(player.tile.x-8+x,player.tile.y-8+y);
+        cursor.currentTile = getTile(player.tile.x-8+x,player.tile.y-8+y, player.tile.z);
     });
     cursorLayer.on('click', e => {
         soulTree.updateSlots(cursor.currentTile.getAllCreatures()[0]);

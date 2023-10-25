@@ -264,7 +264,7 @@ class MomentumTarget extends Axiom{
     act(data){
         const motion = data["caster"].lastMotion;
         const startTile = data["caster"].tile;
-        const endTile = getTile(startTile.x + motion[0], startTile.y + motion[1]);
+        const endTile = getTile(startTile.x + motion[0], startTile.y + motion[1], startTile.z);
         const trail = line(startTile,endTile);
         removeItemOnce(trail,startTile);
         for (let i of trail){
@@ -830,7 +830,7 @@ class FormDir extends Axiom{
             "E" : [1,0],
             "S" : [0,1],
         }
-        target(data, getTile(data["caster"].tile.x+directions[this.storage][0],data["caster"].tile.y+directions[this.storage][1]));
+        target(data, getTile(data["caster"].tile.x+directions[this.storage][0],data["caster"].tile.y+directions[this.storage][1], data.caster.tile.z));
         return data;
     }
 }

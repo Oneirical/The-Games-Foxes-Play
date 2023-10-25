@@ -563,7 +563,7 @@ class World{
         numTiles = room.size;
         tileSize = (9/numTiles)*64;
         tiles = room.tiles;
-        player.tile = getTile(spawnl[0],spawnl[1]);
+        player.tile = getTile(spawnl[0],spawnl[1], room.tiles[0][0].z);
         room.populateRoom();
         monsters = room.monsters;
         if (!monsters.includes(player)) monsters.push(player);

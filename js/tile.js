@@ -78,7 +78,7 @@ class Tile{
     }
 
     getNeighbor(dx, dy){
-        return getTile(this.x + dx, this.y + dy)
+        return getTile(this.x + dx, this.y + dy, this.z);
     }
 
     getAdjacentNeighbors(){
