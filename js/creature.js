@@ -385,33 +385,31 @@ class Creature{
     }
 
     move(tile){
+        let planeShift = false;
         let currentTileCoords = false;
         if(this.tile){
+            if (this.tile.z != tile.z) planeShift = true;
             this.editedData["Position"] = true;
+            if (planeShift){
+                removeItemOnce(universe.worlds[this.tile.z].playSpace.monsters, this);
+                if (world === universe.worlds[this.tile.z]) tilesDisplay.worldDisplay.removeChild(this.creaturecon);
+            }
             currentTileCoords = [this.tile.x,this.tile.y];
             this.tile.monster = null;
             this.tile.stepOut(this);
-            if (fastReload){ // kind of ugly
-                tile.monster = this;                             
-                tile.stepOn(this);
-                if (this.tile instanceof CenterTeleport && this === player){
-                    let targetWorld = universe.findWorldByID(this.tile.destination);
-                    let destPad = targetWorld.findTelepadByDest(world.id);
-                    universe.passDown(floors.indexOf(this.tile.destination), destPad.x, destPad.y);
-                }
-                return;
-            }
-            if (this.animating && this === player){
-                this.animating = false;
-            }
-            if (this === player) this.animating = true;
             this.offsetX = this.tile.x - tile.x;
             this.offsetY = this.tile.y - tile.y;
             this.anispeed = Math.min(1/6*(Math.abs(this.offsetX)+Math.abs(this.offsetY)),1);
         }
         tile.monster = this;                             
-        tile.stepOn(this);
+        tile.stepOn(this, planeShift);
         let newTile = this.tile;
+        if (planeShift){
+            universe.worlds[this.tile.z].playSpace.monsters.push(this);
+            if (world === universe.worlds[this.tile.z]) tilesDisplay.worldDisplay.addChild(this.creaturecon);
+            this.offsetX = 0;
+            this.offsetY = 0;
+        }
         if (currentTileCoords) this.lastMotion = [newTile.x - currentTileCoords[0], newTile.y - currentTileCoords[1]];
 
     }

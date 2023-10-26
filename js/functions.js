@@ -3,13 +3,7 @@ function teleport(target,destination,data){
         severSynapse(data);
         return data;
     }
-    planeShift = false;
-    if (target.tile.z != destination.z) planeShift = true;
-    if (planeShift){
-        removeItemOnce(world.playSpace.monsters, target);
-    }
     target.move(destination);
-    if (planeShift) universe.worlds[destination.z].playSpace.monsters.push(target);
     return data;
 }
 

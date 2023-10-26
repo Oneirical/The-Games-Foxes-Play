@@ -19,10 +19,14 @@ class Tile{
         else this.intangibleCreatures.delete(creature);
     };
 
-    stepOn(creature){
+    stepOn(creature, planeShift){
         creature.tile = this;
         if (creature.tangible) this.tangibleCreature = creature;
         else this.intangibleCreatures.add(creature);
+        if (planeShift) return; // prevent plane-swappers from stepping on stuff (causes infinite loops with hypnowells, may change later)
+        for (let i of this.intangibleCreatures){
+            i.trigger("CRUSH", i);
+        }
     }
 
     toSaveFormat(){

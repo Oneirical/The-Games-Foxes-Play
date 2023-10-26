@@ -52,12 +52,15 @@ Boolean
 * A soul that occasionally gives difficult "Simon Says" rules to follow. The player is rewarded for not transgressing.
 * orbital laser form, hits 50 % whole screen in stripes
 * NOT: inverts all targets, what was now isn't and what wasn't now is
+* A Soul which enlarges/reduces the player, using synchronised walking Cages for the latter
 
 **Mechanics**
 
 turn infinite loops in souls (2x2 axioms) into the harmony mechanic, they may convert entire floors in a chain reaction and make it look like the Serene Spire
 
 hypnowells swap creatures by bringing them to nowhere dimension, maybe the only way to access it is to break that swap effect?
+
+Cages for the vile, to use as currency
 
 **UI**
 

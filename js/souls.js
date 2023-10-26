@@ -15,7 +15,7 @@ const logicMaps = {
         3 : ".....",
         4 : ".....",
         "keys" : {
-            "R" : new RadioReceiver("EON"),
+            "R" : new RadioReceiver("CRUSH"),
             "E" : new EgoForm(),
             "W" : new WarpEntity(),
         }
