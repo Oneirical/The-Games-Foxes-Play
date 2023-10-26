@@ -161,6 +161,7 @@ class Universe{
     }
 
     passUp(layer, spawnx, spawny){
+        world.saveRoom(world.playSpace);
         this.updateHypnoDisplay(getTileInUniverse(layer+";"+spawnx+";"+spawny).getAllCreatures()[0],player.tile, false); //once again, super gory, will fail if something steps on it because it grabs the first creature
         this.handleDescent(layer, spawnx, spawny);
 
@@ -551,8 +552,6 @@ class World{
     saveRoom(room){
         room.playerspawn = null;
         room.monsters = monsters;
-        room.tiles = tiles;
-        room.visited = room.visited;
         monsters = [];
     }
 

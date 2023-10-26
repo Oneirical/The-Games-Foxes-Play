@@ -190,11 +190,12 @@ var rooms = {
         4 : "T.......T",
         5 : "T...t...T",
         6 : "T.......T",
-        7 : "T.......T",
+        7 : "T...q...T",
         8 : "TTTTTTTTT",
         "tags": [],
         "creatures" : {
             "t" : "Terminal",
+            "q" : "Weaver"
         }
     },
     "Void" : {

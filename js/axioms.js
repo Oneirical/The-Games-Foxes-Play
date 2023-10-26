@@ -161,12 +161,24 @@ class RadioBroadcaster extends Axiom{
         this.dataType = "Message";
     }
     act(data){
-        trigger(this.storage);
+        trigger(this.storage, this.soul.owner);
         return data;
     }
 }
 
 class RadioReceiver extends Axiom{
+    constructor(key){
+        super();
+        this.storage = key;
+        this.contingency = true;
+        this.dataType = "Message";
+    }
+    act(data){
+        return data;
+    }
+}
+
+class InterdimensionalReceiver extends Axiom{
     constructor(key){
         super();
         this.storage = key;
@@ -1285,7 +1297,17 @@ class Soul{
         this.tags.clear();
         for (let i = 0; i<5; i++){
             for (let j = 0; j<5; j++){
-                if(this.axioms[i][j].contingency) this.contingencies.push(this.axioms[i][j]);
+                if(this.axioms[i][j].contingency){
+                    this.contingencies.push(this.axioms[i][j]);
+                    if (this.axioms[i][j] instanceof InterdimensionalReceiver){
+                        if (!yellowPages["Interplanar"][this.axioms[i][j].storage]) yellowPages["Interplanar"][this.axioms[i][j].storage] = [];
+                        yellowPages["Interplanar"][this.axioms[i][j].storage].push(this.owner.numberID);
+                    }
+                    else{
+                        if (!yellowPages["Planar"][this.axioms[i][j].storage]) yellowPages["Planar"][this.axioms[i][j].storage] = [];
+                        yellowPages["Planar"][this.axioms[i][j].storage].push(this.owner.numberID);
+                    }
+                }
                 if(this.axioms[i][j] instanceof RadioReceiver && this.axioms[i][j].storage && this.axioms[i][j].storage.length === 1){
                     this.commands[this.axioms[i][j].storage] = this.getIconOfCommand(this.axioms[i][j]);
                 }
@@ -1363,18 +1385,9 @@ class Soul{
         else return false;
     }
 
-    trigger(event,assi){
+    trigger(event, sender){
         let data;
         for (let i of this.contingencies) if (i.storage == event || (i.dataType.includes("Axiom") && i.storage.constructor.name == event)){
-            if (assi){
-                if (assi[0]["caster"]){
-                    data = assi;
-                }
-                else for (let j of assi){
-                    let studying = this.axioms[i.x+j.relativeDir[0]][i.y+j.relativeDir[1]];
-                    if (this.checkCompatibility(j,studying)) studying.storage = j.storage;
-                }
-            }
             this.pulse(i,data);
         }
     }
@@ -1404,7 +1417,7 @@ class Soul{
             currentSynapse["targets"] = [...new Set(currentSynapse["targets"])]; // remove duplicates
             //if (currentSynapse["showEffects"]) for (let i of currentSynapse["targets"]) i.setEffect(14); //TODO maybe change the effect depending on soul caste
             if (currentSynapse["showEffects"]) for (let i of currentSynapse["targets"]) queueUpEffect(i,14);
-            this.owner.trigger(i.constructor.name); // for triggerwatch contingency
+            this.owner.trigger(i.constructor.name, this.owner); // for triggerwatch contingency
             let additions = [];
             let synapseEnded = false;
             for (let r of this.getLogicNeighbours(i)) if (!(r instanceof FailCatcher)) additions.push(r);

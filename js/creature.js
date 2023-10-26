@@ -42,9 +42,9 @@ class Creature{
         }
     }
 
-    trigger(event,assi){
+    trigger(event, sender){
         for (let j of this.loopThroughSouls()){
-            if (j instanceof Soul) j.trigger(event,assi);
+            if (j instanceof Soul) j.trigger(event, sender);
         }
     }
 
@@ -82,6 +82,11 @@ class Creature{
         if (this.hasTag("RealityAnchor")) anchor = true;
         this.tags = tags;
         if (anchor) this.addTag("RealityAnchor");
+    }
+
+    inSamePlane(creature){
+        if (this.tile.z === creature.tile.z) return true;
+        else return false;
     }
 
     addSoulAtCaste(caste, soul){
@@ -303,11 +308,11 @@ class Creature{
     }
 
     interactedBy(interactor){
-        this.trigger("TAKE");
+        this.trigger("TAKE", this);
     }
 
     interactWith(target){
-        this.trigger("GIVE");
+        this.trigger("GIVE", this);
         target.interactedBy(this);
     }
 
@@ -350,12 +355,6 @@ class Creature{
         this.hp -= damage;
         if(this.hp <= 0) this.die();
         this.updateHp();
-    }
-
-    die(){
-        this.trigger("OBLIVION");
-        this.changeSpecies("EntropicHusk");
-        this.forceInjectAxiom(UnaffectedTag);
     }
 
     becomeIntangible(){

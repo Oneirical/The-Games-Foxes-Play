@@ -1,7 +1,14 @@
-function trigger(key,assi){
+function trigger(key, sender){
     if (key === "EON" || key === "RHYTHM") world.tickMap();
-    for (let i of monsters){
-            i.trigger(key,assi);
+    if (yellowPages["Planar"][key]){
+        for (let i of yellowPages["Planar"][key]){
+            if (allCreatures[i].inSamePlane(sender)) allCreatures[i].trigger(key, sender);
+        }
+    }
+    if (yellowPages["Interplanar"][key]){
+        for (let i of yellowPages["Interplanar"][key]){
+            allCreatures[i].trigger(key, sender);
+        }
     }
 }
 
@@ -18,7 +25,7 @@ function playerInput(key){
     else if (key == "p") localStorage.clear();
     else if (!universe.zooming) {
         let action = key.toUpperCase();
-        trigger(action);
+        trigger(action, player);
         actionQueue.push(action);
     }
 }

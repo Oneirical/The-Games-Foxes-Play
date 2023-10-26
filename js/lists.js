@@ -191,6 +191,7 @@ const speciesData = {
     "Weaver" : {
         "sprite" : 27,
         "souls" : {
+            "SAINTLY" : "PlanarMove",
         }
     },
 }

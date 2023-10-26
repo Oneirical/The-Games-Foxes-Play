@@ -20,6 +20,20 @@ const logicMaps = {
             "W" : new WarpEntity(),
         }
     },
+    "PlanarMove" : {
+        0 : ".R...",
+        1 : ".B...",
+        2 : ".G...",
+        3 : ".A...",
+        4 : ".D...",
+        "keys" : {
+            "R" : new InterdimensionalReceiver("EON"),
+            "A" : new FormDir("N"),
+            "D" : new MoveFunction(),
+            "B" : new BooleanFlip(),
+            "G" : new BooleanGate(true),
+        }
+    },
     "AttractPole" : {
         0 : ".RE..",
         1 : "..B..",
