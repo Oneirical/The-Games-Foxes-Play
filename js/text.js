@@ -517,7 +517,7 @@ const creaturePresentation = {
         name: "Coiled Devotee",
         color: "blue",
         lore: "A metallic nautilus entranced in prayer alongside its kin. When their partner becomes haunted by a stray individualist thought, a helpful flash comes to scorch away the mind.",
-        opinion: "\"Give a Soul insufficient faith, and it becomes paralyzed in apathy. Drown it in zeal, and the weight of its duty comes to immobilize it. I strive to be the line between.\"",
+        opinion: "\"Give a Soul insufficient faith, and it becomes paralyzed in apathy. Drown it in zeal, and the weight of its duty comes to immobilize it. I strive to walk the line between.\"",
     },
     "SaintlyStarterHologram" : {
         name: "Saintly Hologram",
