@@ -143,13 +143,16 @@ const speciesData = {
     "EpsilonHead" : {
         "sprite" : 67,
         "souls" : {
+            "SAINTLY" : "SwarmPlayerDisabled",
+            "ORDERED" : "EpsilonLink",
         }
     },
     "EpsilonTail1" : {
         "sprite" : 68,
         "souls" : {
-            "ORDERED" : "Tail1",
-        }
+            //"ORDERED" : "Tail1",
+        },
+        "linked" : true,
     },
     "EpsilonTail2" : {
         "sprite" : 68,

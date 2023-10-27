@@ -319,7 +319,7 @@ const logicMaps = {
     "SwarmPlayerDisabled" : {
         0 : ".....",
         1 : ".....",
-        2 : "EFB.M",
+        2 : "EFBSM",
         3 : ".....",
         4 : ".....",
         "keys" : {
@@ -327,6 +327,8 @@ const logicMaps = {
             "M" : new MoveFunction(),
             "F" : new BooleanFlip(),
             "B" : new BooleanGate(true),
+
+            "S" : new FormEntity(242),
         }
     },
     "ScanForPlayer" : {
@@ -400,19 +402,24 @@ const logicMaps = {
             "u" : new FormDir("S"), 
         }
     },
-    "EpsilonStand" : {
-        0 : "RPFDA",
-        1 : ".....", 
-        2 : "TPA..",
-        3 : ".....",
+    "EpsilonLink" : {
+        0 : "T.EWN",
+        1 : "DAF..", 
+        2 : "IAC..",
+        3 : "CCC..",
         4 : ".....",
         "keys" : {
-            "R" : new RadioReceiver("EON"),
-            "P" : new PlusForm(),
-            "F" : new SpeciesFilter("Scarab"),
-            "T" : new TriggerWatch("DamageDealer"),
-
+            "T" : new TriggerWatch("MoveFunction"),
+            "D" : new DirectionFromMotion(),
+            "F" : new FormDir(),
+            "I" : new DirInverter(),
+            "A" : new AssimilationExtender(),
+            "E" : new FormEntity(new SoulLink("EpsilonTail1")),
+            "W" : new WarpAwayClose(),
+            "C" : new Connector(),
+            "N" : new RadioBroadcaster("SLITHER1"),
         }
+
     },
     "Epsilon" : {
         0 : "IRT..", // ego, store targets, 

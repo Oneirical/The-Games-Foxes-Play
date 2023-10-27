@@ -11,6 +11,7 @@ class Creature{
 
         //this.hp = speciesData[species]["hp"];
         this.numberID = creaturesCreated;
+        if (speciesData[species]["linked"]) soulLinks[species] = this.numberID;
         creaturesCreated++;
         allCreatures.push(this);
 

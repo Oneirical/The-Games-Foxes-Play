@@ -442,7 +442,7 @@ var rooms = {
             "3" : "EpsilonTail2",
             "4" : "EpsilonTail3",
             "5" : "EpsilonTail4",
-        }
+        },
     },
     "Epsilon2" : {
         0 : "####E####",

@@ -27,16 +27,24 @@ class Axiom{
     }
 
     assimilateAdjacentAxioms(dataType, replacement){
-        let neigh = this.soul.getLogicNeighbours(this,true);
+        let neigh = this.getAdjacentAxioms();
         for (let i of neigh){
             if (i.dataType == dataType) i.changeStorage(replacement);
-            else if (i instanceof AssimilationExtender) for (let j of this.soul.getLogicNeighbours(i,true)) neigh.push(j); // TODO danger: infinite loop risk if two extenders next to each other
         }
         this.soul.owner.editedData["Soul"] = true;
     }
 
     getAdjacentAxioms(){
         let neigh = this.soul.getLogicNeighbours(this,true);
+        let visited = new Set();
+        for (let i of neigh){
+            if (i instanceof AssimilationExtender){
+                for (let j of this.soul.getLogicNeighbours(i,true)){
+                    if (!visited.has(j)) neigh.push(j);
+                }
+            }
+            visited.add(i);
+        }
         return neigh;
     }
 }
@@ -308,6 +316,35 @@ class DirectionFromMotion extends Axiom{
     }
 }
 
+class DirInverter extends Axiom{
+    constructor(){
+        super();
+    }
+
+    act(data){
+        let surr = this.getAdjacentAxioms();
+        for (let i of surr){
+            if (i.dataType == "Direction"){
+                switch (i.storage){
+                    case "N":
+                        i.changeStorage("S");
+                        break;
+                    case "S":
+                        i.changeStorage("N");
+                        break;
+                    case "W":
+                        i.changeStorage("E");
+                        break;
+                    case "E":
+                        i.changeStorage("W");
+                        break;
+                }
+            }
+        }
+        return data;
+    }
+}
+
 class EgoType extends Axiom{
     constructor(){
         super();
@@ -360,6 +397,33 @@ class WarpCloseAway extends Axiom{
             for (let j of warp){
                 if (i.canMove(j)){
                     teleport(i,j,data);
+                    removeItemOnce(entities, i);
+                    teleported = true;
+                    break;
+                }
+            }
+        }
+        if (!teleported) data = severSynapse(data);
+        return data;
+    }
+}
+
+class WarpAwayClose extends Axiom{
+    constructor(){
+        super();
+    }
+    act(data){
+        const targets = data["targets"];
+        const origin = data["caster"].tile;
+        let warp = [...targets].sort((a,b) => manDist(origin,a) - manDist(origin,b));
+        let entities = getAllTargetedCreatures(data).reverse();
+        if (entities.length == 0) data = severSynapse(data);
+        let teleported = false;
+        for (let i of entities){
+            for (let j of warp){
+                if (i.canMove(j)){
+                    teleport(i,j,data);
+                    removeItemOnce(entities, i);
                     teleported = true;
                     break;
                 }
@@ -822,9 +886,10 @@ class BooleanFlip extends Axiom{
         super();
     }
     act(data){
-        let surr = this.soul.getLogicNeighbours(this,true);
-        for (let i of surr) if (i.dataType == "Boolean") i.storage = !i.storage;
-        else if (i instanceof AssimilationExtender) for (let j of this.soul.getLogicNeighbours(i,true)) surr.push(j);
+        let surr = this.getAdjacentAxioms();
+        for (let i of surr){
+            if (i.dataType == "Boolean") i.changeStorage(!i.storage);
+        }
         return data;
     }
 }
@@ -1213,6 +1278,7 @@ class Soul{
                 else{
                     if (!hai[logicMaps[id][i][j]]) throw new Error("Component " + logicMaps[id][i][j] +" was not specified in rooms.js");
                     this.axioms[i][j] = Object.create(hai[logicMaps[id][i][j]]);
+                    if (this.axioms[i][j].storage instanceof SoulLink) this.axioms[i][j].storage = soulLinks[this.axioms[i][j].storage.id];
                 }
                 this.axioms[i][j].x = i;
                 this.axioms[i][j].y = j;

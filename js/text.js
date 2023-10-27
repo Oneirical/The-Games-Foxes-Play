@@ -552,8 +552,14 @@ const creaturePresentation = {
     "AttractPole" : {
         name: "Arctic Phobist",
         color: "lightskyblue",
-        lore: "A great lizard explorer, who delved too close to the Crimson Forest as Anisychia had a nightmare of windswept spires and bone-shattering blizzards. Their movements, slowed to a crawl, beckon others to seek warmth in proximity.",
+        lore: "A lizard explorer, who delved too close to the Crimson Forest as Anisychia had a nightmare of windswept spires and bone-shattering blizzards. Their movements, slowed to a crawl, beckon others to seek warmth in proximity.",
         opinion: "\"Cold preserves flesh, while heat incinerates it. I know fully well which of these two forces I wish to sweep over the world.\"",
+    },
+    "BouncyBall" : {
+        name: "Ecstatic Ribbondancer",
+        color: "pink",
+        lore: "An endlessly giggling mess of ribbons under which some creature probably exists. Any hope of unveiling their identity is lost in their constant lunges and twirls across the pollen-tainted air.",
+        opinion: "\"Ignorance and submission seem so comfortable... If I did not have the far-away beacon of enlightenment to guide me, I would have been lost long ago.\"",
     },
     "Airlock" : {
         name: "Quicksilver Curtains",
