@@ -505,7 +505,7 @@ const creaturePresentation = {
         name: "Terminal, the Reality Anchor",
         color: "plum",
         lore: "A diminutive otter whose fur shimmers with a purplish hue. Its bulky tail collects dust as it trails along the steel floor, and its empty white eyes see nothing but glyphs where the world used to be.",
-        opinion: "\"I entombed my Soul in this weak body to allow the world to keep ticking. I am caged so others can be free. I am a saint.\""
+        opinion: "\"I surrender my free will to you, Archon, so you may witness our world. I am caged so others can be free. I am a saint.\""
     },
     "Harmonizer" : {
         name: "Fluffy, of Cyan Radiance",
@@ -549,11 +549,17 @@ const creaturePresentation = {
         lore: "An octopus whose tentacles are shaped from the stickiest black tar. One tug, one gaze into the landscapes all around, a deep breath, then a plunge.",
         opinion: "\"Close your eyes, and a new world takes the place of the one departed. Reality despises emptiness.\"",
     },
+    "AttractPole" : {
+        name: "Arctic Phobist",
+        color: "lightskyblue",
+        lore: "A great lizard explorer, who delved too close to the Crimson Forest as Anisychia had a nightmare of windswept spires and bone-shattering blizzards. Their movements, slowed to a crawl, beckon others to seek warmth in proximity.",
+        opinion: "\"Cold preserves flesh, while heat incinerates it. I know fully well which of these two forces I wish to sweep over the world.\"",
+    },
     "Airlock" : {
         name: "Quicksilver Curtains",
         color: "lightgray",
         lore: "A hovering jellyfish of pure mercury, reflecting the bleak glow of the fluorescent tubes across its liquid body. A touch suffices to disturb it and allow passage.",
-        opinion: "\"All doors have a key. The one which opens the gates of death is faith.\"",
+        opinion: "\"All doors have a key. The one which opens the gates of death is blind faith.\"",
     },
     "EpsilonTail" : {
         name: "Rubberized Mecha-Segment",
