@@ -150,7 +150,7 @@ const speciesData = {
     "EpsilonTail1" : {
         "sprite" : 68,
         "souls" : {
-            //"ORDERED" : "Tail1",
+            "ORDERED" : "Tail1",
         },
         "linked" : true,
     },
@@ -169,7 +169,6 @@ const speciesData = {
     "EpsilonTail4" : {
         "sprite" : 68,
         "souls" : {
-            "ORDERED" : "Tail4",
         }
     },
     "Slug" : {
