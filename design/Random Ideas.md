@@ -95,7 +95,7 @@ Give Epsilon a giga tongue or some cool shockwave.
 
 **Areas**
 
-### Last Saint's Gardens
+### Last Saint's Gardens "where perfection goes to improve itself"
 * Pressurized tanks of glamorous pollen, which spreads rapidly if broken in the Gardens.
 * a gardener room that is completely peaceful but gets ridiculously hectic if the player dares step on a flower.
 * A peaceful lake that becomes sinister once pollen is inhaled.

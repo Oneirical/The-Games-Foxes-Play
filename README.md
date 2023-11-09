@@ -1,3 +1,5 @@
+# NOTE: I am suspending commits on this repository for now, as I am experimenting with a rework of this game in the Bevy engine here: https://github.com/Oneirical/rust_tgfp
+
 # The Games Foxes Play
 
 *"Gaze into my cyan eyes. See an ocean: your identity, a droplet drowned in endless lives."*
